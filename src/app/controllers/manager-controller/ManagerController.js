@@ -205,52 +205,52 @@ class ManagerController {
 			}
 		})
 		.then(serviceNotes => {
-			let serviceNoteTotalArr = serviceNotes.filter(serviceNote => {
-				let serviceNoteTotal = serviceNote.total;
-				if (serviceNoteTotal === 'NaN' || serviceNoteTotal === undefined) {
-					return false;
-				}
-				return true;
-			}).map(serviceNote => {
-				let isNumberServiceNoteTotal = parseFloat(serviceNote.total.replace(/\D/g, ''), 10);
-				return isNumberServiceNoteTotal;
-			})
-			console.log(serviceNoteTotalArr)
-			function getSum(total, num) {
-				return total + num;
-			}
-			let totalRevenue = serviceNoteTotalArr.reduce(getSum, 0)
-			console.log(totalRevenue)
 			res.render('manager/manager-report', {
 				serviceNotes: multipleMongooseToObject(serviceNotes),
-				totalRevenue: totalRevenue,
 				title: 'Báo cáo doanh thu'
 			});
 		})
 		.catch(next);
 	}
 
-	filterMonthReport(req, res, next) {
-		console.log(req.body);
-		let quarterArr = req.body.quarter.split(',');
-		let isNumberMonth = quarterArr.map(month => {
-			return parseInt(month);
-		})
-		console.log(isNumberMonth)
-		ServiceNote.find({}).populate({
-			path: 'scheduleID',
-			populate: {
-				path: 'customerID'
-			}
-		})
-		.then(serviceNote => {
-			console.log(serviceNote)
-			res.render('manager/manager-report', {
-				serviceNote: multipleMongooseToObject(serviceNote),
-				title: 'Báo cáo doanh thu'
-			});
-		})
-		.catch(next);
+	filterReport(req, res, next) {
+		console.log(req.body.from);
+		// let date = new Date(req.body.month);
+		// let month = date.getMonth() + 1;
+		// console.log(month)
+		let month = req.body.month
+		// let from = req.body.from;
+		// let to = req.body.to;
+		// console.log(from)
+		// console.log(to)
+		if (month) {
+			ServiceNote.aggregate([
+				{$project: {  "month" : {$month: '$createdAt'}}},
+				{$match: { month: month}}
+			])
+			.then(month => {
+				console.log(month)
+			})
+		}
+		// let quarterArr = req.body.quarter.split(',');
+		// let isNumberMonth = quarterArr.map(month => {
+		// 	return parseInt(month);
+		// })
+		// console.log(isNumberMonth)
+		// ServiceNote.find({}).populate({
+		// 	path: 'scheduleID',
+		// 	populate: {
+		// 		path: 'customerID'
+		// 	}
+		// })
+		// .then(serviceNote => {
+		// 	console.log(serviceNote)
+		// 	res.render('manager/manager-report', {
+		// 		serviceNote: multipleMongooseToObject(serviceNote),
+		// 		title: 'Báo cáo doanh thu'
+		// 	});
+		// })
+		// .catch(next);
 	}
 
 	filterQuarterReport(req, res, next) {

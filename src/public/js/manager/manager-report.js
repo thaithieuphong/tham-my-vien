@@ -5,34 +5,17 @@ document.addEventListener("DOMContentLoaded", function () {
 			// search: true,
 			// scrollY: 300,
 		});
-		function footerStyle(column) {
-			return {
-				id: {
-					classes: 'uppercase'
-				},
-				label: {
-					css: {'font-weight': 'normal'}
-				},
-				revenue: {
-					css: {color: 'red'}
-				}
-			}[column.field]
+		
+		function labelTotalRevenue() {
+			return 'Tổng doanh thu'
 		}
-
-		function labelFormatter(data, footerValue) {
-			console.log('data', data)
-			console.log('footerValue', footerValue)
-			return footerValue
-		}
-	
-		function revenueFormatter(data, footerValue) {
-			console.log('data', data)
-			console.log('footerValue', footerValue)
-			return {data, footerValue}
-		}
+		
 	});
 
-	var selectDate = document.getElementById('datepicker');
+	
+});
+
+var yearPicker = document.getElementById('yearpicker');
 	var date = new Date;
 	var year = date.getFullYear();
 	var year2020 = year - 2;
@@ -40,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		var opt = document.createElement('option');
 		opt.setAttribute('value', year2020 + i);
 		opt.innerText = year2020 + i;
-		selectDate.append(opt)
+		yearPicker.append(opt)
 	}
 
 	// var quarterpicker = document.getElementById('quarterpicker');
@@ -82,7 +65,51 @@ document.addEventListener("DOMContentLoaded", function () {
 	// 	}
 		
 	// })
-});
+
+	var table = document.getElementById('reportTable');
+	var filter = document.getElementById('filter');
+	var monthPicker = document.getElementById('monthpicker');
+	var quarterPicker = document.getElementById('quarterpicker');
+	var createdAtField = document.querySelectorAll('.createdAtField');
+	
+	function getDataByMonth(value) {
+		for (i = 0; i < createdAtField.length; i++) {
+			
+		}
+		let createdAtValue = createdAtField.forEach((createdAt) => {
+			let dateString = createdAt.innerHTML.split('/');
+			let date = dateString[1]
+			let isVisible = date.includes(value);
+			console.log(date)
+			console.log(value)
+			if (!isVisible) {
+				$("#reportTable").bootstrapTable('hideRow', {
+					index: index
+				})
+			}
+		})
+	}
+	function getDataByQuarter(value) {
+
+	}
+	function getDataByYear(value) {
+
+	}
+	filter.addEventListener('click', () => {
+		let monthValue = monthPicker.value;
+		let quarterValue = quarterPicker.value;
+		let yearValue = yearPicker.value;
+		if (monthValue) {
+			getDataByMonth(monthValue)
+		}
+		if (quarterValue) {
+			getDataByQuarter(quarterValue)
+			
+		}
+		if (yearValue) {
+			getDataByYear(yearValue)
+		}
+	})
 
 // set status color
 var setColors = document.querySelectorAll('.status-color');

@@ -51,7 +51,7 @@
 </div>
 <div class="ps-3 pe-3">
 	<nav class="p-2 float-right">
-		<form method="POST" action="/manager/general-manager/report/filter">
+		{{!-- <form method="POST" action="/manager/general-manager/report"> --}}
 			{{!-- <div class="btn-group" role="group" aria-label="Basic example">
 				<select class="form-select" name="status">
 					<option selected value="">Chọn trạng thái</option>
@@ -74,7 +74,9 @@
 				</select>
 			</div> --}}
 			<div class="btn-group" role="group" aria-label="Basic example">
-				<select class="form-select" name="month">
+				{{!-- <input type="datetime-local" name="from">
+				<input type="datetime-local" name="to"> --}}
+				<select id="monthpicker" class="form-select" name="month">
 					<option selected value="">Chọn tháng</option>
 					<option value="1">Tháng Một</option>
 					<option value="2">Tháng Hai</option>
@@ -100,14 +102,14 @@
 				</select>
 			</div>
 			<div class="btn-group" role="group" aria-label="Basic example">
-				<select id="datepicker" class="form-select" name="year">
+				<select id="yearpicker" class="form-select" name="year">
 					<option selected value="">Chọn năm</option>
 				</select>
 			</div>
 			<div class="btn-group" role="group" aria-label="Basic example">
-				<button type="submit" class="btn btn-outline-secondary"><i class="ti-filter"></i></button>
+				<button id="filter" class="btn btn-outline-secondary"><i class="ti-filter"></i></button>
 			</div>
-		</form>
+		{{!-- </form> --}}
 	</nav>
 	<table id="reportTable" class="table table-striped table-hover table-sm table-bordered table-sm"
 	data-show-fullscreen="true"
@@ -121,7 +123,7 @@
 	data-response-handler="responseHandler">
 		<thead class="bg-blue">
 			<tr class="text-light">
-				<th data-field="label" data-footer-formatter="Tổng doanh thu" class="text-center" scope="col">#</th>
+				<th data-footer-formatter="Tổng doanh thu" class="text-center" scope="col">#</th>
 				<th class="text-center" scope="col">Họ tên</th>
 				<th class="text-center" scope="col">Số điện thoại</th>
 				<th class="text-center" scope="col">Nguồn</th>
@@ -130,7 +132,7 @@
 				<th class="text-center" scope="col">Ghi chú</th>
 				<th class="text-center" scope="col">Trạng thái</th>
 				<th class="text-center" scope="col">Đặt cọc</th>
-				<th data-field="revenue" data-footer-formatter="`${totalRevenue}`" class="text-center">Tổng chi phí</th>
+				<th data-field="revenue" data-footer-formatter="revenueFormatter" class="text-center">Tổng chi phí</th>
 			</tr>
 		</thead>
 		<tbody id="table-content">
@@ -140,7 +142,7 @@
 				<td class="text-nowrap" scope="row"><a class="link-primary" href="/manager/general-manager/customer/{{#each this.scheduleID}}{{this._id}}{{/each}}/detail">{{#each this.scheduleID}}{{this.fullName}}{{/each}}</a></td>
 				<td class="text-center" scope="row">0{{#each this.scheduleID}}{{this.phone}}{{/each}}</td>
 				<td class="text-center" scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="{{#each this.scheduleID}}{{this.resource}}{{/each}}">{{#each this.scheduleID}}{{cutPassword this.resource 16}}{{/each}}</td>
-				<td class="text-center" scope="row">{{formatBirth this.createdAt}}</td>
+				<td class="text-center createdAtField" scope="row">{{formatBirth this.createdAt}}</td>
 				<td class="text-center text-nowrap" scope="row">{{#each this.scheduleID}}{{this.userID.firstName}} {{this.userID.lastName}}{{/each}}</td>
 				<td class="text-nowrap" scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="{{#each this.scheduleID}}{{this.description}}{{/each}}">
 					{{#each this.scheduleID}}{{cutPassword this.description 16}}{{/each}}
@@ -155,3 +157,35 @@
 </div>
 
 <script src="/js/manager/manager-report.js"></script>
+<script>
+	function revenueFormatter(dataRevenue) {
+		var field = this.field;
+		console.log(field)
+		let totalRevenue = dataRevenue.filter(function (row) {
+			let serviceNoteTotal = row.revenue;
+			if (serviceNoteTotal === 'NaN' || serviceNoteTotal === undefined || serviceNoteTotal === '') {
+				return false;
+			}
+			return true;
+		}).map(serviceNote => {
+			let isNumberServiceNoteTotal = parseFloat(serviceNote.revenue.replace(/\D/g, ''), 10);
+			return isNumberServiceNoteTotal;
+		}).reduce(function (sum, i) {
+			return sum + i
+		}, 0)
+		
+		return field = totalRevenue.toLocaleString();
+	}
+
+	function footerStyle(column) {
+		return {
+			labelRevenue: {
+				css: {'font-weight': 'normal'}
+			},
+			revenue: {
+				css: {color: 'red'}
+			}
+		}[column.field]
+	}
+	
+</script>

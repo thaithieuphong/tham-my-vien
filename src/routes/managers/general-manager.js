@@ -12,7 +12,7 @@ const cloudinaryStorage = require('../../middleware/cloudinaryStorage');
 router.post('/change-pass', AuthController.changePassword);
 router.post('/report/filter-month', ManagerController.filterYearReport);
 router.post('/report/filter-quarter', ManagerController.filterQuarterReport);
-router.post('/report/filter-month', ManagerController.filterMonthReport);
+router.post('/report', ManagerController.filterReport);
 router.get('/report', ManagerController.showReport);
 router.get('/statistical', ManagerController.showStatistical);
 router.get('/re-exam/:id/detail', ManagerController.showReExamDetail);
