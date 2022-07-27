@@ -29,10 +29,10 @@
 			</thead>
 			<tbody id="table-content">
 				{{#each users}}
-				
+				{{!-- href="/business/employ/customers/{{this._id}}/detail" --}}
 				<tr>
 					<th class="text-center" scope="row">{{sum @index 1}}</th>
-					<td><a href="/business/employ/customers/{{this._id}}/detail">{{this.firstName}}
+					<td><a href="#" data-bs-toggle="modal" data-bs-target="#detail-user-modal">{{this.firstName}}
 							{{this.lastName}}</a></td>
 					<td class="text-center">{{this.birth}}</td>
 					<td class="text-center">{{this.gender}}</td>
@@ -41,13 +41,15 @@
 					<td>{{this.address}}</td>
 					<td>{{this.description}}</td>
 					<td class="text-center">
-						<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
+						<button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
 							data-id="{{this._id}}" data-edit-img="{{this.image.name}}"
 							data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
 							data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
 							data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}" data-edit-department="{{this.department}}"
 							data-edit-position="{{this.position}}" data-edit-account="{{this.account}}"
 							data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">Sửa</button>
+						<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-user-modal" data-delete-id="{{this._id}}"
+						data-delete-firstname="{{this.firstName}}" data-delete-lastname="{{this.lastName}}">Xoa</button>
 					</td>
 				</tr>
 				{{/each}}
@@ -72,7 +74,7 @@
 </div>
 
 <!-- Modal Details User -->
-<div class="modal fade" id="detail-user" tabindex="-1" aria-labelledby="detailUser" aria-hidden="true">
+<div class="modal fade" id="detail-user-modal" tabindex="-1" aria-labelledby="detail-user-modal" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header bg-info text-light">
@@ -160,7 +162,7 @@
 										<label for="create-user-birth" class="form-label">
 											<h6>Ngày sinh</h6>
 										</label>
-										<input type="date" class="form-control form-control-sm" id="create-user-birth"
+										<input type="date" class="form-control form-control-sm" id="create-user-birth" placeholder="dd-mm-yyyy"
 											aria-describedby="birthFeedback" name="birth" required>
 									</div>
 									<div class="col-md-6">
@@ -254,8 +256,8 @@
 <div class="modal fade" id="edit-user-modal" tabindex="-1" aria-labelledby="edit-user-modal" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
-			<div class="modal-header bg-info text-light">
-				<h5 class="modal-title" id="edit-user-modal-title">Sửa / Cập nhật thông tin người dùng</h5>
+			<div class="modal-header bg-info">
+				<h5 class="modal-title text-light" id="edit-user-modal-title">Sửa / Cập nhật thông tin người dùng</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -389,6 +391,25 @@
 	</div>
 </div>
 
+<!-- Modal Delete User -->
+<div class="modal fade" id="delete-user-modal" tabindex="-1" aria-labelledby="delete-user-modal" aria-hidden="true">
+	<div class="modal-dialog modal-md">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title text-light" id="delete-user-modal-title">Xoa người dùng</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>Ban co chac chan muon xoa <strong><span id="delete-user-firstName"></span> <span id="delete-user-lastName"></span></strong> khong?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="delete-user-btn" class="btn btn-danger">Xoa</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huy</button>
+			</div>
+		</div>
+	</div>
+</div>
 
+<form name="delete-user-form" method="POST"></form>
 
 <script src="/js/hr/hr-manager-user.js"></script>

@@ -13,6 +13,11 @@ addUserImg.addEventListener("change", (e) => {
 	addUserAvt.src = URL.createObjectURL(e.target.files[0]);
 });
 
+var birthInput = document.getElementById('create-user-birth');
+birthInput.addEventListener('change', (e) => {
+	console.log(e.target.value)
+})
+
 // Function convert Vietnameses to English
 function convert_vi_to_en(str) {
 	str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -61,9 +66,6 @@ inputCreateFirstName.addEventListener("input", () => {
 });
 
 //END CREATE: submit create customer forms
-
-
-
 
 //EDIT: Load edit user modal and submit edit user forms
 
@@ -136,8 +138,47 @@ editUser.addEventListener("show.bs.modal", function (event) {
 	editUserAccount.value = editDataUserAccount;
 });
 
+//EDIT END: Load edit customer modal and submit edit customer forms
+
+//DELETE: Load delete user modal and submit delete user forms
+
+// Handle delete info User
+var deleteUserBtn = document.getElementById("delete-user-btn");
+var deleteUserForm = document.forms["delete-user-form"];
+var deleteDataUserId;
+deleteUserBtn.addEventListener("click", () => {
+	deleteUserForm.action = `/hr/manager/users/${deleteDataUserId}/delete?_method=DELETE`;
+	deleteUserForm.submit();
+});
+
+// Handle select image from modal edit
+// var editUserImg = document.getElementById("input-edit-user-img");
+// var editUserAvt = document.getElementById("edit-user-avt");
+// editUserImg.addEventListener("change", (e) => {
+// 	editUserAvt.src = URL.createObjectURL(e.target.files[0]);
+// });
+
+// Handle push data to delete modal
+var deleteUser = document.getElementById("delete-user-modal");
+deleteUser.addEventListener("show.bs.modal", function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget;
+	// Get data from delete button
+	deleteDataUserId = button.getAttribute('data-delete-id');
+	var deleteDataUserFirstName = button.getAttribute("data-delete-firstname");
+	var deleteDataUserLastName = button.getAttribute("data-delete-lastname");
+
+	// Get element need embeded input
+	var deleteUserFirstName = document.getElementById("delete-user-firstName");
+	var deleteUserLastName = document.getElementById("delete-user-lastName");
+
+	deleteUserFirstName.innerHTML = deleteDataUserFirstName;
+	deleteUserLastName.innerHTML = deleteDataUserLastName;
+
+});
 
 //EDIT END: Load edit customer modal and submit edit customer forms
+
 
 document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {
@@ -148,5 +189,3 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
-// Handle message
-// var alertMessage = document.getElementById('alert-message');

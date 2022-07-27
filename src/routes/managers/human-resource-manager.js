@@ -4,7 +4,6 @@ const ManagerHRController = require('../../app/controllers/human-resource-contro
 const validateUploadImage = require('../../middleware/validateUploadImage');
 
 /* Business Manager Start*/
-// router.delete('/service-note/:id', ManagerHRController.deleteServiceNote);
 // router.patch('/customers/:id', ManagerHRController.createComment);
 // router.patch('/service-note/:id', ManagerHRController.deleteServiceNote);
 
@@ -12,6 +11,7 @@ const validateUploadImage = require('../../middleware/validateUploadImage');
 
 // router.get('/customers/:id/detail', ManagerHRController.showCustomerDetail)
 // router.get('/service-note', ManagerHRController.showServiceNote);
+router.delete('/users/:id/delete', ManagerHRController.deleteUser);
 router.put('/users/:id/edit', validateUploadImage.uploadSingleUserEdit, ManagerHRController.editUser);
 router.post('/users', validateUploadImage.uploadSingleUser, ManagerHRController.createUser);
 router.get('/users', ManagerHRController.showUsers);
