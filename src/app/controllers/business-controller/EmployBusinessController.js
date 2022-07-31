@@ -7,15 +7,26 @@ const ServiceNote = require('../../models/ServiceNote');
 const fs = require('fs');
 const appRoot = require('app-root-path');
 
+require('dotenv').config();
+
+const { google } = require('googleapis');
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
+const redirectURI = process.env.REDIRECT_URI;
+const refreshTokenGG = process.env.REFRESH_TOKEN_GOOGLE;
+const folderId = process.env.GOOGLE_API_FOLDER_ID;
+
+const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectURI);
+oAuth2Client.setCredentials({ refresh_token: refreshTokenGG });
+
+const drive = google.drive({
+	version: 'v3',
+	auth: oAuth2Client,
+})
+
 
 class EmployBusinessController {
 	//BUSINESS EMPLOY
-
-	// show404(req, res, next) {
-	// 	res.render("err/404", {
-	// 		title: 'Bảng báo cáo'
-	// 	});
-	// }
 
 	showDashboard(req, res, next) {
 		res.render("business/employ/business-overview", {
@@ -181,6 +192,59 @@ class EmployBusinessController {
 		console.log(serviceNote);
 		serviceNote.save();
 		res.redirect('back');
+	}
+
+	uploadToDrive(req, res, next) {
+		Customer.findById({ _id: req.params.id })
+			.then((customer) => {
+				const fName = customer.firstName;
+				const lName = customer.lastName;
+				const birth = customer.birth.split('-');
+				const newBirth = `${birth[2]}/${birth[1]}/${birth[0]}`;
+				const folderCustomer = {
+					mimeType: 'application/vnd.google-apps.folder',
+					parents: [folderId],
+					'name': `${fName} ${lName} ${newBirth}`,
+				}
+				const arrayFile = req.files;
+				try {
+					drive.files.create({
+						resource: folderCustomer,
+						fields: 'id',
+					})
+					.then(res => {
+						console.log('res', res.data);
+						const files = fs.readdirSync(
+							appRoot + "/src/public/temp"
+						);
+						arrayFile.forEach(element => { // lap qua cac file
+							drive.files.create({ // ham khoi tao file tren google drive
+								requestBody: { // cau hinh file tren drive
+									name: element.filename,
+									mimeType: element.mimetype,
+									parents: [res.data.id] // id thu muc chua
+								},
+								media: { // lay thong tin file tu he thong
+									mimeType: element.mimetype,
+									body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
+								}
+							})
+							files.filter((img) => {
+								if (img === element.filename) {
+									fs.unlinkSync(element.path);
+								}
+							});
+						});
+						
+					})
+					.catch();
+
+					console.log('Folder', folderCustomer);
+					console.log('data', folderCustomer.id);
+				} catch (error) {
+		
+				}
+			})
 	}
 }
 

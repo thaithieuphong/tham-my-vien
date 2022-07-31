@@ -157,8 +157,8 @@ a{
 
 .sidebar .sidebar-list li a .sidebar-text{
     position: absolute;
-    background: #edbc64;
-    color: #000;
+    background: #343a40;
+    color: #edbc64;
     padding: 2px 2px;
     border-radius: 5px;
     font-weight: 700;
@@ -841,38 +841,86 @@ a{
         text-align: center;
     }
 
-    .modal-mobile-container .modal-mobile-firstname{
-        width: 100%;
-        position: relative;
+    .modal-mobile-container .customers-info{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .modal-mobile-container .modal-mobile-firstname input{
+    .modal-mobile-container .modal-mobile-btn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5px;
+    }
+
+    .modal-mobile-btn button{
+        margin: 5px 10px;
+    }
+
+    .modal-mobile-btn .close-modal-btn{
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        padding: 5px 10px;
+        color: #fff;
+        background: gray;
+        cursor: pointer;
+    }
+
+    .modal-mobile-btn .close-modal-btn:focus{
+        background: #adadad;
+    }
+
+    .modal-mobile-btn .create-customer-btn{
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        padding: 5px 10px;
+        color: #fff;
+        background: #00a4ff;
+        cursor: pointer;
+    }
+
+    .modal-mobile-btn .create-customer-btn:focus{
+        background: #5897fb;
+    }
+
+    .modal-mobile-container .modal-mobile-input{
         width: 100%;
-        height: 40px;
+        position: relative;
+        margin-top: 35px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .modal-mobile-container .modal-mobile-input input{
+        width: 100%;
+        height: 35px;
         font-size: 16px;
         border: none;
         outline: none;
         border-bottom: 2px solid #adadad;
     }
 
-    .modal-mobile-container .modal-mobile-firstname span{
+    .modal-mobile-container .modal-mobile-input span{
         position: absolute;
         border-bottom: 3px solid cornflowerblue;
         left: 0;
-        top: 38px;
+        top: 32px;
         width: 0;
         transition: 0.3s;
     }
 
-    .modal-mobile-container .modal-mobile-firstname input:focus ~ span{
+    .modal-mobile-container .modal-mobile-input input:focus ~ span{
         width: 100%;
     }
 
-    .modal-mobile-container .modal-mobile-firstname.error small{
+    .modal-mobile-container .modal-mobile-input.error small{
         color: red;
     }
 
-    .modal-mobile-container .modal-mobile-firstname.error input{
+    .modal-mobile-container .modal-mobile-input.error input{
         border-bottom: 2px solid red;
     }
 }

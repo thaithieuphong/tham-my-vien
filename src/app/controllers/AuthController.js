@@ -154,7 +154,7 @@ class AuthController {
                 
                 console.log(user.role)
                 req.session.token = accessToken;
-                res.status(200).render(`${user.departmentEng}/${user.positionEng}/${user.positionEng}-overview`, {user: mongooseToObject(user)});
+                res.status(200).redirect(`/${user.departmentEng}/${user.positionEng}`);
                 // res.status(200).json({ user: mongooseToObject(user)});
             })
             .catch(next);

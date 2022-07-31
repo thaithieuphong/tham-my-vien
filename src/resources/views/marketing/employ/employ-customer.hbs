@@ -294,12 +294,67 @@
 
 <!-- Modal Mobile -->
 <div class="modal-mobile-container">
-	<h1>Thông tin</h1>
-	<div class="modal-mobile-firstname error">
-		<input type="text" placeholder="Họ">
-		<small>Vui lòng nhập đầy đủ thông tin</small>
-		<span></span>
-	</div>
+	<form action="">
+		<h1>Thông tin</h1>
+		<div class="customers-info">
+			<div class="modal-mobile-input">
+				<input id="cust-firstname" type="text" placeholder="Họ">
+				<small></small>
+				<span></span>
+			</div>
+
+			<div class="modal-mobile-input">
+				<input id="cust-lastname" type="text" placeholder="Tên">
+				<small></small>
+				<span></span>
+			</div>
+		</div>
+	
+		<div class="customers-info">
+			<div class="modal-mobile-input">
+				<input id="cust-dob" type="text" placeholder="Ngày sinh">
+				<small></small>
+				<span></span>
+			</div>
+
+			<div class="modal-mobile-input">
+				<input id="cust-gender" type="text" placeholder="Giới tính">
+				<small></small>
+				<span></span>
+			</div>
+		</div>
+
+		<div class="customers-info">
+			<div class="modal-mobile-input">
+				<input id="cust-phone" type="text" placeholder="Số điện thoại">
+				<small></small>
+			<span></span>
+			</div>
+
+			<div class="modal-mobile-input">
+				<input id="cust-mail" type="email" placeholder="Email">
+				<small></small>
+				<span></span>
+			</div>
+		</div>
+
+		<div class="modal-mobile-input">
+			<input id="cust-addr" type="text" placeholder="Địa chỉ">
+			<small></small>
+			<span></span>
+		</div>
+
+		<div class="modal-mobile-input">
+			<input id="cust-describe" type="text" placeholder="Mô tả">
+			<small></small>
+			<span></span>
+		</div>
+
+		<div class="modal-mobile-btn">
+			<button class="close-modal-btn">Đóng</button>
+			<button class="create-customer-btn" type="submit">Tạo mới</button>
+		</div>
+	</form>
 </div>
 
 <!-- Modal Detail Customer -->
@@ -371,3 +426,70 @@
 
 
 <script src="/js/marketing/marketing-employ-customer.js"></script>
+
+<script>
+	var firstName = document.querySelector('#cust-firstname')
+	var lastName = document.querySelector('#cust-lastname')
+	var dob = document.querySelector('#cust-dob')
+	var gender = document.querySelector('#cust-gender')
+	var phone = document.querySelector('#cust-phone')
+	var mail = document.querySelector('#cust-mail')
+	var addr = document.querySelector('#cust-addr')
+	var desc = document.querySelector('#cust-describe')
+	var form = document.querySelector('form')
+
+
+	function showError(input, message){
+		let parent = input.parentElement;
+		let small = parent.querySelector('small')
+		parent.classList.add('error')
+		small.innerText = message
+	}
+
+	{{!-- showError(firstName,'Loi') --}}
+
+	function showSuccess(input){
+		let parent = input.parentElement;
+		let small = parent.querySelector('small')
+		parent.classList.remove('error')
+		small.innerText = ''
+	}
+
+	function checkEmptyError(listInput){
+		let isEmptyError = false;
+		listInput.forEach(input => {
+			input.value = input.value.trim()
+
+			if(!input.value){
+				isEmptyError = true;
+				showError(input, 'Loi')
+			}else{
+				showSuccess(input)
+			}
+		});
+
+		
+		return isEmptyError
+	}
+
+	function checkEmailError(input){
+		const regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+		input.value = input.value.trim()
+
+		let isEmailError = !regexEmail.test(input.value)
+		if(regexEmail.test(input.value)){
+			showSuccess(input)
+		}else{
+			showError(input, 'Email không hợp lệ')
+		}
+
+		return isEmailError
+	}
+
+	form.addEventListener('submit', function(e){
+		e.preventDefault()
+
+		let isEmptyError = checkEmptyError([firstName, lastName, dob, gender, mail , phone, addr,desc])
+		let isEmailError = checkEmailError(mail)
+	})
+</script>

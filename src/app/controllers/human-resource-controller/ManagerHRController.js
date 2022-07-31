@@ -10,9 +10,10 @@ const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const path = require("path");
 
+
 class HRController {
 	showDashboard(req, res) {
-		res.render("human-resource/manager/manager-overview");
+		res.render("human-resources/manager/manager-overview");
 	}
 
 	showUsers(req, res, next) {
@@ -317,6 +318,16 @@ class HRController {
 			})
 			.catch(next)
 	}
+
+	detailUser(req, res, next) {
+		User.findById({ _id: req.params.id })
+			.then((user) => {
+				res.render('human-resources/manager/manager-user-detail', {
+					user: mongooseToObject(user),
+				});
+			})
+	}
+
 }
 
 module.exports = new HRController();

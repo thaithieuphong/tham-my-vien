@@ -21,8 +21,8 @@ function route(app) {
   app.use("/reception/employ", employReceptionRouter);
   app.use("/operating/doctor", doctorOperatingRouter);
   app.use("/operating/nursing", nursingOperatingRouter);
-  app.use("/hr/manager", [authJwt.verifyToken, authJwt.isHRManager], managerHRRouter);
-  app.use("/hr/employ", employHRRouter);
+  app.use("/human-resources/manager", [authJwt.verifyToken, authJwt.isHRManager], managerHRRouter);
+  app.use("/human-resources/employ", employHRRouter);
   app.use("/business/manager", managerBusinessRouter);
   app.use("/business/employ", employBusinessRouter);
   app.use("/", signinRouter);
