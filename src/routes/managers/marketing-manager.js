@@ -5,7 +5,7 @@ const validateUploadImage = require('../../middleware/validateUploadImage');
 // const getHeaderToken = require('../getHeaderToken');
 
 //Employ
-router.patch('/customers/:id/comment', MarketingController.createComment);
+// router.patch('/customers/:id/comment', MarketingController.createComment);
 router.put('/customers/:id', validateUploadImage.uploadSingleCustomer, MarketingController.editCustomer);
 
 router.post('/customers', validateUploadImage.uploadSingleCustomer, MarketingController.createCustomer);

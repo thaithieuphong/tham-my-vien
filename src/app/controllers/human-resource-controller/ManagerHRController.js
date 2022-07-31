@@ -11,13 +11,13 @@ const path = require('path');
 class HRController {
 
     showDashboard(req, res) {
-        res.render('human-resource/manager/manager-overview');
+        res.render('human-resources/manager/manager-overview');
     }
 
     showUsers(req, res, next) {
         Promise.all([User.findById({ _id: req.userId }), User.find({}), Department.find({}), Position.find({})])
             .then(([user, users, departments, positions]) => {
-                res.render('human-resource/manager/manager-users', {
+                res.render('human-resources/manager/manager-users', {
                     user: mongooseToObject(user),
                     users: multipleMongooseToObject(users),
                     departments: multipleMongooseToObject(departments),

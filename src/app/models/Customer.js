@@ -24,12 +24,17 @@ const Customer = new Schema({
 			)
 		}
 	],
-	userID: [
+	userID:
+	{
+		type: String,
+		ref: "User"
+	},
+	serviceNoteID: [
 		{
 			type: String,
-			ref: "User"
+			ref: "ServiceNote"
 		}
-	],
+	]
 }, {
 	timestamps: true
 });

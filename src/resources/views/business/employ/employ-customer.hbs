@@ -43,7 +43,7 @@
 							{{this.lastName}}</a></td>
 					<td class="text-center">{{this.birth}}</td>
 					<td class="text-center">{{this.gender}}</td>
-					<td class="text-center">{{this.phone}}</td>
+					<td class="text-center">0{{this.phone}}</td>
 					<td>{{this.email}}</td>
 					<td>{{this.address}}</td>
 					<td>{{this.description}}</td>
@@ -301,7 +301,7 @@
 											<h6>Mô tả</h6>
 										</label>
 										<textarea class="form-control" id="edit-description" rows="6"
-											name="description"></textarea>
+											name="description" readonly></textarea>
 									</div>
 								</div>
 							</li>
@@ -345,35 +345,37 @@
 							aria-labelledby="pills-home-tab">
 							<ul class="list-group">
 								<li class="list-group-item">
+									<input hidden type="text" class="form-control" id="create-service-note-customerID"
+											name="customerID" readonly>
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control" id="create-service-note-firstLastName"
 											name="name" readonly>
-										<label for="name">Họ tên</label>
+										<label for="name">Họ tên:</label>
 									</div>
 									<div class="form-floating mb-3">
 										<input type="date" class="form-control" id="create-service-note-birth"
 											name="birth" readonly>
-										<label for="birth">Ngày sinh</label>
+										<label for="birth">Ngày sinh:</label>
 									</div>
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control" id="create-service-note-gender"
 											name="gender" readonly>
-										<label for="gender">Giới tính</label>
+										<label for="gender">Giới tính:</label>
 									</div>
 									<div class="form-floating mb-3">
 										<input type="email" class="form-control" id="create-service-note-email"
 											name="email" readonly>
-										<label for="email">Email address</label>
+										<label for="email">Email address:</label>
 									</div>
 									<div class="form-floating mb-3">
 										<input type="number" class="form-control" id="create-service-note-phone"
 											name="phone" readonly>
-										<label for="phone">Số điện thoại</label>
+										<label for="phone">Số điện thoại:</label>
 									</div>
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control" id="create-service-note-address"
 											name="address" readonly>
-										<label for="address">Địa chỉ</label>
+										<label for="address">Địa chỉ:</label>
 									</div>
 								</li>
 							</ul>
@@ -382,7 +384,7 @@
 							aria-labelledby="pills-profile-tab">
 							<div class="mb-3">
 								<label for="service" class="form-label">
-									<h6>Chọn dịch vụ</h6>
+									<h6>Chọn dịch vụ:</h6>
 								</label>
 								<select id="select-service" class="chosen-select" multiple tabindex="6" name="service[]">
 									{{#each typeservices}}
@@ -395,11 +397,19 @@
 								</select>
 							</div>
 							<div class="mb-3">
-								<label for="gender" class="form-label">
-									<h6>Ngày hẹn</h6>
+								<label for="schedule" class="form-label">
+									<h6>Ngày hẹn:</h6>
 								</label>
 								<input type="datetime-local" class="form-control" id="create-service-note-schedule"
 									name="schedule">
+							</div>
+
+							<div class="mb-3">
+								<label for="price" class="form-label">
+									<h6>Tổng giá:</h6>
+								</label>
+								<input type="number" min="100000" step="100000" class="form-control" id="create-service-note-price"
+									name="price">
 							</div>
 
 							<div class="mb-3">

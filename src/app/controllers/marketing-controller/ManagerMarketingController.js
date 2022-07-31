@@ -1,4 +1,5 @@
 const Customer = require('../../models/Customer');
+const ServiceNote = require('../../models/ServiceNote');
 const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mongoose');
 const fs = require('fs');
 const appRoot = require('app-root-path');
@@ -11,7 +12,7 @@ class MarketingController {
 	}
 
 	showCustomer(req, res, next) {
-		Customer.find({})
+		Customer.find({userID: null})
 			.then((customers) => {
 
 				res.render('marketing/manager/manager-customer', {
@@ -23,15 +24,9 @@ class MarketingController {
 
 	}
 	showCustomerDetail(req, res, next) {
-		Customer.findById(req.params.id)
-			.then(customer => {
-				let commnetArray = customer.comments;
-				commnetArray.forEach(element => {
-					var date = new Date(element.createdAt);
-					var newDate = date.toLocaleString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' })
-					console.log('day', newDate)
-					return newDate;
-				})
+		Customer.findById({ _id: req.params.id }).populate('serviceNoteID')
+			.then((customer) => {
+				console.log(customer);
 				res.render('marketing/manager/manager-customer-detail', {
 					customer: mongooseToObject(customer),
 					title: "Chi tiết khách hàng"
@@ -124,11 +119,11 @@ class MarketingController {
 
 
 
-	createComment(req, res, next) {
-		Customer.findByIdAndUpdate({ _id: req.params.id }, { $push: { comments: { comment: req.body.comments } } })
-			.then(() => res.redirect('back'))
-			.catch(next);
-	}
+	// createComment(req, res, next) {
+	// 	Customer.findByIdAndUpdate({ _id: req.params.id }, { $push: { comments: { comment: req.body.comments } } })
+	// 		.then(() => res.redirect('back'))
+	// 		.catch(next);
+	// }
 
 };
 

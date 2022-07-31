@@ -4,6 +4,12 @@ const mongooseDelete = require("mongoose-delete");
 
 const ServiceNote = new Schema({
 	name: String,
+	customerID: 
+		{
+			type: String,
+			ref: "Customer"
+		},
+
 	customer: [
 		{
 			type: new mongoose.Schema(
@@ -68,7 +74,7 @@ const ServiceNote = new Schema({
 			ref: "Status"
 		}
 	],
-	services: [
+	service: [
 		{
 			type: String,
 			ref: "Service"
@@ -82,6 +88,7 @@ const ServiceNote = new Schema({
 	stored: String,
 	schedule: String,
 	reason: String,
+	price: String,
 }, {
 	timestamps: true
 });

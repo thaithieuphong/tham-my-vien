@@ -5,7 +5,8 @@ const validateUploadImage = require('../../middleware/validateUploadImage');
 
 
 /* Business Manager Start*/
-router.delete('/service-note/:id', ManagerBusinessController.deleteServiceNote);
+router.patch('/customers/:id/comment', ManagerBusinessController.createComment);
+
 router.patch('/service-note/:id', ManagerBusinessController.deleteServiceNote);
 router.put('/customers/:id/edit', validateUploadImage.uploadSingleCustomer, ManagerBusinessController.editCustomer);
 
