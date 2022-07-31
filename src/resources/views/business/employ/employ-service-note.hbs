@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    {{> page/sidebar/business/sidebar-employ-business}}
+    {{> page/sidebar/business/sidebar-business-employ-customers}}
 
     <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
         <div class="title">
@@ -20,13 +20,13 @@
 
         </div>
     </nav>
-    <div class="container-fluid mt-3">
-        <div class="row ml-2">
+    <div class="container-fluid container-content-page mt-3">
+        <div class="row">
             {{#each serviceNotes}}
             <div class="col-12">
                 <h3 name="status" class="form-label">{{this.status}}</>
             </div>
-            <hr class="row g-3">
+            <hr>
             {{#each customer}}
             <div class="col-12">
                 <label for="name" class="form-label">Khách hàng:</label>
