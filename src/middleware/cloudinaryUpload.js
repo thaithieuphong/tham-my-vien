@@ -1,8 +1,6 @@
 const cloudinary = require('cloudinary').v2;
 const appRoot = require('app-root-path');
 
-console.log('app root', appRoot);
-
 cloudinary.config({
     cloud_name: `${process.env.CLOUD_NAME}`,
     api_key: `${process.env.API_KEY}`,
@@ -10,17 +8,19 @@ cloudinary.config({
 });
 
 class cloudinaryUpload {
-
     uploadSingle(file) {
-        console.log(file.path);
+        console.log('file.filename', file.filename);
+        console.log('file.path', file.path);
+        console.log('appRoot', appRoot);
         return new Promise(resolve => {
-            cloudinary.uploader.upload(file.path, {
-                    folder: file.path,
+            cloudinary.uploader.upload(file.filename, {
+                    folder: 'tham-my-vien/customers',
                 })
                 .then(result => {
+                    console.log('result 1', result);
                     if (result) {
                         const fs = require('fs');
-                        fs.unlinkSync(file);
+                        fs.unlinkSync(file.filename);
                         resolve({
                             url: result.secure_url
                         })

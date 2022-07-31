@@ -10,6 +10,7 @@ router.put('/customers/:id', validateUploadImage.uploadSingleCustomer, EmployBus
 router.post('/customers/:id/service-note', EmployBusinessController.createServiceNote);
 router.post('/customers', validateUploadImage.uploadSingleCustomer, EmployBusinessController.createCustomer);
 
+router.post('/customers/:id/detail', validateUploadImage.counselorUploadGoogleDrive, EmployBusinessController.uploadToDrive)
 router.get('/customers/:id/detail', EmployBusinessController.showCustomerDetail)
 router.get('/service-note', EmployBusinessController.showServiceNote);
 router.get('/customers', EmployBusinessController.showCustomer);

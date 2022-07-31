@@ -8,6 +8,7 @@ class validateUploadImage {
     uploadSingleCustomer = multer({ fileFilter: helpers.imageFilter, storage: storage.storageCustomerAvt  }).single('image');
     uploadSingleUser = multer({  fileFilter: helpers.imageFilter, storage: storage.storageUserAvt }).single('image');
     uploadSingleUserEdit = multer({  fileFilter: helpers.imageFilter, storage: storage.storageUserAvtEdit }).single('image');
+    counselorUploadGoogleDrive = multer({  fileFilter: helpers.videoFilter, storage: storage.counselorUploadGoogleDrive }).array('counselor');
 }
 
 module.exports = new validateUploadImage;

@@ -6,10 +6,15 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Quản lý người dùng</title>
+	<style>
+      div.preview-images > img {
+        width: 30%;
+      }
+    </style>
 </head>
 
 <body>
-	{{> page/sidebar/business/sidebar-employ-business}}
+	{{!-- {{> page/sidebar/business/sidebar-employ-business}} --}}
 
 	<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
 		<div class="title">
@@ -37,6 +42,13 @@
 					<textarea id="detail-description" class="form-control mb-2" rows="6"
 						disabled>{{customer.description}}</textarea>
 				</div>
+				<form method="POST" class="row" enctype="multipart/form-data">
+							<input id="input-multi-files" class="form-control" type="file" name="counselor" multiple>
+							<button type="submit">tair leen</button>
+						</form>
+						<div class="col-xl-9">
+						<div class="preview-images row"></div>
+					</div>
 			</div>
 			<div class="col-xl-7 activate">
 				<ul class="list-group comment-content-page border">
@@ -62,3 +74,33 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		
+document.addEventListener('DOMContentLoaded', function () {
+	let imagesPreview = function (input, placeToInsertImagePreview) {
+				if (input.files) {
+					let filesAmount = input.files.length;
+					for (i = 0; i < filesAmount; i++) {
+						let reader = new FileReader();
+						reader.onload = function (event) {
+							$($.parseHTML("<img class='col-md rounded mx-auto d-block'>"))
+								.attr("src", event.target.result)
+								.appendTo(placeToInsertImagePreview);
+						};
+						reader.readAsDataURL(input.files[i]);
+					}
+				}
+			};
+			var inputMultiFile = document.getElementById('input-multi-files');
+			inputMultiFile.addEventListener('change', (e) => {
+				imagesPreview(e.target, "div.preview-images");
+				console.log(e.target.files)
+			})
+});
+		//$(document).ready(function () {
+			
+			//$("#input-multi-files").on("change", function () {
+				//imagesPreview(this, "div.preview-images");
+			//});
+		//});
+	</script>
