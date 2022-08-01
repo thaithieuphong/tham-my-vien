@@ -5,10 +5,12 @@ const validateUploadImage = require('../../middleware/validateUploadImage');
 
 
 //Employ
-router.patch('/service-note/:id',ReceptionController.pushPerformer)
+
+router.delete('/service-note/:id',ReceptionController.pushPerformer);
+// router.patch('/service-note/:id', ReceptionController.pushPerformer);
 
 
-router.get('/service-note', ReceptionController.showServiceNote)
+router.get('/service-note', ReceptionController.showServiceNote);
 
 
 module.exports = router;

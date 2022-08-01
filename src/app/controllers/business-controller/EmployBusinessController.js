@@ -36,12 +36,11 @@ class EmployBusinessController {
 
 	/** Customer */
 	showCustomer(req, res, next) {
-		Promise.all([Customer.find({}), TypeService.find({}), User.find({ department: "Phẩu thuật" })])
-			.then(([customers, typeservices, users]) => {
+		Promise.all([Customer.find({}), TypeService.find({})])
+			.then(([customers, typeservices]) => {
 				res.render("business/employ/employ-customer", {
 					customers: multipleMongooseToObject(customers),
 					typeservices: multipleMongooseToObject(typeservices),
-					users: multipleMongooseToObject(users),
 					title: 'Quản lý khách hàng'
 				});
 			})
@@ -90,7 +89,7 @@ class EmployBusinessController {
 			Customer.findOneAndUpdate(
 				{ _id: req.params.id },
 				{
-					firstName: req.body.filename,
+					firstName: req.body.firstName,
 					lastName: req.body.lastName,
 					birth: req.body.birth,
 					gender: req.body.gender,
@@ -131,25 +130,34 @@ class EmployBusinessController {
 	}
 
 	showCustomerDetail(req, res, next) {
-		Customer.findById(req.params.id)
+		// console.log(req.params.id);
+		// Promise.all([Customer.findById(req.params.id), ServiceNote.find({customerID: req.params.id})])
+		// 	.then(([customer, serviceNote]) => {
+		// 		let commnetArray = customer.comments;
+		// 		commnetArray.forEach(element => {
+		// 			var date = new Date(element.createdAt);
+		// 			var newDate = date.toLocaleString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' })
+		// 			console.log('day', newDate)
+		// 			return newDate;
+		// 		})
+		// 		res.render('business/employ/employ-customer-detail', {
+		// 			customer: mongooseToObject(customer),
+		// 			serviceNote:multipleMongooseToObject(serviceNote),
+		// 			title: "Chi tiết khách hàng"
+		// 		});
+		// 	})
+		// 	.catch(next);
+		// res.json(req.params.id)
+		Customer.findById({ _id: req.params.id }).populate('serviceNoteID')
 			.then((customer) => {
-				let commnetArray = customer.comments;
-				commnetArray.forEach((element) => {
-					var date = new Date(element.createdAt);
-					var newDate = date.toLocaleString("en-GB", {
-						day: "numeric",
-						month: "numeric",
-						year: "numeric",
-					});
-					console.log("day", newDate);
-					return newDate;
-				});
-				res.render("business/employ/employ-customer-detail", {
+				console.log(customer);
+				res.render('business/employ/employ-customer-detail', {
 					customer: mongooseToObject(customer),
 					title: "Chi tiết khách hàng"
 				});
 			})
 			.catch(next);
+		// res.json(req.params)
 	}
 
 	createComment(req, res, next) {
@@ -174,6 +182,7 @@ class EmployBusinessController {
 
 	createServiceNote(req, res, next) {
 		const serviceNote = new ServiceNote({
+			customerID: req.body.customerID,
 			customer: {
 				name: req.body.name,
 				birth: req.body.birth,
@@ -182,16 +191,24 @@ class EmployBusinessController {
 				phone: req.body.phone,
 				address: req.body.address
 			},
+
 			performer: req.body.performer,
 			createName: req.body.name,
 			status: "Tạo mới",
 			service: req.body.service,
 			comments: { comment: req.body.comment },
 			schedule: req.body.schedule,
+			price: req.body.price,
 		});
-		console.log(serviceNote);
 		serviceNote.save();
-		res.redirect('back');
+		console.log(serviceNote.id);
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id } })
+			.then(() => {
+				res.redirect('back');
+
+			})
+			.catch(next);
+		// res.json(req.body)
 	}
 
 	uploadToDrive(req, res, next) {

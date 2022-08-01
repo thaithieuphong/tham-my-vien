@@ -345,9 +345,10 @@ class AdminController {
 
   //SERVICE NOTE
   showServiceNote(req, res, next) {
-    ServiceNote.find({})
-      .then(serviceNotes => {
+    Promise.all([ServiceNote.find({}), ServiceNote.countDocumentsDeleted({ stored:"Yes" })])
+      .then(([serviceNotes,deletedCount]) => {
         res.render('admin/service-note/admin-service-note', {
+          deletedCount,
           serviceNotes: multipleMongooseToObject(serviceNotes)
         });
       })
@@ -364,7 +365,6 @@ class AdminController {
         phone: req.body.phone,
         address: req.body.address
       },
-      performName: req.body.performUser,
       createName: req.body.name,
       status: req.body.status,
       service: req.body.service,
@@ -376,7 +376,8 @@ class AdminController {
   }
 
   destroyServiceNote(req, res, next) {
-		ServiceNote.delete({ _id: req.params.id })
+		Promise.all([ServiceNote.delete({ _id: req.params.id }), 
+      ServiceNote.findByIdAndUpdate({ _id: req.params.id},{ $set: { stored: "Yes" }})])
 			.then(() => res.redirect("back"))
 			.catch(next);
 	}
@@ -388,7 +389,7 @@ class AdminController {
 	}
 
 	trashServiceNote(req, res, next) {
-		ServiceNote.findDeleted({stored : "Yes"})
+		ServiceNote.findDeleted({ stored: "Yes"})
 			.then(serviceNotes => {
 				res.render('admin/service-note/admin-service-note-trash', {
 					serviceNotes: multipleMongooseToObject(serviceNotes)
@@ -398,7 +399,8 @@ class AdminController {
 	}
 	//PATCH RESTORE
 	restoreServiceNote(req, res, next) {
-		ServiceNote.restore({ _id: req.params.id })
+    Promise.all([ServiceNote.restore({ _id: req.params.id }), 
+      ServiceNote.findByIdAndUpdate( { _id: req.params.id },{$set: { stored: "No" } })])
 			.then(() => res.redirect("back"))
 			.catch(next);
 

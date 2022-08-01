@@ -19,7 +19,7 @@ class MarketingController {
 
     showCustomer(req, res, next) {
 		console.log('req', req.userId)
-		Promise.all([User.findById({_id: req.userId}), Customer.find({})])
+		Promise.all([User.findById({_id: req.userId}), Customer.find({userID: null})])
             .then(([user, customers]) => {
 				// console.log('user', mongooseToObject(user))
                 res.render('marketing/employ/employ-customer', {
@@ -32,15 +32,9 @@ class MarketingController {
     }
 
 	showCustomerDetail(req, res, next) {
-		Customer.findById(req.params.id)
-			.then(customer => {
-				let commnetArray = customer.comments;
-				commnetArray.forEach(element => {
-					var date = new Date(element.createdAt);
-					var newDate = date.toLocaleString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' })
-					console.log('day', newDate)
-					return newDate;
-				})
+		Customer.findById({ _id: req.params.id }).populate('serviceNoteID')
+			.then((customer) => {
+				console.log(customer);
 				res.render('marketing/employ/employ-customer-detail', {
 					customer: mongooseToObject(customer),
 					title: "Chi tiết khách hàng"
@@ -130,15 +124,6 @@ class MarketingController {
 				.catch(next);
 		}
 	}
-
-
-
-	createComment(req, res, next) {
-		Customer.findByIdAndUpdate({ _id: req.params.id }, { $push: { comments: { comment: req.body.comments } } })
-			.then(() => res.redirect('back'))
-			.catch(next);
-	}
-
 };
 
 module.exports = new MarketingController;

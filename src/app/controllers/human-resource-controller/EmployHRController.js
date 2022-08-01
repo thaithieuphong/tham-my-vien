@@ -1,118 +1,159 @@
-// const Role = require('../models/Role');
-// const Account = require('../models/Account');
-// const { multipleMongooseToObject } = require('../../util/mongoose');
-// const { emailDB, passwordDB } = require('../../middleware/login');
+const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
+const User = require("../../models/User");
+const fs = require("fs");
+const appRoot = require("app-root-path");
+const bcrypt = require("bcryptjs");
+const multer = require("multer");
+const uploadAvatar = multer().single("image");
+const helpers = require("../../../middleware/helpers");
+const path = require("path");
+const flash = require('connect-flash');
 
-// class SigninController {
-// 	// //[GET] Login
-// 	// getSignin(req, res) {
-// 	// 	res.render("signin", { layout: false });
-// 	// }
+class EmployHRController {
 
-// 	postSignup (req, res) {
-// 		const account = new Account({
-// 			username: req.body.username,
-// 			email: req.body.email,
-// 			password: bcrypt.hashSync(req.body.password, 8),
-// 		});
-// 		account.save((err, account) => {
-// 			if (err) {
-// 				res.status(500).send({ message: err });
-// 				return;
-// 			}
-// 			// if (req.body.role) {
-// 			// 	Role.find({},
-// 			// 		(err, role) => {
-// 			// 			if (err) {
-// 			// 				res.status(500).send({ message: err });
-// 			// 				return;
-// 			// 			}
-// 			// 			account.role = role.map((role) => role._id);
-// 			// 			account.save((err) => {
-// 			// 				if (err) {
-// 			// 					res.status(500).send({ message: err });
-// 			// 					return;
-// 			// 				}
-// 			// 				res.send({ message: "User was registered successfully!" });
-// 			// 			});
-// 			// 		}
-// 			// 	);
-// 			// } else {
-// 			// 	Role.findOne({ name: "manager" }, (err, role) => {
-// 			// 		if (err) {
-// 			// 			res.status(500).send({ message: err });
-// 			// 			return;
-// 			// 		}
-// 			// 		account.role = [role._id];
-// 			// 		account.save((err) => {
-// 			// 			if (err) {
-// 			// 				res.status(500).send({ message: err });
-// 			// 				return;
-// 			// 			}
-// 			// 			res.send({ message: "User was registered successfully!" });
-// 			// 		});
-// 			// 	});
-// 			// }
-// 		});
-// 	};
+    showUser(req, res, next) {
+        User.find({})
+            .then((users) => {
+                res.render('human-resource/employ/hr-user', {
+                    users: multipleMongooseToObject(users),
+                    title: "Quản lý nhân sự"
+                });
+            })
+            .catch(next);
+    }
 
-// 	postSignin(req, res) {
-// 		console.log(req.body.email);
-// 		Account.findOne({
-// 			email: req.body.email,
-// 		})
-// 		.populate("roles", "-__v")
-// 		.exec((err, account) => {
-// 			if (err) {
-// 				res.status(500).send({ message: err });
-// 				return;
-// 			}
-// 			if (!account) {
-// 				return res.status(404).send({ message: "User Not found." });
-// 			}
-// 			var passwordIsValid = bcrypt.compareSync(
-// 				req.body.password,
-// 				user.password
-// 			);
-// 			if (!passwordIsValid) {
-// 				return res.status(401).send({ message: "Invalid Password!" });
-// 			}
-// 			var token = jwt.sign({ id: user.id }, config.secret, {
-// 				expiresIn: 86400, // 24 hours
-// 			});
-// 			var authorities = [];
-// 			for (let i = 0; i < account.role.length; i++) {
-// 				authorities.push("ROLE_" + account.role[i].name.toUpperCase());
-// 			}
-// 			req.session.token = token;
-// 			res.status(200).send({
-// 				id: account._id,
-// 				userName: account.userName,
-// 				email: account.email,
-// 				role: authorities,
-// 			});
-// 		});
-// 	};
-// 	// postLogin(req, res, next) {
-// 	// 	Account.find({})
-// 	// 		.then(accounts => {
-// 	// 			let emailDB;
-// 	// 			let emailReq = req.body.email;
-// 	// 			let passwordDB;
-// 	// 			let passwordReq = req.body.password;
-// 	// 			for (const item of accounts) {
-// 	// 				emailDB = item.email;
-// 	// 				passwordDB = item.password;
-					
-// 	// 			}
-// 	// 			if (emailReq === emailDB && passwordReq === passwordDB) {
-// 	// 				res.render('admin');
-// 	// 			} else {
-// 	// 				res.status(400).json('Email hoặc mật khẩu không đúng');
-// 	// 			}
-// 	// 		})
-// 	// 		.catch(next);
-//   	// }
-// }
+    createUser(req, res, next) {
+        if (req.file) {
+            const user = new User({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                birth: req.body.birth,
+                gender: req.body.gender,
+                phone: req.body.phone,
+                email: req.body.email,
+                address: req.body.address,
+                department: req.body.department,
+                position: req.body.position,
+                description: req.body.description,
+                account: req.body.account,
+                password: bcrypt.hashSync(req.body.password, 8),
+                role: req.body.role,
+                image: {
+                    name: req.file.filename,
+                    url: req.file.path,
+                },
+            });
+            User.findOne({ account: req.body.account })
+                .then((account) => {
+                    if (!account) {
+                        user.save();
+                    } else {
+                        user.account =
+                            user.account + Math.floor(Math.random() * 100);
+                        user.save();
+                    }
+                    req.session.message = {
+                        type: 'danger',
+                        intro: 'Chúc mừng! ',
+                        message: 'Bạn tạo người dùng thành công',
+                    }
+                    res.redirect("back");
+                })
+                .catch(next);
+        } else {
+            const user = new User({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                birth: req.body.birth,
+                gender: req.body.gender,
+                phone: req.body.phone,
+                email: req.body.email,
+                address: req.body.address,
+                department: req.body.department,
+                position: req.body.position,
+                description: req.body.description,
+                account: req.body.account,
+                password: bcrypt.hashSync(req.body.password, 8),
+                role: req.body.role,
+                image: {
+                    name: "",
+                    url: "",
+                },
+            });
+            User.findOne({ account: req.body.account })
+                .then((account) => {
+                    if (!account) {
+                        user.save();
+                    } else {
+                        user.account =
+                            user.account + Math.floor(Math.random() * 100);
+                        user.save();
+                    }
+                    req.session.message = {
+                        type: 'danger',
+                        intro: 'Chúc mừng! ',
+                        message: 'Bạn tạo người dùng thành công',
+                    }
+                    res.redirect("back");
+                })
+                .catch(next);
+        }
+    }
 
-// module.exports = new SigninController;
+    editUser(req, res, next){
+        if (req.file) {
+            User.findOneAndUpdate({ _id: req.params.id }, {
+                firstName: req.body.filename,
+                lastName: req.body.lastName,
+                birth: req.body.birth,
+                gender: req.body.gender,
+                phone: req.body.phone,
+                email: req.body.email,
+                address: req.body.address,
+                department: req.body.department,
+                position: req.body.position,
+                description: req.body.description,
+                account: req.body.account,
+                password: bcrypt.hashSync(req.body.password, 8),
+                role: req.body.role,
+                image: {
+                    name: req.file.filename,
+                    url: req.file.path,
+                },
+            }).then((user) => {
+                console.log(user.image.name);
+                let imgUser = user.image.name;
+                let url = user.image.url
+                let files = fs.readdirSync(
+                    appRoot + "/src/public/img/uploads/users/"
+                );
+                files.filter((img) => {
+                    if (img === imgUser) {
+                        console.log("img user", img);
+                        fs.unlinkSync(url);
+                    }
+                });
+                req.session.message = {
+                    type: 'danger',
+                    intro: 'Chúc mừng! ',
+                    message: 'Sửa thông tin thành công',
+                }
+                res.redirect("back");
+            })
+            .catch(next);
+        } else {
+            User.updateOne({ _id: req.params.id }, req.body)
+                .then(() => {
+                    req.session.message = {
+                        type: 'danger',
+                        intro: 'Chúc mừng! ',
+                        message: 'Sửa thông tin thành công',
+                    }
+                    res.redirect("back");
+                })
+                .catch(next);
+        }
+    }
+}
+
+module.exports = new EmployHRController();

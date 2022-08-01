@@ -30,6 +30,7 @@ router.put('/admin/customers/:id', validateUploadImage.uploadSingleCustomer, Adm
 
 
 router.delete('/admin/service-note/:id', AdminController.destroyServiceNote);
+router.patch('/admin/service-note/:id', AdminController.destroyServiceNote);
 router.get('/admin/service-note/trash', AdminController.trashServiceNote);
 router.delete('/admin/service-note-trash/:id', AdminController.realDestroyServiceNote);
 router.patch('/admin/service-note-trash/:id/restore', AdminController.restoreServiceNote);

@@ -23,6 +23,17 @@ const Customer = new Schema({
 				{ timestamps: true }
 			)
 		}
+	],
+	userID:
+	{
+		type: String,
+		ref: "User"
+	},
+	serviceNoteID: [
+		{
+			type: String,
+			ref: "ServiceNote"
+		}
 	]
 }, {
 	timestamps: true

@@ -36,59 +36,59 @@
                 <label for="birth" class="form-label">Ngày sinh:</label>
                 <label name="birth" class="form-label"> {{this.birth}}</label>
 
-            </div>
-            <div class="col-md-6">
-                <label for="gender" class="form-label">Giới tính:</label>
-                <label name="gender" class="form-label">{{this.gender}}</label>
-            </div>
-            <div class="col-md-6">
-                <label for="email" class="form-label">Email: </label>
-                <label name="email" class="form-label"> {{this.email}}</label>
+                </div>
+                <div class="col-md-6">
+                    <label for="gender" class="form-label">Giới tính:</label>
+                    <label name="gender" class="form-label">{{this.gender}}</label>
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email: </label>
+                    <label name="email" class="form-label"> {{this.email}}</label>
 
+                </div>
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Số điện thoại:</label>
+                    <label name="phone" class="form-label">{{this.phone}}</label>
+                </div>
+                <div class="col-12">
+                    <label for="address" class="form-label">Địa chỉ:</label>
+                    <label name="address" class="form-label">{{this.address}}</label>
+                </div>
+                {{/each}}
+                <hr>
+                <div class="col-12">
+                    <label for="performUser" class="form-label">Bác sĩ: </label>
+                    <label name="performUser" class="form-label">{{this.performName}}</label>
+                </div>
+                <div class="col-12">
+                    <label for="service" class="form-label">Dịch vụ: </label>
+                    <label name="service" class="form-label">{{this.service}}</label>
+                </div>
+                {{#each comments}}
+                <div class="col-12">
+                    <label for="comment" class="form-label">Ghi chú: </label>
+                    <label name="comment" class="form-label">{{this.comment}}</label>
+                </div>
+                {{/each}}
+                <div class="col-md-6">
+                    <label for="schedule" class="form-label">Lịch hẹn: </label>
+                    <label name="schedule" class="form-label">{{this.schedule}}</label>
+                </div>
+                <div class="btn btn-danger btn-sm col-md-6" data-del-service-note-id="{{this._id}}"
+                    data-bs-toggle="modal" data-bs-target="#del-service-note-modal">Xóa</div>
+                {{else}}
+                <div class="col-12">
+                    <h5 class="form-label text-center">Chưa có phiếu dịch vụ. <a
+                            href="/business/manager/customers">Tạo
+                            phiếu</a></h5>
+                </div>
+                {{/each}}
             </div>
-            <div class="col-md-6">
-                <label for="phone" class="form-label">Số điện thoại:</label>
-                <label name="phone" class="form-label">{{this.phone}}</label>
-            </div>
-            <div class="col-12">
-                <label for="address" class="form-label">Địa chỉ:</label>
-                <label name="address" class="form-label">{{this.address}}</label>
-            </div>
-            {{/each}}
-            <hr>
-            <div class="col-12">
-                <label for="performUser" class="form-label">Bác sĩ: </label>
-                <label name="performUser" class="form-label">{{this.performName}}</label>
-            </div>
-            <div class="col-12">
-                <label for="service" class="form-label">Dịch vụ: </label>
-                <label name="service" class="form-label">{{this.service}}</label>
-            </div>
-            {{#each comments}}
-            <div class="col-12">
-                <label for="comment" class="form-label">Ghi chú: </label>
-                <label name="comment" class="form-label">{{this.comment}}</label>
-            </div>
-            {{/each}}
-            <div class="col-md-6">
-                <label for="schedule" class="form-label">Lịch hẹn: </label>
-                <label name="schedule" class="form-label">{{this.schedule}}</label>
-            </div>
-            <div class="btn btn-danger btn-sm col-md-6" data-del-service-note-id="{{this._id}}" data-bs-toggle="modal"
-                data-bs-target="#del-service-note-modal">Xóa</div>
-            </form>
-            {{else}}
-            <div class="col-12">
-                <h5 class="form-label text-center">Chưa có phiếu dịch vụ. <a href="/business/manager/customers">Tạo
-                        phiếu</a></h5>
-            </div>
-            {{/each}}
-        </div>
         </form>
     </div>
 
     {{!-- Modal Delete --}}
-    <form name="delete-service-note-form" method="POST"></form>
+    
     <div class="modal fade" id="del-service-note-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -116,6 +116,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </body>
 <script src="/js/business/business-manager-service-note.js"></script>
 

@@ -82,7 +82,7 @@ editBtn.addEventListener("click", () => {
 var createServiceNote = document.getElementById("create-service-note-btn");
 createServiceNote.addEventListener("click", () => {
 	createServiceNoteForm.submit();
-  });
+});
 // Handle create service-note
 var createServiceNoteForm = document.forms["create-service-note-form"]
 var createServiceNote = document.getElementById("create-service-note-modal");
@@ -101,6 +101,7 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	var dataAddress = button.getAttribute("data-service-note-address");
 
 	// // Get element need embeded input
+	var serviceNoteCustomerID = document.getElementById('create-service-note-customerID');
 	var serviceNoteFirstLastName = document.getElementById(
 		"create-service-note-firstLastName"
 	);
@@ -116,6 +117,7 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 		"action",
 		`/business/manager/customers/${dataServiceNoteID}/service-note`
 	);
+	serviceNoteCustomerID.value = dataServiceNoteID;
 	serviceNoteFirstLastName.value = dataFirstName + " " + dataLastName;
 	serviceNoteBirth.value = dataBirth;
 	serviceNoteGender.value = dataGender;
@@ -123,11 +125,66 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	serviceNoteEmail.value = dataEmail;
 	serviceNoteAddress.value = dataAddress;
 });
+//END CREATE: submit create service note forms
+
+//ADD USER to CUSTOMER
+//Hidden and remove hidden attribute
+
+
+//Check all customer
+var customerItemCheckbox = document.querySelectorAll('.check-box-customer');
+var checkCusAll = document.getElementById("check-customer-all");
+//check all click
+checkCusAll.addEventListener("change", () => {
+	var isCheckedAll = $(checkCusAll).prop('checked');
+	$(customerItemCheckbox).prop('checked', isCheckedAll);
+	renderCheckallBtn();
+});
+//check items click
+for (i = 0; i < document.querySelectorAll('.check-box-customer').length; i++) {
+	customerItemCheckbox[i].addEventListener("change", () => {
+		var isCheckedAll = document.querySelectorAll('.check-box-customer').length === document.querySelectorAll('.check-box-customer:checked').length
+		$(checkCusAll).prop('checked', isCheckedAll);
+		renderCheckallBtn();
+	});
+}
+//Render button check all submit
+var checkAllSubmitBtn = document.getElementById("add-user-customer-btn");
+function renderCheckallBtn(){
+	var checkCount = document.querySelectorAll('.check-box-customer:checked').length;
+	if(checkCount){
+		checkAllSubmitBtn.classList.remove("disabled");
+	}else{
+		checkAllSubmitBtn.classList.add("disabled")
+	};
+}
+//Check all submit button click
+var addUserCusForm = document.forms['add-user-customer-form'];
+var addUseridToCustomerBtn = document.getElementById("add-userid-to-customer");
+var addUseridToCustomerModal = document.getElementById("add-userid-to-customer-modal");
+addUseridToCustomerModal.addEventListener("show.bs.modal", function(event){
+	var button = event.relatedTarget;
+
+	addUserCusForm.setAttribute('action',`/business/manager/customers/userid`)
+})
+
+addUseridToCustomerBtn.addEventListener("click", () => {
+	addUserCusForm.submit();
+})
+
+// checkAllSubmitBtn.addEventListener("click", function(e)  {
+// 	e.preventDefault();
+// 	var isSubmittable = checkAllSubmitBtn.classList.contains('disabled');
+// 	if(!isSubmittable){
+
+// 	}
+// })
 
 
 
-//CREATE: submit create service note forms
+//END ADD USER to CUSTOMER
 
+//DETAIL: detail customer and push comment
 
 document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {

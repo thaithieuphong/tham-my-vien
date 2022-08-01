@@ -101,6 +101,7 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	var dataAddress = button.getAttribute("data-service-note-address");
 
 	// // Get element need embeded input
+	var serviceNoteCustomerID = document.getElementById('create-service-note-customerID');
 	var serviceNoteFirstLastName = document.getElementById(
 		"create-service-note-firstLastName"
 	);
@@ -116,6 +117,7 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 		"action",
 		`/business/employ/customers/${dataServiceNoteID}/service-note`
 	);
+	serviceNoteCustomerID.value = dataServiceNoteID;
 	serviceNoteFirstLastName.value = dataFirstName + " " + dataLastName;
 	serviceNoteBirth.value = dataBirth;
 	serviceNoteGender.value = dataGender;

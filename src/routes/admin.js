@@ -10,8 +10,8 @@ router.get('/', AdminController.getAdminDashboard)
 //CUSTOMER
 router.get('/customer', AdminController.getAdminCustomer)
 router.post('/customer', AdminController.createCustomer)
-router.put('/:id', AdminController.updateCustomer)
-router.delete('/customer/:id', AdminController.destroyCustomer)
+// router.put('/:id', AdminController.updateCustomer)
+// router.delete('/customer/:id', AdminController.destroyCustomer)
 
 
 //END CUSTOMER

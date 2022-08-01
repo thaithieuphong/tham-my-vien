@@ -1,5 +1,5 @@
 const Customer = require("../../models/Customer");
-const Status = require("../../models/Status");
+const Customer1 = require("../../models/Customer");
 const User = require("../../models/User");
 const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
 const TypeService = require("../../models/TypeService");
@@ -8,7 +8,7 @@ const fs = require('fs');
 const appRoot = require('app-root-path');
 
 class ManagerBusinessController {
-	
+
 	//BUSINESS MANAGER
 
 	show404(req, res, next) {
@@ -22,20 +22,22 @@ class ManagerBusinessController {
 	}
 
 	showCustomer(req, res, next) {
-		Promise.all([Customer.find({}), TypeService.find({}), User.find({ department: "Phẩu thuật" })])
-			.then(([customers, typeservices, users]) => {
+		Promise.all([Customer.find({ userID: null }), Customer1.find({ userID: { $exists: true } }).populate('userID'),
+		TypeService.find({}), User.find({ department: "Kinh doanh", position: "Nhân viên" })])
+			.then(([customers, customer1s, typeservices, users]) => {
 				res.render("business/manager/manager-customer", {
 					customers: multipleMongooseToObject(customers),
+					customer1s: multipleMongooseToObject(customer1s),
 					typeservices: multipleMongooseToObject(typeservices),
 					users: multipleMongooseToObject(users),
 					title: 'Quản lý khách hàng'
 				});
-				users.forEach(user => console.log(user.firstName));
+				customer1s.forEach(element => console.log(element.userID));
 			})
 			.catch(next);
 	}
 
-	
+
 
 	createCustomer(req, res, next) {
 		if (req.file) {
@@ -79,7 +81,7 @@ class ManagerBusinessController {
 			Customer.findOneAndUpdate(
 				{ _id: req.params.id },
 				{
-					firstName: req.body.filename,
+					firstName: req.body.firstName,
 					lastName: req.body.lastName,
 					birth: req.body.birth,
 					gender: req.body.gender,
@@ -119,21 +121,18 @@ class ManagerBusinessController {
 		}
 	}
 
+	addUseridToCustomer(req, res, next) {
+		Customer.updateMany({ _id: { $in: req.body.customerIds } }, { $set: { userID: req.body.userID } })
+			.then(() => res.redirect('back'))
+			.catch(next);
+
+	}
+
 	showCustomerDetail(req, res, next) {
-		Customer.findById(req.params.id)
+		Customer.findById({ _id: req.params.id }).populate('serviceNoteID')
 			.then((customer) => {
-				let commnetArray = customer.comments;
-				commnetArray.forEach((element) => {
-					var date = new Date(element.createdAt);
-					var newDate = date.toLocaleString("en-GB", {
-						day: "numeric",
-						month: "numeric",
-						year: "numeric",
-					});
-					console.log("day", newDate);
-					return newDate;
-				});
-				res.render("business/manager/manager-customer-detail", {
+				console.log(customer);
+				res.render('business/manager/manager-customer-detail', {
 					customer: mongooseToObject(customer),
 					title: "Chi tiết khách hàng"
 				});
@@ -164,6 +163,7 @@ class ManagerBusinessController {
 	createServiceNote(req, res, next) {
 		const serviceNote = new ServiceNote({
 			customer: {
+				customerID: req.body.customerID,
 				name: req.body.name,
 				birth: req.body.birth,
 				gender: req.body.gender,
@@ -171,26 +171,27 @@ class ManagerBusinessController {
 				phone: req.body.phone,
 				address: req.body.address
 			},
-			performName: req.body.performUser,
+
+			performer: req.body.performer,
 			createName: req.body.name,
-			status: req.body.status,
+			status: "Tạo mới",
 			service: req.body.service,
 			comments: { comment: req.body.comment },
 			schedule: req.body.schedule,
+			price: req.body.price,
 		});
-		console.log(serviceNote);
 		serviceNote.save();
 		res.redirect('back');
 	}
 
 	deleteServiceNote(req, res, next) {
-		Promise.all([ServiceNote.delete({ _id: req.params.id }), ServiceNote.findByIdAndUpdate({ _id: req.params.id},{ $set: { stored: "Yes" }})])
-		ServiceNote.delete({ _id: req.params.id })
+		Promise.all([ServiceNote.delete({ _id: req.params.id }),
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { stored: "Yes" } })])
 			.then(() => res.redirect("back"))
 			.catch(next);
 	}
 
-	
+
 }
 
 module.exports = new ManagerBusinessController();

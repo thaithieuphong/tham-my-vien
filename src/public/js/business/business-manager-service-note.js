@@ -13,8 +13,7 @@ delServiceNote.addEventListener("show.bs.modal", function (event) {
 
 	var delServiceNoteID = button.getAttribute("data-del-service-note-id");
 
-	delServiceNoteForm.setAttribute("action", `/business/manager/service-note/${delServiceNoteID}?_method=DELETE`)
-	updStoredStatusForm.setAttribute("action", `/business/manager/service-note/${delServiceNoteID}?_method=PATCH`)
+	delServiceNoteForm.setAttribute("action", `/business/manager/service-note/${delServiceNoteID}?_method=PATCH`)
 });
 // END DELETE: Submit delete service note forms
 
