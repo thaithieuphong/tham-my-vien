@@ -229,11 +229,11 @@ class EmployBusinessController {
 									body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
 								}
 							})
-							files.filter((img) => {
-								if (img === element.filename) {
-									fs.unlinkSync(element.path);
-								}
-							});
+							// files.filter((img) => {
+							// 	if (img === element.filename) {
+							// 		fs.unlinkSync(element.path);
+							// 	}
+							// });
 						});
 						
 					})
