@@ -42,7 +42,7 @@
 		<div class="tab-content" id="pills-tabContent">
 			<div class="tab-pane fade show active" id="pills-system-customer" role="tabpanel"
 				aria-labelledby="pills-home-tab">
-				<div class="row ">
+				{{!-- <div class="row ">
 					<div class="text-center col-xl-3 mb-3">
 						<img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt"
 							class="rounded mx-auto d-block add-avata" alt="...">
@@ -82,16 +82,16 @@
 							</div>
 						</form>
 					</div>
-				</div>
+				</div> --}}
 
 				{{!-- Upload multiple img --}}
-				{{!-- <form method="POST" class="row" enctype="multipart/form-data">
+				<form method="POST" class="row" enctype="multipart/form-data">
 					<input id="input-multi-files" class="form-control" type="file" name="counselor" multiple>
 					<button type="submit">tair leen</button>
 				</form>
 				<div class="col-xl-9">
 					<div class="preview-images row"></div>
-				</div> --}}
+				</div>
 
 
 
@@ -132,27 +132,4 @@
 			</div>
 		</div>
 	</div>
-	<script>
-
-		document.addEventListener('DOMContentLoaded', function () {
-			let imagesPreview = function (input, placeToInsertImagePreview) {
-				if (input.files) {
-					let filesAmount = input.files.length;
-					for (i = 0; i < filesAmount; i++) {
-						let reader = new FileReader();
-						reader.onload = function (event) {
-							$($.parseHTML("<img class='col-md rounded mx-auto d-block'>"))
-								.attr("src", event.target.result)
-								.appendTo(placeToInsertImagePreview);
-						};
-						reader.readAsDataURL(input.files[i]);
-					}
-				}
-			};
-			var inputMultiFile = document.getElementById('input-multi-files');
-			inputMultiFile.addEventListener('change', (e) => {
-				imagesPreview(e.target, "div.preview-images");
-				console.log(e.target.files)
-			})
-		});
-	</script>
+	

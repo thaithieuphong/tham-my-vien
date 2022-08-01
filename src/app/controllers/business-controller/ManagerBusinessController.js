@@ -161,27 +161,28 @@ class ManagerBusinessController {
 	}
 
 	createServiceNote(req, res, next) {
-		const serviceNote = new ServiceNote({
-			customer: {
-				customerID: req.body.customerID,
-				name: req.body.name,
-				birth: req.body.birth,
-				gender: req.body.gender,
-				email: req.body.email,
-				phone: req.body.phone,
-				address: req.body.address
-			},
+		// const serviceNote = new ServiceNote({
+		// 	customer: {
+		// 		customerID: req.body.customerID,
+		// 		name: req.body.name,
+		// 		birth: req.body.birth,
+		// 		gender: req.body.gender,
+		// 		email: req.body.email,
+		// 		phone: req.body.phone,
+		// 		address: req.body.address
+		// 	},
 
-			performer: req.body.performer,
-			createName: req.body.name,
-			status: "Tạo mới",
-			service: req.body.service,
-			comments: { comment: req.body.comment },
-			schedule: req.body.schedule,
-			price: req.body.price,
-		});
-		serviceNote.save();
-		res.redirect('back');
+		// 	performer: req.body.performer,
+		// 	createName: req.body.name,
+		// 	status: "Tạo mới",
+		// 	service: req.body.service,
+		// 	comments: { comment: req.body.comment },
+		// 	schedule: req.body.schedule,
+		// 	price: req.body.price,
+		// });
+		// serviceNote.save();
+		// res.redirect('back');
+		res.json(req.body);
 	}
 
 	deleteServiceNote(req, res, next) {

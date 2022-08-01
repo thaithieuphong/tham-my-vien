@@ -1,3 +1,10 @@
+<style>
+		div.preview-images-counselor>img {
+			width: 30%;
+		}
+	</style>
+
+
 <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
 	<div class="title">
 
@@ -300,8 +307,8 @@
 										<label for="edit-description" class="form-label">
 											<h6>Mô tả</h6>
 										</label>
-										<textarea class="form-control" id="edit-description" rows="6"
-											name="description" readonly></textarea>
+										<textarea class="form-control" id="edit-description" rows="6" name="description"
+											readonly></textarea>
 									</div>
 								</div>
 							</li>
@@ -346,7 +353,7 @@
 							<ul class="list-group">
 								<li class="list-group-item">
 									<input hidden type="text" class="form-control" id="create-service-note-customerID"
-											name="customerID" readonly>
+										name="customerID" readonly>
 									<div class="form-floating mb-3">
 										<input type="text" class="form-control" id="create-service-note-firstLastName"
 											name="name" readonly>
@@ -377,49 +384,71 @@
 											name="address" readonly>
 										<label for="address">Địa chỉ:</label>
 									</div>
+									<div class="form-floating mb-3">
+										<input type="text" value="{{user.firstName}}{{user.lastName}}"
+											class="form-control" id="create-service-note-createName" name="createName"
+											readonly>
+										<label for="createName">Người tạo</label>
+									</div>
 								</li>
 							</ul>
 						</div>
 						<div class="tab-pane fade" id="pills-service" role="tabpanel"
 							aria-labelledby="pills-profile-tab">
-							<div class="mb-3">
-								<label for="service" class="form-label">
-									<h6>Chọn dịch vụ:</h6>
-								</label>
-								<select id="select-service" class="chosen-select" multiple tabindex="6" name="service[]">
-									{{#each typeservices}}
-									<optgroup label="{{this.name}}">
-										{{#each this.services}}
-										<option value="{{this.service}}">{{this.service}}</option>
-										{{/each}}
-									<optgroup>
-										{{/each}}
-								</select>
-							</div>
-							<div class="mb-3">
-								<label for="schedule" class="form-label">
-									<h6>Ngày hẹn:</h6>
-								</label>
-								<input type="datetime-local" class="form-control" id="create-service-note-schedule"
-									name="schedule">
-							</div>
+							<div class="row">
+								<div class="col-md-6">
 
-							<div class="mb-3">
-								<label for="price" class="form-label">
-									<h6>Tổng giá:</h6>
-								</label>
-								<input type="number" min="100000" step="100000" class="form-control" id="create-service-note-price"
-									name="price">
-							</div>
+									<div class="mb-3">
+										<label for="service" class="form-label">
+											<h6>Chọn dịch vụ:</h6>
+										</label>
+										<select id="select-service" class="chosen-select" multiple tabindex="6"
+											name="service[]">
+											{{#each typeservices}}
+											<optgroup label="{{this.name}}">
+												{{#each this.services}}
+												<option value="{{this.service}}">{{this.service}}</option>
+												{{/each}}
+											<optgroup>
+												{{/each}}
+										</select>
+									</div>
+									<div class="mb-3">
+										<label for="schedule" class="form-label">
+											<h6>Ngày hẹn:</h6>
+										</label>
+										<input type="datetime-local" class="form-control"
+											id="create-service-note-schedule" name="schedule">
+									</div>
 
-							<div class="mb-3">
-								<label for="comment" class="form-label">
-									<h6>Ghi chú: </h6>
-								</label>
-								<textarea class="form-control" id="create-service-note-description" rows="6"
-									name="comment"></textarea>
+									<div class="mb-3">
+										<label for="price" class="form-label">
+											<h6>Tổng giá:</h6>
+										</label>
+										<input type="number" min="100000" step="100000" class="form-control"
+											id="create-service-note-price" name="price">
+									</div>
+
+									<div class="mb-3">
+										<label for="comment" class="form-label">
+											<h6>Ghi chú: </h6>
+										</label>
+										<textarea class="form-control" id="create-service-note-description" rows="6"
+											name="comment"></textarea>
+									</div>
+								</div>
+								<div class="col-md-6">
+									{{!-- Upload multiple img --}}
+								<form method="POST" class="row" enctype="multipart/form-data">
+									<input id="input-multi-files-counselor" class="form-control" type="file" name="counselor"
+										multiple>
+									<button type="submit">tair leen</button>
+								</form>
+								<div class="col-xl-9">
+									<div class="preview-images-counselor row"></div>
+								</div>
+								</div>
 							</div>
-							
 						</div>
 					</div>
 				</form>
@@ -433,3 +462,30 @@
 </div>
 
 <script src="/js/business/business-employ-customer.js"></script>
+<script>
+
+	document.addEventListener('DOMContentLoaded', function () {
+		let imagesPreviewConselor = function (input, placeToInsertImagePreview) {
+			if (input.files) {
+				let filesAmount = input.files.length;
+				for (i = 0; i < filesAmount; i++) {
+					let reader = new FileReader();
+					reader.onload = function (event) {
+						$($.parseHTML("<img class='col-md rounded mx-auto d-block'>"))
+							.attr("src", event.target.result)
+							.appendTo(placeToInsertImagePreview);
+					};
+					reader.readAsDataURL(input.files[i]);
+				}
+			}
+		};
+		var inputMultiFileConselor = document.getElementById('input-multi-files-counselor');
+		inputMultiFileConselor.addEventListener('change', (e) => {
+			imagesPreviewConselor(e.target, "div.preview-images-counselor");
+			console.log(e.target.files)
+		})
+
+
+		
+	});
+</script>

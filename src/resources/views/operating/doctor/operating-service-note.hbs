@@ -1,3 +1,8 @@
+<style>
+		div.preview-images>img {
+			width: 30%;
+		}
+	</style>
 <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
 	<div class="title">
 
@@ -43,7 +48,7 @@
 								<strong>Reception:</strong>&nbsp;&nbsp;
 							</label>
 							<label for="service-name">
-								<em>{{this.createName}}</em>
+								<em>{{this.reception}}</em>
 							</label>
 						</div>
 					</div>
@@ -114,12 +119,30 @@
 						<div class="col-md-9 row">
 
 							<div class="col-md-6 text-left">
-								Trước
+								Trước:
+								{{!-- Upload multiple img --}}
+								<form method="POST" class="row" enctype="multipart/form-data">
+									<input id="input-multi-files-before" class="form-control" type="file" name="counselor"
+										multiple>
+									<button type="submit">tair leen</button>
+								</form>
+								<div class="col-xl-9">
+									<div class="preview-images-before row"></div>
+								</div>
 
 							</div>
 
 							<div class="col-md-6 text-left">
-								Sau
+								Sau:
+								{{!-- Upload multiple img --}}
+								<form method="POST" class="row" enctype="multipart/form-data">
+									<input id="input-multi-files-after" class="form-control" type="file" name="counselor"
+										multiple>
+									<button type="submit">tair leen</button>
+								</form>
+								<div class="col-xl-9">
+									<div class="preview-images-after row"></div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -133,24 +156,7 @@
 
 						<div class="col-md-9 row">
 
-							<div class="col-md-6 text-left">
-
-								<label for="input-customer-service-before-img"
-									class="label-avt btn btn-sm btn-primary mt-3">
-									<h6>Chọn hình ảnh</h6>
-								</label>
-								<input hidden id="input-customer-service-before-img" type="file" name="before"
-									accept="image/png, image/gif, image/jpeg">
-							</div>
-
-							<div class="col-md-6 text-left">
-								<label for="input-customer-service-after-img"
-									class="label-avt btn btn-sm btn-primary mt-3">
-									<h6>Chọn hình ảnh</h6>
-								</label>
-								<input hidden id="input-customer-service-after-img" type="file" name="after"
-									accept="image/png, image/gif, image/jpeg">
-							</div>
+							
 						</div>
 					</div>
 					{{/each }}
@@ -195,3 +201,49 @@
 	</div>
 </div>
 <script src="/js/operating/doctor.js"></script>
+<script>
+
+	document.addEventListener('DOMContentLoaded', function () {
+		let imagesPreviewBefore = function (input, placeToInsertImagePreview) {
+			if (input.files) {
+				let filesAmount = input.files.length;
+				for (i = 0; i < filesAmount; i++) {
+					let reader = new FileReader();
+					reader.onload = function (event) {
+						$($.parseHTML("<img class='col-md rounded mx-auto d-block'>"))
+							.attr("src", event.target.result)
+							.appendTo(placeToInsertImagePreview);
+					};
+					reader.readAsDataURL(input.files[i]);
+				}
+			}
+		};
+		var inputMultiFileBefore = document.getElementById('input-multi-files-before');
+		inputMultiFileBefore.addEventListener('change', (e) => {
+			imagesPreviewBefore(e.target, "div.preview-images-before");
+			console.log(e.target.files)
+		})
+
+
+		let imagesPreviewAfter = function (input, placeToInsertImagePreview) {
+			if (input.files) {
+				let filesAmount = input.files.length;
+				for (i = 0; i < filesAmount; i++) {
+					let reader = new FileReader();
+					reader.onload = function (event) {
+						$($.parseHTML("<img class='col-md rounded mx-auto d-block'>"))
+							.attr("src", event.target.result)
+							.appendTo(placeToInsertImagePreview);
+					};
+					reader.readAsDataURL(input.files[i]);
+				}
+			}
+		};
+
+		var inputMultiFileAfter = document.getElementById('input-multi-files-after');
+		inputMultiFileAfter.addEventListener('change', (e) => {
+			imagesPreviewAfter(e.target, "div.preview-images-after");
+			console.log(e.target.files)
+		})
+	});
+</script>

@@ -27,19 +27,6 @@ const ServiceNote = new Schema({
 		}
 	],
 
-	result: [
-		{
-			type: new mongoose.Schema(
-				{
-					serviceName: String,
-					before: String,
-					after: String,
-				},
-				{ timestamps: true }
-			),
-		}
-	],
-
 	createName: [
 		{
 			type: String,

@@ -1,4 +1,5 @@
 const Customer = require("../../models/Customer");
+const Counselor = require("../../models/Counselor");
 const Status = require("../../models/Status");
 const User = require("../../models/User");
 const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
@@ -36,9 +37,10 @@ class EmployBusinessController {
 
 	/** Customer */
 	showCustomer(req, res, next) {
-		Promise.all([Customer.find({}), TypeService.find({})])
-			.then(([customers, typeservices]) => {
+		Promise.all([User.findById({ _id: req.userId }), Customer.find({}), TypeService.find({})])
+			.then(([user, customers, typeservices]) => {
 				res.render("business/employ/employ-customer", {
+					user: mongooseToObject(user),
 					customers: multipleMongooseToObject(customers),
 					typeservices: multipleMongooseToObject(typeservices),
 					title: 'Quản lý khách hàng'
@@ -182,7 +184,6 @@ class EmployBusinessController {
 
 	createServiceNote(req, res, next) {
 		const serviceNote = new ServiceNote({
-			customerID: req.body.customerID,
 			customer: {
 				name: req.body.name,
 				birth: req.body.birth,
@@ -193,7 +194,7 @@ class EmployBusinessController {
 			},
 
 			performer: req.body.performer,
-			createName: req.body.name,
+			createName: req.body.createName,
 			status: "Tạo mới",
 			service: req.body.service,
 			comments: { comment: req.body.comment },
@@ -229,38 +230,56 @@ class EmployBusinessController {
 						resource: folderCustomer,
 						fields: 'id',
 					})
-					.then(res => {
-						console.log('res', res.data);
-						const files = fs.readdirSync(
-							appRoot + "/src/public/temp"
-						);
-						arrayFile.forEach(element => { // lap qua cac file
-							drive.files.create({ // ham khoi tao file tren google drive
-								requestBody: { // cau hinh file tren drive
-									name: element.filename,
-									mimeType: element.mimetype,
-									parents: [res.data.id] // id thu muc chua
-								},
-								media: { // lay thong tin file tu he thong
-									mimeType: element.mimetype,
-									body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
-								}
-							})
-							// files.filter((img) => {
-							// 	if (img === element.filename) {
-							// 		fs.unlinkSync(element.path);
-							// 	}
-							// });
-						});
-						
-					})
-					.catch();
+						.then(res => {
+							// console.log('res', res.data);
+							const files = fs.readdirSync(
+								appRoot + "/src/public/temp"
+							);
+							const img = [];
+							arrayFile.forEach(element => { // lap qua cac file
+								drive.files.create({ // ham khoi tao file tren google drive
+									requestBody: { // cau hinh file tren drive
+										name: element.filename,
+										mimeType: element.mimetype,
+										parents: [res.data.id] // id thu muc chua
+									},
+									media: { // lay thong tin file tu he thong
+										mimeType: element.mimetype,
+										body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
+									}
+								}).then(data => {
+									// console.log('data', data);
+									const counselorID = data.data.id
+									const counselorName = data.data.name
+									const counselorMimeType = data.data.mimeType
+									img.push({
+										name: counselorName,
+										id: counselorID,
+										mimeType: counselorMimeType,
+									})
+
+									console.log('img', img)
+								})
+								const counselor = new Counselor({ img });
+								// files.filter((img) => {
+								// 	if (img === element.filename) {
+								// 		fs.unlinkSync(element.path);
+								// 	}
+								// });
+								counselor.save();
+							});
+
+
+						})
+						.catch();
 
 					console.log('Folder', folderCustomer);
-					console.log('data', folderCustomer.id);
+					// console.log('data', folderCustomer.id);
 				} catch (error) {
-		
+
 				}
+				res.redirect('back');
+
 			})
 	}
 }

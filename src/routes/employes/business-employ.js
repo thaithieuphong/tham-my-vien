@@ -14,7 +14,7 @@ router.post('/customers/:id/detail', validateUploadImage.counselorUploadGoogleDr
 router.get('/customers/:id/detail', EmployBusinessController.showCustomerDetail)
 router.get('/service-note', EmployBusinessController.showServiceNote);
 router.get('/customers', EmployBusinessController.showCustomer);
-router.get('/', EmployBusinessController.showDashboard);
+router.get('/', EmployBusinessController.showCustomer);
 // router.get('/', EmployBusinessController.show404);
 /* Business Employ End*/
 
