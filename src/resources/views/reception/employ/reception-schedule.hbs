@@ -1,3 +1,8 @@
+<style>
+	.verticalLine {
+		border-left: 1px solid rgba(104, 104, 104, 0.774);
+	}
+</style>
 <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
 	<div class="title">
 
@@ -12,60 +17,89 @@
 	<div id="alert-message" class="alert alert-{{message.color}}" role="alert">
 		{{message.content}}
 	</div>
-	<div class="container-table">
-		<table id="customer_table" class="table table-hover table-bordered table-sm">
-			<thead class="table-info">
-				<tr>
-					<th class="text-center" scope="col">#</th>
-					<th class="text-center" scope="col">Khách hàng</th>
-					<th class="text-center" scope="col">Ngày hẹn</th>
-					<th class="text-center" scope="col">Người tạo</th>
-					<th class="text-center" scope="col">Trạng thái</th>
-					<th class="text-center" scope="col">Dịch vụ</th>
-			</thead>
-			<tbody id="table-content">
-				{{#each serviceNotes}}
-				<tr>
-					<th class="text-center" scope="row">{{sum @index 1}}</th>
-					<td class="text-center">
-						<a href="" data-bs-toggle="modal" data-bs-target="#add-performer-modal" data-id="{{this._id}}"
-							{{#each this.customer}} data-customerID="{{this.customerID}}" data-name="{{this.name}}"
-							data-birth="{{this.birth}}" data-gender="{{this.gender}}" data-email="{{this.email}}"
-							data-phone="{{this.phone}}" data-address="{{this.address}}" {{/each}}
-							data-createName="{{this.createName}}" data-service="{{this.service}}"
-							data-schedule="{{this.schedule}}" {{#each comments}} data-comment="{{this.comment}}"
-							{{/each}}>
-							{{#each this.customer}}
-							{{this.name}}
-							{{/each}}
-
-						</a>
-					</td>
-					</td>
-					<td class="text-center">{{formatDate this.schedule}}</td>
-					<td class="text-center">{{this.createName}}</td>
-					<td class="text-center">{{this.status}}</td>
-					<td class="text-center">{{this.service}}</td>
-				</tr>
-				{{/each}}
-			</tbody>
-		</table>
-	</div>
-	<div class="container-card">
-		{{#each customers}}
-		<div class="card text-dark bg-info mb-3">
-			<div class="card-header">
-				<h5 class="card-title">{{this.firstName}} {{this.lastName}}</h5>
+	{{#each serviceNotes}}
+	<div class="row ml-2 mr-2" id="service-note-render-form" data-bs-toggle="modal"
+		data-bs-target="#detail-service-note-modal" data-detail-first-name="{{this.customerID.firstName}}"
+		data-detail-last-name="{{this.customerID.lastName}}" data-detail-status="{{this.status}}"
+		data-detail-schedule="{{formatDate this.schedule}}" data-detail-service="{{this.service}}"
+		data-detail-price="{{this.price}}"
+		data-detail-create-name="{{this.createName.firstName}}{{this.createName.lastName}}"
+		data-detail-recept="{{this.recept}}" data-detail-performer="{{this.performer}}">
+		<div class="shadow-lg p-3 mb-5 bg-body rounded">
+			<div class="row">
+				<div class="col-md-6">
+					<h5>
+						<em>
+							<strong>
+								<label name="schedule" class="form-label text-success">{{formatDate
+									this.schedule}}</label>
+							</strong>
+						</em>
+					</h5>
+				</div>
+				<div class="col-md-6">
+					<strong name="status" class="form-label text-danger">{{this.status}}</strong>
+				</div>
 			</div>
-			<div class="card-body">
-				<p class="card-text">Ngày sinh: {{this.birth}}</p>
-				<p class="card-text">Giới tính: {{this.gender}}</p>
-				<p class="card-text">Email: {{this.email}}</p>
-				<p class="card-text">Địa chỉ: {{this.address}}</p>
+
+			<hr>
+
+			<div class="row">
+				<div class="col-md-6">
+					<strong>
+						<label class="form-label">Khách hàng: </label>
+					</strong>
+				</div>
+				<div class="col-md-6">
+					<em>
+						<label class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
+							{{this.customerID.lastName}}</label>
+					</em>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<strong>
+						<label class="form-label">Dịch vụ: </label>
+					</strong>
+
+				</div>
+				<div class="col-md-6">
+					<em>
+						<label class="form-label">{{this.service}}</label>
+					</em>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<strong>
+						<label class="form-label">Thành giá: </label>
+					</strong>
+
+				</div>
+				<div class="col-md-6">
+					<em>
+						<label class="form-label">{{this.price}}VND</label>
+					</em>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+					data-bs-target="#add-performer-modal" data-id="{{this._id}}"
+					data-customerID="{{this.customerID._id}}"
+					data-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
+					data-birth="{{this.customerID.birth}}" data-gender="{{this.customerID.gender}}"
+					data-email="{{this.customerID.email}}" data-phone="{{this.customerID.phone}}"
+					data-address="{{this.customerID.address}}"
+					data-createName="{{this.createName.firstName}} {{this.createName.lastName}}"
+					data-service="{{this.service}}" data-schedule="{{formatDate this.schedule}}" {{#each comments}}
+					data-comment="{{this.comment}}" {{/each}}>Đặt bác sĩ</button>
 			</div>
 		</div>
-		{{/each}}
 	</div>
+	{{/each}}
 </div>
 
 
@@ -82,66 +116,149 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-					<li class="nav-item" role="presentation">
-						<button class="nav-link active" id="pills-profile-customer-tab" data-bs-toggle="pill"
-							data-bs-target="#pills-profile-customer" type="button" role="tab" aria-controls="pills-home"
-							aria-selected="true">Thông tin khách hàng</button>
-					</li>
-					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
-							data-bs-target="#pills-service" type="button" role="tab" aria-controls="pills-profile"
-							aria-selected="false">Thông tin dịch vụ</button>
-					</li>
-				</ul>
-				<form method="POST" id="add-performer-form">
-					<div class="tab-content" id="pills-tabContent">
-						<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
-							aria-labelledby="pills-home-tab">
-							<ul class="list-group">
-								<li class="list-group-item">
-									<input hidden type="text" class="form-control" id="customerID" name="customerID"
-										readonly>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="add-performer-firstLastName"
-											name="name" readonly>
-										<label for="name">Họ tên</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="date" class="form-control" id="add-performer-birth" name="birth"
-											readonly>
-										<label for="birth">Ngày sinh</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="add-performer-gender" name="gender"
-											readonly>
-										<label for="gender">Giới tính</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="email" class="form-control" id="add-performer-email" name="email"
-											readonly>
-										<label for="email">Email address</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="number" class="form-control" id="add-performer-phone" name="phone"
-											readonly>
-										<label for="phone">Số điện thoại</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="add-performer-address"
-											name="address" readonly>
-										<label for="address">Địa chỉ</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="add-performer-createName"
-											name="createName" readonly>
-										<label for="address">Người tạo</label>
-									</div>
-								</li>
-							</ul>
+				<form method="POST" id="add-performer-form"></form>
+
+					<div class=" mb-3 row">
+						<div class="col-sm-6">
+							<strong>
+								<label for="name">Lễ tân:</label>
+							</strong>
 						</div>
-						<div class="tab-pane fade" id="pills-service" role="tabpanel"
-							aria-labelledby="pills-profile-tab">
+						<div class="col-sm-6 text-right">
+							<em>
+								{{!-- <input hidden type="text" name="name" id="create-service-note-name-input">
+								--}}
+								<label class="text-uppercase text-danger" name="name"
+									readonly> {{recept.firstName}} {{recept.lastName}}</label>
+							</em>
+						</div>
+					</div>
+						<hr>
+
+					<div class="row">
+
+						<div class="col-md-6">
+							<div class=" mb-3 row">
+								<div class="col-sm-6">
+									<strong>
+										<label for="name">Họ tên:</label>
+									</strong>
+								</div>
+								<div class="col-sm-6 text-right">
+									<em>
+										{{!-- <input hidden type="text" name="name" id="create-service-note-name-input">
+										--}}
+										<label class="text-uppercase text-danger" id="add-performer-firstLastName"
+											name="name" readonly>
+									</em>
+								</div>
+							</div>
+
+							<hr>
+
+							<div class=" mb-3 row">
+								<div class="col-sm-6">
+									<strong>
+										<label for="birth">Ngày sinh:</label>
+									</strong>
+								</div>
+								<div class="col-sm-6 text-right">
+									<em>
+										{{!-- <input hidden type="text" name="birth"
+											id="create-service-note-birth-input"> --}}
+										<label id="add-performer-birth" name="birth" readonly></label>
+									</em>
+								</div>
+							</div>
+
+							<div class=" mb-3 row">
+								<div class="col-sm-6">
+									<strong>
+										<label for="gender">Giới tính:</label>
+									</strong>
+								</div>
+								<div class="col-sm-6 text-right">
+									<em>
+										{{!-- <input hidden type="text" name="gender"
+											id="create-service-note-gender-input"> --}}
+										<label id="add-performer-gender" name="gender" readonly></label>
+									</em>
+								</div>
+							</div>
+
+							<div class=" mb-3 row">
+								<div class="col-sm-6">
+									<strong>
+										<label for="email">Email address:</label>
+									</strong>
+								</div>
+								<div class="col-sm-6 text-right">
+									<em>
+										{{!-- <input hidden type="text" name="email"
+											id="create-service-note-email-input"> --}}
+										<label id="add-performer-email" name="email" readonly></label>
+									</em>
+								</div>
+							</div>
+
+							<div class=" mb-3 row">
+								<div class="col-sm-6">
+									<strong>
+										<label for="phone">Số điện thoại:</label>
+									</strong>
+								</div>
+								<div class="col-sm-6 text-right">
+									<em>
+										{{!-- <input hidden type="text" name="phone"
+											id="create-service-note-phone-input"> --}}
+										<label id="add-performer-phone" name="phone" readonly></label>
+									</em>
+								</div>
+							</div>
+
+							<div class=" mb-3 row">
+								<div class="col-sm-6">
+									<strong>
+										<label for="address">Địa chỉ:</label>
+									</strong>
+								</div>
+								<div class="col-sm-6 text-right">
+									<em>
+										{{!-- <input hidden type="text" name="address"
+											id="create-service-note-address-input"> --}}
+										<label id="add-performer-address" name="address" readonly></label>
+									</em>
+								</div>
+
+							</div>
+
+							<div class=" mb-3 row">
+								<div class="col-sm-6">
+									<strong>
+										<label for="createName">Người tạo:</label>
+									</strong>
+								</div>
+								<div class="col-sm-6 text-right">
+									<em>
+										<label id="add-performer-createName" readonly></label>
+									</em>
+								</div>
+							</div>
+
+							<div class=" mb-3 row">
+								<div class="col-sm-6">
+									<strong>
+										<label for="service">Dịch vụ:</label>
+									</strong>
+								</div>
+								<div class="col-sm-6 text-right">
+									<em>
+										<label id="add-performer-service" readonly></label>
+									</em>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 verticalLine">
 							<div class="mb-3">
 								<label for="performer" class="form-label">
 									<h6>Chọn bác sĩ</h6>
@@ -166,8 +283,8 @@
 								<div hidden id="receive-nursing">
 
 								</div>
-								<select id="select-nursing" class="chosen-select" multiple tabindex="6"
-									name="nursing[]" onchange="getValueSelect1(this)">
+								<select id="select-nursing" class="chosen-select" multiple tabindex="6" name="nursing[]"
+									onchange="getValueSelect1(this)">
 									{{#each user1s}}
 									<option data-userID="{{this._id}}" value="{{this.firstName}} {{this.lastName}}">
 										{{this.firstName}}
@@ -177,18 +294,10 @@
 								</select>
 							</div>
 							<div class="mb-3">
-								<label for="service" class="form-label">
-									<h6>Dịch vụ</h6>
-								</label>
-								<input type="text" class="form-control" id="add-performer-service" name="service"
-									readonly>
-							</div>
-							<div class="mb-3">
 								<label for="gender" class="form-label">
 									<h6>Ngày hẹn</h6>
 								</label>
-								<input type="text" class="form-control" id="add-performer-schedule" name="schedule"
-									readonly>
+								<input type="text" class="form-control" id="add-performer-schedule" name="schedule">
 							</div>
 
 							<div class="mb-3">
@@ -200,7 +309,6 @@
 							</div>
 						</div>
 					</div>
-				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
@@ -210,7 +318,129 @@
 	</div>
 </div>
 
+{{!-- detail-service-note-modal --}}
+<div class="modal fade" id="detail-service-note-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<h5 class="modal-title" id="exampleModalLabel">Chi tiết phiếu dịch vụ</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="shadow-lg p-3 mb-5 bg-body rounded">
+					<div class="row">
+						<div class="col-md-6">
+							<strong id="detail-service-note-status" class="form-label text-danger"></strong>
+						</div>
 
+						<div class="col-md-6">
+							<h5>
+								<em>
+									<strong>
+										<label id="detail-service-note-schedule"
+											class="form-label text-success"></label>
+									</strong>
+								</em>
+							</h5>
+						</div>
+					</div>
+
+					<hr>
+
+					<div class="row mt-3">
+						<div class="col-md-6">
+							<strong>
+								<label class="form-label">Khách hàng: </label>
+							</strong>
+						</div>
+						<div class="col-md-6">
+							<em>
+								<label id="detail-service-note-name"
+									class="text-primary form-label text-uppercase"></label>
+							</em>
+						</div>
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-md-6">
+							<strong>
+								<label class="form-label">Dịch vụ: </label>
+							</strong>
+
+						</div>
+						<div class="col-md-6">
+							<em>
+								<label id="detail-service-note-service" class="form-label"></label>
+							</em>
+						</div>
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-md-6">
+							<strong>
+								<label class="form-label">Thành giá: </label>
+							</strong>
+
+						</div>
+						<div class="col-md-6">
+							<em>
+								<label id="detail-service-note-price" class="form-label"></label>
+							</em>
+						</div>
+					</div>
+
+					<hr>
+
+					<div class="row mt-3">
+						<div class="col-md-6">
+							<strong>
+								<label class="form-label">Nhân viên tạo: </label>
+							</strong>
+
+						</div>
+						<div class="col-md-6">
+							<em>
+								<label id="detail-service-note-createName" class="form-label"></label>
+							</em>
+						</div>
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-md-6">
+							<strong>
+								<label class="form-label">Lễ tân:</label>
+							</strong>
+
+						</div>
+						<div class="col-md-6">
+							<em>
+								<label id="detail-service-note-reception" class="form-label"></label>
+							</em>
+						</div>
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-md-6">
+							<strong>
+								<label class="form-label">Bác sĩ: </label>
+							</strong>
+
+						</div>
+						<div class="col-md-6">
+							<em>
+								<label id="detail-service-note-doctor" class="form-label"></label>
+							</em>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 <script src="/js/reception/reception-service-note.js"></script>

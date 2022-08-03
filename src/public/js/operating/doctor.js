@@ -12,5 +12,5 @@ subDoctorModal.addEventListener('show.bs.modal', function(event){
 
     var id = button.getAttribute("data-id")
 
-    subDoctorForm.setAttribute('action', `/operating/doctor/service-note/${id}?_method=PUT`)
+    subDoctorForm.setAttribute('action', `/operating/doctor/service-note/${id}?_method=PATCH`)
 })

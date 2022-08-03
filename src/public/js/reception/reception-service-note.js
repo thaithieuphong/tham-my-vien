@@ -8,7 +8,7 @@ pushPerformerBtn.addEventListener("click", () => {
 })
 
 
-function getValueSelect(obj){
+function getValueSelect(obj) {
 	// Lấy danh sách các options
 	var options = obj.children;
 
@@ -16,13 +16,13 @@ function getValueSelect(obj){
 	var html = '';
 
 	//Array userID
-	var doctorIDs = []; 
+	var doctorIDs = [];
 
 	// lặp qua từng option và kiểm tra thuộc tính selected
-	for (var i = 0; i < options.length; i++){
-		if (options[i].selected){
-			html += '<input class="user-busy" name="userid[]" value="' + options[i].getAttribute("data-userID") +'">' ;
-			
+	for (var i = 0; i < options.length; i++) {
+		if (options[i].selected) {
+			html += '<input class="user-busy" name="operatingID[]" value="' + options[i].getAttribute("data-userID") + '">';
+
 			document.getElementById("receive-performer").innerHTML = html;
 		}
 	}
@@ -31,7 +31,7 @@ function getValueSelect(obj){
 	// selectDoctor.setAttribute('value', `${doctorIDs}`);
 }
 
-function getValueSelect1(obj){
+function getValueSelect1(obj) {
 	// Lấy danh sách các options
 	var options = obj.children;
 
@@ -39,13 +39,13 @@ function getValueSelect1(obj){
 	var html = '';
 
 	//Array userID
-	var nursingIDs = []; 
+	var nursingIDs = [];
 
 	// lặp qua từng option và kiểm tra thuộc tính selected
-	for (var i = 0; i < options.length; i++){
-		if (options[i].selected){
-			html += '<input class="user-busy" name="userid[]" value="' + options[i].getAttribute("data-userID") +'">' ;
-			
+	for (var i = 0; i < options.length; i++) {
+		if (options[i].selected) {
+			html += '<input class="user-busy" name="operatingID[]" value="' + options[i].getAttribute("data-userID") + '">';
+
 			document.getElementById("receive-nursing").innerHTML = html;
 
 		}
@@ -58,6 +58,7 @@ performerModal.addEventListener("show.bs.modal", function (event) {
 	var button = event.relatedTarget;
 	// Get data from edit button
 	var id = button.getAttribute("data-id");
+	var customerID = button.getAttribute("data-customerID");
 	var name = button.getAttribute("data-name");
 	var birth = button.getAttribute("data-birth");
 	var gender = button.getAttribute("data-gender");
@@ -70,6 +71,7 @@ performerModal.addEventListener("show.bs.modal", function (event) {
 	var comment = button.getAttribute("data-comment");
 
 	// Get element need embeded input
+	// var modalCustomerID = document.getElementById("customerID");
 	var modalName = document.getElementById("add-performer-firstLastName");
 	var modalBirth = document.getElementById("add-performer-birth");
 	var modalGender = document.getElementById("add-performer-gender");
@@ -81,29 +83,67 @@ performerModal.addEventListener("show.bs.modal", function (event) {
 	var modalSchedule = document.getElementById("add-performer-schedule");
 	var modalComment = document.getElementById("add-performer-comment");
 
-	performerForm.setAttribute('action', `/reception/employ/service-note/${id}?_method=DELETE`);
+	performerForm.setAttribute('action', `/reception/employ/service-note/${id}?_method=PATCH`);
 
 	// userStateForm.setAttribute('action', `/reception/employ/service-note/${id}?_method=PATCH`)
-
-	modalName.value = name;
-	modalBirth.value = birth;
-	modalGender.value = gender;
-	modalEmail.value = email;
-	modalPhone.value = phone;
-	modalAddress.value = address;
-	modalCreateName.value = createName;
-	modalService.value = service;
+	// modalCustomerID.value = customerID;
+	modalName.innerHTML = name;
+	modalBirth.innerHTML = birth;
+	modalGender.innerHTML = gender;
+	modalEmail.innerHTML = email;
+	modalPhone.innerHTML = phone;
+	modalAddress.innerHTML = address;
+	modalCreateName.innerHTML = createName;
+	modalService.innerHTML = service;
 	modalSchedule.value = schedule;
-	modalComment.value = comment;
+	modalComment.innerHTML = comment;
 
 
-	
+
 	// var userID = document.getElementById("get-userID");
 	// var getUserID = userID.getAttribute("data-userID");
 	// var inpUserID = document.getElementById("input-userid");
 })
 
+//Detail service note
 
+var detailServiceNoteModal = document.getElementById("detail-service-note-modal");
+detailServiceNoteModal.addEventListener("show.bs.modal", function (event) {
+
+	var button = event.relatedTarget;
+
+	var dataFirstName = button.getAttribute("data-detail-first-name");
+	var dataLastName = button.getAttribute("data-detail-last-name");
+	var dataStatus = button.getAttribute("data-detail-status");
+	var dataSchedule = button.getAttribute("data-detail-schedule");
+	var dataService = button.getAttribute("data-detail-service");
+	var dataPrice = button.getAttribute("data-detail-price");
+	var dataCreateName = button.getAttribute("data-detail-create-name");
+	var dataRecept = button.getAttribute("data-detail-recept");
+	var dataPerformer = button.getAttribute("data-detail-performer");
+
+
+	var name = document.getElementById("detail-service-note-name");
+	var status = document.getElementById("detail-service-note-status");
+	var schedule = document.getElementById("detail-service-note-schedule");
+	var service = document.getElementById("detail-service-note-service");
+	var price = document.getElementById("detail-service-note-price");
+	var createName = document.getElementById("detail-service-note-createName");
+	var recept = document.getElementById("detail-service-note-reception");
+	var performer = document.getElementById("detail-service-note-doctor");
+
+	name.innerHTML = dataFirstName + " " + dataLastName;
+	status.innerHTML = dataStatus;
+	schedule.innerHTML = dataSchedule
+	service.innerHTML = dataService;
+	price.innerHTML = dataPrice + ' VND';
+	createName.innerHTML = dataCreateName;
+	recept.innerHTML = dataRecept;
+	performer.innerHTML = dataPerformer;
+
+
+})
+//END Detail service note
 
 
 

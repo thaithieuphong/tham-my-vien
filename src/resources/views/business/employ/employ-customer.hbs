@@ -1,8 +1,8 @@
 <style>
-		div.preview-images-counselor>img {
-			width: 30%;
-		}
-	</style>
+	div.preview-images-counselor>img {
+		width: 30%;
+	}
+</style>
 
 
 <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
@@ -73,6 +73,7 @@
 								<hr class="dropdown-divider">
 								<li>
 									<a class="dropdown-item" data-bs-toggle="modal" data-service-note-id="{{this._id}}"
+										data-service-note-img="{{this.image.name}}"
 										data-service-note-firstname="{{this.firstName}}"
 										data-service-note-lastname="{{this.lastName}}"
 										data-service-note-birth="{{this.birth}}"
@@ -197,6 +198,9 @@
 								</div>
 								<div class="row mt-3">
 									<div class="col-md-12 mb-3">
+										{{!-- <input type="text"
+											value="{{user.firstName}}{{user.lastName}}({{user.department}}) abc123"
+											name="userName" id="create-user-name"> --}}
 										<label for="create-description" class="form-label">
 											<h6>Mô tả</h6>
 										</label>
@@ -354,41 +358,129 @@
 								<li class="list-group-item">
 									<input hidden type="text" class="form-control" id="create-service-note-customerID"
 										name="customerID" readonly>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="create-service-note-firstLastName"
-											name="name" readonly>
-										<label for="name">Họ tên:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="date" class="form-control" id="create-service-note-birth"
-											name="birth" readonly>
-										<label for="birth">Ngày sinh:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="create-service-note-gender"
-											name="gender" readonly>
-										<label for="gender">Giới tính:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="email" class="form-control" id="create-service-note-email"
-											name="email" readonly>
-										<label for="email">Email address:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="number" class="form-control" id="create-service-note-phone"
-											name="phone" readonly>
-										<label for="phone">Số điện thoại:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="create-service-note-address"
-											name="address" readonly>
-										<label for="address">Địa chỉ:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" value="{{user.firstName}}{{user.lastName}}"
-											class="form-control" id="create-service-note-createName" name="createName"
-											readonly>
-										<label for="createName">Người tạo</label>
+
+
+									<div class="row">
+
+										<div class="col-md-6 ">
+											<img src="/img/user-icon.png" id="create-service-note-img"
+												class="rounded mx-auto d-block add-avata" alt="...">
+											<div class="mt-4">
+												<textarea id="create-service-note-description" class="form-control mb-2"
+													rows="6" style="background-color: white;" name="description" disabled></textarea>
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="name">Họ tên:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="name" id="create-service-note-name-input"> --}}
+														<label class="text-uppercase text-danger"
+															id="create-service-note-firstLastName" name="name" readonly>
+													</em>
+												</div>
+											</div>
+
+											<hr>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="birth">Ngày sinh:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="birth" id="create-service-note-birth-input"> --}}
+														<label id="create-service-note-birth" name="birth"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="gender">Giới tính:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="gender" id="create-service-note-gender-input"> --}}
+														<label id="create-service-note-gender" name="gender"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="email">Email address:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="email" id="create-service-note-email-input"> --}}
+														<label id="create-service-note-email" name="email"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="phone">Số điện thoại:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="phone" id="create-service-note-phone-input"> --}}
+														<label id="create-service-note-phone" name="phone"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="address">Địa chỉ:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="address" id="create-service-note-address-input"> --}}
+														<label id="create-service-note-address" name="address"
+															readonly></label>
+													</em>
+												</div>
+
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="createName">Người tạo:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														<input hidden type="text" value="{{user._id}}" name="createName" id="">
+														<label id="create-service-note-createName" 
+															readonly>{{user.firstName}}{{user.lastName}}</label>
+													</em>
+												</div>
+											</div>
+										</div>
+
 									</div>
 								</li>
 							</ul>
@@ -439,14 +531,14 @@
 								</div>
 								<div class="col-md-6">
 									{{!-- Upload multiple img --}}
-								<form method="POST" class="row" enctype="multipart/form-data">
-									<input id="input-multi-files-counselor" class="form-control" type="file" name="counselor"
-										multiple>
-									<button type="submit">tair leen</button>
-								</form>
-								<div class="col-xl-9">
-									<div class="preview-images-counselor row"></div>
-								</div>
+									<form method="POST" class="row" enctype="multipart/form-data">
+										<input id="input-multi-files-counselor" class="form-control" type="file"
+											name="counselor" multiple>
+										<button type="submit">tair leen</button>
+									</form>
+									<div class="col-xl-9">
+										<div class="preview-images-counselor row"></div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -486,6 +578,6 @@
 		})
 
 
-		
+
 	});
 </script>

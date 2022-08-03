@@ -18,12 +18,12 @@ function route(app) {
   app.use("/marketing/manager", managerMarketingRouter);
   app.use("/marketing/employ",[authJwt.verifyToken, authJwt.isMarketingEmploy], employMarketingRouter);
   app.use("/reception/manager", managerReceptionRouter);
-  app.use("/reception/employ", employReceptionRouter);
+  app.use("/reception/employ", [authJwt.verifyToken, authJwt.isReceptionEmploy], employReceptionRouter);
   app.use("/operating/doctor", doctorOperatingRouter);
   app.use("/operating/nursing", nursingOperatingRouter);
   app.use("/human-resources/manager", [authJwt.verifyToken, authJwt.isHRManager], managerHRRouter);
   app.use("/human-resources/employ", employHRRouter);
-  app.use("/business/manager", managerBusinessRouter);
+  app.use("/business/manager", [authJwt.verifyToken, authJwt.isBusinessManager], managerBusinessRouter);
   app.use("/business/employ", [authJwt.verifyToken, authJwt.isBusinessEmploy], employBusinessRouter);
   app.use("/", signinRouter);
 }

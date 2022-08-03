@@ -10,57 +10,42 @@ const ServiceNote = new Schema({
 			ref: "Customer"
 		},
 
-	customer: [
-		{
-			type: new mongoose.Schema(
-				{
-					name: String,
-					birth: String,
-					gender: String,
-					email: String,
-					phone: Number,
-					address: String,
-				},
-				{ timestamps: true }
-			),
-			ref: "Customer"
-		}
-	],
-
-	createName: [
+	createName: 
 		{
 			type: String,
 			ref: "User"
-		}
-	],
+		},
 
 	performer: [
 		{
-			type: String,
-			ref: "User"
+			performerID: {
+				type: String,
+				ref: "User"
+			}
 		}
 	],
 
 	nursing: [
 		{
-			type: String,
-			ref: "User"
+			nursingID: {
+				type: String,
+				ref: "User"
+			}
 		}
 	],
 
-	recept: [
+	recept: 
 		{
 			type: String,
 			ref: "User"
-		}
-	],
+		},
 
-	status: [
+	status: 
 		{
 			type: String,
 			ref: "Status"
-		}
-	],
+		},
+		
 	service: [
 		{
 			type: String,

@@ -37,16 +37,18 @@ class EmployBusinessController {
 
 	/** Customer */
 	showCustomer(req, res, next) {
-		Promise.all([User.findById({ _id: req.userId }), Customer.find({}), TypeService.find({})])
-			.then(([user, customers, typeservices]) => {
+		Promise.all([Customer.find({userID: req.userId}), User.findById({ _id: req.userId }),
+		TypeService.find({})])
+			.then(([customers, user, typeservices]) => {
 				res.render("business/employ/employ-customer", {
-					user: mongooseToObject(user),
 					customers: multipleMongooseToObject(customers),
+					user: mongooseToObject(user),
 					typeservices: multipleMongooseToObject(typeservices),
 					title: 'Quản lý khách hàng'
 				});
 			})
 			.catch(next);
+		// res.json(req.firstName);
 	}
 
 	createCustomer(req, res, next) {
@@ -172,7 +174,7 @@ class EmployBusinessController {
 	}
 
 	showServiceNote(req, res, next) {
-		ServiceNote.find({})
+		ServiceNote.find({createName: req.userId}).sort({shedule:1}).populate('customerID').populate('createName')
 			.then(serviceNotes => {
 				res.render('business/employ/employ-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
@@ -180,19 +182,12 @@ class EmployBusinessController {
 				});
 			})
 			.catch(next);
+		// res.json(req.userId)
 	}
 
 	createServiceNote(req, res, next) {
 		const serviceNote = new ServiceNote({
-			customer: {
-				name: req.body.name,
-				birth: req.body.birth,
-				gender: req.body.gender,
-				email: req.body.email,
-				phone: req.body.phone,
-				address: req.body.address
-			},
-
+			customerID: req.body.customerID,
 			performer: req.body.performer,
 			createName: req.body.createName,
 			status: "Tạo mới",

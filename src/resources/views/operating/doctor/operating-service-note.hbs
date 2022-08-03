@@ -1,8 +1,8 @@
 <style>
-		div.preview-images>img {
-			width: 30%;
-		}
-	</style>
+	div.preview-images>img {
+		width: 30%;
+	}
+</style>
 <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
 	<div class="title">
 
@@ -19,28 +19,45 @@
 	</div>
 	<div class="shadow p-3 mb-5 bg-body rounded">
 		{{#each serviceNotes}}
-		<form id="submit-doctor-form">
+		<div class="row">
 
-			<div class="row">
-				{{#each this.customer}}
-				<h3 class="text-center">{{this.name}}</h3>
-				{{/each}}
-			</div>
-			<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link active btn-light" id="pills-profile-customer-tab" data-bs-toggle="pill"
-						data-bs-target="#pills-profile-customer" type="button" role="tab" aria-controls="pills-home"
-						aria-selected="true">Thông tinh</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link  btn-light" id="pills-profile-tab" data-bs-toggle="pill"
-						data-bs-target="#pills-service" type="button" role="tab" aria-controls="pills-profile"
-						aria-selected="false">Dịch vụ</button>
-				</li>
-			</ul>
+			<h5 class="text-uppercase text-center">
+				<strong>Phiếu thực hiện</strong>
+			</h5>
+		</div>
+
+		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active btn-light" id="pills-profile-customer-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-profile-customer" type="button" role="tab" aria-controls="pills-home"
+					aria-selected="true">Thông tinh</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link  btn-light" id="pills-profile-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-service" type="button" role="tab" aria-controls="pills-profile"
+					aria-selected="false">Dịch vụ</button>
+			</li>
+		</ul>
+		<form method="POST" id="submit-doctor-form" >
+		</form>
+
 			<div class="tab-content" id="pills-tabContent">
 
-
+				<div class="row">
+					<div class="col-md-6">
+						<label class="ml-4 text-success">
+							<strong> Khách hàng: </strong>&nbsp;&nbsp;
+						</label>
+						<label for="">
+							{{this.customerID.firstName}}{{this.customerID.lastName}}
+						</label>
+					</div>
+					<div class="col-md-6">
+						<div class="text-right text-success mt-3">
+							<label class=" mr-4"><em>{{formatDate this.schedule}}</em></label>
+						</div>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-6">
 						<div class="text-left ml-4">
@@ -48,7 +65,7 @@
 								<strong>Reception:</strong>&nbsp;&nbsp;
 							</label>
 							<label for="service-name">
-								<em>{{this.reception}}</em>
+								<em>{{this.recept.firstName}}{{this.recept.lastName}}</em>
 							</label>
 						</div>
 					</div>
@@ -58,56 +75,97 @@
 							<label for="status">
 								<strong>Trạng thái:</strong>&nbsp;&nbsp;
 							</label>
-							<label for="status">
+							<label class="text-danger">
 								<em>{{this.status}}</em>
 							</label>
 						</div>
 					</div>
 				</div>
 				<hr>
+
+
+
 				<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
 					aria-labelledby="pills-home-tab">
-					<div class="row">
-						<div class="col-md-6 text-left">
-							<div class="service mt-3 ">
-								<label class=" ml-4"><strong>Dịch vụ:</strong></label>
-							</div>
-							<div class="service mt-3">
-								<label class=" ml-4"><strong>Lịch hẹn:</strong></label>
-							</div>
-							<div class="service mt-3">
-								<label class=" ml-4"><strong>Bác sĩ:</strong></label>
-							</div>
-							<div class="service mt-3">
-								<label class=" ml-4"><strong>Y tá:</strong></label>
-							</div>
-							<div class="service mt-3">
-								<label class=" ml-4"><strong>Ghi chú:</strong></label>
+					<div class="row mt-4">
+						<div class="col-md-6">
+							<div class="text-left ml-4">
+								<label for="service">
+									<strong>Dịch vụ: </strong>
+								</label>
+
 							</div>
 						</div>
 
-						<div class="col-md-6 text-right">
-							<div class="service mt-3">
-								{{#each services}}
-								<label class=" mr-4"><em>{{this.service}}</em></label>
-								{{/each}}
+						<div class="col-md-6">
+							<div class="text-right mr-4">
+
+								<label for="service-name">
+									<em>{{this.service}}</em>
+								</label>
 							</div>
-							<div class="service mt-3">
-								<label class=" mr-4"><em>{{formatDate this.schedule}}</em></label>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-md-6">
+							<div class="text-left ml-4">
+								<label for="status">
+									<strong>Bác sĩ: </strong>
+								</label>
 							</div>
-							<div class="service mt-3">
-								<label class=" mr-4"><em>{{this.performer}}1</em></label>
+						</div>
+
+						<div class="col-md-6">
+							<div class="text-right mr-4">
+
+								<label class="text-primary">
+									<em>{{this.performer}}</em>
+								</label>
 							</div>
-							<div class="service mt-3">
-								<label class=" mr-4"><em>{{this.nursing}}</em></label>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-md-6">
+							<div class="text-left ml-4">
+								<label for="service">
+									<strong>Y tá:</strong>
+								</label>
 							</div>
-							<div class="service mt-3">
+						</div>
+
+						<div class="col-md-6">
+							<div class="text-right mr-4">
+
+								<label class="text-primary">
+									<em>{{this.nursing}}</em>
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-md-6">
+							<div class="text-left ml-4">
+								<label for="service">
+									<strong>Ghi chú:</strong>
+								</label>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="text-right mr-4">
 								{{#each comments}}
-								<label class=" mr-4"><em>{{this.comment}}</em></label>
+								<label class="">
+									<em>{{this.comment}}</em>
+								</label>
+								{{else}}
+								<label class="">
+									<em>Không có ghi chú</em>
+								</label>
 								{{/each}}
 							</div>
 						</div>
 					</div>
+
 				</div>
 				<div class="tab-pane fade  " id="pills-service" role="tabpanel" aria-labelledby="pills-profile-tab">
 					<div class="row">
@@ -116,35 +174,7 @@
 								<label class=" ml-4"><strong>Dịch vụ:</strong></label>
 							</div>
 						</div>
-						<div class="col-md-9 row">
 
-							<div class="col-md-6 text-left">
-								Trước:
-								{{!-- Upload multiple img --}}
-								<form method="POST" class="row" enctype="multipart/form-data">
-									<input id="input-multi-files-before" class="form-control" type="file" name="counselor"
-										multiple>
-									<button type="submit">tair leen</button>
-								</form>
-								<div class="col-xl-9">
-									<div class="preview-images-before row"></div>
-								</div>
-
-							</div>
-
-							<div class="col-md-6 text-left">
-								Sau:
-								{{!-- Upload multiple img --}}
-								<form method="POST" class="row" enctype="multipart/form-data">
-									<input id="input-multi-files-after" class="form-control" type="file" name="counselor"
-										multiple>
-									<button type="submit">tair leen</button>
-								</form>
-								<div class="col-xl-9">
-									<div class="preview-images-after row"></div>
-								</div>
-							</div>
-						</div>
 					</div>
 					{{#each services}}
 					<div class="row">
@@ -156,7 +186,7 @@
 
 						<div class="col-md-9 row">
 
-							
+
 						</div>
 					</div>
 					{{/each }}
@@ -165,19 +195,27 @@
 			<hr>
 			<div class="row">
 				<div class="col-md-6">
-
+					<div class="text-left ml-4">
+						<label for="service">
+							<strong>Tổng cộng:</strong>&nbsp;&nbsp;
+						</label>
+						<label for="">
+							<em>
+								{{this.price}} VND
+							</em>
+						</label>
+					</div>
 				</div>
 
 				<div class="col-md-6 text-right">
 
 					<button type="button" data-bs-toggle="modal" data-bs-target="#submit-doctor-modal"
-						class="btn btn-success" data-id="{{this._id}}">Lưu thay đổi</button>
+						class="btn btn-success" data-id="{{this._id}}">Hoàn thành</button>
 				</div>
 			</div>
 			{{else}}
 			<div class="text-center">Chưa có dịch vụ cần thực hiện.</div>
 			{{/each }}
-		</form>
 
 
 	</div>
@@ -186,14 +224,14 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Hoàn thành</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					Bạn có đồng ý xóa vĩnh viễn không?
+					Đẫ hoàn thành dịch vụ
 				</div>
 				<div class="modal-footer">
-					<button id="submit-form-doctor-btn" type="button" class="btn btn-danger">Có, chắc chắn</button>
+					<button id="submit-form-doctor-btn" type="button" class="btn btn-danger">Đã hoàn thành</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
 				</div>
 			</div>
@@ -201,6 +239,7 @@
 	</div>
 </div>
 <script src="/js/operating/doctor.js"></script>
+{{!--
 <script>
 
 	document.addEventListener('DOMContentLoaded', function () {
@@ -246,4 +285,4 @@
 			console.log(e.target.files)
 		})
 	});
-</script>
+</script> --}}

@@ -1,10 +1,12 @@
 //CREATE: submit create customer forms
 // Handle create info Customer
 var createCustomer = document.getElementById("create-customer-btn");
+var createCustomerModal = document.getElementById("create-customer-modal");
 var createCustomerForm = document.forms["create-customer-form"];
 createCustomer.addEventListener("click", () => {
 	createCustomerForm.submit();
 });
+
 
 // Handle select image from modal create
 var addImg = document.getElementById("input-create-img");
@@ -92,6 +94,7 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	// Get data from detail button
 	// Handle edit info Customer
 	var dataServiceNoteID = button.getAttribute("data-service-note-id");
+	var dataServiceNoteImg = button.getAttribute("data-service-note-img");
 	var dataFirstName = button.getAttribute("data-service-note-firstname");
 	var dataLastName = button.getAttribute("data-service-note-lastname");
 	var dataBirth = button.getAttribute("data-service-note-birth");
@@ -99,9 +102,11 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	var dataPhone = button.getAttribute("data-service-note-phone");
 	var dataEmail = button.getAttribute("data-service-note-email");
 	var dataAddress = button.getAttribute("data-service-note-address");
+	var dataDescription = button.getAttribute("data-service-note-description");
 
 	// // Get element need embeded input
 	var serviceNoteCustomerID = document.getElementById('create-service-note-customerID');
+	var serviceNoteCustomerImg = document.getElementById('create-service-note-img');
 	var serviceNoteFirstLastName = document.getElementById(
 		"create-service-note-firstLastName"
 	);
@@ -112,18 +117,26 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	var serviceNoteAddress = document.getElementById(
 		"create-service-note-address"
 	);
+	var serviceNoteDescription = document.getElementById("create-service-note-description");
 
 	createServiceNoteForm.setAttribute(
 		"action",
 		`/business/employ/customers/${dataServiceNoteID}/service-note`
 	);
+	if (dataServiceNoteImg === '') {
+		serviceNoteCustomerImg.setAttribute('src', '/img/user-icon.png');
+	} else {
+		serviceNoteCustomerImg.setAttribute('src', '/img/uploads/customers/' + dataServiceNoteImg);
+	}
+
 	serviceNoteCustomerID.value = dataServiceNoteID;
-	serviceNoteFirstLastName.value = dataFirstName + " " + dataLastName;
-	serviceNoteBirth.value = dataBirth;
-	serviceNoteGender.value = dataGender;
-	serviceNotePhone.value = dataPhone;
-	serviceNoteEmail.value = dataEmail;
-	serviceNoteAddress.value = dataAddress;
+	serviceNoteFirstLastName.innerHTML = dataFirstName + " " + dataLastName;
+	serviceNoteBirth.innerHTML = dataBirth;
+	serviceNoteGender.innerHTML = dataGender;
+	serviceNotePhone.innerHTML = dataPhone;
+	serviceNoteEmail.innerHTML = dataEmail;
+	serviceNoteAddress.innerHTML = dataAddress;
+	serviceNoteDescription.innerHTML = dataDescription;
 });
 
 

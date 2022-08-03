@@ -22,17 +22,17 @@ class ManagerBusinessController {
 	}
 
 	showCustomer(req, res, next) {
-		Promise.all([Customer.find({ userID: null }), Customer1.find({ userID: { $exists: true } }).populate('userID'),
+		Promise.all([Customer.find({ userID: null }), User.findById({ _id: req.userId }), Customer1.find({ userID: { $exists: true } }).populate('userID'),
 		TypeService.find({}), User.find({ department: "Kinh doanh", position: "Nhân viên" })])
-			.then(([customers, customer1s, typeservices, users]) => {
+			.then(([customers, user, customer1s, typeservices, users]) => {
 				res.render("business/manager/manager-customer", {
 					customers: multipleMongooseToObject(customers),
+					user: mongooseToObject(user),
 					customer1s: multipleMongooseToObject(customer1s),
 					typeservices: multipleMongooseToObject(typeservices),
 					users: multipleMongooseToObject(users),
 					title: 'Quản lý khách hàng'
 				});
-				customer1s.forEach(element => console.log(element.userID));
 			})
 			.catch(next);
 	}
@@ -150,7 +150,7 @@ class ManagerBusinessController {
 	}
 
 	showServiceNote(req, res, next) {
-		ServiceNote.find({})
+		ServiceNote.find({}).sort({shedule:1}).populate('customerID').populate('createName')
 			.then(serviceNotes => {
 				res.render('business/manager/manager-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
@@ -161,28 +161,24 @@ class ManagerBusinessController {
 	}
 
 	createServiceNote(req, res, next) {
-		// const serviceNote = new ServiceNote({
-		// 	customer: {
-		// 		customerID: req.body.customerID,
-		// 		name: req.body.name,
-		// 		birth: req.body.birth,
-		// 		gender: req.body.gender,
-		// 		email: req.body.email,
-		// 		phone: req.body.phone,
-		// 		address: req.body.address
-		// 	},
+		const serviceNote = new ServiceNote({
+			customerID: req.body.customerID,
+			performer: req.body.performer,
+			createName: req.body.createName,
+			status: "Tạo mới",
+			service: req.body.service,
+			comments: { comment: req.body.comment },
+			schedule: req.body.schedule,
+			price: req.body.price,
+		});
+		serviceNote.save();
+		console.log(serviceNote.id);
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id } })
+			.then(() => {
+				res.redirect('back');
 
-		// 	performer: req.body.performer,
-		// 	createName: req.body.name,
-		// 	status: "Tạo mới",
-		// 	service: req.body.service,
-		// 	comments: { comment: req.body.comment },
-		// 	schedule: req.body.schedule,
-		// 	price: req.body.price,
-		// });
-		// serviceNote.save();
-		// res.redirect('back');
-		res.json(req.body);
+			})
+			.catch(next);
 	}
 
 	deleteServiceNote(req, res, next) {

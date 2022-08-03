@@ -17,7 +17,7 @@ router.post('/customers', validateUploadImage.uploadSingleCustomer, ManagerBusin
 router.get('/customers/:id/detail', ManagerBusinessController.showCustomerDetail)
 router.get('/service-note', ManagerBusinessController.showServiceNote);
 router.get('/customers', ManagerBusinessController.showCustomer);
-router.get('/', ManagerBusinessController.showDashboard);
+router.get('/', ManagerBusinessController.showCustomer);
 // router.get('/', ManagerBusinessController.show404);
 /* Business Manager End*/
 
