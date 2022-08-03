@@ -4,48 +4,44 @@ const mongooseDelete = require("mongoose-delete");
 
 const ServiceNote = new Schema({
 	name: String,
-	customerID: 
-		{
-			type: String,
-			ref: "Customer"
-		},
+	customerID:
+	{
+		type: String,
+		ref: "Customer"
+	},
 
-	createName: 
-		{
-			type: String,
-			ref: "User"
-		},
+	createName:
+	{
+		type: String,
+		ref: "User"
+	},
 
 	performer: [
 		{
-			performerID: {
-				type: String,
-				ref: "User"
-			}
+			type: String,
+			ref: "User"
 		}
 	],
 
 	nursing: [
 		{
-			nursingID: {
-				type: String,
-				ref: "User"
-			}
+			type: String,
+			ref: "User"
 		}
 	],
 
-	recept: 
-		{
-			type: String,
-			ref: "User"
-		},
+	recept:
+	{
+		type: String,
+		ref: "User"
+	},
 
-	status: 
-		{
-			type: String,
-			ref: "Status"
-		},
-		
+	status:
+	{
+		type: String,
+		ref: "Status"
+	},
+
 	service: [
 		{
 			type: String,

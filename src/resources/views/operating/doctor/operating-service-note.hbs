@@ -119,7 +119,9 @@
 							<div class="text-right mr-4">
 
 								<label class="text-primary">
-									<em>{{this.performer}}</em>
+									{{#each this.performer}}
+									<em>{{this.firstName}} {{this.lastName}};</em>
+									{{/each}}
 								</label>
 							</div>
 						</div>
@@ -137,7 +139,9 @@
 							<div class="text-right mr-4">
 
 								<label class="text-primary">
-									<em>{{this.nursing}}</em>
+									{{#each nursing}}
+									<em>{{this.firstName}} {{this.lastName}};</em>
+									{{/each}}
 								</label>
 							</div>
 						</div>

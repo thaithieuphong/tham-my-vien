@@ -116,7 +116,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form method="POST" id="add-performer-form"></form>
+				<form method="POST" id="add-performer-form">
 
 					<div class=" mb-3 row">
 						<div class="col-sm-6">
@@ -128,12 +128,12 @@
 							<em>
 								{{!-- <input hidden type="text" name="name" id="create-service-note-name-input">
 								--}}
-								<label class="text-uppercase text-danger" name="name"
-									readonly> {{recept.firstName}} {{recept.lastName}}</label>
+								<label class="text-uppercase text-danger" name="name" readonly> {{recept.firstName}}
+									{{recept.lastName}}</label>
 							</em>
 						</div>
 					</div>
-						<hr>
+					<hr>
 
 					<div class="row">
 
@@ -267,9 +267,9 @@
 
 								</div>
 								<select id="select-performer" class="chosen-select" multiple tabindex="6"
-									name="performer[]" onchange="getValueSelect(this)">
+									name="performer">
 									{{#each users}}
-									<option data-userID="{{this._id}}" value="{{this.firstName}} {{this.lastName}}">
+									<option value="{{this._id}}">
 										{{this.firstName}}
 										{{this.lastName}}</option>
 
@@ -283,10 +283,10 @@
 								<div hidden id="receive-nursing">
 
 								</div>
-								<select id="select-nursing" class="chosen-select" multiple tabindex="6" name="nursing[]"
-									onchange="getValueSelect1(this)">
+								<select id="select-nursing" class="chosen-select" multiple tabindex="6"
+									name="nursing[]">
 									{{#each user1s}}
-									<option data-userID="{{this._id}}" value="{{this.firstName}} {{this.lastName}}">
+									<option value="{{this._id}}">
 										{{this.firstName}}
 										{{this.lastName}}</option>
 
@@ -309,6 +309,7 @@
 							</div>
 						</div>
 					</div>
+				</form>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>

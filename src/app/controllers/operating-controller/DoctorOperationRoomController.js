@@ -5,8 +5,9 @@ const User = require('../../models/User')
 class DoctorOperationRoomController {
 	//doctor
 	showServiceNote(req, res, next) {
-		ServiceNote.findDeleted({ stored: "No" }).populate('recept').populate('customerID')
+		ServiceNote.findDeleted({ stored: "No" }).populate('recept').populate('customerID').populate('performer').populate('nursing')
 			.then((serviceNotes) => {
+				serviceNotes.forEach(element => console.log(element.performer))
 				res.render("operating/doctor/operating-service-note", {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
 					title: "Phiếu dịch vụ"
