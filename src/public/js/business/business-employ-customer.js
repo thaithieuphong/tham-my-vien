@@ -139,10 +139,51 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	serviceNoteDescription.innerHTML = dataDescription;
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+	let imagesPreviewConselor = function (input, placeToInsertImagePreview) {
+		console.log(input);
+		// console.log(input.files);
+		if (input.files) {
+			let filesAmount = input.files.length;
+			for (i = 0; i < filesAmount; i++) {
+				let reader = new FileReader();
+				reader.onload = function (event) {
+					$($.parseHTML("<img class='rounded'>"))
+						.attr("src", event.target.result)
+						.appendTo(placeToInsertImagePreview);
+				};
+				reader.readAsDataURL(input.files[i]);
+			}
+		}
+	};
+	var inputMultiImageConselor = document.getElementById('input-multi-images-counselor');
+	inputMultiImageConselor.addEventListener('change', (e) => {
+		imagesPreviewConselor(e.target, "div.preview-images-counselor");
+		console.log(e.target.files);
+	})
 
-
-//CREATE: submit create service note forms
-
+	let videosPreviewConselor = function (input, placeToInsertVideoPreview) {
+		console.log(input);
+		// console.log(input.files);
+		if (input.files) {
+			let filesAmount = input.files.length;
+			for (i = 0; i < filesAmount; i++) {
+				let reader = new FileReader();
+				reader.onload = function (event) {
+					$($.parseHTML("<video class='mt-3 mb-3'>"))
+						.attr("src", event.target.result)
+						.appendTo(placeToInsertVideoPreview);
+				};
+				reader.readAsDataURL(input.files[i]);
+			}
+		}
+	};
+	var inputMultiVideoConselor = document.getElementById('input-multi-videos-counselor');
+	inputMultiVideoConselor.addEventListener('change', (e) => {
+		videosPreviewConselor(e.target, "div.preview-videos-counselor");
+		console.log(e.target.files);
+	})
+});
 
 document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {
@@ -153,5 +194,5 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
-// Handle message
-// var alertMessage = document.getElementById('alert-message');
+// Validate form
+

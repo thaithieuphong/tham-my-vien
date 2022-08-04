@@ -1,3 +1,4 @@
+const Customer = require('../app/models/Customer');
 require('dotenv').config();
 
 const { google } = require('googleapis');
@@ -8,7 +9,6 @@ const refreshTokenGG = process.env.REFRESH_TOKEN_GOOGLE;
 const folderId = process.env.GOOGLE_API_FOLDER_ID;
 const fs = require('fs');
 const appRoot = require('app-root-path');
-const { find } = require('../app/models/User');
 
 const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectURI);
 oAuth2Client.setCredentials({ refresh_token: refreshTokenGG });
@@ -19,40 +19,108 @@ const drive = google.drive({
 })
 
 class uploadGoogleDrive {
-	async uploadDrive(req, res, next) {
-		const files = await req.files; // mang chua file duoc tai len
-		const folderCustomer = {
-			title: 'gi cung duoc',
-			mimeType: 'application/vnd.google-apps.folder',
-			parents: [folderId],
-			'name': 'abc'
-		}		
-		try {
-			const createFolder = drive.files.create({
-				resource: folderCustomer,
-				fields: 'id',
-			})
-			files.forEach(element => { // lap qua cac file
-				const createFile = drive.files.create({ // ham khoi tao file tren google drive
-					requestBody: { // cau hinh file tren drive
-						name: element.filename,
-						mimeType: element.mimetype,
-						parents: [folderId] // id thu muc chua
-					},
-					media: { // lay thong tin file tu he thong
-						mimeType: element.mimetype,
-						body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
-					}
-				})
-			});
-			console.log('create Folder', createFolder.data.id);
-			console.log('data', createFolder.data);
-		} catch (error) {
-
+	uploadDrive(req, res, next) {
+		const arrayFile = req.files;
+		const files = fs.readdirSync(
+			appRoot + "/src/public/temp"
+		);
+		const findFolder = { // 
+			q: "mimeType='application/vnd.google-apps.folder' and trashed=false",
+			fields: 'nextPageToken, files(id, name)',
+			spaces: 'drive', 
 		}
-		console.log('pass route');
-		next();
-	}
+		Promise.all([Customer.findById({ _id: req.params.id }), drive.files.list(findFolder)])
+			.then(([customer, list]) => {
+				const fName = customer.firstName;
+				const lName = customer.lastName;
+				const birth = customer.birth.split('-');
+				const newBirth = `${birth[2]}/${birth[1]}/${birth[0]}`;
+				const folderCustomerName = `${fName} ${lName} ${newBirth}`;
+				const arrayFolder = list.data.files;
+				const currentFolder = arrayFolder.find(folder => {
+					const folderName = folder.name;
+					const folderCusId = folder.id;
+					// neu thu muc chua ton tai thi tao thu muc sau do tao hinh anh trong thu muc do
+					if (folderCusId === folderId && folderName !== folderCustomerName) {
+						const folderCustomer = {
+							mimeType: 'application/vnd.google-apps.folder',
+							parents: [folderId],
+							'name': folderCustomerName,
+						}
+						let folderDataId;
+						const folderCustomerId = drive.files.create({
+								resource: folderCustomer,
+								fields: 'id'
+							})
+							.then(result => {
+								folderDataId = result.data.id;
+								return folderDataId;
+							}).catch(next);
+						arrayFile.forEach(element => {
+							folderCustomerId.then(id => {
+								console.log("mimeType: ", element.mimetype)
+								const requestBody = { // cau hinh file tren drive
+									name: element.filename,
+									mimeType: element.mimetype,
+									parents: [folderDataId] // id thu muc chua
+								};
+								const media = { // lay thong tin file tu he thong
+									mimeType: element.mimetype,
+									// body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
+								};
+								
+								let createFile = drive.files.create({
+									resource: requestBody,
+									media: media,
+									fields: 'id',
+								});
+								const imgLocal = element.filename;
+								const imgLocalPath = element.path;
+								files.filter((img) => {
+									if (img === imgLocal) {
+										console.log("img user", img);
+										fs.unlinkSync(imgLocalPath);
+									}
+								});
+							})
+						});
+						return {folderCusId, folderName};
+					}
+					if (folderName === folderCustomerName) { // neu thu muc da ton tai thi them hinh anh vao thu muc da co
+						arrayFile.forEach(element => {
+							const requestBody = { // cau hinh file tren drive
+								name: element.filename,
+								mimeType: element.mimetype,
+								parents: [folder.id] // id thu muc chua
+							};
+							const media = { // lay thong tin file tu he thong
+								mimeType: element.mimetype,
+								body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
+							};
+							
+							let createFile = drive.files.create({
+								resource: requestBody,
+								media: media,
+								fields: 'id',
+							});
+							const imgLocal = element.filename;
+							const imgLocalPath = element.path;
+							files.filter((img) => {
+								if (img === imgLocal) {
+									console.log("img user", img);
+									fs.unlinkSync(imgLocalPath);
+								}
+							});
+						});
+						return {folderCusId, folderName};
+					};
+				});
+			})
+			.catch(err => {
+				console.log(err);
+			})
+			next();
+		}
 }
 
 module.exports = new uploadGoogleDrive;

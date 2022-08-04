@@ -26,6 +26,9 @@ function route(app) {
   app.use("/business/manager", [authJwt.verifyToken, authJwt.isBusinessManager], managerBusinessRouter);
   app.use("/business/employ", [authJwt.verifyToken, authJwt.isBusinessEmploy], employBusinessRouter);
   app.use("/", signinRouter);
+  app.all('*', (req, res) => {
+    res.status(404).render('err/404');
+  });
 }
 
 module.exports = route;

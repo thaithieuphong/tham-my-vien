@@ -1,22 +1,20 @@
 // Xác minh mã thông báo, kiểm tra vai trò người dùng trong cơ sở dữ liệu
 const jwt = require("jsonwebtoken");
 const User = require("../app/models/User");
-// const Role = require('../app/models/Role');
-const Department = require("../app/models/Department");
-const Position = require("../app/models/Position");
-const { multipleMongooseToObject } = require("../util/mongoose");
+const flash = require('connect-flash');
 
 class authJwt {
 	verifyToken(req, res, next) {
 		let token = req.session.token;
 		console.log('auth token', token);
 		if (!token) {
-			return res.status(403).redirect('/');
+			req.flash('messages_token_wrong', 'Mã bảo mật không đúng!!!');
+			res.redirect('/');
 		}
 		jwt.verify(token, process.env.ACCESSTOKEN_KEY, (err, decoded) => {
 			if (err) {
-				// console.log(err)
-				return res.status(401).redirect('/');
+				req.flash('messages_token_failure', 'Tài khoản hết hạn truy cập!!!');
+				res.redirect('/');
 			}
 			req.userId = decoded.id;
 			next();
@@ -24,91 +22,111 @@ class authJwt {
 	}
 
 	isMarketingEmploy(req, res, next) {
-		Promise.all([User.findById(req.userId), Department.find({}), Position.find({})])
+		User.findById(req.userId)
 			.then((user) => {
-				if (user.department === user[0].name && user.position === user[1].name) {
+				if (user.departmentEng === 'marketing' && user.positionEng === 'employ') {
 					next();
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			}).catch(next);
 	}
 	
 	isMarketingManager(req, res, next) {
-		Promise.all([User.findById(req.userId), Department.find({}), Position.find({})])
+		User.findById(req.userId)
 			.then((user) => {
-				if (user.department === user[0].name && user.position === user[1].name) {
+				if (user.departmentEng === 'marketing' && user.positionEng === 'manager') {
 					next();
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			}).catch(next);
 	}
 
 	isBusinessEmploy(req, res, next) {
-		Promise.all([User.findById(req.userId), Department.find({}), Position.find({})])
+		User.findById(req.userId)
 			.then((user) => {
-				if (user.department === user[0].name && user.position === user[1].name) {
+				if (user.departmentEng === 'business' && user.positionEng === 'employ') {
 					next();
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			}).catch(next);
 	}
 
 	isBusinessManager(req, res, next) {
-		Promise.all([User.findById(req.userId), Department.find({}), Position.find({})])
+		User.findById(req.userId)
 			.then((user) => {
-				if (user.department === user[0].name && user.position === user[1].name) {
+				if (user.departmentEng === 'business' && user.positionEng === 'manager') {
 					next();
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			}).catch(next);
 	}
 
 	isReceptionEmploy(req, res, next) {
-		Promise.all([User.findById(req.userId), Department.find({}), Position.find({})])
+		User.findById(req.userId)
 			.then((user) => {
-				if (user.department === user[0].name && user.position === user[1].name) {
+				if (user.departmentEng === 'reception' && user.positionEng === 'employ') {
 					next();
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			}).catch(next);
 	}
 
 	isReceptionManager(req, res, next) {
-		Promise.all([User.findById(req.userId), Department.find({}), Position.find({})])
+		User.findById(req.userId)
 			.then((user) => {
-				if (user.department === user[0].name && user.position === user[1].name) {
+				if (user.departmentEng === 'reception' && user.positionEng === 'employ') {
 					next();
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			}).catch(next);
 	}
 
 	isDoctor(req, res, next) {
-		Promise.all([User.findById(req.userId), Department.find({}), Position.find({})])
+		User.findById(req.userId)
 			.then((user) => {
-				if (user.department === user[0].name && user.position === user[1].name) {
+				if (user.departmentEng === 'operating-room' && user.positionEng === 'doctor') {
 					next();
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			}).catch(next);
 	}
 
 	isNursing(req, res, next) {
-		Promise.all([User.findById(req.userId), Department.find({}), Position.find({})])
+		User.findById(req.userId)
 			.then((user) => {
-				if (user.department === user[0].name && user.position === user[1].name){
+				if (user.departmentEng === 'operating-room' && user.positionEng === 'nursing') {
 					next();
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			}).catch(next);
 	}
 
 	isHREmploy(req, res, next) {
-		Promise.all([User.findById(req.userId), Department.find({}), Position.find({})])
+		User.findById(req.userId)
 			.then((user) => {
-				if (user.department === user[0].name && user.position === user[1].name) {
+				if (user.departmentEng === 'human-resources' && user.positionEng === 'employ') {
 					next();
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			}).catch(next);
 	}
 
 	isHRManager(req, res, next) {
-		Promise.all([User.findById(req.userId), Department.find({}), Position.find({})])
+		User.findById(req.userId)
 			.then((user) => {
-				if (user.department === user[0].name && user.position === user[1].name) {
+				if (user.departmentEng === 'human-resources' && user.positionEng === 'manager') {
 					next();
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			}).catch(next);
 	}
@@ -117,11 +135,9 @@ class authJwt {
 		Promise.all([Account.findById(req.body._id), Role.find({})])
 			.then((users, roles) => {
 				if (users.role === roles.engName) {
-					console.log(users.role);
-					console.log(roles.engName);
 					next();
-					res.status(403).send({ message: "Yêu cầu vai trò quản trị viên" });
-					return;
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			})
 			.catch(next);
@@ -134,8 +150,8 @@ class authJwt {
 					console.log(users.role);
 					console.log(roles.engName);
 					next();
-					res.status(403).send({ message: "Yêu cầu vai trò gốc!" });
-					return;
+				} else {
+					res.render('err/403', { layout: false });
 				}
 			})
 			.catch(next);

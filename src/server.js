@@ -12,7 +12,6 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
 require("dotenv").config();
 
 if (`${process.env.NODE_ENV}` !== "production") {
@@ -42,15 +41,13 @@ app.use(
 	})
 );
 
-// app.use(cookieParser('secret'));
+app.use(session ({
+    secret: process.env.FLASH_SESSION_KEY,
+    saveUninitialized: true,
+    resave: true
+}));
 
-// app.use(session({
-// 	cookie: { maxAge: 5000 },
-//     secret: process.env.FLASH_SESSION_KEY,
-//     saveUninitialized: true,
-//     resave: true
-// }));
-
+app.use(flash ());
 
 // Kết nối tới cơ sở dữ liệu
 db.connect();
@@ -95,6 +92,15 @@ app.engine(
 app.set("view engine", "hbs");
 // Cấu hình đường dẫn đến tệp tin chứa giao diện người dùng
 app.set("views", path.join(__dirname, "resources", "views"));
+
+app.use(function(req, res, next){
+    res.locals.messages_account_failure = req.flash('messages_account_failure');
+    res.locals.messages_password_failure = req.flash('messages_password_failure');
+    res.locals.messages_server_failure = req.flash('messages_server_failure');
+    res.locals.messages_token_failure = req.flash('messages_token_failure');
+    res.locals.messages_token_wrong = req.flash('messages_token_wrong');
+    next();
+});
 
 app.use(function (req, res, next) {
 	res.header(
