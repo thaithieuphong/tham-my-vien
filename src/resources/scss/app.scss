@@ -79,10 +79,9 @@ a{
 
 .navbar{
     position: relative;
-    height: 50px;
+    height: 68px;
     top: 0;
     right: 0;
-    margin-left: 65px;
 }
 
 
@@ -954,7 +953,7 @@ a{
     }
 
     .container-fluid {
-        padding-left: 80px;
+        padding-left: 65px;
     }
 
     .container-card {
@@ -964,4 +963,27 @@ a{
     .taskbar {
         margin-left: 65px;
     }
+}
+
+.preview-images-counselor {
+    overflow: auto;
+    width: 100%;
+    height: 200px
+}
+
+.preview-images-counselor > img {
+    width: calc(100%/3);
+    margin-top: 15px;
+}
+
+.preview-videos-counselor {
+    overflow: auto;
+    width: 100%;
+    height: 200px
+}
+
+.img-logo {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
 }

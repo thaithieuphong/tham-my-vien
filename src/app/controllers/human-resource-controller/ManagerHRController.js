@@ -119,8 +119,8 @@ class HRController {
 						user.image.name = imgUser;
 						user.image.url = `${appRoot}/src/public/img/uploads/users/${imgUser}`;
 						fs.renameSync(
-							appRoot + `/src/public/img/uploads/users/${img}`,
-							appRoot + `/src/public/img/uploads/users/${imgUser}`
+							`${appRoot}/src/public/img/uploads/users/${img}`,
+							`${appRoot}/src/public/img/uploads/users/${imgUser}`
 						);
 					}
 				});
@@ -290,10 +290,10 @@ class HRController {
 							},
 						}
 					)
-						.then(() => {
-							res.redirect("back");
-						})
-						.catch(next);
+					.then(() => {
+						res.redirect("back");
+					})
+					.catch(next);
 				}
 			})
 			.catch(next);
@@ -307,10 +307,12 @@ class HRController {
 				let files = fs.readdirSync(
 					appRoot + "/src/public/img/uploads/users/"
 				);
+
 				files.filter((img) => {
 					if (img === imgUser) {
 						fs.unlinkSync(url);
 					}
+					return;
 				});
 				// console.log(appRoot)
 				user.delete();

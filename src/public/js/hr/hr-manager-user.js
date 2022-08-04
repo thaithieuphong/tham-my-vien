@@ -147,7 +147,7 @@ var deleteUserBtn = document.getElementById("delete-user-btn");
 var deleteUserForm = document.forms["delete-user-form"];
 var deleteDataUserId;
 deleteUserBtn.addEventListener("click", () => {
-	deleteUserForm.action = `/hr/manager/users/${deleteDataUserId}/delete?_method=DELETE`;
+	deleteUserForm.action = `/human-resources/manager/users/${deleteDataUserId}/delete?_method=DELETE`;
 	deleteUserForm.submit();
 });
 

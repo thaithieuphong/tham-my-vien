@@ -3,11 +3,12 @@ const Schema = mongoose.Schema;
 
 const Counselor = new Schema({
     service: String,
-    img: [{
+    img: {
         name: String,
         id: String,
         mimeType: String,
-    }],
+        folderId: String
+    },
 }, {
     timestamps: true
 });

@@ -86,11 +86,11 @@
 
 				{{!-- Upload multiple img --}}
 				<form method="POST" class="row" enctype="multipart/form-data">
-					<input id="input-multi-files" class="form-control" type="file" name="counselor" multiple>
+					<input id="input-multi-files-counselor" class="form-control" type="file" name="counselor" multiple>
 					<button type="submit">tair leen</button>
 				</form>
 				<div class="col-xl-9">
-					<div class="preview-images row"></div>
+					<div class="preview-images-counselor row"></div>
 				</div>
 
 
@@ -133,3 +133,29 @@
 		</div>
 	</div>
 	
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		let imagesPreviewCounselor = function (input, placeToInsertImagePreview) {
+			if (input.files) {
+				let filesAmount = input.files.length;
+				for (i = 0; i < filesAmount; i++) {
+					let reader = new FileReader();
+					reader.onload = function (event) {
+						$($.parseHTML("<img class='col-md rounded mx-auto d-block'>"))
+							.attr("src", event.target.result)
+							.appendTo(placeToInsertImagePreview);
+					};
+					reader.readAsDataURL(input.files[i]);
+				}
+			}
+		};
+		var inputMultiFileCounselor = document.getElementById('input-multi-files-counselor');
+		inputMultiFileCounselor.addEventListener('change', (e) => {
+			imagesPreviewCounselor(e.target, "div.preview-images-counselor");
+			console.log(e.target.files)
+		})
+
+
+		
+	});
+</script>

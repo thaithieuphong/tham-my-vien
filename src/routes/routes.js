@@ -23,9 +23,12 @@ function route(app) {
   app.use("/operating/nursing", nursingOperatingRouter);
   app.use("/human-resources/manager", [authJwt.verifyToken, authJwt.isHRManager], managerHRRouter);
   app.use("/human-resources/employ", employHRRouter);
-  app.use("/business/manager", managerBusinessRouter);
+  app.use("/business/manager", [authJwt.verifyToken, authJwt.isBusinessManager], managerBusinessRouter);
   app.use("/business/employ", [authJwt.verifyToken, authJwt.isBusinessEmploy], employBusinessRouter);
   app.use("/", signinRouter);
+  app.all('*', (req, res) => {
+    res.status(404).render('err/404');
+  });
 }
 
 module.exports = route;
