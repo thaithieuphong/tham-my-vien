@@ -14,8 +14,8 @@ const UserController = require('../app/controllers/operating-controller/NursingO
 
 router.get("/root", rootRouter);
 
-router.get("/user/customers", UserController.getUserCustomer)
-router.post("/user/customers", UserController.createCustomer)
+// router.get("/user/customers", UserController.getUserCustomer)
+// router.post("/user/customers", UserController.createCustomer)
 
 /*Amin Start*/
 router.get("/admin",  AdminController.getAdminDashboard);

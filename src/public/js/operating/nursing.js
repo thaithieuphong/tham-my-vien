@@ -4,6 +4,7 @@ var subDoctorBtn = document.getElementById('submit-form-doctor-btn');
 
 subDoctorBtn.addEventListener("click", () => {
     subDoctorForm.submit();
+
 });
 
 subDoctorModal.addEventListener('show.bs.modal', function(event){
@@ -12,5 +13,6 @@ subDoctorModal.addEventListener('show.bs.modal', function(event){
 
     var id = button.getAttribute("data-id")
 
-    subDoctorForm.setAttribute('action', `/operating/doctor/service-note/${id}?_method=PATCH`)
+    subDoctorForm.setAttribute('action', `/operating-room/nursing/service-note/${id}?_method=PATCH`)
+    console.log(id);
 })
