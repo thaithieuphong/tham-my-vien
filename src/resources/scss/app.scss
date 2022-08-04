@@ -115,7 +115,7 @@ a{
     margin-bottom: -1rem !important;
 }
 
-.sidebar .sidebar-list li:nth-child(3){
+.sidebar .sidebar-list li:last-child{
     position: absolute;
     bottom: 0;
 }
@@ -262,7 +262,7 @@ a{
 }
 
 .taskbar {
-    background-color: #4da6ff;
+    background-color: #343a40;
 }
 
 #customer_table_wrapper {
@@ -394,7 +394,7 @@ a{
         margin-top: 5px;
     }
 
-    .nav-mobile .nav-bottom li:nth-child(3){
+    .nav-mobile .nav-bottom li:last-child{
         position: unset;
     }
 

@@ -1,0 +1,31 @@
+<div class="nav-mobile sidebar text-light">
+	<ul class="nav-bottom sidebar-list">
+		<li class="list active">
+			<a href="/marketing/employ/customers">
+				<span class="nav-mobile-icon sidebar-icon"><i class="ti-user"></i></span>
+				<span class="nav-text sidebar-text">Khách hàng</span>
+			</a>
+		</li>
+		<li class="list">
+			<a href="/marketing/employ">
+				<span class="nav-mobile-icon sidebar-icon"><i class="ti-bar-chart"></i></span>
+				<span class="nav-text sidebar-text">Báo cáo</span>
+			</a>
+		</li>
+		<li class="img-container">
+			<img src="/img/uploads/customers/{{user.image.name}}" alt="">
+			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
+		</li>
+	</ul>
+</div>
+
+<script>
+	const list = document.querySelectorAll('.list');
+	function activeTab(){
+		list.forEach((item) =>
+		item.classList.remove('active'));
+		this.classList.add('active')
+	}
+	list.forEach((item) =>
+	item.addEventListener('click',activeTab))
+</script>

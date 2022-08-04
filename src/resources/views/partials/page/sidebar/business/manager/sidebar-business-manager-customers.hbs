@@ -1,22 +1,26 @@
 <div class="nav-mobile sidebar text-light">
 	<ul class="nav-bottom sidebar-list">
-		<li class="list active">
-			<a href="/business/employ/service-note">
+		<li class="list">
+			<a href="/business/manager/service-note">
 				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
 				<span class="nav-text sidebar-text">Dịch vụ</span>
 			</a>
 		</li>
-		<li class="list">
-			<a href="/business/employ/customers">
+		<li class="list active">
+			<a href="/business/manager/customers">
 				<span class="nav-mobile-icon sidebar-icon"><i class="ti-user"></i></span>
 				<span class="nav-text sidebar-text">Khách hàng</span>
 			</a>
 		</li>
 		<li class="list">
-			<a href="/business/employ">
+			<a href="/business/manager">
 				<span class="nav-mobile-icon sidebar-icon"><i class="ti-bar-chart"></i></span>
 				<span class="nav-text sidebar-text">Báo cáo</span>
 			</a>
+		</li>
+		<li class="img-container">
+			<img src="/img/uploads/customers/{{user.image.name}}" alt="">
+			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
 		</li>
 	</ul>
 </div>
