@@ -10,11 +10,6 @@ router.patch('/customers/:id/comment', [authJwt.verifyToken, authJwt.isBusinessE
 router.put('/customers/:id', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.uploadSingleCustomer], EmployBusinessController.editCustomer);
 router.post('/customers/:id/service-note', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.counselorUploadGoogleDrive, uploadGoogleDrive.uploadDriveCounselor], EmployBusinessController.createServiceNote);
 router.post('/customers', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.uploadSingleCustomer], EmployBusinessController.createCustomer);
-<<<<<<< HEAD
-
-// router.post('/customers/:id/detail', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.uploadToDrive)
-=======
->>>>>>> c359615 (verify token full route finally)
 router.get('/customers/:id/detail', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showCustomerDetail)
 router.get('/service-note', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showServiceNote);
 router.get('/customers', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showCustomer);
