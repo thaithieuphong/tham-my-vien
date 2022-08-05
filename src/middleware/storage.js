@@ -18,7 +18,7 @@ const storageCustomerAvt = multer.diskStorage({
 
 const counselorUploadGoogleDrive = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, appRoot + '/src/public/temp/');
+        cb(null, appRoot + '\\src\\public\\temp\\');
     },
 
     // By default, multer removes file extensions so let's add them back

@@ -10,7 +10,7 @@ router.patch('/service-note/:id',ReceptionController.pushPerformer);
 // router.patch('/service-note/:id', ReceptionController.pushPerformer);
 
 
-router.get('/service-note', ReceptionController.showServiceNote);
+router.get('/', ReceptionController.showServiceNote);
 
 
 module.exports = router;

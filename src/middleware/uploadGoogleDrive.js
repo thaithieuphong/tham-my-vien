@@ -9,6 +9,7 @@ const refreshTokenGG = process.env.REFRESH_TOKEN_GOOGLE;
 const folderId = process.env.GOOGLE_API_FOLDER_ID;
 const fs = require('fs');
 const appRoot = require('app-root-path');
+const path = require('path')
 
 const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectURI);
 oAuth2Client.setCredentials({ refresh_token: refreshTokenGG });
@@ -22,12 +23,12 @@ class uploadGoogleDrive {
 	uploadDrive(req, res, next) {
 		const arrayFile = req.files;
 		const files = fs.readdirSync(
-			appRoot + "/src/public/temp"
+			appRoot + "\\src\\public\\temp"
 		);
-		const findFolder = { // 
+		const findFolder = {  
 			q: "mimeType='application/vnd.google-apps.folder' and trashed=false",
 			fields: 'nextPageToken, files(id, name)',
-			spaces: 'drive', 
+			spaces: 'drive',
 		}
 		Promise.all([Customer.findById({ _id: req.params.id }), drive.files.list(findFolder)])
 			.then(([customer, list]) => {
@@ -49,16 +50,16 @@ class uploadGoogleDrive {
 						}
 						let folderDataId;
 						const folderCustomerId = drive.files.create({
-								resource: folderCustomer,
-								fields: 'id'
-							})
+							resource: folderCustomer,
+							fields: 'id'
+						})
 							.then(result => {
 								folderDataId = result.data.id;
 								return folderDataId;
 							}).catch(next);
 						arrayFile.forEach(element => {
+							console.log(element);
 							folderCustomerId.then(id => {
-								console.log("mimeType: ", element.mimetype)
 								const requestBody = { // cau hinh file tren drive
 									name: element.filename,
 									mimeType: element.mimetype,
@@ -66,9 +67,9 @@ class uploadGoogleDrive {
 								};
 								const media = { // lay thong tin file tu he thong
 									mimeType: element.mimetype,
-									// body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
+									body: fs.createReadStream(`${appRoot}\\src\\public\\temp\\${element.filename}`)
 								};
-								
+
 								let createFile = drive.files.create({
 									resource: requestBody,
 									media: media,
@@ -78,13 +79,14 @@ class uploadGoogleDrive {
 								const imgLocalPath = element.path;
 								files.filter((img) => {
 									if (img === imgLocal) {
-										console.log("img user", img);
+										// console.log("img user", img);
+										console.log("path:", imgLocalPath)
 										fs.unlinkSync(imgLocalPath);
 									}
 								});
 							})
 						});
-						return {folderCusId, folderName};
+						return { folderCusId, folderName };
 					}
 					if (folderName === folderCustomerName) { // neu thu muc da ton tai thi them hinh anh vao thu muc da co
 						arrayFile.forEach(element => {
@@ -95,9 +97,9 @@ class uploadGoogleDrive {
 							};
 							const media = { // lay thong tin file tu he thong
 								mimeType: element.mimetype,
-								body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
+								body: fs.createReadStream(`${appRoot}\\src\\public\\temp\\${element.filename}`)
 							};
-							
+
 							let createFile = drive.files.create({
 								resource: requestBody,
 								media: media,
@@ -112,15 +114,15 @@ class uploadGoogleDrive {
 								}
 							});
 						});
-						return {folderCusId, folderName};
+						return { folderCusId, folderName };
 					};
 				});
 			})
 			.catch(err => {
 				console.log(err);
 			})
-			next();
-		}
+		next();
+	}
 }
 
 module.exports = new uploadGoogleDrive;
