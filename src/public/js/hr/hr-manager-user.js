@@ -124,7 +124,7 @@ editUser.addEventListener("show.bs.modal", function (event) {
 	} else {
 		editUserAvt.setAttribute('src', '/img/uploads/users/' + editDataUserImg);
 	}
-	editUserForm.setAttribute('action', `/hr/manager/users/${editDataUserId}/edit?_method=PUT`);
+	editUserForm.setAttribute('action', `/human-resources/manager/users/${editDataUserId}/edit?_method=PUT`);
 	editUserFirstName.value = editDataUserFirstName;
 	editUserLastName.value = editDataUserLastName;
 	editUserBirth.value = editDataUserBirth;

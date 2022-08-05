@@ -30,7 +30,14 @@ class EmployBusinessController {
 	//BUSINESS EMPLOY
 
 	showDashboard(req, res, next) {
-		res.redirect('/business/employ/customers')
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('business/employ/employ-overview', {
+					user: mongooseToObject(user),
+					title: 'Tổng quan'
+				})
+			})
+			.catch(next);
 		// res.render("business/employ/business-overview", {
 		// 	title: 'Bảng báo cáo'
 		// });

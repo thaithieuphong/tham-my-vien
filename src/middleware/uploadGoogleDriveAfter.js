@@ -58,12 +58,7 @@ class uploadGoogleDriveAfter {
 								return folderDataId;
 							}).catch(next);
 						arrayFile.forEach(element => {
-<<<<<<< HEAD:src/middleware/uploadGoogleDrive.js
-							folderCustomerId.then(id => {
-								console.log("mimeType: ", element.mimetype)
-=======
 							folderCustomerId.then(() => {
->>>>>>> 9fa507c (verify token full route):src/middleware/uploadGoogleDriveAfter.js
 								const requestBody = { // cau hinh file tren drive
 									name: element.filename,
 									mimeType: element.mimetype,
