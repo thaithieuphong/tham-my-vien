@@ -187,6 +187,7 @@ class EmployBusinessController {
 	}
 
 	createServiceNote(req, res, next) {
+<<<<<<< HEAD
 		console.log('req', req.files.filename )
 		const filename = req.files.filename;
 		Counselor.find({})
@@ -213,6 +214,23 @@ class EmployBusinessController {
 						})
 						.catch(next);
 				}
+=======
+		console.log('req controller', req)
+		const serviceNote = new ServiceNote({
+			customerID: req.body.customerID,
+			performer: req.body.performer,
+			createName: req.body.createName,
+			status: "Tạo mới",
+			service: req.body.service,
+			comments: { comment: req.body.comment },
+			schedule: req.body.schedule,
+			price: req.body.price,
+		});
+		serviceNote.save();
+		console.log(serviceNote.id);
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id } })
+			.then(() => {
+>>>>>>> c359615 (verify token full route finally)
 				res.redirect('back');
 
 			})
@@ -276,7 +294,11 @@ class EmployBusinessController {
 	// 								mimeType: element.mimetype,
 	// 								body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
 	// 							};
+<<<<<<< HEAD
 
+=======
+								
+>>>>>>> c359615 (verify token full route finally)
 	// 							let createFile = drive.files.create({
 	// 								resource: requestBody,
 	// 								media: media,
@@ -306,7 +328,11 @@ class EmployBusinessController {
 	// 							mimeType: element.mimetype,
 	// 							body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
 	// 						};
+<<<<<<< HEAD
 
+=======
+							
+>>>>>>> c359615 (verify token full route finally)
 	// 						let createFile = drive.files.create({
 	// 							resource: requestBody,
 	// 							media: media,

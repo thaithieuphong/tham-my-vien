@@ -3,7 +3,7 @@ const router = express.Router();
 const ManagerHRController = require('../../app/controllers/human-resource-controller/ManagerHRController');
 const validateUploadImage = require('../../middleware/validateUploadImage');
 const cloudinaryUpload = require('../../middleware/cloudinaryUpload');
-const uploadGoogleDrive = require('../../middleware/uploadGoogleDrive');
+const uploadGoogleDrive = require('../../middleware/uploadGoogleDriveCounselor');
 
 /* Business Manager Start*/
 router.delete('/users/:id/delete', ManagerHRController.deleteUser);
