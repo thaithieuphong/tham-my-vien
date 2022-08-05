@@ -198,7 +198,11 @@ addUseridToCustomerBtn.addEventListener("click", () => {
 
 //END ADD USER to CUSTOMER
 
-//DETAIL: detail customer and push comment
+
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {

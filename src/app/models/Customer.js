@@ -10,6 +10,11 @@ const Customer = new Schema({
 	email: String,
 	address: String,
 	description: String,
+	counselorName: [
+		{
+			type: String,
+		}
+	],
 	image: {
 		name: String,
 		url: String,

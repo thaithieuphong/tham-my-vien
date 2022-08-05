@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const Counselor = new Schema({
-    service: String,
+    filename: String,
     img: {
         name: String,
         id: String,

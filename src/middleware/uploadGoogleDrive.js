@@ -1,4 +1,5 @@
 const Customer = require('../app/models/Customer');
+const Counselor = require('../app/models/Counselor');
 require('dotenv').config();
 
 const { google } = require('googleapis');
@@ -21,11 +22,14 @@ const drive = google.drive({
 
 class uploadGoogleDrive {
 	uploadDrive(req, res, next) {
+
 		const arrayFile = req.files;
+		const pathName = path.join("/src", "public", "temp/");
 		const files = fs.readdirSync(
-			appRoot + "\\src\\public\\temp"
+			appRoot + pathName
 		);
-		const findFolder = {  
+		// console.log(files)
+		const findFolder = {
 			q: "mimeType='application/vnd.google-apps.folder' and trashed=false",
 			fields: 'nextPageToken, files(id, name)',
 			spaces: 'drive',
@@ -58,8 +62,11 @@ class uploadGoogleDrive {
 								return folderDataId;
 							}).catch(next);
 						arrayFile.forEach(element => {
-							console.log(element);
+							// console.log(element);
+							// console.log("create stream:", `${appRoot}${pathName}${element.filename}`);
+
 							folderCustomerId.then(id => {
+
 								const requestBody = { // cau hinh file tren drive
 									name: element.filename,
 									mimeType: element.mimetype,
@@ -67,23 +74,44 @@ class uploadGoogleDrive {
 								};
 								const media = { // lay thong tin file tu he thong
 									mimeType: element.mimetype,
-									body: fs.createReadStream(`${appRoot}\\src\\public\\temp\\${element.filename}`)
-								};
+									body: fs.createReadStream(`${appRoot}${pathName}${element.filename}`)
 
+								};
+								let arrImg = []
 								let createFile = drive.files.create({
 									resource: requestBody,
 									media: media,
 									fields: 'id',
-								});
-								const imgLocal = element.filename;
-								const imgLocalPath = element.path;
-								files.filter((img) => {
-									if (img === imgLocal) {
-										// console.log("img user", img);
-										console.log("path:", imgLocalPath)
-										fs.unlinkSync(imgLocalPath);
-									}
-								});
+								})
+									.then(img => {
+										const imgLocal = element.filename;
+										const imgLocalPath = element.path;
+										files.filter((img) => {
+											if (img === imgLocal) {
+												// console.log("img user", img);
+												// console.log("path:", imgLocalPath)
+												fs.unlinkSync(imgLocalPath);
+											}
+										});
+										const imgId = img.data.id;
+										let imgElement = {
+											name: element.filename,
+											id: imgId,
+											mimeType: element.mimetype,
+											folderId: folderDataId
+										}
+										const counselor = new Counselor({
+											img: imgElement,
+										})
+										counselor.save();
+
+										console.log("img name:", counselor.img.name);
+										console.log("id:", counselor.id);
+										return counselor;
+									})
+									.then((counselor) => {
+										arrImg.push(counselor.id);
+									});
 							})
 						});
 						return { folderCusId, folderName };
@@ -97,22 +125,46 @@ class uploadGoogleDrive {
 							};
 							const media = { // lay thong tin file tu he thong
 								mimeType: element.mimetype,
-								body: fs.createReadStream(`${appRoot}\\src\\public\\temp\\${element.filename}`)
+								body: fs.createReadStream(`${appRoot}${pathName}${element.filename}`)
 							};
 
+							let arrImg = []
 							let createFile = drive.files.create({
 								resource: requestBody,
 								media: media,
 								fields: 'id',
-							});
-							const imgLocal = element.filename;
-							const imgLocalPath = element.path;
-							files.filter((img) => {
-								if (img === imgLocal) {
-									console.log("img user", img);
-									fs.unlinkSync(imgLocalPath);
-								}
-							});
+							})
+								.then(img => {
+									const imgLocal = element.filename;
+									const imgLocalPath = element.path;
+									files.filter((img) => {
+										if (img === imgLocal) {
+											// console.log("img user", img);
+											fs.unlinkSync(imgLocalPath);
+										}
+									});
+									const imgId = img.data.id;
+									let imgElement = {
+										name: element.filename,
+										id: imgId,
+										mimeType: element.mimetype,
+										folderId: folder.id
+									}
+									const counselor = new Counselor({
+										filename: element.filename,
+										img: imgElement,
+									})
+									counselor.save();
+									console.log("img name:", counselor.img.name);
+									console.log("id:", counselor.id);
+									
+									return counselor;
+
+								})
+								.then((counselor) => {
+									arrImg.push(counselor.id);
+								});
+
 						});
 						return { folderCusId, folderName };
 					};

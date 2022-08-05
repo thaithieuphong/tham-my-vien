@@ -49,10 +49,9 @@ const ServiceNote = new Schema({
 		}
 	],
 
-	counselorID: [
+	counselorName: [
 		{
 			type: String,
-			ref: "Counselor"
 		}
 	],
 
