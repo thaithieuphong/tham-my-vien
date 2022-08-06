@@ -14,7 +14,6 @@ class UserController {
 	showServiceNote(req, res, next) {
 		ServiceNote.find({ stored: "No", status: "Đang xử lý", nursing: req.userId } ).populate('recept').populate('customerID').populate('performer').populate('nursing')
 		.then((serviceNote) => {
-			console.log(serviceNote.customerID)
 			const cln = [];
 			serviceNote.forEach(element => {
 				let clns = element.counselorName;
@@ -44,15 +43,28 @@ class UserController {
 			User.updateMany({_id: {$in: req.body.operatingID}},{$set: {state:"Medium"}})
 		])
 				.then((serviceNote) => {
-					console.log("serviceNote:",serviceNote)
 					res.redirect('back')
 				})
 				.catch(next);
 	}
 
 	uploadBefore(req, res, next){
-		console.log("req", req)
-		res.redirect('back')
+		// const file = req.files;
+		// const fn = []
+		// file.forEach(element => {
+		// 	fn.push(element.filename)
+		// 	return fn;
+		// })
+		// ServiceNote.findByIdAndUpdate({_id: req.params.id},{$push: {beforeName: fn}})
+		// 	.then(() => {
+		// 		res.redirect('back')
+		// 	})
+		// 	.catch(next);
+		res.json(req.body)
+	}
+
+	uploadAfter(req, res, next){
+		res.json(req.body)
 	}
 
 }

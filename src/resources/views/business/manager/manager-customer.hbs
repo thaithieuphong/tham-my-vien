@@ -452,7 +452,7 @@
 							aria-selected="false">Thông tin dịch vụ</button>
 					</li>
 				</ul>
-				<form method="POST" id="create-service-note-form" class="row">
+				<form method="POST" id="create-service-note-form" class="row" enctype="multipart/form-data">
 					<div class="tab-content" id="pills-tabContent">
 						<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
 							aria-labelledby="pills-home-tab">
@@ -582,42 +582,61 @@
 						</div>
 						<div class="tab-pane fade" id="pills-service" role="tabpanel"
 							aria-labelledby="pills-profile-tab">
-							<div class="mb-3">
-								<label for="service" class="form-label">
-									<h6>Chọn dịch vụ</h6>
-								</label>
-								<select id="select-service" class="chosen-select" multiple tabindex="6" name="service">
-									{{#each typeservices}}
-									<optgroup label="{{this.name}}">
-										{{#each this.services}}
-										<option value="{{this.service}}">{{this.service}}</option>
-										{{/each}}
-									<optgroup>
-										{{/each}}
-								</select>
-							</div>
-							<div class="mb-3">
-								<label for="gender" class="form-label">
-									<h6>Ngày hẹn</h6>
-								</label>
-								<input type="datetime-local" class="form-control" id="create-service-note-schedule"
-									name="schedule">
-							</div>
+							<div class="row">
+								<div class="col-md-5">
+									<div class="mb-3">
+										<label for="service" class="form-label">
+											<h6>Chọn dịch vụ:</h6>
+										</label>
+										<select id="select-service" class="chosen-select" multiple tabindex="6"
+											name="service[]">
+											{{#each typeservices}}
+											<optgroup label="{{this.name}}">
+												{{#each this.services}}
+												<option value="{{this.service}}">{{this.service}}</option>
+												{{/each}}
+											<optgroup>
+												{{/each}}
+										</select>
+									</div>
+									<div class="mb-3">
+										<label for="schedule" class="form-label">
+											<h6>Ngày hẹn:</h6>
+										</label>
+										<input type="datetime-local" class="form-control"
+											id="create-service-note-schedule" name="schedule">
+									</div>
 
-							<div class="mb-3">
-								<label for="price" class="form-label">
-									<h6>Tổng giá:</h6>
-								</label>
-								<input type="number" min="100000" step="100000" class="form-control" id="create-service-note-price"
-									name="price">
-							</div>
+									<div class="mb-3">
+										<label for="price" class="form-label">
+											<h6>Tổng giá:</h6>
+										</label>
+										<input type="number" min="100000" step="100000" class="form-control"
+											id="create-service-note-price" name="price">
+									</div>
 
-							<div class="mb-3">
-								<label for="comment" class="form-label">
-									<h6>Ghi chú: </h6>
-								</label>
-								<textarea class="form-control" id="create-service-note-description" rows="6"
-									name="comment"></textarea>
+									<div class="mb-3">
+										<label for="comment" class="form-label">
+											<h6>Ghi chú: </h6>
+										</label>
+										<textarea class="form-control" id="create-service-note-description" rows="6"
+											name="comment"></textarea>
+									</div>
+								</div>
+								{{!--upload multi  --}}
+								<div class="col-md-7">
+									<div class="preview-images-counselor row ml-0 mt-3 border"></div>
+									<label for="input-multi-images-counselor" class="label-avt btn btn-primary mt-2">
+										<h6>Chọn ảnh tư vấn</h6>
+									</label>
+									<input id="input-multi-images-counselor" class="form-control" type="file" name="counselor" hidden multiple>
+									<div class="preview-videos-counselor row ml-0 mt-3 border"></div>
+									<label for="input-multi-videos-counselor" class="label-avt btn btn-primary mt-2">
+										<h6>Chọn video tư vấn</h6>
+									</label>
+									<input id="input-multi-videos-counselor" class="form-control" type="file" name="counselor" hidden multiple>
+								</div>
+								{{!--  --}}
 							</div>
 						</div>
 					</div>

@@ -1,4 +1,5 @@
 const Customer = require("../../models/Customer");
+const Counselor = require("../../models/Counselor");
 const Customer1 = require("../../models/Customer");
 const User = require("../../models/User");
 const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
@@ -131,11 +132,17 @@ class ManagerBusinessController {
 	showCustomerDetail(req, res, next) {
 		Customer.findById({ _id: req.params.id }).populate('serviceNoteID')
 			.then((customer) => {
-				console.log(customer);
-				res.render('business/manager/manager-customer-detail', {
-					customer: mongooseToObject(customer),
-					title: "Chi tiết khách hàng"
-				});
+				console.log(customer.counselorName)
+				Counselor.find({ filename: { $in: customer.counselorName } })
+					.then((counselors) => {
+						console.log(counselors)
+						res.render('business/manager/manager-customer-detail', {
+							customer: mongooseToObject(customer),
+							counselors: multipleMongooseToObject(counselors),
+							title: "Chi tiết khách hàng"
+						});
+					})
+
 			})
 			.catch(next);
 	}
@@ -150,7 +157,7 @@ class ManagerBusinessController {
 	}
 
 	showServiceNote(req, res, next) {
-		ServiceNote.find({}).sort({shedule:1}).populate('customerID').populate('createName')
+		ServiceNote.find({}).sort({ shedule: 1 }).populate('customerID').populate('createName')
 			.then(serviceNotes => {
 				res.render('business/manager/manager-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
@@ -181,7 +188,7 @@ class ManagerBusinessController {
 			counselorName: fn,
 		});
 		serviceNote.save();
-		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id, counselorName:  fn } })
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id, counselorName: fn } })
 			.then(() => {
 				res.redirect('back');
 

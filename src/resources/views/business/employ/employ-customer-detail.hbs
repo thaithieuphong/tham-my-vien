@@ -192,13 +192,25 @@
 					</div>
 				</div>
 				<hr>
+
 				<div class="row mt-3">
+					{{!-- {{#each counselors}}
+
 					<div class="col-md-3 row">
-					{{#each counselors}}
-							{{this.img.id}}
-					{{/each}}
+						{{this.img.id}}
 
 					</div>
+					{{/each}} --}}
+					{{!-- {{#each customer}} --}}
+					{{#each customer.counselorName}}
+					<div class="col-md-3 row">
+						<img src="/img/uploads/counselor/{{this}}" 
+							class="rounded mx-auto d-block add-avata" alt="...">
+
+					</div>
+					{{/each}} 
+
 				</div>
+
 			</div>
 		</div>

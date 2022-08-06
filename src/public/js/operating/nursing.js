@@ -84,3 +84,69 @@ beforeModal.addEventListener('show.bs.modal', function(event){
 
 
 // END Multiple images before
+
+//Multiple images after
+document.addEventListener('DOMContentLoaded', function () {
+	let imagesPreviewAfter = function (input, placeToInsertImagePreview) {
+		console.log(input);
+		// console.log(input.files);
+		if (input.files) {
+			let filesAmount = input.files.length;
+			for (i = 0; i < filesAmount; i++) {
+				let reader = new FileReader();
+				reader.onload = function (event) {
+					$($.parseHTML("<img class='rounded'>"))
+						.attr("src", event.target.result)
+						.appendTo(placeToInsertImagePreview);
+				};
+				reader.readAsDataURL(input.files[i]);
+			}
+		}
+	};
+	var inputMultiImageAfter = document.getElementById('input-multi-images-after');
+	inputMultiImageAfter.addEventListener('change', (e) => {
+		imagesPreviewAfter(e.target, "div.preview-images-after");
+		console.log(e.target.files);
+	})
+
+	let videosPreviewAfter = function (input, placeToInsertVideoPreview) {
+		console.log(input);
+		// console.log(input.files);
+		if (input.files) {
+			let filesAmount = input.files.length;
+			for (i = 0; i < filesAmount; i++) {
+				let reader = new FileReader();
+				reader.onload = function (event) {
+					$($.parseHTML("<video class='mt-3 mb-3'>"))
+						.attr("src", event.target.result)
+						.appendTo(placeToInsertVideoPreview);
+				};
+				reader.readAsDataURL(input.files[i]);
+			}
+		}
+	};
+	var inputMultiVideoAfter = document.getElementById('input-multi-videos-after');
+	inputMultiVideoAfter.addEventListener('change', (e) => {
+		videosPreviewAfter(e.target, "div.preview-videos-after");
+		console.log(e.target.files);
+	})
+});
+
+var afterModal = document.getElementById('after-modal');
+var afterForm = document.forms['upload-img-after-form'];
+var afterSubmitBtn = document.getElementById('upload-img-after-btn');
+
+afterSubmitBtn.addEventListener('click', () =>{
+	afterForm.submit()
+	console.log('abc')
+})
+
+afterModal.addEventListener('show.bs.modal', function(event){
+    var button = event.relatedTarget;
+
+	var afterID = button.getAttribute("data-after-id");
+
+	afterForm.setAttribute('action', `/operating-room/nursing/after/${afterID}`);
+	console.log(afterID);
+})
+//END Multiple images after

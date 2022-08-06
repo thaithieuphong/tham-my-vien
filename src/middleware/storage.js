@@ -18,7 +18,7 @@ const storageCustomerAvt = multer.diskStorage({
 
 const counselorUploadGoogleDrive = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, appRoot + '\\src\\public\\temp\\');
+        cb(null, appRoot + '\\src\\public\\img\\uploads\\counselor\\');
     },
 
     // By default, multer removes file extensions so let's add them back
@@ -71,9 +71,9 @@ const counselorUploadGoogleDrive = multer.diskStorage({
     }
 });
 
-const beforeUploadGoogleDrive = multer.diskStorage({
+const beforeUploadImage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, appRoot + '/src/public/temp/');
+        cb(null, appRoot + '\\src\\public\\img\\uploads\\before\\img\\');
     },
 
     // By default, multer removes file extensions so let's add them back
@@ -98,6 +98,64 @@ const beforeUploadGoogleDrive = multer.diskStorage({
                 " "
             );
             str = str.replace(/  +/g, " ");
+            console.log("abc:", file);
+            return str;
+        }
+        Customer.findById( { _id:  req.body.customerID })
+            .then(customer => {
+                const fName = convert_vi_to_en(customer.firstName).split(' ');
+                const lName = convert_vi_to_en(customer.lastName).split(' ');
+                const date = new Date();
+                const getDate = date.getDate();
+                const getMonth = date.getMonth();
+                const getYear = date.getFullYear();
+                const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
+                let aFName;
+                let bFName = "";
+                let aLName;
+                let bLName = "";
+                fName.forEach(e => {
+                    aFName = e.split(',');
+                    bFName += aFName;
+                });
+                lName.forEach(el => {
+                    aLName = el.split(', ');
+                    bLName += aLName;
+                })
+                cb(null, `${file.fieldname}_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            })
+    }
+});
+
+const beforeUploadVideo = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, appRoot + '\\src\\public\\img\\uploads\\before\\video\\');
+    },
+
+    // By default, multer removes file extensions so let's add them back
+    filename: function(req, file, cb) {
+        function convert_vi_to_en(str) {
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+            str = str.replace(/đ/g, "d");
+            str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+            str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+            str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+            str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+            str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+            str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+            str = str.replace(/Đ/g, "D");
+            str = str.replace(
+                /!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g,
+                " "
+            );
+            str = str.replace(/  +/g, " ");
+            console.log("abc:", file);
+                
             return str;
         }
         Customer.findById( { _id:  req.body.customerID })
@@ -155,7 +213,7 @@ const afterUploadGoogleDrive = multer.diskStorage({
             str = str.replace(/  +/g, " ");
             return str;
         }
-        Customer.findById( { _id:  req.params.id })
+        Customer.findById( { _id: req.body.customerID })
             .then(customer => {
                 const fName = convert_vi_to_en(customer.firstName).split(' ');
                 const lName = convert_vi_to_en(customer.lastName).split(' ');
@@ -366,6 +424,8 @@ exports.storageUserAvt = storageUserAvt;
 exports.storageUserAvtEdit = storageUserAvtEdit;
 exports.storageCustomerAvtEdit = storageCustomerAvtEdit;
 exports.counselorUploadGoogleDrive = counselorUploadGoogleDrive;
-exports.beforeUploadGoogleDrive = beforeUploadGoogleDrive;
+exports.beforeUploadImage = beforeUploadImage;
+exports.beforeUploadVideo = beforeUploadVideo;
+
 exports.afterUploadGoogleDrive = afterUploadGoogleDrive;
 exports.reExaminationUploadGoogleDrive = reExaminationUploadGoogleDrive;

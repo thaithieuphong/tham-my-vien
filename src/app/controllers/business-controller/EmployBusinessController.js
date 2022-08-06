@@ -202,6 +202,7 @@ class EmployBusinessController {
 			fn.push(element.filename)
 			return fn;
 		})
+		console.log("fn", fn)
 		const serviceNote = new ServiceNote({
 			customerID: req.body.customerID,
 			performer: req.body.performer,

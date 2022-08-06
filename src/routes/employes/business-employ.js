@@ -8,7 +8,8 @@ const authJwt = require("../../middleware/authJwt");
 /* Business Employ Start*/
 router.patch('/customers/:id/comment', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.createComment);
 router.put('/customers/:id', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.uploadSingleCustomer], EmployBusinessController.editCustomer);
-router.post('/customers/:id/service-note', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.counselorUploadGoogleDrive, uploadGoogleDrive.uploadDriveCounselor], EmployBusinessController.createServiceNote);
+// , uploadGoogleDrive.uploadDriveCounselor
+router.post('/customers/:id/service-note', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.counselorUploadGoogleDrive], EmployBusinessController.createServiceNote);
 router.post('/customers', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.uploadSingleCustomer], EmployBusinessController.createCustomer);
 router.get('/customers/:id/detail', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showCustomerDetail)
 router.get('/service-note', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showServiceNote);
