@@ -9,8 +9,6 @@
 </head>
 
 <body>
-    {{> page/sidebar/business/manager/sidebar-business-service}}
-
 
     <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
         <div class="title">
@@ -19,6 +17,7 @@
         <h3 class="title text-light">Quản lý phiếu dịch vụ</h3>
         <div class="stask">
     </nav>
+    {{> page/sidebar/business/manager/sidebar-business-service}}
     {{!-- <div class="container-fluid container-content-page mt-3">
         <form method="POST" id="update-stored-status">
             <div class="row ml-2">
@@ -89,7 +88,7 @@
 
 
     <div class="container-fluid container-content-page mt-3">
-        <div class="row">
+        <div class="row content-row">
             {{#each serviceNotes}}
 
             <div class="col-md-6 ">
