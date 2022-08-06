@@ -55,17 +55,15 @@ const ServiceNote = new Schema({
 		}
 	],
 
-	beforeID: [
+	beforeName: [
 		{
 			type: String,
-			ref: "Before"
 		}
 	],
 	
-	afterID: [
+	afterName: [
 		{
 			type: String,
-			ref: "After"
 		}
 	],
 	

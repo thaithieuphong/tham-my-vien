@@ -12,7 +12,6 @@ const appRoot = require('app-root-path');
 require('dotenv').config();
 
 const { google } = require('googleapis');
-const { uploadDrive } = require("../../../middleware/uploadGoogleDrive");
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
 const redirectURI = process.env.REDIRECT_URI;

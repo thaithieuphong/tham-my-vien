@@ -1,7 +1,6 @@
 const Customer = require('../app/models/Customer');
-const Counselor = require('../app/models/Counselor');
 require('dotenv').config();
-
+const Counselor = require('../app/models/Counselor');
 const { google } = require('googleapis');
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
@@ -10,7 +9,6 @@ const refreshTokenGG = process.env.REFRESH_TOKEN_GOOGLE;
 const folderId = process.env.GOOGLE_API_FOLDER_ID;
 const fs = require('fs');
 const appRoot = require('app-root-path');
-const path = require('path')
 
 const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectURI);
 oAuth2Client.setCredentials({ refresh_token: refreshTokenGG });
@@ -20,9 +18,9 @@ const drive = google.drive({
 	auth: oAuth2Client,
 })
 
-class uploadGoogleDrive {
-	uploadDrive(req, res, next) {
+class uploadGoogleDriveReExamination {
 
+	uploadDriveReExamination(req, res, next) {
 		const arrayFile = req.files;
 		const pathName = path.join("/src", "public", "temp/");
 		const files = fs.readdirSync(
@@ -62,11 +60,8 @@ class uploadGoogleDrive {
 								return folderDataId;
 							}).catch(next);
 						arrayFile.forEach(element => {
-							// console.log(element);
-							// console.log("create stream:", `${appRoot}${pathName}${element.filename}`);
-
-							folderCustomerId.then(id => {
-
+							console.log(element);
+							folderCustomerId.then(() => {
 								const requestBody = { // cau hinh file tren drive
 									name: element.filename,
 									mimeType: element.mimetype,
@@ -177,4 +172,4 @@ class uploadGoogleDrive {
 	}
 }
 
-module.exports = new uploadGoogleDrive;
+module.exports = new uploadGoogleDriveReExamination;

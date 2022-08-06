@@ -48,9 +48,9 @@ class ReceptionController {
         Promise.all([
             ServiceNote.findByIdAndUpdate({ _id: req.params.id },
                 { $push: { performer: req.body.performer, nursing: req.body.nursing }, 
-                  $set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule } }),
-            User.updateMany({ _id: { $in: req.body.performer}}, { $set: { state: "Busy" } }),
-            User1.updateMany({ _id: { $in: req.body.nursing}}, { $set: { state: "Busy" } }),
+                  $set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule } })
+            // User.updateMany({ _id: { $in: req.body.performer}}, { $set: { state: "Busy" } }),
+            // User1.updateMany({ _id: { $in: req.body.nursing}}, { $set: { state: "Busy" } }),
         ])
             .then(([serviceNote, users]) => {
                 console.log(serviceNote);

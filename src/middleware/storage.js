@@ -100,7 +100,7 @@ const beforeUploadGoogleDrive = multer.diskStorage({
             str = str.replace(/  +/g, " ");
             return str;
         }
-        Customer.findById( { _id:  req.params.id })
+        Customer.findById( { _id:  req.body.customerID })
             .then(customer => {
                 const fName = convert_vi_to_en(customer.firstName).split(' ');
                 const lName = convert_vi_to_en(customer.lastName).split(' ');

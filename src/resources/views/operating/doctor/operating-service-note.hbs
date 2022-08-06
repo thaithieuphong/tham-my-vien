@@ -18,6 +18,7 @@
 		{{message.content}}
 	</div>
 	<div class="shadow p-3 mb-5 bg-body rounded">
+		{{#each serviceNote}}
 		<div class="row">
 
 			<h5 class="text-uppercase text-center">
@@ -32,27 +33,25 @@
 					aria-selected="true">Thông tinh</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link  btn-light" id="pills-counselor-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-counselor" type="button" role="tab" aria-controls="pills-counselor"
+				<button class="nav-link  btn-light" id="pills-profile-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-service" type="button" role="tab" aria-controls="pills-profile"
 					aria-selected="false">Hình ảnh tư vấn</button>
 			</li>
-
 		</ul>
 
 		<div class="tab-content" id="pills-tabContent">
-
 			<div class="row">
 				<div class="col-md-6">
 					<label class="ml-4 text-success">
 						<strong> Khách hàng: </strong>&nbsp;&nbsp;
 					</label>
 					<label for="">
-						{{serviceNote.customerID.firstName}}{{serviceNote.customerID.lastName}}
+						{{this.customerID.firstName}}{{this.customerID.lastName}}
 					</label>
 				</div>
 				<div class="col-md-6">
 					<div class="text-right text-success mt-3">
-						<label class=" mr-4"><em>{{serviceNote.schedule}}</em></label>
+						<label class=" mr-4"><em>{{this.schedule}}</em></label>
 					</div>
 				</div>
 			</div>
@@ -63,7 +62,7 @@
 							<strong>Reception:</strong>&nbsp;&nbsp;
 						</label>
 						<label for="reception-name">
-							<em>{{serviceNote.recept.firstName}}{{serviceNote.recept.lastName}}</em>
+							<em>{{this.recept.firstName}}{{this.recept.lastName}}</em>
 						</label>
 					</div>
 				</div>
@@ -74,7 +73,7 @@
 							<strong>Trạng thái:</strong>&nbsp;&nbsp;
 						</label>
 						<label class="text-danger">
-							<em>{{serviceNote.status}}</em>
+							<em>{{this.status}}</em>
 						</label>
 					</div>
 				</div>
@@ -86,171 +85,174 @@
 							<strong>Dịch vụ:</strong>&nbsp;&nbsp;
 						</label>
 						<label for="service-name">
-							<em>{{serviceNote.service}}</em>
+							<em>{{this.service}}</em>
 						</label>
 					</div>
 				</div>
 
 				<div class="col-md-6">
-
+					
 				</div>
 			</div>
 			<hr>
 
 
-
-			<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
-				aria-labelledby="pills-home-tab">
-				<div class="row mt-4">
-					<div class="col-md-6">
-						<div class="text-left ml-4">
-							<label for="status">
-								<strong>Bác sĩ: </strong>
-							</label>
-						</div>
-					</div>
-
-					<div class="col-md-6">
-						<div class="text-right mr-4">
-
-							<label class="text-primary">
-								{{#each serviceNote.performer}}
-								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
-
-								<em>{{this.firstName}} {{this.lastName}};</em>
-								{{/each}}
-							</label>
-						</div>
+		<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
+			aria-labelledby="pills-home-tab">
+			<div class="row mt-4">
+				<div class="col-md-6">
+					<div class="text-left ml-4">
+						<label for="status">
+							<strong>Bác sĩ: </strong>
+						</label>
 					</div>
 				</div>
-				<div class="row mt-4">
-					<div class="col-md-6">
-						<div class="text-left ml-4">
-							<label for="service">
-								<strong>Y tá:</strong>
-							</label>
-						</div>
-					</div>
 
-					<div class="col-md-6">
-						<div class="text-right mr-4">
+				<div class="col-md-6">
+					<div class="text-right mr-4">
 
-							<label class="text-primary">
-								{{#each serviceNote.nursing}}
-								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+						<label class="text-primary">
+							{{#each this.performer}}
+							<input hidden type="text" name="operatingID[]" value="{{this._id}}">
 
-								<em>{{this.firstName}} {{this.lastName}};</em>
-								{{/each}}
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="row mt-4">
-					<div class="col-md-6">
-						<div class="text-left ml-4">
-							<label for="service">
-								<strong>Ghi chú:</strong>
-							</label>
-						</div>
-					</div>
-
-					<div class="col-md-6">
-						<div class="text-right mr-4">
-							{{#each serviceNote.comments}}
-							<label class="">
-								<em>{{this.comment}}</em>
-							</label>
-							{{else}}
-							<label class="">
-								<em>Không có ghi chú</em>
-							</label>
+							<em>{{this.firstName}} {{this.lastName}};</em>
 							{{/each}}
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="tab-pane fade  " id="pills-counselor" role="tabpanel" aria-labelledby="pills-profile-tab">
-				<div class="row mt-4">
-					{{#each counselors}}
-					<div class="col-md-3">
-						{{this.img.id}}
-					</div>
-					{{/each}}
-					<div class="col-md-6">
-						<div class="text-right mr-4">
-
-
-						</div>
+						</label>
 					</div>
 				</div>
 			</div>
+			<div class="row mt-4">
+				<div class="col-md-6">
+					<div class="text-left ml-4">
+						<label for="service">
+							<strong>Y tá:</strong>
+						</label>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="text-right mr-4">
+
+						<label class="text-primary">
+							{{#each this.nursing}}
+							<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+
+							<em>{{this.firstName}} {{this.lastName}};</em>
+							{{/each}}
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-4">
+				<div class="col-md-6">
+					<div class="text-left ml-4">
+						<label for="service">
+							<strong>Ghi chú:</strong>
+						</label>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="text-right mr-4">
+						{{#each this.comments}}
+						<label class="">
+							<em>{{this.comment}}</em>
+						</label>
+						{{else}}
+						<label class="">
+							<em>Không có ghi chú</em>
+						</label>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+
 		</div>
-		<hr>
-		<div class="row">
-			<div class="col-md-6">
-				<div class="text-left ml-4">
-					<label for="service">
-						<strong>Tổng cộng:</strong>&nbsp;&nbsp;
-					</label>
-					<label for="">
-						<em>
-							{{serviceNote.price}} VND
-						</em>
-					</label>
-				</div>
-			</div>
-		</div>
+		{{else}}
 		<div class="text-center">Chưa có dịch vụ cần thực hiện.</div>
+		{{/each }}
+		<div class="tab-pane fade  " id="pills-service" role="tabpanel" aria-labelledby="pills-profile-tab">
 
-
+			<div class="row">
+				{{#each counselors}}
+				<div class="col-sm-3">
+					{{this.img.id}}
+				</div>
+				{{/each}}
+			</div>
+		</div>
 	</div>
 
-	<script src="/js/operating/doctor.js"></script>
-	{{!--
-	<script>
+	<hr>
+	{{#each serviceNote}}
 
-		document.addEventListener('DOMContentLoaded', function () {
-			let imagesPreviewBefore = function (input, placeToInsertImagePreview) {
-				if (input.files) {
-					let filesAmount = input.files.length;
-					for (i = 0; i < filesAmount; i++) {
-						let reader = new FileReader();
-						reader.onload = function (event) {
-							$($.parseHTML("<img class='col-md rounded mx-auto d-block'>"))
-								.attr("src", event.target.result)
-								.appendTo(placeToInsertImagePreview);
-						};
-						reader.readAsDataURL(input.files[i]);
-					}
+	<div class="row">
+		<div class="col-md-6">
+			<div class="text-left ml-4">
+				<label for="service">
+					<strong>Tổng cộng:</strong>&nbsp;&nbsp;
+				</label>
+				<label for="">
+					<em>
+						{{this.price}} VND
+					</em>
+				</label>
+			</div>
+		</div>
+	</div>
+	{{/each}}
+
+</div>
+
+
+
+</div>
+
+<script src="/js/operating/doctor.js"></script>
+{{!--
+<script>
+
+	document.addEventListener('DOMContentLoaded', function () {
+		let imagesPreviewBefore = function (input, placeToInsertImagePreview) {
+			if (input.files) {
+				let filesAmount = input.files.length;
+				for (i = 0; i < filesAmount; i++) {
+					let reader = new FileReader();
+					reader.onload = function (event) {
+						$($.parseHTML("<img class='col-md rounded mx-auto d-block'>"))
+							.attr("src", event.target.result)
+							.appendTo(placeToInsertImagePreview);
+					};
+					reader.readAsDataURL(input.files[i]);
 				}
-			};
-			var inputMultiFileBefore = document.getElementById('input-multi-files-before');
-			inputMultiFileBefore.addEventListener('change', (e) => {
-				imagesPreviewBefore(e.target, "div.preview-images-before");
-				console.log(e.target.files)
-			})
+			}
+		};
+		var inputMultiFileBefore = document.getElementById('input-multi-files-before');
+		inputMultiFileBefore.addEventListener('change', (e) => {
+			imagesPreviewBefore(e.target, "div.preview-images-before");
+			console.log(e.target.files)
+		})
 
 
-			let imagesPreviewAfter = function (input, placeToInsertImagePreview) {
-				if (input.files) {
-					let filesAmount = input.files.length;
-					for (i = 0; i < filesAmount; i++) {
-						let reader = new FileReader();
-						reader.onload = function (event) {
-							$($.parseHTML("<img class='col-md rounded mx-auto d-block'>"))
-								.attr("src", event.target.result)
-								.appendTo(placeToInsertImagePreview);
-						};
-						reader.readAsDataURL(input.files[i]);
-					}
+		let imagesPreviewAfter = function (input, placeToInsertImagePreview) {
+			if (input.files) {
+				let filesAmount = input.files.length;
+				for (i = 0; i < filesAmount; i++) {
+					let reader = new FileReader();
+					reader.onload = function (event) {
+						$($.parseHTML("<img class='col-md rounded mx-auto d-block'>"))
+							.attr("src", event.target.result)
+							.appendTo(placeToInsertImagePreview);
+					};
+					reader.readAsDataURL(input.files[i]);
 				}
-			};
+			}
+		};
 
-			var inputMultiFileAfter = document.getElementById('input-multi-files-after');
-			inputMultiFileAfter.addEventListener('change', (e) => {
-				imagesPreviewAfter(e.target, "div.preview-images-after");
-				console.log(e.target.files)
-			})
-		});
-	</script> --}}
+		var inputMultiFileAfter = document.getElementById('input-multi-files-after');
+		inputMultiFileAfter.addEventListener('change', (e) => {
+			imagesPreviewAfter(e.target, "div.preview-images-after");
+			console.log(e.target.files)
+		})
+	});
+</script> --}}

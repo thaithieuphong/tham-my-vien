@@ -15,6 +15,18 @@ const Customer = new Schema({
 			type: String,
 		}
 	],
+
+	beforeName: [
+		{
+			type: String,
+		}
+	],
+	
+	afterName: [
+		{
+			type: String,
+		}
+	],
 	image: {
 		name: String,
 		url: String,

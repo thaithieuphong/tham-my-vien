@@ -2,17 +2,14 @@ const express = require('express');
 const router = express.Router();
 const MarketingController = require('../../app/controllers/marketing-controller/EmployMarketingController');
 const validateUploadImage = require('../../middleware/validateUploadImage');
-// const getHeaderToken = require('../getHeaderToken');
+const authJwt = require('../../middleware/authJwt');
 
 //Employ
-// router.patch('/customers/:id/comment', MarketingController.createComment);
-router.put('/customers/:id', validateUploadImage.uploadSingleCustomer, MarketingController.editCustomer);
-
-router.post('/customers', validateUploadImage.uploadSingleCustomer, MarketingController.createCustomer);
-
-router.get('/customers/:id/detail', MarketingController.showCustomerDetail);
-router.get('/customers', MarketingController.showCustomer);
-router.get('/', MarketingController.showDashboard);
+router.put('/customers/:id', [authJwt.verifyToken, authJwt.isMarketingEmploy, validateUploadImage.uploadSingleCustomer], MarketingController.editCustomer);
+router.post('/customers', [authJwt.verifyToken, authJwt.isMarketingEmploy, validateUploadImage.uploadSingleCustomer], MarketingController.createCustomer);
+router.get('/customers/:id/detail', [authJwt.verifyToken, authJwt.isMarketingEmploy,], MarketingController.showCustomerDetail);
+router.get('/customers', [authJwt.verifyToken, authJwt.isMarketingEmploy], MarketingController.showCustomer);
+router.get('/', [authJwt.verifyToken, authJwt.isMarketingEmploy], MarketingController.showDashboard);
 
 
 module.exports = router;
