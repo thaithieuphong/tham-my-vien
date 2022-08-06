@@ -12,7 +12,6 @@ const Counselor = require('../../models/Counselor');
 class UserController {
 
 	showServiceNote(req, res, next) {
-		console.log(req.userId);
 		ServiceNote.find({ stored: "No", status: "Đang xử lý", nursing: req.userId } ).populate('recept').populate('customerID').populate('performer').populate('nursing')
 		.then((serviceNote) => {
 			console.log(serviceNote.customerID)
