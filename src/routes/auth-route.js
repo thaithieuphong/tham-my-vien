@@ -7,7 +7,7 @@ const controller = require("../app/controllers/AuthController");
 const rootRouter = require("./root");
 // const adminRouter = require("./admin");
 
-const validateUploadImage = require('../middleware/validateUploadImage');
+const validateUploadImage = require('../middleware/validateUpload');
 const AdminController = require('../app/controllers/AdminController')
 const UserController = require('../app/controllers/operating-controller/NursingOperationRoomController.js')
 

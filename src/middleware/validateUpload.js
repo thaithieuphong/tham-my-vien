@@ -8,10 +8,10 @@ class validateUploadImage {
     uploadSingleCustomer = multer({ fileFilter: helpers.imageFilter, storage: storage.storageCustomerAvt }).single('image');
     uploadSingleUser = multer({ fileFilter: helpers.imageFilter, storage: storage.storageUserAvt }).single('image');
     uploadSingleUserEdit = multer({ fileFilter: helpers.imageFilter, storage: storage.storageUserAvtEdit }).single('image');
-    counselorUploadGoogleDrive = multer({ fileFilter: helpers.videoFilter, storage: storage.counselorUploadGoogleDrive }).array('counselor');
-    beforeUploadGoogleDrive = multer({ fileFilter: helpers.videoFilter, storage: storage.beforeUploadGoogleDrive }).array('before');
-    afterUploadGoogleDrive = multer({ fileFilter: helpers.videoFilter, storage: storage.afterUploadGoogleDrive }).array('after');
-    reExaminationUploadGoogleDrive = multer({  fileFilter: helpers.videoFilter, storage: storage.reExaminationUploadGoogleDrive }).array('reExamination');
+    counselorUpload = multer({ fileFilter: helpers.filter, storage: storage.counselorUpload }).array('counselor');
+    beforeUpload = multer({ fileFilter: helpers.filter, storage: storage.beforeUpload }).array('before');
+    afterUpload = multer({ fileFilter: helpers.filter, storage: storage.afterUpload }).array('after');
+    reExaminationUpload = multer({  fileFilter: helpers.filter, storage: storage.reExaminationUpload }).array('reExamination');
 }
 
 module.exports = new validateUploadImage;

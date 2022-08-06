@@ -1,7 +1,7 @@
 const express = require('express');
 const ManagerBusinessController = require('../../app/controllers/business-controller/ManagerBusinessController');
 const router = express.Router();
-const validateUploadImage = require('../../middleware/validateUploadImage');
+const validateUploadImage = require('../../middleware/validateUpload');
 const authJwt = require('../../middleware/authJwt');
 const uploadGoogleDrive = require('../../middleware/uploadGoogleDriveCounselor');
 
@@ -12,7 +12,7 @@ router.patch('/service-note/:id', [authJwt.verifyToken, authJwt.isBusinessManage
 router.put('/customers/:id/edit', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.uploadSingleCustomer], ManagerBusinessController.editCustomer);
 
 router.post('/customers/userid', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.addUseridToCustomer)
-router.post('/customers/:id/service-note', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.counselorUploadGoogleDrive, uploadGoogleDrive.uploadDriveCounselor], ManagerBusinessController.createServiceNote);
+router.post('/customers/:id/service-note', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.counselorUpload], ManagerBusinessController.createServiceNote);
 router.post('/customers', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.uploadSingleCustomer], ManagerBusinessController.createCustomer);
 router.get('/customers/:id/detail', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.showCustomerDetail)
 router.get('/service-note', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.showServiceNote);

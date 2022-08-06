@@ -16,9 +16,13 @@ const storageCustomerAvt = multer.diskStorage({
     }
 });
 
-const counselorUploadGoogleDrive = multer.diskStorage({
+const counselorUpload = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, appRoot + '\\src\\public\\temp\\');
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+            cb(null, appRoot + '/src/public/counselor/img');
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+            cb(null, appRoot + '/src/public/counselor/video');
+        }
     },
 
     // By default, multer removes file extensions so let's add them back
@@ -66,14 +70,22 @@ const counselorUploadGoogleDrive = multer.diskStorage({
                     aLName = el.split(', ');
                     bLName += aLName;
                 })
-                cb(null, `${file.fieldname}_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+                    cb(null, `${file.fieldname}_img_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+                    cb(null, `${file.fieldname}_video_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                }
             })
     }
 });
 
-const beforeUploadGoogleDrive = multer.diskStorage({
+const beforeUpload = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, appRoot + '/src/public/temp/');
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+            cb(null, appRoot + '/src/public/before/img');
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+            cb(null, appRoot + '/src/public/before/video');
+        }
     },
 
     // By default, multer removes file extensions so let's add them back
@@ -121,14 +133,22 @@ const beforeUploadGoogleDrive = multer.diskStorage({
                     aLName = el.split(', ');
                     bLName += aLName;
                 })
-                cb(null, `${file.fieldname}_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+                    cb(null, `${file.fieldname}_img_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+                    cb(null, `${file.fieldname}_video_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                }
             })
     }
 });
 
-const afterUploadGoogleDrive = multer.diskStorage({
+const afterUpload = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, appRoot + '/src/public/temp/');
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+            cb(null, appRoot + '/src/public/after/img');
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+            cb(null, appRoot + '/src/public/after/video');
+        }
     },
 
     // By default, multer removes file extensions so let's add them back
@@ -176,14 +196,22 @@ const afterUploadGoogleDrive = multer.diskStorage({
                     aLName = el.split(', ');
                     bLName += aLName;
                 })
-                cb(null, `${file.fieldname}_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+                    cb(null, `${file.fieldname}_img_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+                    cb(null, `${file.fieldname}_video_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                }
             })
     }
 });
 
-const reExaminationUploadGoogleDrive = multer.diskStorage({
+const reExaminationUpload = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, appRoot + '/src/public/temp/');
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+            cb(null, appRoot + '/src/public/re-examination/img');
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+            cb(null, appRoot + '/src/public/re-examination/video');
+        }
     },
 
     // By default, multer removes file extensions so let's add them back
@@ -231,7 +259,11 @@ const reExaminationUploadGoogleDrive = multer.diskStorage({
                     aLName = el.split(', ');
                     bLName += aLName;
                 })
-                cb(null, `${file.fieldname}_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+                    cb(null, `${file.fieldname}_img_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+                    cb(null, `${file.fieldname}_video_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+                }
             })
     }
 });
@@ -365,7 +397,7 @@ exports.storageCustomerAvt = storageCustomerAvt;
 exports.storageUserAvt = storageUserAvt;
 exports.storageUserAvtEdit = storageUserAvtEdit;
 exports.storageCustomerAvtEdit = storageCustomerAvtEdit;
-exports.counselorUploadGoogleDrive = counselorUploadGoogleDrive;
-exports.beforeUploadGoogleDrive = beforeUploadGoogleDrive;
-exports.afterUploadGoogleDrive = afterUploadGoogleDrive;
-exports.reExaminationUploadGoogleDrive = reExaminationUploadGoogleDrive;
+exports.counselorUpload = counselorUpload;
+exports.beforeUpload = beforeUpload;
+exports.afterUpload = afterUpload;
+exports.reExaminationUpload = reExaminationUpload;
