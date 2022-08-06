@@ -22,13 +22,15 @@ class uploadGoogleDriveReExamination {
 
 	uploadDriveReExamination(req, res, next) {
 		const arrayFile = req.files;
+		const pathName = path.join("/src", "public", "temp/");
 		const files = fs.readdirSync(
-			appRoot + "/src/public/temp"
+			appRoot + pathName
 		);
+		// console.log(files)
 		const findFolder = {
 			q: "mimeType='application/vnd.google-apps.folder' and trashed=false",
 			fields: 'nextPageToken, files(id, name)',
-			spaces: 'drive', 
+			spaces: 'drive',
 		}
 		Promise.all([Customer.findById({ _id: req.params.id }), drive.files.list(findFolder)])
 			.then(([customer, list]) => {
@@ -50,14 +52,15 @@ class uploadGoogleDriveReExamination {
 						}
 						let folderDataId;
 						const folderCustomerId = drive.files.create({
-								resource: folderCustomer,
-								fields: 'id'
-							})
+							resource: folderCustomer,
+							fields: 'id'
+						})
 							.then(result => {
 								folderDataId = result.data.id;
 								return folderDataId;
 							}).catch(next);
 						arrayFile.forEach(element => {
+							console.log(element);
 							folderCustomerId.then(() => {
 								const requestBody = { // cau hinh file tren drive
 									name: element.filename,
@@ -66,41 +69,47 @@ class uploadGoogleDriveReExamination {
 								};
 								const media = { // lay thong tin file tu he thong
 									mimeType: element.mimetype,
-									body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
+									body: fs.createReadStream(`${appRoot}${pathName}${element.filename}`)
+
 								};
-								let arrImg = [];
+								let arrImg = []
 								let createFile = drive.files.create({
 									resource: requestBody,
 									media: media,
 									fields: 'id',
 								})
-								.then(img => {
-									const imgId = img.data.id;
-									let imgElement = {
-										name: element.filename,
-										id: imgId,
-										mimeType: element.mimetype,
-										folderId: folderDataId
-									}
-									const counselor = new Counselor({
-										img: imgElement,
+									.then(img => {
+										const imgLocal = element.filename;
+										const imgLocalPath = element.path;
+										files.filter((img) => {
+											if (img === imgLocal) {
+												// console.log("img user", img);
+												// console.log("path:", imgLocalPath)
+												fs.unlinkSync(imgLocalPath);
+											}
+										});
+										const imgId = img.data.id;
+										let imgElement = {
+											name: element.filename,
+											id: imgId,
+											mimeType: element.mimetype,
+											folderId: folderDataId
+										}
+										const counselor = new Counselor({
+											img: imgElement,
+										})
+										counselor.save();
+
+										console.log("img name:", counselor.img.name);
+										console.log("id:", counselor.id);
+										return counselor;
 									})
-									counselor.save();
-									return counselor;
-								})
-								.then((counselor) => {
-									arrImg.push(counselor.id);
-								});
-								const imgLocal = element.filename;
-								const imgLocalPath = element.path;
-								files.filter((img) => {
-									if (img === imgLocal) {
-										fs.unlinkSync(imgLocalPath);
-									}
-								});
+									.then((counselor) => {
+										arrImg.push(counselor.id);
+									});
 							})
 						});
-						return {folderCusId, folderName};
+						return { folderCusId, folderName };
 					}
 					if (folderName === folderCustomerName) { // neu thu muc da ton tai thi them hinh anh vao thu muc da co
 						arrayFile.forEach(element => {
@@ -111,48 +120,56 @@ class uploadGoogleDriveReExamination {
 							};
 							const media = { // lay thong tin file tu he thong
 								mimeType: element.mimetype,
-								body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
+								body: fs.createReadStream(`${appRoot}${pathName}${element.filename}`)
 							};
-							let arrImg = [];
+
+							let arrImg = []
 							let createFile = drive.files.create({
 								resource: requestBody,
 								media: media,
 								fields: 'id',
 							})
-							.then(img => {
-								const imgId = img.data.id;
-								let imgElement = {
-									name: element.filename,
-									id: imgId,
-									mimeType: element.mimetype,
-									folderId: folder.id
-								}
-								const counselor = new Counselor({
-									img: imgElement,
+								.then(img => {
+									const imgLocal = element.filename;
+									const imgLocalPath = element.path;
+									files.filter((img) => {
+										if (img === imgLocal) {
+											// console.log("img user", img);
+											fs.unlinkSync(imgLocalPath);
+										}
+									});
+									const imgId = img.data.id;
+									let imgElement = {
+										name: element.filename,
+										id: imgId,
+										mimeType: element.mimetype,
+										folderId: folder.id
+									}
+									const counselor = new Counselor({
+										filename: element.filename,
+										img: imgElement,
+									})
+									counselor.save();
+									console.log("img name:", counselor.img.name);
+									console.log("id:", counselor.id);
+									
+									return counselor;
+
 								})
-								counselor.save();
-								return counselor;
-							})
-							.then((counselor) => {
-								arrImg.push(counselor.id);
-							});
-							const imgLocal = element.filename;
-							const imgLocalPath = element.path;
-							files.filter((img) => {
-								if (img === imgLocal) {
-									fs.unlinkSync(imgLocalPath);
-								}
-							});
+								.then((counselor) => {
+									arrImg.push(counselor.id);
+								});
+
 						});
-						return {folderCusId, folderName};
+						return { folderCusId, folderName };
 					};
 				});
 			})
 			.catch(err => {
 				console.log(err);
 			})
-			next();
-		}
+		next();
+	}
 }
 
 module.exports = new uploadGoogleDriveReExamination;

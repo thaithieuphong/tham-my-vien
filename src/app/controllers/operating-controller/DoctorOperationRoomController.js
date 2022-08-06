@@ -1,36 +1,42 @@
 const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mongoose');
 const ServiceNote = require('../../models/ServiceNote');
+const Counselor = require('../../models/Counselor');
+
 const User = require('../../models/User')
+const fs = require('fs');
+const appRoot = require('app-root-path');
+const path = require('path');
 
 class DoctorOperationRoomController {
 	//doctor
 	// , status: "Đang xử lý"
 	showServiceNote(req, res, next) {
-		console.log(req.userId);
-		ServiceNote.findDeleted({ stored: "No", status: "Đang xử lý", performer: req.userId } ).populate('recept').populate('customerID').populate('performer').populate('nursing')
-			.then((serviceNotes) => {
-				// serviceNotes.forEach(element => console.log(element.performer))
-				res.render("operating/doctor/operating-service-note", {
-					serviceNotes: multipleMongooseToObject(serviceNotes),
-					title: "Phiếu dịch vụ"
-				});	
+		ServiceNote.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')
+			.then((serviceNote) => {
+				// console.log(serviceNote)
+				const cln = [];
+				serviceNote.forEach(element => {
+					let clns = element.counselorName;
+					for( const element of clns){
+						cln.push(element);
+					}
+					return cln;
+
+				})
+				Counselor.find({ filename: {$in: cln} })
+					.then((counselors) => {
+						console.log(counselors)
+						res.render("operating/doctor/operating-service-note", {
+							serviceNote:  multipleMongooseToObject(serviceNote),
+							counselors: multipleMongooseToObject(counselors), 
+							title: "Chi tiết khách hàng"
+						});
+					})
 			})
 			.catch(next);
 	}
 
-	updateServiceNote(req, res, next) {
-		// res.json(req.body)
-		// console.log(req.params.id)
-		Promise.all([
-			ServiceNote.findDeleted({_id: req.params.id}).updateOne({$set: {status: "Hoàn thành"}}),	
-			User.updateMany({_id: {$in: req.body.operatingID}},{$set: {state:"Medium"}})
-		])
-				.then((serviceNote) => {
-					console.log("serviceNote:",serviceNote)
-					res.redirect('back')
-				})
-				.catch(next);
-	}
+
 
 }
 

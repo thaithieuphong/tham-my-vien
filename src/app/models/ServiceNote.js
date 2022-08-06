@@ -48,6 +48,25 @@ const ServiceNote = new Schema({
 			ref: "Service"
 		}
 	],
+
+	counselorName: [
+		{
+			type: String,
+		}
+	],
+
+	beforeName: [
+		{
+			type: String,
+		}
+	],
+	
+	afterName: [
+		{
+			type: String,
+		}
+	],
+	
 	comments: [
 		{
 			comment: String

@@ -6,6 +6,7 @@ const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mo
 const TypeService = require("../../models/TypeService");
 const ServiceNote = require('../../models/ServiceNote');
 const fs = require('fs');
+const path = require('path');
 const appRoot = require('app-root-path');
 
 require('dotenv').config();
@@ -45,7 +46,8 @@ class EmployBusinessController {
 
 	/** Customer */
 	showCustomer(req, res, next) {
-		Promise.all([Customer.find({userID: req.userId}), User.findById({ _id: req.userId }),
+		// console.log("path-join", path.join("src", "pulic", "temp"))s
+		Promise.all([Customer.find({ userID: req.userId }), User.findById({ _id: req.userId }),
 		TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
 				res.render("business/employ/employ-customer", {
@@ -162,11 +164,16 @@ class EmployBusinessController {
 		// res.json(req.params.id)
 		Customer.findById({ _id: req.params.id }).populate('serviceNoteID')
 			.then((customer) => {
-				console.log(customer);
-				res.render('business/employ/employ-customer-detail', {
-					customer: mongooseToObject(customer),
-					title: "Chi tiết khách hàng"
-				});
+				console.log(customer.counselorName)
+				Counselor.find({ filename: {$in: customer.counselorName}})
+					.then((counselors) => {
+						res.render('business/employ/employ-customer-detail', {
+							customer: mongooseToObject(customer),
+							counselors: multipleMongooseToObject(counselors), 
+							title: "Chi tiết khách hàng"
+						});
+					})
+				
 			})
 			.catch(next);
 		// res.json(req.params)
@@ -182,7 +189,7 @@ class EmployBusinessController {
 	}
 
 	showServiceNote(req, res, next) {
-		ServiceNote.find({createName: req.userId}).sort({shedule:1}).populate('customerID').populate('createName')
+		ServiceNote.find({ createName: req.userId }).sort({ shedule: 1 }).populate('customerID').populate('createName')
 			.then(serviceNotes => {
 				res.render('business/employ/employ-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
@@ -194,7 +201,15 @@ class EmployBusinessController {
 	}
 
 	createServiceNote(req, res, next) {
-		console.log('req controller', req)
+
+		// console.log(req.files);
+		const file = req.files;
+		const fn = []
+		// const fn = file.filter(element => element.filename !== "" ? element.filename : null);
+		file.forEach(element => {
+			fn.push(element.filename)
+			return fn;
+		})
 		const serviceNote = new ServiceNote({
 			customerID: req.body.customerID,
 			performer: req.body.performer,
@@ -204,123 +219,19 @@ class EmployBusinessController {
 			comments: { comment: req.body.comment },
 			schedule: req.body.schedule,
 			price: req.body.price,
+			counselorName: fn,
 		});
 		serviceNote.save();
-		console.log(serviceNote.id);
-		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id } })
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id, counselorName:  fn } })
 			.then(() => {
 				res.redirect('back');
 
 			})
-			.catch(next);
+
+
+
 		// res.json(req.body)
 	}
-
-	// uploadToDrive(req, res, next) {
-	// 	// Áp dụng cho tất cả các upload drive khác
-	// 	// copy tất cả đoạn code này vào phần create service note
-
-	// 	const arrayFile = req.files;
-	// 	const files = fs.readdirSync(
-	// 		appRoot + "/src/public/temp"
-	// 	);
-	// 	const findFolder = {
-	// 		q: "mimeType='application/vnd.google-apps.folder' and trashed=false",
-	// 		fields: 'nextPageToken, files(id, name)',
-	// 		spaces: 'drive', 
-	// 	}
-	// 	// chỉnh sửa bắt đầu từ đoạn promise all
-
-	// 	Promise.all([Customer.findById({ _id: req.params.id }), drive.files.list(findFolder)])
-	// 		.then(([customer, list]) => {
-	// 			const fName = customer.firstName;
-	// 			const lName = customer.lastName;
-	// 			const birth = customer.birth.split('-');
-	// 			const newBirth = `${birth[2]}/${birth[1]}/${birth[0]}`;
-	// 			const folderCustomerName = `${fName} ${lName} ${newBirth}`;
-	// 			const arrayFolder = list.data.files;
-	// 			const currentFolder = arrayFolder.find(folder => {
-	// 				const folderName = folder.name;
-	// 				const folderCusId = folder.id;
-	// 				// neu thu muc chua ton tai thi tao thu muc sau do tao hinh anh trong thu muc do
-	// 				if (folderCusId === folderId && folderName !== folderCustomerName) {
-	// 					console.log('>>> a: ', folderName);
-	// 					const folderCustomer = {
-	// 						mimeType: 'application/vnd.google-apps.folder',
-	// 						parents: [folderId],
-	// 						'name': folderCustomerName,
-	// 					}
-	// 					let folderDataId;
-	// 					const folderCustomerId = drive.files.create({
-	// 							resource: folderCustomer,
-	// 							fields: 'id'
-	// 						})
-	// 						.then(result => {
-	// 							folderDataId = result.data.id;
-	// 							return folderDataId;
-	// 						}).catch(next);
-	// 					arrayFile.forEach(element => {
-	// 						folderCustomerId.then(id => {
-	// 							console.log('>>> id', id.id);
-	// 							const requestBody = { // cau hinh file tren drive
-	// 								name: element.filename,
-	// 								mimeType: element.mimetype,
-	// 								parents: [folderDataId] // id thu muc chua
-	// 							};
-	// 							const media = { // lay thong tin file tu he thong
-	// 								mimeType: element.mimetype,
-	// 								body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
-	// 							};
-								
-	// 							let createFile = drive.files.create({
-	// 								resource: requestBody,
-	// 								media: media,
-	// 								fields: 'id',
-	// 							});
-	// 							const imgLocal = element.filename;
-	// 							const imgLocalPath = element.path;
-	// 							files.filter((img) => {
-	// 								if (img === imgLocal) {
-	// 									console.log("img user", img);
-	// 									fs.unlinkSync(imgLocalPath);
-	// 								}
-	// 							});
-	// 						})
-	// 					});
-	// 					return {folderCusId, folderName};
-	// 				}
-	// 				if (folderName === folderCustomerName) { // neu thu muc da ton tai thi them hinh anh vao thu muc da co
-	// 					console.log('>>> b: ', folderName);
-	// 					arrayFile.forEach(element => {
-	// 						const requestBody = { // cau hinh file tren drive
-	// 							name: element.filename,
-	// 							mimeType: element.mimetype,
-	// 							parents: [folder.id] // id thu muc chua
-	// 						};
-	// 						const media = { // lay thong tin file tu he thong
-	// 							mimeType: element.mimetype,
-	// 							body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
-	// 						};
-							
-	// 						let createFile = drive.files.create({
-	// 							resource: requestBody,
-	// 							media: media,
-	// 							fields: 'id',
-	// 						});
-	// 						const imgLocal = element.filename;
-	// 						const imgLocalPath = element.path;
-	// 						files.filter((img) => {
-	// 							if (img === imgLocal) {
-	// 								console.log("img user", img);
-	// 								fs.unlinkSync(imgLocalPath);
-	// 							}
-	// 						});
-	// 					});
-	// 					return {folderCusId, folderName};
-	// 				};
-	// 			});
-	// 		})
-	// 	}
 }
 
 module.exports = new EmployBusinessController();

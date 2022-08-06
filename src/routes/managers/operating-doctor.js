@@ -5,7 +5,6 @@ const validateUploadImage = require('../../middleware/validateUploadImage');
 
 
 //Employ
-router.patch('/service-note/:id', DoctorController.updateServiceNote);
 router.get('/', DoctorController.showServiceNote);
 
 

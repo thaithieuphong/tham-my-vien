@@ -161,6 +161,14 @@ class ManagerBusinessController {
 	}
 
 	createServiceNote(req, res, next) {
+		// console.log(req.files);
+		const file = req.files;
+		const fn = []
+		// const fn = file.filter(element => element.filename !== "" ? element.filename : null);
+		file.forEach(element => {
+			fn.push(element.filename)
+			return fn;
+		})
 		const serviceNote = new ServiceNote({
 			customerID: req.body.customerID,
 			performer: req.body.performer,
@@ -170,15 +178,14 @@ class ManagerBusinessController {
 			comments: { comment: req.body.comment },
 			schedule: req.body.schedule,
 			price: req.body.price,
+			counselorName: fn,
 		});
 		serviceNote.save();
-		console.log(serviceNote.id);
-		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id } })
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id, counselorName:  fn } })
 			.then(() => {
 				res.redirect('back');
 
 			})
-			.catch(next);
 	}
 
 	deleteServiceNote(req, res, next) {

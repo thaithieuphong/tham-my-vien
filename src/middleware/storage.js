@@ -18,7 +18,7 @@ const storageCustomerAvt = multer.diskStorage({
 
 const counselorUploadGoogleDrive = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, appRoot + '/src/public/temp/');
+        cb(null, appRoot + '\\src\\public\\temp\\');
     },
 
     // By default, multer removes file extensions so let's add them back
@@ -100,7 +100,7 @@ const beforeUploadGoogleDrive = multer.diskStorage({
             str = str.replace(/  +/g, " ");
             return str;
         }
-        Customer.findById( { _id:  req.params.id })
+        Customer.findById( { _id:  req.body.customerID })
             .then(customer => {
                 const fName = convert_vi_to_en(customer.firstName).split(' ');
                 const lName = convert_vi_to_en(customer.lastName).split(' ');

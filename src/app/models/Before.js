@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Counselor = new Schema({
-    filename: String,
+const Before = new Schema({
+    service: String,
     img: {
         name: String,
         id: String,
@@ -13,5 +13,5 @@ const Counselor = new Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Counselor', Counselor);
+module.exports = mongoose.model('Before', Before);
 
