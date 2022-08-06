@@ -11,7 +11,7 @@ class UserController {
 
 	showServiceNote(req, res, next) {
 		console.log(req.userId);
-		ServiceNote.findDeleted({ stored: "No", status: "Đang xử lý", nursing: req.userId } ).populate('recept').populate('customerID').populate('performer').populate('nursing')
+		ServiceNote.find({ stored: "No", status: "Đang xử lý", nursing: req.userId } ).populate('recept').populate('customerID').populate('performer').populate('nursing')
 			.then((serviceNotes) => {
 				// serviceNotes.forEach(element => console.log(element.performer))
 				res.render("operating/nursing/operating-service-note", {
