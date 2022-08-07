@@ -1,0 +1,324 @@
+<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
+	<div class="title">
+
+	</div>
+	<h3 class="title text-light sticky-top">Dịch vụ</h3>
+	{{> page/sidebar/operating-room/sidebar-doctor-re-exam}}
+
+	<div class="stask">
+	</div>
+</nav>
+<div class="container">
+	<div id="alert-message" class="alert alert-{{message.color}}" role="alert">
+		{{message.content}}
+	</div>
+	<div class="shadow p-3 mb-5 bg-body rounded">
+
+		{{#each reExam}}
+		<div class="row">
+
+			<h5 class="text-uppercase text-center mb-4">
+				<strong>Phiếu tái khám</strong>
+			</h5>
+		</div>
+
+		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active " id="pills-profile-customer-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-profile-customer" type="button" role="tab" aria-controls="pills-home"
+					aria-selected="true">Thông tinh</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link  " id="pills-counselor-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-counselor" type="button" role="tab" aria-controls="pills-counselor"
+					aria-selected="false">Hình ảnh tư vấn</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link  " id="pills-before-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-before" type="button" role="tab" aria-controls="pills-before"
+					aria-selected="false">Hình ảnh trước phẩu</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link  " id="pills-after-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-after" type="button" role="tab" aria-controls="pills-after"
+					aria-selected="false">Hình ảnh sau phẩu</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link  " id="pills-re-exam-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-re-exam" type="button" role="tab" aria-controls="pills-after"
+					aria-selected="false">Hình ảnh tái khám</button>
+			</li>
+		</ul>
+
+		<div class="tab-content" id="pills-tabContent">
+
+			<div class="row">
+				<div class="col-md-6">
+					<label class="ml-4 text-success">
+						<strong> Khách hàng: </strong>&nbsp;&nbsp;
+					</label>
+					<label for="">
+						{{this.customerID.firstName}}{{this.customerID.lastName}}
+					</label>
+				</div>
+				<div class="col-md-6">
+					<div class="text-right text-success">
+						<label class=" mr-4"><em>{{this.schedule}}</em></label>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-md-6">
+					<div class="text-left ml-4">
+						<label for="reception">
+							<strong>Reception:</strong>&nbsp;&nbsp;
+						</label>
+						<label for="reception-name">
+							<em>{{this.recept.firstName}} {{this.recept.lastName}}</em>
+						</label>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="text-right mr-4">
+						<label for="status">
+							<strong>Trạng thái:</strong>&nbsp;&nbsp;
+						</label>
+						<label class="text-danger">
+							<em>{{this.status}}</em>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-md-6">
+					<div class="text-left ml-4">
+						<label for="service">
+							<strong>Dịch vụ đã sử dụng:</strong>&nbsp;&nbsp;
+						</label>
+
+					</div>
+				</div>
+
+				<div class="col-md-6 ">
+					<div class="text-right mr-4">
+						<label for="service-name">
+							<em>{{this.serviceNoteId.service}}</em>
+						</label>
+					</div>
+
+				</div>
+			</div>
+
+			<hr>
+
+
+
+			<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
+				aria-labelledby="pills-home-tab">
+
+				<form method="POST" id="submit-re-exam-form">
+
+					<div class="row mt-4">
+						<div class="col-md-6">
+							<div class="text-left ml-4">
+								<label for="status">
+									<strong>Bác sĩ: </strong>
+								</label>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="text-right mr-4">
+
+								<label class="text-primary">
+									{{#each this.performer}}
+									<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+
+									<em>{{this.firstName}} {{this.lastName}};</em>
+									{{/each}}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div class="row mt-4">
+						<div class="col-md-6">
+							<div class="text-left ml-4">
+								<label for="service">
+									<strong>Y tá:</strong>
+								</label>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="text-right mr-4">
+								<label class="text-primary">
+									{{#each this.nursing}}
+									<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+
+									<em>{{this.firstName}} {{this.lastName}};</em>
+									{{/each}}
+								</label>
+
+							</div>
+						</div>
+					</div>
+				</form>
+
+				<div class="row mt-4">
+					<div class="col-md-6">
+						<div class="text-left ml-4">
+							<label for="service">
+								<strong>Ghi chú:</strong>
+							</label>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="text-right mr-4">
+							{{#each this.comments}}
+							<label class="">
+								<em>{{this.comment}}</em>
+							</label>
+							{{else}}
+							<label class="">
+								<em>Không có ghi chú</em>
+							</label>
+							{{/each}}
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			{{!-- {{/each }} --}}
+			<div class="tab-pane fade  " id="pills-counselor" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+				{{!-- <div class="row">
+					{{#each counselors}}
+					<div class="col-sm-3">
+						{{this.img.id}}
+					</div>
+					{{/each}}
+				</div> --}}
+				<div class="row">
+					<div class="col-md-6 row">
+						{{#each this.serviceNoteId.counselorImg}}
+						<div class="col-md-6 mt-2">
+							<img src="/img/uploads/counselor/img/{{this}}" class="rounded mx-auto d-block add-avata"
+								alt="...">
+
+						</div>
+						{{/each}}
+					</div>
+					<div class="col-md-6 row">
+						{{#each this.serviceNoteId.counselorVideo}}
+						<div class="col-md-6 mt-2">
+							<video class="rounded mx-auto d-block add-avata" controls>
+								<source src="/img/uploads/counselor/video/{{this}}" type="video/mp4">
+							</video>
+						</div>
+						{{/each}}
+					</div>
+
+				</div>
+			</div>
+
+			{{!-- {{#each serviceNote}} --}}
+
+			<div class="tab-pane fade  " id="pills-before" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="row">
+					<div class="col-md-6 row mt-2">
+						{{#each this.serviceNoteId.beforeImg}}
+						<div class="col-md-6">
+							<img src="/img/uploads/before/img/{{this}}" class="rounded mx-auto d-block add-avata"
+								alt="...">
+
+						</div>
+						{{/each}}
+					</div>
+					<div class="col-md-6 row">
+						{{#each this.serviceNoteId.beforeVideo}}
+						<div class="col-md-6 mt-2">
+							<video class="rounded mx-auto d-block add-avata" controls>
+								<source src="/img/uploads/before/video/{{this}}" type="video/mp4">
+							</video>
+						</div>
+						{{/each}}
+					</div>
+
+				</div>
+			</div>
+
+			<div class="tab-pane fade  " id="pills-after" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="row">
+					<div class="col-md-6 row">
+						{{#each this.serviceNoteId.afterImg}}
+						<div class="col-md-6 mt-2">
+							<img src="/img/uploads/after/img/{{this}}" class="rounded mx-auto d-block add-avata"
+								alt="...">
+
+						</div>
+						{{/each}}
+					</div>
+					<div class="col-md-6 row">
+						{{#each this.serviceNoteId.afterVideo}}
+						<div class="col-md-6 mt-2">
+							<video class="rounded mx-auto d-block add-avata" controls>
+								<source src="/img/uploads/after/video/{{this}}" type="video/mp4">
+							</video>
+						</div>
+						{{/each}}
+					</div>
+
+				</div>
+			</div>
+
+			<div class="tab-pane fade" id="pills-re-exam" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="row">
+					<div class="col-md-6 row">
+						{{#each this.reExamImg}}
+						<div class="col-md-6 mt-2">
+							<img src="/img/uploads/re-examination/img/{{this}}" class="rounded mx-auto d-block add-avata"
+								alt="...">
+
+						</div>
+						{{/each}}
+					</div>
+					<div class="col-md-6 row">
+						{{#each this.reExamVideo}}
+						<div class="col-md-6 mt-2">
+							<video class="rounded mx-auto d-block add-avata" controls>
+								<source src="/img/uploads/re-examination/video/{{this}}" type="video/mp4">
+							</video>
+						</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="text-left ml-4">
+					<label for="service">
+						<strong>Tổng cộng:</strong>&nbsp;&nbsp;
+					</label>
+					<label for="">
+						<em>
+							{{this.price}} VND
+						</em>
+					</label>
+				</div>
+			</div>
+		</div>
+		{{else}}
+		<div class="text-center">Chưa có dịch vụ cần thực hiện.</div>
+		{{/each}}
+
+	</div>
+
+</div>
+<script src="/js/operating/nursing-re-exam.js"></script>

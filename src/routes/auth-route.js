@@ -7,15 +7,15 @@ const controller = require("../app/controllers/AuthController");
 const rootRouter = require("./root");
 // const adminRouter = require("./admin");
 
-const validateUploadImage = require('../middleware/validateUploadImage');
+const validateUploadImage = require('../middleware/validateUpload');
 const AdminController = require('../app/controllers/AdminController')
 const UserController = require('../app/controllers/operating-controller/NursingOperationRoomController.js')
 
 
 router.get("/root", rootRouter);
 
-router.get("/user/customers", UserController.getUserCustomer)
-router.post("/user/customers", UserController.createCustomer)
+// router.get("/user/customers", UserController.getUserCustomer)
+// router.post("/user/customers", UserController.createCustomer)
 
 /*Amin Start*/
 router.get("/admin",  AdminController.getAdminDashboard);

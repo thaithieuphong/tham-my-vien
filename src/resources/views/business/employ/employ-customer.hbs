@@ -1,16 +1,9 @@
-<style>
-		div.preview-images-counselor>img {
-			width: 30%;
-		}
-	</style>
-
-
 <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
 	<div class="title">
 
 	</div>
 	<h3 class="title text-light">Quản lý khách hàng</h3>
-	{{> page/sidebar/business/sidebar-business-employ-customers}}
+	{{> page/sidebar/business/employ/sidebar-business-employ-customers}}
 
 	<div class="stask">
 		<!-- Button trigger modal -->
@@ -73,6 +66,7 @@
 								<hr class="dropdown-divider">
 								<li>
 									<a class="dropdown-item" data-bs-toggle="modal" data-service-note-id="{{this._id}}"
+										data-service-note-img="{{this.image.name}}"
 										data-service-note-firstname="{{this.firstName}}"
 										data-service-note-lastname="{{this.lastName}}"
 										data-service-note-birth="{{this.birth}}"
@@ -80,7 +74,10 @@
 										data-service-note-phone="{{this.phone}}"
 										data-service-note-email="{{this.email}}"
 										data-service-note-address="{{this.address}}"
-										data-service-note-description="{{this.description}}"
+										data-service-note-description="{{this.description}}" 
+										{{#each this.serviceNoteID}}
+										data-service-note-serviceID="{{this.service}}" 
+										{{/each}}
 										data-bs-target="#create-service-note-modal">Tạo phiếu dịch vụ</a>
 								</li>
 							</ul>
@@ -113,11 +110,12 @@
 <!-- Modal Create Customer -->
 <div class="modal fade" id="create-customer-modal" tabindex="-1" aria-labelledby="create-customer-modal"
 	aria-hidden="true">
-	<div class="modal-dialog modal-xl">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header bg-primary">
 				<h5 class="modal-title text-light" id="create-customer-modal">Tạo thông tin khách hàng</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 				<form id="create-customer-form" method="POST" class="row" enctype="multipart/form-data">
@@ -136,14 +134,14 @@
 								<div class="row">
 									<div class="col-md-6">
 										<label for="create-firstName" class="form-label">
-											<h6>Họ</h6>
+											<h6>Họ <span class="badge text-danger">Bắt buộc</span></h6>
 										</label>
 										<input type="text" class="form-control form-control-sm" id="create-firstName"
 											placeholder="Vd: Trần Văn" name="firstName" required>
 									</div>
 									<div class="col-md-6">
 										<label for="create-lastName" class="form-label">
-											<h6>Tên</h6>
+											<h6>Tên <span class="badge text-danger">Bắt buộc</span></h6>
 										</label>
 										<input type="text" class="form-control form-control-sm" id="create-lastName"
 											placeholder="Vd: Khánh" name="lastName" required>
@@ -152,14 +150,14 @@
 								<div class="row mt-3">
 									<div class="col-md-6">
 										<label for="create-birth" class="form-label">
-											<h6>Ngày sinh</h6>
+											<h6>Ngày sinh <span class="badge text-danger">Bắt buộc</span></h6>
 										</label>
 										<input type="date" class="form-control form-control-sm" id="create-birth"
 											aria-describedby="birthFeedback" name="birth" required>
 									</div>
 									<div class="col-md-6">
 										<label for="create-gender" class="form-label">
-											<h6>Giới tính</h6>
+											<h6>Giới tính <span class="badge text-danger">Bắt buộc</span></h6>
 										</label>
 										<select class="form-select form-select-sm" aria-label=".form-select-sm example"
 											name="gender">
@@ -172,7 +170,7 @@
 								<div class="row mt-3">
 									<div class="col-md-6">
 										<label for="create-phone" class="form-label">
-											<h6>Số điện thoại</h6>
+											<h6>Số điện thoại <span class="badge text-danger">Bắt buộc</span></h6>
 										</label>
 										<input type="tel" class="form-control form-control-sm" id="create-phone"
 											placeholder="Vd: 0909888888" name="phone" required>
@@ -197,6 +195,9 @@
 								</div>
 								<div class="row mt-3">
 									<div class="col-md-12 mb-3">
+										{{!-- <input type="text"
+											value="{{user.firstName}}{{user.lastName}}({{user.department}}) abc123"
+											name="userName" id="create-user-name"> --}}
 										<label for="create-description" class="form-label">
 											<h6>Mô tả</h6>
 										</label>
@@ -221,9 +222,10 @@
 <div class="modal fade" id="edit-customer-modal" tabindex="-1" aria-labelledby="edit-customer" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
-			<div class="modal-header bg-info text-light">
-				<h5 class="modal-title" id="edit-customer-title">Sửa / Cập nhật thông tin người dùng</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div class="modal-header bg-info">
+				<h5 class="modal-title text-light" id="edit-customer-title">Sửa / Cập nhật thông tin người dùng</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 				<form method="POST" id="edit-customer-form" class="row" enctype="multipart/form-data">
@@ -240,7 +242,7 @@
 					</div>
 					<div class="col-xl-9 mb-3">
 						<ul class="list-group">
-							<li class="list-group-item bg-info text-light">
+							<li class="list-group-item">
 								<div class="row">
 									<div class="col-md-6">
 										<label for="edit-firstName" class="form-label">
@@ -307,8 +309,8 @@
 										<label for="edit-description" class="form-label">
 											<h6>Mô tả</h6>
 										</label>
-										<textarea class="form-control" id="edit-description" rows="6" name="description"
-											readonly></textarea>
+										<textarea class="form-control" id="edit-description" rows="6"
+											name="description"></textarea>
 									</div>
 								</div>
 							</li>
@@ -329,9 +331,10 @@
 	aria-hidden="true">
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
-			<div class="modal-header bg-info text-light">
-				<h5 class="modal-title" id="create-service-note-title">Tạo phiếu dịch vụ</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div class="modal-header bg-info">
+				<h5 class="modal-title btn-close-white" id="create-service-note-title">Tạo phiếu dịch vụ</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -345,8 +348,9 @@
 							data-bs-target="#pills-service" type="button" role="tab" aria-controls="pills-profile"
 							aria-selected="false">Thông tin dịch vụ</button>
 					</li>
+					
 				</ul>
-				<form method="POST" id="create-service-note-form" class="row">
+				<form method="POST" id="create-service-note-form" class="row" enctype="multipart/form-data">
 					<div class="tab-content" id="pills-tabContent">
 						<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
 							aria-labelledby="pills-home-tab">
@@ -354,50 +358,146 @@
 								<li class="list-group-item">
 									<input hidden type="text" class="form-control" id="create-service-note-customerID"
 										name="customerID" readonly>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="create-service-note-firstLastName"
-											name="name" readonly>
-										<label for="name">Họ tên:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="date" class="form-control" id="create-service-note-birth"
-											name="birth" readonly>
-										<label for="birth">Ngày sinh:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="create-service-note-gender"
-											name="gender" readonly>
-										<label for="gender">Giới tính:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="email" class="form-control" id="create-service-note-email"
-											name="email" readonly>
-										<label for="email">Email address:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="number" class="form-control" id="create-service-note-phone"
-											name="phone" readonly>
-										<label for="phone">Số điện thoại:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="create-service-note-address"
-											name="address" readonly>
-										<label for="address">Địa chỉ:</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" value="{{user.firstName}}{{user.lastName}}"
-											class="form-control" id="create-service-note-createName" name="createName"
-											readonly>
-										<label for="createName">Người tạo</label>
+
+
+									<div class="row">
+
+										<div class="col-md-6 ">
+											<img src="/img/user-icon.png" id="create-service-note-img"
+												class="rounded mx-auto d-block add-avata" alt="...">
+											<div class="mt-4">
+												<textarea id="create-service-note-description" class="form-control mb-2"
+													rows="6" style="background-color: white;" name="description"
+													disabled></textarea>
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="name">Họ tên:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="name"
+															id="create-service-note-name-input"> --}}
+														<label class="text-uppercase text-danger"
+															id="create-service-note-firstLastName" name="name" readonly>
+													</em>
+												</div>
+											</div>
+
+											<hr>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="birth">Ngày sinh:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="birth"
+															id="create-service-note-birth-input"> --}}
+														<label id="create-service-note-birth" name="birth"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="gender">Giới tính:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="gender"
+															id="create-service-note-gender-input"> --}}
+														<label id="create-service-note-gender" name="gender"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="email">Email address:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="email"
+															id="create-service-note-email-input"> --}}
+														<label id="create-service-note-email" name="email"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="phone">Số điện thoại:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="phone"
+															id="create-service-note-phone-input"> --}}
+														<label id="create-service-note-phone" name="phone"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="address">Địa chỉ:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														{{!-- <input hidden type="text" name="address"
+															id="create-service-note-address-input"> --}}
+														<label id="create-service-note-address" name="address"
+															readonly></label>
+													</em>
+												</div>
+
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="createName">Người tạo:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														<input hidden type="text" value="{{user._id}}" name="createName"
+															id="">
+														<label id="create-service-note-createName"
+															readonly>{{user.firstName}}{{user.lastName}}</label>
+													</em>
+												</div>
+											</div>
+										</div>
+
 									</div>
 								</li>
 							</ul>
 						</div>
+
 						<div class="tab-pane fade" id="pills-service" role="tabpanel"
 							aria-labelledby="pills-profile-tab">
 							<div class="row">
-								<div class="col-md-6">
-
+								<div class="col-md-5">
 									<div class="mb-3">
 										<label for="service" class="form-label">
 											<h6>Chọn dịch vụ:</h6>
@@ -437,19 +537,26 @@
 											name="comment"></textarea>
 									</div>
 								</div>
-								<div class="col-md-6">
-									{{!-- Upload multiple img --}}
-								<form method="POST" class="row" enctype="multipart/form-data">
-									<input id="input-multi-files-counselor" class="form-control" type="file" name="counselor"
-										multiple>
-									<button type="submit">tair leen</button>
-								</form>
-								<div class="col-xl-9">
-									<div class="preview-images-counselor row"></div>
+								{{!--upload multi --}}
+								<div class="col-md-7">
+									<div class="preview-images-counselor row ml-0 mt-3 border"></div>
+									<label for="input-multi-images-counselor" class="label-avt btn btn-primary mt-2">
+										<h6>Chọn ảnh tư vấn</h6>
+									</label>
+									<input id="input-multi-images-counselor" class="form-control" type="file"
+										name="counselor" hidden multiple>
+									<div class="preview-videos-counselor row ml-0 mt-3 border"></div>
+									<label for="input-multi-videos-counselor" class="label-avt btn btn-primary mt-2">
+										<h6>Chọn video tư vấn</h6>
+									</label>
+									<input id="input-multi-videos-counselor" class="form-control" type="file"
+										name="counselor" hidden multiple>
 								</div>
-								</div>
+								{{!-- --}}
 							</div>
 						</div>
+
+						
 					</div>
 				</form>
 			</div>
@@ -461,31 +568,6 @@
 	</div>
 </div>
 
+
+
 <script src="/js/business/business-employ-customer.js"></script>
-<script>
-
-	document.addEventListener('DOMContentLoaded', function () {
-		let imagesPreviewConselor = function (input, placeToInsertImagePreview) {
-			if (input.files) {
-				let filesAmount = input.files.length;
-				for (i = 0; i < filesAmount; i++) {
-					let reader = new FileReader();
-					reader.onload = function (event) {
-						$($.parseHTML("<img class='col-md rounded mx-auto d-block'>"))
-							.attr("src", event.target.result)
-							.appendTo(placeToInsertImagePreview);
-					};
-					reader.readAsDataURL(input.files[i]);
-				}
-			}
-		};
-		var inputMultiFileConselor = document.getElementById('input-multi-files-counselor');
-		inputMultiFileConselor.addEventListener('change', (e) => {
-			imagesPreviewConselor(e.target, "div.preview-images-counselor");
-			console.log(e.target.files)
-		})
-
-
-		
-	});
-</script>

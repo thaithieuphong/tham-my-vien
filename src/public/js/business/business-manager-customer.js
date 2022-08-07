@@ -92,6 +92,7 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	// Get data from detail button
 	// Handle edit info Customer
 	var dataServiceNoteID = button.getAttribute("data-service-note-id");
+	var dataServiceNoteImg = button.getAttribute("data-service-note-img");
 	var dataFirstName = button.getAttribute("data-service-note-firstname");
 	var dataLastName = button.getAttribute("data-service-note-lastname");
 	var dataBirth = button.getAttribute("data-service-note-birth");
@@ -99,9 +100,11 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	var dataPhone = button.getAttribute("data-service-note-phone");
 	var dataEmail = button.getAttribute("data-service-note-email");
 	var dataAddress = button.getAttribute("data-service-note-address");
+	var dataDescription = button.getAttribute("data-service-note-description");
 
 	// // Get element need embeded input
 	var serviceNoteCustomerID = document.getElementById('create-service-note-customerID');
+	var serviceNoteCustomerImg = document.getElementById('create-service-note-img');
 	var serviceNoteFirstLastName = document.getElementById(
 		"create-service-note-firstLastName"
 	);
@@ -112,18 +115,29 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	var serviceNoteAddress = document.getElementById(
 		"create-service-note-address"
 	);
+	var serviceNoteDescription = document.getElementById("create-service-note-description");
+
 
 	createServiceNoteForm.setAttribute(
 		"action",
 		`/business/manager/customers/${dataServiceNoteID}/service-note`
 	);
+
+	if (dataServiceNoteImg === '') {
+		serviceNoteCustomerImg.setAttribute('src', '/img/user-icon.png');
+	} else {
+		serviceNoteCustomerImg.setAttribute('src', '/img/uploads/customers/' + dataServiceNoteImg);
+	}
+
 	serviceNoteCustomerID.value = dataServiceNoteID;
-	serviceNoteFirstLastName.value = dataFirstName + " " + dataLastName;
-	serviceNoteBirth.value = dataBirth;
-	serviceNoteGender.value = dataGender;
-	serviceNotePhone.value = dataPhone;
-	serviceNoteEmail.value = dataEmail;
-	serviceNoteAddress.value = dataAddress;
+	serviceNoteCustomerID.innerHTML = dataServiceNoteID;
+	serviceNoteFirstLastName.innerHTML = dataFirstName + " " + dataLastName;
+	serviceNoteBirth.innerHTML = dataBirth;
+	serviceNoteGender.innerHTML = dataGender;
+	serviceNotePhone.innerHTML = dataPhone;
+	serviceNoteEmail.innerHTML = dataEmail;
+	serviceNoteAddress.innerHTML = dataAddress;
+	serviceNoteDescription.innerHTML = dataDescription;
 });
 //END CREATE: submit create service note forms
 
@@ -150,11 +164,11 @@ for (i = 0; i < document.querySelectorAll('.check-box-customer').length; i++) {
 }
 //Render button check all submit
 var checkAllSubmitBtn = document.getElementById("add-user-customer-btn");
-function renderCheckallBtn(){
+function renderCheckallBtn() {
 	var checkCount = document.querySelectorAll('.check-box-customer:checked').length;
-	if(checkCount){
+	if (checkCount) {
 		checkAllSubmitBtn.classList.remove("disabled");
-	}else{
+	} else {
 		checkAllSubmitBtn.classList.add("disabled")
 	};
 }
@@ -162,10 +176,10 @@ function renderCheckallBtn(){
 var addUserCusForm = document.forms['add-user-customer-form'];
 var addUseridToCustomerBtn = document.getElementById("add-userid-to-customer");
 var addUseridToCustomerModal = document.getElementById("add-userid-to-customer-modal");
-addUseridToCustomerModal.addEventListener("show.bs.modal", function(event){
+addUseridToCustomerModal.addEventListener("show.bs.modal", function (event) {
 	var button = event.relatedTarget;
 
-	addUserCusForm.setAttribute('action',`/business/manager/customers/userid`)
+	addUserCusForm.setAttribute('action', `/business/manager/customers/userid`)
 })
 
 addUseridToCustomerBtn.addEventListener("click", () => {
@@ -183,8 +197,56 @@ addUseridToCustomerBtn.addEventListener("click", () => {
 
 
 //END ADD USER to CUSTOMER
+document.addEventListener('DOMContentLoaded', function () {
+	let imagesPreviewConselor = function (input, placeToInsertImagePreview) {
+		console.log(input);
+		// console.log(input.files);
+		if (input.files) {
+			let filesAmount = input.files.length;
+			for (i = 0; i < filesAmount; i++) {
+				let reader = new FileReader();
+				reader.onload = function (event) {
+					$($.parseHTML("<img class='rounded'>"))
+						.attr("src", event.target.result)
+						.appendTo(placeToInsertImagePreview);
+				};
+				reader.readAsDataURL(input.files[i]);
+			}
+		}
+	};
+	var inputMultiImageConselor = document.getElementById('input-multi-images-counselor');
+	inputMultiImageConselor.addEventListener('change', (e) => {
+		imagesPreviewConselor(e.target, "div.preview-images-counselor");
+		console.log(e.target.files);
+	})
 
-//DETAIL: detail customer and push comment
+	let videosPreviewConselor = function (input, placeToInsertVideoPreview) {
+		console.log(input);
+		// console.log(input.files);
+		if (input.files) {
+			let filesAmount = input.files.length;
+			for (i = 0; i < filesAmount; i++) {
+				let reader = new FileReader();
+				reader.onload = function (event) {
+					$($.parseHTML("<video class='mt-3 mb-3'>"))
+						.attr("src", event.target.result)
+						.appendTo(placeToInsertVideoPreview);
+				};
+				reader.readAsDataURL(input.files[i]);
+			}
+		}
+	};
+	var inputMultiVideoConselor = document.getElementById('input-multi-videos-counselor');
+	inputMultiVideoConselor.addEventListener('change', (e) => {
+		videosPreviewConselor(e.target, "div.preview-videos-counselor");
+		console.log(e.target.files);
+	})
+});
+
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {

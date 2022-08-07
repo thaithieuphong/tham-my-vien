@@ -4,35 +4,17 @@ const mongooseDelete = require("mongoose-delete");
 
 const ServiceNote = new Schema({
 	name: String,
-	customerID: 
-		{
-			type: String,
-			ref: "Customer"
-		},
+	customerID:
+	{
+		type: String,
+		ref: "Customer"
+	},
 
-	customer: [
-		{
-			type: new mongoose.Schema(
-				{
-					name: String,
-					birth: String,
-					gender: String,
-					email: String,
-					phone: Number,
-					address: String,
-				},
-				{ timestamps: true }
-			),
-			ref: "Customer"
-		}
-	],
-
-	createName: [
-		{
-			type: String,
-			ref: "User"
-		}
-	],
+	createName:
+	{
+		type: String,
+		ref: "User"
+	},
 
 	performer: [
 		{
@@ -48,25 +30,60 @@ const ServiceNote = new Schema({
 		}
 	],
 
-	recept: [
-		{
-			type: String,
-			ref: "User"
-		}
-	],
+	recept:
+	{
+		type: String,
+		ref: "User"
+	},
 
-	status: [
-		{
-			type: String,
-			ref: "Status"
-		}
-	],
+	status:
+	{
+		type: String,
+		ref: "Status"
+	},
+
 	service: [
 		{
 			type: String,
 			ref: "Service"
 		}
 	],
+
+	counselorImg: [
+		{
+			type: String,
+		}
+	],
+
+	counselorVideo: [
+		{
+			type: String,
+		}
+	],
+
+	beforeImg: [
+		{
+			type: String,
+		}
+	],
+	beforeVideo: [
+		{
+			type: String,
+		}
+	],
+	
+	afterImg: [
+		{
+			type: String,
+		}
+	],
+
+	afterVideo: [
+		{
+			type: String,
+		}
+	],
+	
 	comments: [
 		{
 			comment: String

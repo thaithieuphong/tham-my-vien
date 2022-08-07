@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const MarketingController = require('../../app/controllers/marketing-controller/ManagerMarketingController');
-const validateUploadImage = require('../../middleware/validateUploadImage');
+const validateUploadImage = require('../../middleware/validateUpload');
 // const getHeaderToken = require('../getHeaderToken');
 
 //Employ

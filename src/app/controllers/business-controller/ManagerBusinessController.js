@@ -1,9 +1,13 @@
 const Customer = require("../../models/Customer");
+const Counselor = require("../../models/Counselor");
 const Customer1 = require("../../models/Customer");
 const User = require("../../models/User");
 const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
 const TypeService = require("../../models/TypeService");
 const ServiceNote = require('../../models/ServiceNote');
+const ServiceNote1 = require('../../models/ServiceNote');
+const ServiceNote2 = require('../../models/ServiceNote');
+const Reexamination = require('../../models/Reexamination');
 const fs = require('fs');
 const appRoot = require('app-root-path');
 
@@ -22,17 +26,17 @@ class ManagerBusinessController {
 	}
 
 	showCustomer(req, res, next) {
-		Promise.all([Customer.find({ userID: null }), Customer1.find({ userID: { $exists: true } }).populate('userID'),
+		Promise.all([Customer.find({ userID: null }), User.findById({ _id: req.userId }), Customer1.find({ userID: { $exists: true } }).populate('userID'),
 		TypeService.find({}), User.find({ department: "Kinh doanh", position: "Nhân viên" })])
-			.then(([customers, customer1s, typeservices, users]) => {
+			.then(([customers, user, customer1s, typeservices, users]) => {
 				res.render("business/manager/manager-customer", {
 					customers: multipleMongooseToObject(customers),
+					user: mongooseToObject(user),
 					customer1s: multipleMongooseToObject(customer1s),
 					typeservices: multipleMongooseToObject(typeservices),
 					users: multipleMongooseToObject(users),
 					title: 'Quản lý khách hàng'
 				});
-				customer1s.forEach(element => console.log(element.userID));
 			})
 			.catch(next);
 	}
@@ -131,11 +135,17 @@ class ManagerBusinessController {
 	showCustomerDetail(req, res, next) {
 		Customer.findById({ _id: req.params.id }).populate('serviceNoteID')
 			.then((customer) => {
-				console.log(customer);
-				res.render('business/manager/manager-customer-detail', {
-					customer: mongooseToObject(customer),
-					title: "Chi tiết khách hàng"
-				});
+				console.log(customer.counselorName)
+				Counselor.find({ filename: { $in: customer.counselorName } })
+					.then((counselors) => {
+						console.log(counselors)
+						res.render('business/manager/manager-customer-detail', {
+							customer: mongooseToObject(customer),
+							counselors: multipleMongooseToObject(counselors),
+							title: "Chi tiết khách hàng"
+						});
+					})
+
 			})
 			.catch(next);
 	}
@@ -150,10 +160,20 @@ class ManagerBusinessController {
 	}
 
 	showServiceNote(req, res, next) {
-		ServiceNote.find({})
-			.then(serviceNotes => {
+		Promise.all([
+			ServiceNote.find({ createName: req.userId, status: "Tạo mới" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
+			ServiceNote1.find({ createName: req.userId, status: "Đang xử lý" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
+			ServiceNote2.find({ createName: req.userId, status: "Hoàn thành" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
+			User.findById({ _id: req.userId })
+
+		])
+			.then(([serviceNotes, serviceNote1s, serviceNote2s]) => {
+				
+			
 				res.render('business/manager/manager-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
+					serviceNote1s: multipleMongooseToObject(serviceNote1s),
+					serviceNote2s: multipleMongooseToObject(serviceNote2s),
 					title: "Quản lý phiếu dịch vụ"
 				});
 			})
@@ -161,28 +181,36 @@ class ManagerBusinessController {
 	}
 
 	createServiceNote(req, res, next) {
-		// const serviceNote = new ServiceNote({
-		// 	customer: {
-		// 		customerID: req.body.customerID,
-		// 		name: req.body.name,
-		// 		birth: req.body.birth,
-		// 		gender: req.body.gender,
-		// 		email: req.body.email,
-		// 		phone: req.body.phone,
-		// 		address: req.body.address
-		// 	},
+		const file = req.files;
+		const fnimg = [];
+		const fnvideo = []
+		file.forEach(element => {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+				fnimg.push(element.filename);
+				return fnimg;
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+				fnvideo.push(element.filename);
+				return fnvideo;
+			}
+		})
+		const serviceNote = new ServiceNote({
+			customerID: req.body.customerID,
+			performer: req.body.performer,
+			createName: req.body.createName,
+			status: "Tạo mới",
+			service: req.body.service,
+			comments: { comment: req.body.comment },
+			schedule: req.body.schedule,
+			price: req.body.price,
+			counselorImg: fnimg,
+			counselorVideo: fnvideo
+		});
+		serviceNote.save();
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id } })
+			.then(() => {
+				res.redirect('back');
 
-		// 	performer: req.body.performer,
-		// 	createName: req.body.name,
-		// 	status: "Tạo mới",
-		// 	service: req.body.service,
-		// 	comments: { comment: req.body.comment },
-		// 	schedule: req.body.schedule,
-		// 	price: req.body.price,
-		// });
-		// serviceNote.save();
-		// res.redirect('back');
-		res.json(req.body);
+			})
 	}
 
 	deleteServiceNote(req, res, next) {
@@ -190,6 +218,21 @@ class ManagerBusinessController {
 		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { stored: "Yes" } })])
 			.then(() => res.redirect("back"))
 			.catch(next);
+	}
+
+	createReExam(req, res, next){
+		const reexamination = new Reexamination({
+			customerID: req.body.customerID,
+			createName: req.body.createName,
+			serviceNoteId: req.body.serviceNoteID,
+			status: "Tạo mới",
+			schedule: req.body.schedule,
+			comments: { comment: req.body.comment },
+
+		})
+		reexamination.save();
+		res.redirect('back');
+		// res.json(req.body)
 	}
 
 

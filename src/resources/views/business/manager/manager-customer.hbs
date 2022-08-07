@@ -3,7 +3,7 @@
 
 	</div>
 	<h3 class="title text-light">Quản lý khách hàng</h3>
-	{{> page/sidebar/business/sidebar-manager-business}}
+	{{> page/sidebar/business/manager/sidebar-business-manager-customers}}
 
 	<div class="stask">
 		<!-- Button trigger modal -->
@@ -98,6 +98,7 @@
 											<li>
 												<a class="dropdown-item" data-bs-toggle="modal"
 													data-service-note-id="{{this._id}}"
+													data-service-note-img="{{this.image.name}}"
 													data-service-note-firstname="{{this.firstName}}"
 													data-service-note-lastname="{{this.lastName}}"
 													data-service-note-birth="{{this.birth}}"
@@ -191,7 +192,7 @@
 							<td class="text-center">{{this.gender}}</td>
 							<td class="text-center">0{{this.phone}}</td>
 							<td>{{this.email}}</td>
-							<td>{{this.userID.firstName}} {{this.userID.lastName}} ({{this.userID.department}})</td>
+							<td >{{this.userID.firstName}} {{this.userID.lastName}} ({{this.userID.department}})</td>
 							<td>{{this.description}}</td>
 							<td class="text-center">
 								<button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -429,24 +430,6 @@
 	</div>
 </div>
 
-<!-- Modal Detail Customer -->
-<div class="modal fade" id="detail-customer-modal" tabindex="-1" aria-labelledby="detail-customer" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header bg-primary">
-				<h5 class="modal-title text-light" id="detail-customer-title">Tạo thông tin khách hàng</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				Detail Customer
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-			</div>
-		</div>
-	</div>
-</div>
-
 <!-- Modal Create Service Note -->
 <div class="modal fade" id="create-service-note-modal" tabindex="-1" aria-labelledby="create-service-note"
 	aria-hidden="true">
@@ -469,7 +452,7 @@
 							aria-selected="false">Thông tin dịch vụ</button>
 					</li>
 				</ul>
-				<form method="POST" id="create-service-note-form" class="row">
+				<form method="POST" id="create-service-note-form" class="row" enctype="multipart/form-data">
 					<div class="tab-content" id="pills-tabContent">
 						<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
 							aria-labelledby="pills-home-tab">
@@ -477,77 +460,183 @@
 								<li class="list-group-item">
 									<input hidden type="text" class="form-control" id="create-service-note-customerID"
 											name="customerID" readonly>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="create-service-note-firstLastName"
-											name="name" readonly>
-										<label for="name">Họ tên</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="date" class="form-control" id="create-service-note-birth"
-											name="birth" readonly>
-										<label for="birth">Ngày sinh</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="create-service-note-gender"
-											name="gender" readonly>
-										<label for="gender">Giới tính</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="email" class="form-control" id="create-service-note-email"
-											name="email" readonly>
-										<label for="email">Email address</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="number" class="form-control" id="create-service-note-phone"
-											name="phone" readonly>
-										<label for="phone">Số điện thoại</label>
-									</div>
-									<div class="form-floating mb-3">
-										<input type="text" class="form-control" id="create-service-note-address"
-											name="address" readonly>
-										<label for="address">Địa chỉ</label>
+									<div class="row">
+
+										<div class="col-md-6 ">
+											<img src="/img/user-icon.png" id="create-service-note-img"
+												class="rounded mx-auto d-block add-avata" alt="...">
+											<div class="mt-4">
+												<textarea id="create-service-note-description" class="form-control mb-2" rows="6"
+													style="background-color: white;" disabled></textarea>
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="name">Họ tên:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														<label class="text-uppercase text-danger"
+															id="create-service-note-firstLastName" name="name" readonly>
+													</em>
+												</div>
+											</div>
+
+											<hr>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="birth">Ngày sinh:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														<label id="create-service-note-birth" name="birth"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="gender">Giới tính:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														<label id="create-service-note-gender" name="gender"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="email">Email address:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														<label id="create-service-note-email" name="email"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="phone">Số điện thoại:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														<label id="create-service-note-phone" name="phone"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="address">Địa chỉ:</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														<label id="create-service-note-address" name="address"
+															readonly></label>
+													</em>
+												</div>
+
+											</div>
+
+											<div class=" mb-3 row">
+												<div class="col-sm-6">
+													<strong>
+														<label for="createName">Người tạo</label>
+													</strong>
+												</div>
+												<div class="col-sm-6 text-right">
+													<em>
+														<input hidden type="text" value="{{user._id}}" name="createName" id="">
+														<label value="{{user.firstName}}{{user.lastName}}"
+															id="create-service-note-createName" name="createName"
+															readonly></label>
+													</em>
+												</div>
+											</div>
+										</div>
+
 									</div>
 								</li>
 							</ul>
 						</div>
 						<div class="tab-pane fade" id="pills-service" role="tabpanel"
 							aria-labelledby="pills-profile-tab">
-							<div class="mb-3">
-								<label for="service" class="form-label">
-									<h6>Chọn dịch vụ</h6>
-								</label>
-								<select id="select-service" class="chosen-select" multiple tabindex="6" name="service">
-									{{#each typeservices}}
-									<optgroup label="{{this.name}}">
-										{{#each this.services}}
-										<option value="{{this.service}}">{{this.service}}</option>
-										{{/each}}
-									<optgroup>
-										{{/each}}
-								</select>
-							</div>
-							<div class="mb-3">
-								<label for="gender" class="form-label">
-									<h6>Ngày hẹn</h6>
-								</label>
-								<input type="datetime-local" class="form-control" id="create-service-note-schedule"
-									name="schedule">
-							</div>
+							<div class="row">
+								<div class="col-md-5">
+									<div class="mb-3">
+										<label for="service" class="form-label">
+											<h6>Chọn dịch vụ:</h6>
+										</label>
+										<select id="select-service" class="chosen-select" multiple tabindex="6"
+											name="service[]">
+											{{#each typeservices}}
+											<optgroup label="{{this.name}}">
+												{{#each this.services}}
+												<option value="{{this.service}}">{{this.service}}</option>
+												{{/each}}
+											<optgroup>
+												{{/each}}
+										</select>
+									</div>
+									<div class="mb-3">
+										<label for="schedule" class="form-label">
+											<h6>Ngày hẹn:</h6>
+										</label>
+										<input type="datetime-local" class="form-control"
+											id="create-service-note-schedule" name="schedule">
+									</div>
 
-							<div class="mb-3">
-								<label for="price" class="form-label">
-									<h6>Tổng giá:</h6>
-								</label>
-								<input type="number" min="100000" step="100000" class="form-control" id="create-service-note-price"
-									name="price">
-							</div>
+									<div class="mb-3">
+										<label for="price" class="form-label">
+											<h6>Tổng giá:</h6>
+										</label>
+										<input type="number" min="100000" step="100000" class="form-control"
+											id="create-service-note-price" name="price">
+									</div>
 
-							<div class="mb-3">
-								<label for="comment" class="form-label">
-									<h6>Ghi chú: </h6>
-								</label>
-								<textarea class="form-control" id="create-service-note-description" rows="6"
-									name="comment"></textarea>
+									<div class="mb-3">
+										<label for="comment" class="form-label">
+											<h6>Ghi chú: </h6>
+										</label>
+										<textarea class="form-control" id="create-service-note-description" rows="6"
+											name="comment"></textarea>
+									</div>
+								</div>
+								{{!--upload multi  --}}
+								<div class="col-md-7">
+									<div class="preview-images-counselor row ml-0 mt-3 border"></div>
+									<label for="input-multi-images-counselor" class="label-avt btn btn-primary mt-2">
+										<h6>Chọn ảnh tư vấn</h6>
+									</label>
+									<input id="input-multi-images-counselor" class="form-control" type="file" name="counselor" hidden multiple>
+									<div class="preview-videos-counselor row ml-0 mt-3 border"></div>
+									<label for="input-multi-videos-counselor" class="label-avt btn btn-primary mt-2">
+										<h6>Chọn video tư vấn</h6>
+									</label>
+									<input id="input-multi-videos-counselor" class="form-control" type="file" name="counselor" hidden multiple>
+								</div>
+								{{!--  --}}
 							</div>
 						</div>
 					</div>

@@ -42,25 +42,11 @@
 		<div class="tab-content" id="pills-tabContent">
 			<div class="tab-pane fade show active" id="pills-system-customer" role="tabpanel"
 				aria-labelledby="pills-home-tab">
-				{{!-- <div class="row ">
-					<div class="text-center col-xl-3 mb-3">
+				<div class="row ">
+					<div class="col-xl-6 mb-3">
 						<img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt"
 							class="rounded mx-auto d-block add-avata" alt="...">
-						<div class="card-body">
-							<h3 class="none-mb">{{customer.firstName}} {{customer.lastName}}</h3>
-							<p class="none-mb" value="" for="detail-birth"><strong>Ngày sinh:
-								</strong>{{customer.birth}}</p>
-							<p class="none-mb" value=""><strong>Giới tính: </strong>{{customer.gender}}</p>
-							<p class="none-mb" value=""><strong>Điện thoại: </strong>{{customer.phone}}</p>
-							<p class="none-mb" value=""><strong>Email: </strong>{{customer.email}}</p>
-							<p class="none-mb" value=""><strong>Địa chỉ: </strong>{{customer.address}}</p>
-							<label class=""><strong>Mô tả:</strong></label>
-							<textarea id="detail-description" class="form-control mb-2" rows="6"
-								disabled>{{customer.description}}</textarea>
-						</div>
-					</div>
-					<div class="col-xl-7 activate">
-						<ul class="list-group comment-content-page border">
+						<ul class="list-group comment-content-page border mt-4" style="height: 150px;">
 							{{#each customer.comments}}
 							<li class="list-group-item bg-light ml-2 mr-2 mt-2">
 								<p id="createdAt" class="none-mb comment-createdAt text-end"><strong>{{formatDate
@@ -82,16 +68,111 @@
 							</div>
 						</form>
 					</div>
-				</div> --}}
+					<div class="col-xl-6 activate">
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="name">Họ tên:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 text-right">
+								<em>
+									<label class="text-uppercase text-danger" readonly>{{customer.firstName}}
+										{{customer.lastName}}</label>
+								</em>
+							</div>
+						</div>
+
+						<hr>
+
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="birth">Ngày sinh:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 text-right">
+								<em>
+									<label id="create-service-note-birth" name="birth"
+										readonly>{{customer.birth}}</label>
+								</em>
+							</div>
+						</div>
+
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="gender">Giới tính:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 text-right">
+								<em>
+									<label id="create-service-note-gender" name="gender"
+										readonly>{{customer.gender}}</label>
+								</em>
+							</div>
+						</div>
+
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="email">Email address:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 text-right">
+								<em>
+									<label id="create-service-note-email" name="email"
+										readonly>{{customer.email}}</label>
+								</em>
+							</div>
+						</div>
+
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="phone">Số điện thoại:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 text-right">
+								<em>
+									<label id="create-service-note-phone" name="phone"
+										readonly>{{customer.phone}}</label>
+								</em>
+							</div>
+						</div>
+
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="address">Địa chỉ:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 text-right">
+								<em>
+									<label id="create-service-note-address" name="address"
+										readonly>{{customer.address}}</label>
+								</em>
+							</div>
+
+						</div>
+						<div class="mb-3">
+							<strong>
+								<label for="description">Mô tả:</label>
+							</strong>
+							<textarea id="detail-description" class="form-control" style="background-color: white;"
+								disabled>{{customer.description}}</textarea>
+						</div>
+					</div>
+				</div>
 
 				{{!-- Upload multiple img --}}
-				<form method="POST" class="row" enctype="multipart/form-data">
+				{{!-- <form method="POST" class="row" enctype="multipart/form-data">
 					<input id="input-multi-files" class="form-control" type="file" name="counselor" multiple>
 					<button type="submit">tair leen</button>
 				</form>
 				<div class="col-xl-9">
 					<div class="preview-images row"></div>
-				</div>
+				</div> --}}
 
 
 
@@ -111,25 +192,5 @@
 					</div>
 				</div>
 				<hr>
-				<div class="row mt-3">
-					<div class="col-md-3">
-						<img src="/img/user-icon.png" id="add-avt-customer" class="rounded mx-auto d-block add-avata"
-							alt="...">
-					</div>
-					<div class="col-md-3">
-						<img src="/img/user-icon.png" id="add-avt-customer" class="rounded mx-auto d-block add-avata"
-							alt="...">
-					</div>
-					<div class="col-md-3">
-						<img src="/img/user-icon.png" id="add-avt-customer" class="rounded mx-auto d-block add-avata"
-							alt="...">
-					</div>
-					<div class="col-md-3">
-						<img src="/img/user-icon.png" id="add-avt-customer" class="rounded mx-auto d-block add-avata"
-							alt="...">
-					</div>
-				</div>
 			</div>
 		</div>
-	</div>
-	

@@ -4,60 +4,14 @@ var performerForm = document.forms['add-performer-form'];
 // var userStateForm = document.forms['user-state-form'];
 pushPerformerBtn.addEventListener("click", () => {
 	performerForm.submit();
-	// userStateForm.submit();
 })
-
-
-function getValueSelect(obj){
-	// Lấy danh sách các options
-	var options = obj.children;
-
-	// Biến lưu trữ các chuyên mục đa chọn
-	var html = '';
-
-	//Array userID
-	var doctorIDs = []; 
-
-	// lặp qua từng option và kiểm tra thuộc tính selected
-	for (var i = 0; i < options.length; i++){
-		if (options[i].selected){
-			html += '<input class="user-busy" name="userid[]" value="' + options[i].getAttribute("data-userID") +'">' ;
-			
-			document.getElementById("receive-performer").innerHTML = html;
-		}
-	}
-
-	// var selectDoctor = document.getElementById('receive-performer');
-	// selectDoctor.setAttribute('value', `${doctorIDs}`);
-}
-
-function getValueSelect1(obj){
-	// Lấy danh sách các options
-	var options = obj.children;
-
-	// Biến lưu trữ các chuyên mục đa chọn
-	var html = '';
-
-	//Array userID
-	var nursingIDs = []; 
-
-	// lặp qua từng option và kiểm tra thuộc tính selected
-	for (var i = 0; i < options.length; i++){
-		if (options[i].selected){
-			html += '<input class="user-busy" name="userid[]" value="' + options[i].getAttribute("data-userID") +'">' ;
-			
-			document.getElementById("receive-nursing").innerHTML = html;
-
-		}
-	}
-}
-
 var performerModal = document.getElementById("add-performer-modal");
 performerModal.addEventListener("show.bs.modal", function (event) {
 	// Button that triggered the modal
 	var button = event.relatedTarget;
 	// Get data from edit button
 	var id = button.getAttribute("data-id");
+	var customerID = button.getAttribute("data-customerID");
 	var name = button.getAttribute("data-name");
 	var birth = button.getAttribute("data-birth");
 	var gender = button.getAttribute("data-gender");
@@ -70,6 +24,7 @@ performerModal.addEventListener("show.bs.modal", function (event) {
 	var comment = button.getAttribute("data-comment");
 
 	// Get element need embeded input
+	// var modalCustomerID = document.getElementById("customerID");
 	var modalName = document.getElementById("add-performer-firstLastName");
 	var modalBirth = document.getElementById("add-performer-birth");
 	var modalGender = document.getElementById("add-performer-gender");
@@ -81,35 +36,78 @@ performerModal.addEventListener("show.bs.modal", function (event) {
 	var modalSchedule = document.getElementById("add-performer-schedule");
 	var modalComment = document.getElementById("add-performer-comment");
 
-	performerForm.setAttribute('action', `/reception/employ/service-note/${id}?_method=DELETE`);
+	performerForm.setAttribute('action', `/reception/employ/service-note/${id}?_method=PATCH`);
 
-	// userStateForm.setAttribute('action', `/reception/employ/service-note/${id}?_method=PATCH`)
-
-	modalName.value = name;
-	modalBirth.value = birth;
-	modalGender.value = gender;
-	modalEmail.value = email;
-	modalPhone.value = phone;
-	modalAddress.value = address;
-	modalCreateName.value = createName;
-	modalService.value = service;
+	modalName.innerHTML = name;
+	modalBirth.innerHTML = birth;
+	modalGender.innerHTML = gender;
+	modalEmail.innerHTML = email;
+	modalPhone.innerHTML = phone;
+	modalAddress.innerHTML = address;
+	modalCreateName.innerHTML = createName;
+	modalService.innerHTML = service;
 	modalSchedule.value = schedule;
-	modalComment.value = comment;
+	modalComment.innerHTML = comment;
 
-
-	
-	// var userID = document.getElementById("get-userID");
-	// var getUserID = userID.getAttribute("data-userID");
-	// var inpUserID = document.getElementById("input-userid");
 })
 
-
-
-
-
-
-
 //END PATCH: load form and submit push performer forms
+
+//PATCH: load form and submit push performer rexamination forms
+var pushPerformerBtn = document.getElementById("add-performer-re-exam-btn");
+var performerForm = document.forms['add-performer-re-exam-form'];
+// var userStateForm = document.forms['user-state-form'];
+pushPerformerBtn.addEventListener("click", () => {
+	performerForm.submit();
+})
+var performerModal = document.getElementById("add-performer-re-exam-modal");
+performerModal.addEventListener("show.bs.modal", function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget;
+	// Get data from edit button
+	var id = button.getAttribute("data-re-exam-id");
+	var customerID = button.getAttribute("data-re-exam-customerID");
+	var name = button.getAttribute("data-re-exam-name");
+	var birth = button.getAttribute("data-re-exam-birth");
+	var gender = button.getAttribute("data-re-exam-gender");
+	var email = button.getAttribute("data-re-exam-email");
+	var phone = button.getAttribute("data-re-exam-phone");
+	var address = button.getAttribute("data-re-exam-address");
+	var createName = button.getAttribute("data-re-exam-createName");
+	var service = button.getAttribute("data-re-exam-service");
+	var schedule = button.getAttribute("data-re-exam-schedule");
+	var comment = button.getAttribute("data-re-exam-comment");
+
+	// Get element need embeded input
+	// var modalCustomerID = document.getElementById("customerID");
+	var modalName = document.getElementById("add-performer-re-exam-firstLastName");
+	var modalBirth = document.getElementById("add-performer-re-exam-birth");
+	var modalGender = document.getElementById("add-performer-re-exam-gender");
+	var modalEmail = document.getElementById("add-performer-re-exam-email");
+	var modalPhone = document.getElementById("add-performer-re-exam-phone");
+	var modalAddress = document.getElementById("add-performer-re-exam-address");
+	var modalCreateName = document.getElementById("add-performer-re-exam-createName");
+	var modalService = document.getElementById("add-performer-re-exam-service");
+	var modalSchedule = document.getElementById("add-performer-re-exam-schedule");
+	var modalComment = document.getElementById("add-performer-re-exam-comment");
+
+	performerForm.setAttribute('action', `/reception/employ/reexam/${id}?_method=PATCH`);
+
+	modalName.innerHTML = name;
+	modalBirth.innerHTML = birth;
+	modalGender.innerHTML = gender;
+	modalEmail.innerHTML = email;
+	modalPhone.innerHTML = phone;
+	modalAddress.innerHTML = address;
+	modalCreateName.innerHTML = createName;
+	modalService.innerHTML = service;
+	modalSchedule.value = schedule;
+	modalComment.innerHTML = comment;
+
+})
+
+//PATCH: load form and submit push performer rexamination forms
+
 
 document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {

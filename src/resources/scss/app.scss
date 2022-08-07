@@ -14,6 +14,13 @@ body {
     // min-height: 100%;
 }
 
+.container{
+    overflow-y: scroll;
+    max-height: 90%;
+}
+.verticalLine {
+    border-left: 0.5px solid rgba(0, 0, 0, 0.323);
+}
 textarea {
     resize: none !important;
 }
@@ -59,7 +66,7 @@ a{
 //         margin-left: 32px !important;
 //     }
 
-//     
+    
 //     .container-content-page {
 //         max-height: 60vh;
 //         overflow: auto;
@@ -79,10 +86,9 @@ a{
 
 .navbar{
     position: relative;
-    height: 50px;
+    height: 68px;
     top: 0;
     right: 0;
-    margin-left: 65px;
 }
 
 
@@ -116,7 +122,7 @@ a{
     margin-bottom: -1rem !important;
 }
 
-.sidebar .sidebar-list li:nth-child(3){
+.sidebar .sidebar-list li:last-child{
     position: absolute;
     bottom: 0;
 }
@@ -263,7 +269,7 @@ a{
 }
 
 .taskbar {
-    background-color: #4da6ff;
+    background-color: #343a40;
 }
 
 #customer_table_wrapper {
@@ -288,8 +294,8 @@ a{
 }
 
 .add-avata {
-    width: 180px;
-    height: 180px;
+    width: 185px;
+    height: 185px;
     object-fit: contain;
 }
 
@@ -325,7 +331,9 @@ a{
 
 }
 
-
+#update-stored-status{
+    width: 60%;
+}
 
 @media screen and (min-width: 320px) and (max-width: 360px) {
     // #sidebar-wrapper {
@@ -395,7 +403,7 @@ a{
         margin-top: 5px;
     }
 
-    .nav-mobile .nav-bottom li:nth-child(3){
+    .nav-mobile .nav-bottom li:last-child{
         position: unset;
     }
 
@@ -948,13 +956,12 @@ a{
 
 @media screen and (min-width: 1201px) {
     #add-avt-customer {
-        width: 240px;
-        height: 240px;
+        width: 100%;
         object-fit: contain;
     }
 
     .container-fluid {
-        padding-left: 80px;
+        padding-left: 65px;
     }
 
     .container-card {
@@ -964,4 +971,78 @@ a{
     .taskbar {
         margin-left: 65px;
     }
+}
+
+.preview-images-counselor {
+    overflow: auto;
+    width: 100%;
+    height: 200px
+}
+
+.preview-images-counselor > img {
+    width: calc(100%/3);
+    margin-top: 15px;
+}
+
+.preview-videos-counselor {
+    overflow: auto;
+    width: 100%;
+    height: 200px
+}
+
+.preview-images-before {
+    overflow: auto;
+    width: 100%;
+    height: 200px
+}
+
+.preview-images-before > img {
+    width: calc(100%/3);
+    margin-top: 15px;
+}
+
+.preview-videos-before {
+    overflow: auto;
+    width: 100%;
+    height: 200px
+}
+
+.preview-images-after {
+    overflow: auto;
+    width: 100%;
+    height: 200px
+}
+
+.preview-images-after > img {
+    width: calc(100%/3);
+    margin-top: 15px;
+}
+
+.preview-videos-after {
+    overflow: auto;
+    width: 100%;
+    height: 200px
+}
+
+.preview-images-re-exam{
+    overflow: auto;
+    width: 100%;
+    height: 200px
+}
+
+.preview-images-re-exam> img {
+    width: calc(100%/3);
+    margin-top: 15px;
+}
+
+.preview-videos-re-exam{
+    overflow: auto;
+    width: 100%;
+    height: 200px
+}
+
+.img-logo {
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
 }

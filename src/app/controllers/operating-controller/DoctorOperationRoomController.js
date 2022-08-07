@@ -1,30 +1,54 @@
 const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mongoose');
 const ServiceNote = require('../../models/ServiceNote');
-const User = require('../../models/User')
+const Counselor = require('../../models/Counselor');
+const Reexamination = require('../../models/Reexamination');
+
 
 class DoctorOperationRoomController {
 	//doctor
-	showServiceNote(req, res, next) {
-		ServiceNote.findDeleted({ stored: "No" })
-			.then((serviceNotes) => {
+	// , status: "Đang xử lý"
 
+	showDashboard(req, res, next){
+		res.render("operating/doctor/over-view")
+	}
+	showServiceNote(req, res, next) {
+		ServiceNote.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')
+			.then((serviceNote) => {
+				// const cln = [];
+				// serviceNote.forEach(element => {
+				// 	let clns = element.counselorName;
+				// 	for (const element of clns) {
+				// 		cln.push(element);
+				// 	}
+				// 	return cln;
+
+				// })
+				// Counselor.find({ filename: { $in: cln } })
+				// 	.then((counselors) => {
 				res.render("operating/doctor/operating-service-note", {
-					serviceNotes: multipleMongooseToObject(serviceNotes),
-					title: "Phiếu dịch vụ"
-				});
+					serviceNote: multipleMongooseToObject(serviceNote),
+					// counselors: multipleMongooseToObject(counselors),
+					title: "Chi tiết khách hàng"
+				})
 			})
+			// })
 			.catch(next);
 	}
+	showReExamination(req, res, next) {
+		Reexamination.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId')
+			.then((reExam) => {
+				res.render("operating/doctor/operating-re-exam", {
+					reExam: multipleMongooseToObject(reExam),
 
-	updateServiceNote(req, res, next) {
-		// ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {$push: {services: {before: req.body.before, after: req.body.afer} }})
-		// 	.then(() => {
+					title: "Chi tiết khách hàng"
+				})
+			})
+			// })
+			.catch(next);
 
-		// 		res.redirect("back")
-		// 	})
-		// 	.catch(next)
-		res.json(req.body);
 	}
+
+
 
 }
 

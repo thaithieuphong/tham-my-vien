@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const DoctorController = require('../../app/controllers/operating-controller/DoctorOperationRoomController');
-const validateUploadImage = require('../../middleware/validateUploadImage');
+const authJwt = require('../../middleware/authJwt');
 
 
 //Employ
-router.get('/service-note/:id', DoctorController.updateServiceNote)
 
+router.get('/', [authJwt.verifyToken, authJwt.isDoctor], DoctorController.showDashboard)
 
-
-router.get('/service-note', DoctorController.showServiceNote);
+router.get('/service-note',[authJwt.verifyToken, authJwt.isDoctor], DoctorController.showServiceNote);
+router.get('/re-examination',[authJwt.verifyToken, authJwt.isDoctor], DoctorController.showReExamination);
 
 
 

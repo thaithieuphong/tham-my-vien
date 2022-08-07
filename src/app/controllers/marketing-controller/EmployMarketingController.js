@@ -53,7 +53,7 @@ class MarketingController {
 				phone: req.body.phone,
 				email: req.body.email,
 				address: req.body.address,
-				description: req.body.description,
+				description: req.body.description + req.body.userName,
 				image: {
 					name: req.file.filename,
 					url: req.file.path,

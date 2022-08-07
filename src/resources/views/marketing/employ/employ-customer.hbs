@@ -12,7 +12,7 @@
 		</button>
 	</div>
 </nav>
-{{> page/sidebar/marketing/sidebar-marketing-employ-customers}}
+{{> page/sidebar/marketing/employ/sidebar-marketing-employ-customers}}
 <a href="#" class="addBtn-mobile"><i class="ti-plus"></i></a>
 <div class="container-fluid content-container mt-3">
 	<div id="alert-message" class="alert alert-{{message.color}}" role="alert">
@@ -446,8 +446,6 @@
 		small.innerText = message
 	}
 
-	{{!-- showError(firstName,'Loi') --}}
-
 	function showSuccess(input){
 		let parent = input.parentElement;
 		let small = parent.querySelector('small')
@@ -462,7 +460,7 @@
 
 			if(!input.value){
 				isEmptyError = true;
-				showError(input, 'Loi')
+				showError(input, 'Vui long nhap day du thong tin')
 			}else{
 				showSuccess(input)
 			}
@@ -486,8 +484,8 @@
 		return isEmailError
 	}
 
-	form.addEventListener('submit', function(e){
-		e.preventDefault()
+	form.addEventListener('submit', function(event){
+		event.preventDefault()
 
 		let isEmptyError = checkEmptyError([firstName, lastName, dob, gender, mail , phone, addr,desc])
 		let isEmailError = checkEmailError(mail)

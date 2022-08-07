@@ -4,9 +4,7 @@ const Role = require('../models/Role');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { multipleMongooseToObject, mongooseToObject } = require('../../util/mongoose');
-const mongoose = require("../../util/mongoose");
 const flash = require('connect-flash');
-const url = require('url');
 
 
 class AuthController {
@@ -53,7 +51,6 @@ class AuthController {
                             return;
                         }
                         user.role = role.map((role) => {
-                            console.log("role", role)
                             role.engname;
                         })
                         user.save((err) => {
@@ -69,7 +66,6 @@ class AuthController {
     postRootLogin(req, res, next) {
         User.findOne({email: req.body.email})
             .then( user => {
-                console.log(user);
                 if (!next) {
                     res.status(500).json({ message: 'Đã có lỗi xảy ra tại máy chủ' });
                     return;
@@ -82,7 +78,6 @@ class AuthController {
                     req.body.password,
                     user.password
                 );
-                console.log(passwordIsValid)
                 if (!passwordIsValid) {
                     return res.redirect('/');
                 }
@@ -91,9 +86,7 @@ class AuthController {
                 });
                 const { password, ...others } = user._doc;
                 var authorities = [];
-                console.log(user.role)
                 authorities.push("ROLES_" + user.role.toUpperCase());
-                console.log(authorities);
                 req.session.token = token;
                 // res.status(200).json({...others, token});
                 res.status(200).render('root/root', {
@@ -116,22 +109,22 @@ class AuthController {
     postLogin(req, res, next) {
         User.findOne({account: req.body.account})
             .then( user => {
-                console.log('user', user);
                 if (!next) {
-                    res.status(500).send({ message: 'Đã có lỗi xảy ra tại máy chủ' });
-                    return;
+                    req.flash('messages_server_failure', 'Đã có lỗi xảy ra tại máy chủ');
+                    res.render('/err/500');
                 }
                 if (!user) {
-					res.send('sai account roi ba')
+                    req.flash('messages_account_failure', 'Tài khoản không tồn tại!!!');
+					res.redirect('back');
                 }
                 // so sánh password nhập vào với password trong db
                 var passwordIsValid = bcrypt.compareSync(
                     req.body.password,
                     user.password
                 );
-                console.log(passwordIsValid)
                 if (!passwordIsValid) {
-					res.json('sai mat khau roi ba');
+                    req.flash('messages_password_failure', 'Mật khẩu không đúng!!!');
+					res.redirect('back');
                 }
                 const accessToken = jwt.sign({ 
                     id: user._id,
@@ -140,7 +133,7 @@ class AuthController {
                     position: user.position,
                     
                 }, process.env.ACCESSTOKEN_KEY, {
-                    expiresIn: 600000, // 10p
+                    expiresIn: 3600, // 10p
                 });
 
                 const refreshToken = jwt.sign({
@@ -149,13 +142,11 @@ class AuthController {
                     department: user.department,
                     position: user.position
                 }, process.env.REFRESHTOKEN_KEY, {
-                    expiresIn: 86400, // 24 giờ
+                    expiresIn: 31536000, // 24 giờ
                 })
                 
-                console.log(user.role)
                 req.session.token = accessToken;
                 res.status(200).redirect(`/${user.departmentEng}/${user.positionEng}`);
-                // res.status(200).json({ user: mongooseToObject(user)});
             })
             .catch(next);
     };

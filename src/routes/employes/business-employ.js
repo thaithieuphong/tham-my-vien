@@ -1,21 +1,23 @@
 const express = require('express');
 const EmployBusinessController = require('../../app/controllers/business-controller/EmployBusinessController');
 const router = express.Router();
-const validateUploadImage = require('../../middleware/validateUploadImage');
+const validateUploadImage = require('../../middleware/validateUpload');
+const uploadGoogleDrive = require('../../middleware/uploadGoogleDriveCounselor');
+const authJwt = require("../../middleware/authJwt");
 
 /* Business Employ Start*/
-router.patch('/customers/:id/comment', EmployBusinessController.createComment);
-router.put('/customers/:id', validateUploadImage.uploadSingleCustomer, EmployBusinessController.editCustomer);
+router.patch('/customers/:id/comment', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.createComment);
+router.put('/customers/:id', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.uploadSingleCustomer], EmployBusinessController.editCustomer);
+// , uploadGoogleDrive.uploadDriveCounselor
+// router.post('/customers/:id/service-note', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.counselorUploadGoogleDrive], EmployBusinessController.createServiceNote);
+router.post('/customers/:id/service-note', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.counselorUpload], EmployBusinessController.createServiceNote);
+router.post('/customers', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.uploadSingleCustomer], EmployBusinessController.createCustomer);
+router.post('/service-note/exam', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.createReExam)
 
-router.post('/customers/:id/service-note', EmployBusinessController.createServiceNote);
-router.post('/customers', validateUploadImage.uploadSingleCustomer, EmployBusinessController.createCustomer);
-
-router.post('/customers/:id/detail', validateUploadImage.counselorUploadGoogleDrive, EmployBusinessController.uploadToDrive)
-router.get('/customers/:id/detail', EmployBusinessController.showCustomerDetail)
-router.get('/service-note', EmployBusinessController.showServiceNote);
-router.get('/customers', EmployBusinessController.showCustomer);
-router.get('/', EmployBusinessController.showCustomer);
-// router.get('/', EmployBusinessController.show404);
+router.get('/customers/:id/detail', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showCustomerDetail)
+router.get('/service-note', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showServiceNote);
+router.get('/customers', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showCustomer);
+router.get('/', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showDashboard);
 /* Business Employ End*/
 
 module.exports = router;

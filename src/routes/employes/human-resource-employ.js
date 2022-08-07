@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const HRController = require('../../app/controllers/human-resource-controller/EmployHRController');
-const validateUploadImage = require('../../middleware/validateUploadImage');
+const validateUpload = require('../../middleware/validateUpload');
 
 
 //Employ

@@ -1,114 +1,149 @@
 const User = require('../../models/User');
 const { multipleMongooseToObject, mongooseToObject } = require('../../../util/mongoose');
-const Service = require('../../models/Service');
 const ServiceNote = require('../../models/ServiceNote');
-const Status = require('../../models/Status');
-const Customer = require('../../models/Customer');
-const Comment = require('../../models/Comment');
+// const Counselor = require('../../models/Counselor');
+const Reexamination = require('../../models/Reexamination');
 
 
 
 
 
 
-class UserController {
 
-	getUserDashboard(req, res, next) {
-		res.render('/users/customer/user-customer-dashboard');
+
+class NursingController {
+	showDashboard(req, res, next){
+		res.render("operating/nursing/over-view")
 	}
 
-	//BUSINESS
-	getBusinessDashboard(req, res, next) {
-		res.render('users/customer/user-customer-dashboard')
-	}
+	showServiceNote(req, res, next) {
+		ServiceNote.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')
 
-	getBusinessCustomer(req, res, next) {
-		Customer.find({})
-			.then(customers => {
-				res.render('users/customer/user-customer', {
-					customers: multipleMongooseToObject(customers)
-				});
-			})
-			.catch(next);
-	}
+			.then((serviceNote) => {
+				// const cln = [];
+				// serviceNote.forEach(element => {
+				// 	let clns = element.counselorName;
+				// 	for (const element of clns) {
+				// 		cln.push(element);
+				// 	}
+				// 	return cln;
 
-	getOneBusinessCustomer(req, res, next) {
-		Customer.findById(req.params.id)
-			.then(customer => {
-				let commnetArray = customer.comments;
-				commnetArray.forEach(element => {
-					var date = new Date(element.createdAt);
-					// var d = date.getDate();
-					// var m = date.getMonth()+1;
-					var newDate = date.toLocaleString('en-GB', {day:'numeric', month: 'numeric', year:'numeric'})
-					console.log('day', newDate)
-					return newDate;
-					// console.log('month', m)
+				// })
+				// Counselor.find({ filename: { $in: cln } })
+				// 	.then((counselors) => {
+				res.render("operating/nursing/operating-service-note", {
+					serviceNote: multipleMongooseToObject(serviceNote),
+
+					// counselors: multipleMongooseToObject(counselors),
+					title: "Chi tiết khách hàng"
 				})
-				res.render('users/customer/user-customer-detail', {
-					customer: mongooseToObject(customer),
-				});
+			})
+			// })
+			.catch(next);
+	}
+
+	showReExamination(req, res, next) {
+		Reexamination.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId')
+			.then((reExam) => {
+				res.render("operating/nursing/operating-re-exam", {
+					reExam: multipleMongooseToObject(reExam),
+
+					title: "Chi tiết khách hàng"
+				})
+			})
+			// })
+			.catch(next);
+
+	}
+
+	updateServiceNote(req, res, next) {
+		// res.json(req.body)
+		// console.log(req.params.id)
+		Promise.all([
+			ServiceNote.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành" } }),
+			User.updateMany({ _id: { $in: req.body.operatingID } }, { $set: { state: "Medium" } })
+		])
+			.then(() => {
+				res.redirect('back')
+			})
+			.catch(next);
+	}
+
+	updateReExamination(req, res, next) {
+		// res.json(req.params)
+		// console.log(req.params.id)
+		Promise.all([
+			Reexamination.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành" } }),
+			User.updateMany({ _id: { $in: req.body.operatingID } }, { $set: { state: "Medium" } })
+		])
+			.then(() => {
+				res.redirect('back')
 			})
 			.catch(next);
 	}
 
 
-	createComment(req, res, next) {
-		Customer.findByIdAndUpdate({ _id: req.params.id }, {$push: {comments: {comment: req.body.comments}}})
-			.then(() => res.redirect('back'))
+	uploadBefore(req, res, next) {
+		const file = req.files;
+		const fnimg = [];
+		const fnvideo = []
+		file.forEach(element => {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+				fnimg.push(element.filename);
+				return fnimg;
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+				fnvideo.push(element.filename);
+				return fnvideo;
+			}
+		})
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { beforeImg: fnimg, beforeVideo: fnvideo } })
+			.then(() => {
+				res.redirect('back')
+			})
 			.catch(next);
+		// res.json(req.body)
 	}
 
-	// createComment(req, res, next) {
-	// 	const comment = new Comment(req.body);
-	// 	comment.save()
-	// 		.then(() => res.redirect('customer'))
-	// 		.catch(next)
-	// }
-	//END BUSINESS
-
-	//CUSTOMER
-	getUserCustomer(req, res, next) {
-		Customer.find({})
-			.then(customers => {
-				res.render('users/customer/user-customer', {
-					customers: multipleMongooseToObject(customers)
-				});
+	uploadAfter(req, res, next) {
+		const file = req.files;
+		const fnimg = [];
+		const fnvideo = []
+		file.forEach(element => {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+				fnimg.push(element.filename);
+				return fnimg;
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+				fnvideo.push(element.filename);
+				return fnvideo;
+			}
+		})
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { afterImg: fnimg, afterVideo: fnvideo } })
+			.then(() => {
+				res.redirect('back')
 			})
 			.catch(next);
 	}
 
-	//SERVICE-NOTE
-	getUserServiceNote(req, res, next) {
-		Promise.all([ServiceNote.find({}), Customer.find({}), User.find({}), Status.find({}), Service.find({})])
-			.then(([serviceNotes, customers, users, status, services]) => {
-				res.render('users/service-note/user-service-note', {
-					serviceNotes: multipleMongooseToObject(serviceNotes),
-					customers: multipleMongooseToObject(customers),
-					users: multipleMongooseToObject(users),
-					status: multipleMongooseToObject(status),
-					services: multipleMongooseToObject(services),
-				});
+	uploadReExam(req, res, next) {
+		const file = req.files;
+		const fnimg = [];
+		const fnvideo = []
+		file.forEach(element => {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+				fnimg.push(element.filename);
+				return fnimg;
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+				fnvideo.push(element.filename);
+				return fnvideo;
+			}
+		})
+		Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $push: { reExamImg: fnimg, reExamVideo: fnvideo } })
+			.then(() => {
+				res.redirect('back')
 			})
 			.catch(next);
-	}
-
-	getUserService(req, res, next) {
-		Service.find({})
-			.then(services => {
-				res.render('users/service/user-service', {
-					services: multipleMongooseToObject(services)
-				});
-			})
-			.catch(next);
-	}
-	createCustomer(req, res, next){
-		const customer = new Customer(req.body);
-		customer.save()
-			.then(() => res.redirect('back'))
-			.catch(next)
 	}
 
 }
 
-module.exports = new UserController;
+module.exports = new NursingController;

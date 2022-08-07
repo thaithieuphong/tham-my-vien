@@ -1,0 +1,37 @@
+<div class="nav-mobile sidebar text-light">
+	<ul class="nav-bottom sidebar-list">
+		<li class="list">
+			<a href="/operating-room/doctor">
+				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
+				<span class="nav-text sidebar-text">Trang chủ</span>
+			</a>
+		</li>
+		<li class="list">
+			<a href="/operating-room/doctor/service-note">
+				<span class="nav-mobile-icon sidebar-icon"><i class="ti-user"></i></span>
+				<span class="nav-text sidebar-text">Phiếu phẩu thuật</span>
+			</a>
+		</li>
+		<li class="list active">
+			<a href="/operating-room/doctor/re-examination">
+				<span class="nav-mobile-icon sidebar-icon"><i class="ti-bar-chart"></i></span>
+				<span class="nav-text sidebar-text">Phiếu tái khám</span>
+			</a>
+		</li>
+		<li class="img-container">
+			<img src="/img/uploads/customers/{{user.image.name}}" alt="">
+			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
+		</li>
+	</ul>
+</div>
+
+<script>
+	const list = document.querySelectorAll('.list');
+	function activeTab(){
+		list.forEach((item) =>
+		item.classList.remove('active'));
+		this.classList.add('active')
+	}
+	list.forEach((item) =>
+	item.addEventListener('click',activeTab))
+</script>
