@@ -12,10 +12,11 @@ router.patch('/customers/:id/comment', [authJwt.verifyToken, authJwt.isBusinessM
 router.patch('/service-note/:id', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.deleteServiceNote);
 router.put('/customers/:id/edit', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.uploadSingleCustomer], ManagerBusinessController.editCustomer);
 
-router.post('/customers/userid', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.addUseridToCustomer)
+router.post('/userid', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.addUseridToCustomer)
 router.post('/customers/:id/service-note', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.counselorUpload], ManagerBusinessController.createServiceNote);
 router.post('/customers', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.uploadSingleCustomer], ManagerBusinessController.createCustomer);
 router.post('/service-note/exam', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.createReExam)
+router.post('/', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.uploadSingleCustomer], ManagerBusinessController.createCustomer);
 
 
 

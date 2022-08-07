@@ -22,19 +22,29 @@ class ManagerBusinessController {
 	}
 
 	showDashboard(req, res) {
-		res.render("business/manager/manager-overview");
+		Promise.all([
+			Customer.find({ userID: null }),
+			User.find({ department: "Kinh doanh" })
+		])
+
+			.then(([customers, user]) => {
+				res.render("business/manager/manager-overview", {
+					customers: multipleMongooseToObject(customers),
+					users: multipleMongooseToObject(user),
+					title: 'Quản lý khách hàng'
+				});
+			})
 	}
 
 	showCustomer(req, res, next) {
-		Promise.all([Customer.find({ userID: null }), User.findById({ _id: req.userId }), Customer1.find({ userID: { $exists: true } }).populate('userID'),
-		TypeService.find({}), User.find({ department: "Kinh doanh", position: "Nhân viên" })])
-			.then(([customers, user, customer1s, typeservices, users]) => {
+		Promise.all([Customer.find({ userID: req.userId }), User.findById({ _id: req.userId }), Customer1.find({ userID: { $exists: true } }).populate('userID'),
+		TypeService.find({})])
+			.then(([customers, user, customer1s, typeservices]) => {
 				res.render("business/manager/manager-customer", {
 					customers: multipleMongooseToObject(customers),
 					user: mongooseToObject(user),
 					customer1s: multipleMongooseToObject(customer1s),
 					typeservices: multipleMongooseToObject(typeservices),
-					users: multipleMongooseToObject(users),
 					title: 'Quản lý khách hàng'
 				});
 			})
@@ -46,6 +56,7 @@ class ManagerBusinessController {
 	createCustomer(req, res, next) {
 		if (req.file) {
 			const customer = new Customer({
+				userID: req.userId,
 				firstName: req.body.firstName,
 				lastName: req.body.lastName,
 				birth: req.body.birth,
@@ -62,6 +73,7 @@ class ManagerBusinessController {
 			customer.save();
 		} else {
 			const customer = new Customer({
+				userID: req.userId,
 				firstName: req.body.firstName,
 				lastName: req.body.lastName,
 				birth: req.body.birth,
@@ -129,7 +141,7 @@ class ManagerBusinessController {
 		Customer.updateMany({ _id: { $in: req.body.customerIds } }, { $set: { userID: req.body.userID } })
 			.then(() => res.redirect('back'))
 			.catch(next);
-
+		// res.json(req.body)
 	}
 
 	showCustomerDetail(req, res, next) {
@@ -168,8 +180,8 @@ class ManagerBusinessController {
 
 		])
 			.then(([serviceNotes, serviceNote1s, serviceNote2s]) => {
-				
-			
+
+
 				res.render('business/manager/manager-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
 					serviceNote1s: multipleMongooseToObject(serviceNote1s),
@@ -219,7 +231,7 @@ class ManagerBusinessController {
 			.catch(next);
 	}
 
-	createReExam(req, res, next){
+	createReExam(req, res, next) {
 		const reexamination = new Reexamination({
 			customerID: req.body.customerID,
 			createName: req.body.createName,

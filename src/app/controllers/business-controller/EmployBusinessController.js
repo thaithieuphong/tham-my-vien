@@ -60,6 +60,7 @@ class EmployBusinessController {
 	createCustomer(req, res, next) {
 		if (req.file) {
 			const customer = new Customer({
+				userID: req.userId,
 				firstName: req.body.firstName,
 				lastName: req.body.lastName,
 				birth: req.body.birth,
@@ -76,6 +77,7 @@ class EmployBusinessController {
 			customer.save();
 		} else {
 			const customer = new Customer({
+				userID: req.userId,
 				firstName: req.body.firstName,
 				lastName: req.body.lastName,
 				birth: req.body.birth,
