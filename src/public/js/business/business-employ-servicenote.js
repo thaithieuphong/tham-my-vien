@@ -50,7 +50,7 @@ createExamModal.addEventListener("show.bs.modal", function (event) {
     serviced.value = dataService;
     serviceNoteID.value = dataServiceNoteId;
 
-
+   
 })
 
 

@@ -2,6 +2,7 @@ const express = require('express');
 const ManagerBusinessController = require('../../app/controllers/business-controller/ManagerBusinessController');
 const router = express.Router();
 const validateUploadImage = require('../../middleware/validateUpload');
+
 const authJwt = require('../../middleware/authJwt');
 const uploadGoogleDrive = require('../../middleware/uploadGoogleDriveCounselor');
 
@@ -15,6 +16,7 @@ router.post('/customers/userid', [authJwt.verifyToken, authJwt.isBusinessManager
 router.post('/customers/:id/service-note', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.counselorUpload], ManagerBusinessController.createServiceNote);
 router.post('/customers', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.uploadSingleCustomer], ManagerBusinessController.createCustomer);
 router.post('/service-note/exam', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.createReExam)
+
 
 
 router.get('/customers/:id/detail', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.showCustomerDetail)

@@ -14,6 +14,7 @@ subDoctorModal.addEventListener('show.bs.modal', function(event){
     var id = button.getAttribute("data-id")
 
     subDoctorForm.setAttribute('action', `/operating-room/nursing/service-note/${id}?_method=PATCH`)
+
 })
 
 // Multiple images before
@@ -77,7 +78,6 @@ beforeModal.addEventListener('show.bs.modal', function(event){
 	var beforeID = button.getAttribute("data-before-id");
 
 	beforeForm.setAttribute('action', `/operating-room/nursing/service-note/before/${beforeID}`);
-	console.log(beforeID);
 })
 
 
@@ -137,7 +137,6 @@ var afterSubmitBtn = document.getElementById('upload-img-after-btn');
 
 afterSubmitBtn.addEventListener('click', () =>{
 	afterForm.submit()
-	console.log('abc')
 })
 
 afterModal.addEventListener('show.bs.modal', function(event){
@@ -146,9 +145,7 @@ afterModal.addEventListener('show.bs.modal', function(event){
 	var afterID = button.getAttribute("data-after-id");
 
 	afterForm.setAttribute('action', `/operating-room/nursing/service-note/after/${afterID}`);
-	console.log(afterID);
 })
 //END Multiple images after
-
 
 

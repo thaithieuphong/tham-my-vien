@@ -194,6 +194,7 @@ class EmployBusinessController {
 			.then(([serviceNotes, serviceNote1s, serviceNote2s, user]) => {
 				
 			
+
 				res.render('business/employ/employ-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
 					serviceNote1s: multipleMongooseToObject(serviceNote1s),
@@ -234,6 +235,7 @@ class EmployBusinessController {
 		});
 		serviceNote.save();
 		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id } })
+
 			.then(() => {
 				res.redirect('back');
 

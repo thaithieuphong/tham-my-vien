@@ -16,11 +16,10 @@ class ReceptionController {
     }
 
     showServiceNote(req, res, next) {
-        Promise.all([Recept.findById({_id: req.userId}), 
-            ServiceNote.find({stored: null}).sort({ schedule: 1 }).populate('customerID').populate('createName'),
-            Reexamination.find({stored: null}).sort({ schedule: 1 }).populate('customerID').populate('createName').populate('serviceNoteId'),
-            User.find({ department: "Phẩu thuật", position: "Bác sĩ", $or: [{ state: "Medium" }, { state: null }]  }),
-            User1.find({ department: "Phẩu thuật", $and:[{$or: [{ state: "Medium" }, { state: null }]},{ position: "Y tá" } ], $and:[{$or: [{ state: "Medium" }, { state: null }]},{ position: "Điều dưỡng" } ]})
+        Promise.all([Recept.findById({_id: req.userId}), ServiceNote.find({stored: null}).sort({ schedule: 1 }).populate('customerID').populate('createName'),
+        Reexamination.find({stored: null}).sort({ schedule: 1 }).populate('customerID').populate('createName').populate('serviceNoteId'),
+        User.find({ department: "Phẩu thuật", position: "Bác sĩ", $or: [{ state: "Medium" }, { state: null }]  }),
+        User1.find({ department: "Phẩu thuật", $and:[{$or: [{ state: "Medium" }, { state: null }]},{ position: "Y tá" } ], $and:[{$or: [{ state: "Medium" }, { state: null }]},{ position: "Điều dưỡng" } ]})
         ])
             .then(([recept, serviceNotes, reexams, users, user1s]) => {
                 let commnetArray = serviceNotes;
@@ -48,7 +47,7 @@ class ReceptionController {
     }
 
     pushPerformer(req, res, next) {
-        console.log(req.body);
+        // console.log(req.body);
         Promise.all([
             ServiceNote.findByIdAndUpdate({ _id: req.params.id },
                 { $push: { performer: req.body.performer, nursing: req.body.nursing }, 
@@ -62,6 +61,8 @@ class ReceptionController {
             })
             .catch(next);
         // res.json(req.body);
+        // res.json(req.body)
+
     }
 
     pushOperationToReexam(req, res, next){

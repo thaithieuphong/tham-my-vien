@@ -18,6 +18,7 @@ router.get('/users',[authJwt.verifyToken, authJwt.isHRManager], ManagerHRControl
 // router.post('/users', validateUpload.uploadSingleUser, ManagerHRController.createUser);
 // router.get('/users', ManagerHRController.showUsers);
 // >>>>>>> dev
+
 router.get('/user/:id/detail', ManagerHRController.detailUser);
 router.get('/',[authJwt.verifyToken, authJwt.isHRManager], ManagerHRController.showDashboard);
 /* Business Manager End*/

@@ -1,10 +1,11 @@
 //PATCH: load form and submit push performer forms
 var pushPerformerBtn = document.getElementById("add-performer-btn");
 var performerForm = document.forms['add-performer-form'];
-// var userStateForm = document.forms['user-state-form'];
 pushPerformerBtn.addEventListener("click", () => {
 	performerForm.submit();
 })
+
+
 var performerModal = document.getElementById("add-performer-modal");
 performerModal.addEventListener("show.bs.modal", function (event) {
 	// Button that triggered the modal
@@ -38,6 +39,7 @@ performerModal.addEventListener("show.bs.modal", function (event) {
 
 	performerForm.setAttribute('action', `/reception/employ/service-note/${id}?_method=PATCH`);
 
+	console.log(id)
 	modalName.innerHTML = name;
 	modalBirth.innerHTML = birth;
 	modalGender.innerHTML = gender;
@@ -54,14 +56,14 @@ performerModal.addEventListener("show.bs.modal", function (event) {
 //END PATCH: load form and submit push performer forms
 
 //PATCH: load form and submit push performer rexamination forms
-var pushPerformerBtn = document.getElementById("add-performer-re-exam-btn");
-var performerForm = document.forms['add-performer-re-exam-form'];
+var reExamBtn = document.getElementById("add-performer-re-exam-btn");
+var reExamForm = document.forms['add-performer-re-exam-form'];
 // var userStateForm = document.forms['user-state-form'];
-pushPerformerBtn.addEventListener("click", () => {
-	performerForm.submit();
+reExamBtn.addEventListener("click", () => {
+	reExamForm.submit();
 })
-var performerModal = document.getElementById("add-performer-re-exam-modal");
-performerModal.addEventListener("show.bs.modal", function (event) {
+var reExamModal = document.getElementById("add-performer-re-exam-modal");
+reExamModal.addEventListener("show.bs.modal", function (event) {
 	// Button that triggered the modal
 	var button = event.relatedTarget;
 	// Get data from edit button
@@ -91,7 +93,7 @@ performerModal.addEventListener("show.bs.modal", function (event) {
 	var modalSchedule = document.getElementById("add-performer-re-exam-schedule");
 	var modalComment = document.getElementById("add-performer-re-exam-comment");
 
-	performerForm.setAttribute('action', `/reception/employ/reexam/${id}?_method=PATCH`);
+	reExamForm.setAttribute('action', `/reception/employ/reexam/${id}?_method=PATCH`);
 
 	modalName.innerHTML = name;
 	modalBirth.innerHTML = birth;

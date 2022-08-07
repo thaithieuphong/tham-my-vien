@@ -390,6 +390,9 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
+                                <button type="button"  class="btn btn-danger"
+                                    data-bs-toggle="modal" data-bs-target="#del-service-note-modal"
+                                    data-del-service-note-id="{{this._id}}">Xóa</button>
                                 <button type="button" id="create-re-examination-btn" class="btn btn-primary"
                                     data-bs-toggle="modal" data-bs-target="#create-re-examination-modal"
                                     data-img="{{this.customerID.image.name}}" data-id="{{this.customerID._id}}"
@@ -407,6 +410,7 @@
             </div>
         </div>
     </div>
+    <form method="POST" id="update-stored-status" action=""></form>
     {{!-- Modal Delete --}}
 
     <div class="modal fade" id="del-service-note-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -606,7 +610,6 @@
             </div>
         </div>
     </div>
-
 </body>
 <script src="/js/business/business-manager-service-note.js"></script>
 

@@ -70,11 +70,7 @@ const counselorUpload = multer.diskStorage({
                     aLName = el.split(', ');
                     bLName += aLName;
                 })
-                if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-                    cb(null, `${file.fieldname}_img_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
-                } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-                    cb(null, `${file.fieldname}_video_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
-                }
+                cb(null, `${file.fieldname}_${bFName.toLowerCase()}${bLName.toLowerCase()}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
             })
     }
 });
@@ -326,6 +322,7 @@ const storageCustomerAvtEdit = multer.diskStorage({
             })
     }
 });
+
 
 const storageUserAvt = multer.diskStorage({
     destination: function(req, file, cb) {

@@ -23,6 +23,7 @@ const ServiceNote = new Schema({
 		}
 	],
 
+	
 	nursing: [
 		{
 			type: String,
@@ -56,6 +57,31 @@ const ServiceNote = new Schema({
 	],
 
 	counselorVideo: [
+		{
+			type: String,
+		}
+	],
+
+	recept:
+	{
+		type: String,
+		ref: "User"
+	},
+
+	status:
+	{
+		type: String,
+		ref: "Status"
+	},
+
+	service: [
+		{
+			type: String,
+			ref: "Service"
+		}
+	],
+
+	counselorName: [
 		{
 			type: String,
 		}

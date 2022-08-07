@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const NursingController = require('../../app/controllers/operating-controller/NursingOperationRoomController');
 const validateUpload = require('../../middleware/validateUpload');
+
 const uploadGoogleDriveBefore = require('../../middleware/uploadGoogleDriveBefore');
 const uploadGoogleDriveAfter = require('../../middleware/uploadGoogleDriveAfter');
 
@@ -29,6 +30,7 @@ router.get('/re-examination', [authJwt.verifyToken, authJwt.isNursing], NursingC
 router.post('/service-note/before/:id',[authJwt.verifyToken, authJwt.isNursing, validateUpload.beforeUpload], NursingController.uploadBefore)
 router.post('/service-note/after/:id',[authJwt.verifyToken, authJwt.isNursing, validateUpload.afterUpload], NursingController.uploadAfter)
 router.post('/re-examination/reexam/:id',[authJwt.verifyToken, authJwt.isNursing, validateUpload.reExaminationUpload], NursingController.uploadReExam)
+
 
 
 

@@ -214,8 +214,7 @@ class ManagerBusinessController {
 	}
 
 	deleteServiceNote(req, res, next) {
-		Promise.all([ServiceNote.delete({ _id: req.params.id }),
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { stored: "Yes" } })])
+		ServiceNote.delete({ _id: req.params.id })
 			.then(() => res.redirect("back"))
 			.catch(next);
 	}
