@@ -2,16 +2,13 @@
 	<div class="title">
 
 	</div>
-	<h3 class="title text-light">Quản lý khách hàng</h3>
-	{{> page/sidebar/business/manager/sidebar-business-manager-customers}}
+	<h3 class="title text-light">Quản lý khách hàng hệ thống</h3>
+	{{> page/sidebar/business/manager/sidebar-business-manager}}
 
 	<div class="stask">
 		<!-- Button trigger modal -->
 
-		<!-- Button trigger modal -->
-		<button data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="btn btn-primary  btn-create">
-			Tạo khách hàng
-		</button>
+		
 	</div>
 </nav>
 <div class="container-fluid mt-3">
@@ -20,20 +17,20 @@
 	</div>
 
 
-	<div class="ml-3 mb-3 form-check d-flex align-items-center">
+	<div class="ml-3 mb-4 form-check d-flex align-items-center">
 		<input type="checkbox" class="hidden form-check-input" id="check-customer-all">
 		<label class="hidden form-check-label" for="check-customer-all">Chọn tất cả</label>
 		<div id="add-user-customer-btn" class="hidden ml-3 btn btn-primary btn-sm disabled" data-bs-toggle="modal"
 			data-bs-target="#add-userid-to-customer-modal">Thêm nhân viên
 		</div>
 	</div>
-	<form method="POST" action="" id="add-user-customer-form">
+	<form method="POST" action="" id="add-user-customer-form" >
 		<div class="container-table">
 			<table id="customer_table" class="table table-hover table-bordered table-sm">
 				<thead class="table-info">
 					<tr>
-						<th class="text-center hidden" scope="col">&nbsp;&nbsp;&nbsp;&nbsp;</th>
 						<th class="text-center" scope="col">#</th>
+						<th class="text-center" scope="col">STT</th>
 						<th class="text-center" scope="col">Họ tên</th>
 						<th class="text-center" scope="col">Ngày sinh</th>
 						<th class="text-center" scope="col">Giới tính</th>
@@ -41,13 +38,12 @@
 						<th class="text-center" scope="col">Email</th>
 						<th class="text-center" scope="col">Địa chỉ</th>
 						<th class="text-center" scope="col">Mô tả</th>
-						<th class="text-center" scope="col">Hành động</th>
 					</tr>
 				</thead>
 				<tbody id="table-content">
 					{{#each customers}}
 					<tr>
-						<td class="hidden text-right" scope="row">
+						<td class="text-center" scope="row">
 							<input type="checkbox" class="form-check-input check-box-customer" name="customerIds[]"
 								value="{{this._id}}" id="">
 						</td>
@@ -60,16 +56,6 @@
 						<td>{{this.email}}</td>
 						<td>{{this.address}}</td>
 						<td>{{this.description}}</td>
-						<td class="text-center">
-
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-									data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
-									data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
-									data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
-									data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
-									data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
-									data-edit-description="{{this.description}}">Sửa thông tin </button>
-						</td>
 					</tr>
 					{{/each}}
 				</tbody>
@@ -117,219 +103,7 @@
 
 
 
-<!-- Modal Create Customer -->
-<div class="modal fade" id="create-customer-modal" tabindex="-1" aria-labelledby="create-customer-modal"
-	aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header bg-primary">
-				<h5 class="modal-title text-light" id="create-customer-modal">Tạo thông tin khách hàng</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<form id="create-customer-form" method="POST" class="row" enctype="multipart/form-data">
-					<div class="col-xl-3 text-center mb-3">
-						<img src="/img/user-icon.png" id="add-avt-customer" class="rounded mx-auto d-block add-avata"
-							alt="...">
-						<label for="input-create-img" class="label-avt btn btn-sm btn-primary mt-3">
-							<h6>Chọn ảnh đại diện</h6>
-						</label>
-						<input hidden id="input-create-img" type="file" name="image"
-							accept="image/png, image/gif, image/jpeg">
-					</div>
-					<div class="col-xl-9 mb-3">
-						<ul class="list-group">
-							<li class="list-group-item">
-								<div class="row">
-									<div class="col-md-6">
-										<label for="create-firstName" class="form-label">
-											<h6>Họ</h6>
-										</label>
-										<input type="text" class="form-control form-control-sm" id="create-firstName"
-											placeholder="Vd: Trần Văn" name="firstName" required>
-									</div>
-									<div class="col-md-6">
-										<label for="create-lastName" class="form-label">
-											<h6>Tên</h6>
-										</label>
-										<input type="text" class="form-control form-control-sm" id="create-lastName"
-											placeholder="Vd: Khánh" name="lastName" required>
-									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="col-md-6">
-										<label for="create-birth" class="form-label">
-											<h6>Ngày sinh</h6>
-										</label>
-										<input type="date" class="form-control form-control-sm" id="create-birth"
-											aria-describedby="birthFeedback" name="birth" required>
-									</div>
-									<div class="col-md-6">
-										<label for="create-gender" class="form-label">
-											<h6>Giới tính</h6>
-										</label>
-										<select class="form-select form-select-sm" aria-label=".form-select-sm example"
-											name="gender">
-											<option value="" selected>-- Chọn giới tính --</option>
-											<option value="Nữ">Nữ</option>
-											<option value="Nam">Nam</option>
-										</select>
-									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="col-md-6">
-										<label for="create-phone" class="form-label">
-											<h6>Số điện thoại</h6>
-										</label>
-										<input type="tel" class="form-control form-control-sm" id="create-phone"
-											placeholder="Vd: 0909888888" name="phone" required>
-									</div>
-									<div class="col-md-6">
-										<label for="create-email" class="form-label">
-											<h6>Email</h6>
-										</label>
-										<input type="email" class="form-control form-control-sm" id="create-email"
-											placeholder="Vd: tranvankhanh@gmail.com" name="email" required>
-									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="col-md-12">
-										<label for="create-address" class="form-label">
-											<h6>Địa chỉ</h6>
-										</label>
-										<input type="text" class="form-control form-control-sm" id="create-address"
-											aria-describedby="addressFeedback" placeholder="Vd: 123 Đường số 10"
-											name="address" required>
-									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="col-md-12 mb-3">
-										<label for="create-description" class="form-label">
-											<h6>Mô tả</h6>
-										</label>
-										<textarea class="form-control" id="create-description" rows="6"
-											placeholder="Mô tả khách hàng" name="description"></textarea>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-				<button id="create-customer-btn" type="button" class="btn btn-primary">Tạo mới</button>
-			</div>
-		</div>
-	</div>
-</div>
 
-<!-- Modal Edit Customer -->
-<div class="modal fade" id="edit-customer-modal" tabindex="-1" aria-labelledby="edit-customer" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header bg-info text-light">
-				<h5 class="modal-title" id="edit-customer-title">Sửa / Cập nhật thông tin người dùng</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<form method="POST" id="edit-customer-form" class="row" enctype="multipart/form-data">
-					<div class="col-xl-3">
-						<img src="/img/user-icon.png" id="edit-customer-avt" class="rounded mx-auto d-block add-avata"
-							alt="...">
-						<div class="mt-3 mb-3 text-center">
-							<label for="edit-img" class="label-avt btn btn-sm btn-primary">
-								<h6>Chọn ảnh đại diện</h6>
-							</label>
-							<input hidden class="form-control" id="input-edit-img" type="file" name="image"
-								accept="image/png, image/gif, image/jpeg">
-						</div>
-					</div>
-					<div class="col-xl-9 mb-3">
-						<ul class="list-group">
-							<li class="list-group-item bg-info text-light">
-								<div class="row">
-									<div class="col-md-6">
-										<label for="edit-firstName" class="form-label">
-											<h6>Họ</h6>
-										</label>
-										<input type="text" class="form-control form-control-sm firstName"
-											data-bs-focus="focus" id="edit-firstName" name="firstName">
-									</div>
-									<div class="col-md-6">
-										<label for="edit-lastName" class="form-label">
-											<h6>Tên</h6>
-										</label>
-										<input type="text" class="form-control form-control-sm lastName"
-											id="edit-lastName" name="lastName">
-									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="col-md-6">
-										<label for="edit-birth" class="form-label">
-											<h6>Ngày sinh</h6>
-										</label>
-										<input type="date" class="form-control form-control-sm" id="edit-birth"
-											aria-describedby="birthFeedback" name="birth" required>
-									</div>
-									<div class="col-md-6">
-										<label for="edit-gender" class="form-label">
-											<h6>Giới tính</h6>
-										</label>
-										<select id="edit-gender" class="form-select form-select-sm"
-											aria-label=".form-select-sm example" name="gender">
-											<option value="" selected>-- Chọn giới tính --</option>
-											<option value="Nữ">Nữ</option>
-											<option value="Nam">Nam</option>
-										</select>
-									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="col-md-6">
-										<label for="edit-phone" class="form-label">
-											<h6>Số điện thoại</h6>
-										</label>
-										<input type="tel" class="form-control form-control-sm" id="edit-phone"
-											name="phone" required>
-									</div>
-									<div class="col-md-6">
-										<label for="edit-email" class="form-label">
-											<h6>Email</h6>
-										</label>
-										<input type="email" class="form-control form-control-sm" id="edit-email"
-											name="email" required>
-									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="col-md-12">
-										<label for="edit-address" class="form-label">
-											<h6>Địa chỉ</h6>
-										</label>
-										<input type="text" class="form-control form-control-sm" id="edit-address"
-											aria-describedby="addressFeedback" name="address" required>
-									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="col-md-12 mb-3">
-										<label for="edit-description" class="form-label">
-											<h6>Mô tả</h6>
-										</label>
-										<textarea class="form-control" id="edit-description" rows="6" name="description"
-											readonly></textarea>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
-				<button type="button" id="edit-customer-btn" class="btn btn-primary">Lưu thay đổi</button>
-			</div>
-		</div>
-	</div>
-</div>
 
 
 
