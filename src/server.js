@@ -20,7 +20,7 @@ if (`${process.env.NODE_ENV}` !== "production") {
 
 // Cung cấp middleware trên Express để kích hoạt CORS
 var corsOptions = {
-	origin: "http://localhost:3001",
+	origin: "http:localhost:3001",
 };
 
 // Method Override

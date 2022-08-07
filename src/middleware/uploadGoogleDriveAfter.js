@@ -1,6 +1,5 @@
 const Customer = require('../app/models/Customer');
 require('dotenv').config();
-const Counselor = require('../app/models/Counselor');
 const { google } = require('googleapis');
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;

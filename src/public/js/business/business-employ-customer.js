@@ -4,7 +4,7 @@ var createCustomer = document.getElementById("create-customer-btn");
 var createCustomerModal = document.getElementById("create-customer-modal");
 var createCustomerForm = document.forms["create-customer-form"];
 createCustomer.addEventListener("click", () => {
-	createCustomerForm.submit();
+	validateForm()
 });
 
 
@@ -195,4 +195,30 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Validate form
-
+function validateForm() {
+	var alertMessageFisrtName = document.getElementById("alert-message-firstname");
+	var alertMessageLastName = document.getElementById("alert-message-lastname");
+	var alertMessageBirth = document.getElementById("alert-message-birth");
+    var a = document.forms["create-customer-form"]["firstName"].value;
+    var b = document.forms["create-customer-form"]["lastName"].value;
+    var c = document.forms["create-customer-form"]["birth"].value;
+    // var d = document.forms["create-customer-form"]["phone"].value;
+	var buttonClose = document.createElement('button');
+	buttonClose.setAttribute('class', 'btn-close');
+	buttonClose.setAttribute('data-bs-dismiss', 'alert');
+	buttonClose.setAttribute('aria-label', 'Close');
+	buttonClose.setAttribute('type', 'button');
+    if (a == null || a == "", b == null || b == "", c == null || c == "") {
+		alertMessageFisrtName.append(buttonClose);
+    	alertMessageFisrtName.setAttribute("class", "alert alert-danger alert-dismissible fade show mt-1");
+		alertMessageFisrtName.innerHTML = 'Khong duoc de trong truong nay';
+		alertMessageLastName.append(buttonClose);
+		alertMessageLastName.setAttribute("class", "alert alert-danger alert-dismissible fade show mt-1");
+		alertMessageLastName.innerHTML = 'Khong duoc de trong truong nay';
+		alertMessageBirth.append(buttonClose);
+		alertMessageBirth.setAttribute("class", "alert alert-danger alert-dismissible fade show mt-1");
+		alertMessageBirth.innerHTML = 'Khong duoc de trong truong nay';
+    } else {
+		createCustomerForm.submit();
+	}
+  }

@@ -31,7 +31,14 @@ class EmployBusinessController {
 	//BUSINESS EMPLOY
 
 	showDashboard(req, res, next) {
-		res.redirect('/business/employ/customers')
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('business/employ/employ-overview', {
+					user: mongooseToObject(user),
+					title: 'Tổng quan'
+				})
+			})
+			.catch(next);
 		// res.render("business/employ/business-overview", {
 		// 	title: 'Bảng báo cáo'
 		// });
@@ -194,6 +201,7 @@ class EmployBusinessController {
 	}
 
 	createServiceNote(req, res, next) {
+
 		// console.log(req.files);
 		const file = req.files;
 		const fn = []
@@ -224,97 +232,6 @@ class EmployBusinessController {
 
 		// res.json(req.body)
 	}
-
-	// 	Promise.all([Customer.findById({ _id: req.params.id }), drive.files.list(findFolder)])
-	// 		.then(([customer, list]) => {
-	// 			const fName = customer.firstName;
-	// 			const lName = customer.lastName;
-	// 			const birth = customer.birth.split('-');
-	// 			const newBirth = `${birth[2]}/${birth[1]}/${birth[0]}`;
-	// 			const folderCustomerName = `${fName} ${lName} ${newBirth}`;
-	// 			const arrayFolder = list.data.files;
-	// 			const currentFolder = arrayFolder.find(folder => {
-	// 				const folderName = folder.name;
-	// 				const folderCusId = folder.id;
-	// 				// neu thu muc chua ton tai thi tao thu muc sau do tao hinh anh trong thu muc do
-	// 				if (folderCusId === folderId && folderName !== folderCustomerName) {
-	// 					console.log('>>> a: ', folderName);
-	// 					const folderCustomer = {
-	// 						mimeType: 'application/vnd.google-apps.folder',
-	// 						parents: [folderId],
-	// 						'name': folderCustomerName,
-	// 					}
-	// 					let folderDataId;
-	// 					const folderCustomerId = drive.files.create({
-	// 							resource: folderCustomer,
-	// 							fields: 'id'
-	// 						})
-	// 						.then(result => {
-	// 							folderDataId = result.data.id;
-	// 							return folderDataId;
-	// 						}).catch(next);
-	// 					arrayFile.forEach(element => {
-	// 						folderCustomerId.then(id => {
-	// 							console.log('>>> id', id.id);
-	// 							const requestBody = { // cau hinh file tren drive
-	// 								name: element.filename,
-	// 								mimeType: element.mimetype,
-	// 								parents: [folderDataId] // id thu muc chua
-	// 							};
-	// 							const media = { // lay thong tin file tu he thong
-	// 								mimeType: element.mimetype,
-	// 								body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
-	// 							};
-								
-	// 							let createFile = drive.files.create({
-	// 								resource: requestBody,
-	// 								media: media,
-	// 								fields: 'id',
-	// 							});
-	// 							const imgLocal = element.filename;
-	// 							const imgLocalPath = element.path;
-	// 							files.filter((img) => {
-	// 								if (img === imgLocal) {
-	// 									console.log("img user", img);
-	// 									fs.unlinkSync(imgLocalPath);
-	// 								}
-	// 							});
-	// 						})
-	// 					});
-	// 					return {folderCusId, folderName};
-	// 				}
-	// 				if (folderName === folderCustomerName) { // neu thu muc da ton tai thi them hinh anh vao thu muc da co
-	// 					console.log('>>> b: ', folderName);
-	// 					arrayFile.forEach(element => {
-	// 						const requestBody = { // cau hinh file tren drive
-	// 							name: element.filename,
-	// 							mimeType: element.mimetype,
-	// 							parents: [folder.id] // id thu muc chua
-	// 						};
-	// 						const media = { // lay thong tin file tu he thong
-	// 							mimeType: element.mimetype,
-	// 							body: fs.createReadStream(`${appRoot}/src/public/temp/${element.filename}`)
-	// 						};
-							
-	// 						let createFile = drive.files.create({
-	// 							resource: requestBody,
-	// 							media: media,
-	// 							fields: 'id',
-	// 						});
-	// 						const imgLocal = element.filename;
-	// 						const imgLocalPath = element.path;
-	// 						files.filter((img) => {
-	// 							if (img === imgLocal) {
-	// 								console.log("img user", img);
-	// 								fs.unlinkSync(imgLocalPath);
-	// 							}
-	// 						});
-	// 					});
-	// 					return {folderCusId, folderName};
-	// 				};
-	// 			});
-	// 		})
-	// 	}
 }
 
 module.exports = new EmployBusinessController();

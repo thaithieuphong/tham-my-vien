@@ -6,7 +6,6 @@ const uploadGoogleDrive = require('../../middleware/uploadGoogleDriveBefore');
 const authJwt = require("../../middleware/authJwt");
 
 //Employ
-
 router.patch('/service-note/:id', NursingController.updateServiceNote)
 
 
