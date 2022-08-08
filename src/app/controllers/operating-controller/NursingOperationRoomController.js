@@ -6,13 +6,18 @@ const Reexamination = require('../../models/Reexamination');
 
 class NursingController {
 	showDashboard(req, res, next){
-		res.render("operating/nursing/over-view")
+		User.findById({ _id: req.userId })
+			.then((user) => {
+				res.render("operating/nursing/over-view", {
+					user: mongooseToObject(user),
+					title: 'Tong Quan'
+				})
+			})
 	}
 
 	showServiceNote(req, res, next) {
-		ServiceNote.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')
-
-			.then((serviceNote) => {
+		Promise.all([ServiceNote.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'), User.findById({ _id: req.userId})])
+			.then(([serviceNote, user]) => {
 				// const cln = [];
 				// serviceNote.forEach(element => {
 				// 	let clns = element.counselorName;
@@ -26,7 +31,7 @@ class NursingController {
 				// 	.then((counselors) => {
 				res.render("operating/nursing/operating-service-note", {
 					serviceNote: multipleMongooseToObject(serviceNote),
-
+					user: mongooseToObject(user),
 					// counselors: multipleMongooseToObject(counselors),
 					title: "Chi tiết khách hàng"
 				})
@@ -36,11 +41,11 @@ class NursingController {
 	}
 
 	showReExamination(req, res, next) {
-		Reexamination.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId')
-			.then((reExam) => {
+		Promise.all([Reexamination.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId'), User.findById({ _id: req.userId })])
+			.then(([reExam, user]) => {
 				res.render("operating/nursing/operating-re-exam", {
 					reExam: multipleMongooseToObject(reExam),
-
+					user: mongooseToObject(user),
 					title: "Chi tiết khách hàng"
 				})
 			})
@@ -54,7 +59,7 @@ class NursingController {
 		// console.log(req.params.id)
 		Promise.all([
 			ServiceNote.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành" } }),
-			User.updateMany({ _id: { $in: req.body.operatingID } }, { $set: { state: "Medium" } })
+			User.updateMany({ _id: { $in: req.body.operatingID } }, { $set: { state: "Medium" } }),
 		])
 			.then(() => {
 				res.redirect('back')

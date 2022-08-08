@@ -1,43 +1,29 @@
 <div class="nav-mobile sidebar text-light">
 	<ul class="nav-bottom sidebar-list">
-		<li class="list active">
-<<<<<<< HEAD
+		{{!-- <li class="list active">
 			<a href="/operating-room/doctor">
 				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
 				<span class="nav-text sidebar-text">Trang chủ</span>
 			</a>
-		</li>
+		</li> --}}
 		<li class="list">
 			<a href="/operating-room/doctor/service-note">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-user"></i></span>
-				<span class="nav-text sidebar-text">Phiếu phẩu thuật</span>
+				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
+				<span class="nav-text sidebar-text">Phẩu thuật</span>
 			</a>
 		</li>
 		<li class="list">
 			<a href="/operating-room/doctor/re-examination">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-bar-chart"></i></span>
-				<span class="nav-text sidebar-text">Phiếu tái khám</span>
-=======
-			<a href="business/manager/service-note">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
-				<span class="nav-text sidebar-text">Dịch vụ</span>
-			</a>
-		</li>
-		<li class="list">
-			<a href="business/manager/customers">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-user"></i></span>
-				<span class="nav-text sidebar-text">Khách hàng</span>
-			</a>
-		</li>
-		<li class="list">
-			<a href="/business/manager">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-bar-chart"></i></span>
-				<span class="nav-text sidebar-text">Báo cáo</span>
->>>>>>> dedd7534216a1ef030d991953601230c5eacdb0f
+				<span class="nav-mobile-icon sidebar-icon"><i class="ti-reload"></i></span>
+				<span class="nav-text sidebar-text">Tái khám</span>
 			</a>
 		</li>
 		<li class="img-container">
-			<img src="/img/uploads/customers/{{user.image.name}}" alt="">
+			{{#if user.image.name}}
+			<img src="/img/uploads/users/{{user.image.name}}" alt="">
+			{{else}}
+			<img src="/img/user-icon.png" alt="">
+			{{/if}}
 			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
 		</li>
 	</ul>

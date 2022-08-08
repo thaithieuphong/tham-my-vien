@@ -8,7 +8,6 @@
 	<div class="stask">
 	</div>
 </nav>
-{{> page/sidebar/operating-room/sidebar-nursing}}
 <div class="container">
 	<div id="alert-message" class="alert alert-{{message.color}}" role="alert">
 		{{message.content}}
@@ -54,7 +53,7 @@
 						<strong> Khách hàng: </strong>&nbsp;&nbsp;
 					</label>
 					<label for="">
-						{{this.customerID.firstName}}{{this.customerID.lastName}}
+						{{this.customerID.firstName}} {{this.customerID.lastName}}
 					</label>
 				</div>
 				<div class="col-md-6">
@@ -70,7 +69,7 @@
 							<strong>Reception:</strong>&nbsp;&nbsp;
 						</label>
 						<label for="reception-name">
-							<em>{{this.recept.firstName}}{{this.recept.lastName}}</em>
+							<em>{{this.recept.firstName}} {{this.recept.lastName}}</em>
 						</label>
 					</div>
 				</div>
@@ -90,7 +89,7 @@
 				<div class="col-md-6">
 					<div class="text-left ml-4">
 						<label for="service">
-							<strong>Dịch vụ:</strong>&nbsp;&nbsp;
+							<strong>Dịch vụ:</strong>&nbsp; &nbsp;
 						</label>
 						<label for="service-name">
 							<em>{{this.service}}</em>
@@ -98,9 +97,9 @@
 					</div>
 				</div>
 
-				<div class="col-md-6">
+				{{!-- <div class="col-md-6">
 
-				</div>
+				</div> --}}
 			</div>
 
 			<hr>
@@ -191,7 +190,7 @@
 					<div class="col-md-6 row">
 						{{#each this.counselorImg}}
 						<div class="col-md-6 mt-2">
-							<img src="/img/uploads/counselor/img/{{this}}" class="rounded mx-auto d-block add-avata"
+							<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block add-avata"
 								alt="...">
 
 						</div>
@@ -201,7 +200,7 @@
 						{{#each this.counselorVideo}}
 						<div class="col-md-6 mt-2">
 							<video class="rounded mx-auto d-block add-avata" controls>
-								<source src="/img/uploads/counselor/video/{{this}}" type="video/mp4">
+								<source src="/counselor/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
 						{{/each}}
@@ -218,7 +217,7 @@
 					<div class="col-md-6 row mt-2">
 						{{#each this.beforeImg}}
 						<div class="col-md-6">
-							<img src="/img/uploads/before/img/{{this}}" class="rounded mx-auto d-block add-avata"
+							<img src="/before/img/{{this}}" class="rounded mx-auto d-block add-avata"
 								alt="...">
 
 						</div>
@@ -228,7 +227,7 @@
 						{{#each this.beforeVideo}}
 						<div class="col-md-6 mt-2">
 							<video class="rounded mx-auto d-block add-avata" controls>
-								<source src="/img/uploads/before/video/{{this}}" type="video/mp4">
+								<source src="/before/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
 						{{/each}}
@@ -274,7 +273,7 @@
 					<div class="col-md-6 row">
 						{{#each this.afterImg}}
 						<div class="col-md-6 mt-2">
-							<img src="/img/uploads/after/img/{{this}}" class="rounded mx-auto d-block add-avata"
+							<img src="/after/img/{{this}}" class="rounded mx-auto d-block add-avata"
 								alt="...">
 
 						</div>
@@ -284,7 +283,7 @@
 						{{#each this.afterVideo}}
 						<div class="col-md-6 mt-2">
 							<video class="rounded mx-auto d-block add-avata" controls>
-								<source src="/img/uploads/after/video/{{this}}" type="video/mp4">
+								<source src="/after/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
 						{{/each}}

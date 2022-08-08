@@ -15,19 +15,18 @@ class ManagerBusinessController {
 
 	//BUSINESS MANAGER
 
-	show404(req, res, next) {
-		res.render("err/404", {
-			title: 'Bảng báo cáo'
-		});
-	}
+	// show404(req, res, next) {
+	// 	res.render("err/404", {
+	// 		title: 'Bảng báo cáo'
+	// 	});
+	// }
 
 	showDashboard(req, res) {
 		Promise.all([
 			Customer.find({ userID: null }),
 			User.find({ department: "Kinh doanh" })
 		])
-
-			.then(([customers, user]) => {
+		.then(([customers, user]) => {
 				res.render("business/manager/manager-overview", {
 					customers: multipleMongooseToObject(customers),
 					users: multipleMongooseToObject(user),

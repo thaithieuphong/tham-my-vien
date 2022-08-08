@@ -12,10 +12,12 @@ const flash = require('connect-flash');
 class EmployHRController {
 
     showUser(req, res, next) {
-        User.find({})
-            .then((users) => {
+        Promise.all([User.find({}), User.findById({ _id})])
+        
+            .then(([users, user]) => {
                 res.render('human-resource/employ/hr-user', {
                     users: multipleMongooseToObject(users),
+                    user: mongooseToObject(user),
                     title: "Quản lý nhân sự"
                 });
             })
