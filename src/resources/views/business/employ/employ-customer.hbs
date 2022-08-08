@@ -16,6 +16,8 @@
 	</div>
 </nav>
 {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
+<a data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="addBtn-mobile"><i class="ti-plus"></i></a>
+
 <div class="container-fluid mt-3">
 	{{!-- <div id="alert-message" class="alert alert-{{message.color}}" role="alert">
 		{{message.content}}
@@ -41,7 +43,7 @@
 					<th class="text-center" scope="row">{{sum @index 1}}</th>
 					<td><a href="/business/employ/customers/{{this._id}}/detail">{{this.firstName}}
 							{{this.lastName}}</a></td>
-					<td class="text-center">{{this.birth}}</td>
+					<td class="text-center">{{formatBirth this.birth}}</td>
 					<td class="text-center">{{this.gender}}</td>
 					<td class="text-center">0{{this.phone}}</td>
 					<td>{{this.email}}</td>
@@ -86,20 +88,44 @@
 			</tbody>
 		</table>
 	</div>
+
 	<div class="container-card">
-		{{#each customers}}
-		<div class="card text-dark bg-info mb-3">
-			<div class="card-header">
-				<h5 class="card-title">{{this.firstName}} {{this.lastName}}</h5>
+		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+		<div id="search-items">
+			{{#each customers}}
+			<div class="card text-dark bg-light mb-3">
+				<div class="card-header">
+					<h5 class="card-title"><a href="/business/employ/customers/{{this._id}}/detail"
+							class="text-success">{{this.firstName}} {{this.lastName}}</a></h5>
+				</div>
+				<div class="card-body">
+					<p class="card-text">Ngày sinh: {{formatBirth this.birth}}</p>
+					<p class="card-text">Giới tính: {{this.gender}}</p>
+					<p class="card-text">SDT: 0{{this.phone}}</p>
+					<p class="card-text">Email: {{this.email}}</p>
+					<p class="card-text">Mô tả: {{this.description}}</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-md btn-primary" data-bs-toggle="modal"
+						data-bs-target="#edit-customer-modal" data-id="{{this._id}}" data-edit-img="{{this.image.name}}"
+						data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
+						data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
+						data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
+						data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">Sửa</button>
+					<button type="button" class="btn btn-md btn-success" data-bs-toggle="modal"
+						data-service-note-id="{{this._id}}" data-service-note-img="{{this.image.name}}"
+						data-service-note-firstname="{{this.firstName}}" data-service-note-lastname="{{this.lastName}}"
+						data-service-note-birth="{{this.birth}}" data-service-note-gender="{{this.gender}}"
+						data-service-note-phone="{{this.phone}}" data-service-note-email="{{this.email}}"
+						data-service-note-address="{{this.address}}"
+						data-service-note-description="{{this.description}}" {{#each this.serviceNoteID}}
+						data-service-note-serviceID="{{this.service}}" {{/each}}
+						data-bs-target="#create-service-note-modal">Tạo phiếu</button>
+
+				</div>
 			</div>
-			<div class="card-body">
-				<p class="card-text">Ngày sinh: {{this.birth}}</p>
-				<p class="card-text">Giới tính: {{this.gender}}</p>
-				<p class="card-text">Email: {{this.email}}</p>
-				<p class="card-text">Địa chỉ: {{this.address}}</p>
-			</div>
+			{{/each}}
 		</div>
-		{{/each}}
 	</div>
 </div>
 
@@ -244,14 +270,14 @@
 						<ul class="list-group">
 							<li class="list-group-item">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="edit-firstName" class="form-label">
 											<h6>Họ</h6>
 										</label>
 										<input type="text" class="form-control form-control-sm firstName"
 											data-bs-focus="focus" id="edit-firstName" name="firstName">
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="edit-lastName" class="form-label">
 											<h6>Tên</h6>
 										</label>
@@ -260,14 +286,14 @@
 									</div>
 								</div>
 								<div class="row mt-3">
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="edit-birth" class="form-label">
 											<h6>Ngày sinh</h6>
 										</label>
 										<input type="date" class="form-control form-control-sm" id="edit-birth"
 											aria-describedby="birthFeedback" name="birth" required>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="edit-gender" class="form-label">
 											<h6>Giới tính</h6>
 										</label>
@@ -280,14 +306,14 @@
 									</div>
 								</div>
 								<div class="row mt-3">
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="edit-phone" class="form-label">
 											<h6>Số điện thoại</h6>
 										</label>
 										<input type="tel" class="form-control form-control-sm" id="edit-phone"
 											name="phone" required>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="edit-email" class="form-label">
 											<h6>Email</h6>
 										</label>
@@ -333,7 +359,7 @@
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header bg-info">
-				<h5 class="modal-title btn-close-white" id="create-service-note-title">Tạo phiếu dịch vụ</h5>
+				<h5 class="modal-title text-light" id="create-service-note-title">Tạo phiếu dịch vụ</h5>
 				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>
@@ -359,10 +385,7 @@
 								<li class="list-group-item">
 									<input hidden type="text" class="form-control" id="create-service-note-customerID"
 										name="customerID" readonly>
-
-
 									<div class="row">
-
 										<div class="col-md-6 ">
 											<img src="/img/user-icon.png" id="create-service-note-img"
 												class="rounded mx-auto d-block add-avata" alt="...">

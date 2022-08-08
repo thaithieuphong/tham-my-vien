@@ -84,6 +84,11 @@ app.engine(
 				let newDate = date.toLocaleString('vi-VI', {weekday:"long", day:'numeric', month: 'numeric', year:'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'});
 				return newDate;
 			},
+			formatBirth: (d) => {
+				let date = new Date(d);
+				let newDate = date.toLocaleString('vi-VI', { day:'numeric', month: 'numeric', year:'numeric'});
+				return newDate;
+			},
 		},
 	})
 );

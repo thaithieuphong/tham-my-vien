@@ -3,7 +3,7 @@
 
 	</div>
 	<h3 class="title text-light">Quản lý khách hàng</h3>
-	
+
 
 	<div class="stask">
 		<!-- Button trigger modal -->
@@ -13,7 +13,7 @@
 	</div>
 </nav>
 {{> page/sidebar/marketing/employ/sidebar-marketing-employ-customers}}
-<a href="#" class="addBtn-mobile"><i class="ti-plus"></i></a>
+<a data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="addBtn-mobile"><i class="ti-plus"></i></a>
 <div class="container-fluid content-container mt-3">
 	<div id="alert-message" class="alert alert-{{message.color}}" role="alert">
 		{{message.content}}
@@ -37,11 +37,11 @@
 				{{#each customers}}
 				<tr>
 					<th class="text-center" scope="row">{{sum @index 1}}</th>
-					<td><a href="/marketing/employ/customers/{{this._id}}/detail" >{{this.firstName}}
+					<td><a href="/marketing/employ/customers/{{this._id}}/detail">{{this.firstName}}
 							{{this.lastName}}</a></td>
 					<td class="text-center">{{this.birth}}</td>
 					<td class="text-center">{{this.gender}}</td>
-					<td class="text-center">{{this.phone}}</td>
+					<td class="text-center">0{{this.phone}}</td>
 					<td>{{this.email}}</td>
 					<td>{{this.address}}</td>
 					<td>{{this.description}}</td>
@@ -61,15 +61,25 @@
 	</div>
 	<div class="container-card">
 		{{#each customers}}
-		<div class="card text-dark bg-info mb-3">
+		<div class="card text-dark bg-light mb-3">
 			<div class="card-header">
-				<h5 class="card-title">{{this.firstName}} {{this.lastName}}</h5>
+				<h5 class="card-title"><a href="/business/employ/customers/{{this._id}}/detail"
+						class="text-success">{{this.firstName}} {{this.lastName}}</a></h5>
 			</div>
 			<div class="card-body">
 				<p class="card-text">Ngày sinh: {{this.birth}}</p>
 				<p class="card-text">Giới tính: {{this.gender}}</p>
+				<p class="card-text">SDT: 0{{this.phone}}</p>
 				<p class="card-text">Email: {{this.email}}</p>
-				<p class="card-text">Địa chỉ: {{this.address}}</p>
+				<p class="card-text">Mô tả: {{this.description}}</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-customer-modal"
+					data-id="{{this._id}}" data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
+					data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
+					data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
+					data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">Sửa</button>
+
 			</div>
 		</div>
 		{{/each}}
@@ -309,7 +319,7 @@
 				<span></span>
 			</div>
 		</div>
-	
+
 		<div class="customers-info">
 			<div class="modal-mobile-input">
 				<input id="cust-dob" type="text" placeholder="Ngày sinh">
@@ -328,7 +338,7 @@
 			<div class="modal-mobile-input">
 				<input id="cust-phone" type="text" placeholder="Số điện thoại">
 				<small></small>
-			<span></span>
+				<span></span>
 			</div>
 
 			<div class="modal-mobile-input">
@@ -358,7 +368,8 @@
 </div> --}}
 
 <!-- Modal Detail Customer -->
-{{!-- <div class="modal fade" id="detail-customer-modal" tabindex="-1" aria-labelledby="edit-customer" aria-hidden="true">
+{{!-- <div class="modal fade" id="detail-customer-modal" tabindex="-1" aria-labelledby="edit-customer"
+	aria-hidden="true">
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header bg-info text-light">
@@ -366,8 +377,8 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-						<img src="/img/user-icon.png" id="detail-customer-avt" class="rounded mx-auto d-block add-avata"
-							alt="...">
+				<img src="/img/user-icon.png" id="detail-customer-avt" class="rounded mx-auto d-block add-avata"
+					alt="...">
 				<div class="row mt-3">
 					<div class="col-xl-6 mb-3">
 						<div class="card-body">
@@ -397,7 +408,7 @@
 								<p class="none-mb comment-content text-end" value="">{{this.comment}}</p>
 							</li>
 							{{/each}}
-						</ul> 
+						</ul>
 						<ul class="list-group comment-content-page border">
 							<li class="list-group-item bg-light ml-2 mr-2 mt-2">
 								<p id="createdAt" class="none-mb comment-createdAt text-end"><strong></strong></p>
@@ -439,55 +450,55 @@
 	var form = document.querySelector('form')
 
 
-	function showError(input, message){
+	function showError(input, message) {
 		let parent = input.parentElement;
 		let small = parent.querySelector('small')
 		parent.classList.add('error')
 		small.innerText = message
 	}
 
-	function showSuccess(input){
+	function showSuccess(input) {
 		let parent = input.parentElement;
 		let small = parent.querySelector('small')
 		parent.classList.remove('error')
 		small.innerText = ''
 	}
 
-	function checkEmptyError(listInput){
+	function checkEmptyError(listInput) {
 		let isEmptyError = false;
 		listInput.forEach(input => {
 			input.value = input.value.trim()
 
-			if(!input.value){
+			if (!input.value) {
 				isEmptyError = true;
 				showError(input, 'Vui long nhap day du thong tin')
-			}else{
+			} else {
 				showSuccess(input)
 			}
 		});
 
-		
+
 		return isEmptyError
 	}
 
-	function checkEmailError(input){
+	function checkEmailError(input) {
 		const regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 		input.value = input.value.trim()
 
 		let isEmailError = !regexEmail.test(input.value)
-		if(regexEmail.test(input.value)){
+		if (regexEmail.test(input.value)) {
 			showSuccess(input)
-		}else{
+		} else {
 			showError(input, 'Email không hợp lệ')
 		}
 
 		return isEmailError
 	}
 
-	form.addEventListener('submit', function(event){
+	form.addEventListener('submit', function (event) {
 		event.preventDefault()
 
-		let isEmptyError = checkEmptyError([firstName, lastName, dob, gender, mail , phone, addr,desc])
+		let isEmptyError = checkEmptyError([firstName, lastName, dob, gender, mail, phone, addr, desc])
 		let isEmailError = checkEmailError(mail)
 	})
 </script>

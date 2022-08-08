@@ -2,6 +2,7 @@ const Customer = require("../../models/Customer");
 const Counselor = require("../../models/Counselor");
 const Customer1 = require("../../models/Customer");
 const User = require("../../models/User");
+const User1 = require("../../models/User");
 const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
 const TypeService = require("../../models/TypeService");
 const ServiceNote = require('../../models/ServiceNote');
@@ -24,13 +25,15 @@ class ManagerBusinessController {
 	showDashboard(req, res) {
 		Promise.all([
 			Customer.find({ userID: null }),
-			User.find({ department: "Kinh doanh" })
+			User1.find({ department: "Kinh doanh" }),
+			User.findById({_id: req.userId})
 		])
 
-			.then(([customers, user]) => {
+			.then(([customers, user1s, user]) => {
 				res.render("business/manager/manager-overview", {
 					customers: multipleMongooseToObject(customers),
-					users: multipleMongooseToObject(user),
+					user1s: multipleMongooseToObject(user1s),
+					user: mongooseToObject(user),
 					title: 'Quản lý khách hàng'
 				});
 			})
@@ -179,13 +182,14 @@ class ManagerBusinessController {
 			User.findById({ _id: req.userId })
 
 		])
-			.then(([serviceNotes, serviceNote1s, serviceNote2s]) => {
+			.then(([serviceNotes, serviceNote1s, serviceNote2s, user]) => {
 
 
 				res.render('business/manager/manager-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
 					serviceNote1s: multipleMongooseToObject(serviceNote1s),
 					serviceNote2s: multipleMongooseToObject(serviceNote2s),
+					user: mongooseToObject(user),
 					title: "Quản lý phiếu dịch vụ"
 				});
 			})
