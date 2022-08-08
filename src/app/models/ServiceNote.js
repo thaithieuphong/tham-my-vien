@@ -23,10 +23,42 @@ const ServiceNote = new Schema({
 		}
 	],
 
+	
 	nursing: [
 		{
 			type: String,
 			ref: "User"
+		}
+	],
+
+	recept:
+	{
+		type: String,
+		ref: "User"
+	},
+
+	status:
+	{
+		type: String,
+		ref: "Status"
+	},
+
+	service: [
+		{
+			type: String,
+			ref: "Service"
+		}
+	],
+
+	counselorImg: [
+		{
+			type: String,
+		}
+	],
+
+	counselorVideo: [
+		{
+			type: String,
 		}
 	],
 
@@ -55,13 +87,24 @@ const ServiceNote = new Schema({
 		}
 	],
 
-	beforeName: [
+	beforeImg: [
+		{
+			type: String,
+		}
+	],
+	beforeVideo: [
 		{
 			type: String,
 		}
 	],
 	
-	afterName: [
+	afterImg: [
+		{
+			type: String,
+		}
+	],
+
+	afterVideo: [
 		{
 			type: String,
 		}

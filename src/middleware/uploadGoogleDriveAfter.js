@@ -32,7 +32,7 @@ class uploadGoogleDriveAfter {
 			fields: 'nextPageToken, files(id, name)',
 			spaces: 'drive',
 		}
-		Promise.all([Customer.findById({ _id: req.params.id }), drive.files.list(findFolder)])
+		Promise.all([Customer.findById({ _id: req.body.customerID }), drive.files.list(findFolder)])
 			.then(([customer, list]) => {
 				const fName = customer.firstName;
 				const lName = customer.lastName;

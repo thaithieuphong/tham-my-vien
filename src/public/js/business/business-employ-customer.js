@@ -102,6 +102,7 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	var dataEmail = button.getAttribute("data-service-note-email");
 	var dataAddress = button.getAttribute("data-service-note-address");
 	var dataDescription = button.getAttribute("data-service-note-description");
+	var dataServiceID = button.getAttribute("data-service-note-serviceID")
 
 	// // Get element need embeded input
 	var serviceNoteCustomerID = document.getElementById('create-service-note-customerID');
@@ -117,6 +118,7 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 		"create-service-note-address"
 	);
 	var serviceNoteDescription = document.getElementById("create-service-note-description");
+	var servicedID = document.getElementById("create-service-note-serviced");
 
 	createServiceNoteForm.setAttribute(
 		"action",
@@ -136,6 +138,7 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	serviceNoteEmail.innerHTML = dataEmail;
 	serviceNoteAddress.innerHTML = dataAddress;
 	serviceNoteDescription.innerHTML = dataDescription;
+	servicedID.value = dataServiceID;
 });
 
 document.addEventListener('DOMContentLoaded', function () {

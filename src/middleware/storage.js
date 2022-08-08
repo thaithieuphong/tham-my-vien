@@ -20,9 +20,14 @@ const counselorUpload = multer.diskStorage({
     destination: function(req, file, cb) {
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
             cb(null, appRoot + '/src/public/counselor/img');
-        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        } 
+        else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, appRoot + '/src/public/counselor/video');
+            // cb(null, appRoot + '\\src\\public\\img\\uploads\\counselor\\img\\');
         }
+        // else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        //     cb(null, appRoot + '\\src\\public\\img\\uploads\\counselor\\video\\');
+        // }
     },
 
     // By default, multer removes file extensions so let's add them back
@@ -83,9 +88,14 @@ const beforeUpload = multer.diskStorage({
     destination: function(req, file, cb) {
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
             cb(null, appRoot + '/src/public/before/img');
-        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        } 
+        else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, appRoot + '/src/public/before/video');
-        }
+            // cb(null, appRoot + '\\src\\public\\img\\uploads\\before\\img\\');
+        } 
+        // else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        //     cb(null, appRoot + '\\src\\public\\img\\uploads\\before\\video\\');
+        // }
     },
 
     // By default, multer removes file extensions so let's add them back
@@ -110,6 +120,8 @@ const beforeUpload = multer.diskStorage({
                 " "
             );
             str = str.replace(/  +/g, " ");
+            console.log("abc:", file);
+                
             return str;
         }
         Customer.findById( { _id:  req.body.customerID })
@@ -146,7 +158,9 @@ const afterUpload = multer.diskStorage({
     destination: function(req, file, cb) {
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
             cb(null, appRoot + '/src/public/after/img');
+            // cb(null, appRoot + '\\src\\public\\img\\uploads\\after\\img\\');
         } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+            // cb(null, appRoot + '\\src\\public\\img\\uploads\\after\\video\\');
             cb(null, appRoot + '/src/public/after/video');
         }
     },
@@ -175,7 +189,7 @@ const afterUpload = multer.diskStorage({
             str = str.replace(/  +/g, " ");
             return str;
         }
-        Customer.findById( { _id:  req.params.id })
+        Customer.findById( { _id: req.body.customerID })
             .then(customer => {
                 const fName = convert_vi_to_en(customer.firstName).split(' ');
                 const lName = convert_vi_to_en(customer.lastName).split(' ');
@@ -209,8 +223,10 @@ const reExaminationUpload = multer.diskStorage({
     destination: function(req, file, cb) {
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
             cb(null, appRoot + '/src/public/re-examination/img');
+            // cb(null, appRoot + '\\src\\public\\img\\uploads\\re-examination\\img\\');
         } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, appRoot + '/src/public/re-examination/video');
+            // cb(null, appRoot + '\\src\\public\\img\\uploads\\re-examination\\video\\');
         }
     },
 
@@ -238,7 +254,7 @@ const reExaminationUpload = multer.diskStorage({
             str = str.replace(/  +/g, " ");
             return str;
         }
-        Customer.findById( { _id:  req.params.id })
+        Customer.findById( { _id:  req.body.customerID })
             .then(customer => {
                 const fName = convert_vi_to_en(customer.firstName).split(' ');
                 const lName = convert_vi_to_en(customer.lastName).split(' ');
@@ -324,6 +340,7 @@ const storageCustomerAvtEdit = multer.diskStorage({
             })
     }
 });
+
 
 const storageUserAvt = multer.diskStorage({
     destination: function(req, file, cb) {

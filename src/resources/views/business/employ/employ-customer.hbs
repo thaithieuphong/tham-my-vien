@@ -74,7 +74,8 @@
 										data-service-note-phone="{{this.phone}}"
 										data-service-note-email="{{this.email}}"
 										data-service-note-address="{{this.address}}"
-										data-service-note-description="{{this.description}}"
+										data-service-note-description="{{this.description}}" {{#each
+										this.serviceNoteID}} data-service-note-serviceID="{{this.service}}" {{/each}}
 										data-bs-target="#create-service-note-modal">Tạo phiếu dịch vụ</a>
 								</li>
 							</ul>
@@ -111,7 +112,9 @@
 		<div class="modal-content">
 			<div class="modal-header bg-primary">
 				<h5 class="modal-title text-light" id="create-customer-modal">Tạo thông tin khách hàng</h5>
-				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+
 			</div>
 			<div class="modal-body">
 				<form id="create-customer-form" method="POST" class="row" enctype="multipart/form-data">
@@ -220,7 +223,9 @@
 		<div class="modal-content">
 			<div class="modal-header bg-info">
 				<h5 class="modal-title text-light" id="edit-customer-title">Sửa / Cập nhật thông tin người dùng</h5>
-				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+
 			</div>
 			<div class="modal-body">
 				<form method="POST" id="edit-customer-form" class="row" enctype="multipart/form-data">
@@ -304,7 +309,9 @@
 										<label for="edit-description" class="form-label">
 											<h6>Mô tả</h6>
 										</label>
-										<textarea class="form-control" id="edit-description" rows="6" name="description"></textarea>
+										<textarea class="form-control" id="edit-description" rows="6"
+											name="description"></textarea>
+
 									</div>
 								</div>
 							</li>
@@ -327,7 +334,8 @@
 		<div class="modal-content">
 			<div class="modal-header bg-info">
 				<h5 class="modal-title btn-close-white" id="create-service-note-title">Tạo phiếu dịch vụ</h5>
-				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -341,6 +349,7 @@
 							data-bs-target="#pills-service" type="button" role="tab" aria-controls="pills-profile"
 							aria-selected="false">Thông tin dịch vụ</button>
 					</li>
+
 				</ul>
 				<form method="POST" id="create-service-note-form" class="row" enctype="multipart/form-data">
 					<div class="tab-content" id="pills-tabContent">
@@ -359,7 +368,8 @@
 												class="rounded mx-auto d-block add-avata" alt="...">
 											<div class="mt-4">
 												<textarea id="create-service-note-description" class="form-control mb-2"
-													rows="6" style="background-color: white;" name="description" disabled></textarea>
+													rows="6" style="background-color: white;" name="description"
+													disabled></textarea>
 											</div>
 										</div>
 
@@ -372,7 +382,7 @@
 												</div>
 												<div class="col-sm-6 text-right">
 													<em>
-														{{!-- <input hidden type="text" name="name" id="create-service-note-name-input"> --}}
+
 														<label class="text-uppercase text-danger"
 															id="create-service-note-firstLastName" name="name" readonly>
 													</em>
@@ -389,7 +399,7 @@
 												</div>
 												<div class="col-sm-6 text-right">
 													<em>
-														{{!-- <input hidden type="text" name="birth" id="create-service-note-birth-input"> --}}
+
 														<label id="create-service-note-birth" name="birth"
 															readonly></label>
 													</em>
@@ -404,7 +414,7 @@
 												</div>
 												<div class="col-sm-6 text-right">
 													<em>
-														{{!-- <input hidden type="text" name="gender" id="create-service-note-gender-input"> --}}
+
 														<label id="create-service-note-gender" name="gender"
 															readonly></label>
 													</em>
@@ -419,7 +429,7 @@
 												</div>
 												<div class="col-sm-6 text-right">
 													<em>
-														{{!-- <input hidden type="text" name="email" id="create-service-note-email-input"> --}}
+
 														<label id="create-service-note-email" name="email"
 															readonly></label>
 													</em>
@@ -434,7 +444,7 @@
 												</div>
 												<div class="col-sm-6 text-right">
 													<em>
-														{{!-- <input hidden type="text" name="phone" id="create-service-note-phone-input"> --}}
+
 														<label id="create-service-note-phone" name="phone"
 															readonly></label>
 													</em>
@@ -449,7 +459,7 @@
 												</div>
 												<div class="col-sm-6 text-right">
 													<em>
-														{{!-- <input hidden type="text" name="address" id="create-service-note-address-input"> --}}
+
 														<label id="create-service-note-address" name="address"
 															readonly></label>
 													</em>
@@ -465,8 +475,9 @@
 												</div>
 												<div class="col-sm-6 text-right">
 													<em>
-														<input hidden type="text" value="{{user._id}}" name="createName" id="">
-														<label id="create-service-note-createName" 
+														<input hidden type="text" value="{{user._id}}" name="createName"
+															id="">
+														<label id="create-service-note-createName"
 															readonly>{{user.firstName}}{{user.lastName}}</label>
 													</em>
 												</div>
@@ -477,6 +488,7 @@
 								</li>
 							</ul>
 						</div>
+
 						<div class="tab-pane fade" id="pills-service" role="tabpanel"
 							aria-labelledby="pills-profile-tab">
 							<div class="row">
@@ -520,22 +532,26 @@
 											name="comment"></textarea>
 									</div>
 								</div>
-								{{!--upload multi  --}}
 								<div class="col-md-7">
 									<div class="preview-images-counselor row ml-0 mt-3 border"></div>
 									<label for="input-multi-images-counselor" class="label-avt btn btn-primary mt-2">
 										<h6>Chọn ảnh tư vấn</h6>
 									</label>
-									<input id="input-multi-images-counselor" class="form-control" type="file" name="counselor" hidden multiple>
+									<input id="input-multi-images-counselor" class="form-control" type="file"
+										name="counselor" hidden multiple>
 									<div class="preview-videos-counselor row ml-0 mt-3 border"></div>
 									<label for="input-multi-videos-counselor" class="label-avt btn btn-primary mt-2">
 										<h6>Chọn video tư vấn</h6>
 									</label>
-									<input id="input-multi-videos-counselor" class="form-control" type="file" name="counselor" hidden multiple>
+									<input id="input-multi-videos-counselor" class="form-control" type="file"
+										name="counselor" hidden multiple>
 								</div>
-								{{!--  --}}
+								{{!-- --}}
+
 							</div>
 						</div>
+
+
 					</div>
 				</form>
 			</div>

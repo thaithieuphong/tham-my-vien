@@ -5,6 +5,9 @@ const User = require("../../models/User");
 const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
 const TypeService = require("../../models/TypeService");
 const ServiceNote = require('../../models/ServiceNote');
+const ServiceNote1 = require('../../models/ServiceNote');
+const ServiceNote2 = require('../../models/ServiceNote');
+const Reexamination = require('../../models/Reexamination');
 const fs = require('fs');
 const path = require('path');
 const appRoot = require('app-root-path');
@@ -64,6 +67,7 @@ class EmployBusinessController {
 	createCustomer(req, res, next) {
 		if (req.file) {
 			const customer = new Customer({
+				userID: req.userId,
 				firstName: req.body.firstName,
 				lastName: req.body.lastName,
 				birth: req.body.birth,
@@ -80,6 +84,7 @@ class EmployBusinessController {
 			customer.save();
 		} else {
 			const customer = new Customer({
+				userID: req.userId,
 				firstName: req.body.firstName,
 				lastName: req.body.lastName,
 				birth: req.body.birth,
@@ -189,10 +194,21 @@ class EmployBusinessController {
 	}
 
 	showServiceNote(req, res, next) {
-		ServiceNote.find({ createName: req.userId }).sort({ shedule: 1 }).populate('customerID').populate('createName')
-			.then(serviceNotes => {
+		Promise.all([
+			ServiceNote.find({ createName: req.userId, status: "Tạo mới" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
+			ServiceNote1.find({ createName: req.userId, status: "Đang xử lý" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
+			ServiceNote2.find({ createName: req.userId, status: "Hoàn thành" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
+			User.findById({ _id: req.userId })
+		])
+			.then(([serviceNotes, serviceNote1s, serviceNote2s, user]) => {
+				
+			
+
 				res.render('business/employ/employ-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
+					serviceNote1s: multipleMongooseToObject(serviceNote1s),
+					serviceNote2s: multipleMongooseToObject(serviceNote2s),
+					user: mongooseToObject(user),
 					title: "Quản lý phiếu dịch vụ"
 				});
 			})
@@ -204,11 +220,16 @@ class EmployBusinessController {
 
 		// console.log(req.files);
 		const file = req.files;
-		const fn = []
-		// const fn = file.filter(element => element.filename !== "" ? element.filename : null);
+		const fnimg = [];
+		const fnvideo = []
 		file.forEach(element => {
-			fn.push(element.filename)
-			return fn;
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+				fnimg.push(element.filename);
+				return fnimg;
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+				fnvideo.push(element.filename);
+				return fnvideo;
+			}
 		})
 		const serviceNote = new ServiceNote({
 			customerID: req.body.customerID,
@@ -219,10 +240,12 @@ class EmployBusinessController {
 			comments: { comment: req.body.comment },
 			schedule: req.body.schedule,
 			price: req.body.price,
-			counselorName: fn,
+			counselorImg: fnimg,
+			counselorVideo: fnvideo,
 		});
 		serviceNote.save();
-		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id, counselorName:  fn } })
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id } })
+
 			.then(() => {
 				res.redirect('back');
 
@@ -230,6 +253,21 @@ class EmployBusinessController {
 
 
 
+		// res.json(req.body)
+	}
+
+	createReExam(req, res, next){
+		const reexamination = new Reexamination({
+			customerID: req.body.customerID,
+			createName: req.body.createName,
+			serviceNoteId: req.body.serviceNoteID,
+			status: "Tạo mới",
+			schedule: req.body.schedule,
+			comments: { comment: req.body.comment },
+
+		})
+		reexamination.save();
+		res.redirect('back');
 		// res.json(req.body)
 	}
 }
