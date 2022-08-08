@@ -199,19 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-<<<<<<< HEAD
-// document.addEventListener('DOMContentLoaded', function () {
-// 	$(document).ready(function () {
-// 		$("#container-fluids").DataTable({
-// 			paging: true,
-// 			reponsive: true,
-// 			scrollY: 200
-// 		});
-// 		$('.dataTables_length').addClass('bs-select');
-// 	});
-// });
 
-=======
 //Seach
 function convert_vi_to_en(str) {
 	str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -270,6 +258,5 @@ function myFunctionCTV() {
 		}
 	}
 }
->>>>>>> vinh
 // Handle message
 // var alertMessage = document.getElementById('alert-message');

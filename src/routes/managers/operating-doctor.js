@@ -6,6 +6,6 @@ const authJwt = require('../../middleware/authJwt');
 //Employ
 router.get('/service-note', DoctorController.showServiceNote);
 router.get('/re-examination', DoctorController.showReExamination);
-router.get('/', [authJwt.verifyToken, authJwt.isDoctor], DoctorController.showDashboard);
+router.get('/', DoctorController.showDashboard);
 
 module.exports = router;

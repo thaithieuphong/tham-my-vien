@@ -221,72 +221,27 @@ function convert_vi_to_en(str) {
 	return str;
 }
 
-var input, filter, ul, li, a, i, txtValue;
-	input = document.getElementById("myInput")
-	filter = convert_vi_to_en(input.value.toUpperCase());
-	ul = document.getElementById("search-items");
-	li = ul.getElementsByClassName("card");
-	for (i = 0; i < li.length; i++) {
-		a = li[i].getElementsByClassName("text-success").;
-		// txtValue = convert_vi_to_en(a.textContent) || convert_vi_to_en(a.innerText) ;
+var input = document.getElementById("myInput");
+var li = document.getElementsByClassName("card");
+input.addEventListener('input', (e) => {
+	var value = e.target.value;
+	var filters = convert_vi_to_en(value);
+	var a = document.getElementsByClassName("text-success");
+	for (i = 0; i < a.length; i++) {
+		txtValue = convert_vi_to_en(a[i].textContent) || convert_vi_to_en(a[i].innerText) ;
 		// console.log("content", a.textContent)
 		// console.log("innert", a.innerText)
-		console.log(a)
-
-		if (txtValue.toUpperCase().indexOf(filter) > -1) {
+		var text1 = txtValue.toUpperCase();
+		var text2 = filters.toUpperCase();
+		if (text1.match(text2)) {
+			console.log('filter', text1);
+			console.log('txtValue', text2)
+			console.log('li', li[i]);
 			li[i].style.display = "";
 		} else {
 			li[i].style.display = "none";
 		}
 	}
+})
 
-// function myFunction() {
-// 	var input, filter, ul, li, a, i, txtValue;
-// 	input = document.getElementById("myInput")
-// 	filter = convert_vi_to_en(input.value.toUpperCase());
-// 	ul = document.getElementById("search-items");
-// 	li = ul.getElementsByClassName("card");
-// 	for (i = 0; i < li.length; i++) {
-// 		a = li[i].getElementsByClassName("text-success")[0];
-// 		txtValue = convert_vi_to_en(a.textContent) || convert_vi_to_en(a.innerText) ;
-// 		// console.log("content", a.textContent)
-// 		// console.log("innert", a.innerText)
-// 		console.log(a)
-
-// 		if (txtValue.toUpperCase().indexOf(filter) > -1) {
-// 			li[i].style.display = "";
-// 		} else {
-// 			li[i].style.display = "none";
-// 		}
-// 	}
-// }
-
-// Validate form
-function validateForm() {
-	var alertMessageFisrtName = document.getElementById("alert-message-firstname");
-	var alertMessageLastName = document.getElementById("alert-message-lastname");
-	var alertMessageBirth = document.getElementById("alert-message-birth");
-    var a = document.forms["create-customer-form"]["firstName"].value;
-    var b = document.forms["create-customer-form"]["lastName"].value;
-    var c = document.forms["create-customer-form"]["birth"].value;
-    // var d = document.forms["create-customer-form"]["phone"].value;
-	var buttonClose = document.createElement('button');
-	buttonClose.setAttribute('class', 'btn-close');
-	buttonClose.setAttribute('data-bs-dismiss', 'alert');
-	buttonClose.setAttribute('aria-label', 'Close');
-	buttonClose.setAttribute('type', 'button');
-    if (a == null || a == "", b == null || b == "", c == null || c == "") {
-		alertMessageFisrtName.append(buttonClose);
-    	alertMessageFisrtName.setAttribute("class", "alert alert-danger alert-dismissible fade show mt-1");
-		alertMessageFisrtName.innerHTML = 'Khong duoc de trong truong nay';
-		alertMessageLastName.append(buttonClose);
-		alertMessageLastName.setAttribute("class", "alert alert-danger alert-dismissible fade show mt-1");
-		alertMessageLastName.innerHTML = 'Khong duoc de trong truong nay';
-		alertMessageBirth.append(buttonClose);
-		alertMessageBirth.setAttribute("class", "alert alert-danger alert-dismissible fade show mt-1");
-		alertMessageBirth.innerHTML = 'Khong duoc de trong truong nay';
-    } else {
-		createCustomerForm.submit();
-	}
-  }
 
