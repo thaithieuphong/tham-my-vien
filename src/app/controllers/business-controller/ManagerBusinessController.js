@@ -2,6 +2,7 @@ const Customer = require("../../models/Customer");
 const Counselor = require("../../models/Counselor");
 const Customer1 = require("../../models/Customer");
 const User = require("../../models/User");
+const User1 = require("../../models/User");
 const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
 const TypeService = require("../../models/TypeService");
 const ServiceNote = require('../../models/ServiceNote');
@@ -24,13 +25,13 @@ class ManagerBusinessController {
 	showDashboard(req, res) {
 		Promise.all([
 			Customer.find({ userID: null }),
-			User.find({ department: "Kinh doanh" }),
-			User.findById({ _id: req.userId })
+			User1.find({ department: "Kinh doanh" }),
+			User.findById({_id: req.userId})
 		])
-		.then(([customers, users, user]) => {
+			.then(([customers, user1s, user]) => {
 				res.render("business/manager/manager-overview", {
 					customers: multipleMongooseToObject(customers),
-					users: multipleMongooseToObject(users),
+					user1s: multipleMongooseToObject(user1s),
 					user: mongooseToObject(user),
 					title: 'Quản lý khách hàng'
 				});

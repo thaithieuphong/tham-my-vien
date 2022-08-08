@@ -22,50 +22,54 @@
 				</button>
 			</nav>
 			{{> page/sidebar/human-resource/manager/sidebar-manager-hr}}
-			
-			<div class="container-fluid mt-3">
-				<table id="customer_table" class="table table-hover table-sm">
-					<thead class="table-info">
-						<tr class="text-center">
-							<th scope="col">#</th>
-							<th scope="col">Họ tên</th>
-							<th scope="col">Ngày sinh</th>
-							<th scope="col">Giới tính</th>
-							<th scope="col">Số điện thoại</th>
-							<th scope="col">Email</th>
-							<th scope="col">Địa chỉ</th>
-							<th scope="col">Mô tả</th>
-							<th scope="col">Hành động</th>
-						</tr>
-					</thead>
-					<tbody>
-						{{#each customers}}
-						<tr>
-							<th scope="row">{{sum @index 1}}</th>
-							<td><a type="button" class="btn btn-primary btn-sm"
-									href="{{this._id}}/customer-detail">{{this.firstName}} {{this.lastName}} </a></td>
-							<td>{{this.birth}}</td>
-							<td>{{this.gender}}</td>
-							<td>{{this.phone}}</td>
-							<td>{{this.email}}</td>
-							<td>{{this.address}}</td>
-							<td>{{this.description}}</td>
-							<td class="text-center">
-								<div class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#edit-customer"
-									data-firstname="{{this.firstName}}" data-lastname="{{this.lastName}}"
-									data-birth="{{this.birth}}" data-gender="{{this.gender}}"
-									data-phone="{{this.phone}}" data-email="{{this.email}}"
-									data-address="{{this.address}}" data-decript="{{this.description}}">
-									Sửa thông tin</div>
-								<div class="btn btn-danger btn-sm" data-id="{{this._id}}" data-bs-toggle="modal"
-									data-bs-target="#deleteModal">Xóa</div>
 
-							</td>
-						</tr>
-						{{/each}}
-					</tbody>
-				</table>
-			</div>	
+			<div class="container-fluid mt-3">
+				<div class="container-table">
+					<table id="customer_table" class="table table-hover table-sm">
+						<thead class="table-info">
+							<tr class="text-center">
+								<th scope="col">#</th>
+								<th scope="col">Họ tên</th>
+								<th scope="col">Ngày sinh</th>
+								<th scope="col">Giới tính</th>
+								<th scope="col">Số điện thoại</th>
+								<th scope="col">Email</th>
+								<th scope="col">Địa chỉ</th>
+								<th scope="col">Mô tả</th>
+								<th scope="col">Hành động</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each customers}}
+							<tr>
+								<th scope="row">{{sum @index 1}}</th>
+								<td><a type="button" class="btn btn-primary btn-sm"
+										href="{{this._id}}/customer-detail">{{this.firstName}} {{this.lastName}} </a>
+								</td>
+								<td>{{formatBirth this.birth}}</td>
+								<td>{{this.gender}}</td>
+								<td>{{this.phone}}</td>
+								<td>{{this.email}}</td>
+								<td>{{this.address}}</td>
+								<td>{{this.description}}</td>
+								<td class="text-center">
+									<div class="btn btn-info btn-sm" data-bs-toggle="modal"
+										data-bs-target="#edit-customer" data-firstname="{{this.firstName}}"
+										data-lastname="{{this.lastName}}" data-birth="{{this.birth}}"
+										data-gender="{{this.gender}}" data-phone="{{this.phone}}"
+										data-email="{{this.email}}" data-address="{{this.address}}"
+										data-decript="{{this.description}}">
+										Sửa thông tin</div>
+									<div class="btn btn-danger btn-sm" data-id="{{this._id}}" data-bs-toggle="modal"
+										data-bs-target="#deleteModal">Xóa</div>
+
+								</td>
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -329,7 +333,7 @@
 				delForm.submit();
 			}
 
-			
+
 		});
 	</script>
 </body>

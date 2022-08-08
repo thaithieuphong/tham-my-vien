@@ -12,8 +12,14 @@ const path = require("path");
 
 
 class HRController {
-	showDashboard(req, res) {
-		res.render("human-resources/manager/manager-overview");
+	showDashboard(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then((user) => {
+				res.render("human-resources/manager/manager-overview", {
+					user: mongooseToObject(user)
+				});
+			})
+			.catch(next);
 	}
 
 	showUsers(req, res, next) {
@@ -290,10 +296,10 @@ class HRController {
 							},
 						}
 					)
-					.then(() => {
-						res.redirect("back");
-					})
-					.catch(next);
+						.then(() => {
+							res.redirect("back");
+						})
+						.catch(next);
 				}
 			})
 			.catch(next);

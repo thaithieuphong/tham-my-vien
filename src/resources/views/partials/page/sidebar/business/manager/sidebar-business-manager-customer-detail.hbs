@@ -20,6 +20,7 @@
 		</li>
 		<li class="img-container">
 			<img src="/img/uploads/users/{{user.image.name}}" alt="">
+
 			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
 		</li>
 	</ul>
@@ -27,11 +28,11 @@
 
 <script>
 	const list = document.querySelectorAll('.list');
-	function activeTab(){
+	function activeTab() {
 		list.forEach((item) =>
-		item.classList.remove('active'));
+			item.classList.remove('active'));
 		this.classList.add('active')
 	}
 	list.forEach((item) =>
-	item.addEventListener('click',activeTab))
+		item.addEventListener('click', activeTab))
 </script>

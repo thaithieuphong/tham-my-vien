@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,560 +54,602 @@
                                         </em>
                                     </h5>
                                 </div>
+=======
+<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
+    <div class="title">
+        <a href="/business/manager/customers" class="text-light"><i class="ti-back-left"></i> Quay lại</a>
+    </div>
+    <h3 class="title text-light">Quản lý phiếu dịch vụ</h3>
+    <div class="stask">
+</nav>
+	{{> page/sidebar/business/manager/sidebar-business-service}}
+
+<div class="container-fluid container-content-page mt-3">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-profile-customer-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-new" type="button" role="tab" aria-controls="pills-home"
+                aria-selected="true">Phiếu mới</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-loading"
+                type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Đang xử lý</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-complete"
+                type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Hoàn thành</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-new" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="row">
+                {{#each serviceNotes}}
+                <div class="col-md-6 ">
+                    <div class="shadow-lg p-3 mb-5 bg-body rounded">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong name="status" class="form-label text-danger">{{this.status}}</strong>
+>>>>>>> vinh
                             </div>
-
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Khách hàng: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
+                            <div class="col-md-6">
+                                <h5>
                                     <em>
-                                        <label
-                                            class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
-                                            {{this.customerID.lastName}}</label>
+                                        <strong>
+                                            <label name="schedule" class="form-label text-success">{{formatDate
+                                                this.schedule}}</label>
+                                        </strong>
                                     </em>
-                                </div>
+                                </h5>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Dịch vụ: </label>
-                                    </strong>
+                        <hr>
 
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.service}}</label>
-                                    </em>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Khách hàng: </label>
+                                </strong>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Thành giá: </label>
-                                    </strong>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.price}}VND</label>
-                                    </em>
-                                </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
+                                        {{this.customerID.lastName}}</label>
+                                </em>
                             </div>
+                        </div>
 
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Bác sĩ:</label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    {{#each this.performer}}
-                                    <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Dịch vụ: </label>
+                                </strong>
+
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Y tá: </label>
-                                    </strong>
-
-                                </div>
-                                <div class="col-md-6">
-                                    {{#each this.nursing}}
-                                    <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label class="form-label">{{this.service}}</label>
+                                </em>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Lễ tân: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label
-                                            class="  form-label text-uppercase">{{this.recept.firstName}}{{this.recept.lastName}};</label>
-                                    </em>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Thành giá: </label>
+                                </strong>
+
+                            </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label class="form-label">{{this.price}}VND</label>
+                                </em>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Bác sĩ:</label>
+                                </strong>
+                            </div>
+                            <div class="col-md-6">
+                                {{#each this.performer}}
+                                <em>
+                                    <label
+                                        class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
+                                </em>
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Y tá: </label>
+                                </strong>
+
+                            </div>
+                            <div class="col-md-6">
+                                {{#each this.nursing}}
+                                <em>
+                                    <label
+                                        class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
+                                </em>
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Lễ tân: </label>
+                                </strong>
+                            </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label
+                                        class="  form-label text-uppercase">{{this.recept.firstName}}{{this.recept.lastName}};</label>
+                                </em>
                             </div>
                         </div>
                     </div>
-                    {{/each}}
                 </div>
+                {{/each}}
             </div>
-            <div class="tab-pane fade show" id="pills-loading" role="tabpanel" aria-labelledby="pills-home-tab">
-                <div class="row">
-                    {{#each serviceNote1s}}
-                    <div class="col-md-6 ">
-                        <div class="shadow-lg p-3 mb-5 bg-body rounded">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong name="status" class="form-label text-danger">{{this.status}}</strong>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <h5>
-                                        <em>
-                                            <strong>
-                                                <label name="schedule" class="form-label text-success">{{
-                                                    this.schedule}}</label>
-                                            </strong>
-                                        </em>
-                                    </h5>
-                                </div>
+        </div>
+        <div class="tab-pane fade show" id="pills-loading" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="row">
+                {{#each serviceNote1s}}
+                <div class="col-md-6 ">
+                    <div class="shadow-lg p-3 mb-5 bg-body rounded">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong name="status" class="form-label text-danger">{{this.status}}</strong>
                             </div>
 
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Khách hàng: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
+                            <div class="col-md-6">
+                                <h5>
                                     <em>
-                                        <label
-                                            class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
-                                            {{this.customerID.lastName}}</label>
+                                        <strong>
+                                            <label name="schedule" class="form-label text-success">{{
+                                                this.schedule}}</label>
+                                        </strong>
                                     </em>
-                                </div>
+                                </h5>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Dịch vụ: </label>
-                                    </strong>
+                        <hr>
 
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.service}}</label>
-                                    </em>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Khách hàng: </label>
+                                </strong>
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Thành giá: </label>
-                                    </strong>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.price}}VND</label>
-                                    </em>
-                                </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
+                                        {{this.customerID.lastName}}</label>
+                                </em>
                             </div>
+                        </div>
 
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Bác sĩ:</label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    {{#each this.performer}}
-                                    <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Dịch vụ: </label>
+                                </strong>
+
                             </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Y tá: </label>
-                                    </strong>
-
-                                </div>
-                                <div class="col-md-6">
-                                    {{#each this.nursing}}
-                                    <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label class="form-label">{{this.service}}</label>
+                                </em>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Lễ tân: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label
-                                            class="  form-label text-uppercase">{{this.recept.firstName}}{{this.recept.lastName}};</label>
-                                    </em>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Thành giá: </label>
+                                </strong>
+
+                            </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label class="form-label">{{this.price}}VND</label>
+                                </em>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Bác sĩ:</label>
+                                </strong>
+                            </div>
+                            <div class="col-md-6">
+                                {{#each this.performer}}
+                                <em>
+                                    <label
+                                        class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
+                                </em>
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Y tá: </label>
+                                </strong>
+
+                            </div>
+                            <div class="col-md-6">
+                                {{#each this.nursing}}
+                                <em>
+                                    <label
+                                        class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
+                                </em>
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Lễ tân: </label>
+                                </strong>
+                            </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label
+                                        class="  form-label text-uppercase">{{this.recept.firstName}}{{this.recept.lastName}};</label>
+                                </em>
                             </div>
                         </div>
                     </div>
-                    {{/each}}
                 </div>
+                {{/each}}
             </div>
-            <div class="tab-pane fade show" id="pills-complete" role="tabpanel" aria-labelledby="pills-home-tab">
-                <div class="row">
-                    {{#each serviceNote2s}}
-                    <div class="col-md-6 ">
-                        <div class="shadow-lg p-3 mb-5 bg-body rounded">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong name="status" class="form-label text-danger">{{this.status}}</strong>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <h5>
-                                        <em>
-                                            <strong>
-                                                <label name="schedule" class="form-label text-success">{{
-                                                    this.schedule}}</label>
-                                            </strong>
-                                        </em>
-                                    </h5>
-                                </div>
+        </div>
+        <div class="tab-pane fade show" id="pills-complete" role="tabpanel" aria-labelledby="pills-home-tab">
+            <div class="row">
+                {{#each serviceNote2s}}
+                <div class="col-md-6 ">
+                    <div class="shadow-lg p-3 mb-5 bg-body rounded">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong name="status" class="form-label text-danger">{{this.status}}</strong>
                             </div>
 
-                            <hr>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Khách hàng: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
+                            <div class="col-md-6">
+                                <h5>
                                     <em>
-                                        <label
-                                            class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
-                                            {{this.customerID.lastName}}</label>
+                                        <strong>
+                                            <label name="schedule" class="form-label text-success">{{
+                                                this.schedule}}</label>
+                                        </strong>
                                     </em>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Dịch vụ: </label>
-                                    </strong>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.service}}</label>
-                                    </em>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Thành giá: </label>
-                                    </strong>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.price}}VND</label>
-                                    </em>
-                                </div>
-                            </div>
-
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Bác sĩ:</label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    {{#each this.performer}}
-                                    <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Y tá: </label>
-                                    </strong>
-
-                                </div>
-                                <div class="col-md-6">
-                                    {{#each this.nursing}}
-                                    <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Lễ tân: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label
-                                            class="  form-label text-uppercase">{{this.recept.firstName}}{{this.recept.lastName}};</label>
-                                    </em>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button"  class="btn btn-danger"
-                                    data-bs-toggle="modal" data-bs-target="#del-service-note-modal"
-                                    data-del-service-note-id="{{this._id}}">Xóa</button>
-                                <button type="button" id="create-re-examination-btn" class="btn btn-primary"
-                                    data-bs-toggle="modal" data-bs-target="#create-re-examination-modal"
-                                    data-img="{{this.customerID.image.name}}" data-id="{{this.customerID._id}}"
-                                    data-name="{{this.customerID.firstName}}{{this.customerID.lastName}}"
-                                    data-birth="{{this.customerID.birth}}" data-gender="{{this.customerID.gender}}"
-                                    data-email="{{this.customerID.email}}" data-phone="{{this.customerID.phone}}"
-                                    data-address="{{this.customerID.address}}" data-service="{{this.service}}"
-                                    data-service-note-id="{{this._id}}">Tạo phiếu
-                                    tái khám</button>
+                                </h5>
                             </div>
                         </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Khách hàng: </label>
+                                </strong>
+                            </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
+                                        {{this.customerID.lastName}}</label>
+                                </em>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Dịch vụ: </label>
+                                </strong>
+
+                            </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label class="form-label">{{this.service}}</label>
+                                </em>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Thành giá: </label>
+                                </strong>
+
+                            </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label class="form-label">{{this.price}}VND</label>
+                                </em>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Bác sĩ:</label>
+                                </strong>
+                            </div>
+                            <div class="col-md-6">
+                                {{#each this.performer}}
+                                <em>
+                                    <label
+                                        class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
+                                </em>
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Y tá: </label>
+                                </strong>
+
+                            </div>
+                            <div class="col-md-6">
+                                {{#each this.nursing}}
+                                <em>
+                                    <label
+                                        class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
+                                </em>
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>
+                                    <label class="form-label">Lễ tân: </label>
+                                </strong>
+                            </div>
+                            <div class="col-md-6">
+                                <em>
+                                    <label
+                                        class="  form-label text-uppercase">{{this.recept.firstName}}{{this.recept.lastName}};</label>
+                                </em>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#del-service-note-modal"
+                                data-del-service-note-id="{{this._id}}">Xóa</button>
+                            <button type="button" id="create-re-examination-btn" class="btn btn-primary"
+                                data-bs-toggle="modal" data-bs-target="#create-re-examination-modal"
+                                data-img="{{this.customerID.image.name}}" data-id="{{this.customerID._id}}"
+                                data-name="{{this.customerID.firstName}}{{this.customerID.lastName}}"
+                                data-birth="{{this.customerID.birth}}" data-gender="{{this.customerID.gender}}"
+                                data-email="{{this.customerID.email}}" data-phone="{{this.customerID.phone}}"
+                                data-address="{{this.customerID.address}}" data-service="{{this.service}}"
+                                data-service-note-id="{{this._id}}">Tạo phiếu
+                                tái khám</button>
+                        </div>
                     </div>
-                    {{/each}}
                 </div>
+                {{/each}}
             </div>
         </div>
     </div>
-    <form method="POST" id="update-stored-status" action=""></form>
-    {{!-- Modal Delete --}}
+</div>
+<form method="POST" id="update-stored-status" action=""></form>
+{{!-- Modal Delete --}}
 
-    <div class="modal fade" id="del-service-note-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <label for="reason" class="form-label">
-                        <h6>Lý do<span class="text-danger"></span></h6>
-                    </label>
-                    <input type="tel" class="form-control form-control-sm" id="reason" placeholder="...." name="reason"
-                        required>
-                    <div id="feedback-reason">
-                    </div>
-                    <div class="mt-3">
-                        Bạn có đồng ý xóa không?
-                    </div>
-                    <div class="modal-footer">
-                        <button id="btn-delete-service-note" type="button" class="btn btn-danger">Có, chắc
-                            chắn</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-                    </div>
-                </div>
+<div class="modal fade" id="del-service-note-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </div>
-    </div>
-
- <div class="modal fade" id="create-re-examination-modal" tabindex="-1" aria-labelledby="create-re-exam"
-        aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header bg-info">
-                    <h5 class="modal-title btn-close-white" id="create-re-exam-title">Tạo phiếu tái khám</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
+            <div class="modal-body">
+                <label for="reason" class="form-label">
+                    <h6>Lý do<span class="text-danger"></span></h6>
+                </label>
+                <input type="tel" class="form-control form-control-sm" id="reason" placeholder="...." name="reason"
+                    required>
+                <div id="feedback-reason">
                 </div>
-                <div class="modal-body">
-                    <form method="POST" id="create-re-exam-form" class="row">
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <input hidden type="text" class="form-control" id="create-re-exam-customerID"
-                                    name="customerID" readonly>
-                                <input hidden type="text" class="form-control" id="create-service-note-id"
-                                    name="serviceNoteID" readonly>
-                                <div class="row">
-                                    <div class="col-md-4 ">
-                                        <img src="/img/user-icon.png" id="create-re-exam-img"
-                                            class="rounded mx-auto d-block add-avata" alt="...">
-
-                                        <div class="mb-4 mt-3">
-                                            <label for="schedule" class="form-label">
-                                                <h6>Dịch vụ sử dụng:</h6>
-                                            </label>
-                                            <input type="text" class="form-control bg-white" readonly
-                                                id="create-re-exam-serviced" name="serviced">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="schedule" class="form-label">
-                                                <h6>Ngày hẹn:</h6>
-                                            </label>
-                                            <input type="datetime-local" class="form-control"
-                                                id="create-re-exam-schedule" name="schedule">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="comment" class="form-label">
-                                                <h6>Ghi chú: </h6>
-                                            </label>
-                                            <textarea class="form-control" id="create-re-exam-description" rows="6"
-                                                name="comment"></textarea>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-8 verticalLine">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <strong>
-                                                    <label for="name">Họ tên:</label>
-                                                </strong>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <em>
-                                                    <label class="text-uppercase text-danger"
-                                                        id="create-re-exam-firstLastName" name="name" readonly>
-                                                </em>
-                                            </div>
-                                        </div>
-
-                                        <hr>
-
-                                        <div class=" mb-3 row">
-                                            <div class="col-sm-6">
-                                                <strong>
-                                                    <label for="birth">Ngày sinh:</label>
-                                                </strong>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <em>
-                                                    <label id="create-re-exam-birth" name="birth" readonly></label>
-                                                </em>
-                                            </div>
-                                        </div>
-
-                                        <div class=" mb-3 row">
-                                            <div class="col-sm-6">
-                                                <strong>
-                                                    <label for="gender">Giới tính:</label>
-                                                </strong>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <em>
-                                                    <label id="create-re-exam-gender" name="gender" readonly></label>
-                                                </em>
-                                            </div>
-                                        </div>
-
-                                        <div class=" mb-3 row">
-                                            <div class="col-sm-6">
-                                                <strong>
-                                                    <label for="email">Email address:</label>
-                                                </strong>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <em>
-                                                    <label id="create-re-exam-email" name="email" readonly></label>
-                                                </em>
-                                            </div>
-                                        </div>
-
-                                        <div class=" mb-3 row">
-                                            <div class="col-sm-6">
-                                                <strong>
-                                                    <label for="phone">Số điện thoại:</label>
-                                                </strong>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <em>
-                                                    <label id="create-re-exam-phone" name="phone" readonly></label>
-                                                </em>
-                                            </div>
-                                        </div>
-
-                                        <div class=" mb-3 row">
-                                            <div class="col-sm-6">
-                                                <strong>
-                                                    <label for="address">Địa chỉ:</label>
-                                                </strong>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <em>
-                                                    <label id="create-re-exam-address" name="address" readonly></label>
-                                                </em>
-                                            </div>
-
-                                        </div>
-
-                                        <div class=" mb-3 row">
-                                            <div class="col-sm-6">
-                                                <strong>
-                                                    <label for="createName">Người tạo:</label>
-                                                </strong>
-                                            </div>
-                                            <div class="col-sm-6 text-right">
-                                                <em>
-                                                    <input hidden type="text" value="{{user._id}}" name="createName"
-                                                        id="">
-                                                    <label id="create-re-exam-createName"
-                                                        readonly>{{user.firstName}}{{user.lastName}}</label>
-                                                </em>
-                                            </div>
-                                        </div>
-                                        <div class="mt-3">
-                                                <strong>
-                                                    <label for="description">Mô tả khách hàng:</label>
-                                                </strong>
-
-                                                <textarea id="create-re-exam-description" class="form-control mb-2"
-                                                    rows="6" style="background-color: white;" name="description"
-                                                    disabled></textarea>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </li>
-                        </ul>
-
-                    </form>
+                <div class="mt-3">
+                    Bạn có đồng ý xóa không?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
-                    <button type="button" id="create-re-exam-btn" class="btn btn-primary">Lưu thay đổi</button>
+                    <button id="btn-delete-service-note" type="button" class="btn btn-danger">Có, chắc
+                        chắn</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
                 </div>
             </div>
         </div>
     </div>
-</body>
+</div>
+
+<div class="modal fade" id="create-re-examination-modal" tabindex="-1" aria-labelledby="create-re-exam"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title btn-close-white" id="create-re-exam-title">Tạo phiếu tái khám</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="create-re-exam-form" class="row">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <input hidden type="text" class="form-control" id="create-re-exam-customerID"
+                                name="customerID" readonly>
+                            <input hidden type="text" class="form-control" id="create-service-note-id"
+                                name="serviceNoteID" readonly>
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <img src="/img/user-icon.png" id="create-re-exam-img"
+                                        class="rounded mx-auto d-block add-avata" alt="...">
+
+                                    <div class="mb-4 mt-3">
+                                        <label for="schedule" class="form-label">
+                                            <h6>Dịch vụ sử dụng:</h6>
+                                        </label>
+                                        <input type="text" class="form-control bg-white" readonly
+                                            id="create-re-exam-serviced" name="serviced">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="schedule" class="form-label">
+                                            <h6>Ngày hẹn:</h6>
+                                        </label>
+                                        <input type="datetime-local" class="form-control" id="create-re-exam-schedule"
+                                            name="schedule">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="comment" class="form-label">
+                                            <h6>Ghi chú: </h6>
+                                        </label>
+                                        <textarea class="form-control" id="create-re-exam-description" rows="6"
+                                            name="comment"></textarea>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-8 verticalLine">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <strong>
+                                                <label for="name">Họ tên:</label>
+                                            </strong>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <em>
+                                                <label class="text-uppercase text-danger"
+                                                    id="create-re-exam-firstLastName" name="name" readonly>
+                                            </em>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class=" mb-3 row">
+                                        <div class="col-sm-6">
+                                            <strong>
+                                                <label for="birth">Ngày sinh:</label>
+                                            </strong>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <em>
+                                                <label id="create-re-exam-birth" name="birth" readonly></label>
+                                            </em>
+                                        </div>
+                                    </div>
+
+                                    <div class=" mb-3 row">
+                                        <div class="col-sm-6">
+                                            <strong>
+                                                <label for="gender">Giới tính:</label>
+                                            </strong>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <em>
+                                                <label id="create-re-exam-gender" name="gender" readonly></label>
+                                            </em>
+                                        </div>
+                                    </div>
+
+                                    <div class=" mb-3 row">
+                                        <div class="col-sm-6">
+                                            <strong>
+                                                <label for="email">Email address:</label>
+                                            </strong>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <em>
+                                                <label id="create-re-exam-email" name="email" readonly></label>
+                                            </em>
+                                        </div>
+                                    </div>
+
+                                    <div class=" mb-3 row">
+                                        <div class="col-sm-6">
+                                            <strong>
+                                                <label for="phone">Số điện thoại:</label>
+                                            </strong>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <em>
+                                                <label id="create-re-exam-phone" name="phone" readonly></label>
+                                            </em>
+                                        </div>
+                                    </div>
+
+                                    <div class=" mb-3 row">
+                                        <div class="col-sm-6">
+                                            <strong>
+                                                <label for="address">Địa chỉ:</label>
+                                            </strong>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <em>
+                                                <label id="create-re-exam-address" name="address" readonly></label>
+                                            </em>
+                                        </div>
+
+                                    </div>
+
+                                    <div class=" mb-3 row">
+                                        <div class="col-sm-6">
+                                            <strong>
+                                                <label for="createName">Người tạo:</label>
+                                            </strong>
+                                        </div>
+                                        <div class="col-sm-6 text-right">
+                                            <em>
+                                                <input hidden type="text" value="{{user._id}}" name="createName" id="">
+                                                <label id="create-re-exam-createName"
+                                                    readonly>{{user.firstName}}{{user.lastName}}</label>
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div class="mt-3">
+                                        <strong>
+                                            <label for="description">Mô tả khách hàng:</label>
+                                        </strong>
+
+                                        <textarea id="create-re-exam-description" class="form-control mb-2" rows="6"
+                                            style="background-color: white;" name="description" disabled></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
+                <button type="button" id="create-re-exam-btn" class="btn btn-primary">Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="/js/business/business-manager-service-note.js"></script>
 
 </html>

@@ -3,7 +3,7 @@
 
 	</div>
 	<h3 class="title text-light">Quản lý khách hàng</h3>
-	
+
 
 	<div class="stask">
 		<!-- Button trigger modal -->
@@ -17,6 +17,8 @@
 	</div>
 </nav>
 {{> page/sidebar/business/manager/sidebar-business-manager-customers}}
+<a data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="addBtn-mobile"><i class="ti-plus"></i></a>
+
 <div class="container-fluid mt-3">
 	<ul class="nav nav-pills mb-3 ml-3" id="pills-tab" role="tablist">
 		<li class="nav-item" role="presentation">
@@ -33,6 +35,7 @@
 	<div class="tab-content" id="pills-tabContent">
 		<div class="tab-pane fade show active" id="pills-system-customer" role="tabpanel"
 			aria-labelledby="pills-home-tab">
+<<<<<<< HEAD
 			
 				<div class="customer-table">
 					<table id="customerTable" class="table table-hover table-bordered table-sm">
@@ -104,26 +107,10 @@
 					</table>
 				</div>
 				{{!-- <div class="container-card">
-					{{#each customers}}
-					<div class="card text-dark bg-info mb-3">
-						<div class="card-header">
-							<h5 class="card-title">{{this.firstName}} {{this.lastName}}</h5>
-						</div>
-						<div class="card-body">
-							<p class="card-text">Ngày sinh: {{this.birth}}</p>
-							<p class="card-text">Giới tính: {{this.gender}}</p>
-							<p class="card-text">Email: {{this.email}}</p>
-							<p class="card-text">Địa chỉ: {{this.address}}</p>
-						</div>
-					</div>
-					{{/each}}
-				</div> --}}
-				<!--Push userid to customer Modal -->
+=======
 
-		</div>
-		<div class="tab-pane fade show ml-3" id="pills-user-customer" role="tabpanel" aria-labelledby="pills-profile-tab">
 			<div class="container-table">
-				<table id="container-fluids" class="table table-hover table-bordered table-sm">
+				<table id="customer_table" class="table table-hover table-bordered table-sm">
 					<thead class="table-info">
 						<tr>
 							<th class="text-center" scope="col">#</th>
@@ -132,27 +119,176 @@
 							<th class="text-center" scope="col">Giới tính</th>
 							<th class="text-center" scope="col">Số điện thoại</th>
 							<th class="text-center" scope="col">Email</th>
-							<th class="text-center" scope="col" rowspan="2">CTV</th>
+							<th class="text-center" scope="col">Địa chỉ</th>
+							<th class="text-center" scope="col">Mô tả</th>
+							<th class="text-center" scope="col">Hành động</th>
+						</tr>
+					</thead>
+					<tbody id="table-content">
+						{{#each customers}}
+						<tr>
+							<td class="text-center" scope="row">{{sum @index 1}}</td>
+							<td><a href="/business/manager/customers/{{this._id}}/detail">{{this.firstName}}
+									{{this.lastName}}</a></td>
+							<td class="text-center">{{formatBirth this.birth}}</td>
+							<td class="text-center">{{this.gender}}</td>
+							<td class="text-center">0{{this.phone}}</td>
+							<td>{{this.email}}</td>
+							<td>{{this.address}}</td>
+							<td>{{this.description}}</td>
+							<td class="text-center">
+								<div class="btn-group">
+									<button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+										data-bs-toggle="dropdown" aria-expanded="false">
+										Hành động
+									</button>
+									<ul class="dropdown-menu dropdown-menu-sm">
+										<li>
+											<button type="button" class="dropdown-item" data-bs-toggle="modal"
+												data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
+												data-edit-img="{{this.image.name}}"
+												data-edit-firstname="{{this.firstName}}"
+												data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
+												data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
+												data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
+												data-edit-description="{{this.description}}">Sửa thông tin khách
+												hàng</button>
+										</li>
+										<hr class="dropdown-divider">
+										<li>
+											<a class="dropdown-item" data-bs-toggle="modal"
+												data-service-note-id="{{this._id}}"
+												data-service-note-img="{{this.image.name}}"
+												data-service-note-firstname="{{this.firstName}}"
+												data-service-note-lastname="{{this.lastName}}"
+												data-service-note-birth="{{this.birth}}"
+												data-service-note-gender="{{this.gender}}"
+												data-service-note-phone="{{this.phone}}"
+												data-service-note-email="{{this.email}}"
+												data-service-note-address="{{this.address}}"
+												data-service-note-description="{{this.description}}"
+												data-bs-target="#create-service-note-modal">Tạo phiếu dịch vụ</a>
+										</li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+			<div class="container-card">
+				<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."
+					title="Type in a name">
+				<div id="search-items">
+>>>>>>> vinh
+					{{#each customers}}
+					<div class="card text-dark bg-light mb-3">
+						<div class="card-header  ">
+							<h5 class="card-title">
+								<a class="text-success" href="/business/manager/customers/{{this._id}}/detail">
+									{{this.firstName}} {{this.lastName}}
+								</a>
+							</h5>
+						</div>
+						<div class="card-body">
+							<p class="card-text">Ngày sinh: {{formatBirth this.birth}}</p>
+							<p class="card-text">Giới tính: {{this.gender}}</p>
+							<p class="card-text">SDT: 0{{this.phone}}</p>
+							<p class="card-text">Email: {{this.email}}</p>
+							<p class="card-text">Mô tả: {{this.description}}</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-md btn-primary" data-bs-toggle="modal"
+								data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
+								data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
+								data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
+								data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
+								data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
+								data-edit-description="{{this.description}}">Sửa</button>
+							<button type="button" class="btn btn-md btn-success" data-bs-toggle="modal"
+								data-service-note-id="{{this._id}}" data-service-note-img="{{this.image.name}}"
+								data-service-note-firstname="{{this.firstName}}"
+								data-service-note-lastname="{{this.lastName}}" data-service-note-birth="{{this.birth}}"
+								data-service-note-gender="{{this.gender}}" data-service-note-phone="{{this.phone}}"
+								data-service-note-email="{{this.email}}" data-service-note-address="{{this.address}}"
+								data-service-note-description="{{this.description}}" {{#each this.serviceNoteID}}
+								data-service-note-serviceID="{{this.service}}" {{/each}}
+								data-bs-target="#create-service-note-modal">Tạo phiếu</button>
+
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
+
+		</div>
+<<<<<<< HEAD
+		<div class="tab-pane fade show ml-3" id="pills-user-customer" role="tabpanel" aria-labelledby="pills-profile-tab">
+			<div class="container-table">
+				<table id="container-fluids" class="table table-hover table-bordered table-sm">
+=======
+		<div class="tab-pane fade show " id="pills-user-customer" role="tabpanel" aria-labelledby="pills-profile-tab">
+			<div class="container-table ml-3">
+				<table id="container_table" class="table table-hover table-bordered table-sm">
+>>>>>>> vinh
+					<thead class="table-info">
+						<tr>
+							<th class="text-center" scope="col">#</th>
+							<th class="text-center" scope="col">Họ tên</th>
+							<th class="text-center" scope="col">Ngày sinh</th>
+							<th class="text-center" scope="col">Giới tính</th>
+							<th class="text-center" scope="col">Số điện thoại</th>
+							<th class="text-center" scope="col">Email</th>
+							<th class="text-center" scope="col">CTV</th>
 							<th class="text-center" scope="col">Mô tả</th>
 						</tr>
 					</thead>
 					<tbody id="table-content">
 						{{#each customer1s}}
 						<tr>
-							<td class="text-center" >{{sum @index 1}}</td>
+							<td class="text-center">{{sum @index 1}}</td>
 							<td><a href="/business/manager/customers/{{this._id}}/detail">{{this.firstName}}
 									{{this.lastName}}</a></td>
-							<td class="text-center">{{this.birth}}</td>
+							<td class="text-center">{{formatBirth this.birth}}</td>
 							<td class="text-center">{{this.gender}}</td>
 							<td class="text-center">0{{this.phone}}</td>
 							<td>{{this.email}}</td>
-							<td>{{this.userID.firstName}} {{this.userID.lastName}} ({{this.userID.department}})</td>
+							<td>{{this.userID.firstName}} {{this.userID.lastName}} ({{this.userID.position}})</td>
 							<td>{{this.description}}</td>
 						</tr>
 						{{/each}}
 					</tbody>
 				</table>
 			</div>
+
+			<div class="container-card">
+				<input type="text" id="myInputCTV" onkeyup="myFunctionCTV()" placeholder="Search for names.."
+					title="Type in a name">
+				<div id="search-items-ctv">
+				{{#each customer1s}}
+				<div class="card text-dark bg-light mb-3">
+					<div class="card-header  ">
+						<h5 class="card-title">
+							<a class="text-success" href="/business/manager/customers/{{this._id}}/detail">
+								{{this.firstName}} {{this.lastName}}
+							</a>
+						</h5>
+					</div>
+					<div class="card-body">
+						<p class="card-text">Ngày sinh: {{formatBirth this.birth}}</p>
+						<p class="card-text">Giới tính: {{this.gender}}</p>
+						<p class="card-text">SDT: 0{{this.phone}}</p>
+						<p class="card-text">Email: {{this.email}}</p>
+						<p class="card-text">CTV: {{this.userID.firstName}} {{this.userID.lastName}}
+							({{this.userID.position}})</p>
+						<p class="card-text">Mô tả: {{this.description}}</p>
+					</div>
+				</div>
+				{{/each}}
+				</div>
+			</div>
+
 		</div>
 	</div>
 
@@ -404,15 +540,15 @@
 							<ul class="list-group">
 								<li class="list-group-item">
 									<input hidden type="text" class="form-control" id="create-service-note-customerID"
-											name="customerID" readonly>
+										name="customerID" readonly>
 									<div class="row">
 
 										<div class="col-md-6 ">
 											<img src="/img/user-icon.png" id="create-service-note-img"
 												class="rounded mx-auto d-block add-avata" alt="...">
 											<div class="mt-4">
-												<textarea id="create-service-note-description" class="form-control mb-2" rows="6"
-													style="background-color: white;" disabled></textarea>
+												<textarea id="create-service-note-description" class="form-control mb-2"
+													rows="6" style="background-color: white;" disabled></textarea>
 											</div>
 										</div>
 
@@ -512,7 +648,8 @@
 												</div>
 												<div class="col-sm-6 text-right">
 													<em>
-														<input hidden type="text" value="{{user._id}}" name="createName" id="">
+														<input hidden type="text" value="{{user._id}}" name="createName"
+															id="">
 														<label value="{{user.firstName}}{{user.lastName}}"
 															id="create-service-note-createName" name="createName"
 															readonly></label>
@@ -568,20 +705,22 @@
 											name="comment"></textarea>
 									</div>
 								</div>
-								{{!--upload multi  --}}
+								{{!--upload multi --}}
 								<div class="col-md-7">
 									<div class="preview-images-counselor row ml-0 mt-3 border"></div>
 									<label for="input-multi-images-counselor" class="label-avt btn btn-primary mt-2">
 										<h6>Chọn ảnh tư vấn</h6>
 									</label>
-									<input id="input-multi-images-counselor" class="form-control" type="file" name="counselor" hidden multiple>
+									<input id="input-multi-images-counselor" class="form-control" type="file"
+										name="counselor" hidden multiple>
 									<div class="preview-videos-counselor row ml-0 mt-3 border"></div>
 									<label for="input-multi-videos-counselor" class="label-avt btn btn-primary mt-2">
 										<h6>Chọn video tư vấn</h6>
 									</label>
-									<input id="input-multi-videos-counselor" class="form-control" type="file" name="counselor" hidden multiple>
+									<input id="input-multi-videos-counselor" class="form-control" type="file"
+										name="counselor" hidden multiple>
 								</div>
-								{{!--  --}}
+								{{!-- --}}
 							</div>
 						</div>
 					</div>

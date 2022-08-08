@@ -189,3 +189,19 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
+function myFunction() {
+	var input, filter, ul, li, a, i, txtValue;
+	input = document.getElementById("myInput");
+	filter = convert_vi_to_en(input.value.toUpperCase());
+	ul = document.getElementById("search-items");
+	li = document.getElementsByClassName("card");
+	for (i = 0; i < li.length; i++) {
+		a = li[i].getElementsByTagName("div")[0];
+		txtValue = convert_vi_to_en(a.textContent) || convert_vi_to_en(a.innerText) ;
+		if (txtValue.toUpperCase().indexOf(filter) > -1) {
+			li[i].style.display = "";
+		} else {
+			li[i].style.display = "none";
+		}
+	}
+}
