@@ -4,13 +4,6 @@ const ServiceNote = require('../../models/ServiceNote');
 // const Counselor = require('../../models/Counselor');
 const Reexamination = require('../../models/Reexamination');
 
-
-
-
-
-
-
-
 class NursingController {
 	showDashboard(req, res, next){
 		res.render("operating/nursing/over-view")

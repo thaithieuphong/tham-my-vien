@@ -36,7 +36,7 @@ class EmployBusinessController {
 	showDashboard(req, res, next) {
 		User.findById({ _id: req.userId })
 			.then(user => {
-				res.render('business/employ/employ-overview', {
+				res.render('business/employ/employ-customer', {
 					user: mongooseToObject(user),
 					title: 'Tổng quan'
 				})
