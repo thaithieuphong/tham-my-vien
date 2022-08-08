@@ -5,17 +5,17 @@ const validateUploadImage = require('../../middleware/validateUpload');
 const authJwt = require('../../middleware/authJwt');
 
 /* Business Manager Start*/
-router.patch('/customers/:id/comment', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.createComment);
-router.patch('/service-note/:id', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.deleteServiceNote);
-router.put('/customers/:id', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.uploadSingleCustomer], ManagerBusinessController.editCustomer);
-router.post('/userid', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.addUseridToCustomer)
-router.post('/customers/:id/service-note', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.counselorUpload], ManagerBusinessController.createServiceNote);
-router.post('/customers', [authJwt.verifyToken, authJwt.isBusinessManager, validateUploadImage.uploadSingleCustomer], ManagerBusinessController.createCustomer);
-router.post('/service-note/exam', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.createReExam)
-router.get('/customers/:id/detail', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.showCustomerDetail)
-router.get('/service-note', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.showServiceNote);
-router.get('/customers', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.showCustomer);
-router.get('/', [authJwt.verifyToken, authJwt.isBusinessManager], ManagerBusinessController.showDashboard);
+router.patch('/customers/:id/comment', ManagerBusinessController.createComment);
+router.patch('/service-note/:id', ManagerBusinessController.deleteServiceNote);
+router.put('/customers/:id', validateUploadImage.uploadSingleCustomer, ManagerBusinessController.editCustomer);
+router.post('/userid', ManagerBusinessController.addUseridToCustomer)
+router.post('/customers/:id/service-note', validateUploadImage.counselorUpload, ManagerBusinessController.createServiceNote);
+router.post('/customers', validateUploadImage.uploadSingleCustomer, ManagerBusinessController.createCustomer);
+router.post('/service-note/exam', ManagerBusinessController.createReExam)
+router.get('/customers/:id/detail', ManagerBusinessController.showCustomerDetail)
+router.get('/service-note', ManagerBusinessController.showServiceNote);
+router.get('/customers', ManagerBusinessController.showCustomer);
+router.get('/', ManagerBusinessController.showDashboard);
 /* Business Manager End*/
 
 

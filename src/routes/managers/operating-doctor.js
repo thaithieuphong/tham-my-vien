@@ -4,8 +4,8 @@ const DoctorController = require('../../app/controllers/operating-controller/Doc
 const authJwt = require('../../middleware/authJwt');
 
 //Employ
-router.get('/', [authJwt.verifyToken, authJwt.isDoctor], DoctorController.showDashboard)
-router.get('/service-note',[authJwt.verifyToken, authJwt.isDoctor], DoctorController.showServiceNote);
-router.get('/re-examination',[authJwt.verifyToken, authJwt.isDoctor], DoctorController.showReExamination);
+router.get('/service-note', DoctorController.showServiceNote);
+router.get('/re-examination', DoctorController.showReExamination);
+router.get('/', [authJwt.verifyToken, authJwt.isDoctor], DoctorController.showDashboard);
 
 module.exports = router;

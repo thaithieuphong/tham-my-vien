@@ -1,25 +1,29 @@
 <div class="nav-mobile sidebar text-light">
 	<ul class="nav-bottom sidebar-list">
-		<li class="list">
+		{{!-- <li class="list">
 			<a href="/operating-room/nursing">
 				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
 				<span class="nav-text sidebar-text">Trang chủ</span>
 			</a>
-		</li>
+		</li> --}}
 		<li class="list  active">
 			<a href="/operating-room/nursing/service-note">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-user"></i></span>
-				<span class="nav-text sidebar-text">Phiếu phẩu thuật</span>
+				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
+				<span class="nav-text sidebar-text">Phẩu thuật</span>
 			</a>
 		</li>
 		<li class="list">
 			<a href="/operating-room/nursing/re-examination">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-bar-chart"></i></span>
-				<span class="nav-text sidebar-text">Phiếu tái khám</span>
+				<span class="nav-mobile-icon sidebar-icon"><i class="ti-reload"></i></span>
+				<span class="nav-text sidebar-text">Tái khám</span>
 			</a>
 		</li>
 		<li class="img-container">
-			<img src="/img/uploads/customers/{{user.image.name}}" alt="">
+			{{#if user.image.name}}
+			<img src="/img/uploads/users/{{user.image.name}}" alt="">
+			{{else}}
+			<img src="/img/user-icon.png" alt="">
+			{{/if}}
 			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
 		</li>
 	</ul>
