@@ -5,11 +5,11 @@ const validateUploadImage = require('../../middleware/validateUpload');
 const authJwt = require('../../middleware/authJwt');
 
 //Employ
-router.put('/customers/:id', [authJwt.verifyToken, authJwt.isMarketingEmploy, validateUploadImage.uploadSingleCustomer], MarketingController.editCustomer);
-router.post('/customers', [authJwt.verifyToken, authJwt.isMarketingEmploy, validateUploadImage.uploadSingleCustomer], MarketingController.createCustomer);
-router.get('/customers/:id/detail', [authJwt.verifyToken, authJwt.isMarketingEmploy,], MarketingController.showCustomerDetail);
-router.get('/customers', [authJwt.verifyToken, authJwt.isMarketingEmploy], MarketingController.showCustomer);
-router.get('/', [authJwt.verifyToken, authJwt.isMarketingEmploy], MarketingController.showDashboard);
+router.put('/customers/:id', validateUploadImage.uploadSingleCustomer, MarketingController.editCustomer);
+router.post('/customers', validateUploadImage.uploadSingleCustomer, MarketingController.createCustomer);
+router.get('/customers/:id/detail', MarketingController.showCustomerDetail);
+router.get('/customers', MarketingController.showCustomer);
+router.get('/', MarketingController.showDashboard);
 
 
 module.exports = router;

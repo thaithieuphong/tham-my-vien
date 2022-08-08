@@ -6,10 +6,10 @@ const authJwt = require('../../middleware/authJwt');
 
 //Employ
 
-router.patch('/service-note/:id', [authJwt.verifyToken, authJwt.isReceptionEmploy], ReceptionController.pushPerformer);
+router.patch('/service-note/:id', ReceptionController.pushPerformer);
 // router.patch('/service-note/:id', ReceptionController.pushPerformer);
-router.patch('/reexam/:id', [authJwt.verifyToken, authJwt.isReceptionEmploy], ReceptionController.pushOperationToReexam);
-router.get('/', [authJwt.verifyToken, authJwt.isReceptionEmploy], ReceptionController.showServiceNote);
+router.patch('/reexam/:id', ReceptionController.pushOperationToReexam);
+router.get('/', ReceptionController.showServiceNote);
 
 
 module.exports = router;

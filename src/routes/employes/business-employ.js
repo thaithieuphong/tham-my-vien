@@ -6,17 +6,17 @@ const uploadGoogleDrive = require('../../middleware/uploadGoogleDriveCounselor')
 const authJwt = require("../../middleware/authJwt");
 
 /* Business Employ Start*/
-router.patch('/customers/:id/comment', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.createComment);
-router.put('/customers/:id', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.uploadSingleCustomer], EmployBusinessController.editCustomer);
-router.post('/customers/:id/service-note', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.counselorUpload], EmployBusinessController.createServiceNote);
-router.post('/customers', [authJwt.verifyToken, authJwt.isBusinessEmploy, validateUploadImage.uploadSingleCustomer], EmployBusinessController.createCustomer);
-router.post('/service-note/exam', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.createReExam)
+router.patch('/customers/:id/comment', EmployBusinessController.createComment);
+router.put('/customers/:id', validateUploadImage.uploadSingleCustomer, EmployBusinessController.editCustomer);
+router.post('/customers/:id/service-note', validateUploadImage.counselorUpload, EmployBusinessController.createServiceNote);
+router.post('/customers', validateUploadImage.uploadSingleCustomer, EmployBusinessController.createCustomer);
+router.post('/service-note/exam', EmployBusinessController.createReExam)
 
 
-router.get('/customers/:id/detail', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showCustomerDetail)
-router.get('/service-note', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showServiceNote);
-router.get('/customers', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showCustomer);
-router.get('/', [authJwt.verifyToken, authJwt.isBusinessEmploy], EmployBusinessController.showDashboard);
+router.get('/customers/:id/detail', EmployBusinessController.showCustomerDetail)
+router.get('/service-note', EmployBusinessController.showServiceNote);
+router.get('/customers', EmployBusinessController.showCustomer);
+router.get('/', EmployBusinessController.showDashboard);
 /* Business Employ End*/
 
 module.exports = router;

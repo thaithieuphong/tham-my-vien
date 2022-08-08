@@ -24,12 +24,14 @@ class ManagerBusinessController {
 	showDashboard(req, res) {
 		Promise.all([
 			Customer.find({ userID: null }),
-			User.find({ department: "Kinh doanh" })
+			User.find({ department: "Kinh doanh" }),
+			User.findById({ _id: req.userId })
 		])
-		.then(([customers, user]) => {
+		.then(([customers, users, user]) => {
 				res.render("business/manager/manager-overview", {
 					customers: multipleMongooseToObject(customers),
-					users: multipleMongooseToObject(user),
+					users: multipleMongooseToObject(users),
+					user: mongooseToObject(user),
 					title: 'Quản lý khách hàng'
 				});
 			})
@@ -144,8 +146,8 @@ class ManagerBusinessController {
 	}
 
 	showCustomerDetail(req, res, next) {
-		Customer.findById({ _id: req.params.id }).populate('serviceNoteID')
-			.then((customer) => {
+		Promise.all([Customer.findById({ _id: req.params.id }).populate('serviceNoteID'), User.findById({ _id: req.userId })])
+			.then(([customer, user]) => {
 				console.log(customer.counselorName)
 				Counselor.find({ filename: { $in: customer.counselorName } })
 					.then((counselors) => {
@@ -153,6 +155,7 @@ class ManagerBusinessController {
 						res.render('business/manager/manager-customer-detail', {
 							customer: mongooseToObject(customer),
 							counselors: multipleMongooseToObject(counselors),
+							user: mongooseToObject(user),
 							title: "Chi tiết khách hàng"
 						});
 					})
@@ -178,13 +181,14 @@ class ManagerBusinessController {
 			User.findById({ _id: req.userId })
 
 		])
-			.then(([serviceNotes, serviceNote1s, serviceNote2s]) => {
+			.then(([serviceNotes, serviceNote1s, serviceNote2s, user]) => {
 
 
 				res.render('business/manager/manager-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
 					serviceNote1s: multipleMongooseToObject(serviceNote1s),
 					serviceNote2s: multipleMongooseToObject(serviceNote2s),
+					user: mongooseToObject(user),
 					title: "Quản lý phiếu dịch vụ"
 				});
 			})

@@ -188,32 +188,27 @@ document.addEventListener('DOMContentLoaded', function () {
 		videosPreviewConselor(e.target, "div.preview-videos-counselor");
 		console.log(e.target.files);
 	})
-});
 
-document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {
-		$("#container_table").DataTable({
+		$("#customerTable").DataTable({
 			paging: true,
 			reponsive: true,
 		});
-	});
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-	$(document).ready(function () {
-		$("#customer_table").DataTable({
-			paging: true,
-			reponsive: true,
-		});
+		$('.dataTables_length').addClass('bs-select');
 	});
 
-	$(document).ready(function () {
-		$("#customer_table_counselor").DataTable({
-			paging: true,
-			reponsive: true,
-		});
-	});
 });
+
+// document.addEventListener('DOMContentLoaded', function () {
+// 	$(document).ready(function () {
+// 		$("#container-fluids").DataTable({
+// 			paging: true,
+// 			reponsive: true,
+// 			scrollY: 200
+// 		});
+// 		$('.dataTables_length').addClass('bs-select');
+// 	});
+// });
 
 // Handle message
 // var alertMessage = document.getElementById('alert-message');
