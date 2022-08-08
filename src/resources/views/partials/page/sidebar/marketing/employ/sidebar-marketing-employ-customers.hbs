@@ -13,11 +13,15 @@
 			</a>
 		</li>
 		<li class="img-container">
-			<img src="/img/uploads/customers/{{user.image.name}}" alt="">
+			<img src="/img/uploads/users/{{user.image.name}}" alt="">
 			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
 		</li>
 	</ul>
 </div>
+<ul class="user-submenu">
+	<li><a href="#">Thông tin</a></li>
+	<li><a href="#">Đăng xuất</a></li>
+</ul>
 
 <script>
 	const list = document.querySelectorAll('.list');
@@ -28,4 +32,5 @@
 	}
 	list.forEach((item) =>
 	item.addEventListener('click',activeTab))
+
 </script>
