@@ -1,10 +1,9 @@
 //CREATE: submit create customer forms
 // Handle create info Customer
 var createCustomer = document.getElementById("create-customer-btn");
-var createCustomerModal = document.getElementById("create-customer-modal");
 var createCustomerForm = document.forms["create-customer-form"];
 createCustomer.addEventListener("click", () => {
-	validateForm()
+	createCustomerForm.submit()
 });
 
 
@@ -192,6 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			reponsive: true,
 		});
 	});
+
 });
 
 // Validate form
@@ -222,3 +222,4 @@ function validateForm() {
 		createCustomerForm.submit();
 	}
   }
+

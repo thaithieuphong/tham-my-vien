@@ -14,8 +14,8 @@ body {
     // min-height: 100%;
 }
 
-.container{
-    overflow: scroll;
+.container-content-page {
+    overflow-y: scroll;
     max-height: 90%;
 }
 
@@ -237,7 +237,7 @@ a{
     margin-left: 6px;
     // margin-right: 16px;
     max-height: 100vh;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 .comment-content-page {
@@ -519,7 +519,7 @@ a{
         right: 0;
         left: 0;
         top: revert;
-        border-radius: 10px;
+        // border-radius: 10px;
         z-index: 5;
     }
 
@@ -647,7 +647,7 @@ a{
         right: 0;
         left: 0;
         top: revert;
-        border-radius: 10px;
+        // border-radius: 10px;
         z-index: 5;
     }
 
@@ -777,7 +777,7 @@ a{
         right: 0;
         left: 0;
         top: revert;
-        border-radius: 10px;
+        // border-radius: 10px;
         z-index: 5;
     }
 
@@ -975,7 +975,7 @@ a{
 
     .container-content-page {
         max-height: 89.5%;
-        overflow: auto;
+        overflow-y: auto;
     }
 }
 

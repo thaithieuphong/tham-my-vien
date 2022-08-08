@@ -185,28 +185,16 @@ addUseridToCustomerModal.addEventListener("show.bs.modal", function(event){
 addUseridToCustomerBtn.addEventListener("click", () => {
 	addUserCusForm.submit();
 })
-
-// checkAllSubmitBtn.addEventListener("click", function(e)  {
-// 	e.preventDefault();
-// 	var isSubmittable = checkAllSubmitBtn.classList.contains('disabled');
-// 	if(!isSubmittable){
-
-// 	}
-// })
-
-
-
-//END ADD USER to CUSTOMER
-
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {
 		$("#customer_table").DataTable({
+			paging: true,
+			reponsive: true,
+		});
+	});
+
+	$(document).ready(function () {
+		$("#customer_table_counselor").DataTable({
 			paging: true,
 			reponsive: true,
 		});
