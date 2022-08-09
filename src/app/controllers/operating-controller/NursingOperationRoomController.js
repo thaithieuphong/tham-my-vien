@@ -19,31 +19,16 @@ class NursingController {
 	showDashboard(req, res, next){
 		User.findById({ _id: req.userId })
 			.then((user) => {
-				res.render("operating/nursing/over-view", {
-					user: mongooseToObject(user),
-					title: 'Tong Quan'
-				})
+				res.redirect("/operating-room/nursing/service-note")
 			})
 	}
 
 	showServiceNote(req, res, next) {
 		Promise.all([ServiceNote.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'), User.findById({ _id: req.userId})])
 			.then(([serviceNote, user]) => {
-				// const cln = [];
-				// serviceNote.forEach(element => {
-				// 	let clns = element.counselorName;
-				// 	for (const element of clns) {
-				// 		cln.push(element);
-				// 	}
-				// 	return cln;
-
-				// })
-				// Counselor.find({ filename: { $in: cln } })
-				// 	.then((counselors) => {
 				res.render("operating/nursing/operating-service-note", {
 					serviceNote: multipleMongooseToObject(serviceNote),
 					user: mongooseToObject(user),
-					// counselors: multipleMongooseToObject(counselors),
 					title: "Chi tiết khách hàng"
 				})
 			})
@@ -66,8 +51,6 @@ class NursingController {
 	}
 
 	updateServiceNote(req, res, next) {
-		// res.json(req.body)
-		// console.log(req.params.id)
 		Promise.all([
 			ServiceNote.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành" } }),
 			User.updateMany({ _id: { $in: req.body.operatingID } }, { $set: { state: "Medium" } }),
@@ -79,8 +62,6 @@ class NursingController {
 	}
 
 	updateReExamination(req, res, next) {
-		// res.json(req.params)
-		// console.log(req.params.id)
 		Promise.all([
 			Reexamination.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành" } }),
 			User.updateMany({ _id: { $in: req.body.operatingID } }, { $set: { state: "Medium" } })

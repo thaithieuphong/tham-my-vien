@@ -46,21 +46,14 @@ class EmployBusinessController {
 
 	showDashboard(req, res, next) {
 		User.findById({ _id: req.userId })
-			.then(user => {
-				res.render('business/employ/employ-overview', {
-					user: mongooseToObject(user),
-					title: 'Tổng quan'
-				})
+			.then(() => {
+				res.redirect('/business/employ/customers')
 			})
 			.catch(next);
-		// res.render("business/employ/business-overview", {
-		// 	title: 'Bảng báo cáo'
-		// });
 	}
 
 	/** Customer */
 	showCustomer(req, res, next) {
-		// console.log("path-join", path.join("src", "pulic", "temp"))s
 		Promise.all([Customer.find({ userID: req.userId }), User.findById({ _id: req.userId }),
 		TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
