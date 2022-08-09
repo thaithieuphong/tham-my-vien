@@ -41,13 +41,13 @@ app.use(
 	})
 );
 
-app.use(session ({
-    secret: process.env.FLASH_SESSION_KEY,
-    saveUninitialized: true,
-    resave: true
+app.use(session({
+	secret: process.env.FLASH_SESSION_KEY,
+	saveUninitialized: true,
+	resave: true
 }));
 
-app.use(flash ());
+app.use(flash());
 
 // Kết nối tới cơ sở dữ liệu
 db.connect();
@@ -71,25 +71,25 @@ app.engine(
 			sum: (a, b) => a + b,
 			cutString: (str, num) => {
 				var newStr = str.toString();
-				return newStr.length > num ?  "..." + newStr.slice(num, newStr.length) : newStr;
+				return newStr.length > num ? "..." + newStr.slice(num, newStr.length) : newStr;
 			},
 			cutPassword: (str, num) => {
 				if (str !== undefined) {
-					return str.length > num ?  str.slice(0, num) + '...' : str;
+					return str.length > num ? str.slice(0, num) + '...' : str;
 				}
 
 			},
 			formatDate: (d) => {
 				let date = new Date(d);
-				let newDate = date.toLocaleString('vi-VI', {weekday:"long", day:'numeric', month: 'numeric', year:'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric'});
+				let newDate = date.toLocaleString('vi-VI', { weekday: "long", day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
 				return newDate;
 			},
 			formatBirth: (d) => {
 				let date = new Date(d);
-				let newDate = date.toLocaleString('vi-VI', { day:'numeric', month: 'numeric', year:'numeric'});
+				let newDate = date.toLocaleString('vi-VI', { day: 'numeric', month: 'numeric', year: 'numeric' });
 				return newDate;
 			},
-		},
+		}
 	})
 );
 
@@ -98,13 +98,13 @@ app.set("view engine", "hbs");
 // Cấu hình đường dẫn đến tệp tin chứa giao diện người dùng
 app.set("views", path.join(__dirname, "resources", "views"));
 
-app.use(function(req, res, next){
-    res.locals.messages_account_failure = req.flash('messages_account_failure');
-    res.locals.messages_password_failure = req.flash('messages_password_failure');
-    res.locals.messages_server_failure = req.flash('messages_server_failure');
-    res.locals.messages_token_failure = req.flash('messages_token_failure');
-    res.locals.messages_token_wrong = req.flash('messages_token_wrong');
-    next();
+app.use(function (req, res, next) {
+	res.locals.messages_account_failure = req.flash('messages_account_failure');
+	res.locals.messages_password_failure = req.flash('messages_password_failure');
+	res.locals.messages_server_failure = req.flash('messages_server_failure');
+	res.locals.messages_token_failure = req.flash('messages_token_failure');
+	res.locals.messages_token_wrong = req.flash('messages_token_wrong');
+	next();
 });
 
 app.use(function (req, res, next) {

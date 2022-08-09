@@ -170,6 +170,25 @@ class ManagerBusinessController {
 			.catch(next);
 	}
 
+	showCustomerDetailCTV(req, res, next) {
+		Promise.all([Customer.findById({ _id: req.params.id }).populate('serviceNoteID'), User.findById({ _id: req.userId })])
+			.then(([customer, user]) => {
+				console.log(customer.counselorName)
+				Counselor.find({ filename: { $in: customer.counselorName } })
+					.then((counselors) => {
+						console.log(counselors)
+						res.render('business/manager/manager-customer-detail-ctv', {
+							customer: mongooseToObject(customer),
+							counselors: multipleMongooseToObject(counselors),
+							user: mongooseToObject(user),
+							title: "Chi tiết khách hàng"
+						});
+					})
+
+			})
+			.catch(next);
+	}
+
 	createComment(req, res, next) {
 		Customer.findByIdAndUpdate(
 			{ _id: req.params.id },

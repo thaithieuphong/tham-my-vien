@@ -196,7 +196,13 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 		$('.dataTables_length').addClass('bs-select');
 	});
-
+	$(document).ready(function () {
+		$("#container_table").DataTable({
+			paging: true,
+			reponsive: true,
+		});
+		$('.dataTables_length').addClass('bs-select');
+	});
 });
 
 
@@ -258,5 +264,6 @@ function myFunctionCTV() {
 		}
 	}
 }
+
 // Handle message
 // var alertMessage = document.getElementById('alert-message');

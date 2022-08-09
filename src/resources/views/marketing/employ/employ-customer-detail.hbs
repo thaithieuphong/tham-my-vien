@@ -1,89 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Quản lý người dùng</title>
-</head>
-
-<body>
-
-	<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
-		<div class="title">
-			<a href="/marketing/employ/customers" class="text-light"><i class="ti-back-left"></i> Quay lại</a>
-		</div>
-		<h3 class="title text-light">Thông tin khách hàng</h3>
-		<div class="stask">
-
-		</div>
-	</nav>
-	{{> page/sidebar/marketing/employ/sidebar-marketing-employ-customer-detail}}
-	<div class="container-fluid container-content-page">
-		<ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
-			<li class="nav-item" role="presentation">
-				<button class="nav-link active" id="pills-system-customer-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-system-customer" type="button" role="tab" aria-controls="pills-home"
-					aria-selected="true">Khách hàng</button>
-			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-user-customer-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-user-customer" type="button" role="tab" aria-controls="pills-profile"
-					aria-selected="false">Dịch vụ đã sử dụng</button>
-			</li>
-		</ul>
-
-		<div class="tab-content" id="pills-tabContent">
-			<div class="tab-pane fade show active" id="pills-system-customer" role="tabpanel"
-				aria-labelledby="pills-home-tab">
-				<div class="row ">
-					<div class="text-center col-xl-3 mb-3">
-						<img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt"
-							class="rounded mx-auto d-block add-avata" alt="...">
-						<div class="card-body">
-							<h3 class="none-mb">{{customer.firstName}} {{customer.lastName}}</h3>
-							<p class="none-mb" value="" for="detail-birth"><strong>Ngày sinh:
-								</strong>{{customer.birth}}</p>
-							<p class="none-mb" value=""><strong>Giới tính: </strong>{{customer.gender}}</p>
-							<p class="none-mb" value=""><strong>Điện thoại: </strong>{{customer.phone}}</p>
-							<p class="none-mb" value=""><strong>Email: </strong>{{customer.email}}</p>
-							<p class="none-mb" value=""><strong>Địa chỉ: </strong>{{customer.address}}</p>
-							<label class=""><strong>Mô tả:</strong></label>
-							<textarea id="detail-description" class="form-control mb-2" rows="6"
-								disabled>{{customer.description}}</textarea>
-						</div>
-					</div>
-					<div class="col-xl-7 activate">
-						<ul class="list-group comment-content-page border">
-							{{#each customer.comments}}
-							<li class="list-group-item bg-light ml-2 mr-2 mt-2">
-								<p id="createdAt" class="none-mb comment-createdAt text-end"><strong>{{formatDate
-										this.createdAt}}</strong></p>
-								<p class="none-mb comment-content text-end" value="">{{this.comment}}</p>
-							</li>
-							{{/each}}
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="pills-user-customer" role="tabpanel" aria-labelledby="pills-profile-tab">
-				<div class="row ">
-					<div class="col-md-6">
-						<p class="none-mb" value="" for="service-note-service"><strong>Dịch vụ:
-							</strong></p>
-					</div>
-					<div class="col-md-6">
-						{{#each customer.serviceNoteID}}
-						<p class="none-mb" value="" for="service-note-service">{{this.service}} ({{this.status}})</p>
-						{{else}}
-						Chưa sử dụng dịch vụ nào
-						{{/each}}
-					</div>
-				</div>
-				<hr>
-
-			</div>
-		</div>
+<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
+	<div class="title">
+		<a href="/marketing/employ/customers" class="text-light"><i class="ti-back-left"></i> Quay lại</a>
 	</div>
-</body>
+	<h3 class="title text-light">Thông tin khách hàng</h3>
+	<div class="stask">
+
+	</div>
+</nav>
+{{> page/sidebar/marketing/employ/sidebar-marketing-employ-customer-detail}}
+<div class="container-fluid m-3">
+	<div class="mb-4">
+		<div class=" mt-3">
+			<img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt" class="rounded add-avata" alt="...">
+
+			<div class=" mb-3 row">
+				<div class="col-sm-6">
+					<strong>
+						<label for="name">Họ tên:</label>
+					</strong>
+				</div>
+				<div class="col-sm-6 ">
+					<em>
+						<label class="text-uppercase text-danger" readonly>{{customer.firstName}}
+							{{customer.lastName}}</label>
+					</em>
+				</div>
+			</div>
+
+			<hr>
+
+			<div class=" mb-3 row">
+				<div class="col-sm-6">
+					<strong>
+						<label for="birth">Ngày sinh:</label>
+					</strong>
+				</div>
+				<div class="col-sm-6 ">
+					<em>
+						<label id="create-service-note-birth" name="birth" readonly>{{formatBirth
+							customer.birth}}</label>
+					</em>
+				</div>
+			</div>
+
+			<div class=" mb-3 row">
+				<div class="col-sm-6">
+					<strong>
+						<label for="gender">Giới tính:</label>
+					</strong>
+				</div>
+				<div class="col-sm-6 ">
+					<em>
+						<label id="create-service-note-gender" name="gender" readonly>{{customer.gender}}</label>
+					</em>
+				</div>
+			</div>
+
+			<div class=" mb-3 row">
+				<div class="col-sm-6">
+					<strong>
+						<label for="email">Email address:</label>
+					</strong>
+				</div>
+				<div class="col-sm-6 ">
+					<em>
+						<label id="create-service-note-email" name="email" readonly>{{customer.email}}</label>
+					</em>
+				</div>
+			</div>
+
+			<div class=" mb-3 row">
+				<div class="col-sm-6">
+					<strong>
+						<label for="phone">Số điện thoại:</label>
+					</strong>
+				</div>
+				<div class="col-sm-6 ">
+					<em>
+						<label id="create-service-note-phone" name="phone" readonly>{{customer.phone}}</label>
+					</em>
+				</div>
+			</div>
+
+			<div class=" mb-3 row">
+				<div class="col-sm-6">
+					<strong>
+						<label for="address">Địa chỉ:</label>
+					</strong>
+				</div>
+				<div class="col-sm-6 ">
+					<em>
+						<label id="create-service-note-address" name="address" readonly>{{customer.address}}</label>
+					</em>
+				</div>
+
+			</div>
+
+			<div class="mb-3">
+				<strong>
+					<label for="description">Mô tả</label>
+				</strong>
+				<textarea id="detail-description" class="form-control" style="background-color: white;"
+					disabled>{{customer.description}}</textarea>
+			</div>
+		</div>
+		
+	</div>
+
+</div>
+</div>

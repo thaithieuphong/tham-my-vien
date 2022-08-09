@@ -56,6 +56,7 @@ class DoctorOperationRoomController {
 			// })
 			.catch(next);
 	}
+
 	showReExamination(req, res, next) {
 		Promise.all([Reexamination.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId'), User.findById({ _id: req.userId })])
 			.then(([reExam, user]) => {

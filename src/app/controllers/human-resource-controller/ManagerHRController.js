@@ -1,4 +1,6 @@
 const User = require("../../models/User");
+const User1 = require("../../models/User");
+
 const Department = require("../../models/Department");
 const Position = require("../../models/Position");
 const {
@@ -340,10 +342,14 @@ class HRController {
 	}
 
 	detailUser(req, res, next) {
-		User.findById({ _id: req.params.id })
-			.then((user) => {
+		Promise.all([
+			User.findById({ _id: req.userId }),
+			User1.findById({ _id: req.params.id }),
+		])
+			.then(([user, user1]) => {
 				res.render('human-resources/manager/manager-user-detail', {
 					user: mongooseToObject(user),
+					user1: mongooseToObject(user1),
 				});
 			})
 	}

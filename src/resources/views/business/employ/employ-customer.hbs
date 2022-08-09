@@ -354,7 +354,7 @@
 </div>
 
 <!-- Modal Create Service Note -->
-<div class="modal fade" id="create-service-note-modal" tabindex="-1" aria-labelledby="create-service-note"
+<div class="modal fade " id="create-service-note-modal" tabindex="-1" aria-labelledby="create-service-note"
 	aria-hidden="true">
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
@@ -386,7 +386,7 @@
 									<input hidden type="text" class="form-control" id="create-service-note-customerID"
 										name="customerID" readonly>
 									<div class="row">
-										<div class="col-md-6 ">
+										<div class="col-md-4 ">
 											<img src="/img/user-icon.png" id="create-service-note-img"
 												class="rounded mx-auto d-block add-avata" alt="...">
 											<div class="mt-4">
@@ -396,19 +396,17 @@
 											</div>
 										</div>
 
-										<div class="col-md-6">
-											<div class=" mb-3 row">
+										<div class="col-md-8">
+											<div class=" mb-3 row ">
 												<div class="col-sm-6">
-													<strong>
-														<label for="name">Họ tên:</label>
-													</strong>
+													<label for="name" class="font-weight-bold">Họ tên: </label>
+
 												</div>
-												<div class="col-sm-6 text-right">
-													<em>
-														<label class="text-uppercase text-danger"
-															id="create-service-note-firstLastName" name="name" readonly>
-													</em>
+												<div class="col-sm-6">
+													<label class="text-uppercase text-danger text-end  font-italic"
+														id="create-service-note-firstLastName" name="name"></label>
 												</div>
+
 											</div>
 
 											<hr>
@@ -419,10 +417,9 @@
 														<label for="birth">Ngày sinh:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
-														<label id="create-service-note-birth" name="birth"
-															readonly></label>
+														<label id="create-service-note-birth" name="birth"></label>
 													</em>
 												</div>
 											</div>
@@ -433,10 +430,9 @@
 														<label for="gender">Giới tính:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
-														<label id="create-service-note-gender" name="gender"
-															readonly></label>
+														<label id="create-service-note-gender" name="gender"></label>
 													</em>
 												</div>
 											</div>
@@ -447,10 +443,10 @@
 														<label for="email">Email address:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
-														<label id="create-service-note-email" name="email"
-															readonly></label>
+														<label id="create-service-note-email"
+															class="d-inline-block text-truncate" name="email"></label>
 													</em>
 												</div>
 											</div>
@@ -461,11 +457,10 @@
 														<label for="phone">Số điện thoại:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
 
-														<label id="create-service-note-phone" name="phone"
-															readonly></label>
+														<label id="create-service-note-phone" name="phone"></label>
 													</em>
 												</div>
 											</div>
@@ -476,10 +471,9 @@
 														<label for="address">Địa chỉ:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
-														<label id="create-service-note-address" name="address"
-															readonly></label>
+														<label id="create-service-note-address" name="address"></label>
 													</em>
 												</div>
 
@@ -491,12 +485,12 @@
 														<label for="createName">Người tạo:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
 														<input hidden type="text" value="{{user._id}}" name="createName"
 															id="">
-														<label id="create-service-note-createName"
-															readonly>{{user.firstName}}{{user.lastName}}</label>
+														<label
+															id="create-service-note-createName">{{user.firstName}}{{user.lastName}}</label>
 													</em>
 												</div>
 											</div>

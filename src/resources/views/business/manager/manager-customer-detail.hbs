@@ -20,8 +20,8 @@
 		</div>
 	</nav>
 	{{> page/sidebar/business/manager/sidebar-business-manager-customer-detail}}
-	<div class="container-fluid container-content-page">
-		<ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
+	<div class="container-fluid ">
+		<ul class="nav nav-pills ml-3 mt-3 " id="pills-tab" role="tablist">
 			<li class="nav-item" role="presentation">
 				<button class="nav-link active" id="pills-system-customer-tab" data-bs-toggle="pill"
 					data-bs-target="#pills-system-customer" type="button" role="tab" aria-controls="pills-home"
@@ -34,44 +34,21 @@
 			</li>
 		</ul>
 
-		<div class="tab-content" id="pills-tabContent">
+		<div class="tab-content ml-3 mt-3" id="pills-tabContent">
 			<div class="tab-pane fade show active" id="pills-system-customer" role="tabpanel"
 				aria-labelledby="pills-home-tab">
 				<div class="row ">
-					<div class="col-xl-6 mb-3">
+					<div class="col-xl-6 mt-3 ">
 						<img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt"
-							class="rounded mx-auto d-block add-avata" alt="...">
+							class="rounded  add-avata" alt="...">
 
-						<ul class="list-group comment-content-page border mt-4" style="height: 150px;">
-							{{#each customer.comments}}
-							<li class="list-group-item bg-light ml-2 mr-2 mt-2">
-								<p id="createdAt" class="none-mb comment-createdAt text-end"><strong>{{formatDate
-										this.createdAt}}</strong></p>
-								<p class="none-mb comment-content text-end" value="">{{this.comment}}</p>
-							</li>
-							{{/each}}
-						</ul>
-						<form method="POST" action="/business/manager/customers/{{customer._id}}/comment?_method=PATCH">
-							<div class="mt-3">
-								<label for="account" class="form-label">
-									<h6>Hoạt động</h6>
-								</label>
-								<input type="text" class="form-control form-control-sm" id="comments" name="comments"
-									required>
-							</div>
-							<div class="modal-footer">
-								<button type="submit" class="btn btn-primary">Lưu</button>
-							</div>
-						</form>
-					</div>
-					<div class="col-xl-6 activate">
-						<div class=" mb-3 row">
+						<div class=" mb-3 mt-3 row">
 							<div class="col-sm-6">
 								<strong>
 									<label for="name">Họ tên:</label>
 								</strong>
 							</div>
-							<div class="col-sm-6 text-right">
+							<div class="col-sm-6 ">
 								<em>
 									<label class="text-uppercase text-danger" readonly>{{customer.firstName}}
 										{{customer.lastName}}</label>
@@ -87,10 +64,10 @@
 									<label for="birth">Ngày sinh:</label>
 								</strong>
 							</div>
-							<div class="col-sm-6 text-right">
+							<div class="col-sm-6 ">
 								<em>
-									<label id="create-service-note-birth" name="birth"
-										readonly>{{formatBirth customer.birth}}</label>
+									<label id="create-service-note-birth" name="birth" readonly>{{formatBirth
+										customer.birth}}</label>
 								</em>
 							</div>
 						</div>
@@ -101,7 +78,7 @@
 									<label for="gender">Giới tính:</label>
 								</strong>
 							</div>
-							<div class="col-sm-6 text-right">
+							<div class="col-sm-6 ">
 								<em>
 									<label id="create-service-note-gender" name="gender"
 										readonly>{{customer.gender}}</label>
@@ -115,7 +92,7 @@
 									<label for="email">Email address:</label>
 								</strong>
 							</div>
-							<div class="col-sm-6 text-right">
+							<div class="col-sm-6 ">
 								<em>
 									<label id="create-service-note-email" name="email"
 										readonly>{{customer.email}}</label>
@@ -129,7 +106,7 @@
 									<label for="phone">Số điện thoại:</label>
 								</strong>
 							</div>
-							<div class="col-sm-6 text-right">
+							<div class="col-sm-6 ">
 								<em>
 									<label id="create-service-note-phone" name="phone"
 										readonly>{{customer.phone}}</label>
@@ -143,7 +120,7 @@
 									<label for="address">Địa chỉ:</label>
 								</strong>
 							</div>
-							<div class="col-sm-6 text-right">
+							<div class="col-sm-6 ">
 								<em>
 									<label id="create-service-note-address" name="address"
 										readonly>{{customer.address}}</label>
@@ -159,6 +136,31 @@
 							<textarea id="detail-description" class="form-control" style="background-color: white;"
 								disabled>{{customer.description}}</textarea>
 						</div>
+					</div>
+					<div class="col-xl-6 ">
+
+
+						<ul class="list-group comment-content-page border " >
+							{{#each customer.comments}}
+							<li class="list-group-item bg-light ml-2 mr-2 mt-2">
+								<p id="createdAt" class="none-mb comment-createdAt "><strong>{{formatDate
+										this.createdAt}}</strong></p>
+								<p class="none-mb comment-content " value="">{{this.comment}}</p>
+							</li>
+							{{/each}}
+						</ul>
+						<form method="POST" action="/business/manager/customers/{{customer._id}}/comment?_method=PATCH">
+							<div class="mt-3">
+								<label for="account" class="form-label">
+									<h6>Hoạt động</h6>
+								</label>
+								<input type="text" class="form-control form-control-sm" id="comments" name="comments"
+									required>
+							</div>
+							<div class="modal-footer mb-4">
+								<button type="submit" class="btn btn-primary">Lưu</button>
+							</div>
+						</form>
 
 					</div>
 				</div>

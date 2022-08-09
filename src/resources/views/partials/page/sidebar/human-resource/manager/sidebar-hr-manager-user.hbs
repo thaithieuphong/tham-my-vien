@@ -1,29 +1,29 @@
+
 <div class="nav-mobile sidebar text-light">
 	<ul class="nav-bottom sidebar-list">
 		<li class="list active">
-			<a href="business/manager/service-note">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
-				<span class="nav-text sidebar-text">Dịch vụ</span>
-			</a>
-		</li>
-		<li class="list">
-			<a href="business/manager/customers">
+			<a href="/human-resources/manager/users">
 				<span class="nav-mobile-icon sidebar-icon"><i class="ti-user"></i></span>
 				<span class="nav-text sidebar-text">Khách hàng</span>
 			</a>
 		</li>
 		<li class="list">
-			<a href="/business/manager">
+			<a href="/human-resources/manager">
 				<span class="nav-mobile-icon sidebar-icon"><i class="ti-bar-chart"></i></span>
 				<span class="nav-text sidebar-text">Báo cáo</span>
 			</a>
 		</li>
 		<li class="img-container">
+<<<<<<< HEAD:src/resources/views/partials/page/sidebar/reception/sidebar-manager-reception.hbs
 			{{#if user.image.name}}
 			<a href="/reception/manager/profile"><img src="/img/uploads/users/{{user.image.name}}" alt=""></a>
 			{{else}}
 			<a href="/reception/manager/profile"><img src="/img/user-icon.png" alt=""></a>
 			{{/if}}
+=======
+			<img src="/img/uploads/users/{{user.image.name}}" alt="">
+			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
+>>>>>>> origin/vinh:src/resources/views/partials/page/sidebar/human-resource/manager/sidebar-hr-manager-user.hbs
 		</li>
 	</ul>
 </div>

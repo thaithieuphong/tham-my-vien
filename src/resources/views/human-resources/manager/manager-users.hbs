@@ -1,5 +1,5 @@
 <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
-	<h3 class="title text-light">Quản lý nhan su</h3>
+<h3 class="title text-light">Quản lý nhân sự</h3>
 	<div class="stask mb-3">
 		<!-- Button trigger modal -->
 		<button data-bs-toggle="modal" data-bs-target="#create-user-modal" class="btn btn-primary btn-create">
@@ -7,10 +7,10 @@
 		</button>
 	</div>
 </nav>
-{{> page/sidebar/human-resource/manager/sidebar-hr-manager-user-detail}}
+{{> page/sidebar/human-resource/manager/sidebar-hr-manager-user}}
 <a data-bs-toggle="modal" data-bs-target="#create-user-modal" class="addBtn-mobile"><i class="ti-plus"></i></a>
 
-<div class="container-fluid mt-3">
+<div class="container-fluid ">
 	<div id="alert-message" class="alert alert-{{message.color}}" role="alert">
 		{{message.content}}
 	</div>
@@ -175,7 +175,7 @@
 						<ul class="list-group">
 							<li class="list-group-item">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="create-user-firstName" class="form-label">
 											<h6>Họ</h6>
 										</label>
@@ -183,7 +183,7 @@
 											id="create-user-firstName" placeholder="Vd: Trần Văn" name="firstName"
 											required>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="create--user-lastName" class="form-label">
 											<h6>Tên</h6>
 										</label>
@@ -191,8 +191,8 @@
 											id="create-user-lastName" placeholder="Vd: Khánh" name="lastName" required>
 									</div>
 								</div>
-								<div class="row mt-3">
-									<div class="col-md-6">
+								<div class="row ">
+									<div class="col-md-6 mt-3">
 										<label for="create-user-birth" class="form-label">
 											<h6>Ngày sinh</h6>
 										</label>
@@ -200,7 +200,7 @@
 											placeholder="dd-mm-yyyy" aria-describedby="birthFeedback" name="birth"
 											required>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="create-user-gender" class="form-label">
 											<h6>Giới tính</h6>
 										</label>
@@ -212,15 +212,15 @@
 										</select>
 									</div>
 								</div>
-								<div class="row mt-3">
-									<div class="col-md-6">
+								<div class="row ">
+									<div class="col-md-6 mt-3">
 										<label for="create-user-phone" class="form-label">
 											<h6>Số điện thoại</h6>
 										</label>
 										<input type="tel" class="form-control form-control-sm" id="create-user-phone"
 											placeholder="Vd: 0909888888" name="phone" required>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3" >
 										<label for="create-user-email" class="form-label">
 											<h6>Email</h6>
 										</label>
@@ -228,8 +228,8 @@
 											placeholder="Vd: tranvankhanh@gmail.com" name="email" required>
 									</div>
 								</div>
-								<div class="row mt-3">
-									<div class="col-md-12">
+								<div class="row">
+									<div class="col-md-12 mt-3">
 										<label for="create-user-address" class="form-label">
 											<h6>Địa chỉ</h6>
 										</label>
@@ -238,8 +238,8 @@
 											name="address" required>
 									</div>
 								</div>
-								<div class="row mt-3">
-									<div class="col-md-6">
+								<div class="row ">
+									<div class="col-md-6 mt-3">
 										<label for="create-user-department" class="form-label">
 											<h6>Phòng ban</h6>
 										</label>
@@ -251,7 +251,7 @@
 											{{/each}}
 										</select>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="create-user-position" class="form-label">
 											<h6>Chức vụ</h6>
 										</label>
@@ -265,7 +265,7 @@
 									</div>
 								</div>
 								<div class="row mt-3">
-									<div class="col-md-12 mb-3">
+									<div class="col-md-12 mb-3 ">
 										<label for="create-user-description" class="form-label">
 											<h6>Mô tả</h6>
 										</label>
@@ -319,14 +319,14 @@
 						<ul class="list-group">
 							<li class="list-group-item">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="edit-user-firstName" class="form-label">
 											<h6>Họ</h6>
 										</label>
 										<input type="text" class="form-control form-control-sm firstName"
 											data-bs-focus="focus" id="edit-user-firstName" name="firstName" disabled>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="edit-user-lastName" class="form-label">
 											<h6>Tên</h6>
 										</label>
@@ -334,15 +334,15 @@
 											id="edit-user-lastName" name="lastName" disabled>
 									</div>
 								</div>
-								<div class="row mt-3">
-									<div class="col-md-6">
+								<div class="row ">
+									<div class="col-md-6 mt-3">
 										<label for="edit-user-birth" class="form-label">
 											<h6>Ngày sinh</h6>
 										</label>
 										<input type="date" class="form-control form-control-sm" id="edit-user-birth"
 											aria-describedby="birthFeedback" name="birth" required>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="edit-user-gender" class="form-label">
 											<h6>Giới tính</h6>
 										</label>
@@ -354,15 +354,15 @@
 										</select>
 									</div>
 								</div>
-								<div class="row mt-3">
-									<div class="col-md-6">
+								<div class="row ">
+									<div class="col-md-6 mt-3">
 										<label for="edit-user-phone" class="form-label">
 											<h6>Số điện thoại</h6>
 										</label>
 										<input type="tel" class="form-control form-control-sm" id="edit-user-phone"
 											name="phone" required>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="edit-user-email" class="form-label">
 											<h6>Email</h6>
 										</label>
@@ -379,8 +379,8 @@
 											aria-describedby="addressFeedback" name="address" required>
 									</div>
 								</div>
-								<div class="row mt-3">
-									<div class="col-md-6">
+								<div class="row ">
+									<div class="col-md-6 mt-3">
 										<label for="edit-user-department" class="form-label">
 											<h6>Phòng ban</h6>
 										</label>
@@ -392,7 +392,7 @@
 											{{/each}}
 										</select>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-6 mt-3">
 										<label for="edit-user-position" class="form-label">
 											<h6>Chức vụ</h6>
 										</label>
@@ -405,8 +405,8 @@
 										</select>
 									</div>
 								</div>
-								<div class="row mt-3">
-									<div class="col-md-12 mb-3">
+								<div class="row ">
+									<div class="col-md-12 mt-3 mb-3">
 										<label for="edit-user-description" class="form-label">
 											<h6>Mô tả</h6>
 										</label>

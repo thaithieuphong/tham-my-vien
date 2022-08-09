@@ -10,6 +10,7 @@ router.patch('/service-note/:id', ReceptionController.pushPerformer);
 // router.patch('/service-note/:id', ReceptionController.pushPerformer);
 router.patch('/reexam/:id', ReceptionController.pushOperationToReexam);
 router.get('/profile', ReceptionController.showProfile);
+router.get('/re-exam', ReceptionController.showReExam)
 router.get('/', ReceptionController.showServiceNote);
 
 

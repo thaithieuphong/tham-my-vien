@@ -43,11 +43,14 @@ class MarketingController {
     }
 
 	showCustomerDetail(req, res, next) {
-		Customer.findById({ _id: req.params.id }).populate('serviceNoteID')
-			.then((customer) => {
-				console.log(customer);
+		Promise.all([
+			Customer.findById({ _id: req.params.id }).populate('serviceNoteID'),
+			User.findById({_id: req.userId})
+		])
+			.then(([customer, user]) => {
 				res.render('marketing/employ/employ-customer-detail', {
 					customer: mongooseToObject(customer),
+					user: mongooseToObject(user),
 					title: "Chi tiết khách hàng"
 				});
 			})

@@ -43,6 +43,18 @@ body {
     margin-bottom: 12px;
 }
 
+#myInputLoad{
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+
+
 textarea {
     resize: none !important;
 }
@@ -269,6 +281,13 @@ a {
 .comment-content-page {
     height: 77vh;
     overflow: auto;
+    height: 537px;
+}
+
+.comment-ctv-page{
+    height: 77vh;
+    overflow: auto;
+    height: 635px;
 }
 
 .user-submenu {
@@ -344,6 +363,8 @@ a {
     margin-right: 12px;
 }
 
+
+
 .add-avata {
     width: 185px;
     height: 185px;
@@ -407,6 +428,10 @@ a {
 
     .navbar {
         margin-left: unset;
+    }
+
+    .btn-upload-mobile{
+        width: 100%;
     }
 
     .addBtn-mobile {
@@ -537,6 +562,10 @@ a {
         margin-left: unset;
     }
 
+    .btn-upload-mobile{
+        width: 100%;
+    }
+
     .addBtn-mobile {
         display: inline-flex;
         align-items: center;
@@ -664,6 +693,10 @@ a {
 
     .navbar {
         margin-left: unset;
+    }
+    
+    .btn-upload-mobile{
+        width: 100%;
     }
 
     .addBtn-mobile {
@@ -794,6 +827,10 @@ a {
 
     .navbar {
         margin-left: unset;
+    }
+
+    .btn-upload-mobile{
+        width: 100%;
     }
 
     .addBtn-mobile {
@@ -1020,6 +1057,10 @@ a {
         margin-left: unset;
     }
 
+    .btn-upload-mobile{
+        width: 100%;
+    }
+
     .addBtn-mobile {
         display: inline-flex;
         align-items: center;
@@ -1051,7 +1092,7 @@ a {
         right: 0;
         left: 0;
         top: revert;
-        border-radius: 10px;
+        // border-radius: 10px;
         z-index: 5;
     }
 
@@ -1138,6 +1179,26 @@ a {
         display: none;
     }
 
+    .text-truncate{
+        max-width: 150px;
+    }
+
+    .text-truncate-service{
+        max-width: 120px;
+    }
+
+    .upd-ava{
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+    }
+
+    .add-avata {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+    }
+
     .navbar {
         margin-left: unset;
     }
@@ -1173,7 +1234,7 @@ a {
         right: 0;
         left: 0;
         top: revert;
-        border-radius: 10px;
+        // border-radius: 10px;
         z-index: 5;
     }
 
@@ -1259,6 +1320,26 @@ a {
         display: none;
     }
 
+    .text-truncate{
+        max-width: 150px;
+    }
+
+    .text-truncate-service{
+        max-width: 120px;
+    }
+
+    .upd-ava{
+        width: 170px;
+        height: 170px;
+        object-fit: contain;
+    }
+
+    .add-avata {
+        width: 170px;
+        height: 170px;
+        object-fit: contain;
+    }
+
     .navbar {
         margin-left: unset;
     }
@@ -1294,7 +1375,7 @@ a {
         right: 0;
         left: 0;
         top: revert;
-        border-radius: 10px;
+        // border-radius: 10px;
         z-index: 5;
     }
 
@@ -1379,6 +1460,17 @@ a {
     #add-avt-customer {
         width: 100%;
         object-fit: contain;
+    }
+
+    .upd-ava{
+        width: 185px;
+        height: 185px;
+        object-fit: contain;
+    }
+
+    .service-note{
+        width: 70%;
+        margin: auto;
     }
 
     .container-fluid {

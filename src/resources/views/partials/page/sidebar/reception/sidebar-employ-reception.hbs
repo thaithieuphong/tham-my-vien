@@ -1,17 +1,28 @@
 <div class="nav-mobile sidebar text-light">
 	<ul class="nav-bottom sidebar-list">
-		<li class="list active">
-			<a href="/reception/employ/service-note">
+		<li class="list active ">
+			<a href="/reception/employ/">
 				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
-				<span class="nav-text sidebar-text">Dịch vụ</span>
+				<span class="nav-text sidebar-text">Phẩu thuật</span>
+			</a>
+		</li>
+		<li class="list ">
+			<a href="/reception/employ/re-exam">
+				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
+				<span class="nav-text sidebar-text">Tái khám</span>
 			</a>
 		</li>
 		<li class="img-container">
+<<<<<<< HEAD
 			{{#if user.image.name}}
 			<a href="/reception/employ/profile"><img src="/img/uploads/users/{{user.image.name}}" alt=""></a>
 			{{else}}
 			<a href="/reception/employ/profile"><img src="/img/user-icon.png" alt=""></a>
 			{{/if}}
+=======
+			<img src="/img/uploads/users/{{user.image.name}}" alt="">
+			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
+>>>>>>> origin/vinh
 		</li>
 	</ul>
 </div>
