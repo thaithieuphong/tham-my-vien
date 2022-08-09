@@ -2,12 +2,11 @@ const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mo
 const ServiceNote = require('../../models/ServiceNote');
 const Counselor = require('../../models/Counselor');
 const Reexamination = require('../../models/Reexamination');
-
+const User = require('../../models/User');
 
 
 class DoctorOperationRoomController {
-	//doctor
-	// , status: "Đang xử lý"
+
 	showProfile(req, res, next) {
 		User.findById({ _id: req.userId })
 			.then(user => {
@@ -20,32 +19,44 @@ class DoctorOperationRoomController {
 	}
 
 	showDashboard(req, res, next){
-		res.render("operating/doctor/over-view")
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('operating/doctor/over-view', {
+					user: mongooseToObject(user),
+					title: 'Thông tin cá nhân'
+				})
+			})
+			.catch(next);
 	}
 
 	showServiceNote(req, res, next) {
-		ServiceNote.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')
-			.then((serviceNote) => {
-				// const cln = [];
-				// serviceNote.forEach(element => {
-				// 	let clns = element.counselorName;
-				// 	for (const element of clns) {
-				// 		cln.push(element);
-				// 	}
-				// 	return cln;
+		Promise.all([ServiceNote.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'), User.findById({ _id: req.userId })])
+			.then(([serviceNote, user]) => {
+				// console.log(serviceNote)
+				const cln = [];
+				serviceNote.forEach(element => {
+					let clns = element.counselorName;
+					for( const element of clns){
+						cln.push(element);
+					}
+					return cln;
 
-				// })
-				// Counselor.find({ filename: { $in: cln } })
-				// 	.then((counselors) => {
-				res.render("operating/doctor/operating-service-note", {
-					serviceNote: multipleMongooseToObject(serviceNote),
-					// counselors: multipleMongooseToObject(counselors),
-					title: "Chi tiết khách hàng"
 				})
+				Counselor.find({ filename: {$in: cln} })
+					.then((counselors) => {
+						console.log(counselors)
+						res.render("operating/doctor/operating-service-note", {
+							serviceNote:  multipleMongooseToObject(serviceNote),
+							counselors: multipleMongooseToObject(counselors), 
+							user: mongooseToObject(user), 
+							title: "Chi tiết khách hàng"
+						});
+					})
 			})
-		}
+			// })
+			.catch(next);
+	}
 
-	
 	showReExamination(req, res, next) {
 		Reexamination.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId')
 			.then((reExam) => {
