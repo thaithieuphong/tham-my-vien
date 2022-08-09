@@ -3,16 +3,17 @@
 
 	</div>
 	<h3 class="title text-light sticky-top">Dịch vụ</h3>
-	{{> page/sidebar/operating-room/sidebar-doctor-re-exam}}
 
 	<div class="stask">
 	</div>
 </nav>
+{{> page/sidebar/operating-room/sidebar-doctor-re-exam}}
+
 <div class="container-fluid mt-3">
 	<div id="alert-message" class="alert alert-{{message.color}}" role="alert">
 		{{message.content}}
 	</div>
-	<div class="shadow p-3 mb-5 bg-body rounded">
+	<div class="shadow p-3 mb-5 bg-body rounded service-note">
 
 		{{#each reExam}}
 		<div class="row">
@@ -26,7 +27,7 @@
 			<li class="nav-item" role="presentation">
 				<button class="nav-link active " id="pills-profile-customer-tab" data-bs-toggle="pill"
 					data-bs-target="#pills-profile-customer" type="button" role="tab" aria-controls="pills-home"
-					aria-selected="true">Thông tinh</button>
+					aria-selected="true">Thông tin khách hàng</button>
 			</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link  " id="pills-counselor-tab" data-bs-toggle="pill"
@@ -34,25 +35,47 @@
 					aria-selected="false">Hình ảnh tư vấn</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link  " id="pills-before-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-before" type="button" role="tab" aria-controls="pills-before"
-					aria-selected="false">Hình ảnh trước phẩu</button>
+				<button class="nav-link  " id="pills-before-tab" data-bs-toggle="pill" data-bs-target="#pills-before"
+					type="button" role="tab" aria-controls="pills-before" aria-selected="false">Hình ảnh trước
+					phẩu</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link  " id="pills-after-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-after" type="button" role="tab" aria-controls="pills-after"
-					aria-selected="false">Hình ảnh sau phẩu</button>
+				<button class="nav-link  " id="pills-after-tab" data-bs-toggle="pill" data-bs-target="#pills-after"
+					type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh sau
+					phẩu</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link  " id="pills-re-exam-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-re-exam" type="button" role="tab" aria-controls="pills-after"
-					aria-selected="false">Hình ảnh tái khám</button>
+				<button class="nav-link  " id="pills-re-exam-tab" data-bs-toggle="pill" data-bs-target="#pills-re-exam"
+					type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh tái
+					khám</button>
 			</li>
 		</ul>
 
 		<div class="tab-content" id="pills-tabContent">
 
-			<div class="row">
+			<div class="row ">
+				<div class="col-md-6">
+					<div class="text-left ml-4">
+						<div class=" text-success">
+							<label class=" mr-4"><em>{{this.schedule}}</em></label>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="ml-4 mr-4">
+						<label for="status">
+							<strong>Trạng thái:</strong>&nbsp;&nbsp;
+						</label>
+						<label class="text-danger">
+							<em>{{this.status}}</em>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-3">
 				<div class="col-md-6">
 					<label class="ml-4 text-success">
 						<strong> Khách hàng: </strong>&nbsp;&nbsp;
@@ -61,31 +84,13 @@
 						{{this.customerID.firstName}}{{this.customerID.lastName}}
 					</label>
 				</div>
-				<div class="col-md-6">
-					<div class="text-right text-success">
-						<label class=" mr-4"><em>{{this.schedule}}</em></label>
-					</div>
-				</div>
-			</div>
-			<div class="row mt-3">
-				<div class="col-md-6">
-					<div class="text-left ml-4">
+				<div class="col-md-6 ">
+					<div class="ml-4 mr-4">
 						<label for="reception">
-							<strong>Reception:</strong>&nbsp;&nbsp;
+							<strong>Lễ tân:</strong>&nbsp;&nbsp;
 						</label>
 						<label for="reception-name">
-							<em>{{this.recept.firstName}} {{this.recept.lastName}}</em>
-						</label>
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="text-right mr-4">
-						<label for="status">
-							<strong>Trạng thái:</strong>&nbsp;&nbsp;
-						</label>
-						<label class="text-danger">
-							<em>{{this.status}}</em>
+							<em>{{this.recept.firstName}}{{this.recept.lastName}}</em>
 						</label>
 					</div>
 				</div>
@@ -101,7 +106,7 @@
 				</div>
 
 				<div class="col-md-6 ">
-					<div class="text-right mr-4">
+					<div class="ml-4 mr-4">
 						<label for="service-name">
 							<em>{{this.serviceNoteId.service}}</em>
 						</label>
@@ -129,7 +134,7 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="text-right mr-4">
+							<div class="ml-4 mr-4">
 
 								<label class="text-primary">
 									{{#each this.performer}}
@@ -151,7 +156,7 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="text-right mr-4">
+							<div class="ml-4 mr-4">
 								<label class="text-primary">
 									{{#each this.nursing}}
 									<input hidden type="text" name="operatingID[]" value="{{this._id}}">
@@ -175,7 +180,7 @@
 					</div>
 
 					<div class="col-md-6">
-						<div class="text-right mr-4">
+						<div class="ml-4 mr-4">
 							{{#each this.comments}}
 							<label class="">
 								<em>{{this.comment}}</em>
@@ -205,7 +210,7 @@
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.counselorImg}}
 						<div class="col-md-6 mt-2">
-							<img src="/img/uploads/counselor/img/{{this}}" class="rounded mx-auto d-block add-avata"
+							<img src="/img/uploads/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava"
 								alt="...">
 
 						</div>
@@ -214,7 +219,7 @@
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.counselorVideo}}
 						<div class="col-md-6 mt-2">
-							<video class="rounded mx-auto d-block add-avata" controls>
+							<video class="rounded mx-auto d-block upd-ava" controls>
 								<source src="/img/uploads/counselor/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
@@ -228,10 +233,10 @@
 
 			<div class="tab-pane fade  " id="pills-before" role="tabpanel" aria-labelledby="pills-profile-tab">
 				<div class="row">
-					<div class="col-md-6 row mt-2">
+					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.beforeImg}}
 						<div class="col-md-6">
-							<img src="/img/uploads/before/img/{{this}}" class="rounded mx-auto d-block add-avata"
+							<img src="/img/uploads/before/img/{{this}}" class="rounded mx-auto d-block upd-ava"
 								alt="...">
 
 						</div>
@@ -240,7 +245,7 @@
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.beforeVideo}}
 						<div class="col-md-6 mt-2">
-							<video class="rounded mx-auto d-block add-avata" controls>
+							<video class="rounded mx-auto d-block upd-ava" controls>
 								<source src="/img/uploads/before/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
@@ -255,7 +260,7 @@
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.afterImg}}
 						<div class="col-md-6 mt-2">
-							<img src="/img/uploads/after/img/{{this}}" class="rounded mx-auto d-block add-avata"
+							<img src="/img/uploads/after/img/{{this}}" class="rounded mx-auto d-block upd-ava"
 								alt="...">
 
 						</div>
@@ -264,7 +269,7 @@
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.afterVideo}}
 						<div class="col-md-6 mt-2">
-							<video class="rounded mx-auto d-block add-avata" controls>
+							<video class="rounded mx-auto d-block upd-ava" controls>
 								<source src="/img/uploads/after/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
@@ -279,7 +284,7 @@
 					<div class="col-md-6 row">
 						{{#each this.reExamImg}}
 						<div class="col-md-6 mt-2">
-							<img src="/img/uploads/re-examination/img/{{this}}" class="rounded mx-auto d-block add-avata"
+							<img src="/img/uploads/re-examination/img/{{this}}" class="rounded mx-auto d-block upd-ava"
 								alt="...">
 
 						</div>
@@ -288,7 +293,7 @@
 					<div class="col-md-6 row">
 						{{#each this.reExamVideo}}
 						<div class="col-md-6 mt-2">
-							<video class="rounded mx-auto d-block add-avata" controls>
+							<video class="rounded mx-auto d-block upd-ava" controls>
 								<source src="/img/uploads/re-examination/video/{{this}}" type="video/mp4">
 							</video>
 						</div>

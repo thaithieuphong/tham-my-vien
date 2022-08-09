@@ -13,6 +13,7 @@ router.post('/customers/:id/service-note', validateUploadImage.counselorUpload, 
 router.post('/customers', validateUploadImage.uploadSingleCustomer, ManagerBusinessController.createCustomer);
 router.post('/service-note/exam', ManagerBusinessController.createReExam)
 router.get('/customers/:id/detail', ManagerBusinessController.showCustomerDetail)
+router.get('/customers/:id/detail/ctv', ManagerBusinessController.showCustomerDetailCTV)
 router.get('/service-note', ManagerBusinessController.showServiceNote);
 router.get('/customers', ManagerBusinessController.showCustomer);
 router.get('/', ManagerBusinessController.showDashboard);

@@ -3,16 +3,17 @@
 
 	</div>
 	<h3 class="title text-light sticky-top">Dịch vụ</h3>
-	{{> page/sidebar/operating-room/sidebar-nursing-re-exam}}
 
 	<div class="stask">
 	</div>
 </nav>
+{{> page/sidebar/operating-room/sidebar-nursing-re-exam}}
+
 <div class="container-fluid mt-3">
 	<div id="alert-message" class="alert alert-{{message.color}}" role="alert">
 		{{message.content}}
 	</div>
-	<div class="shadow p-3 mb-5 bg-body rounded">
+	<div class="shadow p-3 mb-5 bg-body rounded service-note">
 
 		{{#each reExam}}
 		<div class="row">
@@ -26,7 +27,7 @@
 			<li class="nav-item" role="presentation">
 				<button class="nav-link active" id="pills-profile-customer-tab" data-bs-toggle="pill"
 					data-bs-target="#pills-profile-customer" type="button" role="tab" aria-controls="pills-home"
-					aria-selected="true">Thông tinh</button>
+					aria-selected="true">Thông tin khách hàng</button>
 			</li>
 			<li class="nav-item" role="presentation">
 				<button class="nav-link" id="pills-counselor-tab" data-bs-toggle="pill"
@@ -34,25 +35,48 @@
 					aria-selected="false">Hình ảnh tư vấn</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-before-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-before" type="button" role="tab" aria-controls="pills-before"
-					aria-selected="false">Hình ảnh trước phẩu</button>
+				<button class="nav-link" id="pills-before-tab" data-bs-toggle="pill" data-bs-target="#pills-before"
+					type="button" role="tab" aria-controls="pills-before" aria-selected="false">Hình ảnh trước
+					phẩu</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-after-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-after" type="button" role="tab" aria-controls="pills-after"
-					aria-selected="false">Hình ảnh sau phẩu</button>
+				<button class="nav-link" id="pills-after-tab" data-bs-toggle="pill" data-bs-target="#pills-after"
+					type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh sau
+					phẩu</button>
 			</li>
 			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-re-exam-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-re-exam" type="button" role="tab" aria-controls="pills-after"
-					aria-selected="false">Hình ảnh tái khám</button>
+				<button class="nav-link" id="pills-re-exam-tab" data-bs-toggle="pill" data-bs-target="#pills-re-exam"
+					type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh tái
+					khám</button>
 			</li>
 		</ul>
 
 		<div class="tab-content" id="pills-tabContent">
 
-			<div class="row">
+
+			<div class="row ">
+				<div class="col-md-6">
+					<div class="text-left ml-4">
+						<div class=" text-success">
+							<label class=" mr-4"><em>{{this.schedule}}</em></label>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="ml-4 mr-4">
+						<label for="status">
+							<strong>Trạng thái:</strong>&nbsp;&nbsp;
+						</label>
+						<label class="text-danger">
+							<em>{{this.status}}</em>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-3">
 				<div class="col-md-6">
 					<label class="ml-4 text-success">
 						<strong> Khách hàng: </strong>&nbsp;&nbsp;
@@ -62,30 +86,12 @@
 					</label>
 				</div>
 				<div class="col-md-6">
-					<div class="text-right text-success">
-						<label class=" mr-4"><em>{{this.schedule}}</em></label>
-					</div>
-				</div>
-			</div>
-			<div class="row mt-3">
-				<div class="col-md-6">
-					<div class="text-left ml-4">
+					<div class="ml-4 mr-4">
 						<label for="reception">
-							<strong>Reception:</strong>&nbsp;&nbsp;
+							<strong>Lễ tân:</strong>&nbsp;&nbsp;
 						</label>
 						<label for="reception-name">
 							<em>{{this.recept.firstName}}{{this.recept.lastName}}</em>
-						</label>
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="text-right mr-4">
-						<label for="status">
-							<strong>Trạng thái:</strong>&nbsp;&nbsp;
-						</label>
-						<label class="text-danger">
-							<em>{{this.status}}</em>
 						</label>
 					</div>
 				</div>
@@ -101,7 +107,7 @@
 				</div>
 
 				<div class="col-md-6 ">
-					<div class="text-right mr-4">
+					<div class="ml-4 mr-4">
 						<label for="service-name">
 							<em>{{this.serviceNoteId.service}}</em>
 						</label>
@@ -129,7 +135,7 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="text-right mr-4">
+							<div class="ml-4 mr-4">
 
 								<label class="text-primary">
 									{{#each this.performer}}
@@ -151,7 +157,7 @@
 						</div>
 
 						<div class="col-md-6">
-							<div class="text-right mr-4">
+							<div class="ml-4 mr-4">
 								<label class="text-primary">
 									{{#each this.nursing}}
 									<input hidden type="text" name="operatingID[]" value="{{this._id}}">
@@ -175,7 +181,7 @@
 					</div>
 
 					<div class="col-md-6">
-						<div class="text-right mr-4">
+						<div class="ml-4 mr-4">
 							{{#each this.comments}}
 							<label class="">
 								<em>{{this.comment}}</em>
@@ -205,8 +211,7 @@
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.counselorImg}}
 						<div class="col-md-6 mt-2">
-							<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block add-avata"
-								alt="...">
+							<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
 
 						</div>
 						{{/each}}
@@ -214,7 +219,7 @@
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.counselorVideo}}
 						<div class="col-md-6 mt-2">
-							<video class="rounded mx-auto d-block add-avata" controls>
+							<video class="rounded mx-auto d-block upd-ava" controls>
 								<source src="/counselor/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
@@ -231,8 +236,7 @@
 					<div class="col-md-6 row mt-2">
 						{{#each this.serviceNoteId.beforeImg}}
 						<div class="col-md-6">
-							<img src="/before/img/{{this}}" class="rounded mx-auto d-block add-avata"
-								alt="...">
+							<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
 
 						</div>
 						{{/each}}
@@ -240,7 +244,7 @@
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.beforeVideo}}
 						<div class="col-md-6 mt-2">
-							<video class="rounded mx-auto d-block add-avata" controls>
+							<video class="rounded mx-auto d-block  upd-ava" controls>
 								<source src="/before/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
@@ -255,8 +259,7 @@
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.afterImg}}
 						<div class="col-md-6 mt-2">
-							<img src="/after/img/{{this}}" class="rounded mx-auto d-block add-avata"
-								alt="...">
+							<img src="/after/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
 
 						</div>
 						{{/each}}
@@ -264,7 +267,7 @@
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.afterVideo}}
 						<div class="col-md-6 mt-2">
-							<video class="rounded mx-auto d-block add-avata" controls>
+							<video class="rounded mx-auto d-block upd-ava" controls>
 								<source src="/after/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
@@ -279,8 +282,7 @@
 					<div class="col-md-6 row">
 						{{#each this.reExamImg}}
 						<div class="col-md-6 mt-2">
-							<img src="/re-examination/img/{{this}}" class="rounded mx-auto d-block add-avata"
-								alt="...">
+							<img src="/re-examination/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
 
 						</div>
 						{{/each}}
@@ -288,7 +290,7 @@
 					<div class="col-md-6 row">
 						{{#each this.reExamVideo}}
 						<div class="col-md-6 mt-2">
-							<video class="rounded mx-auto d-block add-avata" controls>
+							<video class="rounded mx-auto d-block upd-ava" controls>
 								<source src="/re-examination/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
@@ -296,35 +298,39 @@
 					</div>
 				</div>
 
-				{{!--upload multi before --}}
+				{{!--upload multi re exam --}}
 
 				<form method="POST" id="upload-img-re-exam-form" enctype="multipart/form-data">
 					<div class="row">
 						<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
 						<div class="col-sm-6">
-							<div class="preview-images-re-exam row ml-0 mt-3 border"></div>
-							<label for="input-multi-images-re-exam" class="label-avt btn btn-primary mt-2">
+							<label for="input-multi-images-re-exam"
+								class="label-avt btn btn-primary btn-upload-mobile mt-2">
 								<h6>Chọn ảnh tái khám</h6>
 							</label>
-							<input id="input-multi-images-re-exam" class="form-control" type="file" name="reExamination" hidden
-								multiple>
+							<div class="preview-images-re-exam row ml-0 mt-3 border"></div>
+
+							<input id="input-multi-images-re-exam" class="form-control" type="file" name="reExamination"
+								hidden multiple>
 						</div>
 						<div class="col-sm-6">
-							<div class="preview-videos-re-exam row ml-0 mt-3 border"></div>
-							<label for="input-multi-videos-re-exam" class="label-avt btn btn-primary mt-2">
+							<label for="input-multi-videos-re-exam"
+								class="label-avt btn btn-primary btn-upload-mobile mt-2">
 								<h6>Chọn video tái khám</h6>
 							</label>
-							<input id="input-multi-videos-re-exam" class="form-control" type="file" name="reExamination" hidden
-								multiple>
+							<div class="preview-videos-re-exam row ml-0 mt-3 border"></div>
+
+							<input id="input-multi-videos-re-exam" class="form-control" type="file" name="reExamination"
+								hidden multiple>
 						</div>
 					</div>
 
 				</form>
 
 
-				<div class=" d-flex justify-content-center">
-					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#re-exam-modal"
-						data-re-exam-id="{{this._id}}">Tải lên</button>
+				<div class=" d-flex justify-content-begin mt-4">
+					<button type="button" class="btn btn-primary btn-upload-mobile" data-bs-toggle="modal"
+						data-bs-target="#re-exam-modal" data-re-exam-id="{{this._id}}">Tải lên</button>
 				</div>
 				{{!-- --}}
 			</div>

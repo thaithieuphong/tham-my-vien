@@ -81,12 +81,6 @@ const ServiceNote = new Schema({
 		}
 	],
 
-	counselorName: [
-		{
-			type: String,
-		}
-	],
-
 	beforeImg: [
 		{
 			type: String,

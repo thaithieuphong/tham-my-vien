@@ -12,6 +12,7 @@ class DoctorOperationRoomController {
 	showDashboard(req, res, next){
 		res.render("operating/doctor/over-view")
 	}
+
 	showServiceNote(req, res, next) {
 		ServiceNote.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')
 			.then((serviceNote) => {
@@ -33,32 +34,7 @@ class DoctorOperationRoomController {
 				})
 			})
 		}
-	showServiceNote(req, res, next) {
-		ServiceNote.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')
-			.then((serviceNote) => {
-				// console.log(serviceNote)
-				const cln = [];
-				serviceNote.forEach(element => {
-					let clns = element.counselorName;
-					for( const element of clns){
-						cln.push(element);
-					}
-					return cln;
 
-				})
-				Counselor.find({ filename: {$in: cln} })
-					.then((counselors) => {
-						console.log(counselors)
-						res.render("operating/doctor/operating-service-note", {
-							serviceNote:  multipleMongooseToObject(serviceNote),
-							counselors: multipleMongooseToObject(counselors), 
-							title: "Chi tiết khách hàng"
-						});
-					})
-			})
-			// })
-			.catch(next);
-	}
 	showReExamination(req, res, next) {
 		Reexamination.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId')
 			.then((reExam) => {

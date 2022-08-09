@@ -167,18 +167,17 @@ class EmployBusinessController {
 		// 	})
 		// 	.catch(next);
 		// res.json(req.params.id)
-		Customer.findById({ _id: req.params.id }).populate('serviceNoteID')
-			.then((customer) => {
-				console.log(customer.counselorName)
-				Counselor.find({ filename: {$in: customer.counselorName}})
-					.then((counselors) => {
-						res.render('business/employ/employ-customer-detail', {
-							customer: mongooseToObject(customer),
-							counselors: multipleMongooseToObject(counselors), 
-							title: "Chi tiết khách hàng"
-						});
-					})
-				
+		Promise.all([
+			Customer.findById({ _id: req.params.id }).populate('serviceNoteID'),
+			User.findById({ _id: req.userId })
+		])
+			.then(([customer, user]) => {
+				res.render('business/employ/employ-customer-detail', {
+					customer: mongooseToObject(customer),
+					user: mongooseToObject(user),
+					title: "Chi tiết khách hàng"
+				});
+
 			})
 			.catch(next);
 		// res.json(req.params)
@@ -201,8 +200,8 @@ class EmployBusinessController {
 			User.findById({ _id: req.userId })
 		])
 			.then(([serviceNotes, serviceNote1s, serviceNote2s, user]) => {
-				
-			
+
+
 
 				res.render('business/employ/employ-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
@@ -256,7 +255,7 @@ class EmployBusinessController {
 		// res.json(req.body)
 	}
 
-	createReExam(req, res, next){
+	createReExam(req, res, next) {
 		const reexamination = new Reexamination({
 			customerID: req.body.customerID,
 			createName: req.body.createName,

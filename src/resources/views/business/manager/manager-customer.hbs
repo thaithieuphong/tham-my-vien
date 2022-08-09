@@ -35,82 +35,8 @@
 	<div class="tab-content" id="pills-tabContent">
 		<div class="tab-pane fade show active" id="pills-system-customer" role="tabpanel"
 			aria-labelledby="pills-home-tab">
-<<<<<<< HEAD
-			
-				<div class="customer-table">
-					<table id="customerTable" class="table table-hover table-bordered table-sm">
-						<thead class="table-info">
-							<tr>
-								<th class="text-center" scope="col">#</th>
-								<th class="text-center" scope="col">Họ tên</th>
-								<th class="text-center" scope="col">Ngày sinh</th>
-								<th class="text-center" scope="col">Giới tính</th>
-								<th class="text-center" scope="col">Số điện thoại</th>
-								<th class="text-center" scope="col">Email</th>
-								<th class="text-center" scope="col">Địa chỉ</th>
-								<th class="text-center" scope="col">Mô tả</th>
-								<th class="text-center" scope="col">Hành động</th>
-							</tr>
-						</thead>
-						<tbody id="table-content">
-							{{#each customers}}
-							<tr>
-								<td class="text-center" scope="row">{{sum @index 1}}</td>
-								<td><a href="/business/manager/customers/{{this._id}}/detail">{{this.firstName}}
-										{{this.lastName}}</a></td>
-								<td class="text-center">{{this.birth}}</td>
-								<td class="text-center">{{this.gender}}</td>
-								<td class="text-center">{{this.phone}}</td>
-								<td>{{this.email}}</td>
-								<td>{{this.address}}</td>
-								<td>{{this.description}}</td>
-								<td class="text-center">
-									<div class="btn-group">
-										<button type="button" class="btn btn-primary btn-sm dropdown-toggle"
-											data-bs-toggle="dropdown" aria-expanded="false">
-											Hành động
-										</button>
-										<ul class="dropdown-menu dropdown-menu-sm">
-											<li>
-												<button type="button" class="dropdown-item" data-bs-toggle="modal"
-													data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
-													data-edit-img="{{this.image.name}}"
-													data-edit-firstname="{{this.firstName}}"
-													data-edit-lastname="{{this.lastName}}"
-													data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
-													data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
-													data-edit-address="{{this.address}}"
-													data-edit-description="{{this.description}}">Sửa thông tin khách
-													hàng</button>
-											</li>
-											<hr class="dropdown-divider">
-											<li>
-												<a class="dropdown-item" data-bs-toggle="modal"
-													data-service-note-id="{{this._id}}"
-													data-service-note-img="{{this.image.name}}"
-													data-service-note-firstname="{{this.firstName}}"
-													data-service-note-lastname="{{this.lastName}}"
-													data-service-note-birth="{{this.birth}}"
-													data-service-note-gender="{{this.gender}}"
-													data-service-note-phone="{{this.phone}}"
-													data-service-note-email="{{this.email}}"
-													data-service-note-address="{{this.address}}"
-													data-service-note-description="{{this.description}}"
-													data-bs-target="#create-service-note-modal">Tạo phiếu dịch vụ</a>
-											</li>
-										</ul>
-									</div>
-								</td>
-							</tr>
-							{{/each}}
-						</tbody>
-					</table>
-				</div>
-				{{!-- <div class="container-card">
-=======
-
-			<div class="container-table">
-				<table id="customer_table" class="table table-hover table-bordered table-sm">
+			<div class="container-table ml-3">
+				<table id="customerTable" class="table table-hover table-bordered table-sm">
 					<thead class="table-info">
 						<tr>
 							<th class="text-center" scope="col">#</th>
@@ -181,7 +107,6 @@
 				<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."
 					title="Type in a name">
 				<div id="search-items">
->>>>>>> vinh
 					{{#each customers}}
 					<div class="card text-dark bg-light mb-3">
 						<div class="card-header  ">
@@ -223,15 +148,9 @@
 			</div>
 
 		</div>
-<<<<<<< HEAD
-		<div class="tab-pane fade show ml-3" id="pills-user-customer" role="tabpanel" aria-labelledby="pills-profile-tab">
-			<div class="container-table">
-				<table id="container-fluids" class="table table-hover table-bordered table-sm">
-=======
 		<div class="tab-pane fade show " id="pills-user-customer" role="tabpanel" aria-labelledby="pills-profile-tab">
 			<div class="container-table ml-3">
 				<table id="container_table" class="table table-hover table-bordered table-sm">
->>>>>>> vinh
 					<thead class="table-info">
 						<tr>
 							<th class="text-center" scope="col">#</th>
@@ -240,6 +159,7 @@
 							<th class="text-center" scope="col">Giới tính</th>
 							<th class="text-center" scope="col">Số điện thoại</th>
 							<th class="text-center" scope="col">Email</th>
+							<th class="text-center" scope="col">Địa chỉ</th>
 							<th class="text-center" scope="col">CTV</th>
 							<th class="text-center" scope="col">Mô tả</th>
 						</tr>
@@ -247,14 +167,16 @@
 					<tbody id="table-content">
 						{{#each customer1s}}
 						<tr>
-							<td class="text-center">{{sum @index 1}}</td>
-							<td><a href="/business/manager/customers/{{this._id}}/detail">{{this.firstName}}
+							<td class="text-center" scope="row">{{sum @index 1}}</td>
+							<td><a href="/business/manager/customers/{{this._id}}/detail/ctv">{{this.firstName}}
 									{{this.lastName}}</a></td>
 							<td class="text-center">{{formatBirth this.birth}}</td>
 							<td class="text-center">{{this.gender}}</td>
 							<td class="text-center">0{{this.phone}}</td>
 							<td>{{this.email}}</td>
-							<td>{{this.userID.firstName}} {{this.userID.lastName}} ({{this.userID.position}})</td>
+							<td>{{this.address}}</td>
+							<td>{{this.userID.firstName}} {{this.userID.lastName}}
+								({{this.userID.position}})</td>
 							<td>{{this.description}}</td>
 						</tr>
 						{{/each}}
@@ -266,26 +188,26 @@
 				<input type="text" id="myInputCTV" onkeyup="myFunctionCTV()" placeholder="Search for names.."
 					title="Type in a name">
 				<div id="search-items-ctv">
-				{{#each customer1s}}
-				<div class="card text-dark bg-light mb-3">
-					<div class="card-header  ">
-						<h5 class="card-title">
-							<a class="text-success" href="/business/manager/customers/{{this._id}}/detail">
-								{{this.firstName}} {{this.lastName}}
-							</a>
-						</h5>
+					{{#each customer1s}}
+					<div class="card text-dark bg-light mb-3">
+						<div class="card-header  ">
+							<h5 class="card-title">
+								<a class="text-success" href="/business/manager/customers/{{this._id}}/detail/ctv">
+									{{this.firstName}} {{this.lastName}}
+								</a>
+							</h5>
+						</div>
+						<div class="card-body">
+							<p class="card-text">Ngày sinh: {{formatBirth this.birth}}</p>
+							<p class="card-text">Giới tính: {{this.gender}}</p>
+							<p class="card-text">SDT: 0{{this.phone}}</p>
+							<p class="card-text">Email: {{this.email}}</p>
+							<p class="card-text">CTV: {{this.userID.firstName}} {{this.userID.lastName}}
+								({{this.userID.position}})</p>
+							<p class="card-text">Mô tả: {{this.description}}</p>
+						</div>
 					</div>
-					<div class="card-body">
-						<p class="card-text">Ngày sinh: {{formatBirth this.birth}}</p>
-						<p class="card-text">Giới tính: {{this.gender}}</p>
-						<p class="card-text">SDT: 0{{this.phone}}</p>
-						<p class="card-text">Email: {{this.email}}</p>
-						<p class="card-text">CTV: {{this.userID.firstName}} {{this.userID.lastName}}
-							({{this.userID.position}})</p>
-						<p class="card-text">Mô tả: {{this.description}}</p>
-					</div>
-				</div>
-				{{/each}}
+					{{/each}}
 				</div>
 			</div>
 
@@ -409,7 +331,8 @@
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header bg-info">
-				<h5 class="modal-title text-light" id="edit-customer-title">Sửa / Cập nhật thông tin người dùng</h5>
+				<h5 class="modal-title text-light" id="edit-customer-title">Sửa / Cập nhật thông tin người dùng
+				</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -559,7 +482,7 @@
 														<label for="name">Họ tên:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
 														<label class="text-uppercase text-danger"
 															id="create-service-note-firstLastName" name="name" readonly>
@@ -575,7 +498,7 @@
 														<label for="birth">Ngày sinh:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
 														<label id="create-service-note-birth" name="birth"
 															readonly></label>
@@ -589,7 +512,7 @@
 														<label for="gender">Giới tính:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
 														<label id="create-service-note-gender" name="gender"
 															readonly></label>
@@ -603,9 +526,10 @@
 														<label for="email">Email address:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
-														<label id="create-service-note-email" name="email"
+														<label id="create-service-note-email"
+															class="d-inline-block text-truncate" name="email"
 															readonly></label>
 													</em>
 												</div>
@@ -617,7 +541,7 @@
 														<label for="phone">Số điện thoại:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
 														<label id="create-service-note-phone" name="phone"
 															readonly></label>
@@ -631,7 +555,7 @@
 														<label for="address">Địa chỉ:</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
 														<label id="create-service-note-address" name="address"
 															readonly></label>
@@ -646,7 +570,7 @@
 														<label for="createName">Người tạo</label>
 													</strong>
 												</div>
-												<div class="col-sm-6 text-right">
+												<div class="col-sm-6 ">
 													<em>
 														<input hidden type="text" value="{{user._id}}" name="createName"
 															id="">
