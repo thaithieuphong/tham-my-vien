@@ -1,6 +1,5 @@
 const User = require("../../models/User");
 const User1 = require("../../models/User");
-
 const Department = require("../../models/Department");
 const Position = require("../../models/Position");
 const {
@@ -32,7 +31,6 @@ class HRController {
 					user: mongooseToObject(user),
 					title: "Quản lý nhân sự"
 				});
-
 			})
 			.catch(next);
 	}
