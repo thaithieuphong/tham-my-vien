@@ -13,8 +13,11 @@
 			</a>
 		</li>
 		<li class="img-container">
-			<img src="/img/uploads/customers/{{user.image.name}}" alt="">
-			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
+			{{#if user.image.name}}
+			<a href="/marketing/employ/profile"><img src="/img/uploads/users/{{user.image.name}}" alt=""></a>
+			{{else}}
+			<a href="/marketing/employ/profile"><img src="/img/user-icon.png" alt=""></a>
+			{{/if}}
 		</li>
 	</ul>
 </div>

@@ -16,6 +16,7 @@ router.post('/service-note/exam', EmployBusinessController.createReExam)
 router.get('/customers/:id/detail', EmployBusinessController.showCustomerDetail)
 router.get('/service-note', EmployBusinessController.showServiceNote);
 router.get('/customers', EmployBusinessController.showCustomer);
+router.get('/profile', EmployBusinessController.showProfile);
 router.get('/', EmployBusinessController.showDashboard);
 /* Business Employ End*/
 

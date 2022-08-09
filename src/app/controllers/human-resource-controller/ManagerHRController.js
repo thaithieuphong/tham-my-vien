@@ -10,14 +10,26 @@ const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const path = require("path");
 
-
 class HRController {
+
+	showProfile(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('profile', {
+					user: mongooseToObject(user),
+					title: 'Thông tin cá nhân'
+				})
+			})
+			.catch(next);
+	}
+
 	showDashboard(req, res, next) {
 		User.findById({ _id: req.userId })
-			.then((user) => {
-				res.render("human-resources/manager/manager-overview", {
-					user: mongooseToObject(user)
-				});
+			.then(user => {
+				res.render('human-resources/manager/manager-overview', {
+					user: mongooseToObject(user),
+					title: 'Tổng quan'
+				})
 			})
 			.catch(next);
 	}

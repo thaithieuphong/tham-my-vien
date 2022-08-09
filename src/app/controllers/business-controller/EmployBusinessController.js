@@ -33,6 +33,17 @@ const drive = google.drive({
 class EmployBusinessController {
 	//BUSINESS EMPLOY
 
+	showProfile(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('profile', {
+					user: mongooseToObject(user),
+					title: 'Thông tin cá nhân'
+				})
+			})
+			.catch(next);
+	}
+
 	showDashboard(req, res, next) {
 		User.findById({ _id: req.userId })
 			.then(user => {

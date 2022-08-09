@@ -6,6 +6,17 @@ const appRoot = require('app-root-path');
 
 class MarketingController {
 
+	showProfile(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('profile', {
+					user: mongooseToObject(user),
+					title: 'Thông tin cá nhân'
+				})
+			})
+			.catch(next);
+	}
+
     //EMPLOY
     showDashboard(req, res, next) {
 		User.findById({_id: req.userId})

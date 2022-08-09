@@ -1,15 +1,5 @@
 <div class="nav-mobile sidebar text-light">
 	<ul class="nav-bottom sidebar-list">
-<<<<<<< HEAD
-		<li class="list active">
-=======
-		{{!-- <li class="list active">
->>>>>>> c60bef3f265ea3b209c2e3bd937ae47cfa9e6da1
-			<a href="/operating-room/nursing">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
-				<span class="nav-text sidebar-text">Trang chủ</span>
-			</a>
-		</li> --}}
 		<li class="list">
 			<a href="/operating-room/nursing/service-note">
 				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
@@ -18,22 +8,16 @@
 		</li>
 		<li class="list ">
 			<a href="/operating-room/nursing/re-examination">
-<<<<<<< HEAD
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-bar-chart"></i></span>
-				<span class="nav-text sidebar-text">Phiếu tái khám</span>
-=======
 				<span class="nav-mobile-icon sidebar-icon"><i class="ti-reload"></i></span>
 				<span class="nav-text sidebar-text">Tái khám</span>
->>>>>>> c60bef3f265ea3b209c2e3bd937ae47cfa9e6da1
 			</a>
 		</li>
 		<li class="img-container">
 			{{#if user.image.name}}
-			<img src="/img/uploads/users/{{user.image.name}}" alt="">
+			<a href="/operating-room/nursing/profile"><img src="/img/uploads/users/{{user.image.name}}" alt=""></a>
 			{{else}}
-			<img src="/img/user-icon.png" alt="">
+			<a href="/operating-room/nursing/profile"><img src="/img/user-icon.png" alt=""></a>
 			{{/if}}
-			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
 		</li>
 	</ul>
 </div>

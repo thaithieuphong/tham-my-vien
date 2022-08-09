@@ -11,6 +11,18 @@ const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mo
 
 
 class ReceptionController {
+
+    showProfile(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('profile', {
+					user: mongooseToObject(user),
+					title: 'Thông tin cá nhân'
+				})
+			})
+			.catch(next);
+	}
+
     getReceptionDashboard(req, res) {
         res.render('reception/reception-overview');
     }

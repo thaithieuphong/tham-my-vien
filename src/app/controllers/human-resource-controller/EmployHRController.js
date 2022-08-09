@@ -11,6 +11,17 @@ const flash = require('connect-flash');
 
 class EmployHRController {
 
+    showProfile(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('profile', {
+					user: mongooseToObject(user),
+					title: 'Thông tin cá nhân'
+				})
+			})
+			.catch(next);
+	}
+
     showUser(req, res, next) {
         Promise.all([User.find({}), User.findById({ _id})])
         
@@ -54,11 +65,6 @@ class EmployHRController {
                             user.account + Math.floor(Math.random() * 100);
                         user.save();
                     }
-                    req.session.message = {
-                        type: 'danger',
-                        intro: 'Chúc mừng! ',
-                        message: 'Bạn tạo người dùng thành công',
-                    }
                     res.redirect("back");
                 })
                 .catch(next);
@@ -90,11 +96,6 @@ class EmployHRController {
                         user.account =
                             user.account + Math.floor(Math.random() * 100);
                         user.save();
-                    }
-                    req.session.message = {
-                        type: 'danger',
-                        intro: 'Chúc mừng! ',
-                        message: 'Bạn tạo người dùng thành công',
                     }
                     res.redirect("back");
                 })
@@ -135,22 +136,12 @@ class EmployHRController {
                         fs.unlinkSync(url);
                     }
                 });
-                req.session.message = {
-                    type: 'danger',
-                    intro: 'Chúc mừng! ',
-                    message: 'Sửa thông tin thành công',
-                }
                 res.redirect("back");
             })
             .catch(next);
         } else {
             User.updateOne({ _id: req.params.id }, req.body)
                 .then(() => {
-                    req.session.message = {
-                        type: 'danger',
-                        intro: 'Chúc mừng! ',
-                        message: 'Sửa thông tin thành công',
-                    }
                     res.redirect("back");
                 })
                 .catch(next);

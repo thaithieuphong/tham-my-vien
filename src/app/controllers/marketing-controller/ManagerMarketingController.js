@@ -3,8 +3,20 @@ const ServiceNote = require('../../models/ServiceNote');
 const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mongoose');
 const fs = require('fs');
 const appRoot = require('app-root-path');
+const User = require('../../models/User');
 
 class MarketingController {
+
+	showProfile(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('profile', {
+					user: mongooseToObject(user),
+					title: 'Thông tin cá nhân'
+				})
+			})
+			.catch(next);
+	}
 
 	//EMPLOY
 	showDashboard(req, res) {

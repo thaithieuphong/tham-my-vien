@@ -10,6 +10,7 @@ router.put('/users/:id/edit', validateUpload.uploadSingleUserEdit, ManagerHRCont
 router.post('/users', ManagerHRController.createUser);
 router.get('/users', ManagerHRController.showUsers);
 router.get('/user/:id/detail', ManagerHRController.detailUser);
+router.get('/profile', ManagerHRController.showProfile);
 router.get('/', ManagerHRController.showDashboard);
 /* Business Manager End*/
 
