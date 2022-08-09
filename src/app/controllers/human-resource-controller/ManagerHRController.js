@@ -27,19 +27,12 @@ class HRController {
 
 	showDashboard(req, res, next) {
 		User.findById({ _id: req.userId })
-<<<<<<< HEAD
 			.then((user) => {
 				res.render("human-resources/manager/manager-overview", {
 					user: mongooseToObject(user),
 					title: "Quản lý nhân sự"
 				});
-=======
-			.then(user => {
-				res.render('human-resources/manager/manager-overview', {
-					user: mongooseToObject(user),
-					title: 'Tổng quan'
-				})
->>>>>>> b66111049f432801dc50c7a91b356ad041fee52d
+
 			})
 			.catch(next);
 	}

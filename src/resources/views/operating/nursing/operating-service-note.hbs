@@ -217,7 +217,7 @@
 
 			<div class="tab-pane fade  " id="pills-before" role="tabpanel" aria-labelledby="pills-profile-tab">
 				<div class="row">
-					<div class="col-md-6 row mt-2">
+					<div class="col-md-6 row ">
 						{{#each this.beforeImg}}
 						<div class="col-md-6">
 							<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
@@ -243,18 +243,18 @@
 					<div class="row">
 						<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
 						<div class="col-sm-6">
-							<div class="preview-images-before row ml-0 mt-3 border"></div>
-							<label for="input-multi-images-before" class="label-avt btn btn-primary mt-2">
+							<label for="input-multi-images-before" class="label-avt btn btn-primary btn-upload-mobile mt-2">
 								<h6>Chọn ảnh trước phẩu</h6>
 							</label>
+							<div class="preview-images-before row ml-0 mt-3 border"></div>
 							<input id="input-multi-images-before" class="form-control" type="file" name="before" hidden
 								multiple>
 						</div>
 						<div class="col-sm-6">
-							<div class="preview-videos-before row ml-0 mt-3 border"></div>
-							<label for="input-multi-videos-before" class="label-avt btn btn-primary mt-2">
+							<label for="input-multi-videos-before" class="label-avt btn btn-primary btn-upload-mobile mt-2">
 								<h6>Chọn video trước phẩu</h6>
 							</label>
+							<div class="preview-videos-before row ml-0 mt-3 border"></div>
 							<input id="input-multi-videos-before" class="form-control" type="file" name="before" hidden
 								multiple>
 						</div>
@@ -263,7 +263,7 @@
 				</form>
 
 
-				<div class=" d-flex justify-content-center">
+				<div class=" d-flex justify-content-center mt-4">
 					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#before-modal"
 						data-before-id="{{this._id}}">Tải lên</button>
 				</div>
@@ -297,18 +297,18 @@
 					<div class="row">
 						<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
 						<div class="col-sm-6">
-							<div class="preview-images-after row ml-0 mt-3 border"></div>
-							<label for="input-multi-images-after" class="label-avt btn btn-primary mt-2">
-								<h6>Chọn ảnh trước phẩu</h6>
+							<label for="input-multi-images-after" class="label-avt btn btn-primary btn-upload-mobile mt-2">
+								<h6>Chọn ảnh sau phẩu</h6>
 							</label>
+							<div class="preview-images-after row ml-0 mt-3 border"></div>
 							<input id="input-multi-images-after" class="form-control" type="file" name="after" hidden
 								multiple>
 						</div>
 						<div class="col-sm-6">
-							<div class="preview-videos-after row ml-0 mt-3 border"></div>
-							<label for="input-multi-videos-after" class="label-avt btn btn-primary mt-2">
-								<h6>Chọn video trước phẩu</h6>
+							<label for="input-multi-videos-after" class="label-avt btn btn-primary btn-upload-mobile mt-2">
+								<h6>Chọn video sau phẩu</h6>
 							</label>
+							<div class="preview-videos-after row ml-0 mt-3 border"></div>
 							<input id="input-multi-videos-after" class="form-control" type="file" name="after" hidden
 								multiple>
 						</div>
@@ -316,7 +316,7 @@
 
 				</form>
 
-				<div class=" d-flex justify-content-center">
+				<div class=" d-flex justify-content-center mt-4">
 					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#after-modal"
 						data-after-id="{{this._id}}">Tải lên</button>
 				</div>
