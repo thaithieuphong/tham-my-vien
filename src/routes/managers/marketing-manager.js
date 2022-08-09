@@ -12,6 +12,7 @@ router.post('/customers', validateUploadImage.uploadSingleCustomer, MarketingCon
 
 router.get('/customers/:id/detail', MarketingController.showCustomerDetail);
 router.get('/customers', MarketingController.showCustomer);
+router.get('/profile', MarketingController.showProfile);
 router.get('/', MarketingController.showDashboard);
 
 

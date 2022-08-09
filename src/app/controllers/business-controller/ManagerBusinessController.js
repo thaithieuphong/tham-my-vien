@@ -16,11 +16,16 @@ class ManagerBusinessController {
 
 	//BUSINESS MANAGER
 
-	// show404(req, res, next) {
-	// 	res.render("err/404", {
-	// 		title: 'Bảng báo cáo'
-	// 	});
-	// }
+	showProfile(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('profile', {
+					user: mongooseToObject(user),
+					title: 'Thông tin cá nhân'
+				})
+			})
+			.catch(next);
+	}
 
 	showDashboard(req, res) {
 		Promise.all([

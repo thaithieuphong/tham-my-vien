@@ -16,6 +16,7 @@ router.get('/customers/:id/detail', ManagerBusinessController.showCustomerDetail
 router.get('/customers/:id/detail/ctv', ManagerBusinessController.showCustomerDetailCTV)
 router.get('/service-note', ManagerBusinessController.showServiceNote);
 router.get('/customers', ManagerBusinessController.showCustomer);
+router.get('/profile', ManagerBusinessController.showProfile);
 router.get('/', ManagerBusinessController.showDashboard);
 /* Business Manager End*/
 

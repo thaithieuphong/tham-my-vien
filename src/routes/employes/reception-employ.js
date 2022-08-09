@@ -11,6 +11,7 @@ router.patch('/service-note/:id', ReceptionController.pushPerformer);
 router.patch('/reexam/:id', ReceptionController.pushOperationToReexam);
 
 router.get('/re-exam', ReceptionController.showReExam)
+router.get('/profile', ReceptionController.showProfile);
 router.get('/', ReceptionController.showServiceNote);
 
 

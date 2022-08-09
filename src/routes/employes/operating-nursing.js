@@ -11,6 +11,7 @@ router.post('/service-note/after/:id', validateUpload.afterUpload, NursingContro
 router.post('/re-examination/reexam/:id', validateUpload.reExaminationUpload, NursingController.uploadReExam)
 router.get('/service-note', NursingController.showServiceNote);
 router.get('/re-examination', NursingController.showReExamination);
+router.get('/profile', NursingController.showProfile);
 router.get('/', NursingController.showDashboard)
 
 module.exports = router;

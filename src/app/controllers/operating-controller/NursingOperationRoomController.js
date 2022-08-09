@@ -1,10 +1,21 @@
 const User = require('../../models/User');
 const { multipleMongooseToObject, mongooseToObject } = require('../../../util/mongoose');
 const ServiceNote = require('../../models/ServiceNote');
-// const Counselor = require('../../models/Counselor');
 const Reexamination = require('../../models/Reexamination');
 
 class NursingController {
+
+	showProfile(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('profile', {
+					user: mongooseToObject(user),
+					title: 'Thông tin cá nhân'
+				})
+			})
+			.catch(next);
+	}
+
 	showDashboard(req, res, next){
 		User.findById({ _id: req.userId })
 			.then((user) => {

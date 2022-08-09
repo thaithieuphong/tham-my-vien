@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="/css/profile.css">
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                {{#if user.image.name}}
+                <img class="rounded-circle mt-3" width="150px" src="/img/uploads/users/{{user.image.name}}">
+                {{else}}
+                <img class="rounded-circle mt-3" width="150px" src="/img/user-icon.png">
+                {{/if}}
+                <span class="font-weight-bold mt-3">{{user.firstName}} {{user.lastName}}</span>
+                <span class="text-black-50">{{user.email}}</span>
+            </div>
+        </div>
+        <div class="col-md-9 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">THÔNG TIN NGƯỜI DÙNG</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label >Họ tên:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.firstName}} {{user.lastName}}</p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label >Ngày sinh:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.birth}}</p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label >Giới tính:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.gender}}</p>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label >Điện thoại:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.phone}}</p>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label >Email:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.email}}</p>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label >Địa chỉ:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.address}}</p>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label >Phòng ban:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.department}}</p>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label >Chức vụ:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.position}}</p>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label >Tài khoản:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.account}}</>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label >Quyền hạn:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.role}}</p>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md">
+                        <label for="description">Mô tả:</label>
+                        <textarea id="description" class="form-control bg-white" rows="6" readonly>{{user.description}}</textarea>
+                    </div>
+                </div>
+                <form method="POST" action="/logout">
+                    <div class="mt-5 text-right"><button href="/logout" class="btn btn-primary profile-button" type="submit">Đăng xuất</></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

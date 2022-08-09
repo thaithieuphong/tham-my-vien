@@ -210,10 +210,17 @@
 				<div class="row">
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.counselorImg}}
-						<div class="col-md-6 mt-2">
-							<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
-
-						</div>
+							{{#if this.serviceNoteId.counselorImg}}
+								<div class="col-md-6 mt-2">
+									<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava"
+										alt="...">
+								</div>
+							{{else}}
+								<div class="col-md-6 mt-2">
+									<img src="/img/user-icon.png" class="rounded mx-auto d-block upd-ava"
+										alt="...">
+								</div>
+							{{/if}}
 						{{/each}}
 					</div>
 					<div class="col-md-6 row">

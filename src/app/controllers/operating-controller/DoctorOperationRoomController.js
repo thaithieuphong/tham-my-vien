@@ -8,6 +8,16 @@ const Reexamination = require('../../models/Reexamination');
 class DoctorOperationRoomController {
 	//doctor
 	// , status: "Đang xử lý"
+	showProfile(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('profile', {
+					user: mongooseToObject(user),
+					title: 'Thông tin cá nhân'
+				})
+			})
+			.catch(next);
+	}
 
 	showDashboard(req, res, next){
 		res.render("operating/doctor/over-view")
@@ -35,6 +45,7 @@ class DoctorOperationRoomController {
 			})
 		}
 
+	
 	showReExamination(req, res, next) {
 		Reexamination.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId')
 			.then((reExam) => {

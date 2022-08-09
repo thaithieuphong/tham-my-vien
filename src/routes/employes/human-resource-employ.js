@@ -8,8 +8,7 @@ const validateUpload = require('../../middleware/validateUpload');
 router.put("/users", HRController.editUser);
 
 router.post("/users", HRController.createUser);
-
+router.get("/profile", HRController.showProfile);
 router.get("/users", HRController.showUser);
-
 
 module.exports = router;

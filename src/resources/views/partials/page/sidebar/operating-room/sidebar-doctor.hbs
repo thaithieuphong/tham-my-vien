@@ -1,6 +1,5 @@
 <div class="nav-mobile sidebar text-light">
 	<ul class="nav-bottom sidebar-list">
-
 		<li class="list active">
 			<a href="/operating-room/doctor">
 				<span class="nav-mobile-icon sidebar-icon"><i class="ti-view-list"></i></span>
@@ -21,11 +20,10 @@
 		</li>
 		<li class="img-container">
 			{{#if user.image.name}}
-			<img src="/img/uploads/users/{{user.image.name}}" alt="">
+			<a href="/operating-room/doctor/profile"><img src="/img/uploads/users/{{user.image.name}}" alt=""></a>
 			{{else}}
-			<img src="/img/user-icon.png" alt="">
+			<a href="/operating-room/doctor/profile"><img src="/img/user-icon.png" alt=""></a>
 			{{/if}}
-			{{!-- <a class="" href="#" data-user-id="{{user._id}}">{{user.firstName}} {{user.lastName}}</a> --}}
 		</li>
 	</ul>
 </div>
