@@ -27,8 +27,17 @@
 			aria-labelledby="pills-home-tab">
 			<div class="row ">
 				<div class="col-xl-6 mt-3">
-					<img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt"
-						class="rounded  add-avata" alt="...">
+					{{#if customer.image.name}}
+					<div class="col-md-6 mt-2 text-center">
+						<img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt"
+							class="rounded  add-avata" alt="...">
+					</div>
+					{{else}}
+					<div class="col-md-6 mt-2 text-center">
+						<img src="/img/user-icon.png" id="add-avt"
+							class="rounded  add-avata" alt="...">
+					</div>
+					{{/if}}
 
 					<div class=" mb-3 mt-3 row">
 						<div class="col-sm-6 ">
@@ -127,8 +136,6 @@
 							disabled>{{customer.description}}</textarea>
 				</div>
 				<div class="col-xl-6 ">
-
-
 					<ul class="list-group comment-content-page border mt-4">
 						{{#each customer.comments}}
 						<li class="list-group-item bg-light ml-2 mr-2 mt-2">

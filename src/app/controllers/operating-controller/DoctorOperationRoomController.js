@@ -20,11 +20,8 @@ class DoctorOperationRoomController {
 
 	showDashboard(req, res, next){
 		User.findById({ _id: req.userId })
-			.then(user => {
-				res.render('operating/doctor/over-view', {
-					user: mongooseToObject(user),
-					title: 'Thông tin cá nhân'
-				})
+			.then(() => {
+				res.redirect('/operating-room/doctor/service-note')
 			})
 			.catch(next);
 	}
@@ -32,41 +29,24 @@ class DoctorOperationRoomController {
 	showServiceNote(req, res, next) {
 		Promise.all([ServiceNote.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'), User.findById({ _id: req.userId })])
 			.then(([serviceNote, user]) => {
-				// console.log(serviceNote)
-				const cln = [];
-				serviceNote.forEach(element => {
-					let clns = element.counselorName;
-					for( const element of clns){
-						cln.push(element);
-					}
-					return cln;
-
-				})
-				Counselor.find({ filename: {$in: cln} })
-					.then((counselors) => {
-						console.log(counselors)
-						res.render("operating/doctor/operating-service-note", {
-							serviceNote:  multipleMongooseToObject(serviceNote),
-							counselors: multipleMongooseToObject(counselors), 
-							user: mongooseToObject(user), 
-							title: "Chi tiết khách hàng"
-						});
-					})
+				res.render("operating/doctor/operating-service-note", {
+					serviceNote:  multipleMongooseToObject(serviceNote),
+					user: mongooseToObject(user), 
+					title: "Chi tiết khách hàng"
+				});
 			})
-			// })
 			.catch(next);
 	}
 
 	showReExamination(req, res, next) {
-		Reexamination.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId')
-			.then((reExam) => {
+		Promise.all([Reexamination.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId'), User.findById({ _id: req.userId })])
+			.then(([reExam, user]) => {
 				res.render("operating/doctor/operating-re-exam", {
 					reExam: multipleMongooseToObject(reExam),
-
+					user: mongooseToObject(user),
 					title: "Chi tiết khách hàng"
 				})
 			})
-			// })
 			.catch(next);
 
 	}
