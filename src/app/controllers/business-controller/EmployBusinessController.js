@@ -228,7 +228,7 @@ class EmployBusinessController {
 
 	createServiceNote(req, res, next) {
 
-		// console.log(req.files);
+		console.log(req.files);
 		const file = req.files;
 		const fnimg = [];
 		const fnvideo = []

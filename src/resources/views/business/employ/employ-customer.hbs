@@ -105,14 +105,14 @@
 					<p class="card-text">Email: {{this.email}}</p>
 					<p class="card-text">Mô tả: {{this.description}}</p>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-md btn-primary" data-bs-toggle="modal"
+				<div class="card-footer">
+					<button type="button" class="btn btn-md btn-primary btn-mobile" data-bs-toggle="modal"
 						data-bs-target="#edit-customer-modal" data-id="{{this._id}}" data-edit-img="{{this.image.name}}"
 						data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
 						data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
 						data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
 						data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">Sửa</button>
-					<button type="button" class="btn btn-md btn-success" data-bs-toggle="modal"
+					<button type="button" class="btn btn-md btn-success btn-mobile" data-bs-toggle="modal"
 						data-service-note-id="{{this._id}}" data-service-note-img="{{this.image.name}}"
 						data-service-note-firstname="{{this.firstName}}" data-service-note-lastname="{{this.lastName}}"
 						data-service-note-birth="{{this.birth}}" data-service-note-gender="{{this.gender}}"
@@ -506,19 +506,35 @@
 							<div class="row">
 								<div class="col-md-5">
 									<div class="mb-3">
-										<label for="service" class="form-label">
-											<h6>Chọn dịch vụ:</h6>
-										</label>
-										<select id="select-service" class="chosen-select" multiple tabindex="6"
+										<div>
+											<label for="service" class="form-label ">
+												<h6>Chọn dịch vụ:</h6>
+											</label>
+										</div>
+
+										<select id="select-service" class="chosen-select container-table" multiple tabindex="6"
 											name="service[]">
 											{{#each typeservices}}
 											<optgroup label="{{this.name}}">
 												{{#each this.services}}
 												<option value="{{this.service}}">{{this.service}}</option>
 												{{/each}}
-											<optgroup>
-												{{/each}}
+											</optgroup>
+											{{/each}}
 										</select>
+
+										<div id="list1" class="dropdown-check-list container-card" tabindex="100">
+											<span class="anchor ">Chọn dịch vụ</span>
+											<ul class="items">
+												{{#each typeservices}}
+												<li> {{this.name}}</li>
+												{{#each this.services}}
+												<li><input type="checkbox" value="{{this.service}}" name="service[]"	 />{{this.service}}
+												</li>
+												{{/each}}
+												{{/each}}
+											</ul>
+										</div>
 									</div>
 									<div class="mb-3">
 										<label for="schedule" class="form-label">
@@ -576,3 +592,4 @@
 </div>
 
 <script src="/js/business/business-employ-customer.js"></script>
+

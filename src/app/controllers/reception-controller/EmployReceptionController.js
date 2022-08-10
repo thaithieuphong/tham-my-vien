@@ -65,7 +65,7 @@ class ReceptionController {
     }
 
     pushPerformer(req, res, next) {
-        // console.log(req.body);
+        console.log(req.body);
         Promise.all([
             ServiceNote.findByIdAndUpdate({ _id: req.params.id },
                 {
