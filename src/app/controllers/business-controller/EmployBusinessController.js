@@ -11,23 +11,7 @@ const Reexamination = require('../../models/Reexamination');
 const fs = require('fs');
 const path = require('path');
 const appRoot = require('app-root-path');
-
 require('dotenv').config();
-
-const { google } = require('googleapis');
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
-const redirectURI = process.env.REDIRECT_URI;
-const refreshTokenGG = process.env.REFRESH_TOKEN_GOOGLE;
-const folderId = process.env.GOOGLE_API_FOLDER_ID;
-
-const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret, redirectURI);
-oAuth2Client.setCredentials({ refresh_token: refreshTokenGG });
-
-const drive = google.drive({
-	version: 'v3',
-	auth: oAuth2Client,
-})
 
 
 class EmployBusinessController {
@@ -45,11 +29,7 @@ class EmployBusinessController {
 	}
 
 	showDashboard(req, res, next) {
-		User.findById({ _id: req.userId })
-			.then(() => {
-				res.redirect('/business/employ/customers')
-			})
-			.catch(next);
+		res.redirect('/business/employ/customers')
 	}
 
 	/** Customer */
@@ -153,24 +133,6 @@ class EmployBusinessController {
 	}
 
 	showCustomerDetail(req, res, next) {
-		// console.log(req.params.id);
-		// Promise.all([Customer.findById(req.params.id), ServiceNote.find({customerID: req.params.id})])
-		// 	.then(([customer, serviceNote]) => {
-		// 		let commnetArray = customer.comments;
-		// 		commnetArray.forEach(element => {
-		// 			var date = new Date(element.createdAt);
-		// 			var newDate = date.toLocaleString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' })
-		// 			console.log('day', newDate)
-		// 			return newDate;
-		// 		})
-		// 		res.render('business/employ/employ-customer-detail', {
-		// 			customer: mongooseToObject(customer),
-		// 			serviceNote:multipleMongooseToObject(serviceNote),
-		// 			title: "Chi tiết khách hàng"
-		// 		});
-		// 	})
-		// 	.catch(next);
-		// res.json(req.params.id)
 		Promise.all([
 			Customer.findById({ _id: req.params.id }).populate('serviceNoteID'),
 			User.findById({ _id: req.userId })
@@ -216,7 +178,6 @@ class EmployBusinessController {
 				});
 			})
 			.catch(next);
-		// res.json(req.userId)
 	}
 
 	createServiceNote(req, res, next) {
@@ -253,10 +214,6 @@ class EmployBusinessController {
 				res.redirect('back');
 
 			})
-
-
-
-		// res.json(req.body)
 	}
 
 	createReExam(req, res, next) {
@@ -271,7 +228,6 @@ class EmployBusinessController {
 		})
 		reexamination.save();
 		res.redirect('back');
-		// res.json(req.body)
 	}
 }
 

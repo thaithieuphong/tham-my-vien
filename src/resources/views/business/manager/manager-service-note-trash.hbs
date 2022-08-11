@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phiếu dịch vụ đã xóa</title>
 </head>
-
 <body>
     {{> page/sidebar/business/manager/sidebar-manager-business}}
-
-
     <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
         <div class="title">
             <a href="/business/manager/service-note" class="text-light"><i class="ti-back-left"></i> Quay lại</a>
@@ -125,14 +121,11 @@
         $('#deleteModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             id = button.data('id');
-
         })
-
         btnDel.onclick = function () {
             delForm.action = '/manager/service-note-trash/' + id + '?_method=DELETE';
             delForm.submit();
         }
-
         btnRestore.onclick = function (e) {
             e.preventDefault();
             var idd = $(this).data('idd');
@@ -141,5 +134,4 @@
         }
     });
 </script>
-
 </html>
