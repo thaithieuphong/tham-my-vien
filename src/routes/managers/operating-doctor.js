@@ -8,5 +8,6 @@ router.get('/service-note', DoctorController.showServiceNote);
 router.get('/re-examination', DoctorController.showReExamination);
 router.get('/profile', DoctorController.showProfile);
 router.get('/', DoctorController.showDashboard);
+router.post('/change-pass', DoctorController.changePassword)
 
 module.exports = router;

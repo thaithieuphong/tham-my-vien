@@ -12,6 +12,8 @@ router.post('/userid', ManagerBusinessController.addUseridToCustomer)
 router.post('/customers/:id/service-note', validateUploadImage.counselorUpload, ManagerBusinessController.createServiceNote);
 router.post('/customers', validateUploadImage.uploadSingleCustomer, ManagerBusinessController.createCustomer);
 router.post('/service-note/exam', ManagerBusinessController.createReExam)
+router.post('/change-pass', ManagerBusinessController.changePassword)
+
 router.get('/customers/:id/detail', ManagerBusinessController.showCustomerDetail)
 router.get('/customers/:id/detail/ctv', ManagerBusinessController.showCustomerDetailCTV)
 router.get('/service-note', ManagerBusinessController.showServiceNote);

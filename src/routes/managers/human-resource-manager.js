@@ -8,6 +8,8 @@ const authJwt = require('../../middleware/authJwt');
 router.delete('/users/:id/delete', ManagerHRController.deleteUser);
 router.put('/users/:id/edit', validateUpload.uploadSingleUserEdit, ManagerHRController.editUser);
 router.post('/users', ManagerHRController.createUser);
+router.post('/change-pass', ManagerHRController.changePassword)
+
 router.get('/users', ManagerHRController.showUsers);
 router.get('/user/:id/detail', ManagerHRController.detailUser);
 router.get('/profile', ManagerHRController.showProfile);

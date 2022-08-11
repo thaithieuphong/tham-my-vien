@@ -9,6 +9,7 @@ const validateUploadImage = require('../../middleware/validateUpload');
 router.put('/customers/:id', validateUploadImage.uploadSingleCustomer, MarketingController.editCustomer);
 
 router.post('/customers', validateUploadImage.uploadSingleCustomer, MarketingController.createCustomer);
+router.post('/change-pass', MarketingController.changePassword)
 
 router.get('/customers/:id/detail', MarketingController.showCustomerDetail);
 router.get('/customers', MarketingController.showCustomer);

@@ -9,6 +9,8 @@ router.patch('/re-examination/:id', NursingController.updateReExamination)
 router.post('/service-note/before/:id', validateUpload.beforeUpload, NursingController.uploadBefore)
 router.post('/service-note/after/:id', validateUpload.afterUpload, NursingController.uploadAfter)
 router.post('/re-examination/reexam/:id', validateUpload.reExaminationUpload, NursingController.uploadReExam)
+router.post('/change-pass', NursingController.changePassword)
+
 router.get('/service-note', NursingController.showServiceNote);
 router.get('/re-examination', NursingController.showReExamination);
 router.get('/profile', NursingController.showProfile);

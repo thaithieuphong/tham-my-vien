@@ -3,6 +3,7 @@ const User = require('../../models/User');
 const User1 = require('../../models/User');
 const User2 = require('../../models/User');
 const Reexamination = require('../../models/Reexamination');
+const bcrypt = require("bcryptjs");
 
 
 
@@ -102,6 +103,20 @@ class ReceptionController {
         // res.json(req.body)
     }
 
+    changePassword(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then((user) => {
+				var result = bcrypt.compareSync(req.body.oldPass, user.password)
+				if(result){
+					User.findByIdAndUpdate({ _id: req.userId },{ password: bcrypt.hashSync(req.body.newPass, 8)})
+						.then(() =>{
+							res.redirect('/')
+						})
+				}
+			})
+			.catch(next);
+		// res.json(req.body);
+	}
 
 };
 

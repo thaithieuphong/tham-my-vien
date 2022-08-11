@@ -3,6 +3,7 @@ const User = require('../../models/User');
 const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mongoose');
 const fs = require('fs');
 const appRoot = require('app-root-path');
+const bcrypt = require("bcryptjs");
 
 class MarketingController {
 
@@ -55,6 +56,21 @@ class MarketingController {
 				});
 			})
 			.catch(next);
+	}
+
+	changePassword(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then((user) => {
+				var result = bcrypt.compareSync(req.body.oldPass, user.password)
+				if(result){
+					User.findByIdAndUpdate({ _id: req.userId },{ password: bcrypt.hashSync(req.body.newPass, 8)})
+						.then(() =>{
+							res.redirect('/')
+						})
+				}
+			})
+			.catch(next);
+		// res.json(req.body);
 	}
 
 	createCustomer(req, res, next) {

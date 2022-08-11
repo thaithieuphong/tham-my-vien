@@ -11,6 +11,7 @@ router.put('/customers/:id', validateUploadImage.uploadSingleCustomer, EmployBus
 router.post('/customers/:id/service-note', validateUploadImage.counselorUpload, EmployBusinessController.createServiceNote);
 router.post('/customers', validateUploadImage.uploadSingleCustomer, EmployBusinessController.createCustomer);
 router.post('/service-note/exam', EmployBusinessController.createReExam)
+router.post('/change-pass', EmployBusinessController.changePassword)
 
 router.get('/customers/:id/detail', EmployBusinessController.showCustomerDetail)
 router.get('/service-note', EmployBusinessController.showServiceNote);

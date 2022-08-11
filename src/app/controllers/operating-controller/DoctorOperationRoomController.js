@@ -3,6 +3,7 @@ const ServiceNote = require('../../models/ServiceNote');
 const Counselor = require('../../models/Counselor');
 const Reexamination = require('../../models/Reexamination');
 const User = require('../../models/User');
+const bcrypt = require("bcryptjs");
 
 
 class DoctorOperationRoomController {
@@ -51,6 +52,20 @@ class DoctorOperationRoomController {
 
 	}
 
+	changePassword(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then((user) => {
+				var result = bcrypt.compareSync(req.body.oldPass, user.password)
+				if(result){
+					User.findByIdAndUpdate({ _id: req.userId },{ password: bcrypt.hashSync(req.body.newPass, 8)})
+						.then(() =>{
+							res.redirect('/')
+						})
+				}
+			})
+			.catch(next);
+		// res.json(req.body);
+	}
 
 
 

@@ -65,7 +65,6 @@ class ManagerBusinessController {
 			.then((user) => {
 				var result = bcrypt.compareSync(req.body.oldPass, user.password)
 				if(result){
-					console.log("Success!!!!");
 					User.findByIdAndUpdate({ _id: req.userId },{ password: bcrypt.hashSync(req.body.newPass, 8)})
 						.then(() =>{
 							res.redirect('/')

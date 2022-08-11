@@ -2,6 +2,7 @@ const User = require('../../models/User');
 const { multipleMongooseToObject, mongooseToObject } = require('../../../util/mongoose');
 const ServiceNote = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
+const bcrypt = require("bcryptjs");
 
 class NursingController {
 
@@ -48,6 +49,21 @@ class NursingController {
 			// })
 			.catch(next);
 
+	}
+
+	changePassword(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then((user) => {
+				var result = bcrypt.compareSync(req.body.oldPass, user.password)
+				if(result){
+					User.findByIdAndUpdate({ _id: req.userId },{ password: bcrypt.hashSync(req.body.newPass, 8)})
+						.then(() =>{
+							res.redirect('/')
+						})
+				}
+			})
+			.catch(next);
+		// res.json(req.body);
 	}
 
 	updateServiceNote(req, res, next) {
