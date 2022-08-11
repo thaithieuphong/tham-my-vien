@@ -8,6 +8,8 @@ const ServiceNote = require('../../models/ServiceNote');
 const ServiceNote1 = require('../../models/ServiceNote');
 const ServiceNote2 = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
+const bcrypt = require("bcryptjs");
+
 const fs = require('fs');
 const path = require('path');
 const appRoot = require('app-root-path');
@@ -182,7 +184,7 @@ class EmployBusinessController {
 
 	createServiceNote(req, res, next) {
 
-		// console.log(req.files);
+		console.log(req.files);
 		const file = req.files;
 		const fnimg = [];
 		const fnvideo = []

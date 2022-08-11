@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/profile.css">
-<div class="container rounded bg-white mt-5 mb-5">
+<div class="container bg-white mb-3">
     <div class="row">
-        <div class="title mt-3">
+        <div class="mt-3">
             <a type="button" onclick="history.back()" class=""><i class="ti-back-left"></i> Quay lại</a>
         </div>
         <div class="col-md-3 border-right">
@@ -16,13 +16,13 @@
             </div>
         </div>
         <div class="col-md-9 border-right">
-            <div class="p-3 py-5">
+            <div class="p-3 py-3">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4 class="text-right">THÔNG TIN NGƯỜI DÙNG</h4>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Họ tên:</label>
+                        <label>Họ tên:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.firstName}} {{user.lastName}}</p>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
-                        <label >Ngày sinh:</label>
+                        <label>Ngày sinh:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.birth}}</p>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
-                        <label >Giới tính:</label>
+                        <label>Giới tính:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.gender}}</p>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
-                        <label >Điện thoại:</label>
+                        <label>Điện thoại:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.phone}}</p>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Email:</label>
+                        <label>Email:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.email}}</p>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Địa chỉ:</label>
+                        <label>Địa chỉ:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.address}}</p>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Phòng ban:</label>
+                        <label>Phòng ban:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.department}}</p>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Chức vụ:</label>
+                        <label>Chức vụ:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.position}}</p>
@@ -86,15 +86,15 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Tài khoản:</label>
+                        <label>Tài khoản:</label>
                     </div>
                     <div class="col-md-6">
-                        <p class="text-right">{{user.account}}</>
+                        <p class="text-right">{{user.account}}</p>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Quyền hạn:</label>
+                        <label>Quyền hạn:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.role}}</p>
@@ -103,13 +103,236 @@
                 <div class="row mt-2">
                     <div class="col-md">
                         <label for="description">Mô tả:</label>
-                        <textarea id="description" class="form-control bg-white" rows="6" readonly>{{user.description}}</textarea>
+                        <textarea id="description" class="form-control bg-white" rows="6"
+                            readonly>{{user.description}}</textarea>
                     </div>
                 </div>
-                <form method="POST" action="/logout">
-                    <div class="mt-5 text-right"><button href="/logout" class="btn btn-primary profile-button" type="submit">Đăng xuất</></div>
-                </form>
+                <div class="modal-footer">
+                    <form method="POST" action="/logout">
+                        <button href="/logout" class="btn btn-danger " type="submit">Đăng xuất</button>
+                    </form>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#change-password-modal"
+                        type="submit">Đổi mật khẩu</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="change-password-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Đổi mật khẩu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="change-password-form">
+                    <div class="form-group mt-2">
+                        <label class="form-label">Mật khẩu cũ:</label>
+                        <input type="password" name="oldPass" rules="required|min:6" class="form-control" placeholder="*****"></input>
+                        <span class="form-message mt-1"></span>
+                        {{#if messages_password_failure}}
+                        <span class="form-message text-danger mt-1">{{messages_password_failure}}</span>
+                        {{else}}
+                        <span class="form-message mt-1"></span>
+                        {{/if}}
+                    </div>
+                    <div class="form-group mt-2">
+                        <label class="form-label">Mật khẩu mới:</label>
+                        <input id="newPass" type="password" name="newPass" rules="required|min:6|password" class="form-control" placeholder="*****"></input>
+                        <span class="form-message mt-1"></span>
+                        {{#if messages_password_failure}}
+                        <span class="form-message text-danger mt-1">{{messages_password_failure}}</span>
+                        {{else}}
+                        <span class="form-message mt-1"></span>
+                        {{/if}}
+                    </div>
+                    <div class="form-group mt-2">
+                        <label class="form-label">Nhập lại mật khẩu mới:</label>
+                        <input id="reNewPass" type="password" name="reNewPass" rules="required|min:6|password" class="form-control" placeholder="*****"></input>
+                        <span class="form-message mt-1"></span>
+                        {{#if messages_password_failure}}
+                        <span class="form-message text-danger mt-1">{{messages_password_failure}}</span>
+                        {{else}}
+                        <span class="form-message mt-1"></span>
+                        {{/if}}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="change-password-btn">Đổi mật khẩu</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var changePassModal = document.getElementById('change-password-modal');
+    var changePassForm = document.forms['change-password-form'];
+    var changePassBtn = document.getElementById('change-password-btn');
+
+    
+
+    changePassModal.addEventListener('show.bs.modal', function(event){
+        var button = event.relatedTarget;
+        changePassForm.setAttribute('action', `change-pass`)
+        function getParent (element, selector) {
+        elementParent = element.parentElement;
+        while (elementParent) {
+            if (elementParent.matches(selector)) {
+                return elementParent;
+            }
+            element = elementParent;
+        }
+    } 
+    var formRules = {};
+    var validateRules = {
+        required: function (value) {
+            return value ? undefined : 'Vui lòng nhập trường này';
+        },
+
+        email: function (value) {
+            var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            return regex.test(value) ? undefined : 'Vui lòng nhập đúng email';
+        },
+
+        password: function (value) {
+            console.log('value', value);
+            //console.log('confirm value', confirmValue);
+            return value ? undefined : 'Mật khẩu chưa đúng';
+        },
+
+        min: function (min) {
+            return function (value) {
+                return value.length >= min ? undefined : `Vui lòng nhập ít nhất ${min} ký tự`;
+            }
+        },
+
+        max: function (max) {
+            return function (value) {
+                return value.length >= min ? undefined : `Vui lòng nhập nhiều nhất ${min} ký tự`;
+            }
+        },
+
+        phone: function (value) {
+            var phoneno = /^\d{10}$/;
+            return phoneno.test(value) ? undefined : 'Vui lòng nhập đúng số điện thoại';
+        }
+    }
+    var formElement = document.querySelector('#change-password-form');
+        if (formElement) {
+            var inputs = document.querySelectorAll('[name][rules]');
+            console.log('inputs 1', inputs)
+            for (var input of inputs) {
+                var rules = input.getAttribute('rules').split('|');
+                for (var rule of rules) {
+                    var ruleParam;
+                    var isRuleHasValue = rule.includes(':');
+                    if (isRuleHasValue) {
+                        ruleParam = rule.split(':');
+                        rule = ruleParam[0];
+                    }
+
+                    var ruleFunction = validateRules[rule];
+
+                    if (isRuleHasValue) {
+                        ruleFunction = ruleFunction(ruleParam[1]);
+                    }
+
+                    if (Array.isArray(formRules[input.name])) {
+                        formRules[input.name].push(ruleFunction);
+                    } else {
+                        formRules[input.name] = [ruleFunction];
+                    }
+
+                    //var newPass = document.getElementById('newPass').value;
+                    //var reNewPass = document.getElementById('reNewPass').value;
+                    //if (newPass === 'newPass') {
+                        //console.log(newPass)
+                    //}
+                }
+                // Listen event (blur, change, input)
+                input.addEventListener('blur', handleEmptyInput);
+                input.addEventListener('input', handleClearError);
+            }
+
+            // ham thuc hien validate
+            var errorMessage;
+            function handleEmptyInput (event) {
+                var rules = formRules[event.target.name];
+                //console.log('rules', rules);
+                rules.some(rule => {
+                    errorMessage = rule(event.target.value);
+                    return errorMessage;
+                })
+
+                // Neu co loi thi hien thi message loi ra UI
+                if (errorMessage) {
+                    var formGroup = getParent(event.target, '.form-group');
+                    if (formGroup) {
+                        var formMessage = formGroup.querySelector('.form-message');
+                        var formInput = formGroup.querySelector('.form-control');
+                        formInput.classList.add('invalid');
+                        if (formMessage) {
+                            formMessage.innerText = errorMessage;
+                            formMessage.classList.add('text-danger');
+                        }
+                    }
+                }
+                return !errorMessage;
+            }
+
+            function handleClearError(event) {
+                var formGroup = getParent(event.target, '.form-group');
+                var formInput = formGroup.querySelector('.form-control');
+                var formMessage = formGroup.querySelector('.form-message');
+                if (formInput.classList.contains('invalid') || formMessage.classList.contains('text-danger')) {
+                    formInput.classList.remove('invalid');
+                    if (formMessage) {
+                        formMessage.innerText = '';
+                    }
+                }
+            }
+        }
+
+        var newPass = document.getElementById('newPass');
+        var reNewPass = document.getElementById('reNewPass');;
+        changePassBtn.addEventListener('click', () => {
+            var inputs = document.querySelectorAll('[name][rules]');
+            console.log(inputs);
+            var isValid = true;
+            for (var input of inputs) {
+                console.log('a', input);
+                if (!handleEmptyInput({target: input})) {
+                    isValid = false;
+                };
+            }
+
+            if(newPass.value === reNewPass.value) {
+                isValid = true;
+                console.log(isValid);
+                formElement.submit();
+            } else {
+                var formGroup = getParent(reNewPass, '.form-group');
+                if (formGroup) {
+                    var formMessage = formGroup.querySelector('.form-message');
+                    var formInput = formGroup.querySelector('.form-control');
+                    formInput.classList.add('invalid');
+                    if (formMessage) {
+                        formMessage.innerText = 'Mật khẩu nhập lại không đúng';
+                        formMessage.classList.add('text-danger');
+                    }
+                }
+            }
+            
+            console.log('newPass', newPass);
+            console.log('reNewPass', reNewPass);
+            
+            // Khi khong co loi thi submit form
+            //if (isValid) {
+                
+            //}
+        })
+    })
+</script>

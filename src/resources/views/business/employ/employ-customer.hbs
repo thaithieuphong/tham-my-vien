@@ -102,7 +102,7 @@
 					<p class="card-text">Email: {{this.email}}</p>
 					<p class="card-text">Mô tả: {{this.description}}</p>
 				</div>
-				<div class="modal-footer">
+				<div class="card-footer">
 					<button type="button" class="btn btn-md btn-primary btn-mobile" data-bs-toggle="modal"
 						data-bs-target="#edit-customer-modal" data-id="{{this._id}}" data-edit-img="{{this.image.name}}"
 						data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
@@ -118,7 +118,6 @@
 						data-service-note-description="{{this.description}}" {{#each this.serviceNoteID}}
 						data-service-note-serviceID="{{this.service}}" {{/each}}
 						data-bs-target="#create-service-note-modal">Tạo phiếu</button>
-
 				</div>
 			</div>
 			{{/each}}
@@ -481,19 +480,39 @@
 							<div class="row">
 								<div class="col-md-5">
 									<div class="mb-3">
-										<label for="service" class="form-label">
-											<h6>Chọn dịch vụ:</h6>
-										</label>
-										<select id="select-service" class="chosen-select" multiple tabindex="6"
+										<div>
+											<label for="service" class="form-label ">
+												<h6>Chọn dịch vụ:</h6>
+											</label>
+										</div>
+
+										<select id="select-service" class="chosen-select container-table" multiple tabindex="6"
 											name="service[]">
 											{{#each typeservices}}
 											<optgroup label="{{this.name}}">
 												{{#each this.services}}
 												<option value="{{this.service}}">{{this.service}}</option>
 												{{/each}}
+<<<<<<< HEAD
 											<optgroup>
+=======
+											</optgroup>
+>>>>>>> origin/dev
 											{{/each}}
 										</select>
+
+										<div id="list1" class="dropdown-check-list container-card" tabindex="100">
+											<span class="anchor ">Chọn dịch vụ</span>
+											<ul class="items">
+												{{#each typeservices}}
+												<li> {{this.name}}</li>
+												{{#each this.services}}
+												<li><input type="checkbox" value="{{this.service}}" name="service[]"	 />{{this.service}}
+												</li>
+												{{/each}}
+												{{/each}}
+											</ul>
+										</div>
 									</div>
 									<div class="mb-3">
 										<label for="schedule" class="form-label">
@@ -547,3 +566,4 @@
 </div>
 
 <script src="/js/business/business-employ-customer.js"></script>
+

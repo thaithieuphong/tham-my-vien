@@ -3,6 +3,7 @@ const User = require('../../models/User');
 const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mongoose');
 const fs = require('fs');
 const appRoot = require('app-root-path');
+const bcrypt = require("bcryptjs");
 
 class MarketingController {
 

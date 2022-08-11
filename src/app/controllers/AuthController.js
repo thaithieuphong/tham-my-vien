@@ -151,6 +151,22 @@ class AuthController {
             .catch(next);
     };
 
+    changePassword(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then((user) => {
+				var result = bcrypt.compareSync(req.body.oldPass, user.password)
+				if(result){
+					User.findByIdAndUpdate({ _id: req.userId },{ password: bcrypt.hashSync(req.body.newPass, 8)})
+						.then(() =>{
+							res.redirect('/');
+						})
+				} else {
+					res.redirect('back');
+				}
+			})
+			.catch(next);
+		// res.json(req.body);
+	}
 
     // Logout
     logout = async (req, res, next) => {

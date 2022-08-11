@@ -9,6 +9,8 @@ const ServiceNote = require('../../models/ServiceNote');
 const ServiceNote1 = require('../../models/ServiceNote');
 const ServiceNote2 = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
+const bcrypt = require("bcryptjs");
+
 const fs = require('fs');
 const appRoot = require('app-root-path');
 
@@ -57,8 +59,6 @@ class ManagerBusinessController {
 			})
 			.catch(next);
 	}
-
-
 
 	createCustomer(req, res, next) {
 		if (req.file) {

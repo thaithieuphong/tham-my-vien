@@ -95,7 +95,6 @@ function validate(formSelector) {
                         formMessage.classList.add('text-danger');
                     }
                 }
-                console.log(formGroup)
             }
             return !errorMessage;
         }

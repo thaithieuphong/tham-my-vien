@@ -242,13 +242,14 @@
                         </div>
                         <div class="col-md-6 verticalLine">
                             <div class="mb-3">
-                                <label for="performer" class="form-label">
+                                <label for="performer" class="form-label container-table">
                                     <h6>Chọn bác sĩ</h6>
                                 </label>
-                                <div hidden id="receive-performer">
-
-                                </div>
-                                <select id="select-performer" class="chosen-select" multiple tabindex="6"
+                                 <label for="performer" class="form-label container-card">
+                                    <h6>Chọn bác sĩ, y tá</h6>
+                                </label>
+                               
+                                <select id="select-performer" class="chosen-select container-table" multiple tabindex="6"
                                     name="performer">
                                     {{#each user1s}}
                                     <option value="{{this._id}}">
@@ -257,15 +258,32 @@
 
                                     {{/each}}
                                 </select>
+
+                                <div id="list1" class="dropdown-check-list container-card" tabindex="100">
+									<span class="anchor ">Chọn bác sĩ, y tá</span>
+									<ul class="items">
+										{{#each user1s}}
+										<li><input type="checkbox" value="{{this._id}}"
+												name="performer" /> <strong class="text-success">Bác sĩ:</strong> {{this.firstName}}
+										{{this.lastName}}
+										</li>
+										{{/each}}
+										<hr>
+										{{#each user2s}}
+										<li><input type="checkbox" value="{{this._id}}"
+												name="nursing" /><strong class="text-success">Y tá:</strong> {{this.firstName}}
+										{{this.lastName}}
+										</li>
+										{{/each}}
+
+									</ul>
+								</div>
                             </div>
                             <div class="mb-3">
-                                <label for="nursing" class="form-label">
+                                <label for="nursing" class="form-label container-table">
                                     <h6>Chọn Y tá</h6>
                                 </label>
-                                <div hidden id="receive-nursing">
-
-                                </div>
-                                <select id="select-nursing" class="chosen-select" multiple tabindex="6"
+                                <select id="select-nursing" class="chosen-select container-table" multiple tabindex="6"
                                     name="nursing[]">
                                     {{#each user2s}}
                                     <option value="{{this._id}}">

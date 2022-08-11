@@ -4,6 +4,7 @@ const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mo
 const fs = require('fs');
 const appRoot = require('app-root-path');
 const User = require('../../models/User');
+const bcrypt = require("bcryptjs");
 
 class MarketingController {
 
