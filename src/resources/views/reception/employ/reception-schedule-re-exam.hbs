@@ -22,7 +22,7 @@
     <div id="search-items">
         {{#each reexams}}
         <div class="row ml-2 mr-2" id="service-note-render-form">
-            <div class="shadow-lg p-3 mb-5 bg-body rounded card">
+            <div class="shadow-lg p-3 mb-3 bg-body rounded card">
                 <div class="row">
                     <div class="col-md-6">
                         <h5>
@@ -77,7 +77,6 @@
                             <strong>
                                 <label class="form-label">Giới tính: </label>
                             </strong>
-
                         </div>
                         <div class="col-sm-6">
                             <em>
@@ -90,7 +89,6 @@
                             <strong>
                                 <label class="form-label">Dịch vụ đã sử dụng: </label>
                             </strong>
-
                         </div>
                         <div class="col-sm-6">
                             <em>
@@ -100,9 +98,8 @@
                     </div>
                 </div>
 
-
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
                         data-bs-target="#add-performer-re-exam-modal" data-re-exam-id="{{this._id}}"
                         data-re-exam-customerID="{{this.customerID._id}}"
                         data-re-exam-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
@@ -140,8 +137,6 @@
                                 </div>
                                 <div class="col-sm-6 ">
                                     <em>
-                                        {{!-- <input hidden type="text" name="name" id="create-service-note-name-input">
-                                        --}}
                                         <label class="text-uppercase text-danger"
                                             id="add-performer-re-exam-firstLastName" name="name" readonly>
                                     </em>
@@ -158,10 +153,7 @@
                                 </div>
                                 <div class="col-sm-6 ">
                                     <em>
-                                        {{!-- <input hidden type="text" name="birth"
-                                            id="create-service-note-birth-input"> --}}
                                         <label id="add-performer-re-exam-birth" name="birth" readonly></label>
-
                                     </em>
                                 </div>
                             </div>
@@ -174,10 +166,7 @@
                                 </div>
                                 <div class="col-sm-6 ">
                                     <em>
-                                        {{!-- <input hidden type="text" name="gender"
-                                            id="create-service-note-gender-input"> --}}
                                         <label id="add-performer-re-exam-gender" name="gender" readonly></label>
-
                                     </em>
                                 </div>
                             </div>
@@ -190,12 +179,9 @@
                                 </div>
                                 <div class="col-sm-6 ">
                                     <em>
-                                        {{!-- <input hidden type="text" name="email"
-                                            id="create-service-note-email-input"> --}}
                                         <label id="add-performer-re-exam-email"
                                             class="d-inline-block text-truncate text-truncate-service" name="email"
                                             readonly></label>
-
                                     </em>
                                 </div>
                             </div>
@@ -208,8 +194,6 @@
                                 </div>
                                 <div class="col-sm-6 ">
                                     <em>
-                                        {{!-- <input hidden type="text" name="phone"
-                                            id="create-service-note-phone-input"> --}}
                                         <label id="add-performer-re-exam-phone" name="phone" readonly></label>
 
                                     </em>
@@ -224,13 +208,10 @@
                                 </div>
                                 <div class="col-sm-6 ">
                                     <em>
-                                        {{!-- <input hidden type="text" name="address"
-                                            id="create-service-note-address-input"> --}}
                                         <label id="add-performer-re-exam-address" name="address" readonly></label>
 
                                     </em>
                                 </div>
-
                             </div>
 
                             <div class=" mb-3 row">
@@ -242,7 +223,6 @@
                                 <div class="col-sm-6 ">
                                     <em>
                                         <label id="add-performer-re-exam-createName" readonly></label>
-
                                     </em>
                                 </div>
                             </div>
@@ -256,7 +236,6 @@
                                 <div class="col-sm-6 ">
                                     <em>
                                         <label id="add-performer-re-exam-service" readonly></label>
-
                                     </em>
                                 </div>
                             </div>

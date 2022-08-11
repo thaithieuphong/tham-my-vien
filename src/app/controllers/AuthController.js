@@ -114,7 +114,7 @@ class AuthController {
                     res.render('/err/500');
                 }
                 if (!user) {
-                    req.flash('messages_account_failure', 'Tài khoản không tồn tại!!!');
+                    req.flash('messages_account_failure', 'Tài khoản không tồn tại');
 					res.redirect('back');
                 }
                 // so sánh password nhập vào với password trong db
@@ -123,7 +123,7 @@ class AuthController {
                     user.password
                 );
                 if (!passwordIsValid) {
-                    req.flash('messages_password_failure', 'Mật khẩu không đúng!!!');
+                    req.flash('messages_password_failure', 'Mật khẩu không đúng');
 					res.redirect('back');
                 }
                 const accessToken = jwt.sign({ 

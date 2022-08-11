@@ -2,8 +2,6 @@ const express = require('express');
 const EmployBusinessController = require('../../app/controllers/business-controller/EmployBusinessController');
 const router = express.Router();
 const validateUploadImage = require('../../middleware/validateUpload');
-const uploadGoogleDrive = require('../../middleware/uploadGoogleDriveCounselor');
-const authJwt = require("../../middleware/authJwt");
 
 /* Business Employ Start*/
 router.patch('/customers/:id/comment', EmployBusinessController.createComment);

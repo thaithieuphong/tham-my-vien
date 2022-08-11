@@ -8,12 +8,12 @@ class authJwt {
 		let token = req.session.token;
 		console.log('auth token', token);
 		if (!token) {
-			req.flash('messages_token_wrong', 'Mã bảo mật không đúng!!!');
+			req.flash('messages_token_wrong', 'Mã bảo mật không đúng');
 			res.redirect('/');
 		}
 		jwt.verify(token, process.env.ACCESSTOKEN_KEY, (err, decoded) => {
 			if (err) {
-				req.flash('messages_token_failure', 'Tài khoản hết hạn truy cập!!!');
+				req.flash('messages_token_failure', 'Tài khoản hết hạn truy cập');
 				res.redirect('/');
 			}
 			req.userId = decoded.id;

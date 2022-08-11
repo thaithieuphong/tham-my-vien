@@ -103,13 +103,13 @@
 					<p class="card-text">Mô tả: {{this.description}}</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-md btn-primary" data-bs-toggle="modal"
+					<button type="button" class="btn btn-md btn-primary btn-mobile" data-bs-toggle="modal"
 						data-bs-target="#edit-customer-modal" data-id="{{this._id}}" data-edit-img="{{this.image.name}}"
 						data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
 						data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
 						data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
 						data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">Sửa</button>
-					<button type="button" class="btn btn-md btn-success" data-bs-toggle="modal"
+					<button type="button" class="btn btn-md btn-success btn-mobile" data-bs-toggle="modal"
 						data-service-note-id="{{this._id}}" data-service-note-img="{{this.image.name}}"
 						data-service-note-firstname="{{this.firstName}}" data-service-note-lastname="{{this.lastName}}"
 						data-service-note-birth="{{this.birth}}" data-service-note-gender="{{this.gender}}"
@@ -151,35 +151,35 @@
 						<ul class="list-group">
 							<li class="list-group-item">
 								<div class="row">
-									<div class="col-md-6">
+									<div class="col-md-6 mb-3">
 										<label for="create-firstName" class="form-label">
-											<h6>Họ <span class="badge text-danger">Bắt buộc</span></h6>
+											<h6>Họ <span class="badge text-danger">*</span></h6>
 										</label>
 										<input type="text" class="form-control form-control-sm" id="create-firstName"
 											placeholder="Vd: Trần Văn" name="firstName" required>
 									</div>
 									<div class="col-md-6">
 										<label for="create-lastName" class="form-label">
-											<h6>Tên <span class="badge text-danger">Bắt buộc</span></h6>
+											<h6>Tên <span class="badge text-danger">*</span></h6>
 										</label>
 										<input type="text" class="form-control form-control-sm" id="create-lastName"
 											placeholder="Vd: Khánh" name="lastName" required>
 									</div>
 								</div>
 								<div class="row mt-3">
-									<div class="col-md-6">
+									<div class="col-md-6 mb-3">
 										<label for="create-birth" class="form-label">
-											<h6>Ngày sinh <span class="badge text-danger">Bắt buộc</span></h6>
+											<h6>Ngày sinh <span class="badge text-danger">*</span></h6>
 										</label>
 										<input type="date" class="form-control form-control-sm" id="create-birth"
 											aria-describedby="birthFeedback" name="birth" required>
 									</div>
 									<div class="col-md-6">
 										<label for="create-gender" class="form-label">
-											<h6>Giới tính <span class="badge text-danger">Bắt buộc</span></h6>
+											<h6>Giới tính <span class="badge text-danger">*</span></h6>
 										</label>
 										<select class="form-select form-select-sm" aria-label=".form-select-sm example"
-											name="gender">
+											name="gender" required>
 											<option value="" selected>-- Chọn giới tính --</option>
 											<option value="Nữ">Nữ</option>
 											<option value="Nam">Nam</option>
@@ -187,9 +187,9 @@
 									</div>
 								</div>
 								<div class="row mt-3">
-									<div class="col-md-6">
+									<div class="col-md-6 mb-3">
 										<label for="create-phone" class="form-label">
-											<h6>Số điện thoại <span class="badge text-danger">Bắt buộc</span></h6>
+											<h6>Số điện thoại <span class="badge text-danger">*</span></h6>
 										</label>
 										<input type="tel" class="form-control form-control-sm" id="create-phone"
 											placeholder="Vd: 0909888888" name="phone" required>

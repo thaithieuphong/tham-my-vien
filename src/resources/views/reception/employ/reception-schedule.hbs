@@ -22,7 +22,7 @@
 	<div id="search-items">
 		{{#each serviceNotes}}
 		<div class="row ml-2 mr-2" id="service-note-render-form">
-			<div class="shadow-lg p-3 mb-5 bg-body rounded card">
+			<div class="shadow-lg p-3 mb-3 bg-body rounded card">
 				<div class="row">
 					<div class="col-md-6">
 						<h5>
@@ -90,7 +90,6 @@
 							<strong>
 								<label class="form-label">Thành giá: </label>
 							</strong>
-
 						</div>
 						<div class="col-sm-6">
 							<em>
@@ -101,7 +100,6 @@
 				</div>
 
 				<div class="row">
-
 					<div class="col-md-6 row">
 						<div class="col-sm-6">
 							<strong>
@@ -117,7 +115,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+					<button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
 						data-bs-target="#add-performer-modal" data-id="{{this._id}}"
 						data-customerID="{{this.customerID._id}}"
 						data-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
@@ -132,15 +130,9 @@
 		</div>
 		{{/each}}
 	</div>
-
-
 </div>
 
-
-
-
 <!-- Modal Add Performer-->
-
 
 <div class="modal fade" id="add-performer-modal" tabindex="-1" aria-labelledby="add-performer" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
@@ -161,8 +153,6 @@
 								</div>
 								<div class="col-sm-6 ">
 									<em>
-										{{!-- <input hidden type="text" name="name" id="create-service-note-name-input">
-										--}}
 										<label class="text-uppercase text-danger" id="add-performer-firstLastName"
 											name="name" readonly>
 									</em>
@@ -179,8 +169,6 @@
 								</div>
 								<div class="col-sm-6 ">
 									<em>
-										{{!-- <input hidden type="text" name="birth"
-											id="create-service-note-birth-input"> --}}
 										<label id="add-performer-birth" name="birth" readonly></label>
 									</em>
 								</div>
@@ -194,8 +182,6 @@
 								</div>
 								<div class="col-sm-6 ">
 									<em>
-										{{!-- <input hidden type="text" name="gender"
-											id="create-service-note-gender-input"> --}}
 										<label id="add-performer-gender" name="gender" readonly></label>
 									</em>
 								</div>
@@ -207,10 +193,8 @@
 										<label for="email">Email address:</label>
 									</strong>
 								</div>
-								<div class="col-sm-6  ">
+								<div class="col-sm-6">
 									<em>
-										{{!-- <input hidden type="text" name="email"
-											id="create-service-note-email-input"> --}}
 										<label id="add-performer-email" class="d-inline-block text-truncate text-truncate-service" 
 											name="email" readonly></label>
 									</em>
@@ -225,8 +209,6 @@
 								</div>
 								<div class="col-sm-6 ">
 									<em>
-										{{!-- <input hidden type="text" name="phone"
-											id="create-service-note-phone-input"> --}}
 										<label id="add-performer-phone" name="phone" readonly></label>
 									</em>
 								</div>
@@ -240,8 +222,6 @@
 								</div>
 								<div class="col-sm-6 ">
 									<em>
-										{{!-- <input hidden type="text" name="address"
-											id="create-service-note-address-input"> --}}
 										<label id="add-performer-address" name="address" readonly></label>
 									</em>
 								</div>
@@ -285,7 +265,6 @@
 									<option value="{{this._id}}">
 										{{this.firstName}}
 										{{this.lastName}}</option>
-
 									{{/each}}
 								</select>
 							</div>
@@ -299,7 +278,6 @@
 									<option value="{{this._id}}">
 										{{this.firstName}}
 										{{this.lastName}}</option>
-
 									{{/each}}
 								</select>
 							</div>
