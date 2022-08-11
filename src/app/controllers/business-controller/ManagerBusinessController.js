@@ -9,6 +9,8 @@ const ServiceNote = require('../../models/ServiceNote');
 const ServiceNote1 = require('../../models/ServiceNote');
 const ServiceNote2 = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
+const bcrypt = require("bcryptjs");
+
 const fs = require('fs');
 const appRoot = require('app-root-path');
 
@@ -58,6 +60,21 @@ class ManagerBusinessController {
 			.catch(next);
 	}
 
+	changePassword(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then((user) => {
+				var result = bcrypt.compareSync(req.body.oldPass, user.password)
+				if(result){
+					console.log("Success!!!!");
+					User.findByIdAndUpdate({ _id: req.userId },{ password: bcrypt.hashSync(req.body.newPass, 8)})
+						.then(() =>{
+							res.redirect('/')
+						})
+				}
+			})
+			.catch(next);
+		// res.json(req.body);
+	}
 
 
 	createCustomer(req, res, next) {

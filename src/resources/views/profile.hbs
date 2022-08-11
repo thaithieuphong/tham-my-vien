@@ -2,7 +2,8 @@
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="title mt-3">
-            <a type="button" onclick="history.back()" class="btn btn-primary text-white"><i class="ti-back-left"></i> Quay lại</a>
+            <a type="button" onclick="history.back()" class="btn btn-primary text-white"><i class="ti-back-left"></i>
+                Quay lại</a>
         </div>
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -22,7 +23,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Họ tên:</label>
+                        <label>Họ tên:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.firstName}} {{user.lastName}}</p>
@@ -30,7 +31,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
-                        <label >Ngày sinh:</label>
+                        <label>Ngày sinh:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.birth}}</p>
@@ -38,7 +39,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
-                        <label >Giới tính:</label>
+                        <label>Giới tính:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.gender}}</p>
@@ -46,7 +47,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
-                        <label >Điện thoại:</label>
+                        <label>Điện thoại:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.phone}}</p>
@@ -54,7 +55,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Email:</label>
+                        <label>Email:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.email}}</p>
@@ -62,7 +63,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Địa chỉ:</label>
+                        <label>Địa chỉ:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.address}}</p>
@@ -70,7 +71,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Phòng ban:</label>
+                        <label>Phòng ban:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.department}}</p>
@@ -78,7 +79,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Chức vụ:</label>
+                        <label>Chức vụ:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.position}}</p>
@@ -86,15 +87,15 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Tài khoản:</label>
+                        <label>Tài khoản:</label>
                     </div>
                     <div class="col-md-6">
-                        <p class="text-right">{{user.account}}</>
+                        <p class="text-right">{{user.account}}</p>
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6">
-                        <label >Quyền hạn:</label>
+                        <label>Quyền hạn:</label>
                     </div>
                     <div class="col-md-6">
                         <p class="text-right">{{user.role}}</p>
@@ -103,13 +104,81 @@
                 <div class="row mt-2">
                     <div class="col-md">
                         <label for="description">Mô tả:</label>
-                        <textarea id="description" class="form-control bg-white" rows="6" readonly>{{user.description}}</textarea>
+                        <textarea id="description" class="form-control bg-white" rows="6"
+                            readonly>{{user.description}}</textarea>
                     </div>
                 </div>
-                <form method="POST" action="/logout">
-                    <div class="mt-5 text-right"><button href="/logout" class="btn btn-primary profile-button" type="submit">Đăng xuất</></div>
-                </form>
+                <div class="modal-footer">
+                    <form method="POST" action="/logout">
+                        <button href="/logout" class="btn btn-danger " type="submit">Đăng xuất</button>
+                    </form>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#change-password-modal"
+                        type="submit">Đổi mật khẩu</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="change-password-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header  bg-primary">
+                <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label>Họ tên:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.firstName}} {{user.lastName}}</p>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label>Tài khoản:</label>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">{{user.account}}</p>
+                    </div>
+                </div>
+                <hr>
+                <form method="POST" id="change-password-form">
+                    <div class=" mt-2">
+                        <label class="form-label">Mật khẩu cũ:</label>
+                        <input type="password" name="oldPass" class="form-control" placeholder="*****"></input>
+                    </div>
+                    <div class=" mt-2">
+                        <label class="form-label">Mật khẩu mới:</label>
+                        <input type="password" name="newPass" class="form-control" placeholder="*****"></input>
+                    </div>
+                    <div class=" mt-2">
+                        <label class="form-label">Nhập lại mật khẩu mới:</label>
+                        <input type="password" name="reNewPass" class="form-control" placeholder="*****"></input>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="change-password-btn">Đổi mật khẩu</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var changePassModal = document.getElementById('change-password-modal');
+    var changePassForm = document.forms['change-password-form'];
+    var changePassBtn = document.getElementById('change-password-btn');
+
+    changePassBtn.addEventListener('click', () => {
+        changePassForm.submit();
+    })
+
+    changePassModal.addEventListener('show.bs.modal', function(event){
+        var button = event.relatedTarget;
+
+        changePassForm.setAttribute('action', `change-password`)
+    })
+</script>

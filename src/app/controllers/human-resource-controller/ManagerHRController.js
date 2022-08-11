@@ -54,6 +54,22 @@ class HRController {
 			.catch(next);
 	}
 
+	changePassword(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then((user) => {
+				var result = bcrypt.compareSync(req.body.oldPass, user.password)
+				if(result){
+					console.log("Success!!!!");
+					User.findByIdAndUpdate({ _id: req.userId },{ password: bcrypt.hashSync(req.body.newPass, 8)})
+						.then(() =>{
+							res.redirect('/')
+						})
+				}
+			})
+			.catch(next);
+		// res.json(req.body);
+	}
+
 	createUser(req, res, next) {
 		Promise.all([
 			Department.find({ name: req.body.department }),
