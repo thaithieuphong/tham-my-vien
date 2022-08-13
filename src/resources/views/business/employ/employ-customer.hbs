@@ -524,14 +524,17 @@
 											<span class="anchor ">Chọn dịch vụ</span>
 											<ul class="items">
 												{{#each typeservices}}
-												<li class="mt-2"> <strong>{{this.name}}</strong> </li>
+												<li class="">
+													 <strong>{{this.name}}</strong> 
+												</li>
 												{{#each this.services}}
 												<li>
-													<div class="form-check ">
-														<input type="checkbox" class="mt-2" id="{{this.service}}"
+													<hr>
+													<label class="form-check " for="{{this.service}}">
+														<input type="checkbox" class="" id="{{this.service}}"
 															value="{{this.service}}" name="service[]" />
 														<label for="{{this.service}}">{{this.service}}</label>
-													</div>
+													</label>
 												</li>
 												{{/each}}
 												{{/each}}
