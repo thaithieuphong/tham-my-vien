@@ -485,7 +485,6 @@
 												<h6>Chọn dịch vụ:</h6>
 											</label>
 										</div>
-
 										<select id="select-service" class="chosen-select container-table" multiple tabindex="6"
 											name="service[]">
 											{{#each typeservices}}
@@ -501,17 +500,18 @@
 											<span class="anchor ">Chọn dịch vụ</span>
 											<ul class="items">
 												{{#each typeservices}}
-												<li class="">
+												<li class="ml-3 mb-3">
 													 <strong>{{this.name}}</strong> 
 												</li>
 												{{#each this.services}}
 												<li>
-													<hr>
+													
 													<label class="form-check " for="{{this.service}}">
 														<input type="checkbox" class="" id="{{this.service}}"
 															value="{{this.service}}" name="service[]" />
 														<label for="{{this.service}}">{{this.service}}</label>
 													</label>
+													<hr>
 												</li>
 												{{/each}}
 												{{/each}}

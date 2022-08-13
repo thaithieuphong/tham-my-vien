@@ -259,9 +259,6 @@
 								<label for="performer" class="form-label container-table">
 									<h6>Chọn bác sĩ</h6>
 								</label>
-								<label for="performer" class="form-label container-card">
-									<h6>Chọn bác sĩ, ý tá</h6>
-								</label>
 								<select id="select-performer" class="chosen-select container-table" multiple
 									tabindex="6" name="performer">
 									{{#each user1s}}
@@ -271,8 +268,11 @@
 									{{/each}}
 								</select>
 
+								<label for="performer" class="form-label container-card">
+									<h6>Chọn bác sĩ, ý tá</h6>
+								</label>
 								<div id="list1" class="dropdown-check-list container-card" tabindex="100">
-									<span class="anchor ">Chọn bác sĩ, y tá</span>
+									<span class="anchor">Chọn bác sĩ, y tá</span>
 									<ul class="items">
 										{{#each user1s}}
 										<li>
