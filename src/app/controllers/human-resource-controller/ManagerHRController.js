@@ -115,6 +115,7 @@ class HRController {
 					account: req.body.account,
 					password: bcrypt.hashSync(req.body.password, 8),
 					role: "Người dùng",
+					roleEng: 'user',
 					image: {
 						name: req.file.filename,
 						url: req.file.path,

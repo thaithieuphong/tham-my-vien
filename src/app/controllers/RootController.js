@@ -17,13 +17,15 @@ const fs = require("fs");
 const flash = require('connect-flash');
 
 class RootController {
-	getRootLogin(req, res, next) {}
-
-	postRootLogin(req, res, next) {}
 
 	getRootDashboard(req, res, next) {
-		// req.flash('message', 'Welcome to Blog');
-		res.render("root/root-dashboard");
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render("root/root-dashboard", {
+					user: mongooseToObject(user)
+				});
+			})
+		// res.render("root/root-dashboard");
 	}
 
 	getRootMarketingDashboard(req, res, next) {
@@ -50,6 +52,15 @@ class RootController {
 		res.render("root/root-service-note");
 	}
 
+	getRootProfile(req, res, next) {
+		User.findById({ _id: req.userId })
+			.then(root => {
+				res.render('root/root', {
+					root: mongooseToObject(root)
+				})
+			})
+	}
+
 	// [GET] /user
 	getRootUserDashboard(req, res, next) {
 		Promise.all([
@@ -57,13 +68,15 @@ class RootController {
 			Department.find({}),
 			Position.find({}),
 			Role.find({}),
+			User.findById({ _id: req.userId })
 		])
-			.then(([users, departments, positions, roles]) => {
+			.then(([users, departments, positions, roles, root]) => {
 				res.render("root/root-users", {
 					users: multipleMongooseToObject(users),
 					departments: multipleMongooseToObject(departments),
 					positions: multipleMongooseToObject(positions),
 					roles: multipleMongooseToObject(roles),
+					root: mongooseToObject(root),
 				});
 			})
 			.catch(next);
@@ -204,59 +217,20 @@ class RootController {
         }
 	}
 
-	// [POST] /account
-	postRootAccountDashboard(req, res, next) {
-		// create new user
-		const account = new Account({
-			userName: req.body.userName,
-			email: req.body.email,
-			password: bcrypt.hashSync(req.body.password, 8),
-			role_id: req.body.roleId,
-		});
-		// save user into db
-		account.save((err, account) => {
-			// check error
-			if (err) {
-				res.status(500).send({ message: err });
-				return;
-			} else {
-				console.log("2", req.body.roleId);
-				Role.find(
-					{
-						_id: { $in: req.body.roleId },
-					},
-					(err, role) => {
-						if (err) {
-							res.status(500).send({ message: err });
-							return;
-						}
-						console.log("account.role", account.role_id);
-						account.role_id = role.map((role) => role._id);
-						account.save((err) => {
-							if (err) {
-								res.status(500).send({ message: err });
-								return;
-							}
-							res.redirect("account");
-							return;
-						});
-					}
-				);
-			}
-		});
+	detailRootUser(req, res, next) {
+		Promise.all([User.findById({ _id: req.params.id}), User.findById({ _id: req.userId})])
+			.then(([user, root]) => {
+				res.render('root/root-user-detail', {
+					user: mongooseToObject(user),
+					root: mongooseToObject(root)
+				})
+			})
 	}
 
-	// [GET] /account
-	getRootAccountDashboard(req, res, next) {
-		Promise.all([Account.find({}), Role.find({})])
-			.then(([accounts, roles]) => {
-				res.render("root/root-accounts", {
-					accounts: multipleMongooseToObject(accounts),
-					roles: multipleMongooseToObject(roles),
-				});
-			})
-			.catch(next);
+	deleteRootUser(req, res, next) {
+
 	}
+
 
 	// [POST] /department
 	createDepartment(req, res, next) {

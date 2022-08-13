@@ -1,69 +1,220 @@
-<div class="row bg-dark">
-    {{!-- <div class="col-lg-1"> --}}
-        {{> page/sidebar/admin/sidebar-admin}}
-    {{!-- </div> --}}
-    {{!-- <div class="col-lg-11"> --}}
-        <div class="content">
-            <div class="container-fluid mt-3">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Tạo tài khoản
-                </button>
-                <table class="table table-hover text-light mt-3">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Mã tài khoản</th>
-                            <th scope="col">Tên tài khoản</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Mật khẩu</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each accounts}}
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>{{this._id}}</td>
-                            <td>{{this.userName}}</td>
-                            <td>{{this.email}}</td>
-                            <td>{{this.password}}</td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+<link rel="stylesheet" href="/css/root.css">
+<nav class="navbar navbar-light bg-dark sticky-top">
+    <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+            class="ti-angle-double-right"></i></button>
+    <div class="img-container">
+        {{#if user.image.name}}
+        <a class="text-light" href="/root/profile">{{user.firstName}} {{user.lastName}}<img
+                class="ml-2 mr-3" src="/img/uploads/users/{{user.image.name}}" alt=""></a>
+        {{else}}
+        <a class="text-light" href="/root/profile">{{user.firstName}} {{user.lastName}}<img
+                class="ml-2 mr-3" src="/img/user-icon.png" alt=""></a>
+        {{/if}}
+        <div />
+</nav>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/root/dashboard" class="sidebar-item-title pl-3">
+                <i class="ti-dashboard mr-3"></i>Bảng điều khiển
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/root/user" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Phòng nhân sự
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/operating-room" class="sidebar-item-title pl-3">
+                <i class="ti-cut mr-3"></i>Phòng phẩu thuật
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/reception" class="sidebar-item-title pl-3">
+                <i class="ti-clipboard mr-3"></i>Phòng lễ tân
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/business" class="sidebar-item-title pl-3">
+                <i class="ti-headphone-alt mr-3"></i>Phòng kinh doanh
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/marketing" class="sidebar-item-title pl-3">
+                <i class="ti-bar-chart mr-3"></i>Phòng marketing
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" class="sidebar-item-title pl-3">
+                <i class="ti-server mr-3"></i>Phòng IT
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row container-content">
+    <div class="col-lg-2 col-md-3 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
-    {{!-- </div> --}}
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog bg-dark" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thông tin tài khoản</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
-            <div class="modal-body">
-                <form method="POST">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Tên tài khoản</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" name="userName" aria-describedby="emailHelp" placeholder="Nhập tài khoản">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Nhập email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Mật khẩu</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Nhập mật khẩu">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-primary">Lưu</button>
-                    </div>
-                </form>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
+        <div class="card">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
         </div>
     </div>

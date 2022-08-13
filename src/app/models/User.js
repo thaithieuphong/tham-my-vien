@@ -20,6 +20,7 @@ const User = new Schema({
 	account: String,
 	password: String,
 	role: String,
+	roleEng: String,
 	description: String,
 	state: String,
 	customers: [

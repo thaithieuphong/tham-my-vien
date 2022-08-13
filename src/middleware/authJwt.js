@@ -144,11 +144,10 @@ class authJwt {
 	}
 
 	isRoot(req, res, next) {
-		Promise.all([Account.findById(req.body._id), Role.find({})])
-			.then((users, roles) => {
-				if (users.role === roles.engName) {
-					console.log(users.role);
-					console.log(roles.engName);
+		User.findById(req.userId)
+			.then((user) => {
+				if (user.roleEng === 'root') {
+					console.log(user.role);
 					next();
 				} else {
 					res.render('err/403', { layout: false });

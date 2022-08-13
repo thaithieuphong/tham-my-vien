@@ -1,129 +1,396 @@
-{{!-- <div class="row">
-
-    {{> page/sidebar/admin/sidebar-admin}}
-    <div class="content">
-        <div class="container-fluid">
-            <h1></h1>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                Tổng quan
-            </button>
+<link rel="stylesheet" href="/css/root.css">
+{{!-- <link rel="stylesheet" href="/css/profile.css"> --}}
+<nav class="navbar navbar-light bg-dark sticky-top">
+    <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+            class="ti-angle-double-right"></i></button>
+    <div class="img-container">
+        {{#if root.image.name}}
+        <a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
+                class="ml-2 mr-3" src="/img/uploads/users/{{root.image.name}}" alt=""></a>
+        {{else}}
+        <a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
+                class="ml-2 mr-3" src="/img/user-icon.png" alt=""></a>
+        {{/if}}
+        <div />
+</nav>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/root/dashboard" class="sidebar-item-title pl-3">
+                <i class="ti-dashboard mr-3"></i>Bảng điều khiển
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/root/user" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Phòng nhân sự
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/operating-room" class="sidebar-item-title pl-3">
+                <i class="ti-cut mr-3"></i>Phòng phẩu thuật
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/reception" class="sidebar-item-title pl-3">
+                <i class="ti-clipboard mr-3"></i>Phòng lễ tân
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/business" class="sidebar-item-title pl-3">
+                <i class="ti-headphone-alt mr-3"></i>Phòng kinh doanh
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/marketing" class="sidebar-item-title pl-3">
+                <i class="ti-bar-chart mr-3"></i>Phòng marketing
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" class="sidebar-item-title pl-3">
+                <i class="ti-server mr-3"></i>Phòng IT
+            </a>
         </div>
     </div>
-</div> --}}
+</div>
 
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg bg-dark" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thông tin người dùng</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+<div class="bg-white mb-3">
+    <div class="row container-content">
+        <nav id="sub-nav-sm" class="navbar navbar-light d-flex justify-content-between">    
+            <a type="button" onclick="history.back()" class="btn btn-dark text-white ml-3"><i class="ti-back-left mr-2"></i>Quay lại</a>
+        </nav>
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                {{#if root.image.name}}
+                <img class="rounded mt-3" width="150px" src="/img/uploads/users/{{root.image.name}}">
+                {{else}}
+                <img class="rounded mt-3" width="150px" src="/img/user-icon.png">
+                {{/if}}
+                <span class="font-weight-bold mt-3">{{root.firstName}} {{root.lastName}}</span>
+                <span class="text-black-50">{{root.email}}</span>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col-lg-9">
-                            <div class="row">
-                                <div class="ml-3">
-                                    <div class="form-group">
-                                        <label for="firstName">Họ</label>
-                                        <input type="text" class="form-control form-control-sm" id="firstName" placeholder="Nhập 'Họ'">
-                                    </div>
-                                </div>
-                                <div class="ml-4">
-                                    <div class="form-group">
-                                        <label for="middleName">Tên đệm</label>
-                                        <input type="text" class="form-control form-control-sm" id="middleName" placeholder="Nhập 'Tên đệm'">
-                                    </div>
-                                </div>
-                                <div class="ml-4">
-                                    <div class="form-group">
-                                        <label for="lastName">Tên</label>
-                                        <input type="text" class="form-control form-control-sm" id="lastName" placeholder="Nhập 'Tên'">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="ml-3">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlFile1">Ngày sinh</label>
-                                        <input type="date" class="form-control form-control-sm" id="exampleFormControlFile1">
-                                    </div>
-                                </div>
-                                <div class="ml-4">
-                                    <div class="form-group">
-                                        <label for="exampleFormControlFile1">Giới tính</label>
-                                        <select class="form-control form-control-sm">
-                                            <option>Chọn giới tính</option>
-                                            <option value="Male">Nam</option>
-                                            <option value="Female">Nữ</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="ml-3">
-                                    <div class="form-group">
-                                        <label for="address">Số điện thoại</label>
-                                        <input type="tel" class="form-control form-control-sm" id="address" placeholder="Nhập số điện thoại">
-                                    </div>
-                                </div>
-                                <div class="ml-4">
-                                    <div class="form-group">
-                                        <label for="address">Email</label>
-                                        <input type="email" class="form-control form-control-sm" id="address" placeholder="Nhập email">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="address">Địa chỉ</label>
-                                <input type="text" class="form-control form-control-sm" id="address" placeholder="Nhập địa chỉ, tên đường">
-                            </div>
-                            <div class="row ml-0">
-                                <div class="form-group">
-                                    <label for="exampleFormControlFile1">Phòng ban</label>
-                                    <select class="form-control form-control-sm">
-                                        <option>Chọn phòng ban</option>
-                                        <option value="Marketing">Marketing</option>
-                                        <option value="Business">Kinh doanh</option>
-                                        <option value="Reception">Lễ tân</option>
-                                        <option value="Operating room">Phẩu thuật</option>
-                                    </select>
-                                </div>
-                                <div class="form-group ml-3">
-                                    <label for="exampleFormControlFile1">Chức vụ</label>
-                                    <select class="form-control form-control-sm">
-                                        <option>Chọn chức vụ</option>
-                                        <option value="Manager">Quản lý</option>
-                                        <option value="Supervisor">Giám sát</option>
-                                        <option value="Employee">Nhân viên</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row ml-0">
-                                <div class="form-group">
-                                    <label for="exampleFormControlFile1">Tài khoản đăng nhập</label>
-                                    <input type="text" class="form-control form-control-sm" id="middleName" placeholder="Nhập 'Tài khoản'">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="..." class="rounded mx-auto d-block border border-seconnary" width="150px" height="150px" alt="...">
-                            <div class="form-group mt-3">
-                                <label for="exampleFormControlFile1">Hình ảnh</label>
-                                <input type="file" class="form-control-file form-control-sm" id="exampleFormControlFile1">
-                            </div>
-                        </div>
-                    </div>
-                </form>
+        </div>
+        <div class="col-md-9 border-right">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right">THÔNG TIN NGƯỜI DÙNG</h4>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Họ tên:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{root.firstName}} {{root.lastName}}</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Ngày sinh:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{root.birth}}</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Giới tính:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{root.gender}}</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Điện thoại:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{root.phone}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Email:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{root.email}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Địa chỉ:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{root.address}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Phòng ban:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{root.department}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Chức vụ:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{root.position}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Tài khoản:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{root.account}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Quyền hạn:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{root.role}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md">
+                    <label for="description">Mô tả:</label>
+                    <textarea id="description" class="form-control bg-white" rows="6"
+                        readonly>{{root.description}}</textarea>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Lưu</button>
+                <form method="POST" action="/root/logout">
+                    <button class="btn btn-danger" type="submit">Đăng xuất</button>
+                </form>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#change-password-modal"
+                    type="submit">Đổi mật khẩu</button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="change-password-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title text-white" id="exampleModalLabel">Đổi mật khẩu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="change-password-form">
+                    <div class="form-group mt-2">
+                        <label class="form-label">Mật khẩu cũ:</label>
+                        <input type="password" name="oldPass" rules="required|min:6" class="form-control" placeholder="*****"></input>
+                        <span class="form-message mt-1"></span>
+                        {{#if messages_password_failure}}
+                        <span class="form-message text-danger mt-1">{{messages_password_failure}}</span>
+                        {{else}}
+                        <span class="form-message mt-1"></span>
+                        {{/if}}
+                    </div>
+                    <div class="form-group mt-2">
+                        <label class="form-label">Mật khẩu mới:</label>
+                        <input id="newPass" type="password" name="newPass" rules="required|min:6|password" class="form-control" placeholder="*****"></input>
+                        <span class="form-message mt-1"></span>
+                        {{#if messages_password_failure}}
+                        <span class="form-message text-danger mt-1">{{messages_password_failure}}</span>
+                        {{else}}
+                        <span class="form-message mt-1"></span>
+                        {{/if}}
+                    </div>
+                    <div class="form-group mt-2">
+                        <label class="form-label">Nhập lại mật khẩu mới:</label>
+                        <input id="reNewPass" type="password" name="reNewPass" rules="required|min:6|password" class="form-control" placeholder="*****"></input>
+                        <span class="form-message mt-1"></span>
+                        {{#if messages_password_failure}}
+                        <span class="form-message text-danger mt-1">{{messages_password_failure}}</span>
+                        {{else}}
+                        <span class="form-message mt-1"></span>
+                        {{/if}}
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="change-password-btn">Đổi mật khẩu</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var changePassModal = document.getElementById('change-password-modal');
+    var changePassForm = document.forms['change-password-form'];
+    var changePassBtn = document.getElementById('change-password-btn');
+
+    
+
+    changePassModal.addEventListener('show.bs.modal', function(event){
+        var button = event.relatedTarget;
+        changePassForm.setAttribute('action', `change-pass`)
+        function getParent (element, selector) {
+        elementParent = element.parentElement;
+        while (elementParent) {
+            if (elementParent.matches(selector)) {
+                return elementParent;
+            }
+            element = elementParent;
+        }
+    } 
+    var formRules = {};
+    var validateRules = {
+        required: function (value) {
+            return value ? undefined : 'Vui lòng nhập trường này';
+        },
+
+        email: function (value) {
+            var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            return regex.test(value) ? undefined : 'Vui lòng nhập đúng email';
+        },
+
+        password: function (value) {
+            console.log('value', value);
+            //console.log('confirm value', confirmValue);
+            return value ? undefined : 'Mật khẩu chưa đúng';
+        },
+
+        min: function (min) {
+            return function (value) {
+                return value.length >= min ? undefined : `Vui lòng nhập ít nhất ${min} ký tự`;
+            }
+        },
+
+        max: function (max) {
+            return function (value) {
+                return value.length >= min ? undefined : `Vui lòng nhập nhiều nhất ${min} ký tự`;
+            }
+        },
+
+        phone: function (value) {
+            var phoneno = /^\d{10}$/;
+            return phoneno.test(value) ? undefined : 'Vui lòng nhập đúng số điện thoại';
+        }
+    }
+    var formElement = document.querySelector('#change-password-form');
+        if (formElement) {
+            var inputs = document.querySelectorAll('[name][rules]');
+            console.log('inputs 1', inputs)
+            for (var input of inputs) {
+                var rules = input.getAttribute('rules').split('|');
+                for (var rule of rules) {
+                    var ruleParam;
+                    var isRuleHasValue = rule.includes(':');
+                    if (isRuleHasValue) {
+                        ruleParam = rule.split(':');
+                        rule = ruleParam[0];
+                    }
+
+                    var ruleFunction = validateRules[rule];
+
+                    if (isRuleHasValue) {
+                        ruleFunction = ruleFunction(ruleParam[1]);
+                    }
+
+                    if (Array.isArray(formRules[input.name])) {
+                        formRules[input.name].push(ruleFunction);
+                    } else {
+                        formRules[input.name] = [ruleFunction];
+                    }
+
+                    //var newPass = document.getElementById('newPass').value;
+                    //var reNewPass = document.getElementById('reNewPass').value;
+                    //if (newPass === 'newPass') {
+                        //console.log(newPass)
+                    //}
+                }
+                // Listen event (blur, change, input)
+                input.addEventListener('blur', handleEmptyInput);
+                input.addEventListener('input', handleClearError);
+            }
+
+            // ham thuc hien validate
+            var errorMessage;
+            function handleEmptyInput (event) {
+                var rules = formRules[event.target.name];
+                //console.log('rules', rules);
+                rules.some(rule => {
+                    errorMessage = rule(event.target.value);
+                    return errorMessage;
+                })
+
+                // Neu co loi thi hien thi message loi ra UI
+                if (errorMessage) {
+                    var formGroup = getParent(event.target, '.form-group');
+                    if (formGroup) {
+                        var formMessage = formGroup.querySelector('.form-message');
+                        var formInput = formGroup.querySelector('.form-control');
+                        formInput.classList.add('invalid');
+                        if (formMessage) {
+                            formMessage.innerText = errorMessage;
+                            formMessage.classList.add('text-danger');
+                        }
+                    }
+                }
+                return !errorMessage;
+            }
+
+            function handleClearError(event) {
+                var formGroup = getParent(event.target, '.form-group');
+                var formInput = formGroup.querySelector('.form-control');
+                var formMessage = formGroup.querySelector('.form-message');
+                if (formInput.classList.contains('invalid') || formMessage.classList.contains('text-danger')) {
+                    formInput.classList.remove('invalid');
+                    if (formMessage) {
+                        formMessage.innerText = '';
+                    }
+                }
+            }
+        }
+
+        var newPass = document.getElementById('newPass');
+        var reNewPass = document.getElementById('reNewPass');;
+        changePassBtn.addEventListener('click', () => {
+            var inputs = document.querySelectorAll('[name][rules]');
+            console.log(inputs);
+            var isValid = true;
+            for (var input of inputs) {
+                console.log('a', input);
+                if (!handleEmptyInput({target: input})) {
+                    isValid = false;
+                };
+            }
+
+            if(newPass.value === reNewPass.value) {
+                isValid = true;
+                console.log(isValid);
+                formElement.submit();
+            } else {
+                var formGroup = getParent(reNewPass, '.form-group');
+                if (formGroup) {
+                    var formMessage = formGroup.querySelector('.form-message');
+                    var formInput = formGroup.querySelector('.form-control');
+                    formInput.classList.add('invalid');
+                    if (formMessage) {
+                        formMessage.innerText = 'Mật khẩu nhập lại không đúng';
+                        formMessage.classList.add('text-danger');
+                    }
+                }
+            }
+            
+            console.log('newPass', newPass);
+            console.log('reNewPass', reNewPass);
+            
+            // Khi khong co loi thi submit form
+            //if (isValid) {
+                
+            //}
+        })
+    })
+</script>

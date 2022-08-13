@@ -8,11 +8,7 @@ const rootRouter = require("./root");
 // const adminRouter = require("./admin");
 
 const validateUploadImage = require('../middleware/validateUpload');
-const AdminController = require('../app/controllers/AdminController')
-const UserController = require('../app/controllers/operating-controller/NursingOperationRoomController.js')
-
-
-router.get("/root", rootRouter);
+const AdminController = require('../app/controllers/AdminController');
 
 // router.get("/user/customers", UserController.getUserCustomer)
 // router.post("/user/customers", UserController.createCustomer)
@@ -36,7 +32,7 @@ router.delete('/admin/service-note-trash/:id', AdminController.realDestroyServic
 router.patch('/admin/service-note-trash/:id/restore', AdminController.restoreServiceNote);
 /*Admin End*/
 // [authJwt.verifyToken, authJwt.isBusinessEmploy]
-
+// router.get('/root', controller.getRootLogin);s
 router.post("/logout", controller.logout);
 router.post("/", controller.postLogin);
 router.get('/', controller.getLogin);

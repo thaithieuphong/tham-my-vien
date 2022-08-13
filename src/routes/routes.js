@@ -11,6 +11,7 @@ const managerHRRouter = require("./managers/human-resource-manager");
 // const employHRRouter = require("./employes/human-resource-employ");
 const managerBusinessRouter = require('./managers/business-manager');
 const employBusinessRouter = require('./employes/business-employ');
+const rootRouter = require('./root');
 
 function route(app) {
   // [authJwt.verifyToken, authJwt.isMarketingManager],
@@ -25,6 +26,7 @@ function route(app) {
   // app.use("/human-resources/employ", [authJwt.verifyToken, authJwt.isHREmploy], employHRRouter);
   app.use("/business/manager", [authJwt.verifyToken, authJwt.isBusinessManager], managerBusinessRouter);
   app.use("/business/employ", [authJwt.verifyToken, authJwt.isBusinessEmploy], employBusinessRouter);
+  app.use("/root", rootRouter);
   app.use("/", signinRouter);
   app.all('*', (req, res) => {
     res.status(404).render('err/404');
