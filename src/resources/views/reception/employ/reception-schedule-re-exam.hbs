@@ -284,16 +284,16 @@
 									<span class="anchor ">Chọn bác sĩ, y tá</span>
 									<ul class="items">
 										{{#each user1s}}
-										<li><input type="checkbox" value="{{this._id}}"
-												name="performer" /> <strong class="text-success">Bác sĩ:</strong> {{this.firstName}}
-										{{this.lastName}}
+										<li><input type="checkbox" class="mt-2" id="{{this._id}}" value="{{this._id}}"
+												name="performer" /> <strong class="text-success">Bác sĩ:</strong>
+											<label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
 										</li>
 										{{/each}}
 										<hr>
 										{{#each user2s}}
-										<li><input type="checkbox" value="{{this._id}}"
-												name="nursing" /><strong class="text-success">Y tá:</strong> {{this.firstName}}
-										{{this.lastName}}
+										<li><input type="checkbox" class="mt-2" id="{{this._id}}" value="{{this._id}}"
+												name="nursing" /><strong class="text-success">Y tá:</strong>
+											<label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
 										</li>
 										{{/each}}
 
