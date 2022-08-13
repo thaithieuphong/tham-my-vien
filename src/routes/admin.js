@@ -9,8 +9,9 @@ router.get('/', AdminController.getAdminDashboard)
 
 //CUSTOMER
 router.get('/customer', AdminController.getAdminCustomer)
+router.get('/customer/:id/detail', AdminController.getOneAdminCustomer)
 router.post('/customer', AdminController.createCustomer)
-// router.put('/:id', AdminController.updateCustomer)
+router.put('/customer/:id', AdminController.editCustomer)
 // router.delete('/customer/:id', AdminController.destroyCustomer)
 
 
@@ -18,6 +19,8 @@ router.post('/customer', AdminController.createCustomer)
 
 //USER
 router.get('/user', AdminController.getAdminUser)
+router.get('/user/:id/edit', AdminController.getAdminUserEdit)
+router.post('/user/:id/edit/ed', AdminController.editUser)
 router.post('/user', AdminController.createUser)
 router.delete('/user/:id', AdminController.destroyUser)
 //END USER
@@ -44,8 +47,8 @@ router.get('/position', AdminController.getAdminPosition)
 //END POSITION
 
 //SERVICE NOTE
-router.get('/service-note', AdminController.getAdminServiceNote)
-router.post('/service-note', AdminController.creatAdminServiceNote)
+// router.get('/service-note', AdminController.getAdminServiceNote)
+// router.post('/service-note', AdminController.creatAdminServiceNote)
 router.delete('/service-note/:id', AdminController.destroyServiceNote)
 //END SERVICE NOTE
 

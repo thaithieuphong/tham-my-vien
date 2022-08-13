@@ -159,6 +159,7 @@ class ManagerBusinessController {
 				})
 				.catch(next);
 		}
+		// res.json(req.body);
 	}
 
 	addUseridToCustomer(req, res, next) {
