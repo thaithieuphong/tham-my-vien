@@ -1,14 +1,11 @@
 <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
 	<div class="title">
-
 	</div>
 	<h3 class="title text-light">Quản lý khách hàng hệ thống</h3>
 	<div class="stask">
-		<!-- Button trigger modal -->
 	</div>
 </nav>
 	{{> page/sidebar/business/manager/sidebar-business-manager}}
-
 <div class="container-fluid mt-3">
 	<div class="ml-4 mb-4 form-check d-flex align-items-center">
 		<input type="checkbox" class="hidden form-check-input" id="check-customer-all">
@@ -54,7 +51,6 @@
 				</tbody>
 			</table>
 		</div>
-
 		<div class="container-card">
 			{{#each customers}}
 			<div class="card text-dark bg-light mb-3">
@@ -65,7 +61,6 @@
 								value="{{this._id}}" id="">
 						</div>
 						{{this.firstName}} {{this.lastName}}
-
 					</h5>
 				</div>
 				<div class="card-body">

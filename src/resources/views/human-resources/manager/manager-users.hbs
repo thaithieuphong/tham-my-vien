@@ -1,4 +1,7 @@
 <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
+<div class="title">
+
+</div>
 <h3 class="title text-light">Quản lý nhân sự</h3>
 	<div class="stask mb-3">
 		<!-- Button trigger modal -->
@@ -28,11 +31,8 @@
 			</thead>
 			<tbody id="table-content">
 				{{#each users}}
-				{{!-- href="/business/employ/customers/{{this._id}}/detail" --}}
 				<tr>
 					<th class="text-center" scope="row">{{sum @index 1}}</th>
-					{{!-- <td><a href="#" data-bs-toggle="modal"
-							data-bs-target="#detail-user-modal">{{this.firstName}}{{this.lastName}}</a></td> --}}
 					<td><a href="/human-resources/manager/user/{{this._id}}/detail">{{this.firstName}}
 							{{this.lastName}}</a></td>
 					<td class="text-center">{{this.department}}</td>
@@ -53,7 +53,7 @@
 							data-edit-description="{{this.description}}">Sửa</button>
 						<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-user-modal"
 							data-delete-id="{{this._id}}" data-delete-firstname="{{this.firstName}}"
-							data-delete-lastname="{{this.lastName}}">Xoa</button>
+							data-delete-lastname="{{this.lastName}}">Xóa</button>
 					</td>
 				</tr>
 				{{/each}}
@@ -64,7 +64,6 @@
 		<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." >
 		<div id="search-items">
 			{{#each users}}
-
 				<div class="card text-dark bg-light mb-3">
 					<div class="card-header">
 						<h5 class="card-title"><a href="/human-resources/manager/user/{{this._id}}/detail"
@@ -80,7 +79,7 @@
 						<p class="card-text">Mô tả: {{this.description}}</p>
 					</div>
 					<div class="modal-footer">
-						<button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
+						<button class="btn btn-info btn-sm btn-mobile" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
 							data-id="{{this._id}}" data-edit-img="{{this.image.name}}"
 							data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
 							data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
@@ -88,9 +87,9 @@
 							data-edit-department="{{this.department}}" data-edit-position="{{this.position}}"
 							data-edit-account="{{this.account}}" data-edit-address="{{this.address}}"
 							data-edit-description="{{this.description}}">Sửa</button>
-						<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-user-modal"
+						<button class="btn btn-danger btn-sm btn-mobile" data-bs-toggle="modal" data-bs-target="#delete-user-modal"
 							data-delete-id="{{this._id}}" data-delete-firstname="{{this.firstName}}"
-							data-delete-lastname="{{this.lastName}}">Xoa</button>
+							data-delete-lastname="{{this.lastName}}">Xóa</button>
 					</div>
 				</div>
 			{{/each}}
@@ -139,7 +138,7 @@
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header bg-primary">
-				<h5 class="modal-title text-light" id="create-user-modal-title">Tạo thông tin nhan vien</h5>
+				<h5 class="modal-title text-light" id="create-user-modal-title">Tạo thông tin nhân viên</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -157,12 +156,12 @@
 								<label for="account" class="form-label">
 									<h6>Tài khoản</h6>
 								</label>
-								<input type="text" class="form-control form-control-sm account mb-3"
+								<input type="text" class="form-control form-control-sm account mb-3 bg-white"
 									id="create-user-account" value="{{this.account}}" name="account" readonly>
 								<label for="password" class="form-label">
 									<h6>Mật khẩu</h6>
 								</label>
-								<input type="password" class="form-control form-control-sm  mb-3"
+								<input type="password" class="form-control form-control-sm mb-3"
 									id="create-user-password" name="password" required>
 							</li>
 						</ul>
@@ -266,7 +265,7 @@
 											<h6>Mô tả</h6>
 										</label>
 										<textarea class="form-control" id="create-user-description" rows="6"
-											placeholder="Mô tả khách hàng" name="description"></textarea>
+										 name="description"></textarea>
 									</div>
 								</div>
 							</li>
@@ -288,14 +287,19 @@
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header bg-info">
-				<h5 class="modal-title text-light" id="edit-user-modal-title">Sửa / Cập nhật thông tin người dùng</h5>
+				<h5 class="modal-title text-light" id="edit-user-modal-title">Cập nhật thông tin người dùng</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 				<form method="POST" id="edit-user-form" class="row" enctype="multipart/form-data">
 					<div class="col-xl-3 text-center">
+						{{#if user.image.name}}
+						<img src="/img/uploads/users/{{user.image.name}}" id="edit-user-avt" class="rounded mx-auto d-block add-avata"
+							alt="...">
+						{{else}}
 						<img src="/img/user-icon.png" id="edit-user-avt" class="rounded mx-auto d-block add-avata"
 							alt="...">
+						{{/if}}
 						<label for="input-edit-user-img" class="label-avt btn btn-sm btn-primary mt-3">
 							<h6>Chọn ảnh đại diện</h6>
 						</label>
@@ -306,12 +310,12 @@
 								<label for="account" class="form-label">
 									<h6>Tài khoản</h6>
 								</label>
-								<input type="text" class="form-control form-control-sm account" id="edit-user-account"
+								<input type="text" class="form-control form-control-sm account bg-white" id="edit-user-account"
 									value="{{this.account}}" name="account" disabled>
 							</li>
 						</ul>
 					</div>
-					<div class="col-xl-9 mb-3">
+					<div class="col-xl-9 mb-3 mt-3">
 						<ul class="list-group">
 							<li class="list-group-item">
 								<div class="row">
@@ -319,14 +323,14 @@
 										<label for="edit-user-firstName" class="form-label">
 											<h6>Họ</h6>
 										</label>
-										<input type="text" class="form-control form-control-sm firstName"
+										<input type="text" class="form-control form-control-sm firstName bg-white"
 											data-bs-focus="focus" id="edit-user-firstName" name="firstName" disabled>
 									</div>
 									<div class="col-md-6 mt-3">
 										<label for="edit-user-lastName" class="form-label">
 											<h6>Tên</h6>
 										</label>
-										<input type="text" class="form-control form-control-sm lastName"
+										<input type="text" class="form-control form-control-sm lastName bg-white"
 											id="edit-user-lastName" name="lastName" disabled>
 									</div>
 								</div>
@@ -428,16 +432,16 @@
 	<div class="modal-dialog modal-md">
 		<div class="modal-content">
 			<div class="modal-header bg-danger">
-				<h5 class="modal-title text-light" id="delete-user-modal-title">Xoa người dùng</h5>
+				<h5 class="modal-title text-light" id="delete-user-modal-title">Xóa người dùng</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<p>Ban co chac chan muon xoa <strong><span id="delete-user-firstName"></span> <span
-							id="delete-user-lastName"></span></strong> khong?</p>
+				<p>Bạn có chắc chắn muốn xóa <strong><span id="delete-user-firstName"></span> <span
+							id="delete-user-lastName"></span></strong> không?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" id="delete-user-btn" class="btn btn-danger">Xoa</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huy</button>
+				<button type="button" id="delete-user-btn" class="btn btn-danger">Xóa</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
 			</div>
 		</div>
 	</div>

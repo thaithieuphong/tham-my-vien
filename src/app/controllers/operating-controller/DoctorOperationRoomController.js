@@ -3,6 +3,7 @@ const ServiceNote = require('../../models/ServiceNote');
 const Counselor = require('../../models/Counselor');
 const Reexamination = require('../../models/Reexamination');
 const User = require('../../models/User');
+const bcrypt = require("bcryptjs");
 
 
 class DoctorOperationRoomController {
@@ -50,10 +51,6 @@ class DoctorOperationRoomController {
 			.catch(next);
 
 	}
-
-
-
-
 }
 
 module.exports = new DoctorOperationRoomController;

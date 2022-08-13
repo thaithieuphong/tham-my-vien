@@ -1,0 +1,171 @@
+<link rel="stylesheet" href="/css/root.css">
+{{!-- <link rel="stylesheet" href="/css/profile.css"> --}}
+<nav class="navbar navbar-light bg-dark sticky-top">
+    <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+            class="ti-angle-double-right"></i></button>
+    <div class="img-container">
+        {{#if root.image.name}}
+        <a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
+                class="ml-2 mr-3" src="/img/uploads/users/{{root.image.name}}" alt=""></a>
+        {{else}}
+        <a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
+                class="ml-2 mr-3" src="/img/user-icon.png" alt=""></a>
+        {{/if}}
+        <div />
+</nav>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/root/dashboard" class="sidebar-item-title pl-3">
+                <i class="ti-dashboard mr-3"></i>Bảng điều khiển
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/root/user" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Phòng nhân sự
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/operating-room" class="sidebar-item-title pl-3">
+                <i class="ti-cut mr-3"></i>Phòng phẩu thuật
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/reception" class="sidebar-item-title pl-3">
+                <i class="ti-clipboard mr-3"></i>Phòng lễ tân
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/business" class="sidebar-item-title pl-3">
+                <i class="ti-headphone-alt mr-3"></i>Phòng kinh doanh
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/marketing" class="sidebar-item-title pl-3">
+                <i class="ti-bar-chart mr-3"></i>Phòng marketing
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" class="sidebar-item-title pl-3">
+                <i class="ti-server mr-3"></i>Phòng IT
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="bg-white mb-3">
+    <div class="row container-content">
+        <nav id="sub-nav-sm" class="navbar navbar-light d-flex justify-content-between">    
+            <a type="button" onclick="history.back()" class="btn btn-dark text-white ml-3"><i class="ti-back-left mr-2"></i>Quay lại</a>
+        </nav>
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                {{#if user.image.name}}
+                <img class="rounded mt-3" width="150px" src="/img/uploads/users/{{user.image.name}}">
+                {{else}}
+                <img class="rounded mt-3" width="150px" src="/img/user-icon.png">
+                {{/if}}
+                <span class="font-weight-bold mt-3">{{user.firstName}} {{user.lastName}}</span>
+                <span class="text-black-50">{{user.email}}</span>
+            </div>
+        </div>
+        <div class="col-md-9 border-right">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right">THÔNG TIN NGƯỜI DÙNG</h4>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Họ tên:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{user.firstName}} {{user.lastName}}</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Ngày sinh:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{user.birth}}</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Giới tính:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{user.gender}}</p>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Điện thoại:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{user.phone}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Email:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{user.email}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Địa chỉ:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{user.address}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Phòng ban:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{user.department}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Chức vụ:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{user.position}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Tài khoản:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{user.account}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label>Quyền hạn:</label>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">{{user.role}}</p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md">
+                    <label for="description">Mô tả:</label>
+                    <textarea id="description" class="form-control bg-white" rows="6"
+                        readonly>{{user.description}}</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

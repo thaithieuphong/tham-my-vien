@@ -1,7 +1,19 @@
-<div class="row">
-    	{{> page/sidebar/admin/sidebar-owner}}
-
-    <div class="content">
-        ADMIN page
+<div class="container-fluid mt-3">
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+        aria-controls="offcanvasWithBothOptions">Admin</button>
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+        aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Admin</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+       <div class="offcanvas-body">
+			<div>
+				<a href="/admin/user">Người dùng</a>
+			</div>
+			<div class="mt-3">
+				<a href="/admin/customer">Khách hàng</a>
+			</div>
+		</div>
     </div>
 </div>

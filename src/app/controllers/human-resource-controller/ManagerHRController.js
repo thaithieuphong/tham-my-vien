@@ -25,14 +25,7 @@ class HRController {
 	}
 
 	showDashboard(req, res, next) {
-		User.findById({ _id: req.userId })
-			.then((user) => {
-				res.render("human-resources/manager/manager-overview", {
-					user: mongooseToObject(user),
-					title: "Quản lý nhân sự"
-				});
-			})
-			.catch(next);
+		res.redirect('/human-resources/manager/users')
 	}
 
 	showUsers(req, res, next) {
@@ -48,7 +41,7 @@ class HRController {
 					users: multipleMongooseToObject(users),
 					departments: multipleMongooseToObject(departments),
 					positions: multipleMongooseToObject(positions),
-					title: "Quan ly nhan su",
+					title: "Quản lý nhân sự",
 				});
 			})
 			.catch(next);
@@ -122,6 +115,7 @@ class HRController {
 					account: req.body.account,
 					password: bcrypt.hashSync(req.body.password, 8),
 					role: "Người dùng",
+					roleEng: 'user',
 					image: {
 						name: req.file.filename,
 						url: req.file.path,

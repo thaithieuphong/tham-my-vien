@@ -7,9 +7,6 @@
 </nav>
 {{> page/sidebar/operating-room/sidebar-nursing-service}}
 <div class="container-fluid mt-3">
-	<div id="alert-message" class="alert alert-{{message.color}}" role="alert">
-		{{message.content}}
-	</div>
 	<div class="shadow p-3 mb-5 bg-body rounded">
 		{{#each serviceNote}}
 		<div class="row">
@@ -240,19 +237,19 @@
 						<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
 						<div class="col-sm-6">
 							<label for="input-multi-images-before"
-								class="label-avt btn btn-primary btn-upload-mobile mt-2">
+								class="label-avt btn btn-primary btn-upload-mobile mt-4">
 								<h6>Chọn ảnh trước phẩu</h6>
 							</label>
-							<div class="preview-images-before row ml-0 mt-3 border"></div>
+							<div class="preview-images-before row ml-0 mt-1 border"></div>
 							<input id="input-multi-images-before" class="form-control" type="file" name="before" hidden
 								multiple>
 						</div>
 						<div class="col-sm-6">
 							<label for="input-multi-videos-before"
-								class="label-avt btn btn-primary btn-upload-mobile mt-2">
+								class="label-avt btn btn-primary btn-upload-mobile mt-4">
 								<h6>Chọn video trước phẩu</h6>
 							</label>
-							<div class="preview-videos-before row ml-0 mt-3 border"></div>
+							<div class="preview-videos-before row ml-0 mt-1 border"></div>
 							<input id="input-multi-videos-before" class="form-control" type="file" name="before" hidden
 								multiple>
 						</div>
@@ -260,7 +257,7 @@
 
 				</form>
 				<div class=" d-flex justify-content-center mt-4">
-					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#before-modal"
+					<button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal" data-bs-target="#before-modal"
 						data-before-id="{{this._id}}">Tải lên</button>
 				</div>
 			</div>
@@ -304,26 +301,26 @@
 						<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
 						<div class="col-sm-6">
 							<label for="input-multi-images-after"
-								class="label-avt btn btn-primary btn-upload-mobile mt-2">
+								class="label-avt btn btn-primary btn-upload-mobile mt-5">
 								<h6>Chọn ảnh sau phẩu</h6>
 							</label>
-							<div class="preview-images-after row ml-0 mt-3 border"></div>
+							<div class="preview-images-after row ml-0 mt-1 border"></div>
 							<input id="input-multi-images-after" class="form-control" type="file" name="after" hidden
 								multiple>
 						</div>
 						<div class="col-sm-6">
 							<label for="input-multi-videos-after"
-								class="label-avt btn btn-primary btn-upload-mobile mt-2">
+								class="label-avt btn btn-primary btn-upload-mobile mt-5">
 								<h6>Chọn video sau phẩu</h6>
 							</label>
-							<div class="preview-videos-after row ml-0 mt-3 border"></div>
+							<div class="preview-videos-after row ml-0 mt-1 border"></div>
 							<input id="input-multi-videos-after" class="form-control" type="file" name="after" hidden
 								multiple>
 						</div>
 					</div>
 				</form>
-				<div class=" d-flex justify-content-center mt-4">
-					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#after-modal"
+				<div class="d-flex justify-content-center mt-4">
+					<button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal" data-bs-target="#after-modal"
 						data-after-id="{{this._id}}">Tải lên</button>
 				</div>
 			</div>
@@ -342,9 +339,9 @@
 					</label>
 				</div>
 			</div>
-			<div class="col-md-6 ml-4">
+			<div class="col-md-6">
 				<button type="button" data-bs-toggle="modal" data-bs-target="#submit-doctor-modal"
-					class="btn btn-success" data-id="{{this._id}}">Hoàn thành</button>
+					class="btn btn-success btn-mobile offset-md-9" data-id="{{this._id}}">Hoàn thành</button>
 			</div>
 		</div>
 		{{else}}

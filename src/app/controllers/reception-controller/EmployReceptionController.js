@@ -3,6 +3,7 @@ const User = require('../../models/User');
 const User1 = require('../../models/User');
 const User2 = require('../../models/User');
 const Reexamination = require('../../models/Reexamination');
+const bcrypt = require("bcryptjs");
 
 
 
@@ -65,7 +66,7 @@ class ReceptionController {
     }
 
     pushPerformer(req, res, next) {
-        // console.log(req.body);
+        console.log(req.body);
         Promise.all([
             ServiceNote.findByIdAndUpdate({ _id: req.params.id },
                 {
@@ -101,7 +102,6 @@ class ReceptionController {
             .catch(next);
         // res.json(req.body)
     }
-
 
 };
 

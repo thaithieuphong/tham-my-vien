@@ -1,10 +1,7 @@
 <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
 	<div class="title">
-
 	</div>
 	<h3 class="title text-light">Quản lý khách hàng</h3>
-
-
 	<div class="stask">
 		<!-- Button trigger modal -->
 		<a href="/business/manager/service-note" type="button" class="btn btn-primary btn-sm btn-create">
@@ -18,7 +15,6 @@
 </nav>
 {{> page/sidebar/business/manager/sidebar-business-manager-customers}}
 <a data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="addBtn-mobile"><i class="ti-plus"></i></a>
-
 <div class="container-fluid mt-3">
 	<ul class="nav nav-pills mb-3 ml-3" id="pills-tab" role="tablist">
 		<li class="nav-item" role="presentation">
@@ -29,7 +25,7 @@
 		<li class="nav-item" role="presentation">
 			<button class="nav-link" id="pills-user-customer-tab" data-bs-toggle="pill"
 				data-bs-target="#pills-user-customer" type="button" role="tab" aria-controls="pills-profile"
-				aria-selected="false">Khách hàng có CTV</button>
+				aria-selected="false">Khách hàng có nhân viên</button>
 		</li>
 	</ul>
 	<div class="tab-content" id="pills-tabContent">
@@ -119,19 +115,19 @@
 						<div class="card-body">
 							<p class="card-text">Ngày sinh: {{formatBirth this.birth}}</p>
 							<p class="card-text">Giới tính: {{this.gender}}</p>
-							<p class="card-text">SDT: 0{{this.phone}}</p>
+							<p class="card-text">SĐT: 0{{this.phone}}</p>
 							<p class="card-text">Email: {{this.email}}</p>
 							<p class="card-text">Mô tả: {{this.description}}</p>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-md btn-primary" data-bs-toggle="modal"
+							<button type="button" class="btn btn-md btn-primary btn-mobile" data-bs-toggle="modal"
 								data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
 								data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
 								data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
 								data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
 								data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
 								data-edit-description="{{this.description}}">Sửa</button>
-							<button type="button" class="btn btn-md btn-success" data-bs-toggle="modal"
+							<button type="button" class="btn btn-md btn-success btn-mobile" data-bs-toggle="modal"
 								data-service-note-id="{{this._id}}" data-service-note-img="{{this.image.name}}"
 								data-service-note-firstname="{{this.firstName}}"
 								data-service-note-lastname="{{this.lastName}}" data-service-note-birth="{{this.birth}}"
@@ -140,13 +136,11 @@
 								data-service-note-description="{{this.description}}" {{#each this.serviceNoteID}}
 								data-service-note-serviceID="{{this.service}}" {{/each}}
 								data-bs-target="#create-service-note-modal">Tạo phiếu</button>
-
 						</div>
 					</div>
 					{{/each}}
 				</div>
 			</div>
-
 		</div>
 		<div class="tab-pane fade show " id="pills-user-customer" role="tabpanel" aria-labelledby="pills-profile-tab">
 			<div class="container-table ml-3">
@@ -183,7 +177,6 @@
 					</tbody>
 				</table>
 			</div>
-
 			<div class="container-card">
 				<input type="text" id="myInputCTV" onkeyup="myFunctionCTV()" placeholder="Search for names.."
 					title="Type in a name">
@@ -210,14 +203,9 @@
 					{{/each}}
 				</div>
 			</div>
-
 		</div>
 	</div>
-
-
 </div>
-
-
 
 <!-- Modal Create Customer -->
 <div class="modal fade" id="create-customer-modal" tabindex="-1" aria-labelledby="create-customer-modal"
@@ -331,7 +319,7 @@
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header bg-info">
-				<h5 class="modal-title text-light" id="edit-customer-title">Sửa / Cập nhật thông tin người dùng
+				<h5 class="modal-title text-light" id="edit-customer-title">Cập nhật thông tin người dùng
 				</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
@@ -341,7 +329,7 @@
 						<img src="/img/user-icon.png" id="edit-customer-avt" class="rounded mx-auto d-block add-avata"
 							alt="...">
 						<div class="mt-3 mb-3 text-center">
-							<label for="edit-img" class="label-avt btn btn-sm btn-primary">
+							<label for="input-edit-img" class="label-avt btn btn-sm btn-primary">
 								<h6>Chọn ảnh đại diện</h6>
 							</label>
 							<input hidden class="form-control" id="input-edit-img" type="file" name="image"
@@ -474,7 +462,6 @@
 													rows="6" style="background-color: white;" disabled></textarea>
 											</div>
 										</div>
-
 										<div class="col-md-6">
 											<div class=" mb-3 row">
 												<div class="col-sm-6">
@@ -489,9 +476,7 @@
 													</em>
 												</div>
 											</div>
-
 											<hr>
-
 											<div class=" mb-3 row">
 												<div class="col-sm-6">
 													<strong>
@@ -505,7 +490,6 @@
 													</em>
 												</div>
 											</div>
-
 											<div class=" mb-3 row">
 												<div class="col-sm-6">
 													<strong>
@@ -519,11 +503,10 @@
 													</em>
 												</div>
 											</div>
-
 											<div class=" mb-3 row">
 												<div class="col-sm-6">
 													<strong>
-														<label for="email">Email address:</label>
+														<label for="email">Email:</label>
 													</strong>
 												</div>
 												<div class="col-sm-6 ">
@@ -534,7 +517,6 @@
 													</em>
 												</div>
 											</div>
-
 											<div class=" mb-3 row">
 												<div class="col-sm-6">
 													<strong>
@@ -548,7 +530,6 @@
 													</em>
 												</div>
 											</div>
-
 											<div class=" mb-3 row">
 												<div class="col-sm-6">
 													<strong>
@@ -561,9 +542,7 @@
 															readonly></label>
 													</em>
 												</div>
-
 											</div>
-
 											<div class=" mb-3 row">
 												<div class="col-sm-6">
 													<strong>
@@ -581,7 +560,6 @@
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</li>
 							</ul>
@@ -591,19 +569,43 @@
 							<div class="row">
 								<div class="col-md-5">
 									<div class="mb-3">
-										<label for="service" class="form-label">
-											<h6>Chọn dịch vụ:</h6>
-										</label>
-										<select id="select-service" class="chosen-select" multiple tabindex="6"
-											name="service[]">
+										<div>
+											<label for="service" class="form-label ">
+												<h6>Chọn dịch vụ:</h6>
+											</label>
+										</div>
+
+										<select id="select-service" class="chosen-select container-table" multiple
+											tabindex="6" name="service[]">
 											{{#each typeservices}}
 											<optgroup label="{{this.name}}">
 												{{#each this.services}}
 												<option value="{{this.service}}">{{this.service}}</option>
 												{{/each}}
-											<optgroup>
-												{{/each}}
+											</optgroup>
+											{{/each}}
 										</select>
+
+										<div id="list1" class="dropdown-check-list container-card" tabindex="100">
+											<span class="anchor ">Chọn dịch vụ</span>
+											<ul class="items">
+												{{#each typeservices}}
+												<li class="">
+													 <strong>{{this.name}}</strong> 
+												</li>
+												{{#each this.services}}
+												<li>
+													<hr>
+													<label class="form-check " for="{{this.service}}">
+														<input type="checkbox" class="" id="{{this.service}}"
+															value="{{this.service}}" name="service[]" />
+														<label for="{{this.service}}">{{this.service}}</label>
+													</label>
+												</li>
+												{{/each}}
+												{{/each}}
+											</ul>
+										</div>
 									</div>
 									<div class="mb-3">
 										<label for="schedule" class="form-label">
@@ -612,7 +614,6 @@
 										<input type="datetime-local" class="form-control"
 											id="create-service-note-schedule" name="schedule">
 									</div>
-
 									<div class="mb-3">
 										<label for="price" class="form-label">
 											<h6>Tổng giá:</h6>
@@ -620,7 +621,6 @@
 										<input type="number" min="100000" step="100000" class="form-control"
 											id="create-service-note-price" name="price">
 									</div>
-
 									<div class="mb-3">
 										<label for="comment" class="form-label">
 											<h6>Ghi chú: </h6>
@@ -629,7 +629,6 @@
 											name="comment"></textarea>
 									</div>
 								</div>
-								{{!--upload multi --}}
 								<div class="col-md-7">
 									<div class="preview-images-counselor row ml-0 mt-3 border"></div>
 									<label for="input-multi-images-counselor" class="label-avt btn btn-primary mt-2">
@@ -644,7 +643,6 @@
 									<input id="input-multi-videos-counselor" class="form-control" type="file"
 										name="counselor" hidden multiple>
 								</div>
-								{{!-- --}}
 							</div>
 						</div>
 					</div>

@@ -2,6 +2,7 @@ const User = require('../../models/User');
 const { multipleMongooseToObject, mongooseToObject } = require('../../../util/mongoose');
 const ServiceNote = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
+const bcrypt = require("bcryptjs");
 
 class NursingController {
 
