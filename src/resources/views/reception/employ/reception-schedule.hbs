@@ -276,8 +276,8 @@
 									<ul class="items">
 										{{#each user1s}}
 										<li>
-											<label for="{{this._id}}">
-												<hr>
+											<hr>
+											<label class="form-check " for="{{this._id}}">
 												<input type="checkbox" class="mt-2" id="{{this._id}}"
 													value="{{this._id}}" name="performer" /> <strong
 													class="text-success">Bác sĩ:</strong>
@@ -285,11 +285,10 @@
 											</label>
 										</li>
 										{{/each}}
-										<hr>
 										{{#each user2s}}
 										<li>
-											<label for="{{this._id}}">
-												<hr>
+											<hr>
+											<label class="form-check " for="{{this._id}}">
 												<input type="checkbox" class="mt-2" id="{{this._id}}"
 													value="{{this._id}}" name="nursing" /><strong class="text-success">Y
 													tá:</strong>
