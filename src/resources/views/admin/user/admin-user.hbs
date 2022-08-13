@@ -1,19 +1,58 @@
-{{!-- <div class="row">
-    {{> page/sidebar/sales/sidebar-manager}} --}}
-    <div class="content">
-        <nav class="navbar bg-info d-flex justify-content-between">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-danger mr-2">
-                <i class="ti-archive"></i> Kho lưu trữ
-            </button>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary ml-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                <i class="ti-plus"></i> Tạo người dùng
-            </button>
-        </nav>
-        <div class="container-fluid mt-3">
+<div class="container-fluid mt-3">
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+        aria-controls="offcanvasWithBothOptions">Admin</button>
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+        aria-labelledby="offcanvasWithBothOptionsLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Admin</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+			<div>
+				<a href="/admin/user">Người dùng</a>
+			</div>
+			<div class="mt-3">
+				<a href="/admin/customer">Khách hàng</a>
+			</div>
+		</div>
+    </div>
+</div>
+
+<div class="container-fluid mt-3">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-profile-business-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-profile-business" type="button" role="tab" aria-controls="pills-home"
+                aria-selected="true">Business</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-marketing-tab" data-bs-toggle="pill"
+                data-bs-target="#pills-marketing" type="button" role="tab" aria-controls="pills-profile-marketing"
+                aria-selected="false">Marketing</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-hr-tab" data-bs-toggle="pill" data-bs-target="#pills-hr"
+                type="button" role="tab" aria-controls="pills-profile-hr" aria-selected="false">HR</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-it-tab" data-bs-toggle="pill" data-bs-target="#pills-it"
+                type="button" role="tab" aria-controls="pills-profile-it" aria-selected="false">IT</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-recept-tab" data-bs-toggle="pill" data-bs-target="#pills-recept"
+                type="button" role="tab" aria-controls="pills-profile-recept" aria-selected="false">Reception</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="pills-profile-operating-tab" data-bs-toggle="pill" data-bs-target="#pills-oper"
+                type="button" role="tab" aria-controls="pills-profile-operating"
+                aria-selected="false">Operating</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-profile-business" role="tabpanel"
+            aria-labelledby="pills-home-tab">
             <div class="table-responsive mt-3">
-                <table id="user" class="table table-sm table-bordered align-middle">
+                <table id="business_table" class="table table-hover table-bordered table-sm">
                     <thead class="table-info">
                         <tr>
                             <th scope="col">#</th>
@@ -24,7 +63,6 @@
                             <th scope="col">Email</th>
                             <th scope="col">Địa chỉ</th>
                             <th scope="col">Phòng ban</th>
-                            <th scope="col">Chức vụ</th>
                             <th scope="col">Hành động</th>
                         </tr>
                     </thead>
@@ -39,207 +77,451 @@
                             <td>{{this.email}}</td>
                             <td>{{this.address}}</td>
                             <td>{{this.department}}</td>
-                            <td>{{this.position}}</td>
                             <td class="text-center">
-                                <button class="btn btn-outline-info btn-sm">Sửa</button>
-                                <button class="btn btn-outline-danger btn-sm" data-id="{{this._id}}"data-
+                                <a class="btn btn-outline-info btn-sm" href="/admin/user/{{this._id}}/edit">Sửa</a>
+                                <button class="btn btn-outline-danger btn-sm" data-id="{{this._id}}" data-
                                     data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
                             </td>
                         </tr>
                         {{/each}}
                     </tbody>
                 </table>
+                <hr>
+
             </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-marketing" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="table-responsive mt-3">
+                <table id="marketing_table" class="table table-hover table-bordered table-sm">
+                    <thead class="table-info">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Họ tên</th>
+                            <th scope="col">Ngày sinh</th>
+                            <th scope="col">Giới tính</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Phòng ban</th>
+                            <th scope="col">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each user1s}}
+                        <tr class="info">
+                            <th scope="row" class="text-center">{{sum @index 1}}</th>
+                            <td>{{this.firstName}}{{this.middleName}} {{this.lastName}}</td>
+                            <td>{{this.birth}}</td>
+                            <td>{{this.gender}}</td>
+                            <td>{{this.phone}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.address}}</td>
+                            <td>{{this.department}}</td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-info btn-sm" href="/admin/user/{{this._id}}/edit">Sửa</a>
+                                <button class="btn btn-outline-danger btn-sm" data-id="{{this._id}}" data-
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <hr>
+
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-hr" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="table-responsive mt-3">
+                <table id="hr_table" class="table table-hover table-bordered table-sm">
+                    <thead class="table-info">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Họ tên</th>
+                            <th scope="col">Ngày sinh</th>
+                            <th scope="col">Giới tính</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Phòng ban</th>
+                            <th scope="col">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each user2s}}
+                        <tr class="info">
+                            <th scope="row" class="text-center">{{sum @index 1}}</th>
+                            <td>{{this.firstName}}{{this.middleName}} {{this.lastName}}</td>
+                            <td>{{this.birth}}</td>
+                            <td>{{this.gender}}</td>
+                            <td>{{this.phone}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.address}}</td>
+                            <td>{{this.department}}</td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-info btn-sm" href="/admin/user/{{this._id}}/edit">Sửa</a>
+                                <button class="btn btn-outline-danger btn-sm" data-id="{{this._id}}" data-
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <hr>
+
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-it" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="table-responsive mt-3">
+                <table id="it_table" class="table table-hover table-bordered table-sm">
+                    <thead class="table-info">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Họ tên</th>
+                            <th scope="col">Ngày sinh</th>
+                            <th scope="col">Giới tính</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Phòng ban</th>
+                            <th scope="col">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each user3s}}
+                        <tr class="info">
+                            <th scope="row" class="text-center">{{sum @index 1}}</th>
+                            <td>{{this.firstName}}{{this.middleName}} {{this.lastName}}</td>
+                            <td>{{this.birth}}</td>
+                            <td>{{this.gender}}</td>
+                            <td>{{this.phone}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.address}}</td>
+                            <td>{{this.department}}</td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-info btn-sm" href="/admin/user/{{this._id}}/edit">Sửa</a>
+                                <button class="btn btn-outline-danger btn-sm" data-id="{{this._id}}" data-
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <hr>
+
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-recept" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="table-responsive mt-3">
+                <table id="recept_table" class="table table-hover table-bordered table-sm">
+                    <thead class="table-info">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Họ tên</th>
+                            <th scope="col">Ngày sinh</th>
+                            <th scope="col">Giới tính</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Phòng ban</th>
+                            <th scope="col">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each user4s}}
+                        <tr class="info">
+                            <th scope="row" class="text-center">{{sum @index 1}}</th>
+                            <td>{{this.firstName}}{{this.middleName}} {{this.lastName}}</td>
+                            <td>{{this.birth}}</td>
+                            <td>{{this.gender}}</td>
+                            <td>{{this.phone}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.address}}</td>
+                            <td>{{this.department}}</td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-info btn-sm" href="/admin/user/{{this._id}}/edit">Sửa</a>
+                                <button class="btn btn-outline-danger btn-sm" data-id="{{this._id}}" data-
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <hr>
+
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="pills-oper" role="tabpanel" aria-labelledby="pills-profile-tab">
+            <div class="table-responsive mt-3">
+                <table id="oper_table" class="table table-hover table-bordered table-sm">
+                    <thead class="table-info">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Họ tên</th>
+                            <th scope="col">Ngày sinh</th>
+                            <th scope="col">Giới tính</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col">Phòng ban</th>
+                            <th scope="col">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each user5s}}
+                        <tr class="info">
+                            <th scope="row" class="text-center">{{sum @index 1}}</th>
+                            <td>{{this.firstName}}{{this.middleName}} {{this.lastName}}</td>
+                            <td>{{this.birth}}</td>
+                            <td>{{this.gender}}</td>
+                            <td>{{this.phone}}</td>
+                            <td>{{this.email}}</td>
+                            <td>{{this.address}}</td>
+                            <td>{{this.department}}</td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-info btn-sm" href="/admin/user/{{this._id}}/edit">Sửa</a>
+                                <button class="btn btn-outline-danger btn-sm" data-id="{{this._id}}" data-
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal">Xóa</button>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                <hr>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class=" mt-4">
+
+        <h5>Tạo user</h5>
+
+        <form method="POST" id="create-user">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="firstName" class="form-label">
+                        <h6>Họ</h6>
+                    </label>
+                    <input type="text" class="form-control form-control-sm" id="firstName" pattern="[a-z]{1,15}"
+                        placeholder="Vd: Trần Văn" name="firstName"
+                        title="Username should only contain lowercase letters. e.g. john" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="lastName" class="form-label">
+                        <h6>Tên</h6>
+                    </label>
+                    <input type="text" class="form-control form-control-sm" id="lastName" placeholder="Vd: Khánh"
+                        name="lastName" required>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label for="birth" class="form-label">
+                        <h6>Ngày sinh</h6>
+                    </label>
+                    <input type="date" class="form-control form-control-sm" id="birth" aria-describedby="birthFeedback"
+                        name="birth" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="gender" class="form-label">
+                        <h6>Giới tính</h6>
+                    </label>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="gender">
+                        <option value="" selected>-- Chọn giới tính --</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Nam">Nam</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">
+                        <h6>Số điện thoại</h6>
+                    </label>
+                    <input type="tel" class="form-control form-control-sm" id="phone" placeholder="Vd: 0909888888"
+                        name="phone" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">
+                        <h6>Email</h6>
+                    </label>
+                    <input type="email" class="form-control form-control-sm" id="email"
+                        placeholder="Vd: tranvankhanh@gmail.com" name="email" required>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <label for="address" class="form-label">
+                        <h6>Địa chỉ</h6>
+                    </label>
+                    <input type="text" class="form-control form-control-sm" id="address"
+                        aria-describedby="addressFeedback" placeholder="Vd: 123 Đường số 10" name="address" required>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label for="departments" class="form-label">
+                        <h6>Phòng ban</h6>
+                    </label>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="department">
+                        <option value="" selected>-- Chọn phòng ban --</option>
+                        {{#each departments}}
+                        <option value="{{this.name}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="positions" class="form-label">
+                        <h6>Chức vụ</h6>
+                    </label>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="position">
+                        <option value="" selected>-- Chọn chức vụ --</option>
+                        {{#each positions}}
+                        <option value="{{this.name}}">{{this.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12 mb-3">
+                    <label for="description" class="form-label">
+                        <h6>Mô tả</h6>
+                    </label>
+                    <textarea class="form-control" id="description" rows="6"
+                        placeholder="Vd: Kinh nghiệm làm việc, sở thích..." name="description"></textarea>
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            <button type="button" id="create" class="btn btn-primary">Tạo</button>
         </div>
     </div>
 </div>
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="info-user" aria-hidden="true">
-    <div class="modal-dialog modal-md">
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header bg-primary text-light">
-                <h5 class="modal-title" id="info-user">Thông tin người dùng</h5>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" id="create-user" class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="firstName" class="form-label">
-                                <h6>Họ</h6>
-                            </label>
-                            <input type="text" class="form-control form-control-sm" id="firstName" pattern="[a-z]{1,15}"
-                                placeholder="Vd: Trần Văn" name="firstName"
-                                title="Username should only contain lowercase letters. e.g. john" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="lastName" class="form-label">
-                                <h6>Tên</h6>
-                            </label>
-                            <input type="text" class="form-control form-control-sm" id="lastName"
-                                placeholder="Vd: Khánh" name="lastName" required>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <label for="birth" class="form-label">
-                                <h6>Ngày sinh</h6>
-                            </label>
-                            <input type="date" class="form-control form-control-sm" id="birth"
-                                aria-describedby="birthFeedback" name="birth" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="gender" class="form-label">
-                                <h6>Giới tính</h6>
-                            </label>
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                name="gender">
-                                <option value="" selected>-- Chọn giới tính --</option>
-                                <option value="Nữ">Nữ</option>
-                                <option value="Nam">Nam</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <label for="phone" class="form-label">
-                                <h6>Số điện thoại</h6>
-                            </label>
-                            <input type="tel" class="form-control form-control-sm" id="phone"
-                                placeholder="Vd: 0909888888" name="phone" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="email" class="form-label">
-                                <h6>Email</h6>
-                            </label>
-                            <input type="email" class="form-control form-control-sm" id="email"
-                                placeholder="Vd: tranvankhanh@gmail.com" name="email" required>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <label for="address" class="form-label">
-                                <h6>Địa chỉ</h6>
-                            </label>
-                            <input type="text" class="form-control form-control-sm" id="address"
-                                aria-describedby="addressFeedback" placeholder="Vd: 123 Đường số 10" name="address"
-                                required>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <label for="departments" class="form-label">
-                                <h6>Phòng ban</h6>
-                            </label>
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                name="department">
-                                <option value="" selected>-- Chọn phòng ban --</option>
-                                {{#each departments}}
-                                <option value="{{this.name}}">{{this.name}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="positions" class="form-label">
-                                <h6>Chức vụ</h6>
-                            </label>
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
-                                name="position">
-                                <option value="" selected>-- Chọn chức vụ --</option>
-                                {{#each positions}}
-                                <option value="{{this.name}}">{{this.name}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12 mb-3">
-                            <label for="description" class="form-label">
-                                <h6>Mô tả</h6>
-                            </label>
-                            <textarea class="form-control" id="description" rows="6"
-                                placeholder="Vd: Kinh nghiệm làm việc, sở thích..." name="description"></textarea>
-                        </div>
-                    </div>
-                </form>
+                Bạn có đồng ý xóa không?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" id="create" class="btn btn-primary">Tạo</button>
+                <button id="btn-delete" type="button" class="btn btn-danger">Có, chắc chắn</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
             </div>
         </div>
     </div>
 </div>
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Bạn có đồng ý xóa không?
-                </div>
-                <div class="modal-footer">
-                    <button id="btn-delete" type="button" class="btn btn-danger">Có, chắc chắn</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <form name="delete-form" method="POST"></form>
+<form name="delete-form" method="POST"></form>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            $(document).ready(function () {
-                $('#user').DataTable({
-                    paginate: true,
-                    scrollY: 300,
-                    scrollX: 0
-                });
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $(document).ready(function () {
+            $('#user').DataTable({
+                paginate: true,
+                scrollY: 300,
+                scrollX: 0
             });
+        });
 
-            var inputFirstName = document.getElementById('firstName');
-            var formCreate = document.getElementById('create-user');
-            var elem = document.createElement('div');
-            elem.setAttribute('class', 'alert alert-danger');
-            elem.setAttribute('role', 'alert');
-            elem.setAttribute('id', 'notify');
-            elem.style.display = 'none';
-            formCreate.appendChild(elem);
+        var inputFirstName = document.getElementById('firstName');
+        var formCreate = document.getElementById('create-user');
+        var elem = document.createElement('div');
+        elem.setAttribute('class', 'alert alert-danger');
+        elem.setAttribute('role', 'alert');
+        elem.setAttribute('id', 'notify');
+        elem.style.display = 'none';
+        formCreate.appendChild(elem);
 
-            inputFirstName.addEventListener('invalid', function (event) {
-                event.preventDefault();
-                if (!event.target.validity.valid) {
-                    elem.textContent = 'Tên không được chứa số và ký tự đặc biệt';
-                    elem.className = 'error';
-                    elem.style.display = 'block';
-                    inputFirstName.setAttribute('class', 'invalid animated shake');
-                }
-            });
-
-            var create = document.getElementById('create');
-            var createUserForm = document.forms['create-user'];
-            create.addEventListener('click', () => {
-                createUserForm.action = '/admin/user';
-                createUserForm.submit();
-            })
-            //DELETE
-            var id;
-            var btnDel = document.getElementById('btn-delete');
-            var delForm = document.forms['delete-form'];
-
-            $('#deleteModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                id = button.data('id');
-
-            })
-
-            btnDel.onclick = function () {
-                delForm.action = '/admin/user/' + id + '?_method=DELETE';
-                delForm.submit();
+        inputFirstName.addEventListener('invalid', function (event) {
+            event.preventDefault();
+            if (!event.target.validity.valid) {
+                elem.textContent = 'Tên không được chứa số và ký tự đặc biệt';
+                elem.className = 'error';
+                elem.style.display = 'block';
+                inputFirstName.setAttribute('class', 'invalid animated shake');
             }
-            //END DELETE
+        });
+
+        var create = document.getElementById('create');
+        var createUserForm = document.forms['create-user'];
+        create.addEventListener('click', () => {
+            createUserForm.action = '/admin/user';
+            createUserForm.submit();
         })
-    </script>
+        //DELETE
+        var id;
+        var btnDel = document.getElementById('btn-delete');
+        var delForm = document.forms['delete-form'];
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            id = button.data('id');
+
+        })
+
+        btnDel.onclick = function () {
+            delForm.action = '/admin/user/' + id + '?_method=DELETE';
+            delForm.submit();
+        }
+        //END DELETE
+    })
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        $(document).ready(function () {
+            $("#business_table").DataTable({
+                paging: true,
+                reponsive: true,
+            });
+        });
+
+        $(document).ready(function () {
+            $("#marketing_table").DataTable({
+                paging: true,
+                reponsive: true,
+            });
+        });
+
+        $(document).ready(function () {
+            $("#hr_table").DataTable({
+                paging: true,
+                reponsive: true,
+            });
+        });
+
+        $(document).ready(function () {
+            $("#it_table").DataTable({
+                paging: true,
+                reponsive: true,
+            });
+        });
+
+        $(document).ready(function () {
+            $("#recept_table").DataTable({
+                paging: true,
+                reponsive: true,
+            });
+        });
+
+        $(document).ready(function () {
+            $("#oper_table").DataTable({
+                paging: true,
+                reponsive: true,
+            });
+        });
+
+    });
+</script>

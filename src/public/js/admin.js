@@ -47,16 +47,7 @@
 // })
 
 // Handle edit info Customer
-var edit = document.getElementById("edit");
-var editID 
-var eCForm = document.forms["edit-customer-form"];
-edit.addEventListener("click", () => {
-  eCForm.setAttribute(
-    "action",
-    `/admin/customers/${editID}?_method=PUT`
-  );
-  eCForm.submit();
-});
+
 
 // Handle create service note
 var createServiceNote = document.getElementById("create-service-note-btn");
@@ -80,52 +71,65 @@ editImg.addEventListener("change", (e) => {
 });
 
 // EDIT
-var viewCustomer = document.getElementById("edit-customer");
-viewCustomer.addEventListener("show.bs.modal", function (event) {
-  // Button that triggered the modal
-  var button = event.relatedTarget;
+// Handle select image from modal edit
+var editImg = document.getElementById("edit-img");
+var editAvt = document.getElementById("edit-avt");
+editImg.addEventListener("change", (e) => {
+	editAvt.src = URL.createObjectURL(e.target.files[0]);
+});
 
-  // Get data from edit button
-  editID = button.getAttribute("data-id");
-  var editImage = button.getAttribute("data-edit-img");
-  var firstName = button.getAttribute("data-edit-firstname");
-  var lastName = button.getAttribute("data-edit-lastname");
-  var birth = button.getAttribute("data-edit-birth");
-  var gender = button.getAttribute("data-edit-gender");
-  var phone = button.getAttribute("data-edit-phone");
-  var email = button.getAttribute("data-edit-email");
-  var address = button.getAttribute("data-edit-address");
-  var description = button.getAttribute("data-edit-description");
+// Handle push data to edit modal
+var editCustomer = document.getElementById("edit-customer-modal");
+editCustomer.addEventListener("show.bs.modal", function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget;
+	// Get data from edit button
+	var idEdit = button.getAttribute('data-id');
+	var imageEdit = button.getAttribute("data-edit-img");
+	var firstName = button.getAttribute("data-edit-firstname");
+	var lastName = button.getAttribute("data-edit-lastname");
+	var birth = button.getAttribute("data-edit-birth");
+	var gender = button.getAttribute("data-edit-gender");
+	var phone = button.getAttribute("data-edit-phone");
+	var email = button.getAttribute("data-edit-email");
+	var address = button.getAttribute("data-edit-address");
+	var desciption = button.getAttribute("data-edit-description");
 
-  // Get element need embeded input
-  var editAvt = document.getElementById("edit-customer-avt");
-  var editFirstName = document.getElementById("edit-firstName");
-  var editLastName = document.getElementById("edit-lastName");
-  var editBirth = document.getElementById("edit-birth");
-  var editGender = document.getElementById("edit-gender");
-  var editPhone = document.getElementById("edit-phone");
-  var editEmail = document.getElementById("edit-email");
-  var editAddress = document.getElementById("edit-address");
-  var editdescipt = document.getElementById("edit-description");
+	// Get element need embeded input
+	var editAvt = document.getElementById("edit-avt");
+	var editFirstName = document.getElementById("edit-firstName");
+	var editLastName = document.getElementById("edit-lastName");
+	var editBirth = document.getElementById("edit-birth");
+	var editGender = document.getElementById("edit-gender");
+	var editPhone = document.getElementById("edit-phone");
+	var editEmail = document.getElementById("edit-email");
+	var editAddress = document.getElementById("edit-address");
+	var editDescription = document.getElementById("edit-description");
 
-  if (editImage === "") {
-    editAvt.setAttribute("src", "/img/user-icon.png");
-  } else {
-    editAvt.setAttribute("src", "/img/uploads/users/" + editImage);
-  }
-  // viewCustomer.setAttribute(
-  //   "action",
-  //   `/customers/${editID}?_method=PUT`
-  // );
-  editFirstName.value = firstName;
-  // editFirstName.setAttribute('value', firstName);
-  editLastName.value = lastName;
-  editBirth.value = birth;
-  editGender.value = gender;
-  editPhone.value = phone;
-  editEmail.value = email;
-  editAddress.value = address;
-  editdescipt.value = description;
+	editFirstName.focus();
+
+  console.log(imageEdit)
+	if (imageEdit === '') {
+		editAvt.setAttribute('src', '/img/user-icon.png');
+	} else {
+		editAvt.setAttribute('src', '/img/uploads/customers/' + imageEdit);
+	}
+	editCustomerForm.setAttribute('action', `/admin/customer/${idEdit}?_method=PUT`);
+	editFirstName.value = firstName;
+	editLastName.value = lastName;
+	editBirth.value = birth;
+	editGender.value = gender;
+	editPhone.value = phone;
+	editEmail.value = email;
+	editAddress.value = address;
+	editDescription.value = desciption;
+});
+
+// Handle edit info Customer
+var editBtn = document.getElementById("edit");
+var editCustomerForm = document.forms["edit-customer-form"];
+editBtn.addEventListener("click", () => {
+	editCustomerForm.submit();
 });
 
 // Handle create service-note
@@ -171,6 +175,13 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 document.addEventListener("DOMContentLoaded", function () {
   $(document).ready(function () {
     $("#customer_table").DataTable({
+      paging: true,
+      reponsive: true,
+    });
+  });
+
+  $(document).ready(function () {
+    $("#ctv_table").DataTable({
       paging: true,
       reponsive: true,
     });

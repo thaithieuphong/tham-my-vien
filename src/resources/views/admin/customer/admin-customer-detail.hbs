@@ -1,73 +1,172 @@
-<!DOCTYPE html>
-<html lang="en">
+<div class="container-fluid ">
+		<ul class="nav nav-pills ml-3 mt-3" id="pills-tab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="pills-system-customer-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-system-customer" type="button" role="tab" aria-controls="pills-home"
+					aria-selected="true">Khách hàng</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="pills-user-customer-tab" data-bs-toggle="pill"
+					data-bs-target="#pills-user-customer" type="button" role="tab" aria-controls="pills-profile"
+					aria-selected="false">Dịch vụ đã sử dụng</button>
+			</li>
+		</ul>
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Quản lý người dùng</title>
-</head>
+		<div class="tab-content ml-3" id="pills-tabContent">
+			<div class="tab-pane fade show active" id="pills-system-customer" role="tabpanel"
+				aria-labelledby="pills-home-tab">
 
-<body>
-	<div class="d-flex" id="wrapper">
-		{{> page/sidebar/admin/sidebar-owner}}
-		<div id="page-content-wrapper">
-			{{!-- <nav id="sub-nav-lg" class="navbar navbar-light" style="background-color: #e3f2fd;">
-				<!-- Navbar content -->
-				<button type="button" class="btn btn-danger btn-storage">
-					<i class="ti-archive"></i> Kho lưu trữ
-				</button>
-				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary btn-create" data-bs-toggle="modal"
-					data-bs-target="#create-user">
-					<i class="ti-plus"></i> Tạo người dùng
-				</button>
-			</nav> --}}
-			{{!-- <div class="sub-nav-mobile bg-info d-flex justify-content-end">
-				<div class="btn btn-primary"><i class="ti-plus"></i></div>
-			</div> --}}
-			<div class="container-fluid container-content-page">
-				<div class="row mt-3">
-					<div class="text-center col-xl-3 mb-3">
-						<img src="/img/user-icon.png" id="add-avt" class="rounded mx-auto d-block add-avata" alt="...">
-						<div class="card-body">
-							<h3 class="none-mb">{{customer.firstName}} {{customer.lastName}}</h3>
-							<p class="none-mb" value="" for="detail-birth"><strong>Ngày sinh:
-								</strong>{{customer.birth}}</p>
-							<p class="none-mb" value=""><strong>Giới tính: </strong>{{customer.gender}}</p>
-							<p class="none-mb" value=""><strong>Điện thoại: </strong>{{customer.phone}}</p>
-							<p class="none-mb" value=""><strong>Email: </strong>{{customer.email}}</p>
-							<p class="none-mb" value=""><strong>Địa chỉ: </strong>{{customer.address}}</p>
-							<label class=""><strong>Mô tả:</strong></label>
-							<textarea id="detail-description" class="form-control mb-2" rows="6"
+				<div class="row mb-4">
+					<div class="col-xl-6 mt-3">
+						{{#if customer.image.name}}
+						<div class="col-md-6 mt-2 text-center">
+							<img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt"
+								class="rounded  add-avata" alt="...">
+						</div>
+						{{else}}
+						<div class="col-md-6 mt-2 text-center">
+							<img src="/img/user-icon.png" id="add-avt"
+								class="rounded  add-avata" alt="...">
+						</div>
+						{{/if}}
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="name">Họ tên:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 ">
+								<em>
+									<label class="text-uppercase text-danger" readonly>{{customer.firstName}}
+										{{customer.lastName}}</label>
+								</em>
+							</div>
+						</div>
+
+						<hr>
+
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="birth">Ngày sinh:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 ">
+								<em>
+									<label id="create-service-note-birth" name="birth" readonly>{{formatBirth
+										customer.birth}}</label>
+								</em>
+							</div>
+						</div>
+
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="gender">Giới tính:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 ">
+								<em>
+									<label id="create-service-note-gender" name="gender"
+										readonly>{{customer.gender}}</label>
+								</em>
+							</div>
+						</div>
+
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="email">Email address:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 ">
+								<em>
+									<label id="create-service-note-email" name="email"
+										readonly>{{customer.email}}</label>
+								</em>
+							</div>
+						</div>
+
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="phone">Số điện thoại:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 ">
+								<em>
+									<label id="create-service-note-phone" name="phone"
+										readonly>{{customer.phone}}</label>
+								</em>
+							</div>
+						</div>
+
+						<div class=" mb-3 row">
+							<div class="col-sm-6">
+								<strong>
+									<label for="address">Địa chỉ:</label>
+								</strong>
+							</div>
+							<div class="col-sm-6 ">
+								<em>
+									<label id="create-service-note-address" name="address"
+										readonly>{{customer.address}}</label>
+								</em>
+							</div>
+
+						</div>
+
+						<div class="mb-3">
+							<strong>
+								<label for="description">Mô tả</label>
+							</strong>
+							<textarea id="detail-description" class="form-control" style="background-color: white;"
 								disabled>{{customer.description}}</textarea>
 						</div>
 					</div>
-					<div class="col-xl-9">
-						<ul class="list-group comment-content-page border">
+					<div class="col-xl-6 ">
+
+
+						<ul class="list-group border comment-ctv-page">
 							{{#each customer.comments}}
-							<li class="list-group-item bg-light">
-								<p id="createdAt" class="none-mb comment-createdAt"><strong>{{formatDate
+							<li class="list-group-item bg-light ml-2 mr-2 mt-2">
+								<p id="createdAt" class="none-mb comment-createdAt "><strong>{{formatDate
 										this.createdAt}}</strong></p>
-								<p class="none-mb comment-content" value="">{{this.comment}}</p>
+								<p class="none-mb comment-content " value="">{{this.comment}}</p>
 							</li>
 							{{/each}}
 						</ul>
-						<form method="POST">
-							<div class="col-xl mt-3">
-								<label for="account" class="form-label">
-									<h6>Hoạt động</h6>
-								</label>
-								<input type="text" class="form-control form-control-sm" id="comments" name="comments"
-									required>
-							</div>
-							<div class="modal-footer">
-								<button type="submit" class="btn btn-primary">Lưu</button>
-							</div>
-						</form>
+						
+
 					</div>
 				</div>
 			</div>
-			{{> page/sidebar/admin/sidebar-mobile}}
+			<div class="tab-pane fade" id="pills-user-customer" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="row ">
+					<div class="col-md-6">
+						<p class="none-mb" value="" for="service-note-service"><strong>Dịch vụ:
+							</strong></p>
+					</div>
+					<div class="col-md-6">
+						{{#each customer.serviceNoteID}}
+						<p class="none-mb" value="" for="service-note-service">{{this.service}} ({{this.status}})</p>
+						{{else}}
+						Chưa sử dụng dịch vụ nào
+						{{/each}}
+					</div>
+				</div>
+				<hr>
+
+				<div class="row mt-3">
+					{{#each counselors}}
+
+					<div class="col-md-3 row">
+						{{this.img.id}}
+
+					</div>
+					{{/each}}
+
+				</div>
+			</div>
 		</div>
 	</div>
