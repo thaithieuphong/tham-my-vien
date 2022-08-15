@@ -172,11 +172,11 @@
 					<div class="col-md-6 row">
 						{{#each this.counselorImg}}
 						{{#if this}}
-						<div class="col-md-6 col-sm-12 col-xs-2 mt-2">
-							<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
+						<div class="col-md-2 col-sm-12 col-xs-12 ml-3">
+							<img src="/counselor/img/{{this}}" class="rounded upd-ava" alt="...">
 						</div>
 						{{else}}
-						<div class="col-md-6 col-sm-12 col-xs-2 mt-2">
+						<div class="col-md-2 col-sm-12 col-xs-12 mt-2">
 							<h6>Chưa có ảnh</h6>
 						</div>
 						{{/if}}
@@ -185,13 +185,13 @@
 					<div class="col-md-6 row">
 						{{#each this.counselorVideo}}
 						{{#if this}}
-						<div class="col-md-6 col-sm-12 col-xs-2 mt-2">
-							<video class="rounded mx-auto d-block upd-ava" controls>
-								<video src="/counselor/video/{{this}}" type="video/mp4">
-							</video>
+						<div class="col-md-2 col-sm-12 col-xs-12 ml-3">
+							<video class="rounded" controls>
+								<source src="/counselor/video/{{this}}" type="video/mp4">
+							</source>
 						</div>
 						{{else}}
-						<div class="col-md-6 col-sm-12 col-xs-2 mt-2">
+						<div class="col-md-2 col-sm-12 col-xs-12 mt-2">
 							<h6>Chưa có video</h6>
 						</div>
 						{{/if}}
