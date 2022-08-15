@@ -480,7 +480,12 @@ a {
     // #sub-nav-sm {
     //     display: block;
     // }
-
+    .upd-ava{
+        width: 130px;
+        height: 130px;
+        object-fit: contain;
+    }
+    
     #sub-nav-lg {
         display: none;
     }
@@ -621,6 +626,12 @@ a {
         display: none;
     }
 
+    .upd-ava{
+        width: 130px;
+        height: 130px;
+        object-fit: contain;
+    }
+
     .btn-mobile{
         width: 100%;
     }
@@ -756,6 +767,12 @@ a {
 
     #sub-nav-lg {
         display: none;
+    }
+
+    .upd-ava{
+        width: 130px;
+        height: 130px;
+        object-fit: contain;
     }
 
     .btn-mobile{
@@ -898,6 +915,12 @@ a {
 
     .btn-mobile{
         width: 100%;
+    }
+
+    .upd-ava{
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
     }
 
     .navbar {
@@ -1130,6 +1153,12 @@ a {
 
     .btn-mobile{
         width: 100%;
+    }
+
+    .upd-ava{
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
     }
 
     .navbar {
