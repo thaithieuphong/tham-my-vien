@@ -8,7 +8,7 @@
 {{> page/sidebar/operating-room/sidebar-doctor-re-exam}}
 
 <div class="container-fluid mt-3">
-	<div class="shadow p-3 mb-5 bg-body rounded service-note">
+	<div class="shadow p-3 mb-5 bg-body rounded ">
 		{{#each reExam}}
 		<div class="row">
 			<h5 class="text-uppercase text-center mb-4">
@@ -73,7 +73,7 @@
 						<strong> Khách hàng: </strong>&nbsp;&nbsp;
 					</label>
 					<label for="">
-						{{this.customerID.firstName}}{{this.customerID.lastName}}
+						{{this.customerID.firstName}} {{this.customerID.lastName}}
 					</label>
 				</div>
 				<div class="col-md-6 ">
@@ -181,27 +181,27 @@
 				<div class="row">
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.counselorImg}}
-							{{#if this.serviceNoteId.counselorImg}}
+							{{#if this }}
 								<div class="col-md-6 mt-2">
 									<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
 								</div>
 							{{else}}
-								<div class="col-md-6 mt-2">
-									<img src="/img/user-icon.png" class="rounded mx-auto d-block upd-ava" alt="...">
+								<div class="col-md-6 ">
+									<h6>Chưa có hình ảnh</h6>
 								</div>
 							{{/if}}
 						{{/each}}
 					</div>
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.counselorVideo}}
-							{{#if this.serviceNoteId.counselorVideo}}
+							{{#if this }}
 								<div class="col-md-6 mt-2">
 									<video class="rounded mx-auto d-block upd-ava" controls>
 										<source src="/counselor/video/{{this}}" type="video/mp4">
 									</video>
 								</div>
 							{{else}}
-								<div class="col-md-6 mt-2">
+								<div class="col-md-6 ">
 									<h6>Chưa có video</h6>
 								</div>
 							{{/if}}
@@ -215,13 +215,13 @@
 				<div class="row">
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.beforeImg}}
-							{{#if this.serviceNoteId.beforeImg}}
-								<div class="col-md-6">
+							{{#if this }}
+								<div class="col-md-6 mt-2">
 									<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava"
 										alt="...">
 								</div>
 							{{else}}
-								<div class="col-md-6 mt-2">
+								<div class="col-md-6 ">
 									<h6>Chưa có ảnh</h6>
 								</div>
 							{{/if}}
@@ -229,14 +229,14 @@
 					</div>
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.beforeVideo}}
-							{{#if this.serviceNoteId.beforeVideo}}
+							{{#if this}}
 								<div class="col-md-6 mt-2">
 									<video class="rounded mx-auto d-block upd-ava" controls>
 										<source src="/before/video/{{this}}" type="video/mp4">
 									</video>
 								</div>
 							{{else}}
-								<div class="col-md-6 mt-2">
+								<div class="col-md-6 ">
 									<h6>Chưa có video</h6>
 								</div>
 							{{/if}}
@@ -250,13 +250,13 @@
 				<div class="row">
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.afterImg}}
-							{{#if this.serviceNoteId.afterImg}}
+							{{#if this }}
 								<div class="col-md-6 mt-2">
 									<img src="/after/img/{{this}}" class="rounded mx-auto d-block upd-ava"
 										alt="...">
 								</div>
 							{{else}}
-								<div class="col-md-6 mt-2">
+								<div class="col-md-6 ">
 									<h6>Chưa có ảnh</h6>
 								</div>
 							{{/if}}
@@ -264,14 +264,14 @@
 					</div>
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.afterVideo}}
-							{{#if this.serviceNoteId.afterVideo}}
+							{{#if this }}
 								<div class="col-md-6 mt-2">
 									<video class="rounded mx-auto d-block upd-ava" controls>
 										<source src="/after/video/{{this}}" type="video/mp4">
 									</video>
 								</div>
 							{{else}}
-								<div class="col-md-6 mt-2">
+								<div class="col-md-6 ">
 									<h6>Chưa có video</h6>
 								</div>
 							{{/if}}
@@ -285,14 +285,14 @@
 				<div class="row">
 					<div class="col-md-6 row">
 						{{#each this.reExamImg}}
-							{{#if this.reExamImg}}
+							{{#if this }}
 								<div class="col-md-6 mt-2">
 									<img src="/re-examination/img/{{this}}" class="rounded mx-auto d-block upd-ava"
 										alt="...">
 
 								</div>
 							{{else}}
-								<div class="col-md-6 mt-2">
+								<div class="col-md-6 ">
 									<h6>Chưa có ảnh</h6>
 								</div>
 							{{/if}}
@@ -300,14 +300,14 @@
 					</div>
 					<div class="col-md-6 row">
 						{{#each this.reExamVideo}}
-							{{#if this.reExamVideo}}
+							{{#if this }}
 								<div class="col-md-6 mt-2">
 									<video class="rounded mx-auto d-block upd-ava" controls>
 										<source src="/re-examination/video/{{this}}" type="video/mp4">
 									</video>
 								</div>
 							{{else}}
-								<div class="col-md-6 mt-2">
+								<div class="col-md-6 ">
 									<h6>Chưa có video</h6>
 								</div>
 							{{/if}}
