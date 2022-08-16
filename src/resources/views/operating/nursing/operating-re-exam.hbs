@@ -10,7 +10,7 @@
 {{> page/sidebar/operating-room/sidebar-nursing-re-exam}}
 
 <div class="container-fluid mt-3">
-	<div class="shadow p-3 mb-5 bg-body rounded service-note">
+	<div class="shadow p-3 mb-5 bg-body rounded ">
 
 		{{#each reExam}}
 		<div class="row">
@@ -79,7 +79,7 @@
 						<strong> Khách hàng: </strong>&nbsp;&nbsp;
 					</label>
 					<label for="">
-						{{this.customerID.firstName}}{{this.customerID.lastName}}
+						{{this.customerID.firstName}} {{this.customerID.lastName}}
 					</label>
 				</div>
 				<div class="col-md-6">
@@ -207,237 +207,234 @@
 				<div class="row">
 					<div class="col-md-6 row">
 						{{#each this.serviceNoteId.counselorImg}}
-						{{#if this.serviceNoteId.counselorImg}}
+						{{#if this}}
 						<div class="col-md-6 mt-2">
 							<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
-							<div class="col-md-6 mt-2">
-								<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
-							</div>
 							{{else}}
-							<div class="col-md-6 mt-2">
+							<div class="col-md-6 ">
 								<h6>Chưa có ảnh</h6>
 							</div>
 							{{/if}}
-							{{/each}}
 						</div>
-						<div class="col-md-6 row">
-							{{#each this.serviceNoteId.counselorVideo}}
-							{{#if this.serviceNoteId.counselorVideo}}
-							<div class="col-md-6 mt-2">
-								<video class="rounded mx-auto d-block upd-ava" controls>
-									<source src="/counselor/video/{{this}}" type="video/mp4">
-								</video>
-							</div>
-							{{else}}
-							<div class="col-md-6 mt-2">
-								<h6>Chưa có video</h6>
-							</div>
-							{{/if}}
-							{{/each}}
-						</div>
-
+						{{/each}}
 					</div>
+					<div class="col-md-6 row">
+						{{#each this.serviceNoteId.counselorVideo}}
+						{{#if this}}
+						<div class="col-md-6 mt-2">
+							<video class="rounded mx-auto d-block upd-ava" controls>
+								<source src="/counselor/video/{{this}}" type="video/mp4">
+							</video>
+						</div>
+						{{else}}
+						<div class="col-md-6 ">
+							<h6>Chưa có video</h6>
+						</div>
+						{{/if}}
+						{{/each}}
+					</div>
+
 				</div>
+			</div>
 
-				<div class="tab-pane fade  " id="pills-before" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="row">
-						<div class="col-md-6 row mt-2">
-							{{#each this.serviceNoteId.beforeImg}}
-							{{#if this.serviceNoteId.beforeImg}}
-							<div class="col-md-6">
-								<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
-							</div>
-							{{else}}
-							<div class="col-md-6 mt-2">
-								<h6>Chưa có ảnh</h6>
-							</div>
-							{{/if}}
-							{{/each}}
+			<div class="tab-pane fade  " id="pills-before" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="row">
+					<div class="col-md-6 row ">
+						{{#each this.serviceNoteId.beforeImg}}
+						{{#if this}}
+						<div class="col-md-6 mt-2">
+							<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
 						</div>
-						<div class="col-md-6 row">
-							{{#each this.serviceNoteId.beforeVideo}}
-							{{#if this.serviceNoteId.beforeVideo}}
-							<div class="col-md-6 mt-2">
-								<video class="rounded mx-auto d-block  upd-ava" controls>
-									<source src="/before/video/{{this}}" type="video/mp4">
-								</video>
-							</div>
-							{{else}}
-							<div class="col-md-6 mt-2">
-								<h6>Chưa có video</h6>
-							</div>
-							{{/if}}
-							{{/each}}
+						{{else}}
+						<div class="col-md-6 ">
+							<h6>Chưa có ảnh</h6>
 						</div>
-
+						{{/if}}
+						{{/each}}
 					</div>
+					<div class="col-md-6 row">
+						{{#each this.serviceNoteId.beforeVideo}}
+						{{#if this}}
+						<div class="col-md-6 mt-2">
+							<video class="rounded mx-auto d-block  upd-ava" controls>
+								<source src="/before/video/{{this}}" type="video/mp4">
+							</video>
+						</div>
+						{{else}}
+						<div class="col-md-6 ">
+							<h6>Chưa có video</h6>
+						</div>
+						{{/if}}
+						{{/each}}
+					</div>
+
 				</div>
+			</div>
 
-				<div class="tab-pane fade  " id="pills-after" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="row">
-						<div class="col-md-6 row">
-							{{#each this.serviceNoteId.afterImg}}
-							{{#if this.serviceNoteId.afterImg}}
-							<div class="col-md-6 mt-2">
-								<img src="/after/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
-							</div>
-							{{else}}
-							<div class="col-md-6 mt-2">
-								<h6>Chưa có ảnh</h6>
-							</div>
-							{{/if}}
-							{{/each}}
+			<div class="tab-pane fade  " id="pills-after" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="row">
+					<div class="col-md-6 row">
+						{{#each this.serviceNoteId.afterImg}}
+						{{#if this}}
+						<div class="col-md-6 mt-2">
+							<img src="/after/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
 						</div>
-						<div class="col-md-6 row">
-							{{#each this.serviceNoteId.afterVideo}}
-							{{#if this.serviceNoteId.afterVideo}}
-							<div class="col-md-6 mt-2">
-								<video class="rounded mx-auto d-block upd-ava" controls>
-									<source src="/after/video/{{this}}" type="video/mp4">
-								</video>
-							</div>
-							{{else}}
-							<div class="col-md-6 mt-2">
-								<h6>Chưa có video</h6>
-							</div>
-							{{/if}}
-							{{/each}}
+						{{else}}
+						<div class="col-md-6 ">
+							<h6>Chưa có ảnh</h6>
 						</div>
+						{{/if}}
+						{{/each}}
 					</div>
-				</div>
-
-				<div class="tab-pane fade" id="pills-re-exam" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="row">
-						<div class="col-md-6 row">
-							{{#each this.reExamImg}}
-							{{#if }}
-							<div class="col-md-6 mt-2">
-								<img src="/re-examination/img/{{this}}" class="rounded mx-auto d-block upd-ava"
-									alt="...">
-							</div>
-							{{else}}
-							<div class="col-md-6 mt-2">
-								<h6>Chưa có ảnh</h6>
-							</div>
-							{{/if}}
-							{{/each}}
+					<div class="col-md-6 row">
+						{{#each this.serviceNoteId.afterVideo}}
+						{{#if this}}
+						<div class="col-md-6 mt-2">
+							<video class="rounded mx-auto d-block upd-ava" controls>
+								<source src="/after/video/{{this}}" type="video/mp4">
+							</video>
 						</div>
-						<div class="col-md-6 row">
-							{{#each this.reExamVideo}}
-							{{#if this.reExamVideo}}
-							<div class="col-md-6 mt-2">
-								<video class="rounded mx-auto d-block upd-ava" controls>
-									<source src="/re-examination/video/{{this}}" type="video/mp4">
-								</video>
-							</div>
-							{{else}}
-							<div class="col-md-6 mt-2">
-								<h6>Chưa có video</h6>
-							</div>
-							{{/if}}
-							{{/each}}
+						{{else}}
+						<div class="col-md-6 ">
+							<h6>Chưa có video</h6>
 						</div>
-					</div>
-
-					{{!--upload multi re exam --}}
-
-					<form method="POST" id="upload-img-re-exam-form" enctype="multipart/form-data">
-						<div class="row">
-							<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
-							<div class="col-sm-6">
-								<label for="input-multi-images-re-exam"
-									class="label-avt btn btn-primary btn-upload-mobile mt-4">
-									<h6>Chọn ảnh tái khám</h6>
-								</label>
-								<div class="preview-images-re-exam row ml-0 mt-1 border"></div>
-
-								<input id="input-multi-images-re-exam" class="form-control" type="file"
-									name="reExamination" hidden multiple>
-							</div>
-							<div class="col-sm-6">
-								<label for="input-multi-videos-re-exam"
-									class="label-avt btn btn-primary btn-upload-mobile mt-4">
-									<h6>Chọn video tái khám</h6>
-								</label>
-								<div class="preview-videos-re-exam row ml-0 mt-1 border"></div>
-
-								<input id="input-multi-videos-re-exam" class="form-control" type="file"
-									name="reExamination" hidden multiple>
-							</div>
-						</div>
-					</form>
-					<div class=" d-flex justify-content-center mt-4">
-						<button type="button" class="btn btn-primary btn-upload-mobile" data-bs-toggle="modal"
-							data-bs-target="#re-exam-modal" data-re-exam-id="{{this._id}}">Tải lên</button>
+						{{/if}}
+						{{/each}}
 					</div>
 				</div>
 			</div>
 
-			<hr>
-
-			<div class="row">
-				<div class="col-md-6">
-					<div class="text-left ml-4">
-						<label for="service">
-							<strong>Tổng cộng:</strong>&nbsp;&nbsp;
-						</label>
-						<label for="">
-							<em>
-								{{this.price}} VND
-							</em>
-						</label>
+			<div class="tab-pane fade" id="pills-re-exam" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="row">
+					<div class="col-md-6 row ">
+						{{#each this.reExamImg}}
+						{{#if this}}
+						<div class="col-md-6 mt-2">
+							<img src="/re-examination/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
+						</div>
+						{{else}}
+						<div class="col-md-6 ">
+							<h6>Chưa có ảnh</h6>
+						</div>
+						{{/if}}
+						{{/each}}
+					</div>
+					<div class="col-md-6 row">
+						{{#each this.reExamVideo}}
+						{{#if this}}
+						<div class="col-md-6 mt-2">
+							<video class="rounded mx-auto d-block upd-ava" controls>
+								<source src="/re-examination/video/{{this}}" type="video/mp4">
+							</video>
+						</div>
+						{{else}}
+						<div class="col-md-6 ">
+							<h6>Chưa có video</h6>
+						</div>
+						{{/if}}
+						{{/each}}
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" data-bs-toggle="modal" data-bs-target="#submit-doctor-modal"
-					class="btn btn-success btn-mobile offset-md-9" data-id="{{this._id}}">Hoàn thành</button>
-			</div>
-			{{else}}
-			<div class="text-center">Chưa có dịch vụ cần thực hiện.</div>
-			{{/each}}
 
-		</div>
-		{{!-- Complete re-exam --}}
-		<div class="modal fade" id="submit-re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-			aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Hoàn thành</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				{{!--upload multi re exam --}}
+
+				<form method="POST" id="upload-img-re-exam-form" enctype="multipart/form-data">
+					<div class="row">
+						<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
+						<div class="col-sm-6">
+							<label for="input-multi-images-re-exam"
+								class="label-avt btn btn-primary btn-upload-mobile mt-4">
+								<h6>Chọn ảnh tái khám</h6>
+							</label>
+							<div class="preview-images-re-exam row ml-0 mt-1 border"></div>
+
+							<input id="input-multi-images-re-exam" class="form-control" type="file" name="reExamination"
+								hidden multiple>
+						</div>
+						<div class="col-sm-6">
+							<label for="input-multi-videos-re-exam"
+								class="label-avt btn btn-primary btn-upload-mobile mt-4">
+								<h6>Chọn video tái khám</h6>
+							</label>
+							<div class="preview-videos-re-exam row ml-0 mt-1 border"></div>
+
+							<input id="input-multi-videos-re-exam" class="form-control" type="file" name="reExamination"
+								hidden multiple>
+						</div>
 					</div>
-					<div class="modal-body">
-						Đẫ hoàn thành dịch vụ
-					</div>
-					<div class="modal-footer">
-						<button id="submit-form-re-exam-btn" type="button" class="btn btn-danger">Đã hoàn
-							thành</button>
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-					</div>
+				</form>
+				<div class=" d-flex justify-content-center mt-4">
+					<button type="button" class="btn btn-primary btn-upload-mobile" data-bs-toggle="modal"
+						data-bs-target="#re-exam-modal" data-re-exam-id="{{this._id}}">Tải lên</button>
 				</div>
 			</div>
 		</div>
 
-		{{!-- Confirm modal re-exam --}}
-		<div class="modal fade" id="re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Tải ảnh tái khám</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						Chắc chắn tải lên
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" id="upload-img-re-exam-btn">Có, chắc
-							chắn</button>
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-					</div>
+		<hr>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="text-left ml-4">
+					<label for="service">
+						<strong>Tổng cộng:</strong>&nbsp;&nbsp;
+					</label>
+					<label for="">
+						<em>
+							{{this.price}} VND
+						</em>
+					</label>
 				</div>
 			</div>
 		</div>
+		<div class="modal-footer">
+			<button type="button" data-bs-toggle="modal" data-bs-target="#submit-doctor-modal"
+				class="btn btn-success btn-mobile offset-md-9" data-id="{{this._id}}">Hoàn thành</button>
+		</div>
+		{{else}}
+		<div class="text-center">Chưa có dịch vụ cần thực hiện.</div>
+		{{/each}}
 
 	</div>
-	<script src="/js/operating/nursing-re-exam.js"></script>
+	{{!-- Complete re-exam --}}
+	<div class="modal fade" id="submit-re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Hoàn thành</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Đẫ hoàn thành dịch vụ
+				</div>
+				<div class="modal-footer">
+					<button id="submit-form-re-exam-btn" type="button" class="btn btn-danger">Đã hoàn
+						thành</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{!-- Confirm modal re-exam --}}
+	<div class="modal fade" id="re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Tải ảnh tái khám</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Chắc chắn tải lên
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="upload-img-re-exam-btn">Có, chắc
+						chắn</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<script src="/js/operating/nursing-re-exam.js"></script>
