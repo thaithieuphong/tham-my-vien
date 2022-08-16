@@ -895,6 +895,11 @@ a {
         margin: auto;
         width: 75%;
     }
+
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
+    }
 }
 
 @media screen and (min-width: 375px) and (max-width: 412px) {
@@ -1047,6 +1052,11 @@ a {
         margin: auto;
         width: 75%;
     }
+
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
+    }
 }
 
 @media screen and (min-width: 413px) and (max-width: 480px) {
@@ -1190,6 +1200,11 @@ a {
     #update-stored-status {
         margin: auto;
         width: 75%;
+    }
+
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
     }
 
 
@@ -1430,6 +1445,11 @@ a {
         width: 75%;
     }
 
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
+    }
+
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
@@ -1575,6 +1595,11 @@ a {
         margin: auto;
         width: 75%;
     }
+
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
+    }
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1200px) {
@@ -1719,6 +1744,11 @@ a {
     #update-stored-status {
         margin: auto;
         width: 75%;
+    }
+
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
     }
 }
 
