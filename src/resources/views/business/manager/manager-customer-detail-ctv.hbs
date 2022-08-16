@@ -130,15 +130,15 @@
 							<strong>
 								<label for="description">Mô tả</label>
 							</strong>
-							<textarea id="detail-description" class="form-control" style="background-color: white;"
+							<textarea id="detail-description" class="form-control"  style="background-color: white; height: 200px;"
 								disabled>{{customer.description}}</textarea>
 						</div>
 					</div>
 					<div class="col-xl-6 ">
 						<ul class="list-group border comment-ctv-page">
 							{{#each customer.comments}}
-							<li class="list-group-item bg-light ml-2 mr-2 mt-2">
-								<p id="createdAt" class="none-mb comment-createdAt "><strong>{{formatDate
+							<li class="list-group-item ml-2 mr-2 mt-2" style="background-color: white;">
+								<p id="createdAt" class="none-mb text-success comment-createdAt "><strong>{{formatDate
 										this.createdAt}}</strong></p>
 								<p class="none-mb comment-content " value="">{{this.comment}}</p>
 							</li>
