@@ -171,7 +171,6 @@
 				<div class="row">
 					<div class="col-md-6 row">
 						{{#each this.counselorImg}}
-
 						{{#if this}}
 						<div class="col-md-6 ">
 							<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
@@ -207,15 +206,15 @@
 				<div class="row">
 					<div class="col-md-6 row ">
 						{{#each this.beforeImg}}
-						{{!-- {{#if this.beforeImg}} --}}
+						{{#if this}}
 						<div class="col-md-6">
 							<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava " alt="...">
 						</div>
-						{{!-- {{else}}
+						{{else}}
 						<div class="col-md-6 mt-2">
 							<h6>Chưa có ảnh</h6>
 						</div>
-						{{/if}} --}}
+						{{/if}}
 						{{/each}}
 					</div>
 					<div class="col-md-6 row">

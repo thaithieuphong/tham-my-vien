@@ -233,7 +233,6 @@
 						{{/if}}
 						{{/each}}
 					</div>
-
 				</div>
 			</div>
 
@@ -267,7 +266,6 @@
 						{{/if}}
 						{{/each}}
 					</div>
-
 				</div>
 			</div>
 
@@ -302,71 +300,73 @@
 						{{/each}}
 					</div>
 				</div>
-			</div>
 
-			<div class="tab-pane fade" id="pills-re-exam" role="tabpanel" aria-labelledby="pills-profile-tab">
-				<div class="row">
-					<div class="col-md-6 row ">
-						{{#each this.reExamImg}}
-						{{#if this}}
-						<div class="col-md-6 mt-2">
-							<img src="/re-examination/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
-						</div>
-						{{else}}
-						<div class="col-md-6 ">
-							<h6>Chưa có ảnh</h6>
-						</div>
-						{{/if}}
-						{{/each}}
-					</div>
-					<div class="col-md-6 row">
-						{{#each this.reExamVideo}}
-						{{#if this}}
-						<div class="col-md-6 mt-2">
-							<video class="rounded mx-auto d-block upd-ava" controls>
-								<source src="/re-examination/video/{{this}}" type="video/mp4">
-							</video>
-						</div>
-						{{else}}
-						<div class="col-md-6 ">
-							<h6>Chưa có video</h6>
-						</div>
-						{{/if}}
-						{{/each}}
-					</div>
-				</div>
-
-				{{!--upload multi re exam --}}
-
-				<form method="POST" id="upload-img-re-exam-form" enctype="multipart/form-data">
+				<<<<<<< HEAD <div class="tab-pane fade" id="pills-re-exam" role="tabpanel"
+					aria-labelledby="pills-profile-tab">
 					<div class="row">
-						<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
-						<div class="col-sm-6">
-							<label for="input-multi-images-re-exam"
-								class="label-avt btn btn-primary btn-upload-mobile mt-4">
-								<h6>Chọn ảnh tái khám</h6>
-							</label>
-							<div class="preview-images-re-exam row ml-0 mt-1 border"></div>
-
-							<input id="input-multi-images-re-exam" class="form-control" type="file" name="reExamination"
-								hidden multiple>
+						<div class="col-md-6 row ">
+							{{#each this.reExamImg}}
+							{{#if this}}
+							<div class="col-md-6 mt-2">
+								<img src="/re-examination/img/{{this}}" class="rounded mx-auto d-block upd-ava"
+									alt="...">
+							</div>
+							{{else}}
+							<div class="col-md-6 ">
+								<h6>Chưa có ảnh</h6>
+							</div>
+							{{/if}}
+							{{/each}}
 						</div>
-						<div class="col-sm-6">
-							<label for="input-multi-videos-re-exam"
-								class="label-avt btn btn-primary btn-upload-mobile mt-4">
-								<h6>Chọn video tái khám</h6>
-							</label>
-							<div class="preview-videos-re-exam row ml-0 mt-1 border"></div>
+						<div class="col-md-6 row">
+							{{#each this.reExamVideo}}
+							{{#if this}}
+							<div class="col-md-6 mt-2">
+								<video class="rounded mx-auto d-block upd-ava" controls>
+									<source src="/re-examination/video/{{this}}" type="video/mp4">
+								</video>
+							</div>
+							{{else}}
+							<div class="col-md-6 ">
+								<h6>Chưa có video</h6>
+							</div>
+							{{/if}}
+							{{/each}}
 
-							<input id="input-multi-videos-re-exam" class="form-control" type="file" name="reExamination"
-								hidden multiple>
 						</div>
 					</div>
-				</form>
-				<div class=" d-flex justify-content-center mt-4">
-					<button type="button" class="btn btn-primary btn-upload-mobile" data-bs-toggle="modal"
-						data-bs-target="#re-exam-modal" data-re-exam-id="{{this._id}}">Tải lên</button>
-				</div>
+
+					{{!--upload multi re exam --}}
+
+					<form method="POST" id="upload-img-re-exam-form" enctype="multipart/form-data">
+						<div class="row">
+							<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
+							<div class="col-sm-6">
+								<label for="input-multi-images-re-exam"
+									class="label-avt btn btn-primary btn-upload-mobile mt-4">
+									<h6>Chọn ảnh tái khám</h6>
+								</label>
+								<div class="preview-images-re-exam row ml-0 mt-1 border"></div>
+
+								<input id="input-multi-images-re-exam" class="form-control" type="file"
+									name="reExamination" hidden multiple>
+							</div>
+							<div class="col-sm-6">
+								<label for="input-multi-videos-re-exam"
+									class="label-avt btn btn-primary btn-upload-mobile mt-4">
+									<h6>Chọn video tái khám</h6>
+								</label>
+								<div class="preview-videos-re-exam row ml-0 mt-1 border"></div>
+
+								<input id="input-multi-videos-re-exam" class="form-control" type="file"
+									name="reExamination" hidden multiple>
+							</div>
+						</div>
+					</form>
+					<div class=" d-flex justify-content-center mt-4">
+						<button type="button" class="btn btn-primary btn-upload-mobile" data-bs-toggle="modal"
+							data-bs-target="#re-exam-modal" data-re-exam-id="{{this._id}}">Tải lên</button>
+					</div>
 			</div>
 		</div>
 
@@ -395,43 +395,43 @@
 		{{/each}}
 
 	</div>
-	{{!-- Complete re-exam --}}
-	<div class="modal fade" id="submit-re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-		aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Hoàn thành</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					Đẫ hoàn thành dịch vụ
-				</div>
-				<div class="modal-footer">
-					<button id="submit-form-re-exam-btn" type="button" class="btn btn-danger">Đã hoàn
-						thành</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-				</div>
+</div>
+{{!-- Complete re-exam --}}
+<div class="modal fade" id="submit-re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Hoàn thành</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Đẫ hoàn thành dịch vụ
+			</div>
+			<div class="modal-footer">
+				<button id="submit-form-re-exam-btn" type="button" class="btn btn-danger">Đã hoàn
+					thành</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+
 			</div>
 		</div>
 	</div>
+</div>
 
-	{{!-- Confirm modal re-exam --}}
-	<div class="modal fade" id="re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Tải ảnh tái khám</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					Chắc chắn tải lên
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="upload-img-re-exam-btn">Có, chắc
-						chắn</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-				</div>
+{{!-- Confirm modal re-exam --}}
+<div class="modal fade" id="re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Tải ảnh tái khám</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Chắc chắn tải lên
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="upload-img-re-exam-btn">Có, chắc
+					chắn</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
 			</div>
 		</div>
 	</div>
