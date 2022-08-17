@@ -15,7 +15,7 @@ class AuthController {
     }
 
     postRootLogin(req, res, next) {
-        User.findOne({account: req.body.account})
+        User.findOne({ account: req.body.account })
             .then( user => {
                 if (!next) {
                     req.flash('messages_server_failure', 'Đã có lỗi xảy ra tại máy chủ');
