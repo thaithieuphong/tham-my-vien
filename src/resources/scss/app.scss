@@ -472,6 +472,158 @@ a {
     overflow: auto;
 }
 
+.imgbox {
+    display: grid;
+    // height: 100%;
+}
+
+.upd-ava{
+    // width: 313px;
+    // height: 35vh;
+    // align-items: center;
+    // object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    object-fit: contain;
+}
+
+@media screen and (min-width: 0px) and (max-width: 319px) {
+    // #sidebar-wrapper {
+    //     display: none;
+    // }
+
+    // #sub-nav-sm {
+    //     display: block;
+    // }
+    
+    #sub-nav-lg {
+        display: none;
+    }
+
+    .btn-mobile{
+        width: 100%;
+    }
+
+    .navbar {
+        margin-left: unset;
+    }
+
+    .btn-upload-mobile{
+        width: 100%;
+    }
+
+    .addBtn-mobile {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: bold;
+        background: cornflowerblue;
+        color: white !important;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        border-radius: 50%;
+        position: absolute;
+        top: 80%;
+        right: 30px;
+        cursor: pointer;
+        z-index: 5;
+    }
+
+    .nav-mobile {
+        position: fixed;
+        width: 100%;
+        height: 45px;
+        background: #343a40;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: revert;
+        z-index: 5;
+    }
+
+    .nav-mobile .nav-bottom {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100%;
+        padding-left: 0;
+    }
+
+
+    .nav-mobile .nav-bottom li {
+        list-style: none;
+        position: relative;
+        z-index: 2;
+        margin-top: 5px;
+    }
+
+    .nav-mobile .nav-bottom li:last-child {
+        position: relative;
+    }
+
+    .nav-mobile .nav-bottom li a {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        text-align: center;
+        width: 100%;
+        font-weight: 500;
+    }
+
+    .nav-mobile .nav-bottom li a .nav-mobile-icon {
+        position: relative;
+        display: block;
+        line-height: 65px;
+        font-size: 1.2rem;
+        transition: 0.5s;
+        color: #fff;
+        top: 5px;
+    }
+
+    .nav-mobile .nav-bottom li.active a .nav-mobile-icon {
+        transform: translateY(-12px);
+        color: #edbc64;
+    }
+
+    .nav-mobile .nav-bottom li a .nav-text {
+        position: absolute;
+        background: #343a40 !important;
+        color: #edbc64;
+        padding: 2px 4px;
+        font-weight: 600;
+        font-size: 0.5em;
+        letter-spacing: 0.05em;
+        transition: 0.5s;
+        transform: translateY(15px);
+        opacity: 0;
+        bottom: 5px;
+    }
+
+    .nav-mobile .nav-bottom li.active a .nav-text {
+        transform: translateY(18px);
+        opacity: 1;
+    }
+
+    .container-table {
+        display: none;
+    }
+
+    #update-stored-status {
+        margin: auto;
+        width: 80%;
+    }
+}
+
 @media screen and (min-width: 320px) and (max-width: 360px) {
     // #sidebar-wrapper {
     //     display: none;
@@ -480,11 +632,7 @@ a {
     // #sub-nav-sm {
     //     display: block;
     // }
-    .upd-ava{
-        width: 255px;
-        height: 255px;
-        object-fit: contain;
-    }
+    
     
     #sub-nav-lg {
         display: none;
@@ -626,11 +774,7 @@ a {
         display: none;
     }
 
-    .upd-ava{
-        width: 302px;
-        height: 302px;
-        object-fit: contain;
-    }
+    
 
     .btn-mobile{
         width: 100%;
@@ -754,12 +898,20 @@ a {
         margin: auto;
         width: 75%;
     }
+
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
+    }
 }
+
 
 @media screen and (min-width: 375px) and (max-width: 412px) {
     // #sidebar-wrapper {
     //     display: none;
     // }
+
+    
 
     .btn-mobile{
         width: 100%;
@@ -769,20 +921,7 @@ a {
         display: none;
     }
 
-    .upd-ava{
-        width: 313px;
-        height: 35vh;
-        align-items: center;
-        object-fit: contain;
-    }
-    @media screen  and (min-width: 390px){
-        .upd-ava{
-            width: 328px;
-            height: 30vh;
-            align-items: center;
-            object-fit: contain;
-        }
-    }
+
 
     .btn-mobile{
         width: 100%;
@@ -906,6 +1045,11 @@ a {
         margin: auto;
         width: 75%;
     }
+
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
+    }
 }
 
 @media screen and (min-width: 413px) and (max-width: 480px) {
@@ -924,12 +1068,6 @@ a {
 
     .btn-mobile{
         width: 100%;
-    }
-
-    .upd-ava{
-        width: 352px;
-        height: 30vh;
-        object-fit: contain;
     }
 
     .navbar {
@@ -1049,6 +1187,11 @@ a {
     #update-stored-status {
         margin: auto;
         width: 75%;
+    }
+
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
     }
 
 
@@ -1164,12 +1307,6 @@ a {
         width: 100%;
     }
 
-    .upd-ava{
-        width: 421px;
-        height: 30vh;
-        object-fit: contain;
-    }
-
     .navbar {
         margin-left: unset;
     }
@@ -1289,6 +1426,11 @@ a {
         width: 75%;
     }
 
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
+    }
+
 }
 
 @media screen and (min-width: 769px) and (max-width: 1024px) {
@@ -1306,12 +1448,6 @@ a {
 
     .text-truncate-service{
         max-width: 120px;
-    }
-
-    .upd-ava{
-        width: 160px;
-        height: 160px;
-        object-fit: contain;
     }
 
     .add-avata {
@@ -1434,6 +1570,11 @@ a {
         margin: auto;
         width: 75%;
     }
+
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
+    }
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1200px) {
@@ -1451,12 +1592,6 @@ a {
 
     .text-truncate-service{
         max-width: 120px;
-    }
-
-    .upd-ava{
-        width: 200px;
-        height: 200px;
-        object-fit: contain;
     }
 
     .add-avata {
@@ -1579,17 +1714,16 @@ a {
         margin: auto;
         width: 75%;
     }
+
+    .container-fluid {
+        max-height: 85vh;
+        overflow: auto;
+    }
 }
 
 @media screen and (min-width: 1201px) {
     #add-avt-customer {
         width: 100%;
-        object-fit: contain;
-    }
-
-    .upd-ava{
-        width: 250px;
-        height: 250px;
         object-fit: contain;
     }
 

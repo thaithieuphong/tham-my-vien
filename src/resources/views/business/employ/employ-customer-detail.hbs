@@ -34,8 +34,7 @@
 					</div>
 					{{else}}
 					<div class="col-md-6 mt-2 text-center">
-						<img src="/img/user-icon.png" id="add-avt"
-							class="rounded  add-avata" alt="...">
+						<img src="/img/user-icon.png" id="add-avt" class="rounded  add-avata" alt="...">
 					</div>
 					{{/if}}
 					<div class=" mb-3 mt-3 row">
@@ -115,22 +114,20 @@
 							</em>
 						</div>
 					</div>
-					<div class="mb-3 row">
-						<div class="col-sm-6 ">
-							<strong>
-								<label for="description">Mô tả:</label>
-							</strong>
-						</div>
+					<div class="mb-3">
+						<strong>
+							<label for="description">Mô tả</label>
+						</strong>
+						<textarea id="detail-description" class="form-control"
+							style="background-color: white; height: 200px;" disabled>{{customer.description}}</textarea>
 					</div>
-					<textarea id="detail-description" class="form-control" style="background-color: white;"
-						disabled>{{customer.description}}</textarea>
 				</div>
 				<div class="col-xl-6 ">
-					<ul class="list-group comment-content-page border mt-4">
+					<ul class="list-group border comment-ctv-page">
 						{{#each customer.comments}}
-						<li class="list-group-item bg-light ml-2 mr-2 mt-2">
-							<p id="createdAt" class="none-mb comment-createdAt "><strong>{{formatDate
-								this.createdAt}}</strong></p>
+						<li class="list-group-item ml-2 mr-2 mt-2" style="background-color: white;">
+							<p id="createdAt" class="none-mb text-success comment-createdAt "><strong>{{formatDate
+									this.createdAt}}</strong></p>
 							<p class="none-mb comment-content " value="">{{this.comment}}</p>
 						</li>
 						{{/each}}
