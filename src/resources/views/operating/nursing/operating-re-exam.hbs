@@ -196,142 +196,144 @@
 
 			{{!-- {{/each }} --}}
 			<div class="tab-pane fade  " id="pills-counselor" role="tabpanel" aria-labelledby="pills-profile-tab">
-
-				{{!-- <div class="row">
-					{{#each counselors}}
-					<div class="col-sm-3">
-						{{this.img.id}}
-					</div>
-					{{/each}}
-				</div> --}}
 				<div class="row">
-					<div class="col-md-6 row">
-						{{#each this.serviceNoteId.counselorImg}}
-						{{#if this}}
-						<div class="col-md-6 mt-2 imgbox">
-							<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
+					<div class="col-md-6 ">
+						<div class="row">
+							{{#each this.serviceNoteId.counselorImg}}
+							{{#if this}}
+							<div class="col-md-6 mt-2 imgbox">
+								<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
+							</div>
 							{{else}}
 							<div class="col-md-6 ">
 								<h6>Chưa có ảnh</h6>
 							</div>
 							{{/if}}
+							{{/each}}
 						</div>
-						{{/each}}
 					</div>
-					<div class="col-md-6 row">
-						{{#each this.serviceNoteId.counselorVideo}}
-						{{#if this}}
-						<div class="col-md-6 mt-2 imgbox">
-							<video class="rounded mx-auto d-block upd-ava" controls>
-								<source src="/counselor/video/{{this}}" type="video/mp4">
+					<div class="col-md-6">
+						<div class="row">
+							{{#each this.serviceNoteId.counselorVideo}}
+							{{#if this}}
+							<video class="rounded mx-auto d-block upd-ava mt-2" src="/before/video/{{this}}" type="video/mp4"
+								controls>
 							</video>
+							{{else}}
+							<div class="col-md-6 mt-2">
+								<h6>Chưa có video</h6>
+							</div>
+							{{/if}}
+							{{/each}}
 						</div>
-						{{else}}
-						<div class="col-md-6 ">
-							<h6>Chưa có video</h6>
-						</div>
-						{{/if}}
-						{{/each}}
 					</div>
 				</div>
 			</div>
 
 			<div class="tab-pane fade  " id="pills-before" role="tabpanel" aria-labelledby="pills-profile-tab">
 				<div class="row">
-					<div class="col-md-6 row ">
-						{{#each this.serviceNoteId.beforeImg}}
-						{{#if this}}
-						<div class="col-md-6 mt-2 imgbox">
-							<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
+					<div class="col-md-6 ">
+						<div class="row">
+							{{#each this.serviceNoteId.beforeImg}}
+							{{#if this}}
+							<div class="col-md-6 mt-2 imgbox">
+								<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava " alt="...">
+							</div>
+							{{else}}
+							<div class="col-md-6 mt-2">
+								<h6>Chưa có ảnh</h6>
+							</div>
+							{{/if}}
+							{{/each}}
 						</div>
-						{{else}}
-						<div class="col-md-6 ">
-							<h6>Chưa có ảnh</h6>
-						</div>
-						{{/if}}
-						{{/each}}
+
 					</div>
-					<div class="col-md-6 row">
-						{{#each this.serviceNoteId.beforeVideo}}
-						{{#if this}}
-						<div class="col-md-6 mt-2 imgbox">
-							<video class="rounded mx-auto d-block  upd-ava" controls>
-								<source src="/before/video/{{this}}" type="video/mp4">
+					<div class="col-md-6">
+						<div class="row">
+							{{#each this.serviceNoteId.beforeVideo}}
+							{{#if this}}
+							<video class="rounded mx-auto d-block upd-ava mt-2" src="/before/video/{{this}}" type="video/mp4"
+								controls>
 							</video>
+							{{else}}
+							<div class="col-md-6 ">
+								<h6>Chưa có video</h6>
+							</div>
+							{{/if}}
+							{{/each}}
 						</div>
-						{{else}}
-						<div class="col-md-6 ">
-							<h6>Chưa có video</h6>
-						</div>
-						{{/if}}
-						{{/each}}
 					</div>
 				</div>
 			</div>
 
 			<div class="tab-pane fade  " id="pills-after" role="tabpanel" aria-labelledby="pills-profile-tab">
-				<div class="row">
-					<div class="col-md-6 row">
-						{{#each this.serviceNoteId.afterImg}}
-						{{#if this}}
-						<div class="col-md-6 mt-2 imgbox">
-							<img src="/after/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
+				<div class="row ">
+					<div class="col-md-6 ">
+						<div class="row">
+							{{#each this.servicenoteId.afterImg}}
+							{{#if this}}
+							<div class="col-md-6 mt-2 imgbox">
+								<img src="/after/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
+
+							</div>
+							{{else}}
+							<div class="col-md-6 ">
+								<h6>Chưa có ảnh</h6>
+							</div>
+							{{/if}}
+							{{/each}}
 						</div>
-						{{else}}
-						<div class="col-md-6 ">
-							<h6>Chưa có ảnh</h6>
-						</div>
-						{{/if}}
-						{{/each}}
 					</div>
-					<div class="col-md-6 row">
-						{{#each this.serviceNoteId.afterVideo}}
-						{{#if this}}
-						<div class="col-md-6 mt-2 imgbox">
-							<video class="rounded mx-auto d-block upd-ava" controls>
-								<source src="/after/video/{{this}}" type="video/mp4">
+					<div class="col-md-6 ">
+						<div class="row">
+							{{#each this.servicenoteId.afterVideo}}
+							{{#if this}}
+							<video class="rounded mx-auto d-block upd-ava mt-2" src="/after/video/{{this}}" type="video/mp4"
+								controls>
 							</video>
+							{{else}}
+							<div class="col-md-6">
+								<h6>Chưa có video</h6>
+							</div>
+							{{/if}}
+							{{/each}}
 						</div>
-						{{else}}
-						<div class="col-md-6 ">
-							<h6>Chưa có video</h6>
-						</div>
-						{{/if}}
-						{{/each}}
 					</div>
 				</div>
 			</div>
 
 			<div class="tab-pane fade" id="pills-re-exam" role="tabpanel" aria-labelledby="pills-profile-tab">
 				<div class="row">
-					<div class="col-md-6 row ">
-						{{#each this.reExamImg}}
-						{{#if this}}
-						<div class="col-md-6 mt-2 imgbox">
-							<img src="/re-examination/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
+					<div class="col-md-6  ">
+						<div class="row">
+							{{#each this.reExamImg}}
+							{{#if this}}
+							<div class="col-md-6 mt-2 imgbox">
+								<img src="/re-examination/img/{{this}}" class="rounded mx-auto d-block upd-ava"
+									alt="...">
+							</div>
+							{{else}}
+							<div class="col-md-6 ">
+								<h6>Chưa có ảnh</h6>
+							</div>
+							{{/if}}
+							{{/each}}
 						</div>
-						{{else}}
-						<div class="col-md-6 ">
-							<h6>Chưa có ảnh</h6>
-						</div>
-						{{/if}}
-						{{/each}}
 					</div>
-					<div class="col-md-6 row">
-						{{#each this.reExamVideo}}
-						{{#if this}}
-						<div class="col-md-6 mt-2 imgbox">
-							<video class="rounded mx-auto d-block upd-ava" controls>
-								<source src="/re-examination/video/{{this}}" type="video/mp4">
+					<div class="col-md-6 ">
+						<div class="row">
+							{{#each this.reExamVideo}}
+							{{#if this}}
+							<video class="rounded mx-auto d-block upd-ava mt-2" src="/re-examination/video/{{this}}"
+								type="video/mp4" controls>
 							</video>
+							{{else}}
+							<div class="col-md-6 ">
+								<h6>Chưa có video</h6>
+							</div>
+							{{/if}}
+							{{/each}}
 						</div>
-						{{else}}
-						<div class="col-md-6 ">
-							<h6>Chưa có video</h6>
-						</div>
-						{{/if}}
-						{{/each}}
-
 					</div>
 				</div>
 
@@ -356,7 +358,6 @@
 								<h6>Chọn video tái khám</h6>
 							</label>
 							<div class="preview-videos-re-exam row ml-0 mt-1 border"></div>
-
 							<input id="input-multi-videos-re-exam" class="form-control" type="file" name="reExamination"
 								hidden multiple>
 						</div>
