@@ -107,7 +107,10 @@ class AuthController {
                     expiresIn: 31536000, // 24 giờ
                 })
                 
-                req.session.token = accessToken;
+                req.session = {
+                    token: accessToken,
+                    secure: true
+                };
                 res.status(200).redirect(`/${user.departmentEng}/${user.positionEng}`);
             })
             .catch(next);
