@@ -12,6 +12,8 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const User = require('./app/models/User');
+const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 if (`${process.env.NODE_ENV}` !== "production") {
@@ -35,7 +37,7 @@ app.use(
 		name: "Hachitech-session",
 		secret: `${process.env.SECURITY_KEY}`,
 		httpOnly: true,
-		secure: false, // change to 'true' when switching to production enviroment
+		secure: true, // change to 'true' when switching to production enviroment
 		sameSite: 'strict',
 		path: '/'
 	})
@@ -44,7 +46,8 @@ app.use(
 app.use(session({
 	secret: process.env.FLASH_SESSION_KEY,
 	saveUninitialized: true,
-	resave: true
+	resave: true,
+	cookie: { secure: true }
 }));
 
 app.use(flash());
@@ -114,6 +117,47 @@ app.use(function (req, res, next) {
 	);
 	next();
 });
+
+
+// Initial account root and admin
+function initRoot() {
+	User.findOne({ roleEng: 'root' })
+		.then(user => {
+			console.log(user);
+			const userRoot = new User({
+				firstName: '',
+				lastName: '',
+				birth: '',
+				gender: '',
+				phone: '',
+				email: '',
+				address: '',
+				image: {
+					name: '',
+					url: '',
+				},
+				department: '',
+				departmentEng: '',
+				position: '',
+				positionEng: '',
+				account: 'root',
+				password: bcrypt.hashSync(process.env.PASSWORD_ROOT, 8),
+				role: 'Gốc',
+				roleEng: 'root',
+				description: '',
+				state: ''
+			})
+			if (user) {
+				console.log(`User ${user.account} is existed`)
+				return;
+			} else {
+				userRoot.save();
+				console.log('Created user root successfully!!!')
+			}
+		})
+}
+
+initRoot();
 
 // Khởi tạo các tuyến đường
 route(app);
