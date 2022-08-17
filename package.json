@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "start": "nodemon --inspect src/server.js",
-    "watch": "node-sass --watch src/resources/scss/ --output src/public/css/",
+    "watch": "sass --watch src/resources/scss/:src/public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/thieuphongthai/tham-my-vien#readme",
   "dependencies": {
-    "app-root-path": "^3.0.0",
+    "app-root-path": "^3.1.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.30.1",
     "connect-flash": "^0.1.1",
@@ -42,6 +42,6 @@
   "devDependencies": {
     "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
-    "node-sass": "^7.0.1"
+    "sass": "^1.54.4"
   }
 }
