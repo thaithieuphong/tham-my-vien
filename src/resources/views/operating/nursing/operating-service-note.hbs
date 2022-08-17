@@ -172,7 +172,7 @@
 					<div class="col-md-6 row">
 						{{#each this.counselorImg}}
 						{{#if this}}
-						<div class="col-md-6 ">
+						<div class="col-md-6 mt-2 imgbox">
 							<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
 						</div>
 						{{else}}
@@ -185,19 +185,12 @@
 					<div class="col-md-6 row">
 						{{#each this.counselorVideo}}
 						{{#if this}}
-						<div class="col-md-2 col-sm-12 col-xs-12 ml-3">
-							<video class="rounded" controls>
-								<source src="/counselor/video/{{this}}" type="video/mp4">
-							</source>
-						</div>
-						{{else}}
-						{{!-- <div class="col-md-2 col-sm-12 col-xs-12 mt-2">
-						<div class="col-md-6 ">
+						<div class="col-md-6 mt-2 imgbox">
 							<video class="rounded mx-auto d-block upd-ava" controls>
-								<source src="/before/video/{{this}}" type="video/mp4">
+								<source src="/counselor/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
-						{{else}} --}}
+						{{else}}
 						<div class="col-md-6 mt-2">
 							<h6>Chưa có video</h6>
 						</div>
@@ -212,11 +205,11 @@
 					<div class="col-md-6 row ">
 						{{#each this.beforeImg}}
 						{{#if this}}
-						<div class="col-md-6 mt-2">
+						<div class="col-md-6 mt-2 imgbox">
 							<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava " alt="...">
 						</div>
 						{{else}}
-						<div class="col-md-6 mt-2">
+						<div class="col-md-6">
 							<h6>Chưa có ảnh</h6>
 						</div>
 						{{/if}}
@@ -225,13 +218,13 @@
 					<div class="col-md-6 row">
 						{{#each this.beforeVideo}}
 						{{#if this}}
-						<div class="col-md-6 mt-2">
+						<div class="col-md-6 mt-2 imgbox">
 							<video class="rounded mx-auto d-block upd-ava" controls>
 								<source src="/before/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
 						{{else}}
-						<div class="col-md-6 ">
+						<div class="col-md-6">
 							<h6>Chưa có video</h6>
 						</div>
 						{{/if}}
@@ -274,12 +267,12 @@
 					<div class="col-md-6 row">
 						{{#each this.afterImg}}
 						{{#if this}}
-						<div class="col-md-6 mt-2">
+						<div class="col-md-6 mt-2 imgbox">
 							<img src="/after/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
 
 						</div>
 						{{else}}
-						<div class="col-md-6 ">
+						<div class="col-md-6">
 							<h6>Chưa có ảnh</h6>
 						</div>
 						{{/if}}
@@ -288,13 +281,13 @@
 					<div class="col-md-6 row">
 						{{#each this.afterVideo}}
 						{{#if this}}
-						<div class="col-md-6 mt-2">
+						<div class="col-md-6">
 							<video class="rounded mx-auto d-block upd-ava" controls>
 								<source src="/after/video/{{this}}" type="video/mp4">
 							</video>
 						</div>
 						{{else}}
-						<div class="col-md-6">
+						<div class="col-md-6 mt-2 imgbox">
 							<h6>Chưa có video</h6>
 						</div>
 						{{/if}}
