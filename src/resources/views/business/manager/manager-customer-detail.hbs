@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Quản lý người dùng</title>
 </head>
+
 <body>
 	<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
 		<div class="title">
@@ -41,8 +43,7 @@
 						</div>
 						{{else}}
 						<div class="col-md-6 mt-2 text-center">
-							<img src="/img/user-icon.png" id="add-avt"
-								class="rounded  add-avata" alt="...">
+							<img src="/img/user-icon.png" id="add-avt" class="rounded  add-avata" alt="...">
 						</div>
 						{{/if}}
 						<div class=" mb-3 mt-3 row">
@@ -128,7 +129,8 @@
 							<strong>
 								<label for="description">Mô tả</label>
 							</strong>
-							<textarea id="detail-description" class="form-control"  style="background-color: white; height: 200px;"
+							<textarea id="detail-description" class="form-control"
+								style="background-color: white; height: 200px;"
 								disabled>{{customer.description}}</textarea>
 						</div>
 					</div>
@@ -163,22 +165,207 @@
 						<p class="none-mb" value="" for="service-note-service"><strong>Dịch vụ:
 							</strong></p>
 					</div>
+
 					<div class="col-md-6">
 						{{#each customer.serviceNoteID}}
-						<p class="none-mb" value="" for="service-note-service">{{this.service}} ({{this.status}})</p>
+						<p class="none-mb" value="" for="service-note-service">{{this.service}} ({{this.status}})
+						</p>
 						{{else}}
 						Chưa sử dụng dịch vụ nào
 						{{/each}}
 					</div>
 				</div>
 				<hr>
-				<div class="row mt-3">
-					{{#each counselors}}
-					<div class="col-md-3 row">
-						{{this.img.id}}
+				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active " id="pills-counselor-tab" data-bs-toggle="pill"
+							data-bs-target="#pills-counselor" type="button" role="tab" aria-controls="pills-counselor"
+							aria-selected="false">Hình ảnh tư vấn</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link  " id="pills-before-tab" data-bs-toggle="pill"
+							data-bs-target="#pills-before" type="button" role="tab" aria-controls="pills-before"
+							aria-selected="false">Hình ảnh trước
+							phẩu</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link  " id="pills-after-tab" data-bs-toggle="pill"
+							data-bs-target="#pills-after" type="button" role="tab" aria-controls="pills-after"
+							aria-selected="false">Hình ảnh sau
+							phẩu</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link  " id="pills-re-exam-tab" data-bs-toggle="pill"
+							data-bs-target="#pills-re-exam" type="button" role="tab" aria-controls="pills-after"
+							aria-selected="false">Hình ảnh tái
+							khám</button>
+					</li>
+				</ul>
+				<div class="tab-content" id="pills-tabContent">
+					<div class="tab-pane fade show active" id="pills-counselor" role="tabpanel"
+						aria-labelledby="pills-profile-tab">
+						<div class="row">
+							<div class="col-md-6 ">
+								<div class="row">
+									{{#each customer.serviceNoteID}}
+									{{#each this.counselorImg}}
+									{{#if this}}
+									<div class="col-md-6 mt-2 imgbox">
+										<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava"
+											alt="...">
+									</div>
+									{{else}}
+									<div class="col-md-6 ">
+										<h6>Chưa có ảnh</h6>
+									</div>
+									{{/if}}
+									{{/each}}
+									{{/each}}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									{{#each this.serviceNoteID}}
+									{{#each this.counselorVideo}}
+									{{#if this}}
+									<video class="rounded mx-auto d-block upd-ava mt-2" src="/counselor/video/{{this}}"
+										type="video/mp4" controls>
+									</video>
+									{{else}}
+									<div class="col-md-6 mt-2">
+										<h6>Chưa có video</h6>
+									</div>
+									{{/if}}
+									{{/each}}
+									{{/each}}
+								</div>
+							</div>
+						</div>
 					</div>
-					{{/each}}
+					<div class="tab-pane fade " id="pills-before" role="tabpanel" aria-labelledby="pills-profile-tab">
+						<div class="row">
+							<div class="col-md-6 ">
+								<div class="row">
+									{{#each customer.serviceNoteID}}
+									{{#each this.beforeImg}}
+									{{#if this}}
+									<div class="col-md-6 mt-2 imgbox">
+										<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava"
+											alt="...">
+									</div>
+									{{else}}
+									<div class="col-md-6 ">
+										<h6>Chưa có ảnh</h6>
+									</div>
+									{{/if}}
+									{{/each}}
+									{{/each}}
+								</div>
+
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									{{#each customer.serviceNoteID}}
+									{{#each this.beforeVideo}}
+									{{#if this}}
+									<video class="rounded mx-auto d-block upd-ava mt-2" src="/before/video/{{this}}"
+										type="video/mp4" controls>
+									</video>
+									{{else}}
+									<div class="col-md-6 ">
+										<h6>Chưa có video</h6>
+									</div>
+									{{/if}}
+									{{/each}}
+									{{/each}}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane fade  " id="pills-after" role="tabpanel" aria-labelledby="pills-profile-tab">
+						<div class="row">
+							<div class="col-md-6 ">
+								<div class="row">
+									{{#each customer.serviceNoteID}}
+									{{#each this.afterImg}}
+									{{#if this}}
+									<div class="col-md-6 mt-2 imgbox">
+										<img src="/after/img/{{this}}" class="rounded mx-auto d-block upd-ava "
+											alt="...">
+									</div>
+									{{else}}
+									<div class="col-md-6 mt-2">
+										<h6>Chưa có ảnh</h6>
+									</div>
+									{{/if}}
+									{{/each}}
+									{{/each}}
+								</div>
+
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									{{#each customer.serviceNoteID}}
+									{{#each this.afterVideo}}
+									{{#if this}}
+									<video class="rounded mx-auto d-block upd-ava mt-2" src="/after/video/{{this}}"
+										type="video/mp4" controls>
+									</video>
+									{{else}}
+									<div class="col-md-6 ">
+										<h6>Chưa có video</h6>
+									</div>
+									{{/if}}
+									{{/each}}
+									{{/each}}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane fade" id="pills-re-exam" role="tabpanel" aria-labelledby="pills-profile-tab">
+						<div class="row">
+							<div class="col-md-6  ">
+								<div class="row">
+									{{#each customer.reexamID}}
+									{{#each this.reExamImg}}
+									{{#if this}}
+									<div class="col-md-6 mt-2 imgbox">
+										<img src="/re-examination/img/{{this}}" class="rounded mx-auto d-block upd-ava"
+											alt="...">
+									</div>
+									{{else}}
+									<div class="col-md-6 ">
+										<h6>Chưa có ảnh</h6>
+									</div>
+									{{/if}}
+									{{/each}}
+									{{/each}}
+								</div>
+							</div>
+							<div class="col-md-6 ">
+								<div class="row">
+									{{#each customer.reexamID}}
+									{{#each this.reExamVideo}}
+									{{#if this}}
+									<video class="rounded mx-auto d-block upd-ava mt-2"
+										src="/re-examination/video/{{this}}" type="video/mp4" controls>
+									</video>
+									{{else}}
+									<div class="col-md-6 ">
+										<h6>Chưa có video</h6>
+									</div>
+									{{/if}}
+									{{/each}}
+									{{/each}}
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>

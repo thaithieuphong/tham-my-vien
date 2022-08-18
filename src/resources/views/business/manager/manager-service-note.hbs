@@ -21,10 +21,11 @@
             <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-complete"
                 type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Hoàn thành</button>
         </li>
+        
     </ul>
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-new" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."
+            <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.."
                 title="Type in a name">
             <div id="search-items">
                 <div class="row">
@@ -136,7 +137,7 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="pills-loading" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInputLoad" onkeyup="myFunction2()" placeholder="Search for names.."
+            <input type="text" id="myInputLoad" class="myInput" onkeyup="myFunction2()" placeholder="Search for names.."
                 title="Type in a name">
             <div id="search-items-loading">
                 <div class="row">
@@ -249,7 +250,7 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="pills-complete" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInputCTV" onkeyup="myFunction1()" placeholder="Search for names.."
+            <input type="text" id="myInputCTV" class="myInput" onkeyup="myFunction1()" placeholder="Search for names.."
                 title="Type in a name">
             <div id="search-items-complete">
                 <div class="row">
@@ -376,6 +377,8 @@
                 </div>
             </div>
         </div>
+        
+
     </div>
 </div>
 <form method="POST" id="update-stored-status" action=""></form>
@@ -541,7 +544,7 @@
                                             <em>
                                                 <input hidden type="text" value="{{user._id}}" name="createName" id="">
                                                 <label id="create-re-exam-createName"
-                                                    readonly>{{user.firstName}}{{user.lastName}}</label>
+                                                    readonly>{{user.firstName}} {{user.lastName}}</label>
                                             </em>
                                         </div>
                                     </div>
@@ -566,5 +569,8 @@
         </div>
     </div>
 </div>
+
+
 <script src="/js/business/business-manager-service-note.js"></script>
+
 </html>
