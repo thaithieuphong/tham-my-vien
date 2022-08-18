@@ -198,8 +198,7 @@
 						<div class="row">
 							{{#each this.serviceNoteId.counselorVideo}}
 							{{#if this}}
-							<video class="rounded mx-auto d-block upd-ava mt-2" src="/counselor/video/{{this}}" type="video/mp4"
-								controls>
+							<video class="rounded mx-auto d-block upd-ava mt-2" src="/counselor/video/{{this}}" type="video/mp4" playsinline controls>
 							</video>
 							{{else}}
 							<div class="col-md-6 mt-2">
@@ -234,7 +233,7 @@
 						<div class="row">
 							{{#each this.serviceNoteId.beforeVideo}}
 							{{#if this}}
-							<video class="rounded mx-auto d-block upd-ava mt-2" src="/before/video/{{this}}" type="video/mp4"
+							<video class="rounded mx-auto d-block upd-ava mt-2" src="/before/video/{{this}}" type="video/mp4" playsinline
 								controls>
 							</video>
 							{{else}}
@@ -270,7 +269,7 @@
 						<div class="row">
 							{{#each this.servicenoteId.afterVideo}}
 							{{#if this}}
-							<video class="rounded mx-auto d-block upd-ava mt-2" src="/after/video/{{this}}" type="video/mp4"
+							<video class="rounded mx-auto d-block upd-ava mt-2" src="/after/video/{{this}}" type="video/mp4" playsinline
 								controls>
 							</video>
 							{{else}}
@@ -306,7 +305,7 @@
 						<div class="row">
 							{{#each this.reExamVideo}}
 							{{#if this}}
-							<video class="rounded mx-auto d-block upd-ava mt-2" src="/re-examination/video/{{this}}"
+							<video class="rounded mx-auto d-block upd-ava mt-2" src="/re-examination/video/{{this}}" playsinline
 								type="video/mp4" controls>
 							</video>
 							{{else}}
