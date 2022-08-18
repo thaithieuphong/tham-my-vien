@@ -10,23 +10,6 @@ const Customer = new Schema({
 	email: String,
 	address: String,
 	description: String,
-	counselorName: [
-		{
-			type: String,
-		}
-	],
-
-	beforeName: [
-		{
-			type: String,
-		}
-	],
-	
-	afterName: [
-		{
-			type: String,
-		}
-	],
 	image: {
 		name: String,
 		url: String,
@@ -50,6 +33,13 @@ const Customer = new Schema({
 		{
 			type: String,
 			ref: "ServiceNote"
+		}
+	],
+
+	reexamID: [
+		{
+			type: String,
+			ref: "Reexamination"
 		}
 	]
 }, {

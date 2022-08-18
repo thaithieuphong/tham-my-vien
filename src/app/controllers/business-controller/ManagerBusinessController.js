@@ -8,6 +8,8 @@ const TypeService = require("../../models/TypeService");
 const ServiceNote = require('../../models/ServiceNote');
 const ServiceNote1 = require('../../models/ServiceNote');
 const ServiceNote2 = require('../../models/ServiceNote');
+const ServiceNote3 = require('../../models/ServiceNote');
+
 const Reexamination = require('../../models/Reexamination');
 const bcrypt = require("bcryptjs");
 
@@ -153,9 +155,10 @@ class ManagerBusinessController {
 	}
 
 	showCustomerDetail(req, res, next) {
-		Promise.all([Customer.findById({ _id: req.params.id }).populate('serviceNoteID'), User.findById({ _id: req.userId })])
+		Promise.all([Customer.findById({ _id: req.params.id }).populate('serviceNoteID').populate('reexamID'), User.findById({ _id: req.userId })])
 			.then(([customer, user]) => {
-				console.log(customer.counselorName)
+				console.log(customer.serviceNoteID)
+
 				Counselor.find({ filename: { $in: customer.counselorName } })
 					.then((counselors) => {
 						console.log(counselors)
@@ -172,9 +175,8 @@ class ManagerBusinessController {
 	}
 
 	showCustomerDetailCTV(req, res, next) {
-		Promise.all([Customer.findById({ _id: req.params.id }).populate('serviceNoteID'), User.findById({ _id: req.userId })])
+		Promise.all([Customer.findById({ _id: req.params.id }).populate('serviceNoteID').populate('reexamID'), User.findById({ _id: req.userId })])
 			.then(([customer, user]) => {
-				console.log(customer.counselorName)
 				Counselor.find({ filename: { $in: customer.counselorName } })
 					.then((counselors) => {
 						console.log(counselors)
@@ -205,11 +207,8 @@ class ManagerBusinessController {
 			ServiceNote1.find({ createName: req.userId, status: "Đang xử lý" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
 			ServiceNote2.find({ createName: req.userId, status: "Hoàn thành" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
 			User.findById({ _id: req.userId })
-
 		])
 			.then(([serviceNotes, serviceNote1s, serviceNote2s, user]) => {
-
-
 				res.render('business/manager/manager-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
 					serviceNote1s: multipleMongooseToObject(serviceNote1s),
@@ -271,7 +270,11 @@ class ManagerBusinessController {
 
 		})
 		reexamination.save();
-		res.redirect('back');
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { reexamID: reexamination.id } })
+			.then(() => {
+				res.redirect('back');
+
+			})
 		// res.json(req.body)
 	}
 

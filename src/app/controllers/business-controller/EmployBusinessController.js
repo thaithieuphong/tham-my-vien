@@ -229,7 +229,11 @@ class EmployBusinessController {
 
 		})
 		reexamination.save();
-		res.redirect('back');
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { reexamID: reexamination.id } })
+			.then(() => {
+				res.redirect('back');
+
+			})
 	}
 }
 

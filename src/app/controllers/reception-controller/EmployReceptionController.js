@@ -14,15 +14,15 @@ const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mo
 class ReceptionController {
 
     showProfile(req, res, next) {
-		User.findById({ _id: req.userId })
-			.then(user => {
-				res.render('profile', {
-					user: mongooseToObject(user),
-					title: 'Thông tin cá nhân'
-				})
-			})
-			.catch(next);
-	}
+        User.findById({ _id: req.userId })
+            .then(user => {
+                res.render('profile', {
+                    user: mongooseToObject(user),
+                    title: 'Thông tin cá nhân'
+                })
+            })
+            .catch(next);
+    }
 
     getReceptionDashboard(req, res) {
         res.render('reception/reception-overview');
@@ -31,8 +31,8 @@ class ReceptionController {
     showServiceNote(req, res, next) {
         Promise.all([User.findById({ _id: req.userId }),
         ServiceNote.find({ stored: null }).sort({ schedule: 1 }).populate('customerID').populate('createName'),
-        User1.find({ department: "Phẩu thuật", position: "Bác sĩ", $or: [{ state: "Medium" }, { state: null }] }),
-        User2.find({ department: "Phẩu thuật", $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { position: "Y tá" }], $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { position: "Điều dưỡng" }] })
+        User1.find({ department: "Phẩu thuật", positionEng: "doctor", $or: [{ state: "Medium" }, { state: null }] }),
+        User2.find({ department: "Phẩu thuật", $or: [{ $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { positionEng: "nurse" }] }, { $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { positionEng: "nursing" }] }] })
         ])
             .then(([user, serviceNotes, user1s, user2s]) => {
                 res.render('reception/employ/reception-schedule', {
@@ -47,12 +47,12 @@ class ReceptionController {
             .catch(next);
     }
 
-    showReExam(req, res, next){
+    showReExam(req, res, next) {
         Promise.all([User.findById({ _id: req.userId }),
-            Reexamination.find({ stored: null }).sort({ schedule: 1 }).populate('customerID').populate('createName').populate('serviceNoteId'),
-            User1.find({ department: "Phẩu thuật", position: "Bác sĩ", $or: [{ state: "Medium" }, { state: null }] }),
-            User2.find({ department: "Phẩu thuật", $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { position: "Y tá" }], $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { position: "Điều dưỡng" }] })
-            ])
+        Reexamination.find({ stored: null }).sort({ schedule: 1 }).populate('customerID').populate('createName').populate('serviceNoteId'),
+        User1.find({ department: "Phẩu thuật", positionEng: "doctor", $or: [{ state: "Medium" }, { state: null }] }),
+        User2.find({ department: "Phẩu thuật", $or: [{ $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { positionEng: "nurse" }] }, { $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { positionEng: "nursing" }] }] })
+        ])
             .then(([user, reexams, user1s, user2s]) => {
                 res.render('reception/employ/reception-schedule-re-exam', {
                     user: mongooseToObject(user),
