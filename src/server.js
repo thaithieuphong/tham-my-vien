@@ -22,7 +22,7 @@ if (`${process.env.NODE_ENV}` !== "production") {
 
 // Cung cấp middleware trên Express để kích hoạt CORS
 var corsOptions = {
-	origin: "https:testing.drtuananh.vn",
+	origin: "http:localhost:3001",
 };
 
 // Method Override
@@ -37,7 +37,7 @@ app.use(
 		name: "Hachitech-session",
 		secret: `${process.env.SECURITY_KEY}`,
 		httpOnly: true,
-		secure: true, // change to 'true' when switching to production enviroment
+		secure: false, // change to 'true' when switching to production enviroment
 		sameSite: 'strict',
 		path: '/'
 	})
@@ -87,8 +87,11 @@ app.engine(
 				return newDate;
 			},
 			formatBirth: (d) => {
+				console.log('d', d);
 				let date = new Date(d);
+				console.log('date', date);
 				let newDate = date.toLocaleString('vi-VI', { day: 'numeric', month: 'numeric', year: 'numeric' });
+				console.log(newDate);
 				return newDate;
 			},
 		}
@@ -122,29 +125,11 @@ app.use(function (req, res, next) {
 function initRoot() {
 	User.findOne({ roleEng: 'root' })
 		.then(user => {
-			console.log(user);
 			const userRoot = new User({
-				firstName: '',
-				lastName: '',
-				birth: '',
-				gender: '',
-				phone: '',
-				email: '',
-				address: '',
-				image: {
-					name: '',
-					url: '',
-				},
-				department: '',
-				departmentEng: '',
-				position: '',
-				positionEng: '',
 				account: 'root',
 				password: bcrypt.hashSync(process.env.PASSWORD_ROOT, 8),
 				role: 'Gốc',
-				roleEng: 'root',
-				description: '',
-				state: ''
+				roleEng: 'root'
 			})
 			if (user) {
 				console.log(`User ${user.account} is existed`)
@@ -156,7 +141,27 @@ function initRoot() {
 		})
 }
 
+function initAdmin() {
+	User.findOne({ roleEng: 'administrator' })
+		.then(user => {
+			const userRoot = new User({
+				account: 'admin',
+				password: bcrypt.hashSync(process.env.PASSWORD_ADMIN, 8),
+				role: 'Quản trị viên',
+				roleEng: 'administrator'
+			})
+			if (user) {
+				console.log(`User ${user.account} is existed`)
+				return;
+			} else {
+				userRoot.save();
+				console.log('Created user admin successfully!!!')
+			}
+		})
+}
+
 initRoot();
+initAdmin();
 
 // Khởi tạo các tuyến đường
 route(app);

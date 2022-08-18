@@ -85,7 +85,6 @@ class HRController {
 			const getMonth = date.getMonth();
 			const getYear = date.getFullYear();
 			const dateNow = "createdAt-" + getDate + (getMonth + 1) + getYear;
-			const userBirth = `${birth[2]}-${birth[1]}-${birth[0]}`;
 			let aFName;
 			let bFName = "";
 			let aLName;
@@ -102,7 +101,7 @@ class HRController {
 				const user = new User({
 					firstName: req.body.firstName,
 					lastName: req.body.lastName,
-					birth: userBirth,
+					birth: req.body.birth,
 					gender: req.body.gender,
 					phone: req.body.phone,
 					email: req.body.email,
@@ -152,7 +151,7 @@ class HRController {
 				const user = new User({
 					firstName: req.body.firstName,
 					lastName: req.body.lastName,
-					birth: userBirth,
+					birth: req.body.birth,
 					gender: req.body.gender,
 					phone: req.body.phone,
 					email: req.body.email,
