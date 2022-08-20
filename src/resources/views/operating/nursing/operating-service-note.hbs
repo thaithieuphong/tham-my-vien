@@ -188,8 +188,8 @@
 						<div class="row">
 							{{#each this.counselorVideo}}
 							{{#if this}}
-							<video class="rounded mx-auto d-block upd-ava mt-2" src="/counselor/video/{{this}}" type="video/mp4"
-								controls>
+							<video class="rounded mx-auto d-block upd-ava mt-2" src="/counselor/video/{{this}}"
+								type="video/mp4" controls>
 							</video>
 							{{else}}
 							<div class="col-md-6 mt-2">
@@ -203,12 +203,15 @@
 			</div>
 
 			<div class="tab-pane fade  " id="pills-before" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="" id="delete-img">X</button>
 				<div class="row">
+
+
 					<div class="col-md-6 ">
 						<div class="row">
 							{{#each this.beforeImg}}
 							{{#if this}}
-							<div class="col-md-6 mt-2 imgbox">
+							<img class="col-md-6 mt-2 imgbox">
 								<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava " alt="...">
 							</div>
 							{{else}}
@@ -223,8 +226,8 @@
 						<div class="row">
 							{{#each this.beforeVideo}}
 							{{#if this}}
-							<video class="rounded mx-auto d-block upd-ava mt-2" src="/before/video/{{this}}" type="video/mp4"
-								controls>
+							<video class="rounded mx-auto d-block upd-ava mt-2" src="/before/video/{{this}}"
+								type="video/mp4" controls>
 							</video>
 							{{else}}
 							<div class="col-md-6 ">
@@ -288,8 +291,8 @@
 						<div class="row">
 							{{#each this.afterVideo}}
 							{{#if this}}
-							<video class="rounded mx-auto d-block upd-ava mt-2" src="/after/video/{{this}}" type="video/mp4"
-								controls>
+							<video class="rounded mx-auto d-block upd-ava mt-2" src="/after/video/{{this}}"
+								type="video/mp4" controls>
 							</video>
 							{{else}}
 							<div class="col-md-6">
@@ -351,6 +354,7 @@
 			<button type="button" data-bs-toggle="modal" data-bs-target="#submit-doctor-modal"
 				class="btn btn-success btn-mobile offset-md-9" data-id="{{this._id}}">Hoàn thành</button>
 		</div>
+
 		{{else}}
 		<div class="text-center">
 			Chưa có phiếu phẩu thuật
