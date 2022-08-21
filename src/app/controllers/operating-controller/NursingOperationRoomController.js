@@ -17,15 +17,25 @@ class NursingController {
 			.catch(next);
 	}
 
-	showDashboard(req, res, next){
-		User.findById({ _id: req.userId })
-			.then((user) => {
-				res.redirect("/operating-room/nursing/service-note")
+	showDashboard(req, res, next) {
+		Promise.all([
+			User.findById({ _id: req.userId }),
+			ServiceNote.find({status: "Hoàn thành", nursing: req.userId}).populate('recept').populate('customerID').populate('performer').populate('nursing')
+
+		])
+		.then(([user, serviceNotes]) => {
+			res.render("operating/nursing/over-view", {
+				user: mongooseToObject(user),
+				serviceNotes: multipleMongooseToObject(serviceNotes),
+				title: "Chi tiết khách hàng"
 			})
+		})
+		.catch(next);
 	}
 
 	showServiceNote(req, res, next) {
-		Promise.all([ServiceNote.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'), User.findById({ _id: req.userId})])
+		Promise.all([ServiceNote.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'),
+		 User.findById({ _id: req.userId })])
 			.then(([serviceNote, user]) => {
 				res.render("operating/nursing/operating-service-note", {
 					serviceNote: multipleMongooseToObject(serviceNote),
@@ -52,10 +62,7 @@ class NursingController {
 	}
 
 	updateServiceNote(req, res, next) {
-		Promise.all([
-			ServiceNote.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành" } }),
-			User.updateMany({ _id: { $in: req.body.operatingID } }, { $set: { state: "Medium" } }),
-		])
+		ServiceNote.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành" } })
 			.then(() => {
 				res.redirect('back')
 			})
@@ -63,10 +70,7 @@ class NursingController {
 	}
 
 	updateReExamination(req, res, next) {
-		Promise.all([
-			Reexamination.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành" } }),
-			User.updateMany({ _id: { $in: req.body.operatingID } }, { $set: { state: "Medium" } })
-		])
+		Reexamination.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành" } })
 			.then(() => {
 				res.redirect('back')
 			})

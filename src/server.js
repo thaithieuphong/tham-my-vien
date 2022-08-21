@@ -37,7 +37,7 @@ app.use(
 		name: "Hachitech-session",
 		secret: `${process.env.SECURITY_KEY}`,
 		httpOnly: true,
-		secure: true, // change to 'true' when switching to production enviroment
+		secure: false, // change to 'true' when switching to production enviroment
 		sameSite: 'strict',
 		path: '/'
 	})

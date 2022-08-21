@@ -20,115 +20,119 @@
 	</div>
 	<input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names..">
 	<div id="search-items">
-		{{#each serviceNotes}}
-		<div class="row ml-2 mr-2" id="service-note-render-form">
-			<div class="shadow-lg p-3 mb-3 bg-body rounded card">
-				<div class="row">
-					<div class="col-md-6">
-						<h5>
-							<em>
-								<strong>
-									<label name="schedule" class="form-label text-success">{{formatDate
-										this.schedule}}</label>
-								</strong>
-							</em>
-						</h5>
+		<div class="row">
+			{{#each serviceNotes}}
+			<div class="col-md-6">
+				<div class="ml-2 mr-2" id="service-note-render-form">
+					<div class="shadow-lg p-3 mb-3 bg-body rounded card">
+						<div class="row">
+							<div class="col-md-6">
+								<h5>
+									<em>
+										<strong>
+											<label name="schedule" class="form-label text-success">{{formatDate
+												this.schedule}}</label>
+										</strong>
+									</em>
+								</h5>
+							</div>
+							<div class="col-md-6">
+								<strong name="status" class="form-label text-danger">{{this.status}}</strong>
+							</div>
+						</div>
+
+						<hr>
+
+						<div class="row">
+							<div class="col-md-6 row">
+
+								<div class="col-sm-6 ">
+									<strong>
+										<label class="form-label">Khách hàng: </label>
+									</strong>
+								</div>
+								<div class="col-sm-6 text-name">
+									<em>
+										<label
+											class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
+											{{this.customerID.lastName}}</label>
+									</em>
+								</div>
+							</div>
+
+							<div class="col-md-6 row">
+								<div class="col-sm-6 ">
+									<strong>
+										<label class="form-label">Liên hệ: </label>
+									</strong>
+								</div>
+								<div class="col-sm-6">
+									<em>
+										<label
+											class="text-primary form-label text-uppercase">0{{this.customerID.phone}}</label>
+									</em>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 row">
+								<div class="col-sm-6">
+									<strong>
+										<label class="form-label">Giới tính: </label>
+									</strong>
+
+								</div>
+								<div class="col-sm-6">
+									<em>
+										<label class="form-label">{{this.customerID.gender}}</label>
+									</em>
+								</div>
+							</div>
+							<div class="col-md-6 row">
+								<div class="col-sm-6">
+									<strong>
+										<label class="form-label">Thành giá: </label>
+									</strong>
+								</div>
+								<div class="col-sm-6">
+									<em>
+										<label class="form-label text-danger">{{ this.price}} VND</label>
+									</em>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+								<div class="col-sm-5">
+									<strong>
+										<label class="form-label">Dịch vụ: </label>
+									</strong>
+
+								</div>
+								<div class="col-sm-7">
+									<em>
+										<label class="form-label">{{this.service}}</label>
+									</em>
+								</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
+								data-bs-target="#add-performer-modal" data-id="{{this._id}}"
+								data-customerID="{{this.customerID._id}}"
+								data-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
+								data-birth="{{this.customerID.birth}}" data-gender="{{this.customerID.gender}}"
+								data-email="{{this.customerID.email}}" data-phone="{{this.customerID.phone}}"
+								data-address="{{this.customerID.address}}"
+								data-createName="{{this.createName.firstName}} {{this.createName.lastName}}"
+								data-service="{{this.service}}" data-schedule="{{formatDate this.schedule}}" {{#each
+								comments}} data-comment="{{this.comment}}" {{/each}}>Đặt bác sĩ</button>
+						</div>
 					</div>
-					<div class="col-md-6">
-						<strong name="status" class="form-label text-danger">{{this.status}}</strong>
-					</div>
-				</div>
-
-				<hr>
-
-				<div class="row">
-					<div class="col-md-6 row">
-
-						<div class="col-sm-6 ">
-							<strong>
-								<label class="form-label">Khách hàng: </label>
-							</strong>
-						</div>
-						<div class="col-sm-6 text-name">
-							<em>
-								<label class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
-									{{this.customerID.lastName}}</label>
-							</em>
-						</div>
-					</div>
-
-					<div class="col-md-6 row">
-						<div class="col-sm-6 ">
-							<strong>
-								<label class="form-label">Liên hệ: </label>
-							</strong>
-						</div>
-						<div class="col-sm-6">
-							<em>
-								<label class="text-primary form-label text-uppercase">{{this.customerID.phone}}</label>
-							</em>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-6 row">
-						<div class="col-sm-6">
-							<strong>
-								<label class="form-label">Giới tính: </label>
-							</strong>
-
-						</div>
-						<div class="col-sm-6">
-							<em>
-								<label class="form-label">{{this.customerID.gender}}</label>
-							</em>
-						</div>
-					</div>
-					<div class="col-md-6 row">
-						<div class="col-sm-6">
-							<strong>
-								<label class="form-label">Thành giá: </label>
-							</strong>
-						</div>
-						<div class="col-sm-6">
-							<em>
-								<label class="form-label text-danger">{{ this.price}} VND</label>
-							</em>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-6 row">
-						<div class="col-sm-6">
-							<strong>
-								<label class="form-label">Dịch vụ: </label>
-							</strong>
-
-						</div>
-						<div class="col-sm-6">
-							<em>
-								<label class="form-label">{{this.service}}</label>
-							</em>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
-						data-bs-target="#add-performer-modal" data-id="{{this._id}}"
-						data-customerID="{{this.customerID._id}}"
-						data-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
-						data-birth="{{this.customerID.birth}}" data-gender="{{this.customerID.gender}}"
-						data-email="{{this.customerID.email}}" data-phone="{{this.customerID.phone}}"
-						data-address="{{this.customerID.address}}"
-						data-createName="{{this.createName.firstName}} {{this.createName.lastName}}"
-						data-service="{{this.service}}" data-schedule="{{formatDate this.schedule}}" {{#each comments}}
-						data-comment="{{this.comment}}" {{/each}}>Đặt bác sĩ</button>
 				</div>
 			</div>
+			{{/each}}
 		</div>
-		{{/each}}
 	</div>
 </div>
 
@@ -195,8 +199,9 @@
 								</div>
 								<div class="col-sm-6">
 									<em>
-										<label id="add-performer-email" class="d-inline-block text-truncate text-truncate-service" 
-											name="email" readonly></label>
+										<label id="add-performer-email"
+											class="d-inline-block text-truncate text-truncate-service" name="email"
+											readonly></label>
 									</em>
 								</div>
 							</div>
