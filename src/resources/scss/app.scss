@@ -124,7 +124,9 @@ body {
 //     margin-bottom: 12px;
 // }
 
-
+.dropdown-item{
+    cursor: pointer;
+}
 
 textarea {
     resize: none !important;
@@ -415,6 +417,7 @@ a {
 
 #customer_table_wrapper {
     margin-left: 16px;
+    overflow: hidden;
 }
 
 .inline {
@@ -434,7 +437,22 @@ a {
     margin-right: 12px;
 }
 
+#customerTable_wrapper{
+    overflow: hidden;
+}
 
+#customer_table_wrapper{
+    height: 480px;
+}
+
+#myInput, #pills-tab{
+    margin-left: 5px;
+}
+
+.note-wrapper{
+    margin-left: 20px;
+    margin-top: 10px;
+}
 
 .add-avata {
     width: 185px;
