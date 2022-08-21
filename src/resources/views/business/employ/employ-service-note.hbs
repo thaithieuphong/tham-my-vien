@@ -25,12 +25,12 @@
     </ul>
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-new" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."
+            <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.."
                 title="Type in a name">
             <div id="search-items">
                 <div class="row">
                     {{#each serviceNotes}}
-                    <div class="col-md-6 ">
+                    <div class="col-md-6 note-wrapper">
                         <div class="shadow-lg p-3 mb-5 bg-body rounded card">
                             <div class="row">
                                 <div class="col-md-6">
@@ -97,8 +97,8 @@
                                 <div class="col-md-6">
                                     {{#each this.performer}}
                                     <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}} {{this.lastName}};</label>
+                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
+                                            {{this.lastName}};</label>
                                     </em>
                                     {{/each}}
                                 </div>
@@ -112,8 +112,8 @@
                                 <div class="col-md-6">
                                     {{#each this.nursing}}
                                     <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}} {{this.lastName}};</label>
+                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
+                                            {{this.lastName}};</label>
                                     </em>
                                     {{/each}}
                                 </div>
@@ -126,9 +126,66 @@
                                 </div>
                                 <div class="col-md-6">
                                     <em>
-                                        <label
-                                            class="  form-label text-uppercase">{{this.recept.firstName}} {{this.recept.lastName}};</label>
+                                        <label class="  form-label text-uppercase">{{this.recept.firstName}}
+                                            {{this.recept.lastName}};</label>
                                     </em>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#a{{this._id}}">Tư vấn</button>
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- Detail counselor --}}
+                    <div class="modal fade" id="a{{this._id}}" tabindex="-1" aria-labelledby="create-re-exam"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header bg-info">
+                                    <h5 class="modal-title btn-close-white" id="create-re-exam-title">Hình ảnh tư vấn
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                            <div class="row">
+                                                {{#each this.counselorImg}}
+                                                {{#if this}}
+                                                <div class="col-md-6 mt-2 imgbox">
+                                                    <img src="/counselor/img/{{this}}"
+                                                        class="rounded mx-auto d-block upd-ava" alt="...">
+                                                </div>
+                                                {{else}}
+                                                <div class="col-md-6 ">
+                                                    <h6>Chưa có ảnh</h6>
+                                                </div>
+                                                {{/if}}
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                {{#each this.counselorVideo}}
+                                                {{#if this}}
+                                                <video class="rounded mx-auto d-block upd-ava mt-2"
+                                                    src="/counselor/video/{{this}}" type="video/mp4" controls>
+                                                </video>
+                                                {{else}}
+                                                <div class="col-md-6 mt-2">
+                                                    <h6>Chưa có video</h6>
+                                                </div>
+                                                {{/if}}
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
+                                        lại</button>
                                 </div>
                             </div>
                         </div>
@@ -138,7 +195,7 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="pills-loading" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInputLoad" onkeyup="myFunction2()" placeholder="Search for names.."
+            <input type="text" id="myInputLoad" class="myInput" onkeyup="myFunction2()" placeholder="Search for names.."
                 title="Type in a name">
             <div id="search-items-loading">
                 <div class="row">
@@ -210,8 +267,8 @@
                                 <div class="col-md-6">
                                     {{#each this.performer}}
                                     <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
+                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
+                                            {{this.lastName}};</label>
                                     </em>
                                     {{/each}}
                                 </div>
@@ -225,8 +282,8 @@
                                 <div class="col-md-6">
                                     {{#each this.nursing}}
                                     <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
+                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
+                                            {{this.lastName}};</label>
                                     </em>
                                     {{/each}}
                                 </div>
@@ -239,9 +296,66 @@
                                 </div>
                                 <div class="col-md-6">
                                     <em>
-                                        <label
-                                            class="form-label text-uppercase">{{this.recept.firstName}}{{this.recept.lastName}};</label>
+                                        <label class="form-label text-uppercase">{{this.recept.firstName}}
+                                            {{this.recept.lastName}};</label>
                                     </em>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#a{{this._id}}">Tư vấn</button>
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- Detail counselor --}}
+                    <div class="modal fade" id="a{{this._id}}" tabindex="-1" aria-labelledby="create-re-exam"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header bg-info">
+                                    <h5 class="modal-title btn-close-white" id="create-re-exam-title">Hình ảnh tư vấn
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                            <div class="row">
+                                                {{#each this.counselorImg}}
+                                                {{#if this}}
+                                                <div class="col-md-6 mt-2 imgbox">
+                                                    <img src="/counselor/img/{{this}}"
+                                                        class="rounded mx-auto d-block upd-ava" alt="...">
+                                                </div>
+                                                {{else}}
+                                                <div class="col-md-6 ">
+                                                    <h6>Chưa có ảnh</h6>
+                                                </div>
+                                                {{/if}}
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                {{#each this.counselorVideo}}
+                                                {{#if this}}
+                                                <video class="rounded mx-auto d-block upd-ava mt-2"
+                                                    src="/counselor/video/{{this}}" type="video/mp4" controls>
+                                                </video>
+                                                {{else}}
+                                                <div class="col-md-6 mt-2">
+                                                    <h6>Chưa có video</h6>
+                                                </div>
+                                                {{/if}}
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
+                                        lại</button>
                                 </div>
                             </div>
                         </div>
@@ -251,7 +365,7 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="pills-complete" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInputCTV" onkeyup="myFunction1()" placeholder="Search for names.."
+            <input type="text" id="myInputCTV" class="myInput`" onkeyup="myFunction1()" placeholder="Search for names.."
                 title="Type in a name">
             <div id="search-items-complete">
                 <div class="row">
@@ -322,8 +436,8 @@
                                 <div class="col-md-6">
                                     {{#each this.performer}}
                                     <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
+                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
+                                            {{this.lastName}};</label>
                                     </em>
                                     {{/each}}
                                 </div>
@@ -337,8 +451,8 @@
                                 <div class="col-md-6">
                                     {{#each this.nursing}}
                                     <em>
-                                        <label
-                                            class="text-success form-label text-uppercase">{{this.firstName}}{{this.lastName}};</label>
+                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
+                                            {{this.lastName}};</label>
                                     </em>
                                     {{/each}}
                                 </div>
@@ -351,8 +465,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <em>
-                                        <label
-                                            class="  form-label text-uppercase">{{this.recept.firstName}}{{this.recept.lastName}};</label>
+                                        <label class="  form-label text-uppercase">{{this.recept.firstName}}
+                                            {{this.recept.lastName}};</label>
                                     </em>
                                 </div>
                             </div>
@@ -366,6 +480,61 @@
                                     data-address="{{this.customerID.address}}" data-service="{{this.service}}"
                                     data-service-note-id="{{this._id}}">Tạo phiếu
                                     tái khám</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#a{{this._id}}">Tư vấn</button>
+                            </div>
+                        </div>
+                    </div>
+                    {{!-- Detail counselor --}}
+                    <div class="modal fade" id="a{{this._id}}" tabindex="-1" aria-labelledby="create-re-exam"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header bg-info">
+                                    <h5 class="modal-title btn-close-white" id="create-re-exam-title">Hình ảnh tư vấn
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                            <div class="row">
+                                                {{#each this.counselorImg}}
+                                                {{#if this}}
+                                                <div class="col-md-6 mt-2 imgbox">
+                                                    <img src="/counselor/img/{{this}}"
+                                                        class="rounded mx-auto d-block upd-ava" alt="...">
+                                                </div>
+                                                {{else}}
+                                                <div class="col-md-6 ">
+                                                    <h6>Chưa có ảnh</h6>
+                                                </div>
+                                                {{/if}}
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                {{#each this.counselorVideo}}
+                                                {{#if this}}
+                                                <video class="rounded mx-auto d-block upd-ava mt-2"
+                                                    src="/counselor/video/{{this}}" type="video/mp4" controls>
+                                                </video>
+                                                {{else}}
+                                                <div class="col-md-6 mt-2">
+                                                    <h6>Chưa có video</h6>
+                                                </div>
+                                                {{/if}}
+                                                {{/each}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
+                                        lại</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -467,7 +636,8 @@
                                         </div>
                                         <div class="col-sm-6 ">
                                             <em>
-                                                <label id="create-re-exam-email" class="d-inline-block text-truncate" name="email" readonly></label>
+                                                <label id="create-re-exam-email" class="d-inline-block text-truncate"
+                                                    name="email" readonly></label>
                                             </em>
                                         </div>
                                     </div>
@@ -505,7 +675,7 @@
                                             <em>
                                                 <input hidden type="text" value="{{user._id}}" name="createName" id="">
                                                 <label id="create-re-exam-createName"
-                                                    readonly>{{user.firstName}}{{user.lastName}}</label>
+                                                    readonly>{{user.firstName}} {{user.lastName}}</label>
                                             </em>
                                         </div>
                                     </div>
@@ -524,6 +694,41 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="create-re-exam-btn" class="btn btn-primary">Lưu thay đổi</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Detail counselor --}}
+<div class="modal fade" id="detail-counselor-modal" tabindex="-1" aria-labelledby="create-re-exam" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title btn-close-white" id="create-re-exam-title">Tạo phiếu tái khám</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 ">
+                        <div class="row">
+                            <div class="col-md-6 mt-2 imgbox">
+                                <img id="counselor-img" class="rounded mx-auto d-block upd-ava" alt="...">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <label for="" id="video-counselor"></label>
+                            {{!-- <video class="rounded mx-auto d-block upd-ava mt-2" src="/counselor/video/{{this}}"
+                                type="video/mp4" controls>
+                            </video> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
             </div>
         </div>

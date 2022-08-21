@@ -20,99 +20,107 @@
     </div>
     <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names..">
     <div id="search-items">
-        {{#each reexams}}
-        <div class="row ml-2 mr-2" id="service-note-render-form">
-            <div class="shadow-lg p-3 mb-3 bg-body rounded card">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5>
-                            <em>
+        <div class="row">
+            {{#each reexams}}
+            <div class="col-md-6">
+                <div class="ml-2 mr-2" id="service-note-render-form">
+                    <div class="shadow-lg p-3 mb-3 bg-body rounded card">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>
+                                    <em>
+                                        <strong>
+                                            <label name="schedule" class="form-label text-success">{{formatDate
+                                                this.schedule}}</label>
+                                        </strong>
+                                    </em>
+                                </h5>
+                            </div>
+                            <div class="col-md-6">
+                                <strong name="status" class="form-label text-danger">{{this.status}}</strong>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+
+                            <div class="col-sm-5 ">
                                 <strong>
-                                    <label name="schedule" class="form-label text-success">{{formatDate
-                                        this.schedule}}</label>
+                                    <label class="form-label">Khách hàng: </label>
                                 </strong>
-                            </em>
-                        </h5>
-                    </div>
-                    <div class="col-md-6">
-                        <strong name="status" class="form-label text-danger">{{this.status}}</strong>
-                    </div>
-                </div>
+                            </div>
+                            <div class="col-sm-7 text-name">
+                                <em>
+                                    <label class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
+                                        {{this.customerID.lastName}}</label>
+                                </em>
+                            </div>
 
-                <hr>
 
-                <div class="row">
-                    <div class="col-md-6 row">
-
-                        <div class="col-sm-6 ">
-                            <strong>
-                                <label class="form-label">Khách hàng: </label>
-                            </strong>
                         </div>
-                        <div class="col-sm-6 text-name">
-                            <em>
-                                <label class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
-                                    {{this.customerID.lastName}}</label>
-                            </em>
+
+                        <div class="row">
+                            <div class="col-md-6 row">
+                                <div class="col-sm-6">
+                                    <strong>
+                                        <label class="form-label">Giới tính: </label>
+                                    </strong>
+                                </div>
+                                <div class="col-sm-6">
+                                    <em>
+                                        <label class="form-label">{{this.customerID.gender}}</label>
+                                    </em>
+                                </div>
+                            </div>
+                            <div class="col-md-6 row">
+                                <div class="col-sm-6 ">
+                                    <strong>
+                                        <label class="form-label">Liên hệ: </label>
+                                    </strong>
+                                </div>
+                                <div class="col-sm-6">
+                                    <em>
+                                        <label
+                                            class="text-primary form-label text-uppercase">0{{this.customerID.phone}}</label>
+                                    </em>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <strong>
+                                    <label class="form-label">Dịch vụ đã sử dụng: </label>
+                                </strong>
+                            </div>
+                            <div class="col-sm-7">
+                                <em>
+                                    <label class="form-label">{{this.serviceNoteId.service}}</label>
+                                </em>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
+                                data-bs-target="#add-performer-re-exam-modal" data-re-exam-id="{{this._id}}"
+                                data-re-exam-customerID="{{this.customerID._id}}"
+                                data-re-exam-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
+                                data-re-exam-birth="{{this.customerID.birth}}"
+                                data-re-exam-gender="{{this.customerID.gender}}"
+                                data-re-exam-email="{{this.customerID.email}}"
+                                data-re-exam-phone="{{this.customerID.phone}}"
+                                data-re-exam-address="{{this.customerID.address}}"
+                                data-re-exam-createName="{{this.createName.firstName}} {{this.createName.lastName}}"
+                                data-re-exam-service="{{this.service}}"
+                                data-re-exam-schedule="{{formatDate this.schedule}}" {{#each comments}}
+                                data-re-exam-comment="{{this.comment}}" {{/each}}>Đặt bác sĩ</button>
                         </div>
                     </div>
-
-                    <div class="col-md-6 row">
-                        <div class="col-sm-6 ">
-                            <strong>
-                                <label class="form-label">Liên hệ: </label>
-                            </strong>
-                        </div>
-                        <div class="col-sm-6">
-                            <em>
-                                <label class="text-primary form-label text-uppercase">{{this.customerID.phone}}</label>
-                            </em>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 row">
-                        <div class="col-sm-6">
-                            <strong>
-                                <label class="form-label">Giới tính: </label>
-                            </strong>
-                        </div>
-                        <div class="col-sm-6">
-                            <em>
-                                <label class="form-label">{{this.customerID.gender}}</label>
-                            </em>
-                        </div>
-                    </div>
-                    <div class="col-md-6 row">
-                        <div class="col-sm-6">
-                            <strong>
-                                <label class="form-label">Dịch vụ đã sử dụng: </label>
-                            </strong>
-                        </div>
-                        <div class="col-sm-6">
-                            <em>
-                                <label class="form-label">{{this.serviceNoteId.service}}</label>
-                            </em>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
-                        data-bs-target="#add-performer-re-exam-modal" data-re-exam-id="{{this._id}}"
-                        data-re-exam-customerID="{{this.customerID._id}}"
-                        data-re-exam-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
-                        data-re-exam-birth="{{this.customerID.birth}}" data-re-exam-gender="{{this.customerID.gender}}"
-                        data-re-exam-email="{{this.customerID.email}}" data-re-exam-phone="{{this.customerID.phone}}"
-                        data-re-exam-address="{{this.customerID.address}}"
-                        data-re-exam-createName="{{this.createName.firstName}} {{this.createName.lastName}}"
-                        data-re-exam-service="{{this.service}}" data-re-exam-schedule="{{formatDate this.schedule}}"
-                        {{#each comments}} data-re-exam-comment="{{this.comment}}" {{/each}}>Đặt bác sĩ</button>
                 </div>
             </div>
+            {{/each}}
         </div>
-        {{/each}}
     </div>
 </div>
 
@@ -245,12 +253,12 @@
                                 <label for="performer" class="form-label container-table">
                                     <h6>Chọn bác sĩ</h6>
                                 </label>
-                                 <label for="performer" class="form-label container-card">
+                                <label for="performer" class="form-label container-card">
                                     <h6>Chọn bác sĩ, y tá</h6>
                                 </label>
-                               
-                                <select id="select-performer" class="chosen-select container-table" multiple tabindex="6"
-                                    name="performer">
+
+                                <select id="select-performer" class="chosen-select container-table" multiple
+                                    tabindex="6" name="performer">
                                     {{#each user1s}}
                                     <option value="{{this._id}}">
                                         {{this.firstName}}
@@ -260,32 +268,32 @@
                                 </select>
 
                                 <div id="list1" class="dropdown-check-list container-card" tabindex="100">
-									<span class="anchor ">Chọn bác sĩ, y tá</span>
-									<ul class="items">
-										{{#each user1s}}
-										<li>
-											<hr>
-											<label class="form-check " for="{{this._id}}">
-												<input type="checkbox" class="mt-2" id="{{this._id}}"
-													value="{{this._id}}" name="performer" /> <strong
-													class="text-success">Bác sĩ:</strong>
-												<label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
-											</label>
-										</li>
-										{{/each}}
-										{{#each user2s}}
-										<li>
-											<hr>
-											<label class="form-check " for="{{this._id}}">
-												<input type="checkbox" class="mt-2" id="{{this._id}}"
-													value="{{this._id}}" name="nursing" /><strong class="text-success">Y
-													tá:</strong>
-												<label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
-											</label>
-										</li>
-										{{/each}}
-									</ul>
-								</div>
+                                    <span class="anchor ">Chọn bác sĩ, y tá</span>
+                                    <ul class="items">
+                                        {{#each user1s}}
+                                        <li>
+                                            <hr>
+                                            <label class="form-check " for="{{this._id}}">
+                                                <input type="checkbox" class="mt-2" id="{{this._id}}"
+                                                    value="{{this._id}}" name="performer" /> <strong
+                                                    class="text-success">Bác sĩ:</strong>
+                                                <label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
+                                            </label>
+                                        </li>
+                                        {{/each}}
+                                        {{#each user2s}}
+                                        <li>
+                                            <hr>
+                                            <label class="form-check " for="{{this._id}}">
+                                                <input type="checkbox" class="mt-2" id="{{this._id}}"
+                                                    value="{{this._id}}" name="nursing" /><strong class="text-success">Y
+                                                    tá:</strong>
+                                                <label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
+                                            </label>
+                                        </li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="nursing" class="form-label container-table">
