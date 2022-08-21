@@ -2,7 +2,7 @@ const User = require('../../models/User');
 const { multipleMongooseToObject, mongooseToObject } = require('../../../util/mongoose');
 const ServiceNote = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
-const bcrypt = require("bcryptjs");
+const Customer = require('../../models/Customer');
 
 class NursingController {
 
@@ -137,6 +137,27 @@ class NursingController {
 				res.redirect('back')
 			})
 			.catch(next);
+	}
+
+	createReExam(req, res, next) {
+		console.log('req', req);
+		const reexamination = new Reexamination({
+			customerID: req.body.customerID,
+			createName: req.body.createName,
+			serviceNoteId: req.body.serviceNoteID,
+			status: "Tạo mới",
+			schedule: req.body.schedule,
+			comments: { comment: req.body.comment },
+
+		})
+		reexamination.save();
+		console.log('re-ex id', reexamination.id);
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { reexamID: reexamination.id } })
+			.then(() => {
+				req.flash('messages_createReExamination_success', 'Tạo phiếu tái khám thành công');
+				res.redirect('back');
+
+			})
 	}
 }
 

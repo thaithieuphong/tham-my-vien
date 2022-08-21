@@ -31,7 +31,7 @@ createExamModal.addEventListener("show.bs.modal", function (event) {
     var serviced = document.getElementById("create-re-exam-serviced");
     var serviceNoteID = document.getElementById("create-service-note-id")
 
-    createExamForm.setAttribute("action",'/business/employ/service-note/exam')
+    createExamForm.setAttribute("action",'/operating-room/nursing/re-examination/re-exam')
 
 
     if (dataImg === '') {

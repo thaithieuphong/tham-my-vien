@@ -19,8 +19,6 @@
 <a data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="addBtn-mobile"><i class="ti-plus"></i></a>
 
 <div class="container-fluid mt-3">
-	<div>
-
 	<div class="container-table">
 		<table id="customer_table" class="table table-hover table-bordered table-sm">
 			<thead class="table-info">
@@ -49,38 +47,29 @@
 					<td>{{this.address}}</td>
 					<td>{{this.description}}</td>
 					<td class="text-center">
-						<div class="btn-group">
-							<button type="button" class="btn btn-primary btn-sm dropdown-toggle"
-								data-bs-toggle="dropdown" aria-expanded="false">
-								Hành động
-							</button>
-							<ul class="dropdown-menu dropdown-menu-sm">
-								<li>
-									<button type="button" class="dropdown-item" data-bs-toggle="modal"
-										data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
-										data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
-										data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
-										data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
-										data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
-										data-edit-description="{{this.description}}">Sửa thông tin khách hàng</button>
-								</li>
-								<hr class="dropdown-divider">
-								<li>
-									<a class="dropdown-item" data-bs-toggle="modal" data-service-note-id="{{this._id}}"
-										data-service-note-img="{{this.image.name}}"
-										data-service-note-firstname="{{this.firstName}}"
-										data-service-note-lastname="{{this.lastName}}"
-										data-service-note-birth="{{this.birth}}"
-										data-service-note-gender="{{this.gender}}"
-										data-service-note-phone="{{this.phone}}"
-										data-service-note-email="{{this.email}}"
-										data-service-note-address="{{this.address}}"
-										data-service-note-description="{{this.description}}" {{#each
-										this.serviceNoteID}} data-service-note-serviceID="{{this.service}}" {{/each}}
-										data-bs-target="#create-service-note-modal">Tạo phiếu dịch vụ</a>
-								</li>
-							</ul>
-						</div>
+						<button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
+							data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
+							data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
+							data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
+							data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
+							data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
+							data-edit-description="{{this.description}}">
+							Sửa
+						</button>
+						<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-service-note-id="{{this._id}}"
+							data-service-note-img="{{this.image.name}}"
+							data-service-note-firstname="{{this.firstName}}"
+							data-service-note-lastname="{{this.lastName}}"
+							data-service-note-birth="{{this.birth}}"
+							data-service-note-gender="{{this.gender}}"
+							data-service-note-phone="{{this.phone}}"
+							data-service-note-email="{{this.email}}"
+							data-service-note-address="{{this.address}}"
+							data-service-note-description="{{this.description}}" {{#each
+							this.serviceNoteID}} data-service-note-serviceID="{{this.service}}" {{/each}}
+							data-bs-target="#create-service-note-modal">
+							Tạo phiếu
+						</button>
 					</td>
 				</tr>
 				{{/each}}
@@ -90,7 +79,7 @@
 	</div>
 
 	<div class="container-card">
-		<input type="text" id="myInput" placeholder="Search for names..">
+		<input type="text" id="myInput" class="myInput" placeholder="Search for names..">
 		<div id="search-items">
 			{{#each customers}}
 			<div class="card text-dark bg-light mb-3">
@@ -111,7 +100,9 @@
 						data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
 						data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
 						data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
-						data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">Sửa</button>
+						data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">
+						Sửa
+					</button>
 					<button type="button" class="btn btn-md btn-success btn-mobile" data-bs-toggle="modal"
 						data-service-note-id="{{this._id}}" data-service-note-img="{{this.image.name}}"
 						data-service-note-firstname="{{this.firstName}}" data-service-note-lastname="{{this.lastName}}"
@@ -120,7 +111,9 @@
 						data-service-note-address="{{this.address}}"
 						data-service-note-description="{{this.description}}" {{#each this.serviceNoteID}}
 						data-service-note-serviceID="{{this.service}}" {{/each}}
-						data-bs-target="#create-service-note-modal">Tạo phiếu</button>
+						data-bs-target="#create-service-note-modal">
+						Tạo phiếu
+					</button>
 				</div>
 			</div>
 			{{/each}}
@@ -546,18 +539,15 @@
 									</div>
 								</div>
 								<div class="col-md-7">
-									<div class="preview-images-counselor row ml-0 mt-3 border"></div>
-									<label for="input-multi-images-counselor" class="label-avt btn btn-primary mt-2 btn-mobile">
+									{{!-- <div class="preview-images-counselor row ml-0 mt-3 border"></div> --}}
+									<label class="label-avt btn-mobile">
 										<h6>Chọn ảnh tư vấn</h6>
 									</label>
-									<input id="input-multi-images-counselor" class="form-control" type="file"
-										name="counselor" hidden multiple>
-									<div class="preview-videos-counselor row ml-0 mt-3 border"></div>
-									<label for="input-multi-videos-counselor" class="label-avt btn btn-primary mt-2 btn-mobile">
+									<div class="input-images mt-2"></div>
+									<label class="label-avt mt-3 btn-mobile">
 										<h6>Chọn video tư vấn</h6>
 									</label>
-									<input id="input-multi-videos-counselor" class="form-control" type="file"
-										name="counselor" hidden multiple>
+									<div class="input-videos mt-2"></div>
 								</div>
 							</div>
 						</div>
@@ -573,4 +563,3 @@
 </div>
 
 <script src="/js/business/business-employ-customer.js"></script>
-

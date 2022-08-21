@@ -4,11 +4,12 @@ const NursingController = require('../../app/controllers/operating-controller/Nu
 const validateUpload = require('../../middleware/validateUpload');
 const AuthController = require("../../app/controllers/AuthController");
 
-router.patch('/service-note/:id', NursingController.updateServiceNote)
-router.patch('/re-examination/:id', NursingController.updateReExamination)
-router.post('/service-note/before/:id', validateUpload.beforeUpload, NursingController.uploadBefore)
-router.post('/service-note/after/:id', validateUpload.afterUpload, NursingController.uploadAfter)
-router.post('/re-examination/reexam/:id', validateUpload.reExaminationUpload, NursingController.uploadReExam)
+router.patch('/service-note/:id', NursingController.updateServiceNote);
+router.patch('/re-examination/:id', NursingController.updateReExamination);
+router.post('/service-note/before/:id', validateUpload.beforeUpload, NursingController.uploadBefore);
+router.post('/service-note/after/:id', validateUpload.afterUpload, NursingController.uploadAfter);
+router.post('/re-examination/reexam/:id', validateUpload.reExaminationUpload, NursingController.uploadReExam);
+router.post('/re-examination/re-exam', validateUpload.reExaminationUpload, NursingController.createReExam);
 router.post('/change-pass', AuthController.changePassword);
 
 router.get('/service-note', NursingController.showServiceNote);

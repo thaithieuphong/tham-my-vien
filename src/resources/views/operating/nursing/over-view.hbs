@@ -9,11 +9,15 @@
 </nav>
 {{> page/sidebar/operating-room/sidebar-nursing}}
 
-<div class="container-fluid">
-	<div id="alert-message" class="alert alert-{{message.color}}" role="alert">
-		{{message.content}}
+<div class="container-fluid ml-2">
+	{{#if messages_createReExamination_success}}
+	<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+	
+		{{messages_createReExamination_success}}
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
-	<input type="text" id="myInput" class="myInput`" onkeyup="myFunction()" placeholder="Search for names.."
+	{{/if}}
+	<input type="text" id="myInput" class="myInput mt-3" onkeyup="myFunction()" placeholder="Search for names.."
 		title="Type in a name">
 	<div id="search-items">
 		<div class="row">
@@ -127,13 +131,14 @@
 							data-address="{{this.customerID.address}}" data-service="{{this.service}}"
 							data-service-note-id="{{this._id}}">Tạo phiếu
 							tái khám</button>
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-							data-bs-target="#a{{this._id}}">Hình ảnh</button>
+						{{!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+							data-bs-target="#image{{this._id}}">Hình ảnh</button> --}}
 					</div>
 				</div>
 			</div>
+
 			{{!-- Detail counselor --}}
-			<div class="modal fade" id="a{{this._id}}" tabindex="-1" aria-labelledby="create-re-exam"
+			<div class="modal fade" id="image{{this._id}}" tabindex="-1" aria-labelledby="create-re-exam"
 				aria-hidden="true">
 				<div class="modal-dialog modal-xl">
 					<div class="modal-content">
@@ -148,7 +153,7 @@
 								<li class="nav-item" role="presentation">
 									<button class="nav-link active" id="pills-counselor-tab" data-bs-toggle="pill"
 										data-bs-target="#pills-counselor" type="button" role="tab"
-										aria-controls="pills-counselor" aria-selected="false">Hình ảnh tư
+										aria-controls="pills-counselor" aria-selected="true">Hình ảnh tư
 										vấn</button>
 								</li>
 								<li class="nav-item" role="presentation">
@@ -165,13 +170,11 @@
 								</li>
 							</ul>
 							<div class="tab-content" id="pills-tabContent">
-								
-
-								<div class="tab-pane fade show active" id="pills-counselor" role="tabpanel"
-									aria-labelledby="pills-profile-tab">
-									<div class="row">
-										<div class="col-md-6 ">
-											<div class="row">
+								<div class="tab-pane fade show active" id="pills-counselor" role="tabpanel" aria-labelledby="pills-counselor-tab">
+									{{!-- <div class="row"> --}}
+											a
+										{{!-- <div class="col-md-6 "> --}}
+											{{!-- <div class="row">
 												{{#each this.counselorImg}}
 												{{#if this}}
 												<div class="col-md-6 mt-2 imgbox">
@@ -184,10 +187,11 @@
 												</div>
 												{{/if}}
 												{{/each}}
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="row">
+											</div> --}}
+										{{!-- </div> --}}
+										{{!-- <div class="col-md-6"> --}}
+											{{!-- b --}}
+											{{!-- <div class="row">
 												{{#each this.counselorVideo}}
 												{{#if this}}
 												<video class="rounded mx-auto d-block upd-ava mt-2"
@@ -199,16 +203,17 @@
 												</div>
 												{{/if}}
 												{{/each}}
-											</div>
-										</div>
-									</div>
+											</div> --}}
+										{{!-- </div> --}}
+									{{!-- </div> --}}
 								</div>
 
-								<div class="tab-pane fade  " id="pills-before" role="tabpanel"
-									aria-labelledby="pills-profile-tab">
-									<div class="row">
-										<div class="col-md-6 ">
-											<div class="row">
+								<div class="tab-pane fade" id="pills-before" role="tabpanel"
+									aria-labelledby="pills-before-tab">
+									{{!-- <div class="row"> --}}
+											c
+										{{!-- <div class="col-md-6 "> --}}
+											{{!-- <div class="row">
 												{{#each this.beforeImg}}
 												{{#if this}}
 												<div class="col-md-6 mt-2 imgbox">
@@ -221,10 +226,11 @@
 												</div>
 												{{/if}}
 												{{/each}}
-											</div>
-										</div>
-										<div class="col-md-6">
-											<div class="row">
+											</div> --}}
+										{{!-- </div> --}}
+										{{!-- <div class="col-md-6"> --}}
+											{{!-- d --}}
+											{{!-- <div class="row">
 												{{#each this.beforeVideo}}
 												{{#if this}}
 												<video class="rounded mx-auto d-block upd-ava mt-2"
@@ -236,16 +242,17 @@
 												</div>
 												{{/if}}
 												{{/each}}
-											</div>
-										</div>
-									</div>
+											</div> --}}
+										{{!-- </div> --}}
+									{{!-- </div> --}}
 								</div>
 
 								<div class="tab-pane fade" id="pills-after" role="tabpanel"
-									aria-labelledby="pills-profile-tab">
-									<div class="row ">
-										<div class="col-md-6 ">
-											<div class="row">
+									aria-labelledby="pills-after-tab">
+									{{!-- <div class="row "> --}}
+											e
+										{{!-- <div class="col-md-6 "> --}}
+											{{!-- <div class="row">
 												{{#each this.afterImg}}
 												{{#if this}}
 												<div class="col-md-6 mt-2 imgbox">
@@ -259,10 +266,11 @@
 												</div>
 												{{/if}}
 												{{/each}}
-											</div>
-										</div>
-										<div class="col-md-6 ">
-											<div class="row">
+											</div> --}}
+										{{!-- </div> --}}
+										{{!-- <div class="col-md-6 "> --}}
+											{{!-- f --}}
+											{{!-- <div class="row">
 												{{#each this.afterVideo}}
 												{{#if this}}
 												<video class="rounded mx-auto d-block upd-ava mt-2"
@@ -274,17 +282,14 @@
 												</div>
 												{{/if}}
 												{{/each}}
-											</div>
-										</div>
-									</div>
-
-
+											</div> --}}
+										{{!-- </div> --}}
+									{{!-- </div> --}}
 								</div>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
-								lại</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
 						</div>
 					</div>
 				</div>
@@ -293,6 +298,7 @@
 		</div>
 	</div>
 </div>
+
 {{!-- create-re-exam modal --}}
 <div class="modal fade" id="create-re-examination-modal" tabindex="-1" aria-labelledby="create-re-exam"
     aria-hidden="true">

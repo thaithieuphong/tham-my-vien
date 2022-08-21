@@ -139,49 +139,67 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-	let imagesPreviewConselor = function (input, placeToInsertImagePreview) {
-		console.log(input);
-		// console.log(input.files);
-		if (input.files) {
-			let filesAmount = input.files.length;
-			for (i = 0; i < filesAmount; i++) {
-				let reader = new FileReader();
-				reader.onload = function (event) {
-					$($.parseHTML("<img class='rounded'>"))
-						.attr("src", event.target.result)
-						.appendTo(placeToInsertImagePreview);
-				};
-				reader.readAsDataURL(input.files[i]);
-			}
-		}
-	};
-	var inputMultiImageConselor = document.getElementById('input-multi-images-counselor');
-	inputMultiImageConselor.addEventListener('change', (e) => {
-		imagesPreviewConselor(e.target, "div.preview-images-counselor");
-		console.log(e.target.files);
-	})
+	// let imagesPreviewConselor = function (input, placeToInsertImagePreview) {
+	// 	console.log('input', input);
+	// 	console.log('input files', input.files);
+	// 	if (input.files) {
+	// 		let filesAmount = input.files.length;
+	// 		for (i = 0; i < filesAmount; i++) {
 
-	let videosPreviewConselor = function (input, placeToInsertVideoPreview) {
-		console.log(input);
-		// console.log(input.files);
-		if (input.files) {
-			let filesAmount = input.files.length;
-			for (i = 0; i < filesAmount; i++) {
-				let reader = new FileReader();
-				reader.onload = function (event) {
-					$($.parseHTML("<video class='mt-3 mb-3'>"))
-						.attr("src", event.target.result)
-						.appendTo(placeToInsertVideoPreview);
-				};
-				reader.readAsDataURL(input.files[i]);
-			}
-		}
-	};
-	var inputMultiVideoConselor = document.getElementById('input-multi-videos-counselor');
-	inputMultiVideoConselor.addEventListener('change', (e) => {
-		videosPreviewConselor(e.target, "div.preview-videos-counselor");
-		console.log(e.target.files);
-	})
+	// 			placeToInsertImagePreview.src = URL.createObjectURL(input.files[i]);
+
+	// 			// let reader = new FileReader();
+	// 			placeToInsertImagePreview.addEventListener('load', e => {
+	// 				let urlImage = URL.revokeObjectURL(output.src)
+	// 				let img = document.createElement('img');
+	// 				img.classList.add('rounded');
+	// 				img.setAttribute('src', e.target.result);
+	// 				// placeToInsertImagePreview.appendChild(img);
+	// 				console.log('urlImage', urlImage)
+	// 				console.log('img', img);
+
+	// 			})
+	// 			// reader.onload = function (event) {
+	// 			// 	$($.parseHTML("<img class='rounded'>"))
+	// 			// 		.attr("src", event.target.result)
+	// 			// 		.appendTo(placeToInsertImagePreview);
+	// 			// 	$($.parseHTML('<button type="button" class="btn-close" disabled aria-label="Close"></button>'))
+	// 			// 		.attr("src", event.target.result)
+	// 			// 		.appendTo(placeToInsertImagePreview);
+	// 			// };
+	// 			// reader.readAsDataURL(input.files[i]);
+	// 		}
+	// 	}
+	// };
+	// var inputMultiImageConselor = document.getElementById('input-multi-images-counselor');
+	// var previewImagesCounselor = document.getElementsByClassName('preview-images-counselor')
+	// inputMultiImageConselor.addEventListener('change', (e) => {
+	// 	imagesPreviewConselor(e.target, previewImagesCounselor);
+	// 	console.log('file target', e.target.files);
+	// 	console.log('previewImagesCounselor', previewImagesCounselor);
+	// })
+
+	// let videosPreviewConselor = function (input, placeToInsertVideoPreview) {
+	// 	console.log(input);
+	// 	// console.log(input.files);
+	// 	if (input.files) {
+	// 		let filesAmount = input.files.length;
+	// 		for (i = 0; i < filesAmount; i++) {
+	// 			let reader = new FileReader();
+	// 			reader.onload = function (event) {
+	// 				$($.parseHTML("<video class='mt-3 mb-3'>"))
+	// 					.attr("src", event.target.result)
+	// 					.appendTo(placeToInsertVideoPreview);
+	// 			};
+	// 			reader.readAsDataURL(input.files[i]);
+	// 		}
+	// 	}
+	// };
+	// var inputMultiVideoConselor = document.getElementById('input-multi-videos-counselor');
+	// inputMultiVideoConselor.addEventListener('change', (e) => {
+	// 	videosPreviewConselor(e.target, "div.preview-videos-counselor");
+	// 	console.log(e.target.files);
+	// })
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -189,6 +207,17 @@ document.addEventListener("DOMContentLoaded", function () {
 		$("#customer_table").DataTable({
 			paging: true,
 			reponsive: true,
+		});
+		
+	});
+	$(document).ready(function(){
+		$('.input-images').imageUploader({
+			label: 'Kéo và thả hoặc bấm chọn hình ảnh',
+			imagesInputName: 'counselor',
+		});
+		$('.input-videos').imageUploader({
+			label: 'Kéo và thả hoặc bấm chọn video',
+			imagesInputName: 'counselor',
 		});
 	});
 

@@ -10,7 +10,7 @@
 {{> page/sidebar/operating-room/sidebar-nursing-re-exam}}
 
 <div class="container-fluid mt-3">
-	<div class="shadow p-3 mb-5 bg-body rounded ">
+	<div class="shadow p-3 mb-5 bg-body rounded ml-3">
 
 		{{#each reExam}}
 		<div class="row">
@@ -119,9 +119,7 @@
 
 			<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
 				aria-labelledby="pills-home-tab">
-
 				<form method="POST" id="submit-re-exam-form">
-
 					<div class="row mt-4">
 						<div class="col-md-6">
 							<div class="text-left ml-4">
@@ -344,22 +342,17 @@
 						<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
 						<div class="col-sm-6">
 							<label for="input-multi-images-re-exam"
-								class="label-avt btn btn-primary btn-upload-mobile mt-4">
+								class="label-avt btn-upload-mobile mt-4">
 								<h6>Chọn ảnh tái khám</h6>
 							</label>
-							<div class="preview-images-re-exam row ml-0 mt-1 border"></div>
-
-							<input id="input-multi-images-re-exam" class="form-control" type="file" name="reExamination"
-								hidden multiple>
+							<div class="input-images-re-examination mt-2"></div>
 						</div>
 						<div class="col-sm-6">
 							<label for="input-multi-videos-re-exam"
-								class="label-avt btn btn-primary btn-upload-mobile mt-4">
+								class="label-avt btn-upload-mobile mt-4">
 								<h6>Chọn video tái khám</h6>
 							</label>
-							<div class="preview-videos-re-exam row ml-0 mt-1 border"></div>
-							<input id="input-multi-videos-re-exam" class="form-control" type="file" name="reExamination"
-								hidden multiple>
+							<div class="input-videos-re-examination mt-2"></div>
 						</div>
 					</div>
 				</form>

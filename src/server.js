@@ -109,6 +109,7 @@ app.use(function (req, res, next) {
 	res.locals.messages_server_failure = req.flash('messages_server_failure');
 	res.locals.messages_token_failure = req.flash('messages_token_failure');
 	res.locals.messages_token_wrong = req.flash('messages_token_wrong');
+	res.locals.messages_createReExamination_success = req.flash('messages_createReExamination_success');
 	next();
 });
 
