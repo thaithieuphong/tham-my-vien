@@ -1,10 +1,9 @@
 const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mongoose');
 const ServiceNote = require('../../models/ServiceNote');
-const Counselor = require('../../models/Counselor');
 const Reexamination = require('../../models/Reexamination');
 const User = require('../../models/User');
-const bcrypt = require("bcryptjs");
-
+const path = require('path');
+const rootPath = path.sep;
 
 class DoctorOperationRoomController {
 

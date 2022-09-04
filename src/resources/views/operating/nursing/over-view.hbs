@@ -12,7 +12,6 @@
 <div class="container-fluid ml-2">
 	{{#if messages_createReExamination_success}}
 	<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
-	
 		{{messages_createReExamination_success}}
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
@@ -26,11 +25,17 @@
 				<div class="shadow-lg p-3 mb-5 bg-body rounded card">
 					<div class="row">
 						<div class="col-md-6">
-							<strong name="status" class="form-label text-danger">{{this.status}}</strong>
+							<div>
+								Ngày hoàn thành: <strong name="status" class="form-label text-danger">{{formatDate this.updatedAt}}</strong>
+							</div>
+							<div>
+								Trạng thái: <strong name="status" class="form-label text-danger">{{this.status}}</strong>
+							</div>
 						</div>
 						<div class="col-md-6">
 							<h5>
 								<em>
+									Ngày hẹn:
 									<strong>
 										<label name="schedule" class="form-label text-success">{{
 											this.schedule}}</label>
@@ -96,7 +101,7 @@
 					<div class="row mt-2">
 						<div class="col-md-6">
 							<strong>
-								<label class="form-label">Y tá: </label>
+								<label class="form-label">Điều dưỡng: </label>
 							</strong>
 						</div>
 						<div class="col-md-6">
@@ -125,7 +130,7 @@
 						<button type="button" id="create-re-examination-btn" class="btn btn-primary"
 							data-bs-toggle="modal" data-bs-target="#create-re-examination-modal"
 							data-img="{{this.customerID.image.name}}" data-id="{{this.customerID._id}}"
-							data-name="{{this.customerID.firstName}}{{this.customerID.lastName}}"
+							data-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
 							data-birth="{{this.customerID.birth}}" data-gender="{{this.customerID.gender}}"
 							data-email="{{this.customerID.email}}" data-phone="{{this.customerID.phone}}"
 							data-address="{{this.customerID.address}}" data-service="{{this.service}}"

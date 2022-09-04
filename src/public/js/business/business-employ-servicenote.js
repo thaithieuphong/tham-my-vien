@@ -53,9 +53,6 @@ createExamModal.addEventListener("show.bs.modal", function (event) {
    
 })
 
-
-
-
 //END Create re exam
 
 //Search

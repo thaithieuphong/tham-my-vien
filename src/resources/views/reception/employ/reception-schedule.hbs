@@ -125,7 +125,7 @@
 								data-email="{{this.customerID.email}}" data-phone="{{this.customerID.phone}}"
 								data-address="{{this.customerID.address}}"
 								data-createName="{{this.createName.firstName}} {{this.createName.lastName}}"
-								data-service="{{this.service}}" data-schedule="{{formatDate this.schedule}}" {{#each
+								data-service="{{this.service}}" data-schedule="{{this.schedule}}" {{#each
 								comments}} data-comment="{{this.comment}}" {{/each}}>Đặt bác sĩ</button>
 						</div>
 					</div>
@@ -142,7 +142,7 @@
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header bg-info text-light">
-				<h5 class="modal-title" id="add-performer-title">Phiếu phẩu thuật</h5>
+				<h5 class="modal-title text-light" id="add-performer-title">Phiếu phẩu thuật</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -194,7 +194,7 @@
 							<div class=" mb-3 row">
 								<div class="col-sm-6">
 									<strong>
-										<label for="email">Email address:</label>
+										<label for="email">Email:</label>
 									</strong>
 								</div>
 								<div class="col-sm-6">
@@ -274,10 +274,10 @@
 								</select>
 
 								<label for="performer" class="form-label container-card">
-									<h6>Chọn bác sĩ, y tá</h6>
+									<h6>Chọn bác sĩ và điều dưỡng</h6>
 								</label>
 								<div id="list1" class="dropdown-check-list container-card" tabindex="100">
-									<span class="anchor">Chọn bác sĩ, y tá</span>
+									<span class="anchor">Chọn bác sĩ và điều dưỡng</span>
 									<ul class="items">
 										{{#each user1s}}
 										<li>
@@ -295,8 +295,7 @@
 											<hr>
 											<label class="form-check " for="{{this._id}}">
 												<input type="checkbox" class="mt-2" id="{{this._id}}"
-													value="{{this._id}}" name="nursing" /><strong class="text-success">Y
-													tá:</strong>
+													value="{{this._id}}" name="nursing" /><strong class="text-success"> Điều dưỡng:</strong>
 												<label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
 											</label>
 										</li>
@@ -307,7 +306,7 @@
 							</div>
 							<div class="mb-3">
 								<label for="nursing" class="form-label container-table">
-									<h6>Chọn Y tá</h6>
+									<h6>Chọn Điều dưỡng</h6>
 								</label>
 								<select id="select-nursing" class="chosen-select container-table" multiple tabindex="6"
 									name="nursing[]">
@@ -322,7 +321,7 @@
 								<label for="gender" class="form-label">
 									<h6>Ngày hẹn</h6>
 								</label>
-								<input type="text" class="form-control" id="add-performer-schedule" name="schedule">
+								<div type="text" class="form-control" id="add-performer-schedule" name="schedule"></div>
 							</div>
 
 							<div class="mb-3">

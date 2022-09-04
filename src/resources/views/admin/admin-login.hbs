@@ -1,19 +1,93 @@
-<div class="container-fluid mt-3">
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
-        aria-controls="offcanvasWithBothOptions">Admin</button>
-    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
-        aria-labelledby="offcanvasWithBothOptionsLabel">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Admin</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-       <div class="offcanvas-body">
-			<div>
-				<a href="/admin/user">Người dùng</a>
-			</div>
-			<div class="mt-3">
-				<a href="/admin/customer">Khách hàng</a>
-			</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/css/app.css">
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+	<style>
+		body {
+			font-family: 'Roboto';
+		}
+
+	</style>
+</head>
+
+<body class="bg-dark">
+	<div id="layoutAuthentication ">
+		<div id="layoutAuthentication_content ">
+			<main>
+				<div class="container ">
+					<div class="row justify-content-center">
+						<div class="col-lg-5">
+							<div class="card shadow-lg root-login border-0 rounded-lg mt-3">
+								<div class="card-header">
+									<h3 class="text-center font-weight-light my-4">Đăng nhập</h3>
+								</div>
+								<div class="card-body">
+									{{#if messages_token_failure}}
+									<div class="alert alert-warning alert-dismissible fade show mt-1"
+										role="alert">
+										<strong>Nhắc nhở!</strong> {{messages_token_failure}}<br>
+										Vì lý do bảo mật. Vui lòng đăng nhập lại!!!
+										<button type="button" class="btn-close" data-bs-dismiss="alert"
+											aria-label="Close"></button>
+									</div>
+									{{/if}}
+									{{#if messages_token_wrong}}
+									<div class="alert alert-warning alert-dismissible fade show mt-1"
+										role="alert">
+										<strong>Lỗi!</strong> {{messages_token_wrong}}
+										<button type="button" class="btn-close" data-bs-dismiss="alert"
+											aria-label="Close"></button>
+									</div>
+									{{/if}}
+									<form id="login-form" method="POST">
+										<div class="form-group mb-3">
+											<label for="inputAccount" class="col-sm col-form-label">Tài khoản nhân viên</label>
+											<input type="text" class="form-control" rules="required" id="inputAccount" placeholder="Ví dụ: nghiatv" name="account">
+											{{#if messages_account_failure}}
+											<span class="form-message text-danger mt-1">{{messages_account_failure}}</span>
+											{{else}}
+											<span class="form-message mt-1"></span>
+											{{/if}}
+										</div>
+										<div class="form-group mb-3">
+											<label for="inputPassword">Mật khẩu</label>
+											<input class="form-control" rules="required|min:6" id="inputPassword" type="password"
+												placeholder="******" name="password" />
+											{{#if messages_password_failure}}
+											<span class="form-message text-danger mt-1">{{messages_password_failure}}</span>
+											{{else}}
+											<span class="form-message mt-1"></span>
+											{{/if}}
+										</div>
+										<div class="d-flex align-items-center justify-content-between mt-3 mb-0">
+											<a class="small" href="#"></a>
+											<button type="submit" class="btn btn-primary text-light btn-mobile">Đăng nhập</button>
+										</div>
+									</form>
+								</div>
+								<div class="card-footer text-center py-3">
+									<div class="text-muted">Copyright&copy; Hachitech</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
 		</div>
-    </div>
-</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		crossorigin="anonymous"></script>
+	<script src="/js/validator.js"></script>
+	<script>
+		validate('#login-form');
+	</script>
+</body>
+</html>

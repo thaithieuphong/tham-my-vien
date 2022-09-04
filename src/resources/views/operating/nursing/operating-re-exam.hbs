@@ -10,378 +10,440 @@
 {{> page/sidebar/operating-room/sidebar-nursing-re-exam}}
 
 <div class="container-fluid mt-3">
-	<div class="shadow p-3 mb-5 bg-body rounded ml-3">
-
+	<div class="p-3 mb-5 bg-body rounded ml-3">
 		{{#each reExam}}
-		<div class="row">
-
-			<h5 class="text-uppercase text-center mb-4">
-				<strong>Phiếu tái khám</strong>
-			</h5>
-		</div>
-
-		<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-			<li class="nav-item" role="presentation">
-				<button class="nav-link active" id="pills-profile-customer-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-profile-customer" type="button" role="tab" aria-controls="pills-home"
-					aria-selected="true">Thông tin khách hàng</button>
-			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-counselor-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-counselor" type="button" role="tab" aria-controls="pills-counselor"
-					aria-selected="false">Hình ảnh tư vấn</button>
-			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-before-tab" data-bs-toggle="pill" data-bs-target="#pills-before"
-					type="button" role="tab" aria-controls="pills-before" aria-selected="false">Hình ảnh trước
-					phẩu</button>
-			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-after-tab" data-bs-toggle="pill" data-bs-target="#pills-after"
-					type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh sau
-					phẩu</button>
-			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-re-exam-tab" data-bs-toggle="pill" data-bs-target="#pills-re-exam"
-					type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh tái
-					khám</button>
-			</li>
-		</ul>
-
-		<div class="tab-content" id="pills-tabContent">
-
-
-			<div class="row ">
-				<div class="col-md-6">
-					<div class="text-left ml-4">
-						<div class=" text-success">
-							<label class=" mr-4"><em>{{this.schedule}}</em></label>
-						</div>
-
-					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="ml-4 mr-4">
-						<label for="status">
-							<strong>Trạng thái:</strong>&nbsp;&nbsp;
-						</label>
-						<label class="text-danger">
-							<em>{{this.status}}</em>
-						</label>
-					</div>
-				</div>
+		<div class="shadow mb-3">
+			<div class="row">
+				<h5 class="text-uppercase text-center mb-3 mt-3">
+					<strong>Phiếu tái khám</strong>
+				</h5>
 			</div>
 
-			<div class="row mt-3">
-				<div class="col-md-6">
-					<label class="ml-4 text-success">
-						<strong> Khách hàng: </strong>&nbsp;&nbsp;
-					</label>
-					<label for="">
-						{{this.customerID.firstName}} {{this.customerID.lastName}}
-					</label>
-				</div>
-				<div class="col-md-6">
-					<div class="ml-4 mr-4">
-						<label for="reception">
-							<strong>Lễ tân:</strong>&nbsp;&nbsp;
-						</label>
-						<label for="reception-name">
-							<em>{{this.recept.firstName}}{{this.recept.lastName}}</em>
-						</label>
-					</div>
-				</div>
-			</div>
-			<div class="row mt-3">
-				<div class="col-md-6">
-					<div class="text-left ml-4">
-						<label for="service">
-							<strong>Dịch vụ đã sử dụng:</strong>&nbsp;&nbsp;
-						</label>
+			<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+				<li class="nav-item" role="presentation">
+					<button class="nav-link active" id="pills-profile-customer-tab" data-bs-toggle="pill"
+						data-bs-target="#pills-profile-customer" type="button" role="tab" aria-controls="pills-home"
+						aria-selected="true">Thông tin khách hàng</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="pills-counselor-tab" data-bs-toggle="pill"
+						data-bs-target="#pills-counselor-{{this._id}}" type="button" role="tab" aria-controls="pills-counselor"
+						aria-selected="false">Hình ảnh tư vấn</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="pills-before-tab" data-bs-toggle="pill" data-bs-target="#pills-before-{{this._id}}"
+						type="button" role="tab" aria-controls="pills-before" aria-selected="false">Hình ảnh trước
+						phẩu</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="pills-after-tab" data-bs-toggle="pill" data-bs-target="#pills-after-{{this._id}}"
+						type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh sau
+						phẩu</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link" id="pills-re-exam-tab" data-bs-toggle="pill" data-bs-target="#pills-re-exam-{{this._id}}"
+						type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh tái
+						khám</button>
+				</li>
+			</ul>
 
-					</div>
-				</div>
-
-				<div class="col-md-6 ">
-					<div class="ml-4 mr-4">
-						<label for="service-name">
-							<em>{{this.serviceNoteId.service}}</em>
-						</label>
-					</div>
-
-				</div>
-			</div>
-
-			<hr>
-
-
-
-			<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
-				aria-labelledby="pills-home-tab">
-				<form method="POST" id="submit-re-exam-form">
-					<div class="row mt-4">
-						<div class="col-md-6">
-							<div class="text-left ml-4">
-								<label for="status">
-									<strong>Bác sĩ: </strong>
-								</label>
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div class="ml-4 mr-4">
-
-								<label class="text-primary">
-									{{#each this.performer}}
-									<input hidden type="text" name="operatingID[]" value="{{this._id}}">
-
-									<em>{{this.firstName}} {{this.lastName}};</em>
-									{{/each}}
-								</label>
-							</div>
-						</div>
-					</div>
-					<div class="row mt-4">
-						<div class="col-md-6">
-							<div class="text-left ml-4">
-								<label for="service">
-									<strong>Y tá:</strong>
-								</label>
-							</div>
-						</div>
-
-						<div class="col-md-6">
-							<div class="ml-4 mr-4">
-								<label class="text-primary">
-									{{#each this.nursing}}
-									<input hidden type="text" name="operatingID[]" value="{{this._id}}">
-
-									<em>{{this.firstName}} {{this.lastName}};</em>
-									{{/each}}
-								</label>
-
-							</div>
-						</div>
-					</div>
-				</form>
-
-				<div class="row mt-4">
+			<div class="tab-content" id="pills-tabContent">
+				<div class="row ">
 					<div class="col-md-6">
 						<div class="text-left ml-4">
-							<label for="service">
-								<strong>Ghi chú:</strong>
-							</label>
+							<div class=" text-success">
+								<label class=" mr-4"><em>{{formatDate this.schedule}}</em></label>
+							</div>
 						</div>
 					</div>
 
 					<div class="col-md-6">
 						<div class="ml-4 mr-4">
-							{{#each this.comments}}
-							<label class="">
-								<em>{{this.comment}}</em>
+							<label for="status">
+								<strong>Trạng thái:</strong>&nbsp;&nbsp;
 							</label>
-							{{else}}
-							<label class="">
-								<em>Không có ghi chú</em>
+							<label class="text-danger">
+								<em>{{this.status}}</em>
 							</label>
-							{{/each}}
 						</div>
 					</div>
 				</div>
 
-			</div>
-
-			{{!-- {{/each }} --}}
-			<div class="tab-pane fade  " id="pills-counselor" role="tabpanel" aria-labelledby="pills-profile-tab">
-				<div class="row">
-					<div class="col-md-6 ">
-						<div class="row">
-							{{#each this.serviceNoteId.counselorImg}}
-							{{#if this}}
-							<div class="col-md-6 mt-2 imgbox">
-								<img src="/counselor/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
-							</div>
-							{{else}}
-							<div class="col-md-6 ">
-								<h6>Chưa có ảnh</h6>
-							</div>
-							{{/if}}
-							{{/each}}
-						</div>
+				<div class="row mt-3">
+					<div class="col-md-6">
+						<label class="ml-4 text-success">
+							<strong> Khách hàng: </strong>&nbsp;&nbsp;
+						</label>
+						<label for="">
+							{{this.customerID.firstName}} {{this.customerID.lastName}}
+						</label>
 					</div>
 					<div class="col-md-6">
-						<div class="row">
-							{{#each this.serviceNoteId.counselorVideo}}
-							{{#if this}}
-							<video class="rounded mx-auto d-block upd-ava mt-2" src="/counselor/video/{{this}}" type="video/mp4" playsinline
-								controls>
-							</video>
-							{{else}}
-							<div class="col-md-6 mt-2">
-								<h6>Chưa có video</h6>
-							</div>
-							{{/if}}
-							{{/each}}
+						<div class="ml-4 mr-4">
+							<label for="reception">
+								<strong>Lễ tân:</strong>&nbsp;&nbsp;
+							</label>
+							<label for="reception-name">
+								<em>{{this.recept.firstName}}{{this.recept.lastName}}</em>
+							</label>
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="tab-pane fade  " id="pills-before" role="tabpanel" aria-labelledby="pills-profile-tab">
-				<div class="row">
-					<div class="col-md-6 ">
-						<div class="row">
-							{{#each this.serviceNoteId.beforeImg}}
-							{{#if this}}
-							<div class="col-md-6 mt-2 imgbox">
-								<img src="/before/img/{{this}}" class="rounded mx-auto d-block upd-ava " alt="...">
-							</div>
-							{{else}}
-							<div class="col-md-6 mt-2">
-								<h6>Chưa có ảnh</h6>
-							</div>
-							{{/if}}
-							{{/each}}
-						</div>
-
-					</div>
+				<div class="row mt-3">
 					<div class="col-md-6">
-						<div class="row">
-							{{#each this.serviceNoteId.beforeVideo}}
-							{{#if this}}
-							<video class="rounded mx-auto d-block upd-ava mt-2" src="/before/video/{{this}}" type="video/mp4" playsinline
-								controls>
-							</video>
-							{{else}}
-							<div class="col-md-6 ">
-								<h6>Chưa có video</h6>
-							</div>
-							{{/if}}
-							{{/each}}
+						<div class="text-left ml-4">
+							<label for="service">
+								<strong>Dịch vụ đã sử dụng:</strong>&nbsp;&nbsp;
+							</label>
+
 						</div>
+					</div>
+
+					<div class="col-md-6 ">
+						<div class="ml-4 mr-4">
+							<label for="service-name">
+								<em>{{this.serviceNoteId.service}}</em>
+							</label>
+						</div>
+
 					</div>
 				</div>
-			</div>
-
-			<div class="tab-pane fade  " id="pills-after" role="tabpanel" aria-labelledby="pills-profile-tab">
-				<div class="row ">
-					<div class="col-md-6 ">
-						<div class="row">
-							{{#each this.servicenoteId.afterImg}}
-							{{#if this}}
-							<div class="col-md-6 mt-2 imgbox">
-								<img src="/after/img/{{this}}" class="rounded mx-auto d-block upd-ava" alt="...">
-
-							</div>
-							{{else}}
-							<div class="col-md-6 ">
-								<h6>Chưa có ảnh</h6>
-							</div>
-							{{/if}}
-							{{/each}}
-						</div>
-					</div>
-					<div class="col-md-6 ">
-						<div class="row">
-							{{#each this.servicenoteId.afterVideo}}
-							{{#if this}}
-							<video class="rounded mx-auto d-block upd-ava mt-2" src="/after/video/{{this}}" type="video/mp4" playsinline
-								controls>
-							</video>
-							{{else}}
+				<hr>
+				<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
+					aria-labelledby="pills-home-tab">
+					<form method="POST" id="submit-re-exam-form">
+						<div class="row mt-4">
 							<div class="col-md-6">
-								<h6>Chưa có video</h6>
+								<div class="text-left ml-4">
+									<label for="status">
+										<strong>Bác sĩ: </strong>
+									</label>
+								</div>
 							</div>
-							{{/if}}
-							{{/each}}
+
+							<div class="col-md-6">
+								<div class="ml-4 mr-4">
+									<label class="text-primary">
+										{{#each this.performer}}
+										<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+										<em>{{this.firstName}} {{this.lastName}};</em>
+										{{/each}}
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="row mt-4">
+							<div class="col-md-6">
+								<div class="text-left ml-4">
+									<label for="service">
+										<strong>Y tá:</strong>
+									</label>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="ml-4 mr-4">
+									<label class="text-primary">
+										{{#each this.nursing}}
+										<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+										<em>{{this.firstName}} {{this.lastName}};</em>
+										{{/each}}
+									</label>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="row mt-4">
+						<div class="col-md-6">
+							<div class="text-left ml-4">
+								<label for="service">
+									<strong>Ghi chú:</strong>
+								</label>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="ml-4 mr-4">
+								{{#each this.comments}}
+								<label class="">
+									<em>{{this.comment}}</em>
+								</label>
+								{{else}}
+								<label class="">
+									<em>Không có ghi chú</em>
+								</label>
+								{{/each}}
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="tab-pane fade" id="pills-counselor-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+					<div class="ml-3 mr-3">
+						<a data-bs-toggle="collapse" href="#counselor-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="counselor-img">
+							Xem ảnh <i class="ti-arrow-circle-down"></i>
+						</a>
+						<div class="collapse mt-3 mb-3" id="counselor-img-{{this._id}}">
+							<div class="card card-body">
+								<div class="row">    
+									{{#if this.serviceNoteId.counselorImg}}
+									{{#each this.serviceNoteId.counselorImg}}
+									<div class="col-xl-2 col-lg-3 col-md-4">
+										<figure class="figure imgbox">
+											<img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+										</figure>
+									</div>
+									{{/each}}
+									{{else}}
+									<p class="text-center">
+										Chưa có hình ảnh
+									</p>
+									{{/if}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ml-3 mr-3">
+						<a class="mt-3" data-bs-toggle="collapse" href="#counselor-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="counselor-video">
+							Xem video <i class="ti-arrow-circle-down"></i>
+						</a>
+						<div class="collapse mt-3 mb-3" id="counselor-video-{{this._id}}">
+							<div class="card card-body">
+								<div class="row">    
+									{{#if this.serviceNoteId.counselorVideo}}
+									{{#each this.serviceNoteId.counselorVideo}}
+									<div class="col-xl-2 col-lg-3 col-md-4">
+										<figure class="figure imgbox">
+											<video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+										</figure>
+									</div>
+									{{/each}}
+									{{else}}
+									<p class="text-center">
+										Chưa có video
+									</p>
+									{{/if}}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="tab-pane fade" id="pills-re-exam" role="tabpanel" aria-labelledby="pills-profile-tab">
-				<div class="row">
-					<div class="col-md-6  ">
+				<div class="tab-pane fade" id="pills-before-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+					<div class="ml-3 mr-3">
+						<a data-bs-toggle="collapse" href="#before-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="before-img">
+							Xem ảnh <i class="ti-arrow-circle-down"></i>
+						</a>
+						<div class="collapse mt-3 mb-3" id="before-img-{{this._id}}">
+							<div class="card card-body">
+								<div class="row">    
+									{{#if this.serviceNoteId.beforeImg}}
+									{{#each this.serviceNoteId.beforeImg}}
+									<div class="col-xl-2 col-lg-3 col-md-4">
+										<figure class="figure imgbox">
+											<img src="/before/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+										</figure>
+									</div>
+									{{/each}}
+									{{else}}
+									<p class="text-center">
+										Chưa có hình ảnh
+									</p>
+									{{/if}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ml-3 mr-3">
+						<a class="mt-3" data-bs-toggle="collapse" href="#before-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="before-video">
+							Xem video <i class="ti-arrow-circle-down"></i>
+						</a>
+						<div class="collapse mt-3 mb-3" id="before-video-{{this._id}}">
+							<div class="card card-body">
+								<div class="row">    
+									{{#if this.serviceNoteId.beforeVideo}}
+									{{#each this.serviceNoteId.beforeVideo}}
+									<div class="col-xl-2 col-lg-3 col-md-4">
+										<figure class="figure imgbox">
+											<video src="/before/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+										</figure>
+									</div>
+									{{/each}}
+									{{else}}
+									<p class="text-center">
+										Chưa có video
+									</p>
+									{{/if}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane fade" id="pills-after-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+					<div class="ml-3 mr-3">
+						<a data-bs-toggle="collapse" href="#after-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="after-img">
+							Xem ảnh <i class="ti-arrow-circle-down"></i>
+						</a>
+						<div class="collapse mt-3 mb-3" id="after-img-{{this._id}}">
+							<div class="card card-body">
+								<div class="row">    
+									{{#if this.serviceNoteId.afterImg}}
+									{{#each this.serviceNoteId.afterImg}}
+									<div class="col-xl-2 col-lg-3 col-md-4">
+										<figure class="figure imgbox">
+											<img src="/after/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+										</figure>
+									</div>
+									{{/each}}
+									{{else}}
+									<p class="text-center">
+										Chưa có hình ảnh
+									</p>
+									{{/if}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ml-3 mr-3">
+						<a class="mt-3" data-bs-toggle="collapse" href="#after-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="after-video">
+							Xem video <i class="ti-arrow-circle-down"></i>
+						</a>
+						<div class="collapse mt-3 mb-3" id="after-video-{{this._id}}">
+							<div class="card card-body">
+								<div class="row">    
+									{{#if this.serviceNoteId.afterVideo}}
+									{{#each this.serviceNoteId.afterVideo}}
+									<div class="col-xl-2 col-lg-3 col-md-4">
+										<figure class="figure imgbox">
+											<video src="/after/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+										</figure>
+									</div>
+									{{/each}}
+									{{else}}
+									<p class="text-center">
+										Chưa có video
+									</p>
+									{{/if}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane fade" id="pills-re-exam-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+					<div class="ml-3 mr-3">
+						<a data-bs-toggle="collapse" href="#re-examination-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="re-examination-img">
+							Xem ảnh <i class="ti-arrow-circle-down"></i>
+						</a>
+						<div class="collapse mt-3 mb-3" id="re-examination-img-{{this._id}}">
+							<div class="card card-body">
+								<div class="row">    
+									{{#if this.reExamImg}}
+									{{#each this.reExamImg}}
+									<div class="col-xl-2 col-lg-3 col-md-4">
+										<figure class="figure imgbox">
+											<img src="/re-examination/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+										</figure>
+									</div>
+									{{/each}}
+									{{else}}
+									<p class="text-center">
+										Chưa có hình ảnh
+									</p>
+									{{/if}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ml-3 mr-3">
+						<a class="mt-3" data-bs-toggle="collapse" href="#re-examination-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="re-examination-video">
+							Xem video <i class="ti-arrow-circle-down"></i>
+						</a>
+						<div class="collapse mt-3 mb-3" id="re-examination-video-{{this._id}}">
+							<div class="card card-body">
+								<div class="row">    
+									{{#if this.reExamVideo}}
+									{{#each this.reExamVideo}}
+									<div class="col-xl-2 col-lg-3 col-md-4">
+										<figure class="figure imgbox">
+											<video src="/re-examination/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+										</figure>
+									</div>
+									{{/each}}
+									{{else}}
+									<p class="text-center">
+										Chưa có video
+									</p>
+									{{/if}}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					{{!--upload multi re exam --}}
+
+					<form method="POST" action="/operating-room/nursing/re-examination/reexam/{{this._id}}" id="upload-img-re-exam-form" enctype="multipart/form-data">
 						<div class="row">
-							{{#each this.reExamImg}}
-							{{#if this}}
-							<div class="col-md-6 mt-2 imgbox">
-								<img src="/re-examination/img/{{this}}" class="rounded mx-auto d-block upd-ava"
-									alt="...">
+							<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
+							<div class="col-sm-6">
+								<label for="input-multi-images-before" 
+								class="label-avt btn-upload-mobile mt-4 ml-3">
+									<h6>Chọn ảnh tái khám</h6>
+								</label>
+								<div class="input-images-re-examination mt-2 ml-3 mr-3"></div>
 							</div>
-							{{else}}
-							<div class="col-md-6 ">
-								<h6>Chưa có ảnh</h6>
+							<div class="col-sm-6">
+								<label for="input-multi-videos-before"
+									class="label-avt btn-upload-mobile mt-4 ml-3">
+									<h6>Chọn video tái khám</h6>
+								</label>
+								<div class="input-videos-re-examination mt-2 ml-3 mr-3"></div>
 							</div>
-							{{/if}}
-							{{/each}}
 						</div>
-					</div>
-					<div class="col-md-6 ">
-						<div class="row">
-							{{#each this.reExamVideo}}
-							{{#if this}}
-							<video class="rounded mx-auto d-block upd-ava mt-2" src="/re-examination/video/{{this}}" playsinline
-								type="video/mp4" controls>
-							</video>
-							{{else}}
-							<div class="col-md-6 ">
-								<h6>Chưa có video</h6>
+						{{!-- <div class="row mt-3">
+							<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
+							<div class="col-sm-6">
+								<label id="preview-images-{{this._id}}" for="input-multi-images-re-exam-{{this._id}}" style="width: auto; height: 150px;" class="d-flex justify-content-center border text-center ml-3 mr-3 label-avt btn-upload-mobile mt-4 rounded">
+									<h6 id="label-img" class="d-flex align-items-center">Chọn ảnh tái khám</h6>
+								</label>
+								<input id="input-multi-images-re-exam-{{this._id}}" hidden type="file" name="reExamination" onclick="getIdImg('{{this._id}}')" multiple>
 							</div>
-							{{/if}}
-							{{/each}}
+							<div class="col-sm-6">
+								<label id="preview-videos-{{this._id}}" for="input-multi-videos-re-exam-{{this._id}}" style="width: auto; height: 150px;" class="d-flex justify-content-center border text-center ml-3 mr-3 label-avt btn-upload-mobile mt-4 rounded">
+									<h6 id="label-video" class="d-flex align-items-center">Chọn video tái khám</h6>
+								</label>
+								<input id="input-multi-videos-re-exam-{{this._id}}" hidden type="file" name="reExamination" onclick="getIdVideo('{{this._id}}')" multiple>
+							</div>
+						</div> --}}
+						<div class=" d-flex justify-content-center mt-4">
+							<button type="submit" class="btn btn-primary btn-upload-mobile" data-bs-toggle="modal"
+								data-bs-target="#re-exam-modal" data-re-exam-id="{{this._id}}">Tải lên</button>
 						</div>
-					</div>
-				</div>
-
-				{{!--upload multi re exam --}}
-
-				<form method="POST" id="upload-img-re-exam-form" enctype="multipart/form-data">
-					<div class="row">
-						<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
-						<div class="col-sm-6">
-							<label for="input-multi-images-re-exam"
-								class="label-avt btn-upload-mobile mt-4">
-								<h6>Chọn ảnh tái khám</h6>
-							</label>
-							<div class="input-images-re-examination mt-2"></div>
-						</div>
-						<div class="col-sm-6">
-							<label for="input-multi-videos-re-exam"
-								class="label-avt btn-upload-mobile mt-4">
-								<h6>Chọn video tái khám</h6>
-							</label>
-							<div class="input-videos-re-examination mt-2"></div>
-						</div>
-					</div>
-				</form>
-				<div class=" d-flex justify-content-center mt-4">
-					<button type="button" class="btn btn-primary btn-upload-mobile" data-bs-toggle="modal"
-						data-bs-target="#re-exam-modal" data-re-exam-id="{{this._id}}">Tải lên</button>
+					</form>
 				</div>
 			</div>
-		</div>
 
-		<hr>
+			<hr>
 
-		<div class="row">
-			<div class="col-md-6">
-				<div class="text-left ml-4">
-					<label for="service">
-						<strong>Tổng cộng:</strong>&nbsp;&nbsp;
-					</label>
-					<label for="">
-						<em>
-							{{this.price}} VND
-						</em>
-					</label>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="text-left ml-4">
+						<label for="service">
+							<strong>Tổng cộng:</strong>&nbsp;&nbsp;
+						</label>
+						<label for="">
+							<em>
+								{{this.price}} VND
+							</em>
+						</label>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal"
-				class="btn btn-success btn-mobile offset-md-9" data-id="{{this._id}}">Hoàn thành</button>
+			<div class="modal-footer">
+				<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal"
+					class="btn btn-success btn-mobile offset-md-9" data-id="{{this._id}}">Hoàn thành</button>
+			</div>
 		</div>
 		{{else}}
 		<div class="text-center">Chưa có dịch vụ cần thực hiện.</div>
@@ -398,7 +460,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				Đẫ hoàn thành dịch vụ
+				Đã hoàn thành dịch vụ
 			</div>
 			<div class="modal-footer">
 				<button id="submit-form-re-exam-btn" type="button" class="btn btn-danger">Đã hoàn
@@ -409,25 +471,59 @@
 		</div>
 	</div>
 </div>
-
-{{!-- Confirm modal re-exam --}}
-<div class="modal fade" id="re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tải ảnh tái khám</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				Chắc chắn tải lên
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="upload-img-re-exam-btn">Có, chắc
-					chắn</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-			</div>
-		</div>
-	</div>
-
-</div>
 <script src="/js/operating/nursing-re-exam.js"></script>
+<script>
+	function getIdImg(id) {
+		console.log('id', id);
+		let chosenImg = document.querySelector(`#input-multi-images-re-exam-${id}`);
+		chosenImg.addEventListener('change', (e) => {
+			let filesImg = e.target.files;
+			let outputImage = document.getElementById(`preview-images-${id}`);
+			for (i = 0; i < filesImg.length; i++) {
+				let fileImg = filesImg[i];
+				let picReaderImg = new FileReader();
+				if (fileImg.type === 'image/png') {
+					picReaderImg.addEventListener('load', (e) => {
+						let picFileImg = e.target;
+						let labelImage = document.getElementById('label-img').hidden = true;
+						let figureImg = document.createElement("figure");
+						let closeBtnImg = document.createElement('button');
+						closeBtnImg.setAttribute('class', 'btn-close btn-close-white');
+						closeBtnImg.setAttribute('type', 'button');
+						closeBtnImg.setAttribute('aria-label', 'Close');
+						figureImg.setAttribute('class', 'figure imgbox')
+						figureImg.innerHTML = "<img class='figure-img img-fluid rounded upd-ava' src='" + picFileImg.result + "'" + "title='" + picFileImg.name + "'/><button class='btn-close btn-close-white' type='button' aria-label='Close'></button>";
+						// figure.innerHTML = "<button class='btn-close btn-close-white' type='button' aria-label='Close'></button>"
+						outputImage.insertBefore(figureImg, null);
+					});
+					picReaderImg.readAsDataURL(fileImg);
+				}
+			}
+		})
+	}
+	function getIdVideo(id) {
+		console.log('id', id);
+		let chosenVideo = document.querySelector(`#input-multi-videos-re-exam-${id}`);
+		chosenVideo.addEventListener('change', (e) => {
+			let filesVideo = e.target.files;
+			let outputVideo = document.getElementById(`preview-videos-${id}`);
+			console.log('files', filesVideo)
+			for (i = 0; i < filesVideo.length; i++) {
+				let fileVideo = filesVideo[i];
+				let picReaderVideo = new FileReader();
+				if (fileVideo.type === 'video/mp4') {
+					console.log('dung')
+					picReaderVideo.addEventListener('load', (e) => {
+						let picFileVideo = e.target;
+						let figureVideo = document.createElement("figure");
+						figureVideo.setAttribute('class', 'figure imgbox')
+						figureVideo.innerHTML = "<video class='figure-img img-fluid rounded upd-ava' src='" + picFileVideo.result + "'" + "title='" + picFileVideo.name + "' controls/>";
+						outputVideo.insertBefore(figureVideo, null);
+					});
+					picReaderVideo.readAsDataURL(fileVideo);
+				}
+			}
+		})
+	}
+	
+</script>

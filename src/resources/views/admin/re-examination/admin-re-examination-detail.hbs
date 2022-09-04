@@ -1,0 +1,404 @@
+<link rel="stylesheet" href="/css/admin.css">
+<div class="sticky-top">
+	<nav class="navbar navbar-light bg-dark">
+		<button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+			data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+				class="ti-angle-double-right"></i></button>
+		<div class="">
+			{{#if admin.image.name}}
+			<a class="text-light" href="/administrator/profile">{{admin.firstName}} {{admin.lastName}}<img
+					class="img-icon ml-2 mr-3" src="/img/uploads/users/{{admin.image.name}}" alt=""></a>
+			{{else}}
+			<a class="text-light" href="/administrator/profile">{{admin.firstName}} {{admin.lastName}}<img
+					class="img-icon ml-2 mr-3" src="/img/user-icon.png" alt=""></a>
+			{{/if}}
+			<div />
+	</nav>
+	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+		aria-labelledby="offcanvasWithBackdropLabel">
+		<div class="offcanvas-header bg-dark border-bottom">
+			<h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+			<button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body container-sidebar bg-dark">
+			{{!-- <div class="sidebar-item">
+				<a href="/admin/dashboard" class="sidebar-item-title pl-3">
+					<i class="ti-dashboard mr-3"></i>Báo cáo thống kê
+				</a>
+			</div> --}}
+			<div class="sidebar-item">
+				<a href="/administrator/customer" class="sidebar-item-title pl-3">
+					<i class="ti-user mr-3 active"></i>Khách hàng
+				</a>
+			</div>
+			<div class="sidebar-item">
+				<a href="/administrator/service-note" class="sidebar-item-title pl-3">
+					<i class="ti-cut mr-3"></i>Phiếu dịch vụ
+				</a>
+			</div>
+			<div class="sidebar-item">
+				<a href="/administrator/re-examination" class="sidebar-item-title pl-3">
+					<i class="ti-clipboard mr-3"></i>Phiếu tái khám
+				</a>
+			</div>
+			{{!-- <div class="sidebar-item">
+				<a href="/admin/user" class="sidebar-item-title pl-3">
+					<i class="ti-headphone-alt mr-3"></i>Nhân viên
+				</a>
+			</div> --}}
+		</div>
+	</div>
+	<div class="redirect-bar bg-primary">
+		<a class="ml-3 text-light" type="button" onclick="history.back()"><i class="ti-back-left"></i> Quay lại</a>
+	</div>
+</div>
+<div class="container">
+    <div class="d-flex justify-content-between ml-3 mr-3">
+        <label>Mã phiếu dịch vụ:</label> <strong class="text-danger">{{reExamination.reExaminationId}}</strong>
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between ml-3 mr-3">
+        <label>Mã khách hàng:</label> <div class="text-primary">{{reExamination.customerId}}</div>
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Họ tên khách hàng:</label> {{reExamination.customerFullName}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Mô tả khách hàng:</label> {{reExamination.customerDescription}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Trạng thái:</label> <div class="status">{{reExamination.status}}</div>
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Dịch vụ sử dụng:</label> {{#each reExamination.service}}
+        {{this}}, 
+        {{/each}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Ngày tạo phiếu:</label> {{formatDate reExamination.createdAt}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Ngày hẹn:</label> {{formatDate reExamination.schedule}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Ngày hoàn thành:</label> {{formatDate reExamination.updatedAt}}
+    </div>
+    <hr class="text-primary">
+    {{#if serviceNote.price}}
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Phí dịch vụ:</label> {{reExamination.price}}
+    </div>
+    {{else}}
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Phí dịch vụ:</label> Chưa có phí dịch vụ
+    </div>
+    {{/if}}
+    <hr class="text-primary">
+    <div>
+        <a data-bs-toggle="collapse" href="#counselor-info" role="button" aria-expanded="false" aria-controls="counselor-info">
+            <i class="ti-plus"></i> Thông tin tư vấn: {{count reExamination.customerComments}}
+        </a>
+        <div class="collapse mb-3" id="counselor-info">
+            <div class="card card-body overflow-info">
+                {{#if reExamination.customerComments}}
+                {{#each reExamination.customerComments}}
+                <p>Mã thông tin: {{this._id}}</p>
+                <p>Nội dung: {{this.comment}}</p>
+                <p>Ngày tạo: {{formatDate this.createdAt}}</p>
+                <hr>
+                {{/each}}
+                {{else}}
+                <p class="text-center">
+                    Chưa có thông tin tư vấn nào
+                </p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#employ-info" role="button" aria-expanded="false" aria-controls="employ-info">
+            <i class="ti-plus"></i> Thông tin nhân viên:
+        </a>
+        <div class="collapse mb-3" id="employ-info">
+            <div class="card card-body">
+                <p>Mã nhân viên: {{reExamination.createNameId}}</p>
+                <p>Họ tên nhân viên: {{reExamination.createNameFullName}}</p>
+                <p>Bộ phận: {{reExamination.createNameDepartment}}</p>
+                <p>Chức vụ: {{reExamination.createNamePosition}}</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#performer-info" role="button" aria-expanded="false" aria-controls="performer-info">
+            <i class="ti-plus"></i> Thông tin người thực hiện:
+        </a>
+        <div class="collapse mb-3" id="performer-info">
+            <div class="card card-body">
+                {{#if reExamination.performers}}
+                {{#each reExamination.performers}}
+                <p>Mã người thực hiện: {{this._id}}</p>
+                <p>Họ tên người thực hiện: {{this.firstName}} {{this.lastName}}</p>
+                <p>Bộ phận: {{this.department}}</p>
+                <p>Chức vụ: {{this.position}}</p>
+                {{/each}}
+                {{else}}
+                <p>Chưa có thông tin</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#nursing-info" role="button" aria-expanded="false" aria-controls="nursing-info">
+            <i class="ti-plus"></i> Thông tin điều dưỡng:
+        </a>
+        <div class="collapse mb-3" id="nursing-info">
+            <div class="card card-body">
+                {{#if reExamination.nursings}}
+                {{#each reExamination.nursings}}
+                <p>Mã người thực hiện: {{this._id}}</p>
+                <p>Họ tên người thực hiện: {{this.firstName}} {{this.lastName}}</p>
+                <p>Bộ phận: {{this.department}}</p>
+                <p>Chức vụ: {{this.position}}</p>
+                {{/each}}
+                {{else}}
+                <p>Chưa có thông tin</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#recept-info" role="button" aria-expanded="false" aria-controls="recept-info">
+            <i class="ti-plus"></i> Thông tin người điều phối:
+        </a>
+        <div class="collapse mb-3" id="recept-info">
+            <div class="card card-body">
+                {{#if reExamination.receptId}}
+                <p>Mã nhân viên điều phối: {{reExamination.receptId}}</p>
+                <p>Họ tên nhân viên điều phối: {{reExamination.receptFullName}}</p>
+                <p>Bộ phận: {{reExamination.receptDepartment}}</p>
+                <p>Chức vụ: {{reExamination.receptPosition}}</p>
+                {{else}}
+                <p>Chưa có thông tin</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#notes" role="button" aria-expanded="false" aria-controls="notes">
+            <i class="ti-plus"></i> Ghi chú:
+        </a>
+        <div class="collapse mb-3" id="notes">
+            <div class="card card-body">
+                {{#if reExamination.comments}}
+                {{#each reExamination.comments}}
+                    <p>Mã ghi chú: {{this._id}}</p>
+                    <p>Nội dung: {{this.comment}}</p>
+                {{/each}}
+                {{else}}
+                <p>Không có ghi chú</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#counselor-img" role="button" aria-expanded="false" aria-controls="counselor-img">
+            <i class="ti-plus"></i> Hình ảnh tư vấn:
+        </a>
+        <div class="collapse mb-3" id="counselor-img">
+            <div class="card card-body">
+                <div class="row">    
+                    {{#if reExamination.counselorImg}}
+                    {{#each reExamination.counselorImg}}
+                    <div class="col-md-4">
+                        <figure class="figure img-container">
+                            <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded img-cover" alt="...">
+                        </figure>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có hình ảnh
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#counselor-video" role="button" aria-expanded="false" aria-controls="counselor-video">
+            <i class="ti-plus"></i> Video tư vấn:
+        </a>
+        <div class="collapse mb-3" id="counselor-video">
+            <div class="card card-body">
+                <div class="row">    
+                    {{#if reExamination.counselorVideo}}
+                    {{#each reExamination.counselorVideo}}
+                    <div class="col-md-4">
+                        <figure class="figure img-container">
+                            <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+                        </figure>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có video
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#before-img" role="button" aria-expanded="false" aria-controls="before-img">
+            <i class="ti-plus"></i> Hình ảnh trước phẩu thuật:
+        </a>
+        <div class="collapse mb-3" id="before-img">
+            <div class="card card-body">
+                <div class="row">    
+                    {{#if reExamination.beforeImg}}
+                    {{#each reExamination.beforeImg}}
+                    <div class="col-md-4">
+                        <figure class="figure img-container">
+                            <img src="/before/img/{{this}}" class="figure-img img-fluid rounded img-cover" alt="...">
+                        </figure>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có hình ảnh
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#before-video" role="button" aria-expanded="false" aria-controls="before-video">
+            <i class="ti-plus"></i> Video trước phẩu thuật:
+        </a>
+        <div class="collapse mb-3" id="before-video">
+            <div class="card card-body">
+                <div class="row">    
+                    {{#if reExamination.beforeVideo}}
+                    {{#each reExamination.beforeVideo}}
+                    <div class="col-md-4">
+                        <figure class="figure img-container">
+                            <video src="/before/video/{{this}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+                        </figure>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có video
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#after-img" role="button" aria-expanded="false" aria-controls="after-img">
+            <i class="ti-plus"></i> Hình ảnh sau phẩu thuật:
+        </a>
+        <div class="collapse mb-3" id="after-img">
+            <div class="card card-body">
+                <div class="row">    
+                    {{#if reExamination.afterImg}}
+                    {{#each reExamination.afterImg}}
+                    <div class="col-md-4">
+                        <figure class="figure img-container">
+                            <img src="/after/img/{{this}}" class="figure-img img-fluid rounded img-cover" alt="...">
+                        </figure>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có hình ảnh
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#after-video" role="button" aria-expanded="false" aria-controls="after-video">
+            <i class="ti-plus"></i> Video sau phẩu thuật:
+        </a>
+        <div class="collapse mb-3" id="after-video">
+            <div class="card card-body">
+                <div class="row">    
+                    {{#if reExamination.afterVideo}}
+                    {{#each reExamination.afterVideo}}
+                    <div class="col-md-4">
+                        <figure class="figure img-container">
+                            <video src="/after/video/{{this}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+                        </figure>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có video
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#re-examination-img" role="button" aria-expanded="false" aria-controls="re-examination-img">
+            <i class="ti-plus"></i> Hình ảnh tái khám:
+        </a>
+        <div class="collapse mb-3" id="re-examination-img">
+            <div class="card card-body">
+                <div class="row">    
+                    {{#if reExamination.reExamImg}}
+                    {{#each reExamination.reExamImg}}
+                    <div class="col-md-4">
+                        <figure class="figure img-container">
+                            <img src="/re-examination/img/{{this}}" class="figure-img img-fluid rounded img-cover" alt="...">
+                        </figure>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có hình ảnh
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a data-bs-toggle="collapse" href="#re-examination-video" role="button" aria-expanded="false" aria-controls="re-examination-video">
+            <i class="ti-plus"></i> Video tái khám:
+        </a>
+        <div class="collapse mb-3" id="re-examination-video">
+            <div class="card card-body">
+                <div class="row">    
+                    {{#if reExamination.reExamVideo}}
+                    {{#each reExamination.reExamVideo}}
+                    <div class="col-md-4">
+                        <figure class="figure img-container">
+                            <video src="/re-examination/video/{{this}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+                        </figure>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có video
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{!-- <div class="mt-3">footer</div> --}}
+</div>
+<script src="/js/admin/admin-service-note-detail.js"></script>

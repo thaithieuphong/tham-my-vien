@@ -9,12 +9,10 @@ const ServiceNote = require('../../models/ServiceNote');
 const ServiceNote1 = require('../../models/ServiceNote');
 const ServiceNote2 = require('../../models/ServiceNote');
 const ServiceNote3 = require('../../models/ServiceNote');
-
 const Reexamination = require('../../models/Reexamination');
-const bcrypt = require("bcryptjs");
-
 const fs = require('fs');
-const appRoot = require('app-root-path');
+const path = require('path');
+const rootPath = path.sep;
 
 class ManagerBusinessController {
 
@@ -73,6 +71,7 @@ class ManagerBusinessController {
 				phone: req.body.phone,
 				email: req.body.email,
 				address: req.body.address,
+				resource: req.body.resource,
 				description: req.body.description,
 				image: {
 					name: req.file.filename,
@@ -90,6 +89,7 @@ class ManagerBusinessController {
 				phone: req.body.phone,
 				email: req.body.email,
 				address: req.body.address,
+				resource: req.body.resource,
 				description: req.body.description,
 				image: {
 					name: "",
@@ -113,6 +113,7 @@ class ManagerBusinessController {
 					phone: req.body.phone,
 					email: req.body.email,
 					address: req.body.address,
+					resource: req.body.resource,
 					description: req.body.description,
 					image: {
 						name: req.file.filename,
@@ -125,11 +126,10 @@ class ManagerBusinessController {
 					let imgCustomer = customer.image.name;
 					let url = customer.image.url;
 					let files = fs.readdirSync(
-						appRoot + "/src/public/img/uploads/customers/"
+						rootPath + "mnt/vdb/crm.drtuananh.vn/customers/"
 					);
 					files.filter((img) => {
 						if (img === imgCustomer) {
-							console.log("img user", img);
 							fs.unlinkSync(url);
 						}
 					});
@@ -137,31 +137,25 @@ class ManagerBusinessController {
 				})
 				.catch(next);
 		} else {
-			console.log(req.file);
 			Customer.updateOne({ _id: req.params.id }, req.body)
 				.then((customer) => {
 					res.redirect("back");
 				})
 				.catch(next);
 		}
-		// res.json(req.body);
 	}
 
 	addUseridToCustomer(req, res, next) {
 		Customer.updateMany({ _id: { $in: req.body.customerIds } }, { $set: { userID: req.body.userID } })
 			.then(() => res.redirect('back'))
 			.catch(next);
-		// res.json(req.body)
 	}
 
 	showCustomerDetail(req, res, next) {
 		Promise.all([Customer.findById({ _id: req.params.id }).populate('serviceNoteID').populate('reexamID'), User.findById({ _id: req.userId })])
 			.then(([customer, user]) => {
-				console.log(customer.serviceNoteID)
-
 				Counselor.find({ filename: { $in: customer.counselorName } })
 					.then((counselors) => {
-						console.log(counselors)
 						res.render('business/manager/manager-customer-detail', {
 							customer: mongooseToObject(customer),
 							counselors: multipleMongooseToObject(counselors),
@@ -179,7 +173,6 @@ class ManagerBusinessController {
 			.then(([customer, user]) => {
 				Counselor.find({ filename: { $in: customer.counselorName } })
 					.then((counselors) => {
-						console.log(counselors)
 						res.render('business/manager/manager-customer-detail-ctv', {
 							customer: mongooseToObject(customer),
 							counselors: multipleMongooseToObject(counselors),
@@ -275,7 +268,6 @@ class ManagerBusinessController {
 				res.redirect('back');
 
 			})
-		// res.json(req.body)
 	}
 
 

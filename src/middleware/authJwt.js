@@ -6,7 +6,6 @@ const flash = require('connect-flash');
 class authJwt {
 	verifyToken(req, res, next) {
 		let token = req.session.token;
-		console.log('auth token', token);
 		if (!token) {
 			req.flash('messages_token_wrong', 'Mã bảo mật không đúng');
 			res.redirect('/');
@@ -132,22 +131,20 @@ class authJwt {
 	}
 
 	isAdmin(req, res, next) {
-		Promise.all([Account.findById(req.body._id), Role.find({})])
-			.then((users, roles) => {
-				if (users.role === roles.engName) {
+		User.findById(req.userId)
+			.then((user) => {
+				if (user.roleEng === 'administrator') {
 					next();
 				} else {
 					res.render('err/403', { layout: false });
 				}
-			})
-			.catch(next);
+			}).catch(next);
 	}
 
 	isRoot(req, res, next) {
 		User.findById(req.userId)
 			.then((user) => {
 				if (user.roleEng === 'root') {
-					console.log(user.role);
 					next();
 				} else {
 					res.render('err/403', { layout: false });

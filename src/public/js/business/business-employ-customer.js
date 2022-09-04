@@ -39,6 +39,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	var phone = button.getAttribute("data-edit-phone");
 	var email = button.getAttribute("data-edit-email");
 	var address = button.getAttribute("data-edit-address");
+	var resource = button.getAttribute("data-edit-resource");
 	var desciption = button.getAttribute("data-edit-description");
 
 	// Get element need embeded input
@@ -50,6 +51,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	var editPhone = document.getElementById("edit-phone");
 	var editEmail = document.getElementById("edit-email");
 	var editAddress = document.getElementById("edit-address");
+	var editResource = document.getElementById("edit-resource");
 	var editDescription = document.getElementById("edit-description");
 
 	editFirstName.focus();
@@ -67,6 +69,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	editPhone.value = phone;
 	editEmail.value = email;
 	editAddress.value = address;
+	editResource.value = resource;
 	editDescription.value = desciption;
 });
 
@@ -136,70 +139,6 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	serviceNoteEmail.innerHTML = dataEmail;
 	serviceNoteAddress.innerHTML = dataAddress;
 	serviceNoteDescription.innerHTML = dataDescription;
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-	// let imagesPreviewConselor = function (input, placeToInsertImagePreview) {
-	// 	console.log('input', input);
-	// 	console.log('input files', input.files);
-	// 	if (input.files) {
-	// 		let filesAmount = input.files.length;
-	// 		for (i = 0; i < filesAmount; i++) {
-
-	// 			placeToInsertImagePreview.src = URL.createObjectURL(input.files[i]);
-
-	// 			// let reader = new FileReader();
-	// 			placeToInsertImagePreview.addEventListener('load', e => {
-	// 				let urlImage = URL.revokeObjectURL(output.src)
-	// 				let img = document.createElement('img');
-	// 				img.classList.add('rounded');
-	// 				img.setAttribute('src', e.target.result);
-	// 				// placeToInsertImagePreview.appendChild(img);
-	// 				console.log('urlImage', urlImage)
-	// 				console.log('img', img);
-
-	// 			})
-	// 			// reader.onload = function (event) {
-	// 			// 	$($.parseHTML("<img class='rounded'>"))
-	// 			// 		.attr("src", event.target.result)
-	// 			// 		.appendTo(placeToInsertImagePreview);
-	// 			// 	$($.parseHTML('<button type="button" class="btn-close" disabled aria-label="Close"></button>'))
-	// 			// 		.attr("src", event.target.result)
-	// 			// 		.appendTo(placeToInsertImagePreview);
-	// 			// };
-	// 			// reader.readAsDataURL(input.files[i]);
-	// 		}
-	// 	}
-	// };
-	// var inputMultiImageConselor = document.getElementById('input-multi-images-counselor');
-	// var previewImagesCounselor = document.getElementsByClassName('preview-images-counselor')
-	// inputMultiImageConselor.addEventListener('change', (e) => {
-	// 	imagesPreviewConselor(e.target, previewImagesCounselor);
-	// 	console.log('file target', e.target.files);
-	// 	console.log('previewImagesCounselor', previewImagesCounselor);
-	// })
-
-	// let videosPreviewConselor = function (input, placeToInsertVideoPreview) {
-	// 	console.log(input);
-	// 	// console.log(input.files);
-	// 	if (input.files) {
-	// 		let filesAmount = input.files.length;
-	// 		for (i = 0; i < filesAmount; i++) {
-	// 			let reader = new FileReader();
-	// 			reader.onload = function (event) {
-	// 				$($.parseHTML("<video class='mt-3 mb-3'>"))
-	// 					.attr("src", event.target.result)
-	// 					.appendTo(placeToInsertVideoPreview);
-	// 			};
-	// 			reader.readAsDataURL(input.files[i]);
-	// 		}
-	// 	}
-	// };
-	// var inputMultiVideoConselor = document.getElementById('input-multi-videos-counselor');
-	// inputMultiVideoConselor.addEventListener('change', (e) => {
-	// 	videosPreviewConselor(e.target, "div.preview-videos-counselor");
-	// 	console.log(e.target.files);
-	// })
 });
 
 document.addEventListener("DOMContentLoaded", function () {

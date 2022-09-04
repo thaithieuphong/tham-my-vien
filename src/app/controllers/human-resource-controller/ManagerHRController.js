@@ -6,10 +6,10 @@ const {
 	mongooseToObject,
 	multipleMongooseToObject,
 } = require("../../../util/mongoose");
-const appRoot = require("app-root-path");
 const fs = require("fs");
 const bcrypt = require("bcryptjs");
 const path = require("path");
+const rootPath = path.sep;
 
 class HRController {
 
@@ -121,7 +121,7 @@ class HRController {
 					},
 				});
 				let imgUser = user.image.name;
-				let files = fs.readdirSync(appRoot + "/src/public/img/uploads/users/");
+				let files = fs.readdirSync(rootPath + "mnt/vdb/crm.drtuananh.vn/users/");
 				files.filter((img) => {
 					if (img === imgUser) {
 						imgUser = `${req.file.fieldname
@@ -129,10 +129,10 @@ class HRController {
 								req.file.originalname
 							)}`;
 						user.image.name = imgUser;
-						user.image.url = `${appRoot}/src/public/img/uploads/users/${imgUser}`;
+						user.image.url = `${rootPath}mnt/vdb/crm.drtuananh.vn/users/${imgUser}`;
 						fs.renameSync(
-							`${appRoot}/src/public/img/uploads/users/${img}`,
-							`${appRoot}/src/public/img/uploads/users/${imgUser}`
+							`${rootPath}mnt/vdb/crm.drtuananh.vn/users/${img}`,
+							`${rootPath}mnt/vdb/crm.drtuananh.vn/users/${imgUser}`
 						);
 					}
 				});
@@ -263,7 +263,7 @@ class HRController {
 							let imgUser = user.image.name;
 							let url = user.image.url;
 							let files = fs.readdirSync(
-								appRoot + "/src/public/img/uploads/users/"
+								rootPath + "mnt/vdb/crm.drtuananh.vn/users/"
 							);
 							files.filter((img) => {
 								if (img === imgUser) {
@@ -272,9 +272,9 @@ class HRController {
 											req.file.originalname
 										)}`;
 									user.image.name = newImgUser;
-									user.image.url = `${appRoot}/src/public/img/uploads/users/${newImgUser}`;
+									user.image.url = `${rootPath}mnt/vdb/crm.drtuananh.vn/users/${newImgUser}`;
 									fs.unlinkSync(
-										appRoot + `/src/public/img/uploads/users/${img}`
+										rootPath + `mnt/vdb/crm.drtuananh.vn/users/${img}`
 									);
 								}
 							});
@@ -282,7 +282,6 @@ class HRController {
 						})
 						.catch(next);
 				} else {
-					console.log(req.file);
 					User.updateOne(
 						{ _id: req.params.id },
 						{
@@ -317,7 +316,7 @@ class HRController {
 				let imgUser = user.image.name;
 				let url = user.image.url;
 				let files = fs.readdirSync(
-					appRoot + "/src/public/img/uploads/users/"
+					rootPath + "mnt/vdb/crm.drtuananh.vn/users/"
 				);
 
 				files.filter((img) => {

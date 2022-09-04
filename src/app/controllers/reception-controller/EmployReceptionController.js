@@ -3,13 +3,9 @@ const User = require('../../models/User');
 const User1 = require('../../models/User');
 const User2 = require('../../models/User');
 const Reexamination = require('../../models/Reexamination');
-const bcrypt = require("bcryptjs");
-
-
-
+const path = require('path');
+const rootPath = path.sep;
 const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mongoose');
-
-
 
 class ReceptionController {
 
@@ -61,12 +57,11 @@ class ReceptionController {
                     user2s: multipleMongooseToObject(user2s),
                     title: "Quản lý dịch vụ"
                 });
-
             })
+            .catch(next);
     }
 
     pushPerformer(req, res, next) {
-        console.log(req.body);
         Promise.all([
             ServiceNote.findByIdAndUpdate({ _id: req.params.id },
                 {
@@ -79,9 +74,6 @@ class ReceptionController {
                 res.redirect("back")
             })
             .catch(next);
-        // res.json(req.body);
-        // res.json(req.body)
-
     }
 
     pushOperationToReexam(req, res, next) {
@@ -94,7 +86,6 @@ class ReceptionController {
                 res.redirect("back")
             })
             .catch(next);
-        // res.json(req.body)
     }
 
 };

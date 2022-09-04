@@ -72,7 +72,6 @@ class ReceptionController{
 				commnetArray.forEach(element => {
 					var date = new Date(element.createdAt);
 					var newDate = date.toLocaleString('en-GB', { day: 'numeric', month: 'numeric', year: 'numeric' })
-					console.log('day', newDate)
 					return newDate;
 				})
 				res.render('reception/reception-customer-detail', {

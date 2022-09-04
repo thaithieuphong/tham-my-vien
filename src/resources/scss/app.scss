@@ -503,8 +503,9 @@ a {
 }
 
 .imgbox {
-    display: grid;
-    // height: 100%;
+    width: 100%;
+    height: auto;
+    text-align: center;
 }
 
 .upd-ava{
@@ -512,10 +513,9 @@ a {
     // height: 35vh;
     // align-items: center;
     // object-fit: contain;
-    max-width: 100%;
-    max-height: 100%;
-    margin: auto;
-    object-fit: contain;
+    width: 300px !important;
+    height: 300px !important;
+    object-fit: cover !important;
 }
 
 @media screen and (min-width: 0px) and (max-width: 319px) {

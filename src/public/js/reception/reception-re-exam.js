@@ -5,6 +5,13 @@ var reExamForm = document.forms['add-performer-re-exam-form'];
 reExamBtn.addEventListener("click", () => {
 	reExamForm.submit();
 })
+
+formatDate = (d) => {
+	let date = new Date(d);
+	let newDate = date.toLocaleString('vi-VI', { weekday: "long", day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
+	return newDate;
+}
+
 var reExamModal = document.getElementById("add-performer-re-exam-modal");
 reExamModal.addEventListener("show.bs.modal", function (event) {
 	// Button that triggered the modal
@@ -46,7 +53,7 @@ reExamModal.addEventListener("show.bs.modal", function (event) {
 	modalAddress.innerHTML = address;
 	modalCreateName.innerHTML = createName;
 	modalService.innerHTML = service;
-	modalSchedule.value = schedule;
+	modalSchedule.innerHTML = formatDate(schedule);
 	modalComment.innerHTML = comment;
 
 })

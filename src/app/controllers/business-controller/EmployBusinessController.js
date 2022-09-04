@@ -1,6 +1,4 @@
 const Customer = require("../../models/Customer");
-const Counselor = require("../../models/Counselor");
-const Status = require("../../models/Status");
 const User = require("../../models/User");
 const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
 const TypeService = require("../../models/TypeService");
@@ -8,11 +6,9 @@ const ServiceNote = require('../../models/ServiceNote');
 const ServiceNote1 = require('../../models/ServiceNote');
 const ServiceNote2 = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
-const bcrypt = require("bcryptjs");
-
 const fs = require('fs');
 const path = require('path');
-const appRoot = require('app-root-path');
+const rootPath = path.sep;
 require('dotenv').config();
 
 
@@ -47,7 +43,6 @@ class EmployBusinessController {
 				});
 			})
 			.catch(next);
-		// res.json(req.firstName);
 	}
 
 	createCustomer(req, res, next) {
@@ -61,6 +56,7 @@ class EmployBusinessController {
 				phone: req.body.phone,
 				email: req.body.email,
 				address: req.body.address,
+				resource: req.body.resource,
 				description: req.body.description,
 				image: {
 					name: req.file.filename,
@@ -78,6 +74,7 @@ class EmployBusinessController {
 				phone: req.body.phone,
 				email: req.body.email,
 				address: req.body.address,
+				resource: req.body.resource,
 				description: req.body.description,
 				image: {
 					name: "",
@@ -101,6 +98,7 @@ class EmployBusinessController {
 					phone: req.body.phone,
 					email: req.body.email,
 					address: req.body.address,
+					resource: req.body.resource,
 					description: req.body.description,
 					image: {
 						name: req.file.filename,
@@ -113,11 +111,10 @@ class EmployBusinessController {
 					let imgCustomer = customer.image.name;
 					let url = customer.image.url;
 					let files = fs.readdirSync(
-						appRoot + "/src/public/img/uploads/customers/"
+						rootPath + "mnt/vdb/crm.drtuananh.vn/customers/"
 					);
 					files.filter((img) => {
 						if (img === imgCustomer) {
-							console.log("img user", img);
 							fs.unlinkSync(url);
 						}
 					});
@@ -181,8 +178,6 @@ class EmployBusinessController {
 	}
 
 	createServiceNote(req, res, next) {
-
-		console.log(req.files);
 		const file = req.files;
 		const fnimg = [];
 		const fnvideo = []
@@ -230,7 +225,6 @@ class EmployBusinessController {
 		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { reexamID: reexamination.id } })
 			.then(() => {
 				res.redirect('back');
-
 			})
 	}
 }

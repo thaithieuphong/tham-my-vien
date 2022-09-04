@@ -2,6 +2,7 @@ const multer = require('multer');
 const helpers = require('./helpers');
 const storage = require('./storage');
 
+var maxSize = 20 * 1024 *1024;
 class validateUpload {
     
     // 'profile_pic' is the name of our file input field in the HTML form
@@ -11,7 +12,7 @@ class validateUpload {
     counselorUpload = multer({ fileFilter: helpers.filter, storage: storage.counselorUpload }).any('counselor');
     beforeUpload = multer({ fileFilter: helpers.filter, storage: storage.beforeUpload }).any('before');
     afterUpload = multer({ fileFilter: helpers.filter, storage: storage.afterUpload }).any('after');
-    reExaminationUpload = multer({  fileFilter: helpers.filter, storage: storage.reExaminationUpload }).any('reExamination');
+    reExaminationUpload = multer({ fileFilter: helpers.filter, storage: storage.reExaminationUpload }).any('reExamination');
 }
 
 module.exports = new validateUpload;

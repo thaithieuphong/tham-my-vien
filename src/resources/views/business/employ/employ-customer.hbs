@@ -53,6 +53,7 @@
 							data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
 							data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
 							data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
+							data-edit-resource="{{this.resource}}"
 							data-edit-description="{{this.description}}">
 							Sửa
 						</button>
@@ -100,7 +101,7 @@
 						data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
 						data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
 						data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
-						data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">
+						data-edit-address="{{this.address}}" data-edit-resource="{{this.resource}}" data-edit-description="{{this.description}}">
 						Sửa
 					</button>
 					<button type="button" class="btn btn-md btn-success btn-mobile" data-bs-toggle="modal"
@@ -198,13 +199,21 @@
 									</div>
 								</div>
 								<div class="row mt-3">
-									<div class="col-md-12">
+									<div class="col-md-6 mb-3">
 										<label for="create-address" class="form-label">
 											<h6>Địa chỉ</h6>
 										</label>
 										<input type="text" class="form-control form-control-sm" id="create-address"
 											aria-describedby="addressFeedback" placeholder="Vd: 123 Đường số 10"
 											name="address" required>
+									</div>
+									<div class="col-md-6">
+										<label for="create-resource" class="form-label">
+											<h6>Nguồn khách</h6>
+										</label>
+										<input type="text" class="form-control form-control-sm" id="create-resource"
+											aria-describedby="resource"
+											name="resource" required>
 									</div>
 								</div>
 								<div class="row mt-3">
@@ -307,12 +316,19 @@
 									</div>
 								</div>
 								<div class="row mt-3">
-									<div class="col-md-12">
+									<div class="col-md-6 mb-3">
 										<label for="edit-address" class="form-label">
 											<h6>Địa chỉ</h6>
 										</label>
 										<input type="text" class="form-control form-control-sm" id="edit-address"
 											aria-describedby="addressFeedback" name="address" required>
+									</div>
+									<div class="col-md-6">
+										<label for="edit-resource" class="form-label">
+											<h6>Nguồn khách</h6>
+										</label>
+										<input type="text" class="form-control form-control-sm" id="edit-resource"
+											aria-describedby="resource" name="resource" required>
 									</div>
 								</div>
 								<div class="row mt-3">
@@ -539,7 +555,6 @@
 									</div>
 								</div>
 								<div class="col-md-7">
-									{{!-- <div class="preview-images-counselor row ml-0 mt-3 border"></div> --}}
 									<label class="label-avt btn-mobile">
 										<h6>Chọn ảnh tư vấn</h6>
 									</label>

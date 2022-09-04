@@ -21,11 +21,10 @@
             <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-complete"
                 type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Hoàn thành</button>
         </li>
-
     </ul>
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-new" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.."
+            <input type="text" id="myInput" class="myInput ml-1" onkeyup="myFunction()" placeholder="Tìm kiếm..."
                 title="Type in a name">
             <div id="search-items">
                 <div class="row">
@@ -148,36 +147,51 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-6 ">
-                                            <div class="row">
-                                                {{#each this.counselorImg}}
-                                                {{#if this}}
-                                                <div class="col-md-6 mt-2 imgbox">
-                                                    <img src="/counselor/img/{{this}}"
-                                                        class="rounded mx-auto d-block upd-ava" alt="...">
+                                    <div>
+                                        <a data-bs-toggle="collapse" href="#counselor-img-new" role="button" aria-expanded="false" aria-controls="counselor-img-new">
+                                            <i class="ti-plus"></i> Hình ảnh tư vấn:
+                                        </a>
+                                        <div class="collapse mt-3 mb-3" id="counselor-img-new">
+                                            <div class="card card-body">
+                                                <div class="row">    
+                                                    {{#if this.counselorImg}}
+                                                    {{#each this.counselorImg}}
+                                                    <div class="col-lg-3">
+                                                        <figure class="figure imgbox">
+                                                            <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+                                                        </figure>
+                                                    </div>
+                                                    {{/each}}
+                                                    {{else}}
+                                                    <p class="text-center">
+                                                        Chưa có ảnh
+                                                    </p>
+                                                    {{/if}}
                                                 </div>
-                                                {{else}}
-                                                <div class="col-md-6 ">
-                                                    <h6>Chưa có ảnh</h6>
-                                                </div>
-                                                {{/if}}
-                                                {{/each}}
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                {{#each this.counselorVideo}}
-                                                {{#if this}}
-                                                <video class="rounded mx-auto d-block upd-ava mt-2"
-                                                    src="/counselor/video/{{this}}" type="video/mp4" controls>
-                                                </video>
-                                                {{else}}
-                                                <div class="col-md-6 mt-2">
-                                                    <h6>Chưa có video</h6>
+                                    </div>
+                                    <div>
+                                        <a data-bs-toggle="collapse" href="#counselor-video-new" role="button" aria-expanded="false" aria-controls="counselor-video-new">
+                                            <i class="ti-plus"></i> Video tư vấn:
+                                        </a>
+                                        <div class="collapse mt-3 mb-3" id="counselor-video-new">
+                                            <div class="card card-body">
+                                                <div class="row">    
+                                                    {{#if this.counselorVideo}}
+                                                    {{#each this.counselorVideo}}
+                                                    <div class="col-lg-3">
+                                                        <figure class="figure imgbox">
+                                                            <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+                                                        </figure>
+                                                    </div>
+                                                    {{/each}}
+                                                    {{else}}
+                                                    <p class="text-center">
+                                                        Chưa có video
+                                                    </p>
+                                                    {{/if}}
                                                 </div>
-                                                {{/if}}
-                                                {{/each}}
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +208,7 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="pills-loading" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInputLoad" class="myInput" onkeyup="myFunction2()" placeholder="Search for names.."
+            <input type="text" id="myInputLoad" class="myInput ml-1" onkeyup="myFunction2()" placeholder="Tìm kiếm..."
                 title="Type in a name">
             <div id="search-items-loading">
                 <div class="row">
@@ -318,36 +332,51 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-6 ">
-                                            <div class="row">
-                                                {{#each this.counselorImg}}
-                                                {{#if this}}
-                                                <div class="col-md-6 mt-2 imgbox">
-                                                    <img src="/counselor/img/{{this}}"
-                                                        class="rounded mx-auto d-block upd-ava" alt="...">
+                                    <div>
+                                        <a data-bs-toggle="collapse" href="#counselor-img-progress" role="button" aria-expanded="false" aria-controls="counselor-img-progress">
+                                            <i class="ti-plus"></i> Hình ảnh tư vấn:
+                                        </a>
+                                        <div class="collapse mt-3 mb-3" id="counselor-img-progress">
+                                            <div class="card card-body">
+                                                <div class="row">    
+                                                    {{#if this.counselorImg}}
+                                                    {{#each this.counselorImg}}
+                                                    <div class="col-lg-3">
+                                                        <figure class="figure imgbox">
+                                                            <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+                                                        </figure>
+                                                    </div>
+                                                    {{/each}}
+                                                    {{else}}
+                                                    <p class="text-center">
+                                                        Chưa có ảnh
+                                                    </p>
+                                                    {{/if}}
                                                 </div>
-                                                {{else}}
-                                                <div class="col-md-6 ">
-                                                    <h6>Chưa có ảnh</h6>
-                                                </div>
-                                                {{/if}}
-                                                {{/each}}
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                {{#each this.counselorVideo}}
-                                                {{#if this}}
-                                                <video class="rounded mx-auto d-block upd-ava mt-2"
-                                                    src="/counselor/video/{{this}}" type="video/mp4" controls>
-                                                </video>
-                                                {{else}}
-                                                <div class="col-md-6 mt-2">
-                                                    <h6>Chưa có video</h6>
+                                    </div>
+                                    <div>
+                                        <a data-bs-toggle="collapse" href="#counselor-video-progress" role="button" aria-expanded="false" aria-controls="counselor-video-progress">
+                                            <i class="ti-plus"></i> Video tư vấn:
+                                        </a>
+                                        <div class="collapse mt-3 mb-3" id="counselor-video-progress">
+                                            <div class="card card-body">
+                                                <div class="row">    
+                                                    {{#if this.counselorVideo}}
+                                                    {{#each this.counselorVideo}}
+                                                    <div class="col-lg-3">
+                                                        <figure class="figure imgbox">
+                                                            <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+                                                        </figure>
+                                                    </div>
+                                                    {{/each}}
+                                                    {{else}}
+                                                    <p class="text-center">
+                                                        Chưa có video
+                                                    </p>
+                                                    {{/if}}
                                                 </div>
-                                                {{/if}}
-                                                {{/each}}
                                             </div>
                                         </div>
                                     </div>
@@ -364,7 +393,7 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="pills-complete" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInputCTV" class="myInput" onkeyup="myFunction1()" placeholder="Search for names.."
+            <input type="text" id="myInputCTV" class="myInput ml-1" onkeyup="myFunction1()" placeholder="Tìm kiếm..."
                 title="Type in a name">
             <div id="search-items-complete">
                 <div class="row">
@@ -492,36 +521,51 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="row">
-                                        <div class="col-md-6 ">
-                                            <div class="row">
-                                                {{#each this.counselorImg}}
-                                                {{#if this}}
-                                                <div class="col-md-6 mt-2 imgbox">
-                                                    <img src="/counselor/img/{{this}}"
-                                                        class="rounded mx-auto d-block upd-ava" alt="...">
+                                    <div>
+                                        <a data-bs-toggle="collapse" href="#counselor-img-complete" role="button" aria-expanded="false" aria-controls="counselor-img-complete">
+                                            <i class="ti-plus"></i> Hình ảnh tư vấn:
+                                        </a>
+                                        <div class="collapse mt-3 mb-3" id="counselor-img-complete">
+                                            <div class="card card-body">
+                                                <div class="row">    
+                                                    {{#if this.counselorImg}}
+                                                    {{#each this.counselorImg}}
+                                                    <div class="col-lg-3">
+                                                        <figure class="figure imgbox">
+                                                            <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+                                                        </figure>
+                                                    </div>
+                                                    {{/each}}
+                                                    {{else}}
+                                                    <p class="text-center">
+                                                        Chưa có ảnh
+                                                    </p>
+                                                    {{/if}}
                                                 </div>
-                                                {{else}}
-                                                <div class="col-md-6 ">
-                                                    <h6>Chưa có ảnh</h6>
-                                                </div>
-                                                {{/if}}
-                                                {{/each}}
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                {{#each this.counselorVideo}}
-                                                {{#if this}}
-                                                <video class="rounded mx-auto d-block upd-ava mt-2"
-                                                    src="/counselor/video/{{this}}" type="video/mp4" controls>
-                                                </video>
-                                                {{else}}
-                                                <div class="col-md-6 mt-2">
-                                                    <h6>Chưa có video</h6>
+                                    </div>
+                                    <div>
+                                        <a data-bs-toggle="collapse" href="#counselor-video-complete" role="button" aria-expanded="false" aria-controls="counselor-video-complete">
+                                            <i class="ti-plus"></i> Video tư vấn:
+                                        </a>
+                                        <div class="collapse mt-3 mb-3" id="counselor-video-complete">
+                                            <div class="card card-body">
+                                                <div class="row">    
+                                                    {{#if this.counselorVideo}}
+                                                    {{#each this.counselorVideo}}
+                                                    <div class="col-lg-3">
+                                                        <figure class="figure imgbox">
+                                                            <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+                                                        </figure>
+                                                    </div>
+                                                    {{/each}}
+                                                    {{else}}
+                                                    <p class="text-center">
+                                                        Chưa có video
+                                                    </p>
+                                                    {{/if}}
                                                 </div>
-                                                {{/if}}
-                                                {{/each}}
                                             </div>
                                         </div>
                                     </div>

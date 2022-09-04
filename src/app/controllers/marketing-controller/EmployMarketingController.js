@@ -2,8 +2,8 @@ const Customer = require('../../models/Customer');
 const User = require('../../models/User');
 const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mongoose');
 const fs = require('fs');
-const appRoot = require('app-root-path');
-const bcrypt = require("bcryptjs");
+const path = require('path');
+const rootPath = path.sep;
 
 class MarketingController {
 
@@ -30,7 +30,6 @@ class MarketingController {
     }
 
     showCustomer(req, res, next) {
-		console.log('req', req.userId)
 		Promise.all([User.findById({_id: req.userId}), Customer.find({userID: null})])
             .then(([user, customers]) => {
 				// console.log('user', mongooseToObject(user))
@@ -119,11 +118,10 @@ class MarketingController {
 					let imgCustomer = customer.image.name;
 					let url = customer.image.url;
 					let files = fs.readdirSync(
-						appRoot + "/src/public/img/uploads/customers/"
+						rootPath + "mnt/vdb/crm.drtuananh.vn/customers/"
 					);
 					files.filter((img) => {
 						if (img === imgCustomer) {
-							console.log("img user", img);
 							fs.unlinkSync(url);
 						}
 					});
@@ -131,7 +129,6 @@ class MarketingController {
 				})
 				.catch(next);
 		} else {
-			console.log(req.file);
 			Customer.updateOne({ _id: req.params.id }, req.body)
 				.then((customer) => {
 					res.redirect("back");

@@ -1,10 +1,9 @@
 const Customer = require('../../models/Customer');
-const ServiceNote = require('../../models/ServiceNote');
 const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mongoose');
 const fs = require('fs');
-const appRoot = require('app-root-path');
+const path = require('path');
+const rootPath = path.sep;
 const User = require('../../models/User');
-const bcrypt = require("bcryptjs");
 
 class MarketingController {
 
@@ -27,7 +26,6 @@ class MarketingController {
 	showCustomer(req, res, next) {
 		Customer.find({userID: null})
 			.then((customers) => {
-
 				res.render('marketing/manager/manager-customer', {
 					customers: multipleMongooseToObject(customers),
 					title: 'Quản lý khách hàng'
@@ -39,7 +37,6 @@ class MarketingController {
 	showCustomerDetail(req, res, next) {
 		Customer.findById({ _id: req.params.id }).populate('serviceNoteID')
 			.then((customer) => {
-				console.log(customer);
 				res.render('marketing/manager/manager-customer-detail', {
 					customer: mongooseToObject(customer),
 					title: "Chi tiết khách hàng"
@@ -105,15 +102,13 @@ class MarketingController {
 				}
 			)
 				.then((customer) => {
-					// console.log(customer.image.name);
 					let imgCustomer = customer.image.name;
 					let url = customer.image.url;
 					let files = fs.readdirSync(
-						appRoot + "/src/public/img/uploads/customers/"
+						rootPath + "mnt/vdb/crm.drtuananh.vn/customers/"
 					);
 					files.filter((img) => {
 						if (img === imgCustomer) {
-							console.log("img user", img);
 							fs.unlinkSync(url);
 						}
 					});
@@ -121,7 +116,6 @@ class MarketingController {
 				})
 				.catch(next);
 		} else {
-			console.log(req.file);
 			Customer.updateOne({ _id: req.params.id }, req.body)
 				.then((customer) => {
 					res.redirect("back");
@@ -129,14 +123,6 @@ class MarketingController {
 				.catch(next);
 		}
 	}
-
-
-
-	// createComment(req, res, next) {
-	// 	Customer.findByIdAndUpdate({ _id: req.params.id }, { $push: { comments: { comment: req.body.comments } } })
-	// 		.then(() => res.redirect('back'))
-	// 		.catch(next);
-	// }
 
 };
 

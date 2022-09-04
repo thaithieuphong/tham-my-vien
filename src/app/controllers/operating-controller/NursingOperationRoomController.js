@@ -3,6 +3,8 @@ const { multipleMongooseToObject, mongooseToObject } = require('../../../util/mo
 const ServiceNote = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
 const Customer = require('../../models/Customer');
+const path = require('path');
+const rootPath = path.sep;
 
 class NursingController {
 
@@ -35,11 +37,10 @@ class NursingController {
 
 	showServiceNote(req, res, next) {
 		Promise.all([ServiceNote.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'),
-		 User.findById({ _id: req.userId })])
+		User.findById({ _id: req.userId })])
 			.then(([serviceNote, user]) => {
 				res.render("operating/nursing/operating-service-note", {
 					serviceNote: multipleMongooseToObject(serviceNote),
-					user: mongooseToObject(user),
 					title: "Chi tiết khách hàng"
 				})
 			})
@@ -96,7 +97,6 @@ class NursingController {
 				res.redirect('back')
 			})
 			.catch(next);
-		// res.json(req.body)
 	}
 
 	uploadAfter(req, res, next) {
@@ -140,7 +140,6 @@ class NursingController {
 	}
 
 	createReExam(req, res, next) {
-		console.log('req', req);
 		const reexamination = new Reexamination({
 			customerID: req.body.customerID,
 			createName: req.body.createName,
@@ -148,7 +147,6 @@ class NursingController {
 			status: "Tạo mới",
 			schedule: req.body.schedule,
 			comments: { comment: req.body.comment },
-
 		})
 		reexamination.save();
 		console.log('re-ex id', reexamination.id);

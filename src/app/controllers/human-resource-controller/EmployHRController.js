@@ -3,11 +3,8 @@ const User = require("../../models/User");
 const fs = require("fs");
 const appRoot = require("app-root-path");
 const bcrypt = require("bcryptjs");
-const multer = require("multer");
-const uploadAvatar = multer().single("image");
-const helpers = require("../../../middleware/helpers");
 const path = require("path");
-const flash = require('connect-flash');
+const rootPath = path.sep;
 
 class EmployHRController {
 
@@ -24,7 +21,6 @@ class EmployHRController {
 
     showUser(req, res, next) {
         Promise.all([User.find({}), User.findById({ _id})])
-        
             .then(([users, user]) => {
                 res.render('human-resource/employ/hr-user', {
                     users: multipleMongooseToObject(users),
@@ -124,15 +120,13 @@ class EmployHRController {
                     url: req.file.path,
                 },
             }).then((user) => {
-                console.log(user.image.name);
                 let imgUser = user.image.name;
                 let url = user.image.url
                 let files = fs.readdirSync(
-                    appRoot + "/src/public/img/uploads/users/"
+                    rootPath + "mnt/vdb/crm.drtuananh.vn/users/"
                 );
                 files.filter((img) => {
                     if (img === imgUser) {
-                        console.log("img user", img);
                         fs.unlinkSync(url);
                     }
                 });

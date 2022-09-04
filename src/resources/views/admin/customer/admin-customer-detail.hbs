@@ -1,172 +1,157 @@
-<div class="container-fluid ">
-		<ul class="nav nav-pills ml-3 mt-3" id="pills-tab" role="tablist">
-			<li class="nav-item" role="presentation">
-				<button class="nav-link active" id="pills-system-customer-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-system-customer" type="button" role="tab" aria-controls="pills-home"
-					aria-selected="true">Khách hàng</button>
-			</li>
-			<li class="nav-item" role="presentation">
-				<button class="nav-link" id="pills-user-customer-tab" data-bs-toggle="pill"
-					data-bs-target="#pills-user-customer" type="button" role="tab" aria-controls="pills-profile"
-					aria-selected="false">Dịch vụ đã sử dụng</button>
-			</li>
-		</ul>
-
-		<div class="tab-content ml-3" id="pills-tabContent">
-			<div class="tab-pane fade show active" id="pills-system-customer" role="tabpanel"
-				aria-labelledby="pills-home-tab">
-
-				<div class="row mb-4">
-					<div class="col-xl-6 mt-3">
-						{{#if customer.image.name}}
-						<div class="col-md-6 mt-2 text-center">
-							<img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt"
-								class="rounded  add-avata" alt="...">
-						</div>
-						{{else}}
-						<div class="col-md-6 mt-2 text-center">
-							<img src="/img/user-icon.png" id="add-avt"
-								class="rounded  add-avata" alt="...">
-						</div>
-						{{/if}}
-						<div class=" mb-3 row">
-							<div class="col-sm-6">
-								<strong>
-									<label for="name">Họ tên:</label>
-								</strong>
-							</div>
-							<div class="col-sm-6 ">
-								<em>
-									<label class="text-uppercase text-danger" readonly>{{customer.firstName}}
-										{{customer.lastName}}</label>
-								</em>
-							</div>
-						</div>
-
-						<hr>
-
-						<div class=" mb-3 row">
-							<div class="col-sm-6">
-								<strong>
-									<label for="birth">Ngày sinh:</label>
-								</strong>
-							</div>
-							<div class="col-sm-6 ">
-								<em>
-									<label id="create-service-note-birth" name="birth" readonly>{{formatBirth
-										customer.birth}}</label>
-								</em>
-							</div>
-						</div>
-
-						<div class=" mb-3 row">
-							<div class="col-sm-6">
-								<strong>
-									<label for="gender">Giới tính:</label>
-								</strong>
-							</div>
-							<div class="col-sm-6 ">
-								<em>
-									<label id="create-service-note-gender" name="gender"
-										readonly>{{customer.gender}}</label>
-								</em>
-							</div>
-						</div>
-
-						<div class=" mb-3 row">
-							<div class="col-sm-6">
-								<strong>
-									<label for="email">Email address:</label>
-								</strong>
-							</div>
-							<div class="col-sm-6 ">
-								<em>
-									<label id="create-service-note-email" name="email"
-										readonly>{{customer.email}}</label>
-								</em>
-							</div>
-						</div>
-
-						<div class=" mb-3 row">
-							<div class="col-sm-6">
-								<strong>
-									<label for="phone">Số điện thoại:</label>
-								</strong>
-							</div>
-							<div class="col-sm-6 ">
-								<em>
-									<label id="create-service-note-phone" name="phone"
-										readonly>{{customer.phone}}</label>
-								</em>
-							</div>
-						</div>
-
-						<div class=" mb-3 row">
-							<div class="col-sm-6">
-								<strong>
-									<label for="address">Địa chỉ:</label>
-								</strong>
-							</div>
-							<div class="col-sm-6 ">
-								<em>
-									<label id="create-service-note-address" name="address"
-										readonly>{{customer.address}}</label>
-								</em>
-							</div>
-
-						</div>
-
-						<div class="mb-3">
-							<strong>
-								<label for="description">Mô tả</label>
-							</strong>
-							<textarea id="detail-description" class="form-control" style="background-color: white;"
-								disabled>{{customer.description}}</textarea>
-						</div>
-					</div>
-					<div class="col-xl-6 ">
-
-
-						<ul class="list-group border comment-ctv-page">
-							{{#each customer.comments}}
-							<li class="list-group-item bg-light ml-2 mr-2 mt-2">
-								<p id="createdAt" class="none-mb comment-createdAt "><strong>{{formatDate
-										this.createdAt}}</strong></p>
-								<p class="none-mb comment-content " value="">{{this.comment}}</p>
-							</li>
-							{{/each}}
-						</ul>
-						
-
-					</div>
+<link rel="stylesheet" href="/css/admin.css">
+<div class="sticky-top">
+	<nav class="navbar navbar-light bg-dark">
+		<button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+			data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+				class="ti-angle-double-right"></i></button>
+		<div class="">
+			{{#if admin.image.name}}
+			<a class="text-light" href="/administrator/profile">{{admin.firstName}} {{admin.lastName}}<img
+					class="img-icon ml-2 mr-3" src="/img/uploads/users/{{admin.image.name}}" alt=""></a>
+			{{else}}
+			<a class="text-light" href="/administrator/profile">{{admin.firstName}} {{admin.lastName}}<img
+					class="img-icon ml-2 mr-3" src="/img/user-icon.png" alt=""></a>
+			{{/if}}
+			<div />
+	</nav>
+	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+		aria-labelledby="offcanvasWithBackdropLabel">
+		<div class="offcanvas-header bg-dark border-bottom">
+			<h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+			<button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body container-sidebar bg-dark">
+			{{!-- <div class="sidebar-item">
+				<a href="/admin/dashboard" class="sidebar-item-title pl-3">
+					<i class="ti-dashboard mr-3"></i>Báo cáo thống kê
+				</a>
+			</div> --}}
+			<div class="sidebar-item">
+				<a href="/administrator/customer" class="sidebar-item-title pl-3">
+					<i class="ti-user mr-3 active"></i>Khách hàng
+				</a>
+			</div>
+			<div class="sidebar-item">
+				<a href="/administrator/service-note" class="sidebar-item-title pl-3">
+					<i class="ti-cut mr-3"></i>Phiếu dịch vụ
+				</a>
+			</div>
+			<div class="sidebar-item">
+				<a href="/administrator/re-examination" class="sidebar-item-title pl-3">
+					<i class="ti-clipboard mr-3"></i>Phiếu tái khám
+				</a>
+			</div>
+			{{!-- <div class="sidebar-item">
+				<a href="/admin/user" class="sidebar-item-title pl-3">
+					<i class="ti-headphone-alt mr-3"></i>Nhân viên
+				</a>
+			</div> --}}
+		</div>
+	</div>
+	<div class="redirect-bar bg-primary">
+		<a class="ml-3 text-light" type="button" onclick="history.back()"><i class="ti-back-left"></i> Quay lại</a>
+	</div>
+</div>
+<div class="container">
+	<div class="customer-detail ml-3 mt-3">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Mã khách hàng:</label><p class="text-danger">{{customer._id}}</p>
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Họ tên:</label> {{customer.firstName}} {{customer.lastName}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Ngày sinh:</label> {{formatBirth customer.birth}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Giới tính:</label> {{customer.gender}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Số điện thoại:</label> {{customer.phone}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Email:</label> {{customer.email}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Địa chỉ:</label> {{customer.address}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="word-wrap text-dark">Mô tả:</label> {{customer.description}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Mã nhân viên:</label> <a href="/admin/user/{{customer.userID}}/detail">{{customer.userID}}</a>
+		</div>
+		<hr class="text-primary">
+		<div>
+			<a data-bs-toggle="collapse" href="#service-notes" role="button" aria-expanded="false" aria-controls="service-notes">
+				+ Phiếu dịch vụ: {{count customer.serviceNoteID}}
+			</a>
+			<div class="collapse mt-3" id="service-notes">
+				<div class="card card-body">	
+					{{#if customer.serviceNoteID}}
+					{{#each customer.serviceNoteID}}
+						<p>{{sum @index 1}}. <a href="/admin/service-note/{{this._id}}">{{this._id}}</a></p>
+					{{/each}}
+					{{else}}
+					<p class="text-center">
+						Chưa có phiếu dịch vụ nào
+					</p>
+					{{/if}}
 				</div>
 			</div>
-			<div class="tab-pane fade" id="pills-user-customer" role="tabpanel" aria-labelledby="pills-profile-tab">
-				<div class="row ">
-					<div class="col-md-6">
-						<p class="none-mb" value="" for="service-note-service"><strong>Dịch vụ:
-							</strong></p>
-					</div>
-					<div class="col-md-6">
-						{{#each customer.serviceNoteID}}
-						<p class="none-mb" value="" for="service-note-service">{{this.service}} ({{this.status}})</p>
-						{{else}}
-						Chưa sử dụng dịch vụ nào
-						{{/each}}
-					</div>
-				</div>
-				<hr>
-
-				<div class="row mt-3">
-					{{#each counselors}}
-
-					<div class="col-md-3 row">
-						{{this.img.id}}
-
-					</div>
+		</div>
+		<div class="mb-3 mt-3">
+			<a data-bs-toggle="collapse" href="#re-examinations" role="button" aria-expanded="false" aria-controls="collapseExample">
+				+ Phiếu tái khám: {{count customer.reexamID}}
+			</a>
+			<div class="collapse mt-3" id="re-examinations">
+				<div class="card card-body">	
+					{{#if customer.reexamID}}
+					{{#each customer.reexamID}}
+						<p>{{sum @index 1}}. <a href="/admin/re-examination/{{this._id}}">{{this._id}}</a></p>
 					{{/each}}
-
+					{{else}}
+					<p class="text-center">
+						Chưa có phiếu tái khám nào
+					</p>
+					{{/if}}
+				</div>
+			</div>
+		</div>
+		<div class="customer-comments">
+			<a data-bs-toggle="collapse" href="#comments" role="button" aria-expanded="false" aria-controls="collapseExample">
+					+ Hoạt động: {{count customer.comments}}
+			</a>
+			<div class="collapse mt-3" id="comments">
+				<div class="card card-body overflow-info">
+					{{#each customer.comments}}
+					<ul class="list-group mb-3">
+						<li class="list-group-item">
+							<div class="me-auto">
+								<label class="text-dark">Mã hoạt động:</label> <em class="text-danger">{{this._id}}</em>
+							</div>
+							<div>
+								<label class="text-dark">Ngày tạo:</label> <em class="text-info">{{formatDate this.createdAt}}</em>
+							</div>
+							<div>
+								<label class="word-wrap text-dark">Nội dung:</label>
+								<div class="border pl-2 mb-2">
+									{{this.comment}}
+								</div>
+							</div>
+						</li>
+					</ul>
+					{{/each}}
 				</div>
 			</div>
 		</div>
 	</div>
+</div>

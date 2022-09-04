@@ -22,7 +22,7 @@ if (`${process.env.NODE_ENV}` !== "production") {
 
 // Cung cấp middleware trên Express để kích hoạt CORS
 var corsOptions = {
-	origin: "http:localhost:3001",
+	origin: "https://crm.drtuananh.vn",
 };
 
 // Method Override
@@ -35,7 +35,7 @@ app.use(cors(corsOptions));
 app.use(
 	cookieSession({
 		name: "Hachitech-session",
-		secret: `${process.env.SECURITY_KEY}`,
+		secret: "PHONGTT119",
 		httpOnly: true,
 		secure: false, // change to 'true' when switching to production enviroment
 		sameSite: 'strict',
@@ -44,7 +44,7 @@ app.use(
 );
 
 app.use(session({
-	secret: process.env.FLASH_SESSION_KEY,
+	secret: "khoabaomatdanhchoflash",
 	saveUninitialized: true,
 	resave: true
 }));
@@ -56,9 +56,10 @@ db.connect();
 
 // Cấu hình đường dẫn tệp tin tĩnh
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.sep));
 
 // Phân tích cú pháp yêu cầu của các loại nội dung
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '2gb' }));
 app.use(bodyParser.json());
 
 // Xem những yêu cầu được ghi chép lại
@@ -79,7 +80,6 @@ app.engine(
 				if (str !== undefined) {
 					return str.length > num ? str.slice(0, num) + '...' : str;
 				}
-
 			},
 			formatDate: (d) => {
 				let date = new Date(d);
@@ -87,12 +87,20 @@ app.engine(
 				return newDate;
 			},
 			formatBirth: (d) => {
-				console.log('d', d);
 				let date = new Date(d);
-				console.log('date', date);
 				let newDate = date.toLocaleString('vi-VI', { day: 'numeric', month: 'numeric', year: 'numeric' });
-				console.log(newDate);
 				return newDate;
+			},
+			count: (arr) => {
+				let count = 0;
+				if (arr === undefined) {
+					return 0;
+				} else {
+					for (const index of arr) {
+						count += 1;
+					}
+					return count;
+				}
 			},
 		}
 	})
@@ -128,7 +136,7 @@ function initRoot() {
 		.then(user => {
 			const userRoot = new User({
 				account: 'root',
-				password: bcrypt.hashSync(process.env.PASSWORD_ROOT, 8),
+				password: bcrypt.hashSync("Hachitech123", 8),
 				role: 'Gốc',
 				roleEng: 'root'
 			})
@@ -147,7 +155,7 @@ function initAdmin() {
 		.then(user => {
 			const userRoot = new User({
 				account: 'admin',
-				password: bcrypt.hashSync(process.env.PASSWORD_ADMIN, 8),
+				password: bcrypt.hashSync("Administrator@123", 8),
 				role: 'Quản trị viên',
 				roleEng: 'administrator'
 			})
@@ -167,6 +175,6 @@ initAdmin();
 // Khởi tạo các tuyến đường
 route(app);
 
-app.listen(`${process.env.PORT}`, () => {
-	console.log(`Ứng dụng đang chạy trên port ${process.env.PORT}`);
+app.listen(3000, () => {
+	console.log(`Ứng dụng đang chạy trên port 3000`);
 });

@@ -1,139 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phiếu dịch vụ</title>
-</head>
-
-<body>
-    {{> page/sidebar/admin/sidebar-owner}}
-
-    <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
-        <div class="title">
-            <a href="/admin/customers" class="text-light"><i class="ti-back-left"></i> Quay lại</a>
-        </div>
-        <h3 class="title text-light">Quản lý phiếu dịch vụ</h3>
-        <a href="/admin/service-note/trash" type="button" class="btn btn-danger btn-storage text-light">
-            <i class="ti-archive"></i> Kho lưu trữ: {{deletedCount}}
-        </a>
-    </nav>
-    <div class="container-fluid mt-3">
-        <div class="row ml-2">
-            {{#each serviceNotes}}
-            <div class="col-12">
-                <h3 name="status" class="form-label">{{this.status}}</h3>
-            </div>
-            <hr class="row g-3">
-            {{#each customer}}
-            <div class="col-12">
-                <label for="name" class="form-label">Khách hàng:</label>
-                <label name="name" class="form-label">{{this.name}}</label>
-            </div>
-            <div class="col-md-6">
-                <label for="birth" class="form-label">Ngày sinh:</label>
-                <label name="birth" class="form-label"> {{this.birth}}</label>
-
-            </div>
-            <div class="col-md-6">
-                <label for="gender" class="form-label">Giới tính:</label>
-                <label name="gender" class="form-label">{{this.gender}}</label>
-            </div>
-            <div class="col-md-6">
-                <label for="email" class="form-label">Email: </label>
-                <label name="email" class="form-label"> {{this.email}}</label>
-
-            </div>
-            <div class="col-md-6">
-                <label for="phone" class="form-label">Số điện thoại:</label>
-                <label name="phone" class="form-label">{{this.phone}}</label>
-            </div>
-            <div class="col-12">
-                <label for="address" class="form-label">Địa chỉ:</label>
-                <label name="address" class="form-label">{{this.address}}</label>
-            </div>
-            {{/each}}
-            <hr>
-            <div class="col-12">
-                <label for="performUser" class="form-label">Bác sĩ: </label>
-                <label name="performUser" class="form-label">{{this.performName}}</label>
-            </div>
-            <div class="col-12">
-                <label for="service" class="form-label">Dịch vụ: </label>
-                <label name="service" class="form-label">{{this.service}}</label>
-            </div>
-            {{#each comments}}
-            <div class="col-12">
-                <label for="comment" class="form-label">Ghi chú: </label>
-                <label name="comment" class="form-label">{{this.comment}}</label>
-            </div>
-            {{/each}}
-            <div class="col-md-6">
-                <label for="schedule" class="form-label">Lịch hẹn: </label>
-                <label name="schedule" class="form-label">{{this.schedule}}</label>
-            </div>
-            <div class="btn btn-danger btn-sm col-md-6" data-id="{{this._id}}" data-bs-toggle="modal"
-                data-bs-target="#deleteModal">Xóa</div>
-            </form>
-            {{else}}
-            <div class="col-12">
-                <h5 class="form-label text-center">Chưa có phiếu dịch vụ. <a href="/admin/customers">Tạo
-                        phiếu</a></h5>
-            </div>
-            {{/each}}
-        </div>
+<link rel="stylesheet" href="/css/root.css">
+<nav class="navbar navbar-light bg-dark sticky-top">
+    <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+            class="ti-angle-double-right"></i></button>
+    <div class="img-container">
+        {{#if admin.image.name}}
+        <a class="text-light" href="/administrator/profile">{{admin.firstName}} {{admin.lastName}}<img
+                class="ml-2 mr-3" src="/img/uploads/users/{{admin.image.name}}" alt=""></a>
+        {{else}}
+        <a class="text-light" href="/administrator/profile">{{admin.firstName}} {{admin.lastName}}<img
+                class="ml-2 mr-3" src="/img/user-icon.png" alt=""></a>
+        {{/if}}
+        <div />
+</nav>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-
-    {{!-- Modal Delete --}}
-    <form name="delete-form" method="POST"></form>
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <label for="reason" class="form-label">
-                        <h6>Lý do<span class="text-danger"></span></h6>
-                    </label>
-                    <input type="tel" class="form-control form-control-sm" id="reason" placeholder="...." name="reason"
-                        required>
-                    <div id="feedback-reason">
-                    </div>
-                    <div class="mt-3">
-                        Bạn có đồng ý xóa không?
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="btn-delete" type="button" class="btn btn-danger">Có, chắc chắn</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-                </div>
-            </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        {{!-- <div class="sidebar-item">
+            <a href="/admin/dashboard" class="sidebar-item-title pl-3">
+                <i class="ti-dashboard mr-3"></i>Báo cáo thống kê
+            </a>
+        </div> --}}
+		<div class="sidebar-item">
+            <a href="/administrator/customer" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3 active"></i>Khách hàng
+            </a>
         </div>
-</body>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        //DELETE
-        var id;
-        var btnDel = document.getElementById('btn-delete');
-        var delForm = document.forms['delete-form'];
+        <div class="sidebar-item">
+            <a href="/administrator/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-cut mr-3"></i>Phiếu dịch vụ
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/administrator/re-examination" class="sidebar-item-title pl-3">
+                <i class="ti-clipboard mr-3"></i>Phiếu tái khám
+            </a>
+        </div>
+        {{!-- <div class="sidebar-item">
+            <a href="/admin/user" class="sidebar-item-title pl-3">
+                <i class="ti-headphone-alt mr-3"></i>Nhân viên
+            </a>
+        </div> --}}
+    </div>
+</div>
+<div class="admin-content">
+	<div class="ml-3 pr-3 mt-3">
+		<table id="service_note_table" class="table table-hover table-bordered table-sm">
+			<thead class="table-info">
+				<tr>
+					<th class="text-center" scope="col">#</th>
+					<th class="text-center" scope="col">Mã phiếu dịch vụ</th>
+					<th class="text-center" scope="col">Họ tên khách hàng</th>
+					<th class="text-center" scope="col">Ngày tạo</th>
+					<th class="text-center" scope="col">Ngày hẹn</th>
+					<th class="text-center" scope="col">Ngày cập nhật</th>
+					<th class="text-center" scope="col">Trạng thái</th>
+					<th class="text-center" scope="col">Hành động</th>
+				</tr>
+			</thead>
+			<tbody id="table-content overflow-scroll">
+				{{#each serviceNotes}}
+				<tr>
+					<th class="text-center" scope="row">{{sum @index 1}}</th>
+					<td><a href="/admin/service-note/{{this._id}}">{{this._id}}</a></td>
+					<td class="text-center">{{this.customerID.firstName}} {{this.customerID.lastName}}</td>
+					<td class="text-center">{{formatDate this.createdAt}}</td>
+					<td class="text-center">{{formatDate this.schedule}}</td>
+					<td class="text-center">{{formatDate this.updatedAt}}</td>
+					<td>{{this.status}}</td>
+					<td class="text-center">
+						<button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-service-note-modal"
+							data-delete-id="{{this._id}}" data-delete-service="{{this.service}}"
+							><i class="ti-close"></i></button>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</div>
 
-        $('#deleteModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            id = button.data('id');
+<!-- Delete customer modal -->
+<div class="modal fade" id="delete-service-note-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Xóa phiếu dịch vụ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn có chắc muốn xóa phiếu dịch vụ <strong id="delete-service-note"></strong> không?
+      </div>
+      <div class="modal-footer">
+        <button id="delete-service-note-btn" type="button" class="btn btn-danger">Chắc chắn, xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-        })
-
-        btnDel.onclick = function () {
-            delForm.action = '/admin/service-note/' + id + '?_method=DELETE';
-            delForm.submit();
-        }
-
-
-    });
-</script>
-
-</html>
+<form id="delete-service-note-form" method="POST"></form>
+<script src="/js/admin/admin-service-note.js"></script>

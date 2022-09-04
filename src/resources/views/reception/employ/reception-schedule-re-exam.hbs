@@ -40,11 +40,8 @@
                                 <strong name="status" class="form-label text-danger">{{this.status}}</strong>
                             </div>
                         </div>
-
                         <hr>
-
                         <div class="row">
-
                             <div class="col-sm-5 ">
                                 <strong>
                                     <label class="form-label">Khách hàng: </label>
@@ -56,10 +53,7 @@
                                         {{this.customerID.lastName}}</label>
                                 </em>
                             </div>
-
-
                         </div>
-
                         <div class="row">
                             <div class="col-md-6 row">
                                 <div class="col-sm-6">
@@ -112,8 +106,8 @@
                                 data-re-exam-phone="{{this.customerID.phone}}"
                                 data-re-exam-address="{{this.customerID.address}}"
                                 data-re-exam-createName="{{this.createName.firstName}} {{this.createName.lastName}}"
-                                data-re-exam-service="{{this.service}}"
-                                data-re-exam-schedule="{{formatDate this.schedule}}" {{#each comments}}
+                                data-re-exam-service="{{this.serviceNoteId.service}}"
+                                data-re-exam-schedule="{{this.schedule}}" {{#each comments}}
                                 data-re-exam-comment="{{this.comment}}" {{/each}}>Đặt bác sĩ</button>
                         </div>
                     </div>
@@ -143,16 +137,14 @@
                                         <label for="name">Khách hàng:</label>
                                     </strong>
                                 </div>
-                                <div class="col-sm-6 ">
+                                <div class="col-sm-6">
                                     <em>
                                         <label class="text-uppercase text-danger"
                                             id="add-performer-re-exam-firstLastName" name="name" readonly>
                                     </em>
                                 </div>
                             </div>
-
                             <hr>
-
                             <div class=" mb-3 row">
                                 <div class="col-sm-6">
                                     <strong>
@@ -182,7 +174,7 @@
                             <div class=" mb-3 row">
                                 <div class="col-sm-6">
                                     <strong>
-                                        <label for="email">Email address:</label>
+                                        <label for="email">Email:</label>
                                     </strong>
                                 </div>
                                 <div class="col-sm-6 ">
@@ -194,7 +186,7 @@
                                 </div>
                             </div>
 
-                            <div class=" mb-3 row">
+                            <div class="mb-3 row">
                                 <div class="col-sm-6">
                                     <strong>
                                         <label for="phone">Số điện thoại:</label>
@@ -203,7 +195,6 @@
                                 <div class="col-sm-6 ">
                                     <em>
                                         <label id="add-performer-re-exam-phone" name="phone" readonly></label>
-
                                     </em>
                                 </div>
                             </div>
@@ -217,12 +208,11 @@
                                 <div class="col-sm-6 ">
                                     <em>
                                         <label id="add-performer-re-exam-address" name="address" readonly></label>
-
                                     </em>
                                 </div>
                             </div>
 
-                            <div class=" mb-3 row">
+                            <div class="mb-3 row">
                                 <div class="col-sm-6">
                                     <strong>
                                         <label for="createName">Người tạo:</label>
@@ -254,7 +244,7 @@
                                     <h6>Chọn bác sĩ</h6>
                                 </label>
                                 <label for="performer" class="form-label container-card">
-                                    <h6>Chọn bác sĩ, y tá</h6>
+                                    <h6>Chọn bác sĩ và điều dưỡng</h6>
                                 </label>
 
                                 <select id="select-performer" class="chosen-select container-table" multiple
@@ -268,7 +258,7 @@
                                 </select>
 
                                 <div id="list1" class="dropdown-check-list container-card" tabindex="100">
-                                    <span class="anchor ">Chọn bác sĩ, y tá</span>
+                                    <span class="anchor ">Chọn bác sĩ và điều dưỡng</span>
                                     <ul class="items">
                                         {{#each user1s}}
                                         <li>
@@ -286,8 +276,7 @@
                                             <hr>
                                             <label class="form-check " for="{{this._id}}">
                                                 <input type="checkbox" class="mt-2" id="{{this._id}}"
-                                                    value="{{this._id}}" name="nursing" /><strong class="text-success">Y
-                                                    tá:</strong>
+                                                    value="{{this._id}}" name="nursing" /><strong class="text-success"> Điều dưỡng:</strong>
                                                 <label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
                                             </label>
                                         </li>
@@ -297,7 +286,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="nursing" class="form-label container-table">
-                                    <h6>Chọn Y tá</h6>
+                                    <h6>Chọn Điều dưỡng</h6>
                                 </label>
                                 <select id="select-nursing" class="chosen-select container-table" multiple tabindex="6"
                                     name="nursing[]">
@@ -313,9 +302,7 @@
                                 <label for="gender" class="form-label">
                                     <h6>Ngày hẹn</h6>
                                 </label>
-                                <input type="text" class="form-control" id="add-performer-re-exam-schedule"
-                                    name="schedule">
-
+                                <div type="text" class="form-control mb-3" id="add-performer-re-exam-schedule" name="schedule">
                             </div>
 
                             <div class="mb-3">

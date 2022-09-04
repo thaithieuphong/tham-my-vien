@@ -62,6 +62,54 @@ class AuthController {
             .catch(next);
     };
 
+    postAdminLogin(req, res, next) {
+        User.findOne({ account: req.body.account })
+            .then( user => {
+                if (!next) {
+                    req.flash('messages_server_failure', 'Đã có lỗi xảy ra tại máy chủ');
+                    res.render('/err/500');
+                }
+                if (!user) {
+                    req.flash('messages_account_failure', 'Tài khoản không tồn tại');
+					res.redirect('back');
+                }
+                // so sánh password nhập vào với password trong db
+                var passwordIsValid = bcrypt.compareSync(
+                    req.body.password,
+                    user.password
+                );
+                if (!passwordIsValid) {
+                    req.flash('messages_password_failure', 'Mật khẩu không đúng');
+					res.redirect('back');
+                }
+                const accessToken = jwt.sign({ 
+                    id: user._id,
+                    role: user.role,
+                    department: user.department,
+                    position: user.position,
+                    
+                }, process.env.ACCESSTOKEN_KEY, {
+                    expiresIn: 3600, // 10p
+                });
+
+                const refreshToken = jwt.sign({
+                    id: user._id,
+                    role: user.role,
+                    department: user.department,
+                    position: user.position
+                }, process.env.REFRESHTOKEN_KEY, {
+                    expiresIn: 31536000, // 24 giờ
+                })
+                
+                req.session = {
+                    token: accessToken,
+                    secure: true
+                };
+                res.status(200).redirect(`/${user.roleEng}/customer`);
+            })
+            .catch(next);
+    };
+
     //[GET] Login UI
 	getLogin(req, res) {
 		res.render("login", {layout: false});
@@ -151,6 +199,7 @@ class AuthController {
             this.next(err);
         }
     };
+
 }
 
 module.exports = new AuthController;
