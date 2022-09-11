@@ -7,16 +7,57 @@
     <title>Phiếu dịch vụ đã xóa</title>
 </head>
 <body>
-    {{> page/sidebar/business/manager/sidebar-manager-business}}
-    <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
-        <div class="title">
-            <a href="/business/manager/service-note" class="text-light"><i class="ti-back-left"></i> Quay lại</a>
+    <link rel="stylesheet" href="/css/root.css">
+	<link rel="stylesheet" href="/css/assistant.css">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+        aria-labelledby="offcanvasWithBackdropLabel">
+        <div class="offcanvas-header bg-dark border-bottom">
+            <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+            <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <h3 class="title text-light">Quản lý phiếu dịch vụ</h3>
-        <a type="button" class="btn btn-success btn-storage text-light">
-            <i class="ti-archive"></i> Kho lưu trữ
-        </a>
-    </nav>
+        <div class="offcanvas-body container-sidebar bg-dark">
+            <div class="sidebar-item">
+                <a href="/business/manager/service-note" class="sidebar-item-title pl-3">
+                    <i class="ti-receipt mr-3"></i>Phiếu dịch vụ
+                </a>
+            </div>
+            <div class="sidebar-item">
+                <a href="/business/manager/customers" class="sidebar-item-title pl-3">
+                    <i class="ti-user mr-3"></i>Khách hàng
+                </a>
+            </div>
+            <div class="sidebar-item">
+				<a href="/business/manager" class="sidebar-item-title pl-3">
+					<i class="ti-view-list mr-3"></i>Khách hàng hệ thống
+				</a>
+			</div>
+        </div>
+        <div class="offcanvas-footer bg-dark border-top">
+            <div class="sidebar-item">
+                <a href="/business/manager/profile" class="sidebar-item-title pl-3">
+                    <i class="ti-user mr-3"></i>Thông tin người dùng
+                </a>
+            </div>
+            <div class="sidebar-item">
+                <form method="POST" action="/logout">
+                    <button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="sticky-top">
+        <nav class="navbar navbar-light bg-dark">
+            <div class="img-container">
+            </div>
+            <div class="text-light text-uppercase fw-bold">
+                {{this.title}}
+            </div>
+            <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                    class="ti-menu"></i>
+            </button>
+        </nav>
+    </div>
     <div class="container-fluid mt-3">
         <div class="row ml-2">
             {{#each serviceNotes}}

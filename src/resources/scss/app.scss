@@ -9,7 +9,7 @@ html {
 }
 
 body {
-    overflow: hidden;
+    overflow-y: scroll;
     // // width: 100vw;
     // min-height: 100%;
 }
@@ -130,6 +130,19 @@ body {
 
 textarea {
     resize: none !important;
+}
+
+.message-content {
+    background-color: #e5efff;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    word-wrap: break-word;
+}
+
+#width-li {
+    max-width: auto;
 }
 
 ul li {
@@ -339,10 +352,10 @@ a {
 }
 
 
-.container-fluid {
-    max-height: 90vh;
-    overflow: auto;
-}
+// .container-fluid {
+//     max-height: 90vh;
+//     overflow: auto;
+// }
 
 .container-content-page {
     margin-left: 6px;
@@ -358,9 +371,10 @@ a {
 }
 
 .comment-ctv-page{
-    height: 77vh;
-    overflow: auto;
-    height: 635px;
+    height: 79vh;
+    overflow-y: scroll;
+    // overflow-x: hidden;
+    // height: 635px;
 }
 
 .user-submenu {
@@ -929,10 +943,10 @@ a {
         width: 75%;
     }
 
-    .container-fluid {
-        max-height: 85vh;
-        overflow: auto;
-    }
+    // .container-fluid {
+    //     max-height: 85vh;
+    //     overflow: auto;
+    // }
 }
 
 
@@ -1076,10 +1090,10 @@ a {
         width: 75%;
     }
 
-    .container-fluid {
-        max-height: 85vh;
-        overflow: auto;
-    }
+    // .container-fluid {
+    //     max-height: 85vh;
+    //     overflow: auto;
+    // }
 }
 
 @media screen and (min-width: 413px) and (max-width: 480px) {
@@ -1219,10 +1233,10 @@ a {
         width: 75%;
     }
 
-    .container-fluid {
-        max-height: 85vh;
-        overflow: auto;
-    }
+    // .container-fluid {
+    //     max-height: 85vh;
+    //     overflow: auto;
+    // }
 
 
     // Create Modal Mobile
@@ -1456,10 +1470,10 @@ a {
         width: 75%;
     }
 
-    .container-fluid {
-        max-height: 85vh;
-        overflow: auto;
-    }
+    // .container-fluid {
+    //     max-height: 85vh;
+    //     overflow: auto;
+    // }
 
 }
 
@@ -1601,10 +1615,10 @@ a {
         width: 75%;
     }
 
-    .container-fluid {
-        max-height: 85vh;
-        overflow: auto;
-    }
+    // .container-fluid {
+    //     max-height: 85vh;
+    //     overflow: auto;
+    // }
 }
 
 @media screen and (min-width: 1025px) and (max-width: 1200px) {
@@ -1745,10 +1759,10 @@ a {
         width: 75%;
     }
 
-    .container-fluid {
-        max-height: 85vh;
-        overflow: auto;
-    }
+    // .container-fluid {
+    //     max-height: 85vh;
+    //     overflow: auto;
+    // }
 }
 
 @media screen and (min-width: 1201px) {
@@ -1762,9 +1776,9 @@ a {
         margin: auto;
     }
 
-    .container-fluid {
-        padding-left: 65px;
-    }
+    // .container-fluid {
+    //     padding-left: 65px;
+    // }
 
     .container-card {
         display: none;
@@ -1778,73 +1792,81 @@ a {
 .preview-images-counselor {
     overflow: auto;
     width: 100%;
-    height: 200px
+    height: 150px
 }
 
-.preview-images-counselor>img {
-    width: calc(100%/3);
-    margin-top: 15px;
-}
+// .preview-images-counselor>img {
+//     width: calc(100%/3);
+//     margin-top: 15px;
+// }
 
 .preview-videos-counselor {
     overflow: auto;
     width: 100%;
-    height: 200px
+    height: 150px
 }
 
 .preview-images-before {
     overflow: auto;
     width: 100%;
-    height: 200px
+    height: 150px
 }
 
-.preview-images-before>img {
-    width: calc(100%/3);
-    margin-top: 15px;
-}
+// .preview-images-before>img {
+//     width: calc(100%/3);
+//     margin-top: 15px;
+// }
 
 .preview-videos-before {
     overflow: auto;
     width: 100%;
-    height: 200px
+    height: 150px
 }
 
 .preview-images-after {
     overflow: auto;
     width: 100%;
-    height: 200px
+    height: 150px
 }
 
-.preview-images-after>img {
-    width: calc(100%/3);
-    margin-top: 15px;
-}
+// .preview-images-after>img {
+//     width: calc(100%/3);
+//     margin-top: 15px;
+// }
 
 .preview-videos-after {
     overflow: auto;
     width: 100%;
-    height: 200px
+    height: 150px
 }
 
 .preview-images-re-exam {
     overflow: auto;
     width: 100%;
-    height: 200px
+    height: 150px
 }
 
-.preview-images-re-exam>img {
-    width: calc(100%/3);
-    margin-top: 15px;
-}
+// .preview-images-re-exam>img {
+//     width: calc(100%/3);
+//     margin-top: 15px;
+// }
 
 .preview-videos-re-exam {
     overflow: auto;
     width: 100%;
-    height: 200px
+    height: 150px
 }
 
 .img-logo {
     width: 180px;
     height: 180px;
     object-fit: contain;
+}
+
+.on {
+    display: block;
+}
+
+.off {
+    display: none;
 }

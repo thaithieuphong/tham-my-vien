@@ -1,0 +1,137 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="sticky-top">
+	<div class="redirect-bar bg-primary">
+		<a class="ml-3 text-light" type="button" onclick="history.back()"><i class="ti-arrow-left"></i> Quay lại</a>
+	</div>
+</div>
+<div class="container mt-3 mb-3">
+	<div class="customer-detail ml-3">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Mã khách hàng:</label><p class="text-danger">{{customer._id}}</p>
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Họ tên:</label> {{customer.firstName}} {{customer.lastName}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Ngày sinh:</label> {{formatBirth customer.birth}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Giới tính:</label> {{customer.gender}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Số điện thoại:</label> {{customer.phone}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Email:</label> {{customer.email}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Địa chỉ:</label> {{customer.address}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="word-wrap text-dark">Mô tả:</label> {{customer.description}}
+		</div>
+		<hr class="text-primary">
+		<div class="d-flex justify-content-between">
+			<label class="text-dark">Mã nhân viên:</label> <a href="">{{customer.userID}}</a>
+		</div>
+		<hr class="text-primary">
+		<div class="accordion accordion-flush" id="accordionFlushExample">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="flush-headingOne">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+						Phiếu dịch vụ: {{count customer.serviceNoteID}}
+					</button>
+				</h2>
+				<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="card card-body">	
+							{{#if customer.serviceNoteID}}
+							{{#each customer.serviceNoteID}}
+								<p>{{sum @index 1}}. <a href="/manager/assistant/service-note/{{this._id}}">{{this._id}}</a></p>
+							{{/each}}
+							{{else}}
+							<p class="text-center">
+								Chưa có phiếu dịch vụ nào
+							</p>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="flush-headingTwo">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+						Phiếu tái khám: {{count customer.reexamID}}
+					</button>
+				</h2>
+				<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="card card-body">	
+							{{#if customer.reexamID}}
+							{{#each customer.reexamID}}
+								<p>{{sum @index 1}}. <a href="/manager/assistant/re-examination/{{this._id}}">{{this._id}}</a></p>
+							{{/each}}
+							{{else}}
+							<p class="text-center">
+								Chưa có phiếu tái khám nào
+							</p>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="flush-headingThree">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+						Hoạt động: {{count customer.comments}}
+					</button>
+				</h2>
+				<div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="card card-body">
+							<ul class="list-group border comment-ctv-page">
+								{{#each customer.comments}}
+								<li id="width-li" class="list-group bg-white ml-2 mr-2">
+									<small>
+										<p id="createdAt" class="none-mb comment-createdAt text-nowrap text-danger"><em>{{this._id}}</em></p>
+									</small>
+									<p class="message-content">{{this.comment}}</p>
+									<small>
+										<p id="createdAt" class="none-mb comment-createdAt text-nowrap text-right"><em>{{formatDate
+											this.createdAt}}</em></p>
+									</small>
+								</li>
+								<hr>
+								{{/each}}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+	const textarea = document.querySelectorAll('.message-content');
+	for (i = 0; i < textarea.length; i++) {
+		let element = textarea[i];
+		let textValue = element.innerHTML;
+		let textSplit = textValue.split('\n');
+		let cols = textValue.length;
+		let rows = textSplit.length;
+		let result = textSplit.join('<br>');
+		element.innerHTML = result;
+		let parent = element.clientWidth;
+		let ex = parent - cols;
+	}
+})
+</script>

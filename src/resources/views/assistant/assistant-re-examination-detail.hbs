@@ -1,0 +1,507 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="sticky-top">
+	<div class="redirect-bar bg-primary">
+		<a class="ml-3 text-light" type="button" onclick="history.back()"><i class="ti-arrow-left"></i> Quay lại</a>
+	</div>
+</div>
+<div class="container mt-3 mb-3">
+    <div class="d-flex justify-content-between ml-3 mr-3">
+        <label>Mã phiếu dịch vụ:</label> <strong class="text-danger">{{reExamination.reExaminationId}}</strong>
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between ml-3 mr-3">
+        <label>Mã khách hàng:</label> <div class="text-primary">{{reExamination.customerId}}</div>
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Họ tên khách hàng:</label> {{reExamination.customerFullName}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Mô tả khách hàng:</label> {{reExamination.customerDescription}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Trạng thái:</label> <div class="status">{{reExamination.status}}</div>
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Dịch vụ sử dụng:</label> {{#each reExamination.service}}
+        {{this}}, 
+        {{/each}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Ngày tạo phiếu:</label> {{formatDate reExamination.createdAt}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Ngày hẹn:</label> {{formatDate reExamination.schedule}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Ngày hoàn thành:</label> {{formatDate reExamination.updatedAt}}
+    </div>
+    <hr class="text-primary">
+    {{#if reExamination.price}}
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Phí dịch vụ:</label> {{reExamination.price}}
+    </div>
+    {{else}}
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label>Phí dịch vụ:</label> Chưa có phí dịch vụ
+    </div>
+    {{/if}}
+    <hr class="text-primary">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Thông tin tư vấn: {{count reExamination.customerComments}}
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body comment-ctv-page">
+                    {{#if reExamination.customerComments}}
+                    {{#each reExamination.customerComments}}
+                    <div class="mb-3 d-flex justify-content-between">
+                        <label><strong>Mã thông tin: </strong>{{this._id}}</label>
+                        <label><strong>Ngày tạo: </strong>{{formatDate this.createdAt}}</label>
+                    </div>
+                    <p class="message-content">{{this.comment}}</p>
+                    <hr class="text-primary">
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có thông tin tư vấn nào
+                    </p>
+                    {{/if}}	
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Thông tin nhân viên
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Mã nhân viên:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{reExamination.createNameId}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Họ tên nhân viên:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{reExamination.createNameFullName}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Bộ phận:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{reExamination.createNameDepartment}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Chức vụ:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{reExamination.createNamePosition}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    Thông tin bác sĩ
+                </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {{#if reExamination.performers}}
+                    {{#each reExamination.performers}}
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Mã bác sĩ:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{this._id}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Họ tên bác sĩ:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{this.firstName}} {{this.lastName}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Bộ phận:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{this.department}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Chức vụ:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{this.position}}</label>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p>Chưa có thông tin</p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne4">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    Thông tin điều dưỡng
+                </button>
+            </h2>
+            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingOne4" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="card card-body">
+                        {{#if reExamination.nursings}}
+                        {{#each reExamination.nursings}}
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Mã điều dưỡng:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{this._id}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Họ tên điều dưỡng:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{this.firstName}} {{this.lastName}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Bộ phận:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{this.department}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Chức vụ:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{this.position}}</label>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p>Chưa có thông tin</p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo5">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                    Các bước thực hiện
+                </button>
+            </h2>
+            <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo5" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {{#if reExamination.stepsToTake}}
+                        <p class="message-content" cols="30" rows="6" disabled>{{reExamination.stepsToTake}}</p>
+                    {{else}}
+                    <p>Chưa có thông tin thực hiện</p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree6">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                    Thông tin điều phối
+                </button>
+            </h2>
+            <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingThree6" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="card card-body">
+                        {{#if reExamination.receptId}}
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Mã điều dưỡng:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{reExamination.receptId}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Họ tên điều dưỡng:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{reExamination.receptFullName}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Bộ phận:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{reExamination.receptDepartment}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Chức vụ:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{reExamination.receptPosition}}</label>
+                        </div>
+                        {{else}}
+                        <p>Chưa có thông tin</p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne7">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+                    Ghi chú
+                </button>
+            </h2>
+            <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingOne7" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {{#if reExamination.comments}}
+                    {{#each reExamination.comments}}
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Mã ghi chú:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{this._id}}</label>
+                    </div>
+                    <p class="message-content" disabled>{{this.comment}}</p>
+                    {{/each}}
+                    {{else}}
+                    <p>Không có ghi chú</p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo8">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+                    Hình ảnh tư vấn
+                </button>
+            </h2>
+            <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo8" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if reExamination.counselorImg}}
+                        {{#each reExamination.counselorImg}}
+                        <div class="col-md-4">
+                            <div class="img-container">
+                                <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có hình ảnh
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree9">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
+                    Video tư vấn
+                </button>
+            </h2>
+            <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingThree9" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if reExamination.counselorVideo}}
+                        {{#each reExamination.counselorVideo}}
+                        <div class="col-md-4">
+                            <div class=" img-container">
+                                <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có video
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne10">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTen" aria-expanded="false" aria-controls="flush-collapseTen">
+                Hình ảnh trước phẩu thuật
+            </button>
+            </h2>
+            <div id="flush-collapseTen" class="accordion-collapse collapse" aria-labelledby="flush-headingOne10" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if reExamination.beforeImg}}
+                        {{#each reExamination.beforeImg}}
+                        <figure class="col-md-4">
+                            <div class="figure img-container">
+                                <img src="/before/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                            </div>
+                        </figure>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có hình ảnh
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo11">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseEleven">
+                    Video trước phẩu thuật
+                </button>
+            </h2>
+            <div id="flush-collapseEleven" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo11" data-bs-parent="#accordionFlushExample">
+                <div class="row">    
+                    {{#if reExamination.beforeVideo}}
+                    {{#each reExamination.beforeVideo}}
+                    <div class="col-md-4">
+                        <figure class="figure img-container">
+                            <video src="/before/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                        </figure>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có video
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree12">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTweel" aria-expanded="false" aria-controls="flush-collapseTweel">
+                    Hình ảnh sau phẩu thuật
+                </button>
+            </h2>
+            <div id="flush-collapseTweel" class="accordion-collapse collapse" aria-labelledby="flush-headingThree12" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if reExamination.afterImg}}
+                        {{#each reExamination.afterImg}}
+                        <div class="col-md-4">
+                            <figure class="figure img-container">
+                                <img src="/after/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                            </figure>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có hình ảnh
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree13">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThirty" aria-expanded="false" aria-controls="flush-collapseThirty">
+                    Video sau phẩu thuật
+                </button>
+            </h2>
+            <div id="flush-collapseThirty" class="accordion-collapse collapse" aria-labelledby="flush-headingThree13" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if reExamination.afterVideo}}
+                        {{#each reExamination.afterVideo}}
+                        <div class="col-md-4">
+                            <figure class="figure img-container">
+                                <video src="/after/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                            </figure>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có video
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree14">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFourty" aria-expanded="false" aria-controls="flush-collapseFourty">
+                    Hình ảnh tái khám
+                </button>
+            </h2>
+            <div id="flush-collapseFourty" class="accordion-collapse collapse" aria-labelledby="flush-headingThree14" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if reExamination.reExamImg}}
+                        {{#each reExamination.reExamImg}}
+                        <div class="col-md-4">
+                            <figure class="figure img-container">
+                                <img src="/re-examination/img/{{this}}" class="figure-img img-fluid rounded img-cover" alt="...">
+                            </figure>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có hình ảnh
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree15">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFiftine" aria-expanded="false" aria-controls="flush-collapseFiftine">
+                    Video tái khám
+                </button>
+            </h2>
+            <div id="flush-collapseFiftine" class="accordion-collapse collapse" aria-labelledby="flush-headingThree15" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if reExamination.reExamVideo}}
+                        {{#each reExamination.reExamVideo}}
+                        <div class="col-md-4">
+                            <figure class="figure img-container">
+                                <video src="/re-examination/video/{{this}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+                            </figure>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có video
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/admin/admin-service-note-detail.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+	const textarea = document.querySelectorAll('.message-content');
+	for (i = 0; i < textarea.length; i++) {
+		let element = textarea[i];
+		let textValue = element.innerHTML;
+		let textSplit = textValue.split('\n');
+		let cols = textValue.length;
+		let rows = textSplit.length;
+		let result = textSplit.join('<br>');
+		element.innerHTML = result;
+		let parent = element.clientWidth;
+		let ex = parent - cols;
+	}
+})
+</script>

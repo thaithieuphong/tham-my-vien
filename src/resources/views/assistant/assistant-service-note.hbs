@@ -1,0 +1,118 @@
+<link rel="stylesheet" href="/css/root.css">
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-dark">
+        <div class="img-container">
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+</div>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/manager/assistant" class="sidebar-item-title pl-3">
+                <i class="ti-dashboard mr-3"></i>Điều phối phiếu phẩu thuật
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/manager/assistant/coordinator-re-examination" class="sidebar-item-title pl-3">
+                <i class="ti-headphone-alt mr-3"></i>Điều phối phiếu tái khám
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/manager/assistant/customer" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3 active"></i>Khách hàng
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/manager/assistant/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-cut mr-3"></i>Phiếu phẩu thuật
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/manager/assistant/re-examination" class="sidebar-item-title pl-3">
+                <i class="ti-clipboard mr-3"></i>Phiếu tái khám
+            </a>
+        </div>
+    </div>
+    <div class="offcanvas-footer bg-dark border-top">
+        <div class="sidebar-item">
+            <a href="/manager/assistant/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="">
+	<div class="ml-3 pr-3 mt-3">
+		<table id="service_note_table" class="table table-hover table-bordered table-sm">
+			<thead class="table-info">
+				<tr>
+					<th class="text-center" scope="col">#</th>
+					<th class="text-center" scope="col">Mã phiếu dịch vụ</th>
+					<th class="text-center" scope="col">Họ tên khách hàng</th>
+					<th class="text-center" scope="col">Ngày tạo</th>
+					<th class="text-center" scope="col">Ngày hẹn</th>
+					<th class="text-center" scope="col">Ngày cập nhật</th>
+					<th class="text-center" scope="col">Trạng thái</th>
+					<th class="text-center" scope="col">Hành động</th>
+				</tr>
+			</thead>
+			<tbody id="table-content overflow-scroll">
+				{{#each serviceNotes}}
+				<tr>
+					<th class="text-center" scope="row">{{sum @index 1}}</th>
+					<td><a href="/manager/assistant/service-note/{{this._id}}">{{this._id}}</a></td>
+					<td class="text-center">{{this.customerID.firstName}} {{this.customerID.lastName}}</td>
+					<td class="text-center">{{formatDate this.createdAt}}</td>
+					<td class="text-center">{{formatDate this.schedule}}</td>
+					<td class="text-center">{{formatDate this.updatedAt}}</td>
+					<td>{{this.status}}</td>
+					<td class="text-center">
+						<button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-service-note-modal"
+							data-delete-id="{{this._id}}" data-delete-service="{{this.service}}"
+							><i class="ti-close"></i></button>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Delete customer modal -->
+<div class="modal fade" id="delete-service-note-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Xóa phiếu dịch vụ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn có chắc muốn xóa phiếu dịch vụ <strong id="delete-service-note"></strong> không?
+      </div>
+      <div class="modal-footer">
+        <button id="delete-service-note-btn" type="button" class="btn btn-danger">Chắc chắn, xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form id="delete-service-note-form" method="POST"></form>
+<script src="/js/admin/admin-service-note.js"></script>

@@ -11,6 +11,12 @@ const Department = new Schema({
 		unique: true
 	},
 	description: String,
+	positionID: [
+		{
+			type: String,
+			ref: "Position"
+		}
+	],
 }, {
 	timestamps: true
 });

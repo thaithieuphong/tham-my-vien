@@ -146,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		$("#customer_table").DataTable({
 			paging: true,
 			reponsive: true,
+			scrollCollapse: true,
 		});
 		
 	});
@@ -188,28 +189,28 @@ function convert_vi_to_en(str) {
 	return str;
 }
 
-var input = document.getElementById("myInput");
-var li = document.getElementsByClassName("card");
-input.addEventListener('input', (e) => {
-	var value = e.target.value;
-	var filters = convert_vi_to_en(value);
-	var a = document.getElementsByClassName("text-success");
-	for (i = 0; i < a.length; i++) {
-		txtValue = convert_vi_to_en(a[i].textContent) || convert_vi_to_en(a[i].innerText) ;
-		// console.log("content", a.textContent)
-		// console.log("innert", a.innerText)
-		var text1 = txtValue.toUpperCase();
-		var text2 = filters.toUpperCase();
-		if (text1.match(text2)) {
-			console.log('filter', text1);
-			console.log('txtValue', text2)
-			console.log('li', li[i]);
-			li[i].style.display = "";
-		} else {
-			li[i].style.display = "none";
-		}
-	}
-})
+// var input = document.getElementById("myInput");
+// var li = document.getElementsByClassName("card");
+// input.addEventListener('input', (e) => {
+// 	var value = e.target.value;
+// 	var filters = convert_vi_to_en(value);
+// 	var a = document.getElementsByClassName("text-success");
+// 	for (i = 0; i < a.length; i++) {
+// 		txtValue = convert_vi_to_en(a[i].textContent) || convert_vi_to_en(a[i].innerText) ;
+// 		// console.log("content", a.textContent)
+// 		// console.log("innert", a.innerText)
+// 		var text1 = txtValue.toUpperCase();
+// 		var text2 = filters.toUpperCase();
+// 		if (text1.match(text2)) {
+// 			console.log('filter', text1);
+// 			console.log('txtValue', text2)
+// 			console.log('li', li[i]);
+// 			li[i].style.display = "";
+// 		} else {
+// 			li[i].style.display = "none";
+// 		}
+// 	}
+// })
 
 var checkList = document.getElementById('list1');
 	checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {

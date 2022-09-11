@@ -5,10 +5,10 @@
             class="ti-angle-double-right"></i></button>
     <div class="img-container">
         {{#if root.image.name}}
-        <a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
+        <a class="text-light" href="/god/profile">{{root.firstName}} {{root.lastName}}<img
                 class="ml-2 mr-3" src="/img/uploads/users/{{root.image.name}}" alt=""></a>
         {{else}}
-        <a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
+        <a class="text-light" href="/god/profile">{{root.firstName}} {{root.lastName}}<img
                 class="ml-2 mr-3" src="/img/user-icon.png" alt=""></a>
         {{/if}}
         <div />
@@ -21,32 +21,32 @@
     </div>
     <div class="offcanvas-body container-sidebar bg-dark">
         <div class="sidebar-item">
-            <a href="/root/dashboard" class="sidebar-item-title pl-3">
+            <a href="/god/dashboard" class="sidebar-item-title pl-3">
                 <i class="ti-dashboard mr-3"></i>Bảng điều khiển
             </a>
         </div>
 		<div class="sidebar-item">
-            <a href="/root/user" class="sidebar-item-title pl-3">
+            <a href="/god/user" class="sidebar-item-title pl-3">
                 <i class="ti-user mr-3"></i>Phòng nhân sự
             </a>
         </div>
         <div class="sidebar-item">
-            <a href="/root/operating-room" class="sidebar-item-title pl-3">
+            <a href="/god/operating-room" class="sidebar-item-title pl-3">
                 <i class="ti-cut mr-3"></i>Phòng phẩu thuật
             </a>
         </div>
         <div class="sidebar-item">
-            <a href="/root/reception" class="sidebar-item-title pl-3">
+            <a href="/god/reception" class="sidebar-item-title pl-3">
                 <i class="ti-clipboard mr-3"></i>Phòng lễ tân
             </a>
         </div>
         <div class="sidebar-item">
-            <a href="/root/business" class="sidebar-item-title pl-3">
+            <a href="/god/business" class="sidebar-item-title pl-3">
                 <i class="ti-headphone-alt mr-3"></i>Phòng kinh doanh
             </a>
         </div>
         <div class="sidebar-item">
-            <a href="/root/marketing" class="sidebar-item-title pl-3">
+            <a href="/god/marketing" class="sidebar-item-title pl-3">
                 <i class="ti-bar-chart mr-3"></i>Phòng marketing
             </a>
         </div>
@@ -90,7 +90,7 @@
 				{{#each users}}
 				<tr>
 					<th class="text-center" scope="row">{{sum @index 1}}</th>
-					<td><a href="/root/user/{{this._id}}/detail">{{this.firstName}}
+					<td><a href="/god/user/{{this._id}}/detail">{{this.firstName}}
 							{{this.lastName}}</a></td>
 					<td class="text-center">{{this.department}}</td>
 					<td class="text-center">{{this.position}}</td>
@@ -165,7 +165,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form method="POST" action="/root/user" id="create-user-form" class="row"
+					<form method="POST" action="/god/user" id="create-user-form" class="row"
 						enctype="multipart/form-data">
 						<div class="mt-3 text-center mb-3">
 							<img src="/img/user-icon.png" id="add-avt" class="rounded mx-auto d-block add-avata"

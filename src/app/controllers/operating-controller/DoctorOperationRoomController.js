@@ -19,11 +19,18 @@ class DoctorOperationRoomController {
 	}
 
 	showDashboard(req, res, next){
-		User.findById({ _id: req.userId })
-			.then(() => {
-				res.redirect('/operating-room/doctor/service-note')
+		Promise.all([
+			User.findById({ _id: req.userId }),
+			ServiceNote.find({status: "Hoàn thành", doctor: req.userId}).populate('recept').populate('customerID').populate('performer').populate('nursing')
+		])
+		.then(([user, serviceNotes]) => {
+			res.render("operating/doctor/over-view", {
+				user: mongooseToObject(user),
+				serviceNotes: multipleMongooseToObject(serviceNotes),
+				title: "Phiếu hoàn thành"
 			})
-			.catch(next);
+		})
+		.catch(next);
 	}
 
 	showServiceNote(req, res, next) {
@@ -32,7 +39,7 @@ class DoctorOperationRoomController {
 				res.render("operating/doctor/operating-service-note", {
 					serviceNote:  multipleMongooseToObject(serviceNote),
 					user: mongooseToObject(user), 
-					title: "Chi tiết khách hàng"
+					title: "Phiếu phẩu thuật"
 				});
 			})
 			.catch(next);

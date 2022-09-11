@@ -40,7 +40,7 @@ class AuthController {
                     department: user.department,
                     position: user.position,
                     
-                }, process.env.ACCESSTOKEN_KEY, {
+                }, 'khoatruycap', {
                     expiresIn: 3600, // 10p
                 });
 
@@ -49,7 +49,7 @@ class AuthController {
                     role: user.role,
                     department: user.department,
                     position: user.position
-                }, process.env.REFRESHTOKEN_KEY, {
+                }, 'khoalammoi', {
                     expiresIn: 31536000, // 24 giờ
                 })
                 
@@ -57,10 +57,14 @@ class AuthController {
                     token: accessToken,
                     secure: true
                 };
-                res.status(200).redirect(`/${user.roleEng}/dashboard`);
+                res.status(200).redirect(`/god/dashboard`);
             })
             .catch(next);
     };
+
+    getAdminLogin(req, res, next) {
+        res.render('admin/admin-login');
+    }
 
     postAdminLogin(req, res, next) {
         User.findOne({ account: req.body.account })
@@ -88,7 +92,7 @@ class AuthController {
                     department: user.department,
                     position: user.position,
                     
-                }, process.env.ACCESSTOKEN_KEY, {
+                }, 'khoatruycap', {
                     expiresIn: 3600, // 10p
                 });
 
@@ -97,7 +101,7 @@ class AuthController {
                     role: user.role,
                     department: user.department,
                     position: user.position
-                }, process.env.REFRESHTOKEN_KEY, {
+                }, 'khoalammoi', {
                     expiresIn: 31536000, // 24 giờ
                 })
                 
@@ -105,7 +109,7 @@ class AuthController {
                     token: accessToken,
                     secure: true
                 };
-                res.status(200).redirect(`/${user.roleEng}/customer`);
+                res.status(200).redirect(`/admin/customer`);
             })
             .catch(next);
     };
@@ -142,7 +146,7 @@ class AuthController {
                     department: user.department,
                     position: user.position,
                     
-                }, process.env.ACCESSTOKEN_KEY, {
+                }, 'khoatruycap', {
                     expiresIn: 3600, // 10p
                 });
 
@@ -151,7 +155,7 @@ class AuthController {
                     role: user.role,
                     department: user.department,
                     position: user.position
-                }, process.env.REFRESHTOKEN_KEY, {
+                }, 'khoalammoi', {
                     expiresIn: 31536000, // 24 giờ
                 })
                 
@@ -178,7 +182,6 @@ class AuthController {
 				}
 			})
 			.catch(next);
-		// res.json(req.body);
 	}
 
     // Logout
@@ -194,7 +197,7 @@ class AuthController {
     rootLogout = async (req, res, next) => {
         try {
             req.session = null;
-            return res.status(200).redirect('/root');
+            return res.status(200).redirect('/god');
         } catch (err) {
             this.next(err);
         }

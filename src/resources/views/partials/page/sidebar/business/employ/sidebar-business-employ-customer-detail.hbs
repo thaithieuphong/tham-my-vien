@@ -1,4 +1,4 @@
-<div class="nav-mobile sidebar text-light">
+{{!-- <div class="nav-mobile sidebar text-light">
 	<ul class="nav-bottom sidebar-list">
 		<li class="list">
 			<a href="/business/employ/service-note">
@@ -26,15 +26,49 @@
 			{{/if}}
 		</li>
 	</ul>
-</div>
+</div> --}}
 
-<script>
-	const list = document.querySelectorAll('.list');
-	function activeTab(){
-		list.forEach((item) =>
-		item.classList.remove('active'));
-		this.classList.add('active')
-	}
-	list.forEach((item) =>
-	item.addEventListener('click',activeTab))
-</script>
+{{!-- <script> --}}
+	//const list = document.querySelectorAll('.list');
+	//function activeTab(){
+		//list.forEach((item) =>
+		//item.classList.remove('active'));
+		//this.classList.add('active')
+	//}
+	//list.forEach((item) =>
+	//item.addEventListener('click',activeTab))
+{{!-- </script> --}}
+{{!-- <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/manager/assistant" class="sidebar-item-title pl-3">
+                <i class="ti-dashboard mr-3"></i>Điều phối phiếu phẩu thuật
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/manager/assistant/coordinator-re-examination" class="sidebar-item-title pl-3">
+                <i class="ti-headphone-alt mr-3"></i>Điều phối phiếu tái khám
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/manager/assistant/customer" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3 active"></i>Khách hàng
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/manager/assistant/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-cut mr-3"></i>Phiếu phẩu thuật
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/manager/assistant/re-examination" class="sidebar-item-title pl-3">
+                <i class="ti-clipboard mr-3"></i>Phiếu tái khám
+            </a>
+        </div>
+    </div>
+</div> --}}

@@ -1,139 +1,108 @@
-<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
-    <div class="title">
-        <a href="/business/employ/customers" class="text-light"><i class="ti-back-left"></i> Quay lại</a>
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <h3 class="title text-light">Quản lý phiếu dịch vụ</h3>
-    <div class="stask">
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/business/employ/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-receipt mr-3"></i>Dịch vụ
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/business/employ/customers" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Khách hàng
+            </a>
+        </div>
     </div>
-</nav>
-{{> page/sidebar/business/employ/sidebar-business-service}}
-<div class="container-fluid mt-3 ml-2">
-    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+	<div class="offcanvas-footer bg-dark border-top">
+        <div class="sidebar-item">
+            <a href="/business/employ/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-dark">
+        <div class="img-container">
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+    <ul class="nav nav-pills ml-0 bg-secondary d-flex justify-content-between justify-content-sm-start" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-profile-customer-tab" data-bs-toggle="pill"
+            <button class="nav-link active text-light" id="pills-profile-customer-tab" data-bs-toggle="pill"
                 data-bs-target="#pills-new" type="button" role="tab" aria-controls="pills-home"
                 aria-selected="true">Phiếu mới</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-loading"
+            <button class="nav-link text-light" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-loading"
                 type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Đang xử lý</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-complete"
+            <button class="nav-link text-light" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-complete"
                 type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Hoàn thành</button>
         </li>
     </ul>
+</div>
+<div class="container-fluid mt-3">
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-new" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Tìm kiếm..."
-                title="Type in a name">
             <div id="search-items">
                 <div class="row">
                     {{#each serviceNotes}}
-                    <div class="col-md-6 note-wrapper">
-                        <div class="shadow-lg p-3 mb-3 bg-body rounded card">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong name="status" class="form-label text-danger">{{this.status}}</strong>
-                                </div>
-                                <div class="col-md-6">
-                                    <h5>
-                                        <em>
-                                            <strong>
-                                                <label name="schedule" class="form-label text-success">{{formatDate
-                                                    this.schedule}}</label>
-                                            </strong>
-                                        </em>
-                                    </h5>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 note-wrapper">
+                        <div class="card mb-3">
+                            <div class="card-header bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <strong name="status" class="form-label text-danger">{{this.status}}</strong>
+                                    </div>
                                     <strong>
-                                        <label class="form-label">Khách hàng: </label>
+                                        <label name="schedule" class="form-label text-success text-right">{{formatDate
+                                            this.schedule}}</label>
                                     </strong>
                                 </div>
-                                <div class="col-md-6 text-name">
-                                    <em>
-                                        <label
-                                            class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
-                                            {{this.customerID.lastName}}</label>
-                                    </em>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Khách hàng:</strong>&nbsp;
+                                    </label>
+                                    <label
+                                    class="text-primary form-label text-uppercase text-right">{{this.customerID.firstName}}
+                                    {{this.customerID.lastName}}</label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Dịch vụ:</strong>&nbsp;
+                                    </label>
+                                    <label class="form-label text-right">{{this.service}}</label>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Thành tiền:</strong>&nbsp;
+                                    </label>
+                                    <label class="form-label text-right">{{this.price}}VND</label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Dịch vụ: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.service}}</label>
-                                    </em>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Thành tiền: </label>
-                                    </strong>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.price}}VND</label>
-                                    </em>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Bác sĩ:</label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    {{#each this.performer}}
-                                    <em>
-                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
-                                            {{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Y tá: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    {{#each this.nursing}}
-                                    <em>
-                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
-                                            {{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Lễ tân: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="  form-label text-uppercase">{{this.recept.firstName}}
-                                            {{this.recept.lastName}};</label>
-                                    </em>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#a{{this._id}}">Tư vấn</button>
+                            <div class="card-footer bg-transparent d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
+                                    data-bs-target="#a{{this._id}}">Hình ảnh tư vấn</button>
                             </div>
                         </div>
                     </div>
@@ -149,50 +118,56 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div>
-                                        <a data-bs-toggle="collapse" href="#counselor-img" role="button" aria-expanded="false" aria-controls="counselor-img">
-                                            <i class="ti-plus"></i> Hình ảnh tư vấn:
-                                        </a>
-                                        <div class="collapse mt-3 mb-3" id="counselor-img">
-                                            <div class="card card-body">
-                                                <div class="row">    
-                                                    {{#if this.counselorImg}}
-                                                    {{#each this.counselorImg}}
-                                                    <div class="col-lg-3">
-                                                        <figure class="figure imgbox">
-                                                            <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-                                                        </figure>
+                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingOne">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                    Hình ảnh tư vấn:
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">
+                                                    <div class="row">    
+                                                        {{#if this.counselorImg}}
+                                                        {{#each this.counselorImg}}
+                                                        <div class="col-lg-3">
+                                                            <figure class="figure imgbox">
+                                                                <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+                                                            </figure>
+                                                        </div>
+                                                        {{/each}}
+                                                        {{else}}
+                                                        <p class="text-center">
+                                                            Chưa có ảnh
+                                                        </p>
+                                                        {{/if}}
                                                     </div>
-                                                    {{/each}}
-                                                    {{else}}
-                                                    <p class="text-center">
-                                                        Chưa có ảnh
-                                                    </p>
-                                                    {{/if}}
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <a data-bs-toggle="collapse" href="#counselor-video" role="button" aria-expanded="false" aria-controls="counselor-video">
-                                            <i class="ti-plus"></i> Video tư vấn:
-                                        </a>
-                                        <div class="collapse mt-3 mb-3" id="counselor-video">
-                                            <div class="card card-body">
-                                                <div class="row">    
-                                                    {{#if this.counselorVideo}}
-                                                    {{#each this.counselorVideo}}
-                                                    <div class="col-lg-3">
-                                                        <figure class="figure imgbox">
-                                                            <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-                                                        </figure>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                                    Video tư vấn:
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">
+                                                    <div class="row">    
+                                                        {{#if this.counselorVideo}}
+                                                        {{#each this.counselorVideo}}
+                                                        <div class="col-lg-3">
+                                                            <figure class="figure imgbox">
+                                                                <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+                                                            </figure>
+                                                        </div>
+                                                        {{/each}}
+                                                        {{else}}
+                                                        <p class="text-center">
+                                                            Chưa có video
+                                                        </p>
+                                                        {{/if}}
                                                     </div>
-                                                    {{/each}}
-                                                    {{else}}
-                                                    <p class="text-center">
-                                                        Chưa có video
-                                                    </p>
-                                                    {{/if}}
                                                 </div>
                                             </div>
                                         </div>
@@ -210,115 +185,72 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="pills-loading" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInputLoad" class="myInput" onkeyup="myFunction2()" placeholder="Tìm kiếm..."
-                title="Type in a name">
             <div id="search-items-loading">
                 <div class="row">
                     {{#each serviceNote1s}}
-                    <div class="col-md-6 ">
-                        <div class="shadow-lg p-3 mb-3 bg-body rounded card">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong name="status" class="form-label text-danger">{{this.status}}</strong>
-                                </div>
-                                <div class="col-md-6">
-                                    <h5>
-                                        <em>
-                                            <strong>
-                                                <label name="schedule" class="form-label text-success">{{formatDate
-                                                    this.schedule}}</label>
-                                            </strong>
-                                        </em>
-                                    </h5>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <div class="card mb-3">
+                            <div class="card-header bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <div class="text-danger">
+                                        {{this.status}}
+                                    </div>
+                                    <label name="schedule" class="form-label text-success text-right">{{formatDate this.schedule}}</label>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Khách hàng: </label>
-                                    </strong>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Khách hàng:</strong>&nbsp;
+                                    </label>
+                                    <label class="text-primary form-label text-uppercase text-right">{{this.customerID.firstName}}
+                                    {{this.customerID.lastName}}</label>
                                 </div>
-                                <div class="col-md-6 text-name">
-                                    <em>
-                                        <label
-                                            class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
-                                            {{this.customerID.lastName}}</label>
-                                    </em>
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Dịch vụ:</strong>&nbsp;
+                                    </label>
+                                    <label class="form-label text-right text-right">{{this.service}}</label>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Dịch vụ: </label>
-                                    </strong>
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Phí dịch vụ:</strong>&nbsp;
+                                    </label>
+                                    <label class="form-label text-right">{{this.price}}VND</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.service}}</label>
-                                    </em>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Thành tiền: </label>
-                                    </strong>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.price}}VND</label>
-                                    </em>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Bác sĩ:</label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
+                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Bác sĩ:</strong>&nbsp;
+                                    </label>
                                     {{#each this.performer}}
                                     <em>
-                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
+                                        <label class="text-success form-label text-uppercase text-right">{{this.firstName}}
                                             {{this.lastName}};</label>
                                     </em>
                                     {{/each}}
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Y tá: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Điều dưỡng:</strong>&nbsp;
+                                    </label>
                                     {{#each this.nursing}}
                                     <em>
-                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
+                                        <label class="text-success form-label text-uppercase text-right">{{this.firstName}}
                                             {{this.lastName}};</label>
                                     </em>
                                     {{/each}}
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Lễ tân: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label text-uppercase">{{this.recept.firstName}}
-                                            {{this.recept.lastName}};</label>
-                                    </em>
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Lễ tân:</strong>&nbsp;
+                                    </label>
+                                    <label class="form-label text-uppercase text-right">{{this.recept.firstName}} {{this.recept.lastName}};</label>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#a{{this._id}}">Tư vấn</button>
+                            <div class="card-footer bg-transparent d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
+                                    data-bs-target="#a{{this._id}}">Hình ảnh tư vấn</button>
                             </div>
                         </div>
                     </div>
@@ -334,50 +266,56 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div>
-                                        <a data-bs-toggle="collapse" href="#counselor-img" role="button" aria-expanded="false" aria-controls="counselor-img">
-                                            <i class="ti-plus"></i> Hình ảnh tư vấn:
-                                        </a>
-                                        <div class="collapse mt-3 mb-3" id="counselor-img">
-                                            <div class="card card-body">
-                                                <div class="row">    
-                                                    {{#if this.counselorImg}}
-                                                    {{#each this.counselorImg}}
-                                                    <div class="col-lg-3">
-                                                        <figure class="figure imgbox">
-                                                            <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-                                                        </figure>
+                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingOne">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                    Hình ảnh tư vấn:
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">
+                                                    <div class="row">    
+                                                        {{#if this.counselorImg}}
+                                                        {{#each this.counselorImg}}
+                                                        <div class="col-lg-3">
+                                                            <figure class="figure imgbox">
+                                                                <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+                                                            </figure>
+                                                        </div>
+                                                        {{/each}}
+                                                        {{else}}
+                                                        <p class="text-center">
+                                                            Chưa có ảnh
+                                                        </p>
+                                                        {{/if}}
                                                     </div>
-                                                    {{/each}}
-                                                    {{else}}
-                                                    <p class="text-center">
-                                                        Chưa có ảnh
-                                                    </p>
-                                                    {{/if}}
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <a data-bs-toggle="collapse" href="#counselor-video" role="button" aria-expanded="false" aria-controls="counselor-video">
-                                            <i class="ti-plus"></i> Video tư vấn:
-                                        </a>
-                                        <div class="collapse mt-3 mb-3" id="counselor-video">
-                                            <div class="card card-body">
-                                                <div class="row">    
-                                                    {{#if this.counselorVideo}}
-                                                    {{#each this.counselorVideo}}
-                                                    <div class="col-lg-3">
-                                                        <figure class="figure imgbox">
-                                                            <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-                                                        </figure>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                                    Video tư vấn:
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">
+                                                    <div class="row">    
+                                                        {{#if this.counselorVideo}}
+                                                        {{#each this.counselorVideo}}
+                                                        <div class="col-lg-3">
+                                                            <figure class="figure imgbox">
+                                                                <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+                                                            </figure>
+                                                        </div>
+                                                        {{/each}}
+                                                        {{else}}
+                                                        <p class="text-center">
+                                                            Chưa có video
+                                                        </p>
+                                                        {{/if}}
                                                     </div>
-                                                    {{/each}}
-                                                    {{else}}
-                                                    <p class="text-center">
-                                                        Chưa có video
-                                                    </p>
-                                                    {{/if}}
                                                 </div>
                                             </div>
                                         </div>
@@ -395,123 +333,72 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="pills-complete" role="tabpanel" aria-labelledby="pills-home-tab">
-            <input type="text" id="myInputCTV" class="myInput" onkeyup="myFunction1()" placeholder="Tìm kiếm..."
-                title="Type in a name">
             <div id="search-items-complete">
                 <div class="row">
                     {{#each serviceNote2s}}
-                    <div class="col-md-6">
-                        <div class="shadow-lg p-3 mb-3 bg-body rounded card">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <strong name="status" class="form-label text-danger">{{this.status}}</strong>
-                                </div>
-                                <div class="col-md-6">
-                                    <h5>
-                                        <em>
-                                            <strong>
-                                                <label name="schedule" class="form-label text-success">{{formatDate
-                                                    this.schedule}}</label>
-                                            </strong>
-                                        </em>
-                                    </h5>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <div class="card mb-3">
+                            <div class="card-header bg-transparent">
+                                <div class="d-flex justify-content-between">
+                                    <div class="text-danger">
+                                        {{this.status}}
+                                    </div>
+                                    <label name="schedule" class="form-label text-success text-right">{{formatDate this.schedule}}</label>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="row mt-2">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Khách hàng: </label>
-                                    </strong>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Khách hàng:</strong>&nbsp;
+                                    </label>
+                                    <label class="text-primary form-label text-uppercase text-right">{{this.customerID.firstName}}
+                                    {{this.customerID.lastName}}</label>
                                 </div>
-                                <div class="col-md-6 text-name">
-                                    <em>
-                                        <label
-                                            class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
-                                            {{this.customerID.lastName}}</label>
-                                    </em>
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Dịch vụ:</strong>&nbsp;
+                                    </label>
+                                    <label class="form-label text-right">{{this.service}}</label>
                                 </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Dịch vụ: </label>
-                                    </strong>
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Phí dịch vụ:</strong>&nbsp;
+                                    </label>
+                                    <label class="form-label text-right">{{this.price}}VND</label>
                                 </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.service}}</label>
-                                    </em>
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Thành tiền: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="form-label">{{this.price}}VND</label>
-                                    </em>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row mt-2">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Bác sĩ:</label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
+                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Bác sĩ:</strong>&nbsp;
+                                    </label>
                                     {{#each this.performer}}
                                     <em>
-                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
+                                        <label class="text-success form-label text-uppercase text-right">{{this.firstName}}
                                             {{this.lastName}};</label>
                                     </em>
                                     {{/each}}
                                 </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Y tá: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Điều dưỡng:</strong>&nbsp;
+                                    </label>
                                     {{#each this.nursing}}
                                     <em>
-                                        <label class="text-success form-label text-uppercase">{{this.firstName}}
+                                        <label class="text-success form-label text-uppercase text-right">{{this.firstName}}
                                             {{this.lastName}};</label>
                                     </em>
                                     {{/each}}
                                 </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-md-6">
-                                    <strong>
-                                        <label class="form-label">Lễ tân: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-md-6">
-                                    <em>
-                                        <label class="  form-label text-uppercase">{{this.recept.firstName}}
-                                            {{this.recept.lastName}};</label>
-                                    </em>
+                                <div class="d-flex justify-content-between">
+                                    <label for="status">
+                                        <strong>Lễ tân:</strong>&nbsp;
+                                    </label>
+                                    <label class="form-label text-uppercase text-right">{{this.recept.firstName}} {{this.recept.lastName}};</label>
                                 </div>
                             </div>
-                            <div class="modal-footer footer-serivce">
-                                {{!-- <button type="button" id="create-re-examination-btn" class="btn btn-primary"
-                                    data-bs-toggle="modal" data-bs-target="#create-re-examination-modal"
-                                    data-img="{{this.customerID.image.name}}" data-id="{{this.customerID._id}}"
-                                    data-name="{{this.customerID.firstName}}{{this.customerID.lastName}}"
-                                    data-birth="{{this.customerID.birth}}" data-gender="{{this.customerID.gender}}"
-                                    data-email="{{this.customerID.email}}" data-phone="{{this.customerID.phone}}"
-                                    data-address="{{this.customerID.address}}" data-service="{{this.service}}"
-                                    data-service-note-id="{{this._id}}">Tạo phiếu
-                                    tái khám</button> --}}
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#a{{this._id}}">Tư vấn</button>
+                            <div class="card-footer bg-transparent d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
+                                    data-bs-target="#a{{this._id}}">Hình ảnh tư vấn</button>
                             </div>
                         </div>
                     </div>
@@ -527,50 +414,56 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div>
-                                        <a data-bs-toggle="collapse" href="#counselor-img" role="button" aria-expanded="false" aria-controls="counselor-img">
-                                            <i class="ti-plus"></i> Hình ảnh tư vấn:
-                                        </a>
-                                        <div class="collapse mt-3 mb-3" id="counselor-img">
-                                            <div class="card card-body">
-                                                <div class="row">    
-                                                    {{#if this.counselorImg}}
-                                                    {{#each this.counselorImg}}
-                                                    <div class="col-lg-3">
-                                                        <figure class="figure imgbox">
-                                                            <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-                                                        </figure>
+                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingOne">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                                    Hình ảnh tư vấn:
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">
+                                                    <div class="row">    
+                                                        {{#if this.counselorImg}}
+                                                        {{#each this.counselorImg}}
+                                                        <div class="col-lg-3">
+                                                            <figure class="figure imgbox">
+                                                                <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+                                                            </figure>
+                                                        </div>
+                                                        {{/each}}
+                                                        {{else}}
+                                                        <p class="text-center">
+                                                            Chưa có ảnh
+                                                        </p>
+                                                        {{/if}}
                                                     </div>
-                                                    {{/each}}
-                                                    {{else}}
-                                                    <p class="text-center">
-                                                        Chưa có ảnh
-                                                    </p>
-                                                    {{/if}}
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <a data-bs-toggle="collapse" href="#counselor-video" role="button" aria-expanded="false" aria-controls="counselor-video">
-                                            <i class="ti-plus"></i> Video tư vấn:
-                                        </a>
-                                        <div class="collapse mt-3 mb-3" id="counselor-video">
-                                            <div class="card card-body">
-                                                <div class="row">    
-                                                    {{#if this.counselorVideo}}
-                                                    {{#each this.counselorVideo}}
-                                                    <div class="col-lg-3">
-                                                        <figure class="figure imgbox">
-                                                            <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-                                                        </figure>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="flush-headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                                    Video tư vấn:
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                                <div class="accordion-body">
+                                                    <div class="row">    
+                                                        {{#if this.counselorVideo}}
+                                                        {{#each this.counselorVideo}}
+                                                        <div class="col-lg-3">
+                                                            <figure class="figure imgbox">
+                                                                <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+                                                            </figure>
+                                                        </div>
+                                                        {{/each}}
+                                                        {{else}}
+                                                        <p class="text-center">
+                                                            Chưa có video
+                                                        </p>
+                                                        {{/if}}
                                                     </div>
-                                                    {{/each}}
-                                                    {{else}}
-                                                    <p class="text-center">
-                                                        Chưa có video
-                                                    </p>
-                                                    {{/if}}
                                                 </div>
                                             </div>
                                         </div>

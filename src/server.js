@@ -22,7 +22,7 @@ if (`${process.env.NODE_ENV}` !== "production") {
 
 // Cung cấp middleware trên Express để kích hoạt CORS
 var corsOptions = {
-	origin: "https://crm.drtuananh.vn",
+	origin: "http://crm.drtuananh.vn",
 };
 
 // Method Override
@@ -83,6 +83,7 @@ app.engine(
 			},
 			formatDate: (d) => {
 				let date = new Date(d);
+				console.log('date', date)
 				let newDate = date.toLocaleString('vi-VI', { weekday: "long", day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
 				return newDate;
 			},
@@ -102,6 +103,13 @@ app.engine(
 					return count;
 				}
 			},
+			filter: (array) => {
+				let arr = [];
+				array.forEach(item => {
+					arr.push(item.name);
+				})
+				return arr;
+			}
 		}
 	})
 );

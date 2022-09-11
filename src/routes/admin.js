@@ -28,6 +28,6 @@ router.get('/profile', [authJwt.verifyToken, authJwt.isAdmin], AdminController.g
 
 router.post('/logout', AuthController.rootLogout);
 router.post('/', AuthController.postAdminLogin);
-router.get('/', AuthController.getRootLogin);
+router.get('/', AuthController.getAdminLogin);
 
 module.exports = router;

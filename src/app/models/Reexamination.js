@@ -65,6 +65,7 @@ const Reexamination = new Schema({
 			comment: String
 		}
 	],
+	stepsToTake: String,
 	stored: String,
 	schedule: String,
 	reason: String,

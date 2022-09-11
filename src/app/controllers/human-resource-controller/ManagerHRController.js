@@ -32,10 +32,14 @@ class HRController {
 		Promise.all([
 			User.findById({ _id: req.userId }),
 			User.find({}),
-			Department.find({}),
+			Department.find({}).populate('positionID'),
 			Position.find({}),
 		])
 			.then(([user, users, departments, positions]) => {
+				departments.forEach(department => {
+
+					console.log('department', department.positionID);
+				})
 				res.render("human-resources/manager/manager-users", {
 					user: mongooseToObject(user),
 					users: multipleMongooseToObject(users),

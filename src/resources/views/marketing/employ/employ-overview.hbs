@@ -1,15 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Quản lý người dùng</title>
-</head>
-
-<body>
-	{{> page/sidebar/marketing/employ/sidebar-marketing-employ}}
-</body>
-
-</html>
+<link rel="stylesheet" href="/css/root.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/marketing/employ/customers" class="sidebar-item-title pl-3">
+                <i class="ti-receipt mr-3"></i>Quản lý khách hàng
+            </a>
+        </div>
+    </div>
+	<div class="offcanvas-footer bg-dark border-top">
+        <div class="sidebar-item">
+            <a href="/marketing/employ/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-dark">
+        <div class="img-container">
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+	<div class="redirect-bar bg-primary d-flex justify-content-between">
+		<div></div>
+		<a data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="text-light mr-3"><i class="ti-plus"></i> Tạo khách hàng</a>
+	</div>
+</div>

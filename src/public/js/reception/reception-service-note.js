@@ -43,7 +43,7 @@ performerModal.addEventListener("show.bs.modal", function (event) {
 	var modalSchedule = document.getElementById("add-performer-schedule");
 	var modalComment = document.getElementById("add-performer-comment");
 
-	performerForm.setAttribute('action', `/reception/employ/service-note/${id}?_method=PATCH`);
+	performerForm.setAttribute('action', `/manager/assistant/service-note/${id}?_method=PATCH`);
 
 	modalName.innerHTML = name;
 	modalBirth.innerHTML = birth;

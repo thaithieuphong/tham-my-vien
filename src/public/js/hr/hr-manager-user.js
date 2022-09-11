@@ -13,11 +13,6 @@ addUserImg.addEventListener("change", (e) => {
 	addUserAvt.src = URL.createObjectURL(e.target.files[0]);
 });
 
-var birthInput = document.getElementById('create-user-birth');
-birthInput.addEventListener('change', (e) => {
-	console.log(e.target.value)
-})
-
 // Function convert Vietnameses to English
 function convert_vi_to_en(str) {
 	str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -205,3 +200,107 @@ function myFunction() {
 		}
 	}
 }
+
+var createUserDepartment = document.getElementById('create-user-department');
+var createUserPosition = document.getElementById('create-user-position');
+var createUser = document.getElementById("create-user-modal");
+createUser.addEventListener("show.bs.modal", function (event) {
+	
+	// Button that triggered the modal
+	var button = event.relatedTarget;
+	// Get data from edit button
+	createUserDepartment.addEventListener('change', (e) => {
+		var deparmentValue = e.target.value;
+		for (let element of createUserPosition.children) {
+			element.classList.replace('on', 'off');
+			switch(deparmentValue) {
+				case 'Marketing':
+					if ((element.innerHTML === 'Quản lý' || element.innerHTML === 'Nhân viên')) {
+						console.log(element.classList.replace('off', 'on'))
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'Kinh doanh':
+					if ((element.innerHTML === 'Quản lý' || element.innerHTML === 'Nhân viên')) {
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'Lễ tân':
+					if (element.innerHTML === 'Nhân viên') {
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'Phẩu thuật':
+					if (element.innerHTML === 'Bác sĩ' || element.innerHTML === 'Điều dưỡng') {
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'Nhân sự':
+					if (element.innerHTML === 'Quản lý') {
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'IT':
+					if ((element.innerHTML === 'Quản lý' || element.innerHTML === 'Nhân viên')) {
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'Quản trị':
+					if (element.innerHTML === 'Tổng Giám đốc' || element.innerHTML === 'Trợ lý') {
+						element.classList.replace('off', 'on');
+
+					}
+					break;
+			}
+			// if (deparmentValue === 'Marketing' && (element.innerHTML === 'Quản lý' || element.innerHTML === 'Nhân viên')) {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'Kinh doanh' && (element.innerHTML === 'Quản lý' || element.innerHTML === 'Nhân viên')) {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'Lễ tân' && element.innerHTML === 'Nhân viên') {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'Phẩu thuật' && element.innerHTML === 'Bác sĩ' || element.innerHTML === 'Điều dưỡng') {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'Nhân sự' && element.innerHTML === 'Quản lý') {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'IT' && (element.innerHTML === 'Quản lý' || element.innerHTML === 'Nhân viên')) {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'Quản trị' && element.innerHTML === 'Tổng Giám đốc' || element.innerHTML === 'Trợ lý') {
+			// 	element.classList.replace('off', 'on');
+			// }
+		}
+		// for (let i = 0; i < arrValue.length; i++) {
+		// 	console.log('option con', optionCon)
+		// 	createUserPosition.remove(optionCon);
+		// 	var optionItem = document.createElement('option');
+		// 	optionItem.setAttribute('value', arrValue[i]);
+		// 	optionItem.innerHTML = arrValue[i];
+			// if (deparmentValue === 'Marketing' && optionItem.innerHTML === 'Quản lý' || optionItem.innerHTML === 'Nhân viên') {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'Kinh doanh' && optionItem.innerHTML === 'Quản lý' || optionItem.innerHTML === 'Nhân viên') {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'Lễ tân' && optionItem.innerHTML === 'Nhân viên') {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'Phẩu thuật' && optionItem.innerHTML === 'Bác sĩ' || optionItem.innerHTML === 'Điều dưỡng') {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'Nhân sự' && optionItem.innerHTML === 'Quản lý') {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'IT' && optionItem.innerHTML === 'Quản lý' || optionItem.innerHTML === 'Nhân viên') {
+			// 	element.classList.replace('off', 'on');
+			// }
+			// if (deparmentValue === 'Quản trị' && optionItem.innerHTML === 'Tổng Giám đốc' || optionItem.innerHTML === 'Trợ lý') {
+			// 	element.classList.replace('off', 'on');
+			// }
+		// }
+	})
+});

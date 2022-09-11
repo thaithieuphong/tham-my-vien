@@ -7,7 +7,6 @@ const AuthController = require('../../app/controllers/AuthController');
 //Employ
 
 router.patch('/service-note/:id', ReceptionController.pushPerformer);
-// router.patch('/service-note/:id', ReceptionController.pushPerformer);
 router.patch('/reexam/:id', ReceptionController.pushOperationToReexam);
 router.post('/change-pass', AuthController.changePassword);
 

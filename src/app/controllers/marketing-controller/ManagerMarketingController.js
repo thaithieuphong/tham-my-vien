@@ -20,7 +20,7 @@ class MarketingController {
 
 	//EMPLOY
 	showDashboard(req, res) {
-		res.render('marketing/manager/marketing-overview');
+		res.redirect('/marketing/manager/customers');
 	}
 
 	showCustomer(req, res, next) {

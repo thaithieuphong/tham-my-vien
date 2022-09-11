@@ -63,7 +63,8 @@ class NursingController {
 	}
 
 	updateServiceNote(req, res, next) {
-		ServiceNote.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành" } })
+		console.log('req body', req.body)
+		ServiceNote.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành", stepsToTake: req.body.stepsToTake } })
 			.then(() => {
 				res.redirect('back')
 			})
@@ -71,7 +72,7 @@ class NursingController {
 	}
 
 	updateReExamination(req, res, next) {
-		Reexamination.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành" } })
+		Reexamination.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành", stepsToTake: req.body.stepsToTake } })
 			.then(() => {
 				res.redirect('back')
 			})

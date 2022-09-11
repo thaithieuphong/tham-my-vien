@@ -10,7 +10,7 @@ class authJwt {
 			req.flash('messages_token_wrong', 'Mã bảo mật không đúng');
 			res.redirect('/');
 		}
-		jwt.verify(token, process.env.ACCESSTOKEN_KEY, (err, decoded) => {
+		jwt.verify(token, 'khoatruycap', (err, decoded) => {
 			if (err) {
 				req.flash('messages_token_failure', 'Tài khoản hết hạn truy cập');
 				res.redirect('/');
@@ -123,6 +123,17 @@ class authJwt {
 		User.findById(req.userId)
 			.then((user) => {
 				if (user.departmentEng === 'human-resources' && user.positionEng === 'manager') {
+					next();
+				} else {
+					res.render('err/403', { layout: false });
+				}
+			}).catch(next);
+	}
+
+	isAssistant(req, res, next) {
+		User.findById(req.userId)
+			.then((user) => {
+				if (user.departmentEng === 'manager' && user.positionEng === 'assistant') {
 					next();
 				} else {
 					res.render('err/403', { layout: false });

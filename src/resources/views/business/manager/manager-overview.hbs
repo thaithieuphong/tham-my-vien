@@ -1,13 +1,63 @@
-<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
+{{!-- <nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
 	<div class="title">
 	</div>
 	<h3 class="title text-light">Quản lý khách hàng hệ thống</h3>
 	<div class="stask">
 	</div>
 </nav>
-	{{> page/sidebar/business/manager/sidebar-business-manager}}
+	{{> page/sidebar/business/manager/sidebar-business-manager}} --}}
+<link rel="stylesheet" href="/css/root.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/business/manager/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-receipt mr-3"></i>Phiếu dịch vụ
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/business/manager/customers" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Khách hàng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<a href="/business/manager" class="sidebar-item-title pl-3">
+				<i class="ti-view-list mr-3"></i>Khách hàng hệ thống
+			</a>
+		</div>
+    </div>
+	<div class="offcanvas-footer bg-dark border-top">
+        <div class="sidebar-item">
+            <a href="/business/manager/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-dark">
+        <div class="img-container">
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+</div>
 <div class="container-fluid mt-3">
-	<div class="ml-4 mb-4 form-check d-flex align-items-center">
+	<div class="ml-3 mb-3 form-check d-flex align-items-center">
 		<input type="checkbox" class="hidden form-check-input" id="check-customer-all">
 		<label class="hidden form-check-label" for="check-customer-all">Chọn tất cả</label>
 		<div id="add-user-customer-btn" class="hidden ml-3 btn btn-primary btn-sm disabled" data-bs-toggle="modal"
@@ -54,7 +104,7 @@
 		<div class="container-card">
 			{{#each customers}}
 			<div class="card text-dark bg-light mb-3">
-				<div class="card-header  ">
+				<div class="card-header">
 					<h5 class="card-title">
 						<div class=" d-flex flex-row-reverse">
 							<input type="checkbox" class="form-check-input check-box-customer " name="customerIds[]"
@@ -64,10 +114,28 @@
 					</h5>
 				</div>
 				<div class="card-body">
-					<p class="card-text">Ngày sinh: {{formatBirth this.birth}}</p>
-					<p class="card-text">Giới tính: {{this.gender}}</p>
-					<p class="card-text">Email: {{this.email}}</p>
-					<p class="card-text">Mô tả: {{this.description}}</p>
+					<div class="d-flex justify-content-between">
+						<div>
+							<strong name="status" class="form-label">Ngày sinh:</strong>
+						</div>
+						<label name="schedule" class="form-label text-primary text-right">{{formatBirth this.birth}}</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<div>
+							<strong name="status" class="form-label">Giới tính:</strong>
+						</div>
+						<label name="schedule" class="form-label text-primary text-right">{{this.gender}}</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<div>
+							<strong name="status" class="form-label">Email:</strong>
+						</div>
+						<label name="schedule" class="form-label text-primary text-right">{{this.email}}</label>
+					</div>
+					<div class="mt-2">
+						<strong name="status" class="form-label">Mô tả:</strong>
+						<p class="message-content">{{this.description}}</p>
+					</div>
 				</div>
 			</div>
 			{{/each}}
@@ -107,3 +175,19 @@
 	</form>
 </div>
 <script src="/js/business/business-manager-customer-system.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+	const textarea = document.querySelectorAll('.message-content');
+	for (i = 0; i < textarea.length; i++) {
+		let element = textarea[i];
+		let textValue = element.innerHTML;
+		let textSplit = textValue.split('\n');
+		let cols = textValue.length;
+		let rows = textSplit.length;
+		let result = textSplit.join('<br>');
+		element.innerHTML = result;
+		let parent = element.clientWidth;
+		let ex = parent - cols;
+	}
+})
+</script>

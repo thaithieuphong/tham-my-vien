@@ -22,9 +22,7 @@ class MarketingController {
     showDashboard(req, res, next) {
 		User.findById({_id: req.userId})
 			.then(user => {
-				res.render('marketing/employ/employ-overview', {
-					user: mongooseToObject(user)
-				});
+				res.redirect('/marketing/employ/customers');
 			})
 			.catch(next);
     }

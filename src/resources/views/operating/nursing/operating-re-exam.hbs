@@ -1,25 +1,62 @@
-<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
-	<div class="title">
-
-	</div>
-	<h3 class="title text-light sticky-top">Dịch vụ</h3>
-
-	<div class="stask">
-	</div>
-</nav>
-{{> page/sidebar/operating-room/sidebar-nursing-re-exam}}
-
-<div class="container-fluid mt-3">
-	<div class="p-3 mb-5 bg-body rounded ml-3">
-		{{#each reExam}}
-		<div class="shadow mb-3">
-			<div class="row">
-				<h5 class="text-uppercase text-center mb-3 mt-3">
-					<strong>Phiếu tái khám</strong>
-				</h5>
-			</div>
-
-			<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/operating-room/nursing" class="sidebar-item-title pl-3">
+                <i class="ti-receipt mr-3"></i>Phiếu hoàn thành
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Phiếu phẩu thuật
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/nursing/re-examination" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Phiếu tái khám
+            </a>
+        </div>
+    </div>
+	<div class="offcanvas-footer bg-dark border-top">
+        <div class="sidebar-item">
+            <a href="/operating-room/nursing/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-dark">
+        <div class="img-container">
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+</div>
+<div class="p-3">
+	{{#each reExam}}
+	<div class="card mb-3">
+		<div class="card-header bg-transparent">
+			<h5 class="text-uppercase text-center mb-3 mt-3">
+				<strong>Phiếu tái khám</strong>
+			</h5>
+			<ul class="nav nav-pills flex-column flex-sm-row" id="pills-tab" role="tablist">
 				<li class="nav-item" role="presentation">
 					<button class="nav-link active" id="pills-profile-customer-tab" data-bs-toggle="pill"
 						data-bs-target="#pills-profile-customer" type="button" role="tab" aria-controls="pills-home"
@@ -46,140 +83,94 @@
 						khám</button>
 				</li>
 			</ul>
-
+		</div>
+		<div class="card-body">
 			<div class="tab-content" id="pills-tabContent">
-				<div class="row ">
-					<div class="col-md-6">
-						<div class="text-left ml-4">
-							<div class=" text-success">
-								<label class=" mr-4"><em>{{formatDate this.schedule}}</em></label>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-6">
-						<div class="ml-4 mr-4">
-							<label for="status">
-								<strong>Trạng thái:</strong>&nbsp;&nbsp;
-							</label>
-							<label class="text-danger">
-								<em>{{this.status}}</em>
-							</label>
-						</div>
-					</div>
+				<div class="d-flex justify-content-between justify-content-sm-start">
+					<label for="status">
+						<strong>Ngày hẹn:</strong>&nbsp;
+					</label>
+					<label class="text-right text-danger"><em>{{formatDate this.schedule}}</em></label>
 				</div>
-
-				<div class="row mt-3">
-					<div class="col-md-6">
-						<label class="ml-4 text-success">
-							<strong> Khách hàng: </strong>&nbsp;&nbsp;
-						</label>
-						<label for="">
-							{{this.customerID.firstName}} {{this.customerID.lastName}}
-						</label>
-					</div>
-					<div class="col-md-6">
-						<div class="ml-4 mr-4">
-							<label for="reception">
-								<strong>Lễ tân:</strong>&nbsp;&nbsp;
-							</label>
-							<label for="reception-name">
-								<em>{{this.recept.firstName}}{{this.recept.lastName}}</em>
-							</label>
-						</div>
-					</div>
+				<div class="d-flex justify-content-between justify-content-sm-start">
+					<label for="status">
+						<strong>Trạng thái:</strong>&nbsp;
+					</label>
+					<label class="text-right text-danger"><em>{{this.status}}</em></label>
 				</div>
-				<div class="row mt-3">
-					<div class="col-md-6">
-						<div class="text-left ml-4">
-							<label for="service">
-								<strong>Dịch vụ đã sử dụng:</strong>&nbsp;&nbsp;
-							</label>
-
-						</div>
-					</div>
-
-					<div class="col-md-6 ">
-						<div class="ml-4 mr-4">
-							<label for="service-name">
-								<em>{{this.serviceNoteId.service}}</em>
-							</label>
-						</div>
-
-					</div>
+				<div class="d-flex justify-content-between justify-content-sm-start">
+					<label for="status">
+						<strong>Khách hàng:</strong>&nbsp;
+					</label>
+					<label class="text-right text-primary">{{this.customerID.firstName}} {{this.customerID.lastName}}</label>
+				</div>
+				<div class="d-flex justify-content-between justify-content-sm-start">
+					<label for="status">
+						<strong>Lễ tân:</strong>&nbsp;
+					</label>
+					<label class="text-right text-primary"><em>{{this.recept.firstName}} {{this.recept.lastName}}</em></label>
+				</div>
+				<div class="d-flex justify-content-between justify-content-sm-start">
+					<label for="status">
+						<strong>Dịch vụ đã sử dụng:</strong>&nbsp;
+					</label>
+					<label class="text-right text-primary"><em>{{this.serviceNoteId.service}}</em></label>
 				</div>
 				<hr>
 				<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
 					aria-labelledby="pills-home-tab">
 					<form method="POST" id="submit-re-exam-form">
-						<div class="row mt-4">
-							<div class="col-md-6">
-								<div class="text-left ml-4">
-									<label for="status">
-										<strong>Bác sĩ: </strong>
-									</label>
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="ml-4 mr-4">
-									<label class="text-primary">
-										{{#each this.performer}}
-										<input hidden type="text" name="operatingID[]" value="{{this._id}}">
-										<em>{{this.firstName}} {{this.lastName}};</em>
-										{{/each}}
-									</label>
-								</div>
-							</div>
+						<div class="d-flex justify-content-between justify-content-sm-start">
+							<label for="status">
+								<strong>Bác sĩ:</strong>&nbsp;
+							</label>
+							<label class="text-right text-primary">
+								{{#each this.performer}}
+								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+								<em>{{this.firstName}} {{this.lastName}};</em>
+								{{/each}}
+							</label>
 						</div>
-						<div class="row mt-4">
-							<div class="col-md-6">
-								<div class="text-left ml-4">
-									<label for="service">
-										<strong>Y tá:</strong>
-									</label>
-								</div>
+						<div class="d-flex justify-content-between justify-content-sm-start">
+							<label for="status">
+								<strong>Điều dưỡng:</strong>&nbsp;
+							</label>
+							<label class="text-right text-primary">
+								{{#each this.nursing}}
+								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+								<em>{{this.firstName}} {{this.lastName}};</em>
+								{{/each}}
+							</label>
+						</div>
+						<div class="row">
+							<div class="">
+								<label for="steps-to-take-area"><strong>Các bước thực hiện</strong></label>
 							</div>
-
-							<div class="col-md-6">
-								<div class="ml-4 mr-4">
-									<label class="text-primary">
-										{{#each this.nursing}}
-										<input hidden type="text" name="operatingID[]" value="{{this._id}}">
-										<em>{{this.firstName}} {{this.lastName}};</em>
-										{{/each}}
-									</label>
-								</div>
+							<div class="">
+								<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" name="stepsToTake" id="steps-to-take-area" cols="30" rows="8"></textarea>
 							</div>
 						</div>
 					</form>
-					<div class="row mt-4">
-						<div class="col-md-6">
-							<div class="text-left ml-4">
-								<label for="service">
-									<strong>Ghi chú:</strong>
-								</label>
-							</div>
+					<div class="row mt-3">
+						<div class="">
+							<label for="comments"><strong>Ghi chú:</strong></label>
 						</div>
-						<div class="col-md-6">
-							<div class="ml-4 mr-4">
-								{{#each this.comments}}
-								<label class="">
-									<em>{{this.comment}}</em>
-								</label>
-								{{else}}
-								<label class="">
-									<em>Không có ghi chú</em>
-								</label>
-								{{/each}}
-							</div>
+						<div class="">
+							{{#if this.comments}}
+							{{#each this.comments}}
+							<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" id="comments" cols="30" rows="8" disabled>{{this.comment}}</textarea>
+							{{/each}}
+							{{else}}
+							<label class="">
+								<em>Không có ghi chú</em>
+							</label>
+							{{/if}}
 						</div>
 					</div>
-
 				</div>
 
 				<div class="tab-pane fade" id="pills-counselor-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="ml-3 mr-3">
+					<div class="">
 						<a data-bs-toggle="collapse" href="#counselor-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="counselor-img">
 							Xem ảnh <i class="ti-arrow-circle-down"></i>
 						</a>
@@ -190,7 +181,7 @@
 									{{#each this.serviceNoteId.counselorImg}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											<img src="/mnt/vdb/crm.drtuananh.vn/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
 										</figure>
 									</div>
 									{{/each}}
@@ -203,8 +194,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="ml-3 mr-3">
-						<a class="mt-3" data-bs-toggle="collapse" href="#counselor-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="counselor-video">
+					<div>
+						<a data-bs-toggle="collapse" href="#counselor-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="counselor-video">
 							Xem video <i class="ti-arrow-circle-down"></i>
 						</a>
 						<div class="collapse mt-3 mb-3" id="counselor-video-{{this._id}}">
@@ -214,7 +205,7 @@
 									{{#each this.serviceNoteId.counselorVideo}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											<video src="/mnt/vdb/crm.drtuananh.vn/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
 										</figure>
 									</div>
 									{{/each}}
@@ -230,7 +221,7 @@
 				</div>
 
 				<div class="tab-pane fade" id="pills-before-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="ml-3 mr-3">
+					<div>
 						<a data-bs-toggle="collapse" href="#before-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="before-img">
 							Xem ảnh <i class="ti-arrow-circle-down"></i>
 						</a>
@@ -241,7 +232,7 @@
 									{{#each this.serviceNoteId.beforeImg}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<img src="/before/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											<img src="/mnt/vdb/crm.drtuananh.vn/before/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
 										</figure>
 									</div>
 									{{/each}}
@@ -254,8 +245,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="ml-3 mr-3">
-						<a class="mt-3" data-bs-toggle="collapse" href="#before-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="before-video">
+					<div>
+						<a data-bs-toggle="collapse" href="#before-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="before-video">
 							Xem video <i class="ti-arrow-circle-down"></i>
 						</a>
 						<div class="collapse mt-3 mb-3" id="before-video-{{this._id}}">
@@ -265,7 +256,7 @@
 									{{#each this.serviceNoteId.beforeVideo}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<video src="/before/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											<video src="/mnt/vdb/crm.drtuananh.vn/before/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
 										</figure>
 									</div>
 									{{/each}}
@@ -281,7 +272,7 @@
 				</div>
 
 				<div class="tab-pane fade" id="pills-after-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="ml-3 mr-3">
+					<div>
 						<a data-bs-toggle="collapse" href="#after-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="after-img">
 							Xem ảnh <i class="ti-arrow-circle-down"></i>
 						</a>
@@ -292,7 +283,7 @@
 									{{#each this.serviceNoteId.afterImg}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<img src="/after/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											<img src="/mnt/vdb/crm.drtuananh.vn/after/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
 										</figure>
 									</div>
 									{{/each}}
@@ -305,8 +296,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="ml-3 mr-3">
-						<a class="mt-3" data-bs-toggle="collapse" href="#after-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="after-video">
+					<div>
+						<a data-bs-toggle="collapse" href="#after-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="after-video">
 							Xem video <i class="ti-arrow-circle-down"></i>
 						</a>
 						<div class="collapse mt-3 mb-3" id="after-video-{{this._id}}">
@@ -316,7 +307,7 @@
 									{{#each this.serviceNoteId.afterVideo}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<video src="/after/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											<video src="/mnt/vdb/crm.drtuananh.vn/after/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
 										</figure>
 									</div>
 									{{/each}}
@@ -332,7 +323,7 @@
 				</div>
 
 				<div class="tab-pane fade" id="pills-re-exam-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="ml-3 mr-3">
+					<div>
 						<a data-bs-toggle="collapse" href="#re-examination-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="re-examination-img">
 							Xem ảnh <i class="ti-arrow-circle-down"></i>
 						</a>
@@ -343,7 +334,7 @@
 									{{#each this.reExamImg}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<img src="/re-examination/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											<img src="/mnt/vdb/crm.drtuananh.vn/re-examination/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
 										</figure>
 									</div>
 									{{/each}}
@@ -356,8 +347,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="ml-3 mr-3">
-						<a class="mt-3" data-bs-toggle="collapse" href="#re-examination-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="re-examination-video">
+					<div>
+						<a data-bs-toggle="collapse" href="#re-examination-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="re-examination-video">
 							Xem video <i class="ti-arrow-circle-down"></i>
 						</a>
 						<div class="collapse mt-3 mb-3" id="re-examination-video-{{this._id}}">
@@ -367,7 +358,7 @@
 									{{#each this.reExamVideo}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<video src="/re-examination/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											<video src="/mnt/vdb/crm.drtuananh.vn/re-examination/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
 										</figure>
 									</div>
 									{{/each}}
@@ -388,17 +379,17 @@
 							<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
 							<div class="col-sm-6">
 								<label for="input-multi-images-before" 
-								class="label-avt btn-upload-mobile mt-4 ml-3">
+								class="label-avt btn-upload-mobile mt-3">
 									<h6>Chọn ảnh tái khám</h6>
 								</label>
-								<div class="input-images-re-examination mt-2 ml-3 mr-3"></div>
+								<div class="input-images-re-examination mt-2"></div>
 							</div>
 							<div class="col-sm-6">
 								<label for="input-multi-videos-before"
-									class="label-avt btn-upload-mobile mt-4 ml-3">
+									class="label-avt btn-upload-mobile mt-3">
 									<h6>Chọn video tái khám</h6>
 								</label>
-								<div class="input-videos-re-examination mt-2 ml-3 mr-3"></div>
+								<div class="input-videos-re-examination mt-2"></div>
 							</div>
 						</div>
 						{{!-- <div class="row mt-3">
@@ -424,32 +415,27 @@
 				</div>
 			</div>
 
-			<hr>
-
-			<div class="row">
-				<div class="col-md-6">
-					<div class="text-left ml-4">
-						<label for="service">
-							<strong>Tổng cộng:</strong>&nbsp;&nbsp;
-						</label>
-						<label for="">
-							<em>
-								{{this.price}} VND
-							</em>
-						</label>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal"
-					class="btn btn-success btn-mobile offset-md-9" data-id="{{this._id}}">Hoàn thành</button>
+			<div class="d-flex justify-content-between justify-content-sm-end mt-3">
+				<label for="status">
+					<strong>Phí dịch vụ:</strong>&nbsp;
+				</label>
+				<label class="text-danger text-right">
+					{{#if this.price}}
+					{{this.price}} VND
+					{{else}}
+					0 VND
+					{{/if}}
+				</label>
 			</div>
 		</div>
-		{{else}}
-		<div class="text-center">Chưa có dịch vụ cần thực hiện.</div>
-		{{/each}}
-
+		<div class="card-footer bg-transparent d-flex justify-content-end">
+			<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal"
+				class="btn btn-success btn-mobile" data-id="{{this._id}}">Hoàn thành</button>
+		</div>
 	</div>
+	{{else}}
+	<div class="text-center">Chưa có dịch vụ cần thực hiện.</div>
+	{{/each}}
 </div>
 {{!-- Complete re-exam --}}
 <div class="modal fade" id="submit-re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

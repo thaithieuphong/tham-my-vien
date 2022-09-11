@@ -3,6 +3,7 @@ const path = require('path');
 const rootPath = path.sep;
 const User = require('../app/models/User');
 const Customer = require('../app/models/Customer');
+const appRoot = require('app-root-path');
 
 // create avatar customer    
 const storageCustomerAvt = multer.diskStorage({
@@ -19,10 +20,10 @@ const storageCustomerAvt = multer.diskStorage({
 const counselorUpload = multer.diskStorage({
     destination: function(req, file, cb) {
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/counselor/img');
+            cb(null, appRoot + '/src/public/counselor/img');
         } 
         else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/counselor/video');
+            cb(null, appRoot + '/src/public/counselor/video');
         }
     },
 
@@ -83,10 +84,12 @@ const counselorUpload = multer.diskStorage({
 const beforeUpload = multer.diskStorage({
     destination: function(req, file, cb) {
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/before/img');
+            cb(null, appRoot + '/src/public/before/img');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/before/img');
         } 
         else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/before/video');
+            cb(null, appRoot + '/src/public/before/video');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/before/video');
         } 
     },
 
@@ -147,9 +150,11 @@ const beforeUpload = multer.diskStorage({
 const afterUpload = multer.diskStorage({
     destination: function(req, file, cb) {
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/after/img');
+            cb(null, appRoot + '/src/public/after/img');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/after/img');
         } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/after/video');
+            cb(null, appRoot + '/src/public/after/video');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/after/video');
         }
     },
 
@@ -210,9 +215,11 @@ const afterUpload = multer.diskStorage({
 const reExaminationUpload = multer.diskStorage({
     destination: function(req, file, cb) {
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/img');
+            cb(null, appRoot + '/src/public/re-examination/img');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/img');
         } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/video');
+            cb(null, appRoot + '/src/public/re-examination/video');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/video');
         }
     },
 

@@ -1,6 +1,5 @@
 
 function validate(formSelector) {
-    console.log('formSelector', formSelector);
     function getParent (element, selector) {
         elementParent = element.parentElement;
         while (elementParent) {
@@ -118,7 +117,6 @@ function validate(formSelector) {
         var inputs = document.querySelectorAll('[name][rules]');
         var isValid = true;
         for (var input of inputs) {
-            console.log(input.value)
             if (!handleEmptyInput({target: input})) {
                 isValid = false;
             };

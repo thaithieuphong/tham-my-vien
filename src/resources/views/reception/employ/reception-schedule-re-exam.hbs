@@ -1,115 +1,109 @@
-<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
-    <div class="title">
-
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <h3 class="title text-light">Quản lý phiếu tái khám</h3>
-
-    <div class="stask">
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/reception/employ" class="sidebar-item-title pl-3">
+                <i class="ti-receipt mr-3"></i>Phiếu phẩu thuật
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/reception/employ/re-exam" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Phiếu tái khám
+            </a>
+        </div>
     </div>
-</nav>
-{{> page/sidebar/reception/sidebar-employ-reception-re-exam}}
+	<div class="offcanvas-footer bg-dark border-top">
+        <div class="sidebar-item">
+            <a href="/reception/employ/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-dark">
+        <div class="img-container">
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+</div>
 <div class="container-fluid mt-3">
-    <div class="container-card text-center">
-        <strong>
-            <h4>
-                <div class="fw-bold ml-3">
-                    PHIẾU TÁI KHÁM
-                </div>
-            </h4>
-        </strong>
-    </div>
-    <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names..">
     <div id="search-items">
         <div class="row">
             {{#each reexams}}
-            <div class="col-md-6">
-                <div class="ml-2 mr-2" id="service-note-render-form">
-                    <div class="shadow-lg p-3 mb-3 bg-body rounded card">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5>
-                                    <em>
-                                        <strong>
-                                            <label name="schedule" class="form-label text-success">{{formatDate
-                                                this.schedule}}</label>
-                                        </strong>
-                                    </em>
-                                </h5>
-                            </div>
-                            <div class="col-md-6">
-                                <strong name="status" class="form-label text-danger">{{this.status}}</strong>
-                            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+                <div class="card mb-3">
+                    <div class="card-header bg-transparent">
+                        <div class="d-flex justify-content-between">
+                            <strong>
+                                <label name="schedule" class="form-label text-success">{{formatDate this.schedule}}</label>
+                            </strong>
+                            <strong name="status" class="form-label text-danger">{{this.status}}</strong>
                         </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-5 ">
-                                <strong>
-                                    <label class="form-label">Khách hàng: </label>
-                                </strong>
-                            </div>
-                            <div class="col-sm-7 text-name">
-                                <em>
-                                    <label class="text-primary form-label text-uppercase">{{this.customerID.firstName}}
-                                        {{this.customerID.lastName}}</label>
-                                </em>
-                            </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <strong>
+                                <label class="form-label">Khách hàng: </label>
+                            </strong>
+                            <label class="text-primary form-label">
+                                {{this.customerID.firstName}} {{this.customerID.lastName}}
+                            </label>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 row">
-                                <div class="col-sm-6">
-                                    <strong>
-                                        <label class="form-label">Giới tính: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-sm-6">
-                                    <em>
-                                        <label class="form-label">{{this.customerID.gender}}</label>
-                                    </em>
-                                </div>
-                            </div>
-                            <div class="col-md-6 row">
-                                <div class="col-sm-6 ">
-                                    <strong>
-                                        <label class="form-label">Liên hệ: </label>
-                                    </strong>
-                                </div>
-                                <div class="col-sm-6">
-                                    <em>
-                                        <label
-                                            class="text-primary form-label text-uppercase">0{{this.customerID.phone}}</label>
-                                    </em>
-                                </div>
-                            </div>
-
+                        <div class="d-flex justify-content-between">
+                            <strong>
+                                <label class="form-label">Giới tính: </label>
+                            </strong>
+                            <label class="form-label">{{this.customerID.gender}}</label>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <strong>
-                                    <label class="form-label">Dịch vụ đã sử dụng: </label>
-                                </strong>
-                            </div>
-                            <div class="col-sm-7">
-                                <em>
-                                    <label class="form-label">{{this.serviceNoteId.service}}</label>
-                                </em>
-                            </div>
+                        <div class="d-flex justify-content-between">
+                            <strong>
+                                <label class="form-label">Liên hệ: </label>
+                            </strong>
+                            <label class="text-primary form-label">
+                                0{{this.customerID.phone}}
+                            </label>
                         </div>
-
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
-                                data-bs-target="#add-performer-re-exam-modal" data-re-exam-id="{{this._id}}"
-                                data-re-exam-customerID="{{this.customerID._id}}"
-                                data-re-exam-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
-                                data-re-exam-birth="{{this.customerID.birth}}"
-                                data-re-exam-gender="{{this.customerID.gender}}"
-                                data-re-exam-email="{{this.customerID.email}}"
-                                data-re-exam-phone="{{this.customerID.phone}}"
-                                data-re-exam-address="{{this.customerID.address}}"
-                                data-re-exam-createName="{{this.createName.firstName}} {{this.createName.lastName}}"
-                                data-re-exam-service="{{this.serviceNoteId.service}}"
-                                data-re-exam-schedule="{{this.schedule}}" {{#each comments}}
-                                data-re-exam-comment="{{this.comment}}" {{/each}}>Đặt bác sĩ</button>
+                        <div class="d-flex justify-content-between">
+                            <strong>
+                                <label class="form-label">Dịch vụ đã sử dụng: </label>
+                            </strong>
+                            <label class="form-label">{{this.serviceNoteId.service}}</label>
                         </div>
+                    </div>
+                    <div class="card-footer bg-transparent d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
+                            data-bs-target="#add-performer-re-exam-modal" data-re-exam-id="{{this._id}}"
+                            data-re-exam-customerID="{{this.customerID._id}}"
+                            data-re-exam-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
+                            data-re-exam-birth="{{this.customerID.birth}}"
+                            data-re-exam-gender="{{this.customerID.gender}}"
+                            data-re-exam-email="{{this.customerID.email}}"
+                            data-re-exam-phone="{{this.customerID.phone}}"
+                            data-re-exam-address="{{this.customerID.address}}"
+                            data-re-exam-createName="{{this.createName.firstName}} {{this.createName.lastName}}"
+                            data-re-exam-service="{{this.serviceNoteId.service}}"
+                            data-re-exam-schedule="{{this.schedule}}" {{#each comments}}
+                            data-re-exam-comment="{{this.comment}}" {{/each}}>
+                            Điều phối
+                        </button>
                     </div>
                 </div>
             </div>
@@ -309,7 +303,7 @@
                                 <label for="comment" class="form-label">
                                     <h6>Ghi chú: </h6>
                                 </label>
-                                <textarea class="form-control" id="add-performer-re-exam-comment" rows="6"
+                                <textarea class="form-control bg-white" id="add-performer-re-exam-comment" rows="6"
                                     name="comment" readonly></textarea>
                             </div>
                         </div>

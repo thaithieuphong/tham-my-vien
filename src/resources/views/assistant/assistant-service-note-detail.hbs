@@ -1,0 +1,454 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="sticky-top">
+	<div class="redirect-bar bg-primary">
+		<a class="ml-3 text-light" type="button" onclick="history.back()"><i class="ti-arrow-left"></i> Quay lại</a>
+	</div>
+</div>
+<div class="container mt-3 mb-3">
+    <div class="d-flex justify-content-between ml-3 mr-3">
+        <label><strong>Mã phiếu dịch vụ:</strong></label> <strong class="text-danger">{{serviceNote.serviceNoteId}}</strong>
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between ml-3 mr-3">
+        <label><strong>Mã khách hàng:</strong></label> <div class="text-primary">{{serviceNote.customerId}}</div>
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label><strong>Họ tên khách hàng:</strong></label> {{serviceNote.customerFullName}}
+    </div>
+    <hr class="text-primary">
+    <div class="mr-3 ml-3">
+        <label><strong>Mô tả khách hàng:</strong></label>
+        <p class="message-content">{{serviceNote.customerDescription}}</p>
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label><strong>Trạng thái:</strong></label> <div class="status">{{serviceNote.status}}</div>
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label><strong>Dịch vụ sử dụng:</strong></label> {{serviceNote.service}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label><strong>Ngày tạo phiếu:</strong></label> {{formatDate serviceNote.createdAt}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label><strong>Ngày hẹn:</strong></label> {{formatDate serviceNote.schedule}}
+    </div>
+    <hr class="text-primary">
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label><strong>Ngày hoàn thành:</strong></label> {{formatDate serviceNote.updatedAt}}
+    </div>
+    <hr class="text-primary">
+    {{#if serviceNote.price}}
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label><strong>Phí dịch vụ:</strong></label> {{serviceNote.price}}
+    </div>
+    {{else}}
+    <div class="d-flex justify-content-between mr-3 ml-3">
+        <label><strong>Phí dịch vụ:</strong></label> Chưa có phí dịch vụ
+    </div>
+    {{/if}}
+    <hr class="text-primary">
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Thông tin tư vấn: {{count serviceNote.customerComments}}
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body comment-ctv-page">
+                    {{#if serviceNote.customerComments}}
+                    {{#each serviceNote.customerComments}}
+                    <div class="mb-3 d-flex justify-content-between">
+                        <label><strong>Mã thông tin: </strong>{{this._id}}</label>
+                        <label><strong>Ngày tạo: </strong>{{formatDate this.createdAt}}</label>
+                    </div>
+                    <p class="message-content">{{this.comment}}</p>
+                    <hr class="text-primary">
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có thông tin tư vấn nào
+                    </p>
+                    {{/if}}	
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Thông tin nhân viên
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Mã nhân viên:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{serviceNote.createNameId}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Họ tên nhân viên:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{serviceNote.createNameFullName}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Bộ phận:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{serviceNote.createNameDepartment}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Chức vụ:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{serviceNote.createNamePosition}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                    Thông tin bác sĩ
+                </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {{#if serviceNote.performers}}
+                    {{#each serviceNote.performers}}
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Mã bác sĩ:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{this._id}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Họ tên bác sĩ:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{this.firstName}} {{this.lastName}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Bộ phận:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{this.department}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Chức vụ:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{this.position}}</label>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p>Chưa có thông tin</p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne4">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                    Thông tin điều dưỡng
+                </button>
+            </h2>
+            <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingOne4" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="card card-body">
+                        {{#if serviceNote.nursings}}
+                        {{#each serviceNote.nursings}}
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Mã điều dưỡng:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{this._id}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Họ tên điều dưỡng:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{this.firstName}} {{this.lastName}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Bộ phận:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{this.department}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Chức vụ:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{this.position}}</label>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p>Chưa có thông tin</p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo5">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+                    Các bước thực hiện
+                </button>
+            </h2>
+            <div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo5" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {{#if serviceNote.stepsToTake}}
+                        <p class="message-content" cols="30" rows="6" disabled>{{serviceNote.stepsToTake}}</p>
+                    {{else}}
+                    <p>Chưa có thông tin thực hiện</p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree6">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+                    Thông tin điều phối
+                </button>
+            </h2>
+            <div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingThree6" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="card card-body">
+                        {{#if serviceNote.receptId}}
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Mã điều dưỡng:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{serviceNote.receptId}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Họ tên điều dưỡng:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{serviceNote.receptFullName}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Bộ phận:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{serviceNote.receptDepartment}}</label>
+                        </div>
+                        <div class="d-flex justify-content-between justify-content-sm-start">
+                            <label for="status">
+                                <strong>Chức vụ:</strong>&nbsp;
+                            </label>
+                            <label id="add-performer-re-exam-address" name="address" readonly>{{serviceNote.receptPosition}}</label>
+                        </div>
+                        {{else}}
+                        <p>Chưa có thông tin</p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne7">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSeven" aria-expanded="false" aria-controls="flush-collapseSeven">
+                    Ghi chú
+                </button>
+            </h2>
+            <div id="flush-collapseSeven" class="accordion-collapse collapse" aria-labelledby="flush-headingOne7" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {{#if serviceNote.comments}}
+                    {{#each serviceNote.comments}}
+                    <div class="d-flex justify-content-between justify-content-sm-start">
+                        <label for="status">
+                            <strong>Mã ghi chú:</strong>&nbsp;
+                        </label>
+                        <label id="add-performer-re-exam-address" name="address" readonly>{{this._id}}</label>
+                    </div>
+                    <p class="message-content" disabled>{{this.comment}}</p>
+                    {{/each}}
+                    {{else}}
+                    <p>Không có ghi chú</p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo8">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEight" aria-expanded="false" aria-controls="flush-collapseEight">
+                    Hình ảnh tư vấn
+                </button>
+            </h2>
+            <div id="flush-collapseEight" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo8" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if serviceNote.counselorImg}}
+                        {{#each serviceNote.counselorImg}}
+                        <div class="col-md-4">
+                            <div class="img-container">
+                                <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có hình ảnh
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree9">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
+                    Video tư vấn
+                </button>
+            </h2>
+            <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingThree9" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if serviceNote.counselorVideo}}
+                        {{#each serviceNote.counselorVideo}}
+                        <div class="col-md-4">
+                            <div class=" img-container">
+                                <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có video
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne10">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTen" aria-expanded="false" aria-controls="flush-collapseTen">
+                Hình ảnh trước phẩu thuật
+            </button>
+            </h2>
+            <div id="flush-collapseTen" class="accordion-collapse collapse" aria-labelledby="flush-headingOne10" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if serviceNote.beforeImg}}
+                        {{#each serviceNote.beforeImg}}
+                        <figure class="col-md-4">
+                            <div class="figure img-container">
+                                <img src="/before/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                            </div>
+                        </figure>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có hình ảnh
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo11">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseEleven">
+                    Video trước phẩu thuật
+                </button>
+            </h2>
+            <div id="flush-collapseEleven" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo11" data-bs-parent="#accordionFlushExample">
+                <div class="row">    
+                    {{#if serviceNote.beforeVideo}}
+                    {{#each serviceNote.beforeVideo}}
+                    <div class="col-md-4">
+                        <figure class="figure img-container">
+                            <video src="/before/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                        </figure>
+                    </div>
+                    {{/each}}
+                    {{else}}
+                    <p class="text-center">
+                        Chưa có video
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree12">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTweel" aria-expanded="false" aria-controls="flush-collapseTweel">
+                    Hình ảnh sau phẩu thuật
+                </button>
+            </h2>
+            <div id="flush-collapseTweel" class="accordion-collapse collapse" aria-labelledby="flush-headingThree12" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if serviceNote.afterImg}}
+                        {{#each serviceNote.afterImg}}
+                        <div class="col-md-4">
+                            <figure class="figure img-container">
+                                <img src="/after/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                            </figure>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có hình ảnh
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingThree13">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThirty" aria-expanded="false" aria-controls="flush-collapseThirty">
+                    Video sau phẩu thuật
+                </button>
+            </h2>
+            <div id="flush-collapseThirty" class="accordion-collapse collapse" aria-labelledby="flush-headingThree13" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <div class="row">    
+                        {{#if serviceNote.afterVideo}}
+                        {{#each serviceNote.afterVideo}}
+                        <div class="col-md-4">
+                            <figure class="figure img-container">
+                                <video src="/after/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                            </figure>
+                        </div>
+                        {{/each}}
+                        {{else}}
+                        <p class="text-center">
+                            Chưa có video
+                        </p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/admin/admin-service-note-detail.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+	const textarea = document.querySelectorAll('.message-content');
+	for (i = 0; i < textarea.length; i++) {
+		let element = textarea[i];
+		let textValue = element.innerHTML;
+		let textSplit = textValue.split('\n');
+		let cols = textValue.length;
+		let rows = textSplit.length;
+		let result = textSplit.join('<br>');
+		element.innerHTML = result;
+		let parent = element.clientWidth;
+		let ex = parent - cols;
+	}
+})
+</script>

@@ -1,21 +1,52 @@
-<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
-	<div class="title">
-
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+		<div class="sidebar-item">
+            <a href="/marketing/manager/customers" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Quản lý khách hàng
+            </a>
+        </div>
+    </div>
+	<div class="offcanvas-footer bg-dark border-top">
+        <div class="sidebar-item">
+            <a href="/marketing/manager/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-dark">
+        <div class="img-container">
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+	<div class="redirect-bar bg-primary d-flex justify-content-between">
+		<div></div>
+		<a data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="text-light mr-3"><i class="ti-plus"></i> Tạo khách hàng</a>
 	</div>
-	<h3 class="title text-light">Quản lý khách hàng</h3>
-
-	<div class="stask">
-		<!-- Button trigger modal -->
-		<button data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="btn btn-primary btn-create">
-			Tạo khách hàng
-		</button>
-	</div>
-</nav>
-{{> page/sidebar/marketing/manager/sidebar-marketing-manager-customers}}
-<div class="container-fluid mt-3">
-	<div id="alert-message" class="alert alert-{{message.color}}" role="alert">
+</div>
+<div class="container-fluid content-container mt-3">
+	{{!-- <div id="alert-message" class="alert alert-{{message.color}}" role="alert">
 		{{message.content}}
-	</div>
+	</div> --}}
 	<div class="container-table">
 		<table id="customer_table" class="table table-hover table-bordered table-sm">
 			<thead class="table-info">
@@ -39,18 +70,17 @@
 							{{this.lastName}}</a></td>
 					<td class="text-center">{{this.birth}}</td>
 					<td class="text-center">{{this.gender}}</td>
-					<td class="text-center">{{this.phone}}</td>
+					<td class="text-center">0{{this.phone}}</td>
 					<td>{{this.email}}</td>
 					<td>{{this.address}}</td>
 					<td>{{this.description}}</td>
 					<td class="text-center">
-						<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit-customer-modal"
+						<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-customer-modal"
 							data-id="{{this._id}}" data-edit-img="{{this.image.name}}"
 							data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
 							data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
 							data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
-							data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">Sửa thông
-							tin</button>
+							data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">Sửa thông tin</button>
 					</td>
 				</tr>
 				{{/each}}
@@ -59,15 +89,24 @@
 	</div>
 	<div class="container-card">
 		{{#each customers}}
-		<div class="card text-dark bg-info mb-3">
+		<div class="card text-dark bg-light mb-3">
 			<div class="card-header">
-				<h5 class="card-title">{{this.firstName}} {{this.lastName}}</h5>
+				<h5 class="card-title"><a href="/marketing/manager/customers/{{this._id}}/detail"
+						class="text-success">{{this.firstName}} {{this.lastName}}</a></h5>
 			</div>
 			<div class="card-body">
 				<p class="card-text">Ngày sinh: {{this.birth}}</p>
 				<p class="card-text">Giới tính: {{this.gender}}</p>
+				<p class="card-text">SDT: 0{{this.phone}}</p>
 				<p class="card-text">Email: {{this.email}}</p>
-				<p class="card-text">Địa chỉ: {{this.address}}</p>
+				<p class="card-text">Mô tả: {{this.description}}</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary btn-mobile" data-bs-toggle="modal" data-bs-target="#edit-customer-modal"
+					data-id="{{this._id}}" data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
+					data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
+					data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
+					data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">Sửa</button>
 			</div>
 		</div>
 		{{/each}}
@@ -206,7 +245,7 @@
 					</div>
 					<div class="col-xl-9 mb-3">
 						<ul class="list-group">
-							<li class="list-group-item bg-info text-light">
+							<li class="list-group-item ">
 								<div class="row">
 									<div class="col-md-6">
 										<label for="edit-firstName" class="form-label">
@@ -274,7 +313,7 @@
 											<h6>Mô tả</h6>
 										</label>
 										<textarea class="form-control" id="edit-description" rows="6"
-											name="description" readonly></textarea>
+											name="description"></textarea>
 									</div>
 								</div>
 							</li>
@@ -290,6 +329,4 @@
 	</div>
 </div>
 
-
-
-<script src="/js/marketing/marketing-manager-customer.js"></script>
+<script src="/js/marketing/marketing-employ-customer.js"></script>

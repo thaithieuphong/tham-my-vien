@@ -1,19 +1,50 @@
-<nav id="sub-nav-lg" class="navbar taskbar justify-content-between">
-<div class="title">
-
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/human-resources/manager/users" class="sidebar-item-title pl-3">
+                <i class="ti-receipt mr-3"></i>Nhân viên
+            </a>
+        </div>
+    </div>
+	<div class="offcanvas-footer bg-dark border-top">
+        <div class="sidebar-item">
+            <a href="/human-resources/manager/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
 </div>
-<h3 class="title text-light">Quản lý nhân sự</h3>
-	<div class="stask mb-3">
-		<!-- Button trigger modal -->
-		<button data-bs-toggle="modal" data-bs-target="#create-user-modal" class="btn btn-primary btn-create">
-			<i class="ti-plus"></i>
-		</button>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-dark">
+        <div class="img-container">
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+	<div class="redirect-bar bg-primary d-flex justify-content-between">
+		<div></div>
+		<a data-bs-toggle="modal" data-position="{{filter positions}}" data-bs-target="#create-user-modal" class="text-light mr-3"><i class="ti-plus"></i> Tạo nhân viên</a>
 	</div>
-</nav>
-{{> page/sidebar/human-resource/manager/sidebar-hr-manager-user}}
-<a data-bs-toggle="modal" data-bs-target="#create-user-modal" class="addBtn-mobile"><i class="ti-plus"></i></a>
+</div>
 <div class="container-fluid mt-3">
-	<div class="container-table ml-3">
+	<div class="container-table">
 		<table id="user_table" class="table table-hover table-bordered table-sm">
 			<thead class="table-info">
 				<tr>
@@ -61,25 +92,59 @@
 		</table>
 	</div>
 	<div class="container-card">
-		<input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.." >
 		<div id="search-items">
 			{{#each users}}
-				<div class="card text-dark bg-light mb-3">
-					<div class="card-header">
+				<div class="card mb-3">
+					<div class="card-header bg-transparent">
 						<h5 class="card-title"><a href="/human-resources/manager/user/{{this._id}}/detail"
 								class="text-success">{{this.firstName}} {{this.lastName}}</a></h5>
 					</div>
 					<div class="card-body">
-						<p class="card-text">Phòng ban: {{this.department}}</p>
-						<p class="card-text">Vị trí: {{this.position}}</p>
-						<p class="card-text">Ngày sinh: {{ formatBirth this.birth}}</p>
-						<p class="card-text">Giới tính: {{this.gender}}</p>
-						<p class="card-text">SDT: 0{{this.phone}}</p>
-						<p class="card-text">Email: {{this.email}}</p>
-						<p class="card-text">Mô tả: {{this.description}}</p>
+						<div class="d-flex justify-content-between justify-content-sm-start">
+							<label for="status">
+								<strong>Phòng ban:</strong>&nbsp;
+							</label>
+							<label class="text-right text-primary"><em>{{this.department}}</em></label>
+						</div>
+						<div class="d-flex justify-content-between justify-content-sm-start">
+							<label for="status">
+								<strong>Vị trí:</strong>&nbsp;
+							</label>
+							<label class="text-right text-primary"><em>{{this.position}}</em></label>
+						</div>
+						<div class="d-flex justify-content-between justify-content-sm-start">
+							<label for="status">
+								<strong>Ngày sinh:</strong>&nbsp;
+							</label>
+							<label class="text-right text-primary"><em>{{formatBirth this.birth}}</em></label>
+						</div>
+						<div class="d-flex justify-content-between justify-content-sm-start">
+							<label for="status">
+								<strong>Giới tính:</strong>&nbsp;
+							</label>
+							<label class="text-right text-primary"><em>{{this.gender}}</em></label>
+						</div>
+						<div class="d-flex justify-content-between justify-content-sm-start">
+							<label for="status">
+								<strong>Số điện thoại:</strong>&nbsp;
+							</label>
+							<label class="text-right text-primary"><em>0{{this.phone}}</em></label>
+						</div>
+						<div class="d-flex justify-content-between justify-content-sm-start">
+							<label for="status">
+								<strong>Email:</strong>&nbsp;
+							</label>
+							<label class="text-right text-primary"><em>{{this.email}}</em></label>
+						</div>
+						<div class="d-flex justify-content-between justify-content-sm-start">
+							<label for="status">
+								<strong>Mô tả:</strong>&nbsp;
+							</label>
+						</div>
+						<label class="text-right text-primary"><em>{{this.description}}</em></label>
 					</div>
-					<div class="modal-footer">
-						<button class="btn btn-info btn-sm btn-mobile" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
+					<div class="card-footer bg-transparent">
+						<button class="btn btn-info btn-mobile mb-1" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
 							data-id="{{this._id}}" data-edit-img="{{this.image.name}}"
 							data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
 							data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
@@ -87,7 +152,7 @@
 							data-edit-department="{{this.department}}" data-edit-position="{{this.position}}"
 							data-edit-account="{{this.account}}" data-edit-address="{{this.address}}"
 							data-edit-description="{{this.description}}">Sửa</button>
-						<button class="btn btn-danger btn-sm btn-mobile" data-bs-toggle="modal" data-bs-target="#delete-user-modal"
+						<button class="btn btn-danger btn-mobile mb-1" data-bs-toggle="modal" data-bs-target="#delete-user-modal"
 							data-delete-id="{{this._id}}" data-delete-firstname="{{this.firstName}}"
 							data-delete-lastname="{{this.lastName}}">Xóa</button>
 					</div>
@@ -254,7 +319,7 @@
 											aria-label=".form-select-sm example" name="position">
 											<option value="" selected>-- Chọn chức vụ --</option>
 											{{#each positions}}
-											<option value="{{this.name}}">{{this.name}}</option>
+											<option class="off" value="{{this.name}}">{{this.name}}</option>
 											{{/each}}
 										</select>
 									</div>
@@ -399,9 +464,11 @@
 										<select id="edit-user-position" class="form-select form-select-sm"
 											aria-label=".form-select-sm example" name="position">
 											<option value="" selected>-- Chọn chức vụ --</option>
-											{{#each positions}}
+											{{!-- {{#each departments}}
+											{{#each this.positionID}}
 											<option value="{{this.name}}">{{this.name}}</option>
 											{{/each}}
+											{{/each}} --}}
 										</select>
 									</div>
 								</div>

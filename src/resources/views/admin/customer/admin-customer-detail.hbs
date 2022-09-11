@@ -1,59 +1,12 @@
 <link rel="stylesheet" href="/css/admin.css">
+<link rel="stylesheet" href="/css/assistant.css">
 <div class="sticky-top">
-	<nav class="navbar navbar-light bg-dark">
-		<button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
-			data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
-				class="ti-angle-double-right"></i></button>
-		<div class="">
-			{{#if admin.image.name}}
-			<a class="text-light" href="/administrator/profile">{{admin.firstName}} {{admin.lastName}}<img
-					class="img-icon ml-2 mr-3" src="/img/uploads/users/{{admin.image.name}}" alt=""></a>
-			{{else}}
-			<a class="text-light" href="/administrator/profile">{{admin.firstName}} {{admin.lastName}}<img
-					class="img-icon ml-2 mr-3" src="/img/user-icon.png" alt=""></a>
-			{{/if}}
-			<div />
-	</nav>
-	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
-		aria-labelledby="offcanvasWithBackdropLabel">
-		<div class="offcanvas-header bg-dark border-bottom">
-			<h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
-			<button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-		</div>
-		<div class="offcanvas-body container-sidebar bg-dark">
-			{{!-- <div class="sidebar-item">
-				<a href="/admin/dashboard" class="sidebar-item-title pl-3">
-					<i class="ti-dashboard mr-3"></i>Báo cáo thống kê
-				</a>
-			</div> --}}
-			<div class="sidebar-item">
-				<a href="/administrator/customer" class="sidebar-item-title pl-3">
-					<i class="ti-user mr-3 active"></i>Khách hàng
-				</a>
-			</div>
-			<div class="sidebar-item">
-				<a href="/administrator/service-note" class="sidebar-item-title pl-3">
-					<i class="ti-cut mr-3"></i>Phiếu dịch vụ
-				</a>
-			</div>
-			<div class="sidebar-item">
-				<a href="/administrator/re-examination" class="sidebar-item-title pl-3">
-					<i class="ti-clipboard mr-3"></i>Phiếu tái khám
-				</a>
-			</div>
-			{{!-- <div class="sidebar-item">
-				<a href="/admin/user" class="sidebar-item-title pl-3">
-					<i class="ti-headphone-alt mr-3"></i>Nhân viên
-				</a>
-			</div> --}}
-		</div>
-	</div>
 	<div class="redirect-bar bg-primary">
-		<a class="ml-3 text-light" type="button" onclick="history.back()"><i class="ti-back-left"></i> Quay lại</a>
+		<a class="ml-3 text-light" type="button" onclick="history.back()"><i class="ti-arrow-left"></i> Quay lại</a>
 	</div>
 </div>
-<div class="container">
-	<div class="customer-detail ml-3 mt-3">
+<div class="container mt-3 mb-3">
+	<div class="customer-detail ml-3">
 		<div class="d-flex justify-content-between">
 			<label class="text-dark">Mã khách hàng:</label><p class="text-danger">{{customer._id}}</p>
 		</div>
@@ -87,71 +40,98 @@
 		</div>
 		<hr class="text-primary">
 		<div class="d-flex justify-content-between">
-			<label class="text-dark">Mã nhân viên:</label> <a href="/admin/user/{{customer.userID}}/detail">{{customer.userID}}</a>
+			<label class="text-dark">Mã nhân viên:</label> <a href="">{{customer.userID}}</a>
 		</div>
 		<hr class="text-primary">
-		<div>
-			<a data-bs-toggle="collapse" href="#service-notes" role="button" aria-expanded="false" aria-controls="service-notes">
-				+ Phiếu dịch vụ: {{count customer.serviceNoteID}}
-			</a>
-			<div class="collapse mt-3" id="service-notes">
-				<div class="card card-body">	
-					{{#if customer.serviceNoteID}}
-					{{#each customer.serviceNoteID}}
-						<p>{{sum @index 1}}. <a href="/admin/service-note/{{this._id}}">{{this._id}}</a></p>
-					{{/each}}
-					{{else}}
-					<p class="text-center">
-						Chưa có phiếu dịch vụ nào
-					</p>
-					{{/if}}
+		<div class="accordion accordion-flush" id="accordionFlushExample">
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="flush-headingOne">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+						Phiếu dịch vụ: {{count customer.serviceNoteID}}
+					</button>
+				</h2>
+				<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="card card-body">	
+							{{#if customer.serviceNoteID}}
+							{{#each customer.serviceNoteID}}
+								<p>{{sum @index 1}}. <a href="/admin/service-note/{{this._id}}">{{this._id}}</a></p>
+							{{/each}}
+							{{else}}
+							<p class="text-center">
+								Chưa có phiếu dịch vụ nào
+							</p>
+							{{/if}}
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="mb-3 mt-3">
-			<a data-bs-toggle="collapse" href="#re-examinations" role="button" aria-expanded="false" aria-controls="collapseExample">
-				+ Phiếu tái khám: {{count customer.reexamID}}
-			</a>
-			<div class="collapse mt-3" id="re-examinations">
-				<div class="card card-body">	
-					{{#if customer.reexamID}}
-					{{#each customer.reexamID}}
-						<p>{{sum @index 1}}. <a href="/admin/re-examination/{{this._id}}">{{this._id}}</a></p>
-					{{/each}}
-					{{else}}
-					<p class="text-center">
-						Chưa có phiếu tái khám nào
-					</p>
-					{{/if}}
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="flush-headingTwo">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+						Phiếu tái khám: {{count customer.reexamID}}
+					</button>
+				</h2>
+				<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="card card-body">	
+							{{#if customer.reexamID}}
+							{{#each customer.reexamID}}
+								<p>{{sum @index 1}}. <a href="/admin/re-examination/{{this._id}}">{{this._id}}</a></p>
+							{{/each}}
+							{{else}}
+							<p class="text-center">
+								Chưa có phiếu tái khám nào
+							</p>
+							{{/if}}
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="customer-comments">
-			<a data-bs-toggle="collapse" href="#comments" role="button" aria-expanded="false" aria-controls="collapseExample">
-					+ Hoạt động: {{count customer.comments}}
-			</a>
-			<div class="collapse mt-3" id="comments">
-				<div class="card card-body overflow-info">
-					{{#each customer.comments}}
-					<ul class="list-group mb-3">
-						<li class="list-group-item">
-							<div class="me-auto">
-								<label class="text-dark">Mã hoạt động:</label> <em class="text-danger">{{this._id}}</em>
-							</div>
-							<div>
-								<label class="text-dark">Ngày tạo:</label> <em class="text-info">{{formatDate this.createdAt}}</em>
-							</div>
-							<div>
-								<label class="word-wrap text-dark">Nội dung:</label>
-								<div class="border pl-2 mb-2">
-									{{this.comment}}
-								</div>
-							</div>
-						</li>
-					</ul>
-					{{/each}}
+			<div class="accordion-item">
+				<h2 class="accordion-header" id="flush-headingThree">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+						Hoạt động: {{count customer.comments}}
+					</button>
+				</h2>
+				<div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="card card-body">
+							<ul class="list-group border comment-ctv-page">
+								{{#each customer.comments}}
+								<li id="width-li" class="list-group bg-white ml-2 mr-2">
+									<small>
+										<p id="createdAt" class="none-mb comment-createdAt text-nowrap text-danger"><em>{{this._id}}</em></p>
+									</small>
+									<p class="message-content">{{this.comment}}</p>
+									<small>
+										<p id="createdAt" class="none-mb comment-createdAt text-nowrap text-right"><em>{{formatDate
+											this.createdAt}}</em></p>
+									</small>
+								</li>
+								<hr>
+								{{/each}}
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+	const textarea = document.querySelectorAll('.message-content');
+	for (i = 0; i < textarea.length; i++) {
+		let element = textarea[i];
+		let textValue = element.innerHTML;
+		let textSplit = textValue.split('\n');
+		let cols = textValue.length;
+		let rows = textSplit.length;
+		let result = textSplit.join('<br>');
+		element.innerHTML = result;
+		let parent = element.clientWidth;
+		let ex = parent - cols;
+	}
+})
+</script>

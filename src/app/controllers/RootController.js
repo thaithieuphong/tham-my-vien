@@ -71,6 +71,9 @@ class RootController {
 			User.findById({ _id: req.userId })
 		])
 			.then(([users, departments, positions, roles, root]) => {
+				console.log('departments', departments);
+				console.log('departments', positions);
+				console.log('departments', roles);
 				res.render("root/root-users", {
 					users: multipleMongooseToObject(users),
 					departments: multipleMongooseToObject(departments),
@@ -259,7 +262,7 @@ class RootController {
                     intro: 'Chúc mừng! ',
                     message: 'Sửa thông tin thành công',
                 }
-                res.redirect("/root/user");
+                res.redirect("/god/user");
             })
             .catch(next);
         } else {
@@ -270,7 +273,7 @@ class RootController {
                         intro: 'Chúc mừng! ',
                         message: 'Sửa thông tin thành công',
                     }
-                    res.redirect("/root/user");
+                    res.redirect("/god/user");
                 })
                 .catch(next);
         }

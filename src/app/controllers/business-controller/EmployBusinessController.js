@@ -35,6 +35,10 @@ class EmployBusinessController {
 		Promise.all([Customer.find({ userID: req.userId }), User.findById({ _id: req.userId }),
 		TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
+				customers.map(customer => {
+
+					console.log(customer.image.name)
+				})
 				res.render("business/employ/employ-customer", {
 					customers: multipleMongooseToObject(customers),
 					user: mongooseToObject(user),
