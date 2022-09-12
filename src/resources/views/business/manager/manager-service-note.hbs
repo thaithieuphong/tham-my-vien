@@ -146,21 +146,21 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion accordion-flush" id="accordionFlush-new{{this._id}}">
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-headingOne">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            <h2 class="accordion-header" id="flush-counselor-img-{{this._id}}">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-counselor-img{{this._id}}" aria-expanded="false" aria-controls="flush-counselor-img{{this._id}}">
                                                 Hình ảnh
                                             </button>
                                             </h2>
-                                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                            <div id="flush-counselor-img{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-img-{{this._id}}" data-bs-parent="#accordionFlush-new{{this._id}}">
                                                 <div class="accordion-body">
                                                     <div class="row">    
                                                         {{#if this.counselorImg}}
                                                         {{#each this.counselorImg}}
                                                         <div class="col-lg-3">
                                                             <figure class="figure imgbox">
-                                                                <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+                                                                <img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
                                                             </figure>
                                                         </div>
                                                         {{/each}}
@@ -174,19 +174,19 @@
                                             </div>
                                         </div>
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-headingTwo">
-                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                            <h2 class="accordion-header" id="flush-counselor-video-{{this._id}}">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-counselor-video{{this._id}}" aria-expanded="false" aria-controls="flush-counselor-video{{this._id}}">
                                                 Video
                                             </button>
                                             </h2>
-                                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                            <div id="flush-counselor-video{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-video-{{this._id}}" data-bs-parent="#accordionFlush-new{{this._id}}">
                                                 <div class="accordion-body">
                                                     <div class="row">    
                                                         {{#if this.counselorVideo}}
                                                         {{#each this.counselorVideo}}
                                                         <div class="col-lg-3">
                                                             <figure class="figure imgbox">
-                                                                <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+                                                                <video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
                                                             </figure>
                                                         </div>
                                                         {{/each}}
@@ -200,54 +200,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{!-- <div>
-                                        <a data-bs-toggle="collapse" href="#counselor-img-new" role="button" aria-expanded="false" aria-controls="counselor-img-new">
-                                            <i class="ti-plus"></i> Hình ảnh tư vấn:
-                                        </a>
-                                        <div class="collapse mt-3 mb-3" id="counselor-img-new">
-                                            <div class="card card-body">
-                                                <div class="row">    
-                                                    {{#if this.counselorImg}}
-                                                    {{#each this.counselorImg}}
-                                                    <div class="col-lg-3">
-                                                        <figure class="figure imgbox">
-                                                            <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-                                                        </figure>
-                                                    </div>
-                                                    {{/each}}
-                                                    {{else}}
-                                                    <p class="text-center">
-                                                        Chưa có ảnh
-                                                    </p>
-                                                    {{/if}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <a data-bs-toggle="collapse" href="#counselor-video-new" role="button" aria-expanded="false" aria-controls="counselor-video-new">
-                                            <i class="ti-plus"></i> Video tư vấn:
-                                        </a>
-                                        <div class="collapse mt-3 mb-3" id="counselor-video-new">
-                                            <div class="card card-body">
-                                                <div class="row">    
-                                                    {{#if this.counselorVideo}}
-                                                    {{#each this.counselorVideo}}
-                                                    <div class="col-lg-3">
-                                                        <figure class="figure imgbox">
-                                                            <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-                                                        </figure>
-                                                    </div>
-                                                    {{/each}}
-                                                    {{else}}
-                                                    <p class="text-center">
-                                                        Chưa có video
-                                                    </p>
-                                                    {{/if}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
@@ -341,21 +293,21 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion accordion-flush" id="accordionFlush-loading{{this._id}}">
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-headingOne">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            <h2 class="accordion-header" id="flush-img-header{{this._id}}">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-img{{this._id}}" aria-expanded="false" aria-controls="flush-img{{this._id}}">
                                                     Hình ảnh
                                                 </button>
                                             </h2>
-                                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                            <div id="flush-img{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-img-header{{this._id}}" data-bs-parent="#accordionFlush-loading{{this._id}}">
                                                 <div class="accordion-body">
                                                     <div class="row">    
                                                         {{#if this.counselorImg}}
                                                         {{#each this.counselorImg}}
                                                         <div class="col-lg-3">
                                                             <figure class="figure imgbox">
-                                                                <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+                                                                <img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
                                                             </figure>
                                                         </div>
                                                         {{/each}}
@@ -369,19 +321,19 @@
                                             </div>
                                         </div>
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-headingTwo">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                            <h2 class="accordion-header" id="flush-video-header{{this._id}}">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-video{{this._id}}" aria-expanded="false" aria-controls="flush-video{{this._id}}">
                                                     Video
                                                 </button>
                                             </h2>
-                                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                            <div id="flush-video{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-video-header{{this._id}}" data-bs-parent="#accordionFlush-loading{{this._id}}">
                                                 <div class="accordion-body">
                                                     <div class="row">    
                                                         {{#if this.counselorVideo}}
                                                         {{#each this.counselorVideo}}
                                                         <div class="col-lg-3">
                                                             <figure class="figure imgbox">
-                                                                <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+                                                                <video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
                                                             </figure>
                                                         </div>
                                                         {{/each}}
@@ -395,54 +347,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{!-- <div>
-                                        <a data-bs-toggle="collapse" href="#counselor-img-progress" role="button" aria-expanded="false" aria-controls="counselor-img-progress">
-                                            <i class="ti-plus"></i> Hình ảnh tư vấn:
-                                        </a>
-                                        <div class="collapse mt-3 mb-3" id="counselor-img-progress">
-                                            <div class="card card-body">
-                                                <div class="row">    
-                                                    {{#if this.counselorImg}}
-                                                    {{#each this.counselorImg}}
-                                                    <div class="col-lg-3">
-                                                        <figure class="figure imgbox">
-                                                            <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-                                                        </figure>
-                                                    </div>
-                                                    {{/each}}
-                                                    {{else}}
-                                                    <p class="text-center">
-                                                        Chưa có ảnh
-                                                    </p>
-                                                    {{/if}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <a data-bs-toggle="collapse" href="#counselor-video-progress" role="button" aria-expanded="false" aria-controls="counselor-video-progress">
-                                            <i class="ti-plus"></i> Video tư vấn:
-                                        </a>
-                                        <div class="collapse mt-3 mb-3" id="counselor-video-progress">
-                                            <div class="card card-body">
-                                                <div class="row">    
-                                                    {{#if this.counselorVideo}}
-                                                    {{#each this.counselorVideo}}
-                                                    <div class="col-lg-3">
-                                                        <figure class="figure imgbox">
-                                                            <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-                                                        </figure>
-                                                    </div>
-                                                    {{/each}}
-                                                    {{else}}
-                                                    <p class="text-center">
-                                                        Chưa có video
-                                                    </p>
-                                                    {{/if}}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
@@ -539,21 +443,21 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                    <div class="accordion accordion-flush" id="accordionFlush-complete{{this._id}}">
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-headingOne">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            <h2 class="accordion-header" id="flush-img-header{{this._id}}">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-img{{this._id}}" aria-expanded="false" aria-controls="flush-img{{this._id}}">
                                                     Hình ảnh
                                                 </button>
                                             </h2>
-                                            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                            <div id="flush-img{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-img-header{{this._id}}" data-bs-parent="#accordionFlush-complete{{this._id}}">
                                                 <div class="accordion-body">
                                                     <div class="row">    
                                                         {{#if this.counselorImg}}
                                                         {{#each this.counselorImg}}
                                                         <div class="col-lg-3">
                                                             <figure class="figure imgbox">
-                                                                <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+                                                                <img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
                                                             </figure>
                                                         </div>
                                                         {{/each}}
@@ -567,19 +471,19 @@
                                             </div>
                                         </div>
                                         <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-headingTwo">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                                            <h2 class="accordion-header" id="flush-video-header{{this._id}}">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-video{{this._id}}" aria-expanded="false" aria-controls="flush-video{{this._id}}">
                                                     Video
                                                 </button>
                                             </h2>
-                                            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                            <div id="flush-video{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-video-header{{this._id}}" data-bs-parent="#accordionFlush-complete{{this._id}}">
                                                 <div class="accordion-body">
                                                     <div class="row">    
                                                         {{#if this.counselorVideo}}
                                                         {{#each this.counselorVideo}}
                                                         <div class="col-lg-3">
                                                             <figure class="figure imgbox">
-                                                                <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+                                                                <video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
                                                             </figure>
                                                         </div>
                                                         {{/each}}
@@ -653,8 +557,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 <form method="POST" id="update-stored-status" action=""></form>

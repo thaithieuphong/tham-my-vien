@@ -54,9 +54,9 @@
 			aria-labelledby="pills-home-tab">
 			<div class="row">
 				<div class="col-xl-4 col-lg-4 col-md-4 mt-3">
-					{{#if customer.image.name}}
+					{{#if customer.image}}
 					<div class="mt-2 text-center">
-						<img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt"
+						<img src="{{customer.image.url}}" id="add-avt"
 							class="rounded add-avata" alt="...">
 					</div>
 					{{else}}

@@ -58,7 +58,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	if (imageEdit === '') {
 		editAvt.setAttribute('src', '/img/user-icon.png');
 	} else {
-		editAvt.setAttribute('src', '/img/uploads/customers/' + imageEdit);
+		editAvt.setAttribute('src', imageEdit);
 	}
 	editCustomerForm.setAttribute('action', `/business/manager/customers/${idEdit}?_method=PUT`);
 	editFirstName.value = firstName;
@@ -129,7 +129,7 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	if (dataServiceNoteImg === '') {
 		serviceNoteCustomerImg.setAttribute('src', '/img/user-icon.png');
 	} else {
-		serviceNoteCustomerImg.setAttribute('src', '/img/uploads/customers/' + dataServiceNoteImg);
+		serviceNoteCustomerImg.setAttribute('src', dataServiceNoteImg);
 	}
 
 	serviceNoteCustomerID.value = dataServiceNoteID;

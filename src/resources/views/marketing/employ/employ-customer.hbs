@@ -58,6 +58,7 @@
 					<th class="text-center" scope="col">Số điện thoại</th>
 					<th class="text-center" scope="col">Email</th>
 					<th class="text-center" scope="col">Địa chỉ</th>
+					<th class="text-center" scope="col">Nguồn</th>
 					<th class="text-center" scope="col">Mô tả</th>
 					<th class="text-center" scope="col">Hành động</th>
 				</tr>
@@ -73,6 +74,7 @@
 					<td class="text-center">0{{this.phone}}</td>
 					<td>{{this.email}}</td>
 					<td>{{this.address}}</td>
+					<td>{{this.resource}}</td>
 					<td>{{this.description}}</td>
 					<td class="text-center">
 						<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#edit-customer-modal"
@@ -80,7 +82,7 @@
 							data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
 							data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
 							data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
-							data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">Sửa thông tin</button>
+							data-edit-address="{{this.address}}" data-edit-resource="{{this.resource}}" data-edit-description="{{this.description}}">Sửa thông tin</button>
 					</td>
 				</tr>
 				{{/each}}
@@ -106,7 +108,7 @@
 					data-id="{{this._id}}" data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
 					data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
 					data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
-					data-edit-address="{{this.address}}" data-edit-description="{{this.description}}">Sửa</button>
+					data-edit-address="{{this.address}}" data-edit-resource="{{this.resource}}" data-edit-description="{{this.description}}">Sửa</button>
 			</div>
 		</div>
 		{{/each}}
@@ -122,7 +124,7 @@
 		<div class="modal-content">
 			<div class="modal-header bg-primary">
 				<h5 class="modal-title text-light" id="create-customer-modal">Tạo thông tin khách hàng</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 				<form id="create-customer-form" method="POST" class="row" enctype="multipart/form-data">
@@ -191,13 +193,21 @@
 									</div>
 								</div>
 								<div class="row mt-3">
-									<div class="col-md-12">
+									<div class="col-md-6 mb-3">
 										<label for="create-address" class="form-label">
 											<h6>Địa chỉ</h6>
 										</label>
 										<input type="text" class="form-control form-control-sm" id="create-address"
 											aria-describedby="addressFeedback" placeholder="Vd: 123 Đường số 10"
 											name="address" required>
+									</div>
+									<div class="col-md-6">
+										<label for="create-resource" class="form-label">
+											<h6>Nguồn khách</h6>
+										</label>
+										<input type="text" class="form-control form-control-sm" id="create-resource"
+											aria-describedby="resource"
+											name="resource" required>
 									</div>
 								</div>
 								<div class="row mt-3">
@@ -226,9 +236,9 @@
 <div class="modal fade" id="edit-customer-modal" tabindex="-1" aria-labelledby="edit-customer" aria-hidden="true">
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
-			<div class="modal-header bg-info text-light">
-				<h5 class="modal-title" id="edit-customer-title">Sửa / Cập nhật thông tin người dùng</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div class="modal-header bg-info">
+				<h5 class="modal-title text-light" id="edit-customer-title">Sửa / Cập nhật thông tin người dùng</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
 				<form method="POST" id="edit-customer-form" class="row" enctype="multipart/form-data">
@@ -299,12 +309,21 @@
 									</div>
 								</div>
 								<div class="row mt-3">
-									<div class="col-md-12">
-										<label for="edit-address" class="form-label">
+									<div class="col-md-6 mb-3">
+										<label for="create-address" class="form-label">
 											<h6>Địa chỉ</h6>
 										</label>
 										<input type="text" class="form-control form-control-sm" id="edit-address"
-											aria-describedby="addressFeedback" name="address" required>
+											aria-describedby="addressFeedback" placeholder="Vd: 123 Đường số 10"
+											name="address" required>
+									</div>
+									<div class="col-md-6">
+										<label for="create-resource" class="form-label">
+											<h6>Nguồn khách</h6>
+										</label>
+										<input type="text" class="form-control form-control-sm" id="edit-resource"
+											aria-describedby="resource"
+											name="resource" required>
 									</div>
 								</div>
 								<div class="row mt-3">

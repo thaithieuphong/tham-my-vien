@@ -291,7 +291,7 @@
                         {{#each serviceNote.counselorImg}}
                         <div class="col-md-4">
                             <div class="img-container">
-                                <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                                <img src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
                             </div>
                         </div>
                         {{/each}}
@@ -317,7 +317,7 @@
                         {{#each serviceNote.counselorVideo}}
                         <div class="col-md-4">
                             <div class=" img-container">
-                                <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                                <video src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
                             </div>
                         </div>
                         {{/each}}
@@ -343,7 +343,7 @@
                         {{#each serviceNote.beforeImg}}
                         <figure class="col-md-4">
                             <div class="figure img-container">
-                                <img src="/before/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                                <img src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
                             </div>
                         </figure>
                         {{/each}}
@@ -368,7 +368,7 @@
                     {{#each serviceNote.beforeVideo}}
                     <div class="col-md-4">
                         <figure class="figure img-container">
-                            <video src="/before/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                            <video src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
                         </figure>
                     </div>
                     {{/each}}
@@ -393,7 +393,7 @@
                         {{#each serviceNote.afterImg}}
                         <div class="col-md-4">
                             <figure class="figure img-container">
-                                <img src="/after/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                                <img src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
                             </figure>
                         </div>
                         {{/each}}
@@ -419,7 +419,7 @@
                         {{#each serviceNote.afterVideo}}
                         <div class="col-md-4">
                             <figure class="figure img-container">
-                                <video src="/after/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                                <video src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
                             </figure>
                         </div>
                         {{/each}}

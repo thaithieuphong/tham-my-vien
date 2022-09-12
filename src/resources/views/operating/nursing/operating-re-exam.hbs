@@ -158,7 +158,7 @@
 						<div class="">
 							{{#if this.comments}}
 							{{#each this.comments}}
-							<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" id="comments" cols="30" rows="8" disabled>{{this.comment}}</textarea>
+							<p class="message-content" id="comments">{{this.comment}}</p>
 							{{/each}}
 							{{else}}
 							<label class="">
@@ -170,50 +170,56 @@
 				</div>
 
 				<div class="tab-pane fade" id="pills-counselor-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="">
-						<a data-bs-toggle="collapse" href="#counselor-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="counselor-img">
-							Xem ảnh <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="counselor-img-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if this.serviceNoteId.counselorImg}}
-									{{#each this.serviceNoteId.counselorImg}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<img src="/mnt/vdb/crm.drtuananh.vn/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-										</figure>
+					<div class="accordion accordion-flush" id="accordionFlush-counselor-{{this._id}}">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-counselor-img-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-img-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-img-{{this._id}}">
+									Xem ảnh
+								</button>
+							</h2>
+							<div id="flush-collapse-counselor-img-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-img-{{this._id}}" data-bs-parent="#accordionFlush-counselor-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if this.serviceNoteId.counselorImg}}
+										{{#each this.serviceNoteId.counselorImg}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure imgbox">
+												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có hình ảnh
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có hình ảnh
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
-					</div>
-					<div>
-						<a data-bs-toggle="collapse" href="#counselor-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="counselor-video">
-							Xem video <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="counselor-video-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if this.serviceNoteId.counselorVideo}}
-									{{#each this.serviceNoteId.counselorVideo}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<video src="/mnt/vdb/crm.drtuananh.vn/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-										</figure>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-counselor-video-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-video-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-video-{{this._id}}">
+									Xem video
+								</button>
+							</h2>
+							<div id="flush-collapse-counselor-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-video-{{this._id}}" data-bs-parent="#accordionFlush-counselor-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if this.serviceNoteId.counselorVideo}}
+										{{#each this.serviceNoteId.counselorVideo}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure imgbox">
+												<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có video
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có video
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
@@ -221,50 +227,56 @@
 				</div>
 
 				<div class="tab-pane fade" id="pills-before-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div>
-						<a data-bs-toggle="collapse" href="#before-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="before-img">
-							Xem ảnh <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="before-img-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if this.serviceNoteId.beforeImg}}
-									{{#each this.serviceNoteId.beforeImg}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<img src="/mnt/vdb/crm.drtuananh.vn/before/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-										</figure>
+					<div class="accordion accordion-flush" id="accordionFlush-before-{{this._id}}">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-before-img-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-img-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-before-img-{{this._id}}">
+									Xem ảnh
+								</button>
+							</h2>
+							<div id="flush-collapse-before-img-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-img-{{this._id}}" data-bs-parent="#accordionFlush-before-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if this.serviceNoteId.beforeImg}}
+										{{#each this.serviceNoteId.beforeImg}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure imgbox">
+												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có hình ảnh
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có hình ảnh
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
-					</div>
-					<div>
-						<a data-bs-toggle="collapse" href="#before-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="before-video">
-							Xem video <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="before-video-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if this.serviceNoteId.beforeVideo}}
-									{{#each this.serviceNoteId.beforeVideo}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<video src="/mnt/vdb/crm.drtuananh.vn/before/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-										</figure>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-before-video-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-video-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-before-video-{{this._id}}">
+									Xem video
+								</button>
+							</h2>
+							<div id="flush-collapse-before-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-video-{{this._id}}" data-bs-parent="#accordionFlush-before-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if this.serviceNoteId.beforeVideo}}
+										{{#each this.serviceNoteId.beforeVideo}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure imgbox">
+												<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có video
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có video
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
@@ -272,50 +284,56 @@
 				</div>
 
 				<div class="tab-pane fade" id="pills-after-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div>
-						<a data-bs-toggle="collapse" href="#after-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="after-img">
-							Xem ảnh <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="after-img-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if this.serviceNoteId.afterImg}}
-									{{#each this.serviceNoteId.afterImg}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<img src="/mnt/vdb/crm.drtuananh.vn/after/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-										</figure>
+					<div class="accordion accordion-flush" id="accordionFlush-after-{{this._id}}">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-after-img-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-img-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-after-img-{{this._id}}">
+									Xem ảnh
+								</button>
+							</h2>
+							<div id="flush-collapse-after-img-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-img-{{this._id}}" data-bs-parent="#accordionFlush-after-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if this.serviceNoteId.afterImg}}
+										{{#each this.serviceNoteId.afterImg}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure imgbox">
+												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có hình ảnh
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có hình ảnh
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
-					</div>
-					<div>
-						<a data-bs-toggle="collapse" href="#after-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="after-video">
-							Xem video <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="after-video-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if this.serviceNoteId.afterVideo}}
-									{{#each this.serviceNoteId.afterVideo}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<video src="/mnt/vdb/crm.drtuananh.vn/after/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-										</figure>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-after-video-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-video-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-after-video-{{this._id}}">
+									Xem video
+								</button>
+							</h2>
+							<div id="flush-collapse-after-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-video-{{this._id}}" data-bs-parent="#accordionFlush-after-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if this.serviceNoteId.afterVideo}}
+										{{#each this.serviceNoteId.afterVideo}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure imgbox">
+												<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có video
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có video
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
@@ -323,50 +341,56 @@
 				</div>
 
 				<div class="tab-pane fade" id="pills-re-exam-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div>
-						<a data-bs-toggle="collapse" href="#re-examination-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="re-examination-img">
-							Xem ảnh <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="re-examination-img-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if this.reExamImg}}
-									{{#each this.reExamImg}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<img src="/mnt/vdb/crm.drtuananh.vn/re-examination/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-										</figure>
+					<div class="accordion accordion-flush" id="accordionFlush-re-exam-{{this._id}}">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-re-exam-img-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-re-exam-img-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-re-exam-img-{{this._id}}">
+									Xem ảnh
+								</button>
+							</h2>
+							<div id="flush-collapse-re-exam-img-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-re-exam-img-{{this._id}}" data-bs-parent="#accordionFlush-re-exam-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if this.reExamImg}}
+										{{#each this.reExamImg}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure imgbox">
+												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có hình ảnh
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có hình ảnh
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
-					</div>
-					<div>
-						<a data-bs-toggle="collapse" href="#re-examination-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="re-examination-video">
-							Xem video <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="re-examination-video-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if this.reExamVideo}}
-									{{#each this.reExamVideo}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<video src="/mnt/vdb/crm.drtuananh.vn/re-examination/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-										</figure>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-re-exam-video-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-re-exam-video-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-re-exam-video-{{this._id}}">
+									Xem video
+								</button>
+							</h2>
+							<div id="flush-collapse-re-exam-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-re-exam-video-{{this._id}}" data-bs-parent="#accordionFlush-re-exam-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if this.reExamVideo}}
+										{{#each this.reExamVideo}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure imgbox">
+												<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có video
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có video
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
@@ -377,36 +401,25 @@
 					<form method="POST" action="/operating-room/nursing/re-examination/reexam/{{this._id}}" id="upload-img-re-exam-form" enctype="multipart/form-data">
 						<div class="row">
 							<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
-							<div class="col-sm-6">
-								<label for="input-multi-images-before" 
-								class="label-avt btn-upload-mobile mt-3">
-									<h6>Chọn ảnh tái khám</h6>
+							<div class="col-sm-6 mt-3">
+								<div class="preview-images-re-exam row ml-0 border text-center">
+								</div>
+								<label for="input-multi-images-reExamination" class="label-avt d-flex justify-content-start mt-3">
+									<h5 id="text-img-reExamination" class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn ảnh tư vấn</h5>
 								</label>
-								<div class="input-images-re-examination mt-2"></div>
+								<input id="input-multi-images-reExamination" class="form-control" type="file"
+									name="reExamination" hidden multiple>
 							</div>
-							<div class="col-sm-6">
-								<label for="input-multi-videos-before"
-									class="label-avt btn-upload-mobile mt-3">
-									<h6>Chọn video tái khám</h6>
+							<div class="col-sm-6 mt-3">
+								<div class="preview-videos-re-exam row ml-0 border text-center">
+								</div>
+								<label id="input-multi-videos-reExamination-label" for="input-multi-videos-reExamination" class="label-avt d-flex justify-content-end mt-3">
+									<h5 class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn video tư vấn</h5>
 								</label>
-								<div class="input-videos-re-examination mt-2"></div>
+								<input id="input-multi-videos-reExamination" class="form-control" type="file"
+									name="reExamination" hidden multiple>
 							</div>
 						</div>
-						{{!-- <div class="row mt-3">
-							<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
-							<div class="col-sm-6">
-								<label id="preview-images-{{this._id}}" for="input-multi-images-re-exam-{{this._id}}" style="width: auto; height: 150px;" class="d-flex justify-content-center border text-center ml-3 mr-3 label-avt btn-upload-mobile mt-4 rounded">
-									<h6 id="label-img" class="d-flex align-items-center">Chọn ảnh tái khám</h6>
-								</label>
-								<input id="input-multi-images-re-exam-{{this._id}}" hidden type="file" name="reExamination" onclick="getIdImg('{{this._id}}')" multiple>
-							</div>
-							<div class="col-sm-6">
-								<label id="preview-videos-{{this._id}}" for="input-multi-videos-re-exam-{{this._id}}" style="width: auto; height: 150px;" class="d-flex justify-content-center border text-center ml-3 mr-3 label-avt btn-upload-mobile mt-4 rounded">
-									<h6 id="label-video" class="d-flex align-items-center">Chọn video tái khám</h6>
-								</label>
-								<input id="input-multi-videos-re-exam-{{this._id}}" hidden type="file" name="reExamination" onclick="getIdVideo('{{this._id}}')" multiple>
-							</div>
-						</div> --}}
 						<div class=" d-flex justify-content-center mt-4">
 							<button type="submit" class="btn btn-primary btn-upload-mobile" data-bs-toggle="modal"
 								data-bs-target="#re-exam-modal" data-re-exam-id="{{this._id}}">Tải lên</button>
@@ -414,7 +427,7 @@
 					</form>
 				</div>
 			</div>
-
+			<hr class="mt-3">
 			<div class="d-flex justify-content-between justify-content-sm-end mt-3">
 				<label for="status">
 					<strong>Phí dịch vụ:</strong>&nbsp;
@@ -459,57 +472,16 @@
 </div>
 <script src="/js/operating/nursing-re-exam.js"></script>
 <script>
-	function getIdImg(id) {
-		console.log('id', id);
-		let chosenImg = document.querySelector(`#input-multi-images-re-exam-${id}`);
-		chosenImg.addEventListener('change', (e) => {
-			let filesImg = e.target.files;
-			let outputImage = document.getElementById(`preview-images-${id}`);
-			for (i = 0; i < filesImg.length; i++) {
-				let fileImg = filesImg[i];
-				let picReaderImg = new FileReader();
-				if (fileImg.type === 'image/png') {
-					picReaderImg.addEventListener('load', (e) => {
-						let picFileImg = e.target;
-						let labelImage = document.getElementById('label-img').hidden = true;
-						let figureImg = document.createElement("figure");
-						let closeBtnImg = document.createElement('button');
-						closeBtnImg.setAttribute('class', 'btn-close btn-close-white');
-						closeBtnImg.setAttribute('type', 'button');
-						closeBtnImg.setAttribute('aria-label', 'Close');
-						figureImg.setAttribute('class', 'figure imgbox')
-						figureImg.innerHTML = "<img class='figure-img img-fluid rounded upd-ava' src='" + picFileImg.result + "'" + "title='" + picFileImg.name + "'/><button class='btn-close btn-close-white' type='button' aria-label='Close'></button>";
-						// figure.innerHTML = "<button class='btn-close btn-close-white' type='button' aria-label='Close'></button>"
-						outputImage.insertBefore(figureImg, null);
-					});
-					picReaderImg.readAsDataURL(fileImg);
-				}
-			}
-		})
+	const textarea = document.querySelectorAll('.message-content');
+	for (i = 0; i < textarea.length; i++) {
+		let element = textarea[i];
+		let textValue = element.innerHTML;
+		let textSplit = textValue.split('\n');
+		let cols = textValue.length;
+		let rows = textSplit.length;
+		let result = textSplit.join('<br>');
+		element.innerHTML = result;
+		let parent = element.clientWidth;
+		let ex = parent - cols;
 	}
-	function getIdVideo(id) {
-		console.log('id', id);
-		let chosenVideo = document.querySelector(`#input-multi-videos-re-exam-${id}`);
-		chosenVideo.addEventListener('change', (e) => {
-			let filesVideo = e.target.files;
-			let outputVideo = document.getElementById(`preview-videos-${id}`);
-			console.log('files', filesVideo)
-			for (i = 0; i < filesVideo.length; i++) {
-				let fileVideo = filesVideo[i];
-				let picReaderVideo = new FileReader();
-				if (fileVideo.type === 'video/mp4') {
-					console.log('dung')
-					picReaderVideo.addEventListener('load', (e) => {
-						let picFileVideo = e.target;
-						let figureVideo = document.createElement("figure");
-						figureVideo.setAttribute('class', 'figure imgbox')
-						figureVideo.innerHTML = "<video class='figure-img img-fluid rounded upd-ava' src='" + picFileVideo.result + "'" + "title='" + picFileVideo.name + "' controls/>";
-						outputVideo.insertBefore(figureVideo, null);
-					});
-					picReaderVideo.readAsDataURL(fileVideo);
-				}
-			}
-		})
-	}
-	
 </script>

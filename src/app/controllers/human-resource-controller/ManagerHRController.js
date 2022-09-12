@@ -36,10 +36,6 @@ class HRController {
 			Position.find({}),
 		])
 			.then(([user, users, departments, positions]) => {
-				departments.forEach(department => {
-
-					console.log('department', department.positionID);
-				})
 				res.render("human-resources/manager/manager-users", {
 					user: mongooseToObject(user),
 					users: multipleMongooseToObject(users),
@@ -329,7 +325,6 @@ class HRController {
 					}
 					return;
 				});
-				// console.log(appRoot)
 				user.delete();
 				res.redirect('back');
 			})

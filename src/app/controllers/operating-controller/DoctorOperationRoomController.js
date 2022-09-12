@@ -51,7 +51,7 @@ class DoctorOperationRoomController {
 				res.render("operating/doctor/operating-re-exam", {
 					reExam: multipleMongooseToObject(reExam),
 					user: mongooseToObject(user),
-					title: "Chi tiết khách hàng"
+					title: "Phiếu tái khám"
 				})
 			})
 			.catch(next);

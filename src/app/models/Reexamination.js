@@ -50,13 +50,24 @@ const Reexamination = new Schema({
 
 	reExamImg: [
 		{
-			type: String,
+			name: {
+				type: String,
+			},
+			url: {
+				type: String,
+			}
 		}
 	],
 
 	reExamVideo: [
 		{
-			type: String,
+			name: {
+
+				type: String,
+			},
+			url: {
+				type: String
+			}
 		}
 	],
 

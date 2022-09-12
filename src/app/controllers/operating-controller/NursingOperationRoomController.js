@@ -29,7 +29,7 @@ class NursingController {
 			res.render("operating/nursing/over-view", {
 				user: mongooseToObject(user),
 				serviceNotes: multipleMongooseToObject(serviceNotes),
-				title: "Chi tiết khách hàng"
+				title: "Phiếu hoàn thành"
 			})
 		})
 		.catch(next);
@@ -41,7 +41,7 @@ class NursingController {
 			.then(([serviceNote, user]) => {
 				res.render("operating/nursing/operating-service-note", {
 					serviceNote: multipleMongooseToObject(serviceNote),
-					title: "Chi tiết khách hàng"
+					title: "Phiếu phẩu thuật"
 				})
 			})
 			// })
@@ -54,7 +54,7 @@ class NursingController {
 				res.render("operating/nursing/operating-re-exam", {
 					reExam: multipleMongooseToObject(reExam),
 					user: mongooseToObject(user),
-					title: "Chi tiết khách hàng"
+					title: "Phiếu tái khám"
 				})
 			})
 			// })
@@ -82,18 +82,18 @@ class NursingController {
 
 	uploadBefore(req, res, next) {
 		const file = req.files;
-		const fnimg = [];
-		const fnvideo = []
+		const imgArr = [];
+		const videoArr = [];
 		file.forEach(element => {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
-				fnimg.push(element.filename);
-				return fnimg;
+				imgArr.push({ name: element.filename, url: element.path });
+				return imgArr;
 			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
-				fnvideo.push(element.filename);
-				return fnvideo;
+				videoArr.push({ name: element.filename, url: element.path });
+				return videoArr;
 			}
 		})
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { beforeImg: fnimg, beforeVideo: fnvideo } })
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { beforeImg: imgArr, beforeVideo: videoArr } })
 			.then(() => {
 				res.redirect('back')
 			})
@@ -102,18 +102,18 @@ class NursingController {
 
 	uploadAfter(req, res, next) {
 		const file = req.files;
-		const fnimg = [];
-		const fnvideo = []
+		const imgArr = [];
+		const videoArr = []
 		file.forEach(element => {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
-				fnimg.push(element.filename);
-				return fnimg;
+				imgArr.push({ name: element.filename, url: element.path });
+				return imgArr;
 			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
-				fnvideo.push(element.filename);
-				return fnvideo;
+				videoArr.push({ name: element.filename, url: element.path });
+				return videoArr;
 			}
 		})
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { afterImg: fnimg, afterVideo: fnvideo } })
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { afterImg: imgArr, afterVideo: videoArr } })
 			.then(() => {
 				res.redirect('back')
 			})
@@ -122,18 +122,18 @@ class NursingController {
 
 	uploadReExam(req, res, next) {
 		const file = req.files;
-		const fnimg = [];
-		const fnvideo = []
+		const imgArr = [];
+		const videoArr = [];
 		file.forEach(element => {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
-				fnimg.push(element.filename);
-				return fnimg;
+				imgArr.push({ name: element.filename, url: element.path });
+				return imgArr;
 			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
-				fnvideo.push(element.filename);
-				return fnvideo;
+				videoArr.push({ name: element.filename, url: element.path });
+				return videoArr;
 			}
 		})
-		Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $push: { reExamImg: fnimg, reExamVideo: fnvideo } })
+		Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $push: { reExamImg: imgArr, reExamVideo: videoArr } })
 			.then(() => {
 				res.redirect('back')
 			})
@@ -150,7 +150,6 @@ class NursingController {
 			comments: { comment: req.body.comment },
 		})
 		reexamination.save();
-		console.log('re-ex id', reexamination.id);
 		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { reexamID: reexamination.id } })
 			.then(() => {
 				req.flash('messages_createReExamination_success', 'Tạo phiếu tái khám thành công');

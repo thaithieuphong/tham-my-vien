@@ -160,7 +160,7 @@
 						<div class="">
 							{{#if this.comments}}
 							{{#each this.comments}}
-							<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" id="comments" cols="30" rows="8" disabled>{{this.comment}}</textarea>
+							<p class="message-content" id="comments">{{this.comment}}</p>
 							{{/each}}
 							{{else}}
 							<label class="">
@@ -172,50 +172,56 @@
 				</div>
 
 				<div class="tab-pane fade" id="pills-counselor-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="">
-						<a data-bs-toggle="collapse" href="#counselor-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="counselor-img">
-							Xem ảnh <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="counselor-img-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">
-									{{#if this.counselorImg}}
-									{{#each this.counselorImg}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<img src="/mnt/vdb/crm.drtuananh.vn/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-										</figure>
+					<div class="accordion accordion-flush" id="accordionFlush-counselor-{{this._id}}">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-counselor-img-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-img-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-img-{{this._id}}">
+									Xem ảnh
+								</button>
+							</h2>
+							<div id="flush-collapse-counselor-img-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-img-{{this._id}}" data-bs-parent="#accordionFlush-counselor-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">
+										{{#if this.counselorImg}}
+										{{#each this.counselorImg}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure imgbox">
+												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có hình ảnh
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có hình ảnh
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="">
-						<a class="mt-3" data-bs-toggle="collapse" href="#counselor-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="counselor-video">
-							Xem video <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="counselor-video-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">
-									{{#if this.counselorVideo}}
-									{{#each this.counselorVideo}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure img-container">
-											<video src="/mnt/vdb/crm.drtuananh.vn/counselor/video/{{this}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
-										</figure>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-counselor-video-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-video-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-video-{{this._id}}">
+									Xem video
+								</button>
+							</h2>
+							<div id="flush-collapse-counselor-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-video-{{this._id}}" data-bs-parent="#accordionFlush-counselor-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">
+										{{#if this.counselorVideo}}
+										{{#each this.counselorVideo}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure img-container">
+												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có video
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có video
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
@@ -223,50 +229,56 @@
 				</div>
 
 				<div class="tab-pane fade" id="pills-before-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="">
-						<a class="mt-3" data-bs-toggle="collapse" href="#before-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="before-img">
-							Xem ảnh <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="before-img-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">
-									{{#if this.beforeImg}}
-									{{#each this.beforeImg}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<img src="/mnt/vdb/crm.drtuananh.vn/before/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-										</figure>
+					<div class="accordion accordion-flush" id="accordionFlush-before-{{this._id}}">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-before-img-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-img-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-before-img-{{this._id}}">
+									Xem ảnh
+								</button>
+							</h2>
+							<div id="flush-collapse-before-img-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-img-{{this._id}}" data-bs-parent="#accordionFlush-before-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">
+										{{#if this.beforeImg}}
+										{{#each this.beforeImg}}
+										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
+											<figure class="figure imgbox">
+												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có hình ảnh
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có hình ảnh
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="">
-						<a class="mt-3" data-bs-toggle="collapse" href="#before-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="before-video">
-							Xem video <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="before-video-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if this.beforeVideo}}
-									{{#each this.beforeVideo}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure img-container">
-											<video src="/mnt/vdb/crm.drtuananh.vn/before/video/{{this}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
-										</figure>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-before-video-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-video-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-before-video-{{this._id}}">
+									Xem video
+								</button>
+							</h2>
+							<div id="flush-collapse-before-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-video-{{this._id}}" data-bs-parent="#accordionFlush-before-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if this.beforeVideo}}
+										{{#each this.beforeVideo}}
+										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
+											<figure class="figure img-container">
+												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có video
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có video
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
@@ -275,18 +287,23 @@
 					<form method="POST" id="upload-img-before-form-{{this._id}}" action="/operating-room/nursing/service-note/before/{{this._id}}" enctype="multipart/form-data">
 						<div class="row">
 							<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
-							<div class="col-sm-6">
-								<label class="label-avt btn-upload-mobile mt-3">
-									<h6>Chọn ảnh trước phẩu</h6>
+							<div class="col-sm-6 mt-3">
+								<div class="preview-images-before row ml-0 border text-center">
+								</div>
+								<label for="input-multi-images-before" class="label-avt d-flex justify-content-start mt-3">
+									<h5 id="text-img-before" class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn ảnh tư vấn</h5>
 								</label>
-								<div class="input-images-before mt-2"></div>
+								<input id="input-multi-images-before" class="form-control" type="file"
+									name="before" hidden multiple>
 							</div>
-							<div class="col-sm-6">
-								<label for="input-multi-videos-before"
-									class="label-avt btn-upload-mobile mt-3">
-									<h6>Chọn video trước phẩu</h6>
+							<div class="col-sm-6 mt-3">
+								<div class="preview-videos-before row ml-0 border text-center">
+								</div>
+								<label id="input-multi-videos-before-label" for="input-multi-videos-before" class="label-avt d-flex justify-content-end mt-3">
+									<h5 class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn video tư vấn</h5>
 								</label>
-								<div class="input-videos-before mt-2"></div>
+								<input id="input-multi-videos-before" class="form-control" type="file"
+									name="before" hidden multiple>
 							</div>
 						</div>
 						<div class=" d-flex justify-content-center mt-3">
@@ -295,52 +312,57 @@
 					</form>
 				</div>
 				<div class="tab-pane fade" id="pills-after-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="">
-						<a class="mt-3" data-bs-toggle="collapse" href="#after-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="after-img">
-							Xem ảnh <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="after-img-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if this.afterImg}}
-									{{#each this.afterImg}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<img src="/mnt/vdb/crm.drtuananh.vn/after/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-										</figure>
+					<div class="accordion accordion-flush" id="accordionFlush-after-{{this._id}}">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-after-img-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-img-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-after-img-{{this._id}}">
+									Xem ảnh
+								</button>
+							</h2>
+							<div id="flush-collapse-after-img-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-img-{{this._id}}" data-bs-parent="#accordionFlush-after-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if this.afterImg}}
+										{{#each this.afterImg}}
+										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
+											<figure class="figure imgbox">
+												<img src="{{this.url}}" class="figure-img img-fluid text-center rounded upd-ava" alt="...">
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có hình ảnh
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có hình ảnh
-									</p>
-									{{/if}}
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="">
-						<a class="mt-3" data-bs-toggle="collapse" href="#after-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="after-video">
-							Xem video <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="after-video-{{this._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if this.afterVideo}}
-									{{#each this.afterVideo}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure img-container">
-											<video src="/mnt/vdb/crm.drtuananh.vn/after/video/{{this}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
-										</figure>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-after-video-{{this._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-video-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-after-video-{{this._id}}">
+									Xem video
+								</button>
+							</h2>
+							<div id="flush-collapse-after-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-video-{{this._id}}" data-bs-parent="#accordionFlush-after-{{this._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if this.afterVideo}}
+										{{#each this.afterVideo}}
+										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
+											<figure class="figure img-container">
+												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có video
+										</p>
+										{{/if}}
 									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có video
-									</p>
-									{{/if}}
 								</div>
-								
 							</div>
 						</div>
 					</div>
@@ -349,19 +371,23 @@
 					<form method="POST" id="upload-img-after-form" action="/operating-room/nursing/service-note/after/{{this._id}}" enctype="multipart/form-data">
 						<div class="row">
 							<input hidden type="text" value="{{this.customerID._id}}" name="customerID">
-							<div class="col-sm-6">
-								<label for="input-multi-images-after"
-									class="label-avt btn-upload-mobile mt-3">
-									<h6>Chọn ảnh sau phẩu</h6>
+							<div class="col-sm-6 mt-3">
+								<div class="preview-images-after row ml-0 border text-center">
+								</div>
+								<label for="input-multi-images-after" class="label-avt d-flex justify-content-start mt-3">
+									<h5 id="text-img-after" class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn ảnh tư vấn</h5>
 								</label>
-								<div class="input-images-after mt-2"></div>
+								<input id="input-multi-images-after" class="form-control" type="file"
+									name="after" hidden multiple>
 							</div>
-							<div class="col-sm-6">
-								<label for="input-multi-videos-after"
-									class="label-avt btn-upload-mobile mt-3">
-									<h6>Chọn video sau phẩu</h6>
+							<div class="col-sm-6 mt-3">
+								<div class="preview-videos-after row ml-0 border text-center">
+								</div>
+								<label id="input-multi-videos-after-label" for="input-multi-videos-after" class="label-avt d-flex justify-content-end mt-3">
+									<h5 class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn video tư vấn</h5>
 								</label>
-								<div class="input-videos-after mt-2"></div>
+								<input id="input-multi-videos-after" class="form-control" type="file"
+									name="after" hidden multiple>
 							</div>
 						</div>
 						<div class="d-flex justify-content-center mt-3">
@@ -370,7 +396,7 @@
 					</form>
 				</div>
 			</div>
-			{{!-- <hr class="mt-3 mb-3"> --}}
+			<hr class="mt-3 mb-3">
 			<div class="d-flex justify-content-between justify-content-sm-end mt-3">
 				<label for="status">
 					<strong>Phí dịch vụ:</strong>&nbsp;
@@ -411,3 +437,17 @@
 	</div>
 </div>
 <script src="/js/operating/nursing.js"></script>
+<script>
+	const textarea = document.querySelectorAll('.message-content');
+	for (i = 0; i < textarea.length; i++) {
+		let element = textarea[i];
+		let textValue = element.innerHTML;
+		let textSplit = textValue.split('\n');
+		let cols = textValue.length;
+		let rows = textSplit.length;
+		let result = textSplit.join('<br>');
+		element.innerHTML = result;
+		let parent = element.clientWidth;
+		let ex = parent - cols;
+	}
+</script>

@@ -43,7 +43,7 @@ reExamModal.addEventListener("show.bs.modal", function (event) {
 	var modalSchedule = document.getElementById("add-performer-re-exam-schedule");
 	var modalComment = document.getElementById("add-performer-re-exam-comment");
 
-	reExamForm.setAttribute('action', `/manager/assistant/reexam/${id}?_method=PATCH`);
+	reExamForm.setAttribute('action', `/reception/employ/reexam/${id}?_method=PATCH`);
 
 	modalName.innerHTML = name;
 	modalBirth.innerHTML = birth;

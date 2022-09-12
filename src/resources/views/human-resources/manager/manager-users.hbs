@@ -75,7 +75,7 @@
 					<td>{{this.description}}</td>
 					<td class="text-center">
 						<button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
-							data-id="{{this._id}}" data-edit-img="{{this.image.name}}"
+							data-id="{{this._id}}" data-edit-img="{{this.image.url}}"
 							data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
 							data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
 							data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
@@ -358,8 +358,8 @@
 			<div class="modal-body">
 				<form method="POST" id="edit-user-form" class="row" enctype="multipart/form-data">
 					<div class="col-xl-3 text-center">
-						{{#if user.image.name}}
-						<img src="/img/uploads/users/{{user.image.name}}" id="edit-user-avt" class="rounded mx-auto d-block add-avata"
+						{{#if user.image}}
+						<img src="{{user.image.url}}" id="edit-user-avt" class="rounded mx-auto d-block add-avata"
 							alt="...">
 						{{else}}
 						<img src="/img/user-icon.png" id="edit-user-avt" class="rounded mx-auto d-block add-avata"
@@ -464,11 +464,9 @@
 										<select id="edit-user-position" class="form-select form-select-sm"
 											aria-label=".form-select-sm example" name="position">
 											<option value="" selected>-- Chọn chức vụ --</option>
-											{{!-- {{#each departments}}
-											{{#each this.positionID}}
-											<option value="{{this.name}}">{{this.name}}</option>
+											{{#each this.positions}}
+											<option class="off" value="{{this.name}}">{{this.name}}</option>
 											{{/each}}
-											{{/each}} --}}
 										</select>
 									</div>
 								</div>

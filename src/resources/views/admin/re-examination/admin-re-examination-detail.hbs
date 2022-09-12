@@ -293,7 +293,7 @@
                         {{#each reExamination.counselorImg}}
                         <div class="col-md-4">
                             <div class="img-container">
-                                <img src="/counselor/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                                <img src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
                             </div>
                         </div>
                         {{/each}}
@@ -319,7 +319,7 @@
                         {{#each reExamination.counselorVideo}}
                         <div class="col-md-4">
                             <div class=" img-container">
-                                <video src="/counselor/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                                <video src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
                             </div>
                         </div>
                         {{/each}}
@@ -345,7 +345,7 @@
                         {{#each reExamination.beforeImg}}
                         <figure class="col-md-4">
                             <div class="figure img-container">
-                                <img src="/before/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                                <img src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
                             </div>
                         </figure>
                         {{/each}}
@@ -370,7 +370,7 @@
                     {{#each reExamination.beforeVideo}}
                     <div class="col-md-4">
                         <figure class="figure img-container">
-                            <video src="/before/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                            <video src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
                         </figure>
                     </div>
                     {{/each}}
@@ -395,7 +395,7 @@
                         {{#each reExamination.afterImg}}
                         <div class="col-md-4">
                             <figure class="figure img-container">
-                                <img src="/after/img/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
+                                <img src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="...">
                             </figure>
                         </div>
                         {{/each}}
@@ -421,7 +421,7 @@
                         {{#each reExamination.afterVideo}}
                         <div class="col-md-4">
                             <figure class="figure img-container">
-                                <video src="/after/video/{{this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
+                                <video src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover mt-2" alt="..." controls></video>
                             </figure>
                         </div>
                         {{/each}}
@@ -447,7 +447,7 @@
                         {{#each reExamination.reExamImg}}
                         <div class="col-md-4">
                             <figure class="figure img-container">
-                                <img src="/re-examination/img/{{this}}" class="figure-img img-fluid rounded img-cover" alt="...">
+                                <img src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover" alt="...">
                             </figure>
                         </div>
                         {{/each}}
@@ -473,7 +473,7 @@
                         {{#each reExamination.reExamVideo}}
                         <div class="col-md-4">
                             <figure class="figure img-container">
-                                <video src="/re-examination/video/{{this}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+                                <video src="{{getUrl this}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
                             </figure>
                         </div>
                         {{/each}}

@@ -52,13 +52,23 @@ const ServiceNote = new Schema({
 
 	counselorImg: [
 		{
-			type: String,
+			name: {
+				type: String,
+			},
+			url: {
+				type: String,
+			},
 		}
 	],
 
 	counselorVideo: [
 		{
-			type: String,
+			name: {
+				type: String,
+			},
+			url: {
+				type: String,
+			}
 		}
 	],
 
@@ -83,24 +93,44 @@ const ServiceNote = new Schema({
 
 	beforeImg: [
 		{
-			type: String,
+			name: {
+				type: String,
+			},
+			url: {
+				type: String,
+			}
 		}
 	],
 	beforeVideo: [
 		{
-			type: String,
+			name: {
+				type: String,
+			},
+			url: {
+				type: String,
+			}
 		}
 	],
 	
 	afterImg: [
 		{
-			type: String,
+			name: {
+				type: String,
+			},
+			url: {
+				type: String,
+			}
 		}
 	],
 
 	afterVideo: [
 		{
-			type: String,
+			name: {
+				type: String,
+			},
+			url: {
+				type: String,
+			}
 		}
 	],
 	

@@ -347,102 +347,48 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8 verticalLine">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <strong>
-                                                <label for="name">Họ tên:</label>
-                                            </strong>
-                                        </div>
-                                        <div class="col-sm-6 ">
-                                            <em>
-                                                <label class="text-uppercase text-danger"
-                                                    id="create-re-exam-firstLastName" name="name" readonly>
-                                            </em>
-                                        </div>
-                                    </div>
+									<div class="d-flex justify-content-between ml-3 mr-3">
+										<label><strong>Họ tên:</strong></label>
+										<label class="text-uppercase text-danger text-right" id="create-re-exam-firstLastName" name="name" readonly>
+									</div>
                                     <hr>
-                                    <div class=" mb-3 row">
-                                        <div class="col-sm-6">
-                                            <strong>
-                                                <label for="birth">Ngày sinh:</label>
-                                            </strong>
-                                        </div>
-                                        <div class="col-sm-6 ">
-                                            <em>
-                                                <label id="create-re-exam-birth" name="birth" readonly></label>
-                                            </em>
-                                        </div>
-                                    </div>
-                                    <div class=" mb-3 row">
-                                        <div class="col-sm-6">
-                                            <strong>
-                                                <label for="gender">Giới tính:</label>
-                                            </strong>
-                                        </div>
-                                        <div class="col-sm-6 ">
-                                            <em>
-                                                <label id="create-re-exam-gender" name="gender" readonly></label>
-                                            </em>
-                                        </div>
-                                    </div>
-                                    <div class=" mb-3 row">
-                                        <div class="col-sm-6">
-                                            <strong>
-                                                <label for="email">Email:</label>
-                                            </strong>
-                                        </div>
-                                        <div class="col-sm-6 ">
-                                            <em>
-                                                <label id="create-re-exam-email" class="d-inline-block text-truncate"
-                                                    name="email" readonly></label>
-                                            </em>
-                                        </div>
-                                    </div>
-                                    <div class=" mb-3 row">
-                                        <div class="col-sm-6">
-                                            <strong>
-                                                <label for="phone">Số điện thoại:</label>
-                                            </strong>
-                                        </div>
-                                        <div class="col-sm-6 ">
-                                            <em>
-                                                <label id="create-re-exam-phone" name="phone" readonly></label>
-                                            </em>
-                                        </div>
-                                    </div>
-                                    <div class=" mb-3 row">
-                                        <div class="col-sm-6">
-                                            <strong>
-                                                <label for="address">Địa chỉ:</label>
-                                            </strong>
-                                        </div>
-                                        <div class="col-sm-6 ">
-                                            <em>
-                                                <label id="create-re-exam-address" name="address" readonly></label>
-                                            </em>
-                                        </div>
-                                    </div>
-                                    <div class=" mb-3 row">
-                                        <div class="col-sm-6">
-                                            <strong>
-                                                <label for="createName">Người tạo:</label>
-                                            </strong>
-                                        </div>
-                                        <div class="col-sm-6 ">
-                                            <em>
-                                                <input hidden type="text" value="{{user._id}}" name="createName" id="">
-                                                <label id="create-re-exam-createName"
-                                                    readonly>{{user.firstName}} {{user.lastName}}</label>
-                                            </em>
-                                        </div>
-                                    </div>
-                                    <div class="mt-3">
-                                        <strong>
-                                            <label for="description">Mô tả khách hàng:</label>
-                                        </strong>
-                                        <textarea id="create-re-exam-description" class="form-control mb-2" rows="6"
-                                            style="background-color: white;" name="description" disabled></textarea>
-                                    </div>
+									<div class="d-flex justify-content-between ml-3 mr-3">
+										<label><strong>Ngày sinh:</strong></label>
+										<label id="create-re-exam-birth" class="text-right" name="birth" readonly></label>
+									</div>
+									<hr>
+                                    <div class="d-flex justify-content-between ml-3 mr-3">
+										<label><strong>Giới tính:</strong></label>
+										<label id="create-re-exam-gender" class="text-right" name="gender" readonly></label>
+									</div>
+									<hr>
+                                    <div class="d-flex justify-content-between ml-3 mr-3">
+										<label><strong>Email:</strong></label>
+										<label id="create-re-exam-email" class="d-inline-block text-truncate text-right" name="email" readonly></label>
+									</div>
+									<hr>
+                                    <div class="d-flex justify-content-between ml-3 mr-3">
+										<label><strong>Số điện thoại:</strong></label>
+										<label id="create-re-exam-phone" class="text-right" name="phone" readonly></label>
+									</div>
+									<hr>
+                                    <div class="d-flex justify-content-between ml-3 mr-3">
+										<label><strong>Địa chỉ:</strong></label>
+										<label id="create-re-exam-address" class="text-right" name="address" readonly></label>
+									</div>
+									<hr>
+                                    <div class="d-flex justify-content-between ml-3 mr-3">
+										<label><strong>Người tạo:</strong></label>
+										<input hidden type="text" value="{{user._id}}" name="createName" id="">
+										<label id="create-re-exam-createName" class="text-right"
+											readonly>{{user.firstName}} {{user.lastName}}</label>
+									</div>
+									<hr>
+                                    <div class="d-flex justify-content-between ml-3 mr-3">
+										<label><strong>Mô tả:</strong></label>
+									</div>
+									<p id="create-re-exam-description" class="message-content" rows="6" name="description" disabled></p>
+									<hr>
                                 </div>
                             </div>
                         </li>
@@ -457,3 +403,19 @@
     </div>
 </div>
 <script src="/js/operating/nursing-view.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+	const textarea = document.querySelectorAll('.message-content');
+	for (i = 0; i < textarea.length; i++) {
+		let element = textarea[i];
+		let textValue = element.innerHTML;
+		let textSplit = textValue.split('\n');
+		let cols = textValue.length;
+		let rows = textSplit.length;
+		let result = textSplit.join('<br>');
+		element.innerHTML = result;
+		let parent = element.clientWidth;
+		let ex = parent - cols;
+	}
+})
+</script>

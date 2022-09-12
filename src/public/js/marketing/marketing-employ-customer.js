@@ -38,6 +38,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	var phone = button.getAttribute("data-edit-phone");
 	var email = button.getAttribute("data-edit-email");
 	var address = button.getAttribute("data-edit-address");
+	var resource = button.getAttribute("data-edit-resource");
 	var desciption = button.getAttribute("data-edit-description");
 
 	// Get element need embeded input
@@ -49,6 +50,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	var editPhone = document.getElementById("edit-phone");
 	var editEmail = document.getElementById("edit-email");
 	var editAddress = document.getElementById("edit-address");
+	var editResource = document.getElementById("edit-resource");
 	var editDescription = document.getElementById("edit-description");
 
 	editFirstName.focus();
@@ -66,6 +68,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	editPhone.value = phone;
 	editEmail.value = email;
 	editAddress.value = address;
+	editResource.value = resource;
 	editDescription.value = desciption;
 });
 

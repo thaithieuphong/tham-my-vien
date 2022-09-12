@@ -65,6 +65,7 @@ class MarketingController {
 				phone: req.body.phone,
 				email: req.body.email,
 				address: req.body.address,
+				resource: req.body.resource,
 				description: req.body.description + req.body.userName,
 				image: {
 					name: req.file.filename,
@@ -81,6 +82,7 @@ class MarketingController {
 				phone: req.body.phone,
 				email: req.body.email,
 				address: req.body.address,
+				resource: req.body.resource,
 				description: req.body.description,
 				image: {
 					name: "",
@@ -104,6 +106,7 @@ class MarketingController {
 					phone: req.body.phone,
 					email: req.body.email,
 					address: req.body.address,
+					resource: req.body.resource,
 					description: req.body.description,
 					image: {
 						name: req.file.filename,

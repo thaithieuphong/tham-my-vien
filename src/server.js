@@ -109,6 +109,12 @@ app.engine(
 					arr.push(item.name);
 				})
 				return arr;
+			},
+			getUrl: (params) => {
+				return params.url
+			},
+			view: (value) => {
+				console.log(value)
 			}
 		}
 	})

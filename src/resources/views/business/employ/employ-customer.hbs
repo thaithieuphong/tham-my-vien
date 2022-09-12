@@ -117,15 +117,17 @@
 <div class="container-fluid">
 	<div class="row">
 		{{#each customers}}
-		<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs">
-			<div class="card mt-3 mb-3">
-				{{#if this.image.name}}
-				<img src="/img/uploads/users/{{this.image.name}}" class="card-img-top" alt="...">
+		<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs">
+			<div class="card mt-3 mb-3 text-center">
+				{{#if this.image}}
+				<figure class="figure">
+					{{!-- <img src="{{this.image.url}}" class="figure-img img-fluid rounded" alt="..."> --}}
+					<img src="{{this.image.url}}" class="figure-img img-thumbnail rounded" alt="...">
+				</figure>
+				{{!-- <img src="{{this.image.url}}" class="card-img-top" alt="..."> --}}
 				{{else}}
 				<img src="/img/user-icon.png" class="card-img-top" alt="...">
 				{{/if}}
-				{{!-- <div class="card-header bg-transparent">
-				</div> --}}
 				<div class="card-body">
 					<h5 class="card-title"><a href="/business/employ/customers/{{this._id}}/detail"
 							class="text-success">{{this.firstName}} {{this.lastName}}</a></h5>
@@ -141,7 +143,7 @@
 							<strong>Giới tính:</strong>&nbsp;
 						</label>
 						<label
-						class="text-primary form-label text-uppercase text-right">{{this.gender}}</label>
+						class="text-primary form-label text-right">{{this.gender}}</label>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label for="status">
@@ -159,14 +161,28 @@
 					</div>
 					<div class="d-flex justify-content-between">
 						<label for="status">
+							<strong>Địa chỉ:</strong>&nbsp;
+						</label>
+						<label
+						class="text-primary form-label text-right">{{this.address}}</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status">
+							<strong>Nguồn:</strong>&nbsp;
+						</label>
+						<label
+						class="text-primary form-label text-right">{{this.resource}}</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status">
 							<strong>Mô tả:</strong>&nbsp;
 						</label>
 					</div>
-					<label class="text-primary form-label text-uppercase">{{this.description}}</label>
+					<label class="text-primary">{{this.description}}</label>
 				</div>
 				<div class="card-footer bg-transparent text-center">
 					<button type="button" class="btn btn-primary btn-mobile mb-1" data-bs-toggle="modal"
-						data-bs-target="#edit-customer-modal" data-id="{{this._id}}" data-edit-img="{{this.image.name}}"
+						data-bs-target="#edit-customer-modal" data-id="{{this._id}}" data-edit-img="{{this.image.url}}"
 						data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
 						data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
 						data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
@@ -174,7 +190,7 @@
 						Sửa thông tin
 					</button>
 					<button type="button" class="btn btn-success btn-mobile mb-1" data-bs-toggle="modal"
-						data-service-note-id="{{this._id}}" data-service-note-img="{{this.image.name}}"
+						data-service-note-id="{{this._id}}" data-service-note-img="{{this.image.url}}"
 						data-service-note-firstname="{{this.firstName}}" data-service-note-lastname="{{this.lastName}}"
 						data-service-note-birth="{{this.birth}}" data-service-note-gender="{{this.gender}}"
 						data-service-note-phone="{{this.phone}}" data-service-note-email="{{this.email}}"
@@ -503,7 +519,7 @@
 												<label for="status">
 													<strong>Địa chỉ:</strong>&nbsp;
 												</label>
-												<label id="create-service-note-address" name="address"></label>
+												<label id="create-service-note-address" class="text-right" name="address"></label>
 											</div>
 											<div class="d-flex justify-content-between">
 												<label for="status">
@@ -547,7 +563,6 @@
 												</li>
 												{{#each this.services}}
 												<li>
-													
 													<label class="form-check " for="{{this.service}}">
 														<input type="checkbox" class="" id="{{this.service}}"
 															value="{{this.service}}" name="service[]" />
@@ -585,14 +600,24 @@
 									</div>
 								</div>
 								<div class="col-md-7">
-									<label class="label-avt btn-mobile">
-										<h6>Chọn ảnh tư vấn</h6>
-									</label>
-									<div class="input-images mt-2"></div>
-									<label class="label-avt mt-3 btn-mobile">
-										<h6>Chọn video tư vấn</h6>
-									</label>
-									<div class="input-videos mt-2"></div>
+									<div class="mb-3">
+										<div class="preview-images-counselor row ml-0 mt-3 border text-center">
+										</div>
+										<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-end mt-3">
+											<h5 id="text-img-counselor" class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn ảnh tư vấn</h5>
+										</label>
+										<input id="input-multi-images-counselor" class="form-control" type="file"
+											name="counselor" hidden multiple>
+									</div>
+									<div class="">
+										<div class="preview-videos-counselor row ml-0 mt-3 border text-center">
+										</div>
+										<label id="input-multi-videos-counselor-label" for="input-multi-videos-counselor" class="label-avt d-flex justify-content-end mt-3">
+											<h5 class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn video tư vấn</h5>
+										</label>
+										<input id="input-multi-videos-counselor" class="form-control" type="file"
+											name="counselor" hidden multiple>
+									</div>
 								</div>
 							</div>
 						</div>

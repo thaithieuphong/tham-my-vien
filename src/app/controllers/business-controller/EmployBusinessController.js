@@ -35,10 +35,6 @@ class EmployBusinessController {
 		Promise.all([Customer.find({ userID: req.userId }), User.findById({ _id: req.userId }),
 		TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
-				customers.map(customer => {
-
-					console.log(customer.image.name)
-				})
 				res.render("business/employ/employ-customer", {
 					customers: multipleMongooseToObject(customers),
 					user: mongooseToObject(user),
@@ -126,7 +122,6 @@ class EmployBusinessController {
 				})
 				.catch(next);
 		} else {
-			console.log(req.file);
 			Customer.updateOne({ _id: req.params.id }, req.body)
 				.then((customer) => {
 					res.redirect("back");
@@ -149,7 +144,6 @@ class EmployBusinessController {
 
 			})
 			.catch(next);
-		// res.json(req.params)
 	}
 
 	createComment(req, res, next) {
@@ -183,15 +177,15 @@ class EmployBusinessController {
 
 	createServiceNote(req, res, next) {
 		const file = req.files;
-		const fnimg = [];
-		const fnvideo = []
+		const imgArr = [];
+		const videoArr = [];
 		file.forEach(element => {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
-				fnimg.push(element.filename);
-				return fnimg;
+				imgArr.push({ name: element.filename, url: element.path });
+				return imgArr;
 			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
-				fnvideo.push(element.filename);
-				return fnvideo;
+				videoArr.push({ name: element.filename, url: element.path });
+				return videoArr;
 			}
 		})
 		const serviceNote = new ServiceNote({
@@ -203,8 +197,8 @@ class EmployBusinessController {
 			comments: { comment: req.body.comment },
 			schedule: req.body.schedule,
 			price: req.body.price,
-			counselorImg: fnimg,
-			counselorVideo: fnvideo,
+			counselorImg: imgArr,
+			counselorVideo: videoArr,
 		});
 		serviceNote.save();
 		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id } })

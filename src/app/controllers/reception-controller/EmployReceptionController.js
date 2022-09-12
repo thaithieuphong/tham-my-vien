@@ -36,7 +36,7 @@ class ReceptionController {
                     serviceNotes: multipleMongooseToObject(serviceNotes),
                     user1s: multipleMongooseToObject(user1s),
                     user2s: multipleMongooseToObject(user2s),
-                    title: "Quản lý dịch vụ"
+                    title: "Danh sách phiếu phẩu thuật"
                 });
 
             })
@@ -55,7 +55,7 @@ class ReceptionController {
                     reexams: multipleMongooseToObject(reexams),
                     user1s: multipleMongooseToObject(user1s),
                     user2s: multipleMongooseToObject(user2s),
-                    title: "Quản lý dịch vụ"
+                    title: "Danh sách phiếu tái khám"
                 });
             })
             .catch(next);

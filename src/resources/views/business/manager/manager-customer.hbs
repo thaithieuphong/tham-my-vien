@@ -80,6 +80,7 @@
 							<th class="text-center" scope="col">Số điện thoại</th>
 							<th class="text-center" scope="col">Email</th>
 							<th class="text-center" scope="col">Địa chỉ</th>
+							<th class="text-center" scope="col">Nguồn</th>
 							<th class="text-center" scope="col">Mô tả</th>
 							<th class="text-center" scope="col">Hành động</th>
 						</tr>
@@ -90,16 +91,17 @@
 							<td class="text-center" scope="row">{{sum @index 1}}</td>
 							<td><a href="/business/manager/customers/{{this._id}}/detail">{{this.firstName}}
 									{{this.lastName}}</a></td>
-							<td class="text-center">{{formatBirth this.birth}}</td>
-							<td class="text-center">{{this.gender}}</td>
-							<td class="text-center">0{{this.phone}}</td>
-							<td>{{this.email}}</td>
-							<td>{{this.address}}</td>
-							<td>{{this.description}}</td>
+							<td>{{formatBirth this.birth}}</td>
+							<td>{{this.gender}}</td>
+							<td>0{{this.phone}}</td>
+							<td>{{cutPassword this.email 16}}</td>
+							<td>{{cutPassword this.address 16}}</td>
+							<td>{{this.resource}}</td>
+							<td>{{cutPassword this.description 16}}</td>
 							<td class="text-center">
 								<button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
 									data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
-									data-edit-img="{{this.image.name}}"
+									data-edit-img="{{this.image.url}}"
 									data-edit-firstname="{{this.firstName}}"
 									data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
 									data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
@@ -109,7 +111,7 @@
 								</button>
 								<button class="btn btn-primary btn-sm" data-bs-toggle="modal"
 									data-service-note-id="{{this._id}}"
-									data-service-note-img="{{this.image.name}}"
+									data-service-note-img="{{this.image.url}}"
 									data-service-note-firstname="{{this.firstName}}"
 									data-service-note-lastname="{{this.lastName}}"
 									data-service-note-birth="{{this.birth}}"
@@ -131,7 +133,7 @@
 					{{#each customers}}
 					<div class="card mb-3">
 						{{#if this.image.name}}
-						<img src="/img/uploads/users/{{this.image.name}}" class="card-img-top" alt="...">
+						<img src="{{this.image.url}}" class="card-img-top" alt="...">
 						{{else}}
 						<img src="/img/user-icon.png" class="card-img-top" alt="...">
 						{{/if}}
@@ -167,6 +169,18 @@
 								</div>
 								<label name="schedule" class="form-label text-primary text-right">{{this.email}}</label>
 							</div>
+							<div class="d-flex justify-content-between">
+								<div>
+									<strong name="status" class="form-label">Địa chỉ:</strong>
+								</div>
+								<label name="schedule" class="form-label text-primary text-right">{{this.address}}</label>
+							</div>
+							<div class="d-flex justify-content-between">
+								<div>
+									<strong name="status" class="form-label">Nguồn:</strong>
+								</div>
+								<label name="schedule" class="form-label text-primary text-right">{{this.resource}}</label>
+							</div>
 							<div>
 								<strong name="status" class="form-label">Mô tả:</strong>
 							</div>
@@ -175,14 +189,14 @@
 						<div class="card-footer bg-transparent">
 							<button type="button" class="btn btn-md btn-primary btn-mobile" data-bs-toggle="modal"
 								data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
-								data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
+								data-edit-img="{{this.image.url}}" data-edit-firstname="{{this.firstName}}"
 								data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
 								data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
 								data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
 								data-edit-resource="{{this.resource}}"
 								data-edit-description="{{this.description}}">Sửa</button>
 							<button type="button" class="btn btn-md btn-success btn-mobile mt-1" data-bs-toggle="modal"
-								data-service-note-id="{{this._id}}" data-service-note-img="{{this.image.name}}"
+								data-service-note-id="{{this._id}}" data-service-note-img="{{this.image.url}}"
 								data-service-note-firstname="{{this.firstName}}"
 								data-service-note-lastname="{{this.lastName}}" data-service-note-birth="{{this.birth}}"
 								data-service-note-gender="{{this.gender}}" data-service-note-phone="{{this.phone}}"
@@ -208,6 +222,7 @@
 							<th class="text-center" scope="col">Số điện thoại</th>
 							<th class="text-center" scope="col">Email</th>
 							<th class="text-center" scope="col">Địa chỉ</th>
+							<th class="text-center" scope="col">Nguồn</th>
 							<th class="text-center" scope="col">CTV</th>
 							<th class="text-center" scope="col">Mô tả</th>
 						</tr>
@@ -215,17 +230,16 @@
 					<tbody id="table-content">
 						{{#each customer1s}}
 						<tr>
-							<td class="text-center" scope="row">{{sum @index 1}}</td>
-							<td><a href="/business/manager/customers/{{this._id}}/detail/ctv">{{this.firstName}}
-									{{this.lastName}}</a></td>
-							<td class="text-center">{{formatBirth this.birth}}</td>
-							<td class="text-center">{{this.gender}}</td>
-							<td class="text-center">0{{this.phone}}</td>
-							<td>{{this.email}}</td>
-							<td>{{this.address}}</td>
-							<td>{{this.userID.firstName}} {{this.userID.lastName}}
-								({{this.userID.position}})</td>
-							<td>{{this.description}}</td>
+							<td class="text-center">{{sum @index 1}}</td>
+							<td><a href="/business/manager/customers/{{this._id}}/detail/ctv">{{this.firstName}} {{this.lastName}}</a></td>
+							<td>{{formatBirth this.birth}}</td>
+							<td>{{this.gender}}</td>
+							<td>0{{this.phone}}</td>
+							<td>{{cutPassword this.email 16}}</td>
+							<td>{{cutPassword this.address 16}}</td>
+							<td>{{this.resource}}</td>
+							<td>{{this.userID.firstName}} {{this.userID.lastName}} ({{this.userID.position}})</td>
+							<td>{{cutPassword this.description 16}}</td>
 						</tr>
 						{{/each}}
 					</tbody>
@@ -265,6 +279,12 @@
 								<strong name="status" class="form-label">Email:</strong>
 							</div>
 							<label name="schedule" class="form-label text-primary text-right">{{this.email}}</label>
+						</div>
+						<div class="d-flex justify-content-between">
+							<div>
+								<strong name="status" class="form-label">Nguồn:</strong>
+							</div>
+							<label name="schedule" class="form-label text-primary text-right">{{this.resource}}</label>
 						</div>
 						<div class="d-flex justify-content-between">
 							<div>
@@ -651,22 +671,19 @@
 							</div>
 							<div class="mb-3">
 								<div class="preview-images-counselor row ml-0 mt-3 border text-center">
-										<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-center">
-												<div id="icon-img-counselor">
-													<i class="ti-cloud-up fw-bold"></i>
-												</div>
-												<div>
-													<h6 id="text-img-counselor" class="text-uppercase">Chọn ảnh tư vấn</h6>
-												</div>
-										</label>
 								</div>
+								<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-end mt-3">
+									<h5 id="text-img-counselor" class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn ảnh tư vấn</h5>
+								</label>
 								<input id="input-multi-images-counselor" class="form-control" type="file"
 									name="counselor" hidden multiple>
 							</div>
 							<div class="">
 								<div class="preview-videos-counselor row ml-0 mt-3 border text-center">
-									<i class="ti-cloud-up"></i><label id="input-multi-videos-counselor-label" for="input-multi-videos-counselor" class="label-avt"><h6>Chọn video tư vấn</h6></label>
 								</div>
+								<label id="input-multi-videos-counselor-label" for="input-multi-videos-counselor" class="label-avt d-flex justify-content-end mt-3">
+									<h5 class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn video tư vấn</h5>
+								</label>
 								<input id="input-multi-videos-counselor" class="form-control" type="file"
 									name="counselor" hidden multiple>
 							</div>

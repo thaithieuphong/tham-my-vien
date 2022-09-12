@@ -79,6 +79,8 @@ editUserImg.addEventListener("change", (e) => {
 });
 
 // Handle push data to edit modal
+// var editUserDepartment = document.getElementById('edit-user-department');
+// var editUserPosition = document.getElementById('edit-user-position');
 var editUser = document.getElementById("edit-user-modal");
 editUser.addEventListener("show.bs.modal", function (event) {
 	// Button that triggered the modal
@@ -92,8 +94,8 @@ editUser.addEventListener("show.bs.modal", function (event) {
 	var editDataUserGender = button.getAttribute("data-edit-gender");
 	var editDataUserPhone = button.getAttribute("data-edit-phone");
 	var editDataUserEmail = button.getAttribute("data-edit-email");
-	var editDataUserDepartment = button.getAttribute("data-edit-department");
-	var editDataUserPosition = button.getAttribute("data-edit-position");
+	// var editDataUserDepartment = button.getAttribute("data-edit-department");
+	// var editDataUserPosition = button.getAttribute("data-edit-position");
 	var editDataUserAddress = button.getAttribute("data-edit-address");
 	var editDataUserDesciption = button.getAttribute("data-edit-description");
 	var editDataUserAccount = button.getAttribute("data-edit-account");
@@ -117,7 +119,7 @@ editUser.addEventListener("show.bs.modal", function (event) {
 	if (editDataUserImg === '') {
 		editUserAvt.setAttribute('src', '/img/user-icon.png');
 	} else {
-		editUserAvt.setAttribute('src', '/img/uploads/users/' + editDataUserImg);
+		editUserAvt.setAttribute('src', editDataUserImg);
 	}
 	editUserForm.setAttribute('action', `/human-resources/manager/users/${editDataUserId}/edit?_method=PUT`);
 	editUserFirstName.value = editDataUserFirstName;
@@ -126,11 +128,55 @@ editUser.addEventListener("show.bs.modal", function (event) {
 	editUserGender.value = editDataUserGender;
 	editUserPhone.value = editDataUserPhone;
 	editUserEmail.value = editDataUserEmail;
-	editUserDepartment.value = editDataUserDepartment;
-	editUserPosition.value = editDataUserPosition;
+	// editUserDepartment.value = editDataUserDepartment;
+	// editUserPosition.value = editDataUserPosition;
 	editUserAddress.value = editDataUserAddress;
 	editUserDescription.value = editDataUserDesciption;
 	editUserAccount.value = editDataUserAccount;
+	editUserDepartment.addEventListener('change', (e) => {
+		var deparmentValue = e.target.value;
+		for (let element of editUserPosition.children) {
+			element.classList.replace('on', 'off');
+			switch(deparmentValue) {
+				case 'Marketing':
+					if ((element.innerHTML === 'Quản lý' || element.innerHTML === 'Nhân viên')) {
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'Kinh doanh':
+					if ((element.innerHTML === 'Quản lý' || element.innerHTML === 'Nhân viên')) {
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'Lễ tân':
+					if (element.innerHTML === 'Nhân viên') {
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'Phẩu thuật':
+					if (element.innerHTML === 'Bác sĩ' || element.innerHTML === 'Điều dưỡng') {
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'Nhân sự':
+					if (element.innerHTML === 'Quản lý') {
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'IT':
+					if ((element.innerHTML === 'Quản lý' || element.innerHTML === 'Nhân viên')) {
+						element.classList.replace('off', 'on');
+					}
+					break;
+				case 'Quản trị':
+					if (element.innerHTML === 'Tổng Giám đốc' || element.innerHTML === 'Trợ lý') {
+						element.classList.replace('off', 'on');
+
+					}
+					break;
+			}
+		}
+	})
 });
 
 //EDIT END: Load edit customer modal and submit edit customer forms
