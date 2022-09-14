@@ -115,6 +115,9 @@ app.engine(
 			},
 			view: (value) => {
 				console.log(value)
+			},
+			getDoctor: (arr) => {
+				arr.filter(item => item.state === 'Medium' ? item : null)
 			}
 		}
 	})

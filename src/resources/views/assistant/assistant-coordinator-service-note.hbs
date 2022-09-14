@@ -201,7 +201,7 @@
 									</label>
 									<select id="select-performer" class="chosen-select" multiple
 										tabindex="6" name="performer">
-										{{#each user1s}}
+										{{#each doctors}}
 										<option value="{{this._id}}">
 											{{this.firstName}}
 											{{this.lastName}}</option>
@@ -214,7 +214,7 @@
 									</label>
 									<select id="select-nursing" class="chosen-select" multiple tabindex="6"
 										name="nursing[]">
-										{{#each user2s}}
+										{{#each nursings}}
 										<option value="{{this._id}}">
 											{{this.firstName}}
 											{{this.lastName}}</option>
@@ -229,7 +229,7 @@
 								<div id="list1" class="dropdown-check-list" tabindex="100">
 									<span class="anchor">Chọn bác sĩ và điều dưỡng</span>
 									<ul class="items">
-										{{#each user1s}}
+										{{#each doctors}}
 										<li>
 											<hr>
 											<label class="form-check " for="{{this._id}}">
@@ -240,7 +240,7 @@
 											</label>
 										</li>
 										{{/each}}
-										{{#each user2s}}
+										{{#each nursings}}
 										<li>
 											<hr>
 											<label class="form-check " for="{{this._id}}">

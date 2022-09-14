@@ -274,14 +274,15 @@ class AssistantController {
 		Promise.all([User.findById({ _id: req.userId }),
 			ServiceNote.find({ stored: null }).sort({ schedule: 1 }).populate('customerID').populate('createName'),
 			User1.find({ department: "Phẩu thuật", positionEng: "doctor", $or: [{ state: "Medium" }, { state: null }] }),
-			User2.find({ department: "Phẩu thuật", $or: [{ $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { positionEng: "nurse" }] }, { $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { positionEng: "nursing" }] }] })
+			User2.find({ department: "Phẩu thuật", $or: [{ $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { positionEng: "nursing" }] }] })
 			])
-				.then(([user, serviceNotes, user1s, user2s]) => {
+				.then(([user, serviceNotes, doctors, nursings]) => {
+					console.log('users1', nursings)
 					res.render('assistant/assistant-coordinator-service-note', {
 						user: mongooseToObject(user),
 						serviceNotes: multipleMongooseToObject(serviceNotes),
-						user1s: multipleMongooseToObject(user1s),
-						user2s: multipleMongooseToObject(user2s),
+						doctors: multipleMongooseToObject(doctors),
+						nursings: multipleMongooseToObject(nursings),
 						title: "Phiếu phẩu thuật"
 					})
 				})

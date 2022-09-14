@@ -8,19 +8,29 @@
     </div>
     <div class="offcanvas-body container-sidebar bg-dark">
         <div class="sidebar-item">
-            <a href="/business/employ/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-receipt mr-3"></i>Dịch vụ
+            <a href="/operating-room/nursing" class="sidebar-item-title pl-3">
+                <i class="ti-receipt mr-3"></i>Phiếu hoàn thành
             </a>
         </div>
 		<div class="sidebar-item">
-            <a href="/business/employ/customers" class="sidebar-item-title pl-3">
+            <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Phiếu phẩu thuật
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/nursing/re-examination" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Phiếu tái khám
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/nursing/customers" class="sidebar-item-title pl-3">
                 <i class="ti-user mr-3"></i>Khách hàng
             </a>
         </div>
     </div>
 	<div class="offcanvas-footer bg-dark border-top">
         <div class="sidebar-item">
-            <a href="/business/employ/profile" class="sidebar-item-title pl-3">
+            <a href="/operating-room/nursing/profile" class="sidebar-item-title pl-3">
                 <i class="ti-user mr-3"></i>Thông tin người dùng
             </a>
         </div>
@@ -121,7 +131,7 @@
 						{{!-- <hr class="mt-3"> --}}
 						{{/each}}
 					</ul>
-					<form method="POST" action="/business/employ/customers/{{customer._id}}/comment?_method=PATCH">
+					<form method="POST" action="/operating-room/nursing/customers/{{customer._id}}/comment?_method=PATCH">
 						<div class="input-group mt-3 mb-3">
 							<textarea type="text" class="form-control form-control-sm" id="comments" name="comments"
 							placeholder="Thêm hoạt động..." required></textarea>
