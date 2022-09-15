@@ -161,11 +161,12 @@ class NursingController {
 	}
 
 	showServiceNote(req, res, next) {
-		Promise.all([ServiceNote.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'),
+		Promise.all([ServiceNote.findOne({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'),
 		User.findById({ _id: req.userId })])
 			.then(([serviceNote, user]) => {
 				res.render("operating/nursing/operating-service-note", {
-					serviceNote: multipleMongooseToObject(serviceNote),
+					serviceNote: mongooseToObject(serviceNote),
+					user: mongooseToObject(user),
 					title: "Phiếu phẩu thuật"
 				})
 			})
@@ -174,10 +175,10 @@ class NursingController {
 	}
 
 	showReExamination(req, res, next) {
-		Promise.all([Reexamination.find({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId'), User.findById({ _id: req.userId })])
+		Promise.all([Reexamination.findOne({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId'), User.findById({ _id: req.userId })])
 			.then(([reExam, user]) => {
 				res.render("operating/nursing/operating-re-exam", {
-					reExam: multipleMongooseToObject(reExam),
+					reExam: mongooseToObject(reExam),
 					user: mongooseToObject(user),
 					title: "Phiếu tái khám"
 				})
@@ -188,20 +189,27 @@ class NursingController {
 	}
 
 	updateServiceNote(req, res, next) {
-		console.log('req body', req.body)
-		ServiceNote.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành", stepsToTake: req.body.stepsToTake } })
-			.then(() => {
+		Promise.all([
+			User.findByIdAndUpdate({ _id: req.body.performerID }, { $set: { stateUser: 'Medium' }}),
+			User.findByIdAndUpdate({ _id: req.body.nursingID }, { $set: { stateUser: 'Medium' }}),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: "Hoàn thành", stepsToTake: req.body.stepsToTake } }),
+		])
+		.then(() => {
 				res.redirect('back')
 			})
 			.catch(next);
 	}
 
 	updateReExamination(req, res, next) {
-		Reexamination.find({ _id: req.params.id }).updateOne({ $set: { status: "Hoàn thành", stepsToTake: req.body.stepsToTake } })
-			.then(() => {
-				res.redirect('back')
-			})
-			.catch(next);
+		Promise.all([
+			User.findByIdAndUpdate({ _id: req.body.performerID }, { $set: { stateUser: 'Medium' }}),
+			User.findByIdAndUpdate({ _id: req.body.nursingID }, { $set: { stateUser: 'Medium' }}),
+			Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: "Hoàn thành", stepsToTake: req.body.stepsToTake } }),
+		])
+		.then(() => {
+			res.redirect('back')
+		})
+		.catch(next);
 	}
 
 

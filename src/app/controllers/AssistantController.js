@@ -273,38 +273,45 @@ class AssistantController {
 	getAssistantCoordinatorServiceNote(req, res, next) {
 		Promise.all([User.findById({ _id: req.userId }),
 			ServiceNote.find({ stored: null }).sort({ schedule: 1 }).populate('customerID').populate('createName'),
-			User1.find({ department: "Phẩu thuật", positionEng: "doctor", $or: [{ state: "Medium" }, { state: null }] }),
-			User2.find({ department: "Phẩu thuật", $or: [{ $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { positionEng: "nursing" }] }] })
-			])
-				.then(([user, serviceNotes, doctors, nursings]) => {
-					console.log('users1', nursings)
-					res.render('assistant/assistant-coordinator-service-note', {
-						user: mongooseToObject(user),
-						serviceNotes: multipleMongooseToObject(serviceNotes),
-						doctors: multipleMongooseToObject(doctors),
-						nursings: multipleMongooseToObject(nursings),
-						title: "Phiếu phẩu thuật"
-					})
+			User1.find({ departmentEng: 'operating-room', positionEng: 'doctor'}),
+			User2.find({ departmentEng: 'operating-room', positionEng: 'nursing'}),
+		])
+			.then(([user, serviceNotes, doctors, nursings]) => {
+				let mediumDoctors = [];
+				let mediumNursings = [];
+				doctors.forEach(doctor => doctor.stateUser === 'Medium' ? mediumDoctors.push(doctor) : null);
+				nursings.forEach(nursing => nursing.stateUser === 'Medium' ? mediumNursings.push(nursing) : null);
+				res.render('assistant/assistant-coordinator-service-note', {
+					user: mongooseToObject(user),
+					serviceNotes: multipleMongooseToObject(serviceNotes),
+					doctors: multipleMongooseToObject(mediumDoctors),
+					nursings: multipleMongooseToObject(mediumNursings),
+					title: "Phiếu phẩu thuật"
 				})
-				.catch(next);
+			})
+			.catch(next);
 	}
 
 	getAssistantCoordinatorReExamination(req, res, next) {
 		Promise.all([User.findById({ _id: req.userId }),
 			Reexamination.find({ stored: null }).sort({ schedule: 1 }).populate('customerID').populate('createName').populate('serviceNoteId'),
-			User1.find({ department: "Phẩu thuật", positionEng: "doctor", $or: [{ state: "Medium" }, { state: null }] }),
-			User2.find({ department: "Phẩu thuật", $or: [{ $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { positionEng: "nurse" }] }, { $and: [{ $or: [{ state: "Medium" }, { state: null }] }, { positionEng: "nursing" }] }] })
-			])
-				.then(([user, reexams, user1s, user2s]) => {
-					res.render('assistant/assistant-coordinator-re-examination', {
-						user: mongooseToObject(user),
-						reexams: multipleMongooseToObject(reexams),
-						user1s: multipleMongooseToObject(user1s),
-						user2s: multipleMongooseToObject(user2s),
-						title: "Phiếu tái khám"
-					})
+			User1.find({ departmentEng: 'operating-room', positionEng: 'doctor'}),
+			User2.find({ departmentEng: 'operating-room', positionEng: 'nursing'}),
+		])
+			.then(([user, reexams, doctors, nursings]) => {
+				let mediumDoctors = [];
+				let mediumNursings = [];
+				doctors.forEach(doctor => doctor.stateUser === 'Medium' ? mediumDoctors.push(doctor) : null);
+				nursings.forEach(nursing => nursing.stateUser === 'Medium' ? mediumNursings.push(nursing) : null);
+				res.render('assistant/assistant-coordinator-re-examination', {
+					user: mongooseToObject(user),
+					reexams: multipleMongooseToObject(reexams),
+					doctors: multipleMongooseToObject(mediumDoctors),
+					nursings: multipleMongooseToObject(mediumNursings),
+					title: "Phiếu tái khám"
 				})
-				.catch(next);
+			})
+			.catch(next);
 	}
 	//END SERVICE NOTE
 
@@ -315,20 +322,25 @@ class AssistantController {
                     $push: { performer: req.body.performer, nursing: req.body.nursing },
                     $set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
                 }),
+			User1.findByIdAndUpdate({ _id: req.body.performer}, {$set: { stateUser: 'Busy' }}),
+			User2.findByIdAndUpdate({ _id: req.body.nursing}, {$set: { stateUser: 'Busy' }}),
         ])
             .then(() => {
-
                 res.redirect("back")
             })
             .catch(next);
     }
 
     pushOperationToReexam(req, res, next) {
-        Reexamination.findByIdAndUpdate({ _id: req.params.id },
-            {
-                $push: { performer: req.body.performer, nursing: req.body.nursing },
-                $set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
-            })
+		Promise.all([
+            Reexamination.findByIdAndUpdate({ _id: req.params.id },
+                {
+                    $push: { performer: req.body.performer, nursing: req.body.nursing },
+                    $set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
+                }),
+			User1.findByIdAndUpdate({ _id: req.body.performer}, {$set: { stateUser: 'Busy' }}),
+			User2.findByIdAndUpdate({ _id: req.body.nursing}, {$set: { stateUser: 'Busy' }}),
+        ])
             .then(() => {
                 res.redirect("back")
             })

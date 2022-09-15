@@ -131,7 +131,7 @@
 							</label>
 							<label class="text-right text-primary">
 								{{#each this.performer}}
-								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+								<input hidden type="text" name="performerID" value="{{this._id}}">
 								<em>{{this.firstName}} {{this.lastName}};</em>
 								{{/each}}
 							</label>
@@ -142,7 +142,7 @@
 							</label>
 							<label class="text-right text-primary">
 								{{#each this.nursing}}
-								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+								<input hidden type="text" name="nursingID" value="{{this._id}}">
 								<em>{{this.firstName}} {{this.lastName}};</em>
 								{{/each}}
 							</label>
