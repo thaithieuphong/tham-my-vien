@@ -32,9 +32,10 @@ class EmployBusinessController {
 
 	/** Customer */
 	showCustomer(req, res, next) {
-		Promise.all([Customer.find({ userID: req.userId }), User.findById({ _id: req.userId }),
+		Promise.all([Customer.find({ userID: req.userId}), User.findById({ _id: req.userId }),
 		TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
+				console.log('customers', customers)
 				res.render("business/employ/employ-customer", {
 					customers: multipleMongooseToObject(customers),
 					user: mongooseToObject(user),
@@ -58,6 +59,10 @@ class EmployBusinessController {
 				address: req.body.address,
 				resource: req.body.resource,
 				description: req.body.description,
+				statusCus: {
+					statusVi: 'Tạo mới',
+					statusEng: 'New'
+				},
 				image: {
 					name: req.file.filename,
 					url: req.file.path,
@@ -76,6 +81,10 @@ class EmployBusinessController {
 				address: req.body.address,
 				resource: req.body.resource,
 				description: req.body.description,
+				statusCus: {
+					statusVi: 'Tạo mới',
+					statusEng: 'New'
+				},
 				image: {
 					name: "",
 					url: "",

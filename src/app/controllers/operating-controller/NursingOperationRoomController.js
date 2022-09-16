@@ -266,6 +266,7 @@ class NursingController {
 				return videoArr;
 			}
 		})
+		console.log(req.params.id)
 		Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $push: { reExamImg: imgArr, reExamVideo: videoArr } })
 			.then(() => {
 				res.redirect('back')

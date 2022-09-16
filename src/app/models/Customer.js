@@ -37,13 +37,16 @@ const Customer = new Schema({
 			ref: "ServiceNote"
 		}
 	],
-
 	reexamID: [
 		{
 			type: String,
 			ref: "Reexamination"
 		}
-	]
+	],
+	statusCus: {
+		statusVi: String,
+		statusEng: String	
+	},
 }, {
 	timestamps: true
 });

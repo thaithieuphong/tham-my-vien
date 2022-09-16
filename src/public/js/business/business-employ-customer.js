@@ -143,12 +143,21 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 
 document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {
-		$("#customer_table").DataTable({
+		$("#customerNew_table").DataTable({
 			paging: true,
 			reponsive: true,
 			scrollCollapse: true,
 		});
-		
+		$("#customerPotential_table").DataTable({
+			paging: true,
+			reponsive: true,
+			scrollCollapse: true,
+		});
+		$("#customerSchedule_table").DataTable({
+			paging: true,
+			reponsive: true,
+			scrollCollapse: true,
+		});
 	});
 
 	let inputMultiImageConselor = document.getElementById('input-multi-images-counselor');
