@@ -101,9 +101,33 @@ function myFunction() {
 }
 
 var checkList = document.getElementById('list1');
-	checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
-		if (checkList.classList.contains('visible'))
-			checkList.classList.remove('visible');
-		else
-			checkList.classList.add('visible');
-	}
+checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+	if (checkList.classList.contains('visible'))
+		checkList.classList.remove('visible');
+	else
+		checkList.classList.add('visible');
+}
+
+// Handle push data to delete modal
+var deleteSchedule = document.getElementById("delete-schedule-modal");
+deleteSchedule.addEventListener("show.bs.modal", function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget;
+	// Get data from delete button
+	var customerId = button.getAttribute('data-delete-id');
+	var firstName = button.getAttribute("data-delete-firstname");
+	var lastName = button.getAttribute("data-delete-lastname");
+
+	// Get element need embeded input
+	var deleteSchedule = document.getElementById("delete-schedule");
+
+	deleteScheduleForm.setAttribute('action', `/manager/assistant/${customerId}/schedule?_method=DELETE`);
+	deleteSchedule.innerText = `${firstName} ${lastName}`;
+});
+
+// Handle delete info Customer
+var deleteBtn = document.getElementById("delete-schedule-btn");
+var deleteScheduleForm = document.forms["delete-schedule-form"];
+deleteBtn.addEventListener("click", () => {
+	deleteScheduleForm.submit();
+});

@@ -6,6 +6,9 @@ const AuthController = require('../../app/controllers/AuthController');
 
 /* Business Employ Start*/
 router.patch('/customers/:id/comment', EmployBusinessController.createComment);
+router.patch('/customers/:id/potential', EmployBusinessController.moveToPotential);
+router.patch('/customers/:id/notOK', EmployBusinessController.moveToNotOK);
+router.patch('/customers/:id/schedule', EmployBusinessController.moveToSchedule);
 router.put('/customers/:id', validateUploadImage.uploadSingleCustomer, EmployBusinessController.editCustomer);
 router.post('/customers/:id/service-note', validateUploadImage.counselorUpload, EmployBusinessController.createServiceNote);
 router.post('/customers', validateUploadImage.uploadSingleCustomer, EmployBusinessController.createCustomer);

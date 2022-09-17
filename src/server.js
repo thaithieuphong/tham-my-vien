@@ -118,7 +118,18 @@ app.engine(
 			},
 			getDoctor: (arr) => {
 				arr.filter(item => item.state === 'Medium' ? item : null)
-			}
+			},
+			// setColor: (value) => {
+			// 	if (value === 'Tạo mới') {
+			// 		console.log(value)
+			// 	}
+			// 	if (value === 'Đang xử lý') {
+					
+			// 	}
+			// 	if (value === 'Hoàn thành') {
+					
+			// 	}
+			// }
 		}
 	})
 );

@@ -35,9 +35,30 @@ class EmployBusinessController {
 		Promise.all([Customer.find({ userID: req.userId}), User.findById({ _id: req.userId }),
 		TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
-				console.log('customers', customers)
+				let cusNew = [];
+				let cusPotential = [];
+				let cusSchedule = [];
+				let cusFail = [];
+				// console.log(customers.serviceNoteID)
+				customers.forEach(customer => {
+					if(customer.statusCus.statusEng === 'New') {
+						cusNew.push(customer);
+					}
+					if(customer.statusCus.statusEng === 'Potential') {
+						cusPotential.push(customer);
+					}
+					if(customer.statusCus.statusEng === 'Schedule') {
+						cusSchedule.push(customer);
+					}
+					if(customer.statusCus.statusEng === 'Fail') {
+						cusFail.push(customer);
+					}
+				})
 				res.render("business/employ/employ-customer", {
-					customers: multipleMongooseToObject(customers),
+					cusNew: multipleMongooseToObject(cusNew),
+					cusPotential: multipleMongooseToObject(cusPotential),
+					cusSchedule: multipleMongooseToObject(cusSchedule),
+					cusFail: multipleMongooseToObject(cusFail),
 					user: mongooseToObject(user),
 					typeservices: multipleMongooseToObject(typeservices),
 					title: 'Quản lý khách hàng'
@@ -164,6 +185,32 @@ class EmployBusinessController {
 			.catch(next);
 	}
 
+	moveToPotential(req, res, next) {
+		Customer.findByIdAndUpdate({ _id: req.params.id }, {$set: {statusCus: {statusVi: 'Tiềm năng', statusEng: 'Potential'}}})
+			.then(() => {
+				res.redirect('back');
+			})
+			.catch(next);
+	}
+
+	moveToSchedule(req, res, next) {
+		console.log(req.params)
+		Customer.findByIdAndUpdate({ _id: req.params.id }, {$set: {statusCus: {statusVi: 'Đặt lịch', statusEng: 'Schedule'}}})
+			.then(() => {
+				res.redirect('back');
+			})
+			.catch(next);
+	}
+
+	moveToNotOK(req, res, next) {
+		console.log(req.params)
+		Customer.findByIdAndUpdate({ _id: req.params.id }, {$set: {statusCus: {statusVi: 'Không thành công', statusEng: 'Fail'}}})
+			.then(() => {
+				res.redirect('back');
+			})
+			.catch(next);
+	}
+
 	showServiceNote(req, res, next) {
 		Promise.all([
 			ServiceNote.find({ createName: req.userId, status: "Tạo mới" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
@@ -210,8 +257,7 @@ class EmployBusinessController {
 			counselorVideo: videoArr,
 		});
 		serviceNote.save();
-		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id } })
-
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id }, $set: {statusCus: {statusVi: 'Đặt lịch', statusEng: 'Schedule'}} })
 			.then(() => {
 				res.redirect('back');
 

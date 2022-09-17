@@ -286,10 +286,18 @@ class AssistantController {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
 					doctors: multipleMongooseToObject(mediumDoctors),
 					nursings: multipleMongooseToObject(mediumNursings),
-					title: "Phiếu phẩu thuật"
+					title: "Lịch hẹn phẩu thuật"
 				})
 			})
 			.catch(next);
+	}
+	
+	deleteAssistantCoordinatorServiceNote(req, res, next) {
+		Promise.all([Reexamination.delete({ serviceNoteId: req.params.id }), ServiceNote.delete({ _id: req.params.id }),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { stored: "Yes" } })])
+				.then(() => res.redirect("back"))
+				.catch(next);
+		// console.log(req.params)
 	}
 
 	getAssistantCoordinatorReExamination(req, res, next) {
@@ -308,7 +316,7 @@ class AssistantController {
 					reexams: multipleMongooseToObject(reexams),
 					doctors: multipleMongooseToObject(mediumDoctors),
 					nursings: multipleMongooseToObject(mediumNursings),
-					title: "Phiếu tái khám"
+					title: "Lịch hẹn tái khám"
 				})
 			})
 			.catch(next);

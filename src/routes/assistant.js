@@ -29,6 +29,7 @@ router.get('/service-note', [authJwt.verifyToken, authJwt.isAssistant], Assistan
 
 router.get('/profile', [authJwt.verifyToken, authJwt.isAssistant], AssistantController.getAssistantProfile);
 router.get('/coordinator-re-examination', [authJwt.verifyToken, authJwt.isAssistant], AssistantController.getAssistantCoordinatorReExamination);
+router.delete('/:id/schedule', [authJwt.verifyToken, authJwt.isAssistant], AssistantController.deleteAssistantCoordinatorServiceNote);
 router.get('/', [authJwt.verifyToken, authJwt.isAssistant], AssistantController.getAssistantCoordinatorServiceNote);
 
 module.exports = router;

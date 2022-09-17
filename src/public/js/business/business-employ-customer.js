@@ -158,6 +158,11 @@ document.addEventListener("DOMContentLoaded", function () {
 			reponsive: true,
 			scrollCollapse: true,
 		});
+		$("#customerFail_table").DataTable({
+			paging: true,
+			reponsive: true,
+			scrollCollapse: true,
+		});
 	});
 
 	let inputMultiImageConselor = document.getElementById('input-multi-images-counselor');
@@ -301,4 +306,39 @@ checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
 		checkList.classList.remove('visible');
 	else
 		checkList.classList.add('visible');
+}
+
+let dropDown = document.getElementsByClassName('dropdown-item');
+let moveToBtns = document.getElementsByClassName('btn-moveTo');
+let potentialForm = document.forms['customer-potential-form'];
+let notOKForm = document.forms['customer-notOK-form'];
+let scheduleForm = document.forms['customer-schedule-form'];
+console.log(potentialForm)
+for (i = 0; i < dropDown.length; i++) {
+	let dropDownItem = dropDown[i];
+	dropDownItem.addEventListener('click', (e) => {
+		console.log(e.target.innerHTML)
+		let value = e.target.innerHTML;
+		let cusID = e.target.getAttribute('data-cusID');
+		if(value === 'Tiềm năng') {
+			potentialForm.setAttribute("action", `/business/employ/customers/${cusID}/potential?_method=PATCH`);
+			potentialForm.submit();
+		}
+		if(value === 'Không thành công') {
+			notOKForm.setAttribute("action", `/business/employ/customers/${cusID}/notOK?_method=PATCH`);
+			notOKForm.submit();
+		}
+		if(value === 'Đặt lịch') {
+			notOKForm.setAttribute("action", `/business/employ/customers/${cusID}/schedule?_method=PATCH`);
+			notOKForm.submit();
+		}
+	})
+}
+for (i = 0; i < moveToBtns.length; i++) {
+	let moveToBtn = moveToBtns[i];
+	moveToBtn.addEventListener('click', (e) => {
+		let cusID = e.target.getAttribute('data-cusID');
+		notOKForm.setAttribute("action", `/business/employ/customers/${cusID}/notOK?_method=PATCH`);
+		notOKForm.submit();
+	})
 }

@@ -9,27 +9,27 @@
     <div class="offcanvas-body container-sidebar bg-dark">
         <div class="sidebar-item">
             <a href="/manager/assistant" class="sidebar-item-title pl-3">
-                <i class="ti-dashboard mr-3"></i>Điều phối phiếu phẩu thuật
+                <i class="ti-dashboard mr-3"></i>Lịch hẹn phẩu thuật
             </a>
         </div>
         <div class="sidebar-item">
             <a href="/manager/assistant/coordinator-re-examination" class="sidebar-item-title pl-3">
-                <i class="ti-headphone-alt mr-3"></i>Điều phối phiếu tái khám
+                <i class="ti-headphone-alt mr-3"></i>Lịch hẹn tái khám
             </a>
         </div>
 		<div class="sidebar-item">
             <a href="/manager/assistant/customer" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3 active"></i>Khách hàng
+                <i class="ti-user mr-3 active"></i>Danh sách khách hàng
             </a>
         </div>
         <div class="sidebar-item">
             <a href="/manager/assistant/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-cut mr-3"></i>Phiếu phẩu thuật
+                <i class="ti-cut mr-3"></i>Danh sách phiếu phẩu thuật
             </a>
         </div>
         <div class="sidebar-item">
             <a href="/manager/assistant/re-examination" class="sidebar-item-title pl-3">
-                <i class="ti-clipboard mr-3"></i>Phiếu tái khám
+                <i class="ti-clipboard mr-3"></i>Danh sách phiếu tái khám
             </a>
         </div>
     </div>
@@ -106,6 +106,9 @@
                     </div>
                 </div>
                 <div class="card-footer bg-transparent d-flex justify-content-end">
+                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
+							data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}"
+							data-delete-lastname="{{this.customerID.lastName}}">Xóa lịch hẹn</button>
                     <button type="button" class="btn btn-primary btn-mobile ml-auto" data-bs-toggle="modal"
                         data-bs-target="#add-performer-modal" data-id="{{this._id}}"
                         data-customerID="{{this.customerID._id}}"
@@ -115,13 +118,34 @@
                         data-address="{{this.customerID.address}}"
                         data-createName="{{this.createName.firstName}} {{this.createName.lastName}}"
                         data-service="{{this.service}}" data-schedule="{{this.schedule}}" {{#each
-                        comments}} data-comment="{{this.comment}}" {{/each}}>Điều phối</button>
+                        comments}} data-comment="{{this.comment}}" {{/each}}>Thực hiện</button>
                 </div>
             </div>
         </div>
         {{/each}}
     </div>
 </div>
+
+<!-- Delete customer modal -->
+<div class="modal fade" id="delete-schedule-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Xóa lịch hẹn</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn có chắc muốn xóa lịch hẹn <strong id="delete-schedule"></strong> không?
+      </div>
+      <div class="modal-footer">
+        <button id="delete-schedule-btn" type="button" class="btn btn-danger">Chắc chắn, xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form id="delete-schedule-form" method="POST"></form>
 
 <!-- Modal Add Performer-->
 
