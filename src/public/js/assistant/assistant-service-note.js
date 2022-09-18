@@ -114,14 +114,17 @@ deleteSchedule.addEventListener("show.bs.modal", function (event) {
 	// Button that triggered the modal
 	var button = event.relatedTarget;
 	// Get data from delete button
-	var customerId = button.getAttribute('data-delete-id');
+	var serviceNoteId = button.getAttribute('data-delete-id');
 	var firstName = button.getAttribute("data-delete-firstname");
 	var lastName = button.getAttribute("data-delete-lastname");
-
+	var cusID = button.getAttribute("data-delete-customerID");
 	// Get element need embeded input
 	var deleteSchedule = document.getElementById("delete-schedule");
+	var deleteCusID = document.getElementById("delete-cusID");
 
-	deleteScheduleForm.setAttribute('action', `/manager/assistant/${customerId}/schedule?_method=DELETE`);
+	deleteScheduleForm.setAttribute('action', `/manager/assistant/${serviceNoteId}/schedule?_method=DELETE`);
+
+	deleteCusID.value = cusID;
 	deleteSchedule.innerText = `${firstName} ${lastName}`;
 });
 

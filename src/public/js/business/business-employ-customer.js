@@ -313,7 +313,7 @@ let moveToBtns = document.getElementsByClassName('btn-moveTo');
 let potentialForm = document.forms['customer-potential-form'];
 let notOKForm = document.forms['customer-notOK-form'];
 let scheduleForm = document.forms['customer-schedule-form'];
-console.log(potentialForm)
+
 for (i = 0; i < dropDown.length; i++) {
 	let dropDownItem = dropDown[i];
 	dropDownItem.addEventListener('click', (e) => {
@@ -332,13 +332,5 @@ for (i = 0; i < dropDown.length; i++) {
 			notOKForm.setAttribute("action", `/business/employ/customers/${cusID}/schedule?_method=PATCH`);
 			notOKForm.submit();
 		}
-	})
-}
-for (i = 0; i < moveToBtns.length; i++) {
-	let moveToBtn = moveToBtns[i];
-	moveToBtn.addEventListener('click', (e) => {
-		let cusID = e.target.getAttribute('data-cusID');
-		notOKForm.setAttribute("action", `/business/employ/customers/${cusID}/notOK?_method=PATCH`);
-		notOKForm.submit();
 	})
 }

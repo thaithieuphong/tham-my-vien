@@ -206,10 +206,11 @@
 							data-edit-description="{{this.description}}">
 							<i class="ti-pencil-alt"></i>
 						</button>
-						<button class="btn btn-primary btn-sm btn-moveTo" data-notOK="NotOK" data-cusID="{{this._id}}">
+						{{!-- <button class="btn btn-primary btn-sm btn-moveTo" data-notOK="NotOK" data-cusID="{{this._id}}">
 							<i class="ti-angle-double-right"></i>
-						</button>
-						{{!-- <div class="btn-group">
+						</button> --}}
+
+						<div class="btn-group">
 							<button class="btn btn-primary btn-sm rounded" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti-angle-double-right"></i>
 							</button>
 							<ul class="dropdown-menu">
@@ -217,7 +218,7 @@
 								<li><hr class="dropdown-divider"></li>
 								<li><a type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</a></li>
 							</ul>
-						</div> --}}
+						</div>
 					</td>
 				</tr>
 				{{/each}}

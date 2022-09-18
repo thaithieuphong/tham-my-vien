@@ -108,6 +108,7 @@
                 <div class="card-footer bg-transparent d-flex justify-content-end">
                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
 							data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}"
+                            data-delete-customerID="{{this.customerID._id}}"
 							data-delete-lastname="{{this.customerID.lastName}}">Xóa lịch hẹn</button>
                     <button type="button" class="btn btn-primary btn-mobile ml-auto" data-bs-toggle="modal"
                         data-bs-target="#add-performer-modal" data-id="{{this._id}}"
@@ -135,6 +136,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <form id="delete-schedule-form" method="POST">
+            <input id="delete-cusID" type="text" name="cusID" hidden>
+        </form>
         Bạn có chắc muốn xóa lịch hẹn <strong id="delete-schedule"></strong> không?
       </div>
       <div class="modal-footer">
@@ -145,7 +149,6 @@
   </div>
 </div>
 
-<form id="delete-schedule-form" method="POST"></form>
 
 <!-- Modal Add Performer-->
 

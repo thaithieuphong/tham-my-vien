@@ -203,8 +203,9 @@ class EmployBusinessController {
 	}
 
 	moveToNotOK(req, res, next) {
-		console.log(req.params)
-		Customer.findByIdAndUpdate({ _id: req.params.id }, {$set: {statusCus: {statusVi: 'Không thành công', statusEng: 'Fail'}}})
+		console.log(req.params.id)
+		// Customer.findOneAndUpdate({ _id: req.params.id, statusCus: {statusVi: 'Không thành công', statusEng: 'Fail'}})
+		Customer.findById({ _id: req.params.id }).updateOne({statusCus: {statusVi: 'Không thành công', statusEng: 'Fail'}})
 			.then(() => {
 				res.redirect('back');
 			})

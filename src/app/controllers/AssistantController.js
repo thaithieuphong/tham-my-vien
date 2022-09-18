@@ -293,11 +293,12 @@ class AssistantController {
 	}
 	
 	deleteAssistantCoordinatorServiceNote(req, res, next) {
-		Promise.all([Reexamination.delete({ serviceNoteId: req.params.id }), ServiceNote.delete({ _id: req.params.id }),
-			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { stored: "Yes" } })])
-				.then(() => res.redirect("back"))
-				.catch(next);
-		// console.log(req.params)
+		Promise.all([Customer.findByIdAndUpdate({ _id: req.body.cusID }, {$pull: {serviceNoteID: req.params.id}}), ServiceNote.findByIdAndDelete({ _id: req.params.id })])
+		// ServiceNote.findById({ _id: req.params.id }).populate('customerID')
+			.then(() => {
+				res.redirect("back")
+			})
+			.catch(next);
 	}
 
 	getAssistantCoordinatorReExamination(req, res, next) {
