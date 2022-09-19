@@ -101,7 +101,7 @@
                     <div class="d-flex justify-content-between">
                         <label class="form-label" for=""><strong>Phí dịch vụ:</strong></label>
                         <div class="text-danger form-label">
-                            {{this.price}} VND
+                            {{this.serviceNoteId.price}}
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                         data-re-exam-createName="{{this.createName.firstName}} {{this.createName.lastName}}"
                         data-re-exam-service="{{this.serviceNoteId.service}}"
                         data-re-exam-schedule="{{this.schedule}}" {{#each comments}}
-                        data-re-exam-comment="{{this.comment}}" {{/each}}>Điều phối
+                        data-re-exam-comment="{{this.comment}}" {{/each}}>Phân công
                     </button>
                 </div>
             </div>

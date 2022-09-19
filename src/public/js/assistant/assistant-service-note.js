@@ -11,6 +11,12 @@ formatDate = (d) => {
 	return newDate;
 }
 
+formatBirth = (d) => {
+	let date = new Date(d);
+	let newDate = date.toLocaleString('vi-VI', { day: 'numeric', month: 'numeric', year: 'numeric' });
+	return newDate;
+}
+
 var performerModal = document.getElementById("add-performer-modal");
 performerModal.addEventListener("show.bs.modal", function (event) {
 
@@ -45,7 +51,7 @@ performerModal.addEventListener("show.bs.modal", function (event) {
 
 	performerForm.setAttribute('action', `/manager/assistant/service-note/${id}?_method=PATCH`);
 	modalName.innerHTML = name;
-	modalBirth.innerHTML = birth;
+	modalBirth.innerHTML = formatBirth(birth);
 	modalGender.innerHTML = gender;
 	modalEmail.innerHTML = email;
 	modalPhone.innerHTML = phone;

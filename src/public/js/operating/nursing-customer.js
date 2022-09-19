@@ -86,6 +86,20 @@ document.addEventListener("DOMContentLoaded", function () {
 	};
 });
 
+function validatePhoneNumber(input_str) {
+	let number = parseInt(input_str);
+	return isNaN(number);
+}
+var createPhone = document.getElementById('create-phone');
+createPhone.addEventListener('input', (e) => {
+	if (validatePhoneNumber(e.target.value)) {
+		document.getElementById('create_phone_error').classList.remove('off');
+	} else {
+		document.getElementById('create_phone_error').classList.add('off');
+			// alert("validation success")
+	}
+})
+
 //CREATE: submit create customer forms
 // Handle create info Customer
 var createCustomer = document.getElementById("create-customer-btn");
@@ -102,6 +116,16 @@ addImg.addEventListener("change", (e) => {
 	addAvt.src = URL.createObjectURL(e.target.files[0]);
 });
 //END CREATE: submit create customer forms
+
+
+var editPhone = document.getElementById('edit-phone');
+editPhone.addEventListener('input', (e) => {
+	if (validatePhoneNumber(e.target.value)) {
+		document.getElementById('edit_phone_error').classList.remove('off');
+	} else {
+		document.getElementById('edit_phone_error').classList.add('off');
+	}
+})
 
 //EDIT: Load edit customer modal and submit edit customer forms
 
@@ -186,7 +210,6 @@ createServiceNote.addEventListener("show.bs.modal", function (event) {
 	var dataServiceNoteID = button.getAttribute("data-service-note-id");
 	var dataServiceNoteImg = button.getAttribute("data-service-note-img");
 	var dataFirstName = button.getAttribute("data-service-note-firstname");
-	console.log(dataFirstName)
 	var dataLastName = button.getAttribute("data-service-note-lastname");
 	var dataBirth = button.getAttribute("data-service-note-birth");
 	var dataGender = button.getAttribute("data-service-note-gender");

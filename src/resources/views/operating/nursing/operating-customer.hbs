@@ -286,6 +286,7 @@
 										</label>
 										<input type="tel" class="form-control form-control-sm" id="create-phone"
 											placeholder="Vd: 0909888888" name="phone" required>
+										<div id="create_phone_error" class="text-danger off mt-1">Vui lòng nhập đúng số điện thoại</div>
 									</div>
 									<div class="col-md-6">
 										<label for="create-email" class="form-label">
@@ -401,8 +402,9 @@
 										<label for="edit-phone" class="form-label">
 											<h6>Số điện thoại</h6>
 										</label>
-										<input type="tel" class="form-control form-control-sm" id="edit-phone"
+										<input type="text" class="form-control form-control-sm" id="edit-phone"
 											name="phone" required>
+										<div id="edit_phone_error" class="text-danger off mt-1">Vui lòng nhập đúng số điện thoại</div>
 									</div>
 									<div class="col-md-6 mt-3">
 										<label for="edit-email" class="form-label">
@@ -595,9 +597,9 @@
 
 									<div class="mb-3">
 										<label for="price" class="form-label">
-											<h6>Tổng giá:</h6>
+											<h6>Phí dịch vụ:</h6>
 										</label>
-										<input type="number" min="100000" step="100000" class="form-control"
+										<input type="number" class="form-control"
 											id="create-service-note-price" name="price">
 									</div>
 

@@ -465,8 +465,9 @@
 										<label for="create-phone" class="form-label">
 											<h6>Số điện thoại <span class="badge text-danger">*</span></h6>
 										</label>
-										<input type="tel" class="form-control form-control-sm" id="create-phone"
+										<input type="text" class="form-control form-control-sm" id="create-phone"
 											placeholder="Vd: 0909888888" name="phone" required>
+										<div id="create_phone_error" class="text-danger off mt-1">Vui lòng nhập đúng số điện thoại</div>
 									</div>
 									<div class="col-md-6">
 										<label for="create-email" class="form-label">
@@ -584,6 +585,7 @@
 										</label>
 										<input type="tel" class="form-control form-control-sm" id="edit-phone"
 											name="phone" required>
+										<div id="edit_phone_error" class="text-danger off mt-1">Vui lòng nhập đúng số điện thoại</div>
 									</div>
 									<div class="col-md-6 mt-3">
 										<label for="edit-email" class="form-label">
@@ -637,7 +639,7 @@
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header bg-info">
-				<h5 class="modal-title text-light" id="create-service-note-title">Tạo phiếu dịch vụ</h5>
+				<h5 class="modal-title text-light" id="create-service-note-title">Đặt lịch hẹn</h5>
 				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
 					aria-label="Close"></button>
 			</div>
@@ -726,70 +728,68 @@
 						</div>
 						<div class="tab-pane fade" id="pills-service" role="tabpanel"
 							aria-labelledby="pills-profile-tab">
-							<div class="row">
-								<div class="col-md-5">
-									<div class="mb-3">
-										<div>
-											<label for="service" class="form-label ">
-												<h6>Chọn dịch vụ:</h6>
-											</label>
-										</div>
-										<select id="select-service" class="chosen-select container-table" multiple tabindex="6"
-											name="service[]">
-											{{#each typeservices}}
-											<optgroup label="{{this.name}}">
-												{{#each this.services}}
-												<option value="{{this.service}}">{{this.service}}</option>
-												{{/each}}
-											</optgroup>
-											{{/each}}
-										</select>
-
-										<div id="list1" class="dropdown-check-list container-card" tabindex="100">
-											<span class="anchor ">Chọn dịch vụ</span>
-											<ul class="items">
-												{{#each typeservices}}
-												<li class="ml-3 mb-3">
-													 <strong>{{this.name}}</strong> 
-												</li>
-												{{#each this.services}}
-												<li>
-													<label class="form-check " for="{{this.service}}">
-														<input type="checkbox" class="" id="{{this.service}}"
-															value="{{this.service}}" name="service[]" />
-														<label for="{{this.service}}">{{this.service}}</label>
-													</label>
-													<hr>
-												</li>
-												{{/each}}
-												{{/each}}
-											</ul>
-										</div>
-									</div>
-									<div class="mb-3">
-										<label for="schedule" class="form-label">
-											<h6>Ngày hẹn:</h6>
-										</label>
-										<input type="datetime-local" class="form-control"
-											id="create-service-note-schedule" name="schedule">
-									</div>
-
-									<div class="mb-3">
-										<label for="price" class="form-label">
-											<h6>Tổng giá:</h6>
-										</label>
-										<input type="number" min="100000" step="100000" class="form-control"
-											id="create-service-note-price" name="price">
-									</div>
-
-									<div class="mb-3">
-										<label for="comment" class="form-label">
-											<h6>Ghi chú: </h6>
-										</label>
-										<textarea class="form-control" id="create-service-note-description" rows="6"
-											name="comment"></textarea>
-									</div>
+							<div class="mb-3">
+								<div>
+									<label for="service" class="form-label ">
+										<h6>Chọn dịch vụ:</h6>
+									</label>
 								</div>
+								<select id="select-service" class="chosen-select container-table" multiple tabindex="6"
+									name="service[]">
+									{{#each typeservices}}
+									<optgroup label="{{this.name}}">
+										{{#each this.services}}
+										<option value="{{this.service}}">{{this.service}}</option>
+										{{/each}}
+									</optgroup>
+									{{/each}}
+								</select>
+
+								<div id="list1" class="dropdown-check-list container-card" tabindex="100">
+									<span class="anchor ">Chọn dịch vụ</span>
+									<ul class="items">
+										{{#each typeservices}}
+										<li class="ml-3 mb-3">
+												<strong>{{this.name}}</strong> 
+										</li>
+										{{#each this.services}}
+										<li>
+											<label class="form-check " for="{{this.service}}">
+												<input type="checkbox" class="" id="{{this.service}}"
+													value="{{this.service}}" name="service[]" />
+												<label for="{{this.service}}">{{this.service}}</label>
+											</label>
+											<hr>
+										</li>
+										{{/each}}
+										{{/each}}
+									</ul>
+								</div>
+							</div>
+							<div class="mb-3">
+								<label for="schedule" class="form-label">
+									<h6>Ngày hẹn:</h6>
+								</label>
+								<input type="datetime-local" class="form-control"
+									id="create-service-note-schedule" name="schedule">
+							</div>
+
+							<div class="mb-3">
+								<label for="price" class="form-label">
+									<h6>Phí dịch vụ:</h6>
+								</label>
+								<input type="text" class="form-control"
+									id="create-service-note-price" name="price">
+							</div>
+
+							<div class="mb-3">
+								<label for="comment" class="form-label">
+									<h6>Ghi chú: </h6>
+								</label>
+								<textarea class="form-control" id="create-service-note-description" rows="6"
+									name="comment"></textarea>
+							</div>
+							{{!-- <div class="row">
 								<div class="col-md-7">
 									<div class="mb-3">
 										<div class="preview-images-counselor row ml-0 mt-3 border text-center">
@@ -810,7 +810,7 @@
 											name="counselor" hidden multiple>
 									</div>
 								</div>
-							</div>
+							</div> --}}
 						</div>
 					</div>
 				</form>

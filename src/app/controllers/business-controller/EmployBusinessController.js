@@ -203,8 +203,6 @@ class EmployBusinessController {
 	}
 
 	moveToNotOK(req, res, next) {
-		console.log(req.params.id)
-		// Customer.findOneAndUpdate({ _id: req.params.id, statusCus: {statusVi: 'Không thành công', statusEng: 'Fail'}})
 		Customer.findById({ _id: req.params.id }).updateOne({statusCus: {statusVi: 'Không thành công', statusEng: 'Fail'}})
 			.then(() => {
 				res.redirect('back');
@@ -220,7 +218,6 @@ class EmployBusinessController {
 			User.findById({ _id: req.userId })
 		])
 			.then(([serviceNotes, serviceNote1s, serviceNote2s, user]) => {
-				serviceNote1s.forEach(element => console.log(element.counselorImg	))
 				res.render('business/employ/employ-service-note', {
 					serviceNotes: multipleMongooseToObject(serviceNotes),
 					serviceNote1s: multipleMongooseToObject(serviceNote1s),

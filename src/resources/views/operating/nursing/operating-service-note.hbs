@@ -54,9 +54,9 @@
         </button>
     </nav>
 </div>
-<div class="p-3">
+<div class="m-3">
 	{{#if serviceNote}}
-	<div class="card mb-3">
+	<div class="card">
 		<div class="card-header bg-transparent">
 			<h5 class="text-uppercase text-center mt-3 mb-3">
 				<strong>Phiếu phẩu thuật</strong>
@@ -231,6 +231,33 @@
 							</div>
 						</div>
 					</div>
+					{{view serviceNote.customerID._id}}
+					<form method="POST" id="upload-img-counselor-form-{{serviceNote._id}}" action="/operating-room/nursing/service-note/counselor/{{serviceNote._id}}" enctype="multipart/form-data">
+						<div class="row">
+							<input hidden type="text" value="{{serviceNote.customerID._id}}" name="customerID">
+							<div class="col-sm-6 mt-3">
+								<div class="preview-images-counselor row ml-0 border text-center">
+								</div>
+								<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-start mt-3" data-input-img-id="{{serviceNote._id}}">
+									<h5 id="text-img-counselor" class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn ảnh tư vấn</h5>
+								</label>
+								<input id="input-multi-images-counselor" class="form-control" type="file"
+									name="counselor" hidden multiple>
+							</div>
+							<div class="col-sm-6 mt-3">
+								<div class="preview-videos-counselor row ml-0 border text-center">
+								</div>
+								<label id="input-multi-videos-counselor-label" for="input-multi-videos-counselor" class="label-avt d-flex justify-content-end mt-3">
+									<h5 class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn video tư vấn</h5>
+								</label>
+								<input id="input-multi-videos-counselor" class="form-control" type="file"
+									name="counselor" hidden multiple>
+							</div>
+						</div>
+						<div class=" d-flex justify-content-center mt-3">
+							<button type="submit" class="btn btn-primary btn-mobile">Tải lên</button>
+						</div>
+					</form>
 				</div>
 
 				<div class="tab-pane fade" id="pills-before-{{serviceNote._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
@@ -296,7 +323,7 @@
 								<div class="preview-images-before row ml-0 border text-center">
 								</div>
 								<label for="input-multi-images-before" class="label-avt d-flex justify-content-start mt-3" data-input-img-id="{{serviceNote._id}}">
-									<h5 id="text-img-before" class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn ảnh tư vấn</h5>
+									<h5 id="text-img-before" class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn ảnh trước phẩu</h5>
 								</label>
 								<input id="input-multi-images-before" class="form-control" type="file"
 									name="before" hidden multiple>
@@ -305,7 +332,7 @@
 								<div class="preview-videos-before row ml-0 border text-center">
 								</div>
 								<label id="input-multi-videos-before-label" for="input-multi-videos-before" class="label-avt d-flex justify-content-end mt-3">
-									<h5 class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn video tư vấn</h5>
+									<h5 class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn video trước phẩu</h5>
 								</label>
 								<input id="input-multi-videos-before" class="form-control" type="file"
 									name="before" hidden multiple>
@@ -380,7 +407,7 @@
 								<div class="preview-images-after row ml-0 border text-center">
 								</div>
 								<label for="input-multi-images-after" class="label-avt d-flex justify-content-start mt-3">
-									<h5 id="text-img-after" class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn ảnh tư vấn</h5>
+									<h5 id="text-img-after" class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn ảnh sau phẩu</h5>
 								</label>
 								<input id="input-multi-images-after" class="form-control" type="file"
 									name="after" hidden multiple>
@@ -389,7 +416,7 @@
 								<div class="preview-videos-after row ml-0 border text-center">
 								</div>
 								<label id="input-multi-videos-after-label" for="input-multi-videos-after" class="label-avt d-flex justify-content-end mt-3">
-									<h5 class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn video tư vấn</h5>
+									<h5 class="btn btn-primary text-uppercase btn-mobile"><i class="ti-cloud-up fw-bold"></i> Chọn video sau phẩu</h5>
 								</label>
 								<input id="input-multi-videos-after" class="form-control" type="file"
 									name="after" hidden multiple>
@@ -432,7 +459,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				Đẫ hoàn thành dịch vụ
+				Đã hoàn thành dịch vụ
 			</div>
 			<div class="modal-footer">
 				<button id="submit-form-doctor-btn" type="button" class="btn btn-danger">Đã hoàn thành</button>

@@ -212,6 +212,25 @@ class NursingController {
 		.catch(next);
 	}
 
+	uploadCounselor(req, res, next) {
+		const file = req.files;
+		const imgArr = [];
+		const videoArr = [];
+		file.forEach(element => {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+				imgArr.push({ name: element.filename, url: element.path });
+				return imgArr;
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+				videoArr.push({ name: element.filename, url: element.path });
+				return videoArr;
+			}
+		})
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { counselorImg: imgArr, counselorVideo: videoArr } })
+			.then(() => {
+				res.redirect('back')
+			})
+			.catch(next);
+	}
 
 	uploadBefore(req, res, next) {
 		const file = req.files;

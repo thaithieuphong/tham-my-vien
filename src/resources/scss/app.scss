@@ -6,11 +6,11 @@
 
 html {
     height: 100%;
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 body {
-    overflow-y: scroll;
+    overflow: auto;
     // // width: 100vw;
     // min-height: 100%;
 }

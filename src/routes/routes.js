@@ -12,6 +12,7 @@ const managerHRRouter = require("./managers/human-resource-manager");
 const managerBusinessRouter = require('./managers/business-manager');
 const employBusinessRouter = require('./employes/business-employ');
 const assistantRouter = require('./assistant');
+const customerCareRouter = require('./employes/customer-care-employ');
 const rootRouter = require("./root");
 const adminRouter = require("./admin");
 
@@ -27,6 +28,7 @@ function route(app) {
   app.use("/business/manager", [authJwt.verifyToken, authJwt.isBusinessManager], managerBusinessRouter);
   app.use("/business/employ", [authJwt.verifyToken, authJwt.isBusinessEmploy], employBusinessRouter);
   app.use("/manager/assistant", [authJwt.verifyToken, authJwt.isAssistant], assistantRouter);
+  app.use("/customer-care/employ", [authJwt.verifyToken, authJwt.isCustomerCareEmploy], customerCareRouter);
   app.use("/god", rootRouter);
   app.use("/admin", adminRouter);
   app.use("/", signinRouter);

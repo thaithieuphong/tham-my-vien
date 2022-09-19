@@ -6,6 +6,7 @@ const AuthController = require("../../app/controllers/AuthController");
 
 router.patch('/service-note/:id', NursingController.updateServiceNote);
 router.patch('/re-examination/:id', NursingController.updateReExamination);
+router.post('/service-note/counselor/:id', validateUpload.counselorUpload, NursingController.uploadCounselor);
 router.post('/service-note/before/:id', validateUpload.beforeUpload, NursingController.uploadBefore);
 router.post('/service-note/after/:id', validateUpload.afterUpload, NursingController.uploadAfter);
 router.post('/re-examination/reexam/:id', validateUpload.reExaminationUpload, NursingController.uploadReExam);

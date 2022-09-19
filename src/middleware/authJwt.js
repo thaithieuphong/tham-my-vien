@@ -130,6 +130,17 @@ class authJwt {
 			}).catch(next);
 	}
 
+	isCustomerCareEmploy(req, res, next) {
+		User.findById(req.userId)
+			.then((user) => {
+				if (user.departmentEng === 'customer-care' && user.positionEng === 'employ') {
+					next();
+				} else {
+					res.render('err/403', { layout: false });
+				}
+			}).catch(next);
+	}
+
 	isAssistant(req, res, next) {
 		User.findById(req.userId)
 			.then((user) => {

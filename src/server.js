@@ -83,7 +83,6 @@ app.engine(
 			},
 			formatDate: (d) => {
 				let date = new Date(d);
-				console.log('date', date)
 				let newDate = date.toLocaleString('vi-VI', { weekday: "long", day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
 				return newDate;
 			},
@@ -119,17 +118,16 @@ app.engine(
 			getDoctor: (arr) => {
 				arr.filter(item => item.state === 'Medium' ? item : null)
 			},
-			// setColor: (value) => {
-			// 	if (value === 'Tạo mới') {
-			// 		console.log(value)
-			// 	}
-			// 	if (value === 'Đang xử lý') {
+			formatMoney: (money) => {
+				let convertMoney = parseFloat(money);
+				var formatter = new Intl.NumberFormat('vi-VN', {
+					style: 'currency',
+					currency: 'VND',
 					
-			// 	}
-			// 	if (value === 'Hoàn thành') {
-					
-			// 	}
-			// }
+				});
+				let convertedMoney = formatter.format(convertMoney);
+				return convertedMoney;
+			}
 		}
 	})
 );

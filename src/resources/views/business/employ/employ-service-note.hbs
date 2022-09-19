@@ -95,9 +95,9 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <label for="status">
-                                        <strong>Thành tiền:</strong>&nbsp;
+                                        <strong>Phí dịch vụ:</strong>&nbsp;
                                     </label>
-                                    <label class="form-label text-right">{{this.price}}VND</label>
+                                    <label class="form-label text-right text-danger">{{formatMoney this.price}}</label>
                                 </div>
                             </div>
                             <div class="card-footer bg-transparent d-flex justify-content-end">
@@ -216,7 +216,7 @@
                                     <label for="status">
                                         <strong>Phí dịch vụ:</strong>&nbsp;
                                     </label>
-                                    <label class="form-label text-right">{{this.price}}VND</label>
+                                    <label class="form-label text-right text-danger">{{formatMoney this.price}}</label>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between">
@@ -322,8 +322,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng
-                                        lại</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
                                 </div>
                             </div>
                         </div>
@@ -364,7 +363,7 @@
                                     <label for="status">
                                         <strong>Phí dịch vụ:</strong>&nbsp;
                                     </label>
-                                    <label class="form-label text-right">{{this.price}}VND</label>
+                                    <label class="form-label text-right text-danger">{{formatMoney this.price}}</label>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between">
