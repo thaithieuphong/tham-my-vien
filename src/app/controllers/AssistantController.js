@@ -322,38 +322,100 @@ class AssistantController {
 			})
 			.catch(next);
 	}
+
+	deleteAssistantCoordinatorReExamination(req, res, next) {
+		Promise.all([Customer.findByIdAndUpdate({ _id: req.body.cusID }, {$pull: {reexamID: req.params.id}}), Reexamination.findByIdAndDelete({ _id: req.params.id })])
+			.then(() => {
+				res.redirect("back")
+			})
+			.catch(next);
+	}
 	//END SERVICE NOTE
 
     pushPerformer(req, res, next) {
-        Promise.all([
-            ServiceNote.findByIdAndUpdate({ _id: req.params.id },
-                {
-                    $push: { performer: req.body.performer, nursing: req.body.nursing },
-                    $set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
-                }),
-			User1.findByIdAndUpdate({ _id: req.body.performer}, {$set: { stateUser: 'Busy' }}),
-			User2.findByIdAndUpdate({ _id: req.body.nursing}, {$set: { stateUser: 'Busy' }}),
-        ])
-            .then(() => {
-                res.redirect("back")
-            })
-            .catch(next);
+		console.log(req.body)
+		User1.find({ _id: req.body.performer})
+		.then(user => {
+			console.log(user)
+			
+		})
+		if(req.body.performer && req.body.nursing) {
+			Promise.all([
+				ServiceNote.findByIdAndUpdate({ _id: req.params.id },
+					{
+						$push: { performer: req.body.performer, nursing: req.body.nursing },
+						$set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
+					}),
+				User.find({ _id: req.body.performer}).updateOne({ stateUser: 'Busy' }),
+				User.find({ _id: req.body.nursing}).updateOne({ stateUser: 'Busy' }),
+			])
+				.then(() => {
+					res.redirect("back")
+				})
+				.catch(next);
+		}
+
+		if(req.body.nursing) {
+			Promise.all([
+				ServiceNote.findByIdAndUpdate({ _id: req.params.id },
+					{
+						$push: { performer: '', nursing: req.body.nursing },
+						$set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
+					}),
+				User.find({ _id: req.body.performer}).updateOne({ stateUser: 'Busy' }),
+				User.find({ _id: req.body.nursing}).updateOne({ stateUser: 'Busy' }),
+			])
+				.then(() => {
+					res.redirect("back")
+				})
+				.catch(next);
+		}
+
+		if(!(req.body.performer && req.body.nursing)) {
+			req.flash('messages_pushReExamination_error', 'Vui lòng chọn bác sĩ và điều dưỡng');
+			res.redirect("back")
+		}
     }
 
     pushOperationToReexam(req, res, next) {
-		Promise.all([
-            Reexamination.findByIdAndUpdate({ _id: req.params.id },
-                {
-                    $push: { performer: req.body.performer, nursing: req.body.nursing },
-                    $set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
-                }),
-			User1.findByIdAndUpdate({ _id: req.body.performer}, {$set: { stateUser: 'Busy' }}),
-			User2.findByIdAndUpdate({ _id: req.body.nursing}, {$set: { stateUser: 'Busy' }}),
-        ])
-            .then(() => {
-                res.redirect("back")
-            })
-            .catch(next);
+		
+		if(req.body.performer && req.body.nursing) {
+			Promise.all([
+			    Reexamination.findByIdAndUpdate({ _id: req.params.id },
+			        {
+			            $push: { performer: req.body.performer, nursing: req.body.nursing },
+			            $set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
+			        }),
+				User1.find({ _id: req.body.performer}).updateOne({ stateUser: 'Busy' }),
+				User2.find({ _id: req.body.nursing}).updateOne({ stateUser: 'Busy' }),
+			])
+			    .then(() => {
+			        res.redirect("back")
+			    })
+			    .catch(next);
+		}
+
+		if(req.body.nursing) {
+			Promise.all([
+			    Reexamination.findByIdAndUpdate({ _id: req.params.id },
+			        {
+			            $push: { performer: '', nursing: req.body.nursing },
+			            $set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
+			        }),
+				User.find({ _id: req.body.performer}).updateOne({ stateUser: 'Busy' }),
+				User.find({ _id: req.body.nursing}).updateOne({ stateUser: 'Busy' }),
+			])
+			    .then(() => {
+			        res.redirect("back")
+			    })
+			    .catch(next);
+		}
+
+		if(!(req.body.performer && req.body.nursing)) {
+			req.flash('messages_pushReExamination_error', 'Vui lòng chọn bác sĩ và điều dưỡng');
+			res.redirect("back")
+		}
+
     }
 }
 

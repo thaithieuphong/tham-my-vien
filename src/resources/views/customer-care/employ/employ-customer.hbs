@@ -7,14 +7,9 @@
         <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body container-sidebar bg-dark">
-        <div class="sidebar-item">
-            <a href="/customer-care/employ/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-receipt mr-3"></i>Dịch vụ
-            </a>
-        </div>
 		<div class="sidebar-item">
             <a href="/customer-care/employ/customers" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Khách hàng
+                <i class="ti-user mr-3"></i>Khách hàng đã phẩu thuật
             </a>
         </div>
     </div>
@@ -55,156 +50,35 @@
 		<thead class="table-info">
 			<tr>
 				<th class="text-center" scope="col">#</th>
+				<th class="text-center" scope="col">Mã phiếu dịch vụ</th>
 				<th class="text-center" scope="col">Họ tên</th>
 				<th class="text-center" scope="col">Số điện thoại</th>
 				<th class="text-center" scope="col">Ngày hoàn thành</th>
 				<th class="text-center" scope="col">Dịch vụ</th>
 				<th class="text-center" scope="col">Trạng thái</th>
 				<th class="text-center" scope="col">Phí dịch vụ</th>
-				<th class="text-center" scope="col">Hành động</th>
 			</tr>
 		</thead>
 		<tbody id="table-content">
 			{{#each serviceNotes}}
 			<tr>
-				<th class="text-center" scope="row">{{sum @index 1}}</th>
-				<td><a href="/customer-care/employ/re-exam/{{this.customerID._id}}/detail">{{this.customerID.firstName}}
+				<th class="text-center">{{sum @index 1}}</th>
+				<td class="text-center">{{this._id}}</td>
+				<td><a href="/customer-care/employ/re-exam/{{this._id}}/detail">{{this.customerID.firstName}}
 						{{this.customerID.lastName}}</a></td>
 				<td class="text-center">0{{this.customerID.phone}}</td>
 				<td class="text-center">{{formatDate this.updatedAt}}</td>
 				<td class="text-nowrap">
 					<div data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.service}}">
-						{{cutPassword this.service}}
+						{{cutPassword this.service 32}}
 					</div>
 				</td>
 				<td class="text-center">{{this.status}}</td>
 				<td class="text-center">{{this.price}}</td>
-				<td class="text-center">
-					<button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
-						data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
-						data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
-						data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
-						data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
-						data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
-						data-edit-resource="{{this.resource}}"
-						data-edit-description="{{this.description}}"><i class="ti-pencil-alt"></i>
-					</button>
-					<!-- Example single danger button -->
-					<div class="btn-group">
-						<button class="btn btn-primary btn-sm rounded" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti-angle-double-right"></i>
-						</button>
-						<ul class="dropdown-menu">
-							<li><a type="submit" class="dropdown-item" data-potential="Potential" data-cusID="{{this._id}}">Tiềm năng</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</a></li>
-						</ul>
-					</div>
-				</td>
 			</tr>
 			{{/each}}
 		</tbody>
 	</table>
 </div>
 
-{{!-- create-re-exam modal --}}
-<div class="modal fade" id="create-re-examination-modal" tabindex="-1" aria-labelledby="create-re-exam"
-    aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header bg-info">
-                <h5 class="modal-title btn-close-white" id="create-re-exam-title">Tạo phiếu tái khám</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" id="create-re-exam-form" class="row">
-                    <ul class="list-group">
-                        <li class="list-group-item">
-                            <input hidden type="text" class="form-control" id="create-re-exam-customerID"
-                                name="customerID" readonly>
-                            <input hidden type="text" class="form-control" id="create-service-note-id"
-                                name="serviceNoteID" readonly>
-                            <div class="row">
-                                <div class="col-md-4 ">
-                                    <img src="/img/user-icon.png" id="create-re-exam-img"
-                                        class="rounded mx-auto d-block add-avata" alt="...">
-                                    <div class="mb-4 mt-3">
-                                        <label for="schedule" class="form-label">
-                                            <h6>Dịch vụ sử dụng:</h6>
-                                        </label>
-                                        <input type="text" class="form-control bg-white" readonly
-                                            id="create-re-exam-serviced" name="serviced">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="schedule" class="form-label">
-                                            <h6>Ngày hẹn:</h6>
-                                        </label>
-                                        <input type="datetime-local" class="form-control" id="create-re-exam-schedule"
-                                            name="schedule">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="comment" class="form-label">
-                                            <h6>Ghi chú: </h6>
-                                        </label>
-                                        <textarea class="form-control" id="create-re-exam-description" rows="6"
-                                            name="comment"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 verticalLine">
-									<div class="d-flex justify-content-between ml-3 mr-3">
-										<label><strong>Họ tên:</strong></label>
-										<label class="text-uppercase text-danger text-right" id="create-re-exam-firstLastName" name="name" readonly>
-									</div>
-                                    <hr>
-									<div class="d-flex justify-content-between ml-3 mr-3">
-										<label><strong>Ngày sinh:</strong></label>
-										<label id="create-re-exam-birth" class="text-right" name="birth" readonly></label>
-									</div>
-									<hr>
-                                    <div class="d-flex justify-content-between ml-3 mr-3">
-										<label><strong>Giới tính:</strong></label>
-										<label id="create-re-exam-gender" class="text-right" name="gender" readonly></label>
-									</div>
-									<hr>
-                                    <div class="d-flex justify-content-between ml-3 mr-3">
-										<label><strong>Email:</strong></label>
-										<label id="create-re-exam-email" class="d-inline-block text-truncate text-right" name="email" readonly></label>
-									</div>
-									<hr>
-                                    <div class="d-flex justify-content-between ml-3 mr-3">
-										<label><strong>Số điện thoại:</strong></label>
-										<label id="create-re-exam-phone" class="text-right" name="phone" readonly></label>
-									</div>
-									<hr>
-                                    <div class="d-flex justify-content-between ml-3 mr-3">
-										<label><strong>Địa chỉ:</strong></label>
-										<label id="create-re-exam-address" class="text-right" name="address" readonly></label>
-									</div>
-									<hr>
-                                    <div class="d-flex justify-content-between ml-3 mr-3">
-										<label><strong>Người tạo:</strong></label>
-										<input hidden type="text" value="{{user._id}}" name="createName" id="">
-										<label id="create-re-exam-createName" class="text-right"
-											readonly>{{user.firstName}} {{user.lastName}}</label>
-									</div>
-									<hr>
-                                    <div class="d-flex justify-content-between ml-3 mr-3">
-										<label><strong>Mô tả:</strong></label>
-									</div>
-									<p id="create-re-exam-description" class="message-content" rows="6" name="description" disabled></p>
-									<hr>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="create-re-exam-btn" class="btn btn-primary">Lưu thay đổi</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="/js/customer-care/business-employ-customer.js"></script>
+<script src="/js/customer-care/customer-care-employ-customer.js"></script>

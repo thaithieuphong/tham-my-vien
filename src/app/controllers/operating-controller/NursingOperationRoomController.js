@@ -177,6 +177,7 @@ class NursingController {
 	showReExamination(req, res, next) {
 		Promise.all([Reexamination.findOne({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId'), User.findById({ _id: req.userId })])
 			.then(([reExam, user]) => {
+				console.log('re exam', reExam)
 				res.render("operating/nursing/operating-re-exam", {
 					reExam: mongooseToObject(reExam),
 					user: mongooseToObject(user),
@@ -191,8 +192,8 @@ class NursingController {
 	updateServiceNote(req, res, next) {
 		Promise.all([
 			User.findByIdAndUpdate({ _id: req.body.performerID }, { $set: { stateUser: 'Medium' }}),
-			User.findByIdAndUpdate({ _id: req.body.nursingID }, { $set: { stateUser: 'Medium' }}),
-			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: "Hoàn thành", stepsToTake: req.body.stepsToTake } }),
+			User.findAndUpdate({ _id: req.body.nursingID }, { $set: { stateUser: 'Medium' }}),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: "Hoàn thành", notes: req.body.notes, stepsToTake: req.body.stepsToTake } }),
 		])
 		.then(() => {
 				res.redirect('back')
@@ -285,7 +286,6 @@ class NursingController {
 				return videoArr;
 			}
 		})
-		console.log(req.params.id)
 		Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $push: { reExamImg: imgArr, reExamVideo: videoArr } })
 			.then(() => {
 				res.redirect('back')

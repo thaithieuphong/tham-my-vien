@@ -132,7 +132,7 @@
 							</label>
 							<label class="text-primary">
 								{{#each serviceNote.performer}}
-								<input hidden type="text" name="performerID" value="{{this._id}}">
+								<input hidden type="text" name="performerID[]" value="{{this._id}}">
 								<em>{{this.firstName}} {{this.lastName}};</em>
 								{{/each}}
 							</label>
@@ -143,12 +143,20 @@
 							</label>
 							<label class="text-primary">
 								{{#each serviceNote.nursing}}
-								<input hidden type="text" name="nursingID" value="{{this._id}}">
+								<input hidden type="text" name="nursingID[]" value="{{this._id}}">
 								<em>{{this.firstName}} {{this.lastName}};</em>
 								{{/each}}
 							</label>
 						</div>
 						<div class="row">
+							<div class="">
+								<label for="steps-to-take-area"><strong>Thông tin tư vấn:</strong></label>
+							</div>
+							<div class="">
+								<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" name="notes" id="notes-area" cols="30" rows="8"></textarea>
+							</div>
+						</div>
+						<div class="row mt-3">
 							<div class="">
 								<label for="steps-to-take-area"><strong>Các bước thực hiện:</strong></label>
 							</div>

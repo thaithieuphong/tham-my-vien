@@ -100,9 +100,48 @@ function myFunction() {
 }
 
 var checkList = document.getElementById('list1');
-	checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
-		if (checkList.classList.contains('visible'))
-			checkList.classList.remove('visible');
-		else
-			checkList.classList.add('visible');
+checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+	if (checkList.classList.contains('visible'))
+		checkList.classList.remove('visible');
+	else
+		checkList.classList.add('visible');
+}
+
+var alertElement = document.getElementsByClassName('alert');
+for(i=0; i < alertElement.length; i++) {
+	if(alertElement[i]) {
+		let element = alertElement[i];
+		let timerOut = setTimeout(closeAlert, 5000);
+		function closeAlert() {
+			console.log(element)
+			element.remove();
+		}
 	}
+}
+
+// Handle push data to delete modal
+var deleteSchedule = document.getElementById("delete-schedule-modal");
+deleteSchedule.addEventListener("show.bs.modal", function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget;
+	// Get data from delete button
+	var serviceNoteId = button.getAttribute('data-delete-id');
+	var firstName = button.getAttribute("data-delete-firstname");
+	var lastName = button.getAttribute("data-delete-lastname");
+	var cusID = button.getAttribute("data-delete-customerID");
+	// Get element need embeded input
+	var deleteSchedule = document.getElementById("delete-schedule");
+	var deleteCusID = document.getElementById("delete-cusID");
+
+	deleteScheduleForm.setAttribute('action', `/manager/assistant/${serviceNoteId}/re-exam?_method=DELETE`);
+
+	deleteCusID.value = cusID;
+	deleteSchedule.innerText = `${firstName} ${lastName}`;
+});
+
+// Handle delete info Customer
+var deleteBtn = document.getElementById("delete-schedule-btn");
+var deleteScheduleForm = document.forms["delete-schedule-form"];
+deleteBtn.addEventListener("click", () => {
+	deleteScheduleForm.submit();
+});

@@ -7,6 +7,7 @@ const AuthController = require('../../app/controllers/AuthController');
 router.post('/change-pass', AuthController.changePassword);
 
 router.get('/re-exam/:id/detail', EmployCustomerCareController.showReExaminations);
+// router.get('/re-exam/:id/detail', EmployCustomerCareController.showReExaminations);
 router.get('/customers', EmployCustomerCareController.showCustomer);
 router.get('/profile', EmployCustomerCareController.showProfile);
 router.get('/', EmployCustomerCareController.showDashboard);

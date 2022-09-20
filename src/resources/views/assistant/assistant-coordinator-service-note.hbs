@@ -61,6 +61,12 @@
 	{{!-- <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.."> --}}
 </div>
 <div class="mt-3 ml-3 mr-3">
+    {{#if messages_pushReExamination_error}}
+    <div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
+        {{messages_pushReExamination_error}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {{/if}}
     <div class="row">
         {{#each serviceNotes}}
         <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
@@ -105,12 +111,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer bg-transparent d-flex justify-content-end">
-                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
+                <div class="card-footer bg-transparent d-flex justify-content-between">
+                    <button class="btn btn-danger btn-sm btn-mobile" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
 							data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}"
                             data-delete-customerID="{{this.customerID._id}}"
 							data-delete-lastname="{{this.customerID.lastName}}">Xóa lịch hẹn</button>
-                    <button type="button" class="btn btn-primary btn-mobile ml-auto" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-primary btn-sm btn-mobile" data-bs-toggle="modal"
                         data-bs-target="#add-performer-modal" data-id="{{this._id}}"
                         data-customerID="{{this.customerID._id}}"
                         data-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
@@ -129,24 +135,24 @@
 
 <!-- Delete customer modal -->
 <div class="modal fade" id="delete-schedule-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Xóa lịch hẹn</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="delete-schedule-form" method="POST">
-            <input id="delete-cusID" type="text" name="cusID" hidden>
-        </form>
-        Bạn có chắc muốn xóa lịch hẹn <strong id="delete-schedule"></strong> không?
-      </div>
-      <div class="modal-footer">
-        <button id="delete-schedule-btn" type="button" class="btn btn-danger">Chắc chắn, xóa</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
-      </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Xóa lịch hẹn</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="delete-schedule-form" method="POST">
+                <input id="delete-cusID" type="text" name="cusID" hidden>
+            </form>
+            Bạn có chắc muốn xóa lịch hẹn <strong id="delete-schedule"></strong> không?
+        </div>
+        <div class="modal-footer">
+            <button id="delete-schedule-btn" type="button" class="btn btn-danger">Chắc chắn, xóa</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+        </div>
+        </div>
     </div>
-  </div>
 </div>
 
 
@@ -227,7 +233,7 @@
 										<h6><strong>Chọn bác sĩ</strong></h6>
 									</label>
 									<select id="select-performer" class="chosen-select" multiple
-										tabindex="6" name="performer">
+										tabindex="6" name="performer[]">
 										{{#each doctors}}
 										<option value="{{this._id}}">
 											{{this.firstName}}
@@ -261,7 +267,7 @@
 											<hr>
 											<label class="form-check " for="{{this._id}}">
 												<input type="checkbox" class="mt-2" id="{{this._id}}"
-													value="{{this._id}}" name="performer" /> <strong
+													value="{{this._id}}" name="performer[]" /> <strong
 													class="text-success">Bác sĩ:</strong>
 												<label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
 											</label>
@@ -272,7 +278,7 @@
 											<hr>
 											<label class="form-check " for="{{this._id}}">
 												<input type="checkbox" class="mt-2" id="{{this._id}}"
-													value="{{this._id}}" name="nursing" /><strong class="text-success"> Điều dưỡng:</strong>
+													value="{{this._id}}" name="nursing[]" /><strong class="text-success"> Điều dưỡng:</strong>
 												<label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
 											</label>
 										</li>

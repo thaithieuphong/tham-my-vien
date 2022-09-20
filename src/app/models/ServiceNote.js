@@ -31,25 +31,6 @@ const ServiceNote = new Schema({
 		}
 	],
 
-	recept:
-	{
-		type: String,
-		ref: "User"
-	},
-
-	status:
-	{
-		type: String,
-		ref: "Status"
-	},
-
-	service: [
-		{
-			type: String,
-			ref: "Service"
-		}
-	],
-
 	counselorImg: [
 		{
 			name: {
@@ -140,6 +121,7 @@ const ServiceNote = new Schema({
 		}
 	],
 	stepsToTake: String,
+	notes: String,
 	stored: String,
 	schedule: String,
 	reason: String,

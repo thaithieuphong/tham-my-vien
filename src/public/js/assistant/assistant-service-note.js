@@ -128,7 +128,7 @@ deleteSchedule.addEventListener("show.bs.modal", function (event) {
 	var deleteSchedule = document.getElementById("delete-schedule");
 	var deleteCusID = document.getElementById("delete-cusID");
 
-	deleteScheduleForm.setAttribute('action', `/manager/assistant/${serviceNoteId}/schedule?_method=DELETE`);
+	deleteScheduleForm.setAttribute('action', `/manager/assistant/${serviceNoteId}/service-note?_method=DELETE`);
 
 	deleteCusID.value = cusID;
 	deleteSchedule.innerText = `${firstName} ${lastName}`;
@@ -140,3 +140,14 @@ var deleteScheduleForm = document.forms["delete-schedule-form"];
 deleteBtn.addEventListener("click", () => {
 	deleteScheduleForm.submit();
 });
+
+var alertElement = document.getElementsByClassName('alert');
+for(i=0; i < alertElement.length; i++) {
+	if(alertElement[i]) {
+		let element = alertElement[i];
+		let timerOut = setTimeout(closeAlert, 5000);
+		function closeAlert() {
+			element.remove();
+		}
+	}
+}

@@ -50,7 +50,7 @@
     </nav>
 </div>
 <div class="p-3">
-	{{#each reExam}}
+	{{#if reExam}}
 	<div class="card mb-3">
 		<div class="card-header bg-transparent">
 			<h5 class="text-uppercase text-center mb-3 mt-3">
@@ -64,21 +64,21 @@
 				</li>
 				<li class="nav-item" role="presentation">
 					<button class="nav-link" id="pills-counselor-tab" data-bs-toggle="pill"
-						data-bs-target="#pills-counselor-{{this._id}}" type="button" role="tab" aria-controls="pills-counselor"
+						data-bs-target="#pills-counselor-{{reExam._id}}" type="button" role="tab" aria-controls="pills-counselor"
 						aria-selected="false">Hình ảnh tư vấn</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="pills-before-tab" data-bs-toggle="pill" data-bs-target="#pills-before-{{this._id}}"
+					<button class="nav-link" id="pills-before-tab" data-bs-toggle="pill" data-bs-target="#pills-before-{{reExam._id}}"
 						type="button" role="tab" aria-controls="pills-before" aria-selected="false">Hình ảnh trước
 						phẩu</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="pills-after-tab" data-bs-toggle="pill" data-bs-target="#pills-after-{{this._id}}"
+					<button class="nav-link" id="pills-after-tab" data-bs-toggle="pill" data-bs-target="#pills-after-{{reExam._id}}"
 						type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh sau
 						phẩu</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="pills-re-exam-tab" data-bs-toggle="pill" data-bs-target="#pills-re-exam-{{this._id}}"
+					<button class="nav-link" id="pills-re-exam-tab" data-bs-toggle="pill" data-bs-target="#pills-re-exam-{{reExam._id}}"
 						type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh tái
 						khám</button>
 				</li>
@@ -90,31 +90,31 @@
 					<label for="status">
 						<strong>Ngày hẹn:</strong>&nbsp;
 					</label>
-					<label class="text-right text-danger"><em>{{formatDate this.schedule}}</em></label>
+					<label class="text-right text-danger"><em>{{formatDate reExam.schedule}}</em></label>
 				</div>
 				<div class="d-flex justify-content-between justify-content-sm-start">
 					<label for="status">
 						<strong>Trạng thái:</strong>&nbsp;
 					</label>
-					<label class="text-right text-danger"><em>{{this.status}}</em></label>
+					<label class="text-right text-danger"><em>{{reExam.status}}</em></label>
 				</div>
 				<div class="d-flex justify-content-between justify-content-sm-start">
 					<label for="status">
 						<strong>Khách hàng:</strong>&nbsp;
 					</label>
-					<label class="text-right text-primary">{{this.customerID.firstName}} {{this.customerID.lastName}}</label>
+					<label class="text-right text-primary">{{reExam.customerID.firstName}} {{reExam.customerID.lastName}}</label>
 				</div>
 				<div class="d-flex justify-content-between justify-content-sm-start">
 					<label for="status">
 						<strong>Lễ tân:</strong>&nbsp;
 					</label>
-					<label class="text-right text-primary"><em>{{this.recept.firstName}} {{this.recept.lastName}}</em></label>
+					<label class="text-right text-primary"><em>{{reExam.recept.firstName}} {{reExam.recept.lastName}}</em></label>
 				</div>
 				<div class="d-flex justify-content-between justify-content-sm-start">
 					<label for="status">
 						<strong>Dịch vụ đã sử dụng:</strong>&nbsp;
 					</label>
-					<label class="text-right text-primary"><em>{{this.serviceNoteId.service}}</em></label>
+					<label class="text-right text-primary"><em>{{reExam.serviceNoteId.service}}</em></label>
 				</div>
 				<hr>
 				<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
@@ -125,7 +125,7 @@
 								<strong>Bác sĩ:</strong>&nbsp;
 							</label>
 							<label class="text-right text-primary">
-								{{#each this.performer}}
+								{{#each reExam.performer}}
 								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
 								<em>{{this.firstName}} {{this.lastName}};</em>
 								{{/each}}
@@ -136,7 +136,7 @@
 								<strong>Điều dưỡng:</strong>&nbsp;
 							</label>
 							<label class="text-right text-primary">
-								{{#each this.nursing}}
+								{{#each reExam.nursing}}
 								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
 								<em>{{this.firstName}} {{this.lastName}};</em>
 								{{/each}}
@@ -156,8 +156,8 @@
 							<label for="comments"><strong>Ghi chú:</strong></label>
 						</div>
 						<div class="">
-							{{#if this.comments}}
-							{{#each this.comments}}
+							{{#if reExam.comments}}
+							{{#each reExam.comments}}
 							<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" id="comments" cols="30" rows="8" disabled>{{this.comment}}</textarea>
 							{{/each}}
 							{{else}}
@@ -169,19 +169,19 @@
 					</div>
 				</div>
 
-				<div class="tab-pane fade" id="pills-counselor-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="tab-pane fade" id="pills-counselor-{{reExam._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
 					<div class="">
-						<a data-bs-toggle="collapse" href="#counselor-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="counselor-img">
+						<a data-bs-toggle="collapse" href="#counselor-img-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="counselor-img">
 							Xem ảnh <i class="ti-arrow-circle-down"></i>
 						</a>
-						<div class="collapse mt-3 mb-3" id="counselor-img-{{this._id}}">
+						<div class="collapse mt-3 mb-3" id="counselor-img-{{reExam._id}}">
 							<div class="card card-body">
 								<div class="row">    
-									{{#if this.serviceNoteId.counselorImg}}
-									{{#each this.serviceNoteId.counselorImg}}
+									{{#if reExam.serviceNoteId.counselorImg}}
+									{{#each reExam.serviceNoteId.counselorImg}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<img src="/mnt/vdb/crm.drtuananh.vn/counselor/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
 										</figure>
 									</div>
 									{{/each}}
@@ -195,17 +195,17 @@
 						</div>
 					</div>
 					<div>
-						<a data-bs-toggle="collapse" href="#counselor-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="counselor-video">
+						<a data-bs-toggle="collapse" href="#counselor-video-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="counselor-video">
 							Xem video <i class="ti-arrow-circle-down"></i>
 						</a>
-						<div class="collapse mt-3 mb-3" id="counselor-video-{{this._id}}">
+						<div class="collapse mt-3 mb-3" id="counselor-video-{{reExam._id}}">
 							<div class="card card-body">
 								<div class="row">    
-									{{#if this.serviceNoteId.counselorVideo}}
-									{{#each this.serviceNoteId.counselorVideo}}
+									{{#if reExam.serviceNoteId.counselorVideo}}
+									{{#each reExam.serviceNoteId.counselorVideo}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<video src="/mnt/vdb/crm.drtuananh.vn/counselor/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
 										</figure>
 									</div>
 									{{/each}}
@@ -220,19 +220,19 @@
 					</div>
 				</div>
 
-				<div class="tab-pane fade" id="pills-before-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="tab-pane fade" id="pills-before-{{reExam._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
 					<div>
-						<a data-bs-toggle="collapse" href="#before-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="before-img">
+						<a data-bs-toggle="collapse" href="#before-img-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="before-img">
 							Xem ảnh <i class="ti-arrow-circle-down"></i>
 						</a>
-						<div class="collapse mt-3 mb-3" id="before-img-{{this._id}}">
+						<div class="collapse mt-3 mb-3" id="before-img-{{reExam._id}}">
 							<div class="card card-body">
 								<div class="row">    
-									{{#if this.serviceNoteId.beforeImg}}
-									{{#each this.serviceNoteId.beforeImg}}
+									{{#if reExam.serviceNoteId.beforeImg}}
+									{{#each reExam.serviceNoteId.beforeImg}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<img src="/mnt/vdb/crm.drtuananh.vn/before/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
 										</figure>
 									</div>
 									{{/each}}
@@ -246,17 +246,17 @@
 						</div>
 					</div>
 					<div>
-						<a data-bs-toggle="collapse" href="#before-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="before-video">
+						<a data-bs-toggle="collapse" href="#before-video-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="before-video">
 							Xem video <i class="ti-arrow-circle-down"></i>
 						</a>
-						<div class="collapse mt-3 mb-3" id="before-video-{{this._id}}">
+						<div class="collapse mt-3 mb-3" id="before-video-{{reExam._id}}">
 							<div class="card card-body">
 								<div class="row">    
-									{{#if this.serviceNoteId.beforeVideo}}
-									{{#each this.serviceNoteId.beforeVideo}}
+									{{#if reExam.serviceNoteId.beforeVideo}}
+									{{#each reExam.serviceNoteId.beforeVideo}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<video src="/mnt/vdb/crm.drtuananh.vn/before/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
 										</figure>
 									</div>
 									{{/each}}
@@ -271,19 +271,19 @@
 					</div>
 				</div>
 
-				<div class="tab-pane fade" id="pills-after-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="tab-pane fade" id="pills-after-{{reExam._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
 					<div>
-						<a data-bs-toggle="collapse" href="#after-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="after-img">
+						<a data-bs-toggle="collapse" href="#after-img-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="after-img">
 							Xem ảnh <i class="ti-arrow-circle-down"></i>
 						</a>
-						<div class="collapse mt-3 mb-3" id="after-img-{{this._id}}">
+						<div class="collapse mt-3 mb-3" id="after-img-{{reExam._id}}">
 							<div class="card card-body">
 								<div class="row">    
-									{{#if this.serviceNoteId.afterImg}}
-									{{#each this.serviceNoteId.afterImg}}
+									{{#if reExam.serviceNoteId.afterImg}}
+									{{#each reExam.serviceNoteId.afterImg}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<img src="/mnt/vdb/crm.drtuananh.vn/after/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
 										</figure>
 									</div>
 									{{/each}}
@@ -297,17 +297,17 @@
 						</div>
 					</div>
 					<div>
-						<a data-bs-toggle="collapse" href="#after-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="after-video">
+						<a data-bs-toggle="collapse" href="#after-video-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="after-video">
 							Xem video <i class="ti-arrow-circle-down"></i>
 						</a>
-						<div class="collapse mt-3 mb-3" id="after-video-{{this._id}}">
+						<div class="collapse mt-3 mb-3" id="after-video-{{reExam._id}}">
 							<div class="card card-body">
 								<div class="row">    
-									{{#if this.serviceNoteId.afterVideo}}
-									{{#each this.serviceNoteId.afterVideo}}
+									{{#if reExam.serviceNoteId.afterVideo}}
+									{{#each reExam.serviceNoteId.afterVideo}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<video src="/mnt/vdb/crm.drtuananh.vn/after/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
 										</figure>
 									</div>
 									{{/each}}
@@ -322,19 +322,19 @@
 					</div>
 				</div>
 
-				<div class="tab-pane fade" id="pills-re-exam-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+				<div class="tab-pane fade" id="pills-re-exam-{{reExam._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
 					<div>
-						<a data-bs-toggle="collapse" href="#re-examination-img-{{this._id}}" role="button" aria-expanded="false" aria-controls="re-examination-img">
+						<a data-bs-toggle="collapse" href="#re-examination-img-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="re-examination-img">
 							Xem ảnh <i class="ti-arrow-circle-down"></i>
 						</a>
-						<div class="collapse mt-3 mb-3" id="re-examination-img-{{this._id}}">
+						<div class="collapse mt-3 mb-3" id="re-examination-img-{{reExam._id}}">
 							<div class="card card-body">
 								<div class="row">    
-									{{#if this.reExamImg}}
-									{{#each this.reExamImg}}
+									{{#if reExam.reExamImg}}
+									{{#each reExam.reExamImg}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<img src="/mnt/vdb/crm.drtuananh.vn/re-examination/img/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
 										</figure>
 									</div>
 									{{/each}}
@@ -348,17 +348,17 @@
 						</div>
 					</div>
 					<div>
-						<a data-bs-toggle="collapse" href="#re-examination-video-{{this._id}}" role="button" aria-expanded="false" aria-controls="re-examination-video">
+						<a data-bs-toggle="collapse" href="#re-examination-video-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="re-examination-video">
 							Xem video <i class="ti-arrow-circle-down"></i>
 						</a>
-						<div class="collapse mt-3 mb-3" id="re-examination-video-{{this._id}}">
+						<div class="collapse mt-3 mb-3" id="re-examination-video-{{reExam._id}}">
 							<div class="card card-body">
 								<div class="row">    
-									{{#if this.reExamVideo}}
-									{{#each this.reExamVideo}}
+									{{#if reExam.reExamVideo}}
+									{{#each reExam.reExamVideo}}
 									<div class="col-xl-2 col-lg-3 col-md-4">
 										<figure class="figure imgbox">
-											<video src="/mnt/vdb/crm.drtuananh.vn/re-examination/video/{{this}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
+											<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
 										</figure>
 									</div>
 									{{/each}}
@@ -378,8 +378,8 @@
 					<strong>Phí dịch vụ:</strong>&nbsp;
 				</label>
 				<label class="text-danger text-right">
-					{{#if this.price}}
-					{{this.price}} VND
+					{{#if reExam.price}}
+					{{reExam.price}} VND
 					{{else}}
 					0 VND
 					{{/if}}
@@ -389,5 +389,5 @@
 	</div>
 	{{else}}
 	<div class="text-center">Chưa có phiếu phẩu thuật cần thực hiện.</div>
-	{{/each}}
+	{{/if}}
 </div>

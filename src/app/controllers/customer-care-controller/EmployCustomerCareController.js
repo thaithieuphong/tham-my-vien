@@ -45,17 +45,16 @@ class EmployBusinessController {
 
 	showReExaminations(req, res, next) {
 		Promise.all([
-			Customer.findById({ _id: req.params.id }).populate('serviceNoteID').populate('reexamID'),
-			User.findById({ _id: req.userId })
+			ServiceNote.findById({ _id:	req.params.id}).populate('customerID'),
+			Reexamination.find({ serviceNoteId: req.params.id})
 		])
-			.then(([customer, user]) => {
-				console.log(customer)
+			.then(([serviceNote, reExamination]) => {
+				console.log('service note', serviceNote)
 				res.render('customer-care/employ/employ-re-exam-detail', {
-					customer: mongooseToObject(customer),
-					user: mongooseToObject(user),
+					serviceNote: mongooseToObject(serviceNote),
+					reExamination: multipleMongooseToObject(reExamination),
 					title: "Danh sách phiếu tái khám"
 				});
-
 			})
 			.catch(next);
 	}

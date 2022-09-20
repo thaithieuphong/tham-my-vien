@@ -34,10 +34,11 @@ class DoctorOperationRoomController {
 	}
 
 	showServiceNote(req, res, next) {
-		Promise.all([ServiceNote.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'), User.findById({ _id: req.userId })])
+		Promise.all([ServiceNote.findOne({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'), User.findById({ _id: req.userId })])
 			.then(([serviceNote, user]) => {
+				console.log(serviceNote)
 				res.render("operating/doctor/operating-service-note", {
-					serviceNote:  multipleMongooseToObject(serviceNote),
+					serviceNote:  mongooseToObject(serviceNote),
 					user: mongooseToObject(user), 
 					title: "Phiếu phẩu thuật"
 				});
@@ -46,10 +47,10 @@ class DoctorOperationRoomController {
 	}
 
 	showReExamination(req, res, next) {
-		Promise.all([Reexamination.find({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId'), User.findById({ _id: req.userId })])
+		Promise.all([Reexamination.findOne({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId'), User.findById({ _id: req.userId })])
 			.then(([reExam, user]) => {
 				res.render("operating/doctor/operating-re-exam", {
-					reExam: multipleMongooseToObject(reExam),
+					reExam: mongooseToObject(reExam),
 					user: mongooseToObject(user),
 					title: "Phiếu tái khám"
 				})

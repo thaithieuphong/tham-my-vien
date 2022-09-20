@@ -50,7 +50,7 @@
     </nav>
 </div>
 <div class="p-3">
-	{{#each serviceNote}}
+	{{#if serviceNote}}
 	<div class="card mb-3">
 		<div class="card-header bg-transparent">
 			<h5 class="text-uppercase text-center mt-3 mb-3">
@@ -58,21 +58,21 @@
 			</h5>
 			<ul class="nav nav-pills flex-column flex-sm-row" id="pills-tab" role="tablist">
 				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="pills-profile-customer-tab-{{this._id}}" data-bs-toggle="pill"
-						data-bs-target="#pills-profile-customer-{{this._id}}" type="button" role="tab" aria-controls="pills-home"
+					<button class="nav-link active" id="pills-profile-customer-tab-{{serviceNote._id}}" data-bs-toggle="pill"
+						data-bs-target="#pills-profile-customer-{{serviceNote._id}}" type="button" role="tab" aria-controls="pills-home"
 						aria-selected="true">Thông tin khách hàng</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link " id="pills-counselor-tab-{{this._id}}" data-bs-toggle="pill"
-						data-bs-target="#pills-counselor-{{this._id}}" type="button" role="tab" aria-controls="pills-counselor"
+					<button class="nav-link " id="pills-counselor-tab-{{serviceNote._id}}" data-bs-toggle="pill"
+						data-bs-target="#pills-counselor-{{serviceNote._id}}" type="button" role="tab" aria-controls="pills-counselor"
 						aria-selected="false">Hình ảnh tư vấn</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link " id="pills-before-tab-{{this._id}}" data-bs-toggle="pill" data-bs-target="#pills-before-{{this._id}}"
+					<button class="nav-link " id="pills-before-tab-{{serviceNote._id}}" data-bs-toggle="pill" data-bs-target="#pills-before-{{serviceNote._id}}"
 						type="button" role="tab" aria-controls="pills-before" aria-selected="false">Hình ảnh trước phẩu</button>
 				</li>
 				<li class="nav-item" role="presentation">
-					<button class="nav-link " id="pills-after-tab-{{this._id}}" data-bs-toggle="pill" data-bs-target="#pills-after-{{this._id}}"
+					<button class="nav-link " id="pills-after-tab-{{serviceNote._id}}" data-bs-toggle="pill" data-bs-target="#pills-after-{{serviceNote._id}}"
 						type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh sau phẩu</button>
 				</li>
 			</ul>
@@ -83,14 +83,14 @@
 					<label for="status">
 						<strong>Ngày hẹn:</strong>&nbsp;
 					</label>
-					<label class="text-right text-success"><em>{{formatDate this.schedule}}</em></label>
+					<label class="text-right text-success"><em>{{formatDate serviceNote.schedule}}</em></label>
 				</div>
 				<div class="d-flex justify-content-between justify-content-sm-start">
 					<label for="status">
 						<strong>Trạng thái:</strong>&nbsp;
 					</label>
 					<label class="text-danger text-right">
-						<em>{{this.status}}</em>
+						<em>{{serviceNote.status}}</em>
 					</label>
 				</div>
 				<div class="d-flex justify-content-between justify-content-sm-start">
@@ -98,7 +98,7 @@
 						<strong>Khách hàng:</strong>&nbsp;
 					</label>
 					<label class="text-primary text-right">
-						{{this.customerID.firstName}} {{this.customerID.lastName}}
+						{{serviceNote.customerID.firstName}} {{serviceNote.customerID.lastName}}
 					</label>
 				</div>
 				<div class="d-flex justify-content-between justify-content-sm-start">
@@ -106,7 +106,7 @@
 						<strong>Lễ tân:</strong>&nbsp;
 					</label>
 					<label class="text-primary text-right">
-						{{this.recept.firstName}} {{this.recept.lastName}}
+						{{serviceNote.recept.firstName}} {{serviceNote.recept.lastName}}
 					</label>
 				</div>
 				<div class="d-flex justify-content-between justify-content-sm-start">
@@ -114,11 +114,11 @@
 						<strong>Dịch vụ:</strong>&nbsp;
 					</label>
 					<label class="text-primary text-right">
-						{{this.service}}
+						{{serviceNote.service}}
 					</label>
 				</div>
 				<hr>
-				<div class="tab-pane fade show active" id="pills-profile-customer-{{this._id}}" role="tabpanel"
+				<div class="tab-pane fade show active" id="pills-profile-customer-{{serviceNote._id}}" role="tabpanel"
 					aria-labelledby="pills-home-tab">
 					<form method="POST" id="submit-doctor-form">
 						<div class="d-flex justify-content-between justify-content-sm-start">
@@ -126,7 +126,7 @@
 								<strong>Bác sĩ:</strong>&nbsp;
 							</label>
 							<label class="text-primary">
-								{{#each this.performer}}
+								{{#each serviceNote.performer}}
 								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
 								<em>{{this.firstName}} {{this.lastName}};</em>
 								{{/each}}
@@ -137,7 +137,7 @@
 								<strong>Điều dưỡng:</strong>&nbsp;
 							</label>
 							<label class="text-primary">
-								{{#each this.nursing}}
+								{{#each serviceNote.nursing}}
 								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
 								<em>{{this.firstName}} {{this.lastName}};</em>
 								{{/each}}
@@ -158,8 +158,8 @@
 							<label for="comments"><strong>Ghi chú:</strong></label>
 						</div>
 						<div class="">
-							{{#if this.comments}}
-							{{#each this.comments}}
+							{{#if serviceNote.comments}}
+							{{#each serviceNote.comments}}
 							<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" id="comments" cols="30" rows="8" disabled>{{this.comment}}</textarea>
 							{{/each}}
 							{{else}}
@@ -171,19 +171,19 @@
 					</div>
 				</div>
 
-				<div class="tab-pane fade" id="pills-counselor-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="accordion accordion-flush" id="accordionFlush-counselor-{{this._id}}">
+				<div class="tab-pane fade" id="pills-counselor-{{serviceNote._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+					<div class="accordion accordion-flush" id="accordionFlush-counselor-{{serviceNote._id}}">
 						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-counselor-img-{{this._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-img-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-img-{{this._id}}">
+							<h2 class="accordion-header" id="flush-counselor-img-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-img-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-img-{{serviceNote._id}}">
 									Xem ảnh
 								</button>
 							</h2>
-							<div id="flush-collapse-counselor-img-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-img-{{this._id}}" data-bs-parent="#accordionFlush-counselor-{{this._id}}">
+							<div id="flush-collapse-counselor-img-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-img-{{serviceNote._id}}" data-bs-parent="#accordionFlush-counselor-{{serviceNote._id}}">
 								<div class="accordion-body">
 									<div class="row">
-										{{#if this.counselorImg}}
-										{{#each this.counselorImg}}
+										{{#if serviceNote.counselorImg}}
+										{{#each serviceNote.counselorImg}}
 										<div class="col-xl-2 col-lg-3 col-md-4">
 											<figure class="figure imgbox">
 												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
@@ -200,16 +200,16 @@
 							</div>
 						</div>
 						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-counselor-video-{{this._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-video-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-video-{{this._id}}">
+							<h2 class="accordion-header" id="flush-counselor-video-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-video-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-video-{{serviceNote._id}}">
 									Xem video
 								</button>
 							</h2>
-							<div id="flush-collapse-counselor-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-video-{{this._id}}" data-bs-parent="#accordionFlush-counselor-{{this._id}}">
+							<div id="flush-collapse-counselor-video-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-video-{{serviceNote._id}}" data-bs-parent="#accordionFlush-counselor-{{serviceNote._id}}">
 								<div class="accordion-body">
 									<div class="row">
-										{{#if this.counselorVideo}}
-										{{#each this.counselorVideo}}
+										{{#if serviceNote.counselorVideo}}
+										{{#each serviceNote.counselorVideo}}
 										<div class="col-xl-2 col-lg-3 col-md-4">
 											<figure class="figure img-container">
 												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
@@ -228,19 +228,19 @@
 					</div>
 				</div>
 
-				<div class="tab-pane fade" id="pills-before-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="accordion accordion-flush" id="accordionFlush-before-{{this._id}}">
+				<div class="tab-pane fade" id="pills-before-{{serviceNote._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+					<div class="accordion accordion-flush" id="accordionFlush-before-{{serviceNote._id}}">
 						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-before-img-{{this._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-img-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-before-img-{{this._id}}">
+							<h2 class="accordion-header" id="flush-before-img-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-img-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-before-img-{{serviceNote._id}}">
 									Xem ảnh
 								</button>
 							</h2>
-							<div id="flush-collapse-before-img-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-img-{{this._id}}" data-bs-parent="#accordionFlush-before-{{this._id}}">
+							<div id="flush-collapse-before-img-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-img-{{serviceNote._id}}" data-bs-parent="#accordionFlush-before-{{serviceNote._id}}">
 								<div class="accordion-body">
 									<div class="row">
-										{{#if this.beforeImg}}
-										{{#each this.beforeImg}}
+										{{#if serviceNote.beforeImg}}
+										{{#each serviceNote.beforeImg}}
 										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
 											<figure class="figure imgbox">
 												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
@@ -257,16 +257,16 @@
 							</div>
 						</div>
 						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-before-video-{{this._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-video-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-before-video-{{this._id}}">
+							<h2 class="accordion-header" id="flush-before-video-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-video-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-before-video-{{serviceNote._id}}">
 									Xem video
 								</button>
 							</h2>
-							<div id="flush-collapse-before-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-video-{{this._id}}" data-bs-parent="#accordionFlush-before-{{this._id}}">
+							<div id="flush-collapse-before-video-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-video-{{serviceNote._id}}" data-bs-parent="#accordionFlush-before-{{serviceNote._id}}">
 								<div class="accordion-body">
 									<div class="row">    
-										{{#if this.beforeVideo}}
-										{{#each this.beforeVideo}}
+										{{#if serviceNote.beforeVideo}}
+										{{#each serviceNote.beforeVideo}}
 										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
 											<figure class="figure img-container">
 												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
@@ -284,19 +284,19 @@
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="pills-after-{{this._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="accordion accordion-flush" id="accordionFlush-after-{{this._id}}">
+				<div class="tab-pane fade" id="pills-after-{{serviceNote._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+					<div class="accordion accordion-flush" id="accordionFlush-after-{{serviceNote._id}}">
 						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-after-img-{{this._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-img-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-after-img-{{this._id}}">
+							<h2 class="accordion-header" id="flush-after-img-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-img-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-after-img-{{serviceNote._id}}">
 									Xem ảnh
 								</button>
 							</h2>
-							<div id="flush-collapse-after-img-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-img-{{this._id}}" data-bs-parent="#accordionFlush-after-{{this._id}}">
+							<div id="flush-collapse-after-img-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-img-{{serviceNote._id}}" data-bs-parent="#accordionFlush-after-{{serviceNote._id}}">
 								<div class="accordion-body">
 									<div class="row">    
-										{{#if this.afterImg}}
-										{{#each this.afterImg}}
+										{{#if serviceNote.afterImg}}
+										{{#each serviceNote.afterImg}}
 										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
 											<figure class="figure imgbox">
 												<img src="{{this.url}}" class="figure-img img-fluid text-center rounded upd-ava" alt="...">
@@ -313,16 +313,16 @@
 							</div>
 						</div>
 						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-after-video-{{this._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-video-{{this._id}}" aria-expanded="false" aria-controls="flush-collapse-after-video-{{this._id}}">
+							<h2 class="accordion-header" id="flush-after-video-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-video-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-after-video-{{serviceNote._id}}">
 									Xem video
 								</button>
 							</h2>
-							<div id="flush-collapse-after-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-video-{{this._id}}" data-bs-parent="#accordionFlush-after-{{this._id}}">
+							<div id="flush-collapse-after-video-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-video-{{serviceNote._id}}" data-bs-parent="#accordionFlush-after-{{serviceNote._id}}">
 								<div class="accordion-body">
 									<div class="row">    
-										{{#if this.afterVideo}}
-										{{#each this.afterVideo}}
+										{{#if serviceNote.afterVideo}}
+										{{#each serviceNote.afterVideo}}
 										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
 											<figure class="figure img-container">
 												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
@@ -347,7 +347,7 @@
 					<strong>Phí dịch vụ:</strong>&nbsp;
 				</label>
 				<label class="text-danger text-right">
-					{{this.price}} VND
+					{{serviceNote.price}} VND
 				</label>
 			</div>
 		</div>
@@ -356,5 +356,5 @@
 	<div class="text-center">
 		Chưa có phiếu phẩu thuật
 	</div>
-	{{/each}}
+	{{/if}}
 </div>

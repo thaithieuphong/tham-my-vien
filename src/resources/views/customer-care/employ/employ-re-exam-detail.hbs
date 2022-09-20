@@ -1,161 +1,161 @@
 <link rel="stylesheet" href="/css/root.css">
 <link rel="stylesheet" href="/css/assistant.css">
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
-    aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header bg-dark border-bottom">
-        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
-        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body container-sidebar bg-dark">
-        <div class="sidebar-item">
-            <a href="/business/employ/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-receipt mr-3"></i>Dịch vụ
-            </a>
-        </div>
-		<div class="sidebar-item">
-            <a href="/business/employ/customers" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Khách hàng
-            </a>
-        </div>
-    </div>
-	<div class="offcanvas-footer bg-dark border-top">
-        <div class="sidebar-item">
-            <a href="/business/employ/profile" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Thông tin người dùng
-            </a>
-        </div>
-		<div class="sidebar-item">
-			<form method="POST" action="/logout">
-				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
-			</form>
-		</div>
-    </div>
-</div>
 <div class="sticky-top">
-	<div class="redirect-bar bg-primary d-flex justify-content-between">
+	<div class="redirect-bar bg-primary">
 		<a class="ml-3 text-light" type="button" onclick="history.back()"><i class="ti-arrow-left"></i> Quay lại</a>
 	</div>
-	<ul class="nav nav-pills ml-0 bg-secondary d-flex justify-content-between justify-content-sm-start" id="pills-tab" role="tablist">
-		<li class="nav-item" role="presentation">
-			<button class="nav-link active text-light" id="pills-system-customer-tab" data-bs-toggle="pill"
-				data-bs-target="#pills-system-customer" type="button" role="tab" aria-controls="pills-home"
-				aria-selected="true">Thông tin khách hàng</button>
-		</li>
-		<li class="nav-item" role="presentation">
-			<button class="nav-link text-light" id="pills-user-customer-tab" data-bs-toggle="pill"
-				data-bs-target="#pills-user-customer" type="button" role="tab" aria-controls="pills-profile"
-				aria-selected="false">Dịch vụ đã sử dụng</button>
+</div>
+<div class="container-fluid mt-3">
+	<ul class="list-group">
+		<li class="list-group-item">
+			<div class="row">
+				<div class="col-6">		
+					<div class="d-flex justify-content-start">
+						<label class="text-dark">Mã khách hàng:</label>&nbsp;
+						<div class="text-danger">{{serviceNote.customerID._id}}</div>
+					</div>
+					<div class="d-flex justify-content-start">
+						<label class="text-dark">Họ tên:</label>&nbsp;
+						<div class="text-primary">{{serviceNote.customerID.firstName}} {{serviceNote.customerID.lastName}}</div>
+					</div>
+					<div class="d-flex justify-content-start">
+						<label class="text-dark">Ngày sinh:</label>&nbsp;{{formatBirth serviceNote.customerID.birth}}
+					</div>
+					<div class="d-flex justify-content-start">
+						<label class="text-dark">Giới tính:</label>&nbsp;{{serviceNote.customerID.gender}}
+					</div>
+					<div class="d-flex justify-content-start">
+						<label class="text-dark">Trạng thái:</label>&nbsp;{{serviceNote.status}}
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="d-flex justify-content-start">
+						<label class="text-dark">Số điện thoại:</label>&nbsp;0{{serviceNote.customerID.phone}}
+					</div>
+					<div class="d-flex justify-content-start">
+						<label class="text-dark">Email:</label>&nbsp;{{serviceNote.customerID.email}}
+					</div>
+					<div class="d-flex justify-content-start">
+						<label class="text-dark">Địa chỉ:</label>&nbsp;{{serviceNote.customerID.address}}
+					</div>
+					<div class="d-flex justify-content-start">
+						<label class="text-dark">Mã nhân viên:</label>&nbsp;{{serviceNote.customerID.userID}}
+					</div>
+					<div class="d-flex justify-content-start">
+						<label class="text-dark">Dịch vụ:</label>&nbsp;{{serviceNote.service}}
+					</div>
+				</div>
+			</div>
 		</li>
 	</ul>
-</div>
-<div class="container-fluid">
-	{{#if customer}}
-		<p>{{customer._id}}</p>
-		<p>{{customer.firstName}} {{customer.lastName}}</p>
-		<p>{{customer.birth}}</p>
-		<p>{{customer.gender}}</p>
-		<p>{{customer.phone}}</p>
-		{{#each customer.serviceNoteID}}
-		<p>{{this.service}}</p>
-		{{/each}}
-		{{count customer.reexamID}}
-		{{#each customer.reexamID}}
-		<p>{{this._id}}</p>
-		{{/each}}
-	{{/if}}
-	{{!-- <div class="tab-content" id="pills-tabContent">
-		<div class="tab-pane fade show active" id="pills-system-customer" role="tabpanel"
-			aria-labelledby="pills-home-tab">
-			<div class="row">
-				<div class="col-xl-4 col-lg-4 col-md-4 mt-3">
-					{{#if customer.image}}
-					<div class="mt-2 text-center">
-						<img src="{{customer.image.url}}" id="add-avt"
-							class="rounded add-avata" alt="...">
-					</div>
-					{{else}}
-					<div class="col-md-6 mt-2 text-center">
-						<img src="/img/user-icon.png" id="add-avt" class="rounded  add-avata" alt="...">
-					</div>
-					{{/if}}
-					<div class="d-flex justify-content-between mt-3">
-						<label for="status">
-							<strong>Họ tên:</strong>&nbsp;
-						</label>
-						<label class="text-uppercase text-danger">{{customer.firstName}} {{customer.lastName}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Ngày sinh:</strong>&nbsp;
-						</label>
-						<label id="create-service-note-birth" name="birth">{{formatBirth customer.birth}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Giới tính:</strong>&nbsp;
-						</label>
-						<label id="create-service-note-gender" name="gender">{{customer.gender}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Email:</strong>&nbsp;
-						</label>
-						<label id="create-service-note-email" name="email">{{customer.email}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Số điện thoại:</strong>&nbsp;
-						</label>
-						<label id="create-service-note-phone" name="phone" readonly>{{customer.phone}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Địa chỉ:</strong>&nbsp;
-						</label>
-						<label id="create-service-note-address" name="address">{{customer.address}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Mô tả:</strong>&nbsp;
-						</label>
-					</div>
-					<textarea id="detail-description" class="form-control bg-white" rows="8" disabled>{{customer.description}}</textarea>
-				</div>
-				<div class="col-xl-8 col-lg-8 col-md-8">
-					<ul class="list-group border comment-ctv-page mt-3">
-						{{#each customer.comments}}
-						<li id="width-li" class="list-group mt-2 bg-white ml-2 mr-2">
-							<p class="message-content">{{this.comment}}</p>
-							<small>
-								<p id="createdAt" class="none-mb comment-createdAt text-nowrap text-right"><em>{{formatDate
-									this.createdAt}}</em></p>
-							</small>
-						</li>
-						<hr>
-						<hr class="mt-3">
-						{{/each}}
-					</ul>
-					<form method="POST" action="/business/employ/customers/{{customer._id}}/comment?_method=PATCH">
-						<div class="input-group mt-3 mb-3">
-							<textarea type="text" class="form-control form-control-sm" id="comments" name="comments"
-							placeholder="Thêm hoạt động..." required></textarea>
-								<button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+	<div class="accordion accordion-flush" id="accordionFlushExample">
+		{{!-- <div class="accordion-item mt-3">
+			<h2 class="accordion-header" id="flush-headingOne">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+					Phiếu dịch vụ: {{count serviceNote.customerID.serviceNoteID}}
+				</button>
+			</h2>
+			<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+				<div class="accordion-body">
+					<div class="card card-body">
+						<div class="row">
+							{{#if serviceNote.customerID.serviceNoteID}}
+							{{#each serviceNote.customerID.serviceNoteID}}
+							<div class="col-xl-3">
+								<ul class="list-group">
+									<li id="width-li" class="list-group-item bg-white">
+										#{{sum @index 1}}
+										<small class="d-flex justify-content-between">
+											<label class="none-mb" for="">Mã phiếu dịch vụ:</label>
+											<p class="none-mb text-danger"><em>{{this._id}}</em></p>
+										</small>
+										<small class="d-flex justify-content-between">
+											<label class="none-mb" for="">Trạng thái:</label>
+											<p class="none-mb status-color">{{this.status}}</p>
+										</small>
+										<small class="d-flex justify-content-between">
+											<label class="none-mb" for="">Dịch vụ:</label>
+											<p class="none-mb">{{this.service}}</p>
+										</small>
+										<small class="d-flex justify-content-between">
+											<label class="none-mb" for="">Ngày hoàn thành:</label>
+											<p id="createdAt" class="none-mb comment-createdAt"><em>{{formatDate this.updatedAt}}</em></p>
+										</small>
+									</li>
+								</ul>
+							</div>	
+							{{/each}}
+							{{else}}
+							<p class="text-center">
+								Chưa có phiếu dịch vụ nào
+							</p>
+							{{/if}}
 						</div>
-					</form>
+					</div>
+				</div>
+			</div>
+		</div> --}}
+		<div class="accordion-item mt-3">
+			<h2 class="accordion-header" id="flush-headingTwo">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+					Phiếu tái khám: {{count reExamination}}
+				</button>
+			</h2>
+			<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+				<div class="accordion-body">
+					<div class="card card-body">
+						<div class="row">
+							{{#if reExamination}}
+							{{#each reExamination}}
+							{{view this}}
+							<div class="col-xl-3">
+								<ul class="list-group">
+									<li id="width-li" class="list-group-item bg-white">
+										#{{sum @index 1}}
+										<small class="d-flex justify-content-between">
+											<label class="none-mb" for="">Mã phiếu dịch vụ:</label>
+											<p class="none-mb text-danger"><em>{{this.serviceNoteId}}</em></p>
+										</small>
+										<small class="d-flex justify-content-between">
+											<label class="none-mb" for="">Mã phiếu tái khám:</label>
+											<p class="none-mb text-danger"><em>{{this._id}}</em></p>
+										</small>
+										<small class="d-flex justify-content-between">
+											<label class="none-mb" for="">Trạng thái:</label>
+											<p class="none-mb status-color">{{this.status}}</p>
+										</small>
+										<small class="d-flex justify-content-between">
+											<label class="none-mb" for="">Ghi chú:</label>
+											{{#each this.comments}}
+												<p class="none-mb">{{this.comment}}</p>
+											{{/each}}
+										</small>
+										<small class="d-flex justify-content-between">
+											<label class="none-mb" for="">Ngày hẹn:</label>
+											<p id="createdAt" class="none-mb comment-createdAt"><em>{{formatDate this.schedule}}</em></p>
+										</small>
+										<small class="">
+											<label class="none-mb" for="">Các bước thực hiện:</label>
+											<p id="createdAt" class="none-mb message-content"><em>{{this.stepsToTake}}</em></p>
+										</small>
+									</li>
+									{{!-- {{view this}} --}}
+							</div>	
+							{{/each}}
+							{{else}}
+							</ul>
+							<p class="text-center">
+								Chưa có phiếu dịch vụ nào
+							</p>
+							{{/if}}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="tab-pane fade" id="pills-user-customer" role="tabpanel" aria-labelledby="pills-profile-tab">
-			<p class="none-mb" value="" for="service-note-service"><strong>Dịch vụ:</strong></p>
-			{{#each customer.serviceNoteID}}
-			<p class="none-mb" value="" for="service-note-service">{{this.service}} ({{this.status}})</p>
-			<hr>
-			{{else}}
-			Chưa sử dụng dịch vụ nào
-			{{/each}}
-		</div>
-	</div> --}}
+	</div>
 </div>
+<script src="/js/customer-care/customer-care-employ-customer.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 	const textarea = document.querySelectorAll('.message-content');
