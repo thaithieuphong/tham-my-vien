@@ -36,9 +36,15 @@ class HRController {
 			Position.find({}),
 		])
 			.then(([user, users, departments, positions]) => {
+				let userArr = [];
+				users.forEach((user, index) => {
+					if(user.roleEng !== 'root' && user.roleEng !== 'administrator') {
+						userArr.push(user);
+					}
+				});
 				res.render("human-resources/manager/manager-users", {
 					user: mongooseToObject(user),
-					users: multipleMongooseToObject(users),
+					users: multipleMongooseToObject(userArr),
 					departments: multipleMongooseToObject(departments),
 					positions: multipleMongooseToObject(positions),
 					title: "Quản lý nhân sự",

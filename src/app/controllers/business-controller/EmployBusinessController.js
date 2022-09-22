@@ -39,7 +39,6 @@ class EmployBusinessController {
 				let cusPotential = [];
 				let cusSchedule = [];
 				let cusFail = [];
-				// console.log(customers.serviceNoteID)
 				customers.forEach(customer => {
 					if(customer.statusCus.statusEng === 'New') {
 						cusNew.push(customer);
@@ -137,7 +136,6 @@ class EmployBusinessController {
 				}
 			)
 				.then((customer) => {
-					// console.log(customer.image.name);
 					let imgCustomer = customer.image.name;
 					let url = customer.image.url;
 					let files = fs.readdirSync(
@@ -194,7 +192,6 @@ class EmployBusinessController {
 	}
 
 	moveToSchedule(req, res, next) {
-		console.log(req.params)
 		Customer.findByIdAndUpdate({ _id: req.params.id }, {$set: {statusCus: {statusVi: 'Đặt lịch', statusEng: 'Schedule'}}})
 			.then(() => {
 				res.redirect('back');
@@ -255,7 +252,7 @@ class EmployBusinessController {
 			counselorVideo: videoArr,
 		});
 		serviceNote.save();
-		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id }, $set: {statusCus: {statusVi: 'Đặt lịch', statusEng: 'Schedule'}} })
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id }})
 			.then(() => {
 				res.redirect('back');
 

@@ -1,8 +1,6 @@
 const ServiceNote = require("../models/ServiceNote");
 const Customer = require("../models/Customer")
 const User = require("../models/User");
-const User1 = require('../models/User');
-const User2 = require('../models/User');
 const path = require('path');
 const rootPath = path.sep;
 const Reexamination = require('../models/Reexamination');
@@ -273,19 +271,15 @@ class AssistantController {
 	getAssistantCoordinatorServiceNote(req, res, next) {
 		Promise.all([User.findById({ _id: req.userId }),
 			ServiceNote.find({ stored: null }).sort({ schedule: 1 }).populate('customerID').populate('createName'),
-			User1.find({ departmentEng: 'operating-room', positionEng: 'doctor'}),
-			User2.find({ departmentEng: 'operating-room', positionEng: 'nursing'}),
+			User.find({ departmentEng: 'operating-room', positionEng: 'doctor', state: 'Medium'}),
+			User.find({ departmentEng: 'operating-room', positionEng: 'nursing', state: 'Medium'}),
 		])
 			.then(([user, serviceNotes, doctors, nursings]) => {
-				let mediumDoctors = [];
-				let mediumNursings = [];
-				doctors.forEach(doctor => doctor.stateUser === 'Medium' ? mediumDoctors.push(doctor) : null);
-				nursings.forEach(nursing => nursing.stateUser === 'Medium' ? mediumNursings.push(nursing) : null);
 				res.render('assistant/assistant-coordinator-service-note', {
 					user: mongooseToObject(user),
 					serviceNotes: multipleMongooseToObject(serviceNotes),
-					doctors: multipleMongooseToObject(mediumDoctors),
-					nursings: multipleMongooseToObject(mediumNursings),
+					doctors: multipleMongooseToObject(doctors),
+					nursings: multipleMongooseToObject(nursings),
 					title: "Lịch hẹn phẩu thuật"
 				})
 			})
@@ -304,19 +298,15 @@ class AssistantController {
 	getAssistantCoordinatorReExamination(req, res, next) {
 		Promise.all([User.findById({ _id: req.userId }),
 			Reexamination.find({ stored: null }).sort({ schedule: 1 }).populate('customerID').populate('createName').populate('serviceNoteId'),
-			User1.find({ departmentEng: 'operating-room', positionEng: 'doctor'}),
-			User2.find({ departmentEng: 'operating-room', positionEng: 'nursing'}),
+			User.find({ departmentEng: 'operating-room', positionEng: 'doctor', state: 'Medium'}),
+			User.find({ departmentEng: 'operating-room', positionEng: 'nursing', state: 'Medium'}),
 		])
 			.then(([user, reexams, doctors, nursings]) => {
-				let mediumDoctors = [];
-				let mediumNursings = [];
-				doctors.forEach(doctor => doctor.stateUser === 'Medium' ? mediumDoctors.push(doctor) : null);
-				nursings.forEach(nursing => nursing.stateUser === 'Medium' ? mediumNursings.push(nursing) : null);
 				res.render('assistant/assistant-coordinator-re-examination', {
 					user: mongooseToObject(user),
 					reexams: multipleMongooseToObject(reexams),
-					doctors: multipleMongooseToObject(mediumDoctors),
-					nursings: multipleMongooseToObject(mediumNursings),
+					doctors: multipleMongooseToObject(doctors),
+					nursings: multipleMongooseToObject(nursings),
 					title: "Lịch hẹn tái khám"
 				})
 			})
@@ -333,12 +323,6 @@ class AssistantController {
 	//END SERVICE NOTE
 
     pushPerformer(req, res, next) {
-		console.log(req.body)
-		User1.find({ _id: req.body.performer})
-		.then(user => {
-			console.log(user)
-			
-		})
 		if(req.body.performer && req.body.nursing) {
 			Promise.all([
 				ServiceNote.findByIdAndUpdate({ _id: req.params.id },
@@ -346,34 +330,20 @@ class AssistantController {
 						$push: { performer: req.body.performer, nursing: req.body.nursing },
 						$set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
 					}),
-				User.find({ _id: req.body.performer}).updateOne({ stateUser: 'Busy' }),
-				User.find({ _id: req.body.nursing}).updateOne({ stateUser: 'Busy' }),
+				User.find({ _id: req.body.performer}).updateMany({state: 'Busy'}),
+				User.find({ _id: req.body.nursing}).updateMany({state: 'Busy'}),
 			])
 				.then(() => {
 					res.redirect("back")
 				})
 				.catch(next);
-		}
-
-		if(req.body.nursing) {
-			Promise.all([
-				ServiceNote.findByIdAndUpdate({ _id: req.params.id },
-					{
-						$push: { performer: '', nursing: req.body.nursing },
-						$set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
-					}),
-				User.find({ _id: req.body.performer}).updateOne({ stateUser: 'Busy' }),
-				User.find({ _id: req.body.nursing}).updateOne({ stateUser: 'Busy' }),
-			])
-				.then(() => {
-					res.redirect("back")
-				})
-				.catch(next);
+			return;
 		}
 
 		if(!(req.body.performer && req.body.nursing)) {
 			req.flash('messages_pushReExamination_error', 'Vui lòng chọn bác sĩ và điều dưỡng');
-			res.redirect("back")
+			res.redirect("back");
+			return;
 		}
     }
 
@@ -386,34 +356,37 @@ class AssistantController {
 			            $push: { performer: req.body.performer, nursing: req.body.nursing },
 			            $set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
 			        }),
-				User1.find({ _id: req.body.performer}).updateOne({ stateUser: 'Busy' }),
-				User2.find({ _id: req.body.nursing}).updateOne({ stateUser: 'Busy' }),
+				User.find({ _id: req.body.performer}).updateMany({ state: 'Busy' }),
+				User.find({ _id: req.body.nursing}).updateMany({ state: 'Busy' }),
 			])
 			    .then(() => {
 			        res.redirect("back")
 			    })
 			    .catch(next);
+			return;
 		}
 
 		if(req.body.nursing) {
 			Promise.all([
 			    Reexamination.findByIdAndUpdate({ _id: req.params.id },
 			        {
-			            $push: { performer: '', nursing: req.body.nursing },
+			            $push: { nursing: req.body.nursing },
 			            $set: { stored: "No", status: "Đang xử lý", recept: req.userId, schedule: req.body.schedule }
 			        }),
-				User.find({ _id: req.body.performer}).updateOne({ stateUser: 'Busy' }),
-				User.find({ _id: req.body.nursing}).updateOne({ stateUser: 'Busy' }),
+				User.find({ _id: req.body.performer}).updateOne({ state: 'Busy' }),
+				User.find({ _id: req.body.nursing}).updateOne({ state: 'Busy' }),
 			])
 			    .then(() => {
 			        res.redirect("back")
 			    })
 			    .catch(next);
+			return;
 		}
 
 		if(!(req.body.performer && req.body.nursing)) {
 			req.flash('messages_pushReExamination_error', 'Vui lòng chọn bác sĩ và điều dưỡng');
-			res.redirect("back")
+			res.redirect("back");
+			return;
 		}
 
     }

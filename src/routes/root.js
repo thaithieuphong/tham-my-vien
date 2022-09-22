@@ -43,6 +43,7 @@ router.get('/customer', RootController.getRootCustomerDashboard);
 
 
 // [GET] Root Department UI
+router.post('/department', RootController.createDepartment);
 router.get('/department', RootController.getRootDepartmentDashboard);
 
 // [GET] Root Role UI

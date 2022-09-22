@@ -122,7 +122,6 @@ class ManagerBusinessController {
 				}
 			)
 				.then((customer) => {
-					// console.log(customer.image.name);
 					let imgCustomer = customer.image.name;
 					let url = customer.image.url;
 					let files = fs.readdirSync(

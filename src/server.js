@@ -15,6 +15,7 @@ const cookieParser = require('cookie-parser');
 const User = require('./app/models/User');
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
+const PORT = 3000;
 
 if (`${process.env.NODE_ENV}` !== "production") {
 	require("dotenv").config();
@@ -202,6 +203,6 @@ initAdmin();
 // Khởi tạo các tuyến đường
 route(app);
 
-app.listen(3000, () => {
-	console.log(`Ứng dụng đang chạy trên port 3000`);
+app.listen(PORT, () => {
+	console.log(`Ứng dụng đang chạy trên port ${PORT}`);
 });

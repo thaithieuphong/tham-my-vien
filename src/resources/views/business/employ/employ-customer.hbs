@@ -143,6 +143,31 @@
 							data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
 							data-edit-resource="{{this.resource}}"
 							data-edit-description="{{this.description}}">
+							<i class="ti-pencil-alt"></i>
+						</button>
+						{{!-- <button class="btn btn-primary btn-sm btn-moveTo" data-notOK="NotOK" data-cusID="{{this._id}}">
+							<i class="ti-angle-double-right"></i>
+						</button> --}}
+
+						<div class="btn-group">
+							<button class="btn btn-primary btn-sm rounded" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti-angle-double-right"></i>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a type="submit" class="dropdown-item" data-potential="Schedule" data-cusID="{{this._id}}">Đặt lịch</a></li>
+								<li><hr class="dropdown-divider"></li>
+								<li><a type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</a></li>
+							</ul>
+						</div>
+					</td>
+					{{!-- <td class="text-center">
+						<button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
+							data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
+							data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
+							data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
+							data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
+							data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
+							data-edit-resource="{{this.resource}}"
+							data-edit-description="{{this.description}}">
 							Sửa
 						</button>
 						<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-service-note-id="{{this._id}}"
@@ -159,7 +184,7 @@
 							data-bs-target="#create-service-note-modal">
 							Đặt lịch
 						</button>
-					</td>
+					</td> --}}
 				</tr>
 				{{/each}}
 			</tbody>
@@ -204,14 +229,15 @@
 							data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
 							data-edit-resource="{{this.resource}}"
 							data-edit-description="{{this.description}}">
-							<i class="ti-pencil-alt"></i>
+							<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa">
+								<i class="ti-pencil-alt"></i>
+							</div>
 						</button>
-						{{!-- <button class="btn btn-primary btn-sm btn-moveTo" data-notOK="NotOK" data-cusID="{{this._id}}">
-							<i class="ti-angle-double-right"></i>
-						</button> --}}
-
 						<div class="btn-group">
-							<button class="btn btn-primary btn-sm rounded" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti-angle-double-right"></i>
+							<button class="btn btn-primary btn-sm rounded" data-bs-toggle="dropdown" aria-expanded="false">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển hướng">
+									<i class="ti-angle-double-right"></i>
+								</div>
 							</button>
 							<ul class="dropdown-menu">
 								<li><a type="submit" class="dropdown-item" data-potential="Potential" data-cusID="{{this._id}}">Tiềm năng</a></li>
@@ -219,6 +245,22 @@
 								<li><a type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</a></li>
 							</ul>
 						</div>
+						<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-service-note-id="{{this._id}}"
+							data-service-note-img="{{this.image.name}}"
+							data-service-note-firstname="{{this.firstName}}"
+							data-service-note-lastname="{{this.lastName}}"
+							data-service-note-birth="{{this.birth}}"
+							data-service-note-gender="{{this.gender}}"
+							data-service-note-phone="{{this.phone}}"
+							data-service-note-email="{{this.email}}"
+							data-service-note-address="{{this.address}}"
+							data-service-note-description="{{this.description}}" {{#each
+							this.serviceNoteID}} data-service-note-serviceID="{{this.service}}" {{/each}}
+							data-bs-target="#create-service-note-modal">
+							<div data-bs-toggle="tooltip" data-bs-placement="top" title="Đặt lịch">
+								<i class="ti-calendar"></i>
+							</div>
+						</button>
 					</td>
 				</tr>
 				{{/each}}
@@ -750,7 +792,7 @@
 									<ul class="items">
 										{{#each typeservices}}
 										<li class="ml-3 mb-3">
-												<strong>{{this.name}}</strong> 
+											<strong>{{this.name}}</strong> 
 										</li>
 										{{#each this.services}}
 										<li>

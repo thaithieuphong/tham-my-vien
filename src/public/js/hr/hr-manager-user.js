@@ -264,7 +264,6 @@ createUser.addEventListener("show.bs.modal", function (event) {
 			switch(deparmentValue) {
 				case 'Marketing':
 					if ((element.innerHTML === 'Quản lý' || element.innerHTML === 'Nhân viên')) {
-						console.log(element.classList.replace('off', 'on'))
 						element.classList.replace('off', 'on');
 					}
 					break;

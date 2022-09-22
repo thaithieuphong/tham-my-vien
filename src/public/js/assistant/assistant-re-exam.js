@@ -113,7 +113,6 @@ for(i=0; i < alertElement.length; i++) {
 		let element = alertElement[i];
 		let timerOut = setTimeout(closeAlert, 5000);
 		function closeAlert() {
-			console.log(element)
 			element.remove();
 		}
 	}

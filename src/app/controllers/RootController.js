@@ -71,9 +71,6 @@ class RootController {
 			User.findById({ _id: req.userId })
 		])
 			.then(([users, departments, positions, roles, root]) => {
-				console.log('departments', departments);
-				console.log('departments', positions);
-				console.log('departments', roles);
 				res.render("root/root-users", {
 					users: multipleMongooseToObject(users),
 					departments: multipleMongooseToObject(departments),
@@ -245,7 +242,6 @@ class RootController {
                     url: req.file.path,
                 },
             }).then((user) => {
-                console.log(user.image.name);
                 let imgUser = user.image.name;
                 let url = user.image.url
                 let files = fs.readdirSync(
@@ -253,7 +249,6 @@ class RootController {
                 );
                 files.filter((img) => {
                     if (img === imgUser) {
-                        console.log("img user", img);
                         fs.unlinkSync(url);
                     }
                 });
@@ -305,10 +300,11 @@ class RootController {
 
 	// [GET] /department
 	getRootDepartmentDashboard(req, res, next) {
-		Department.find({})
-			.then((departments) => {
+		Promise.all([Department.find({}).populate('positionID'), Position.find({})])
+			.then(([departments, positions]) => {
 				res.render("root/root-departments", {
 					departments: multipleMongooseToObject(departments),
+					positions: multipleMongooseToObject(positions),
 				});
 			})
 			.catch(next);

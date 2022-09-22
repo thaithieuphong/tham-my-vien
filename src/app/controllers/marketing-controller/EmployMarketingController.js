@@ -30,7 +30,6 @@ class MarketingController {
     showCustomer(req, res, next) {
 		Promise.all([User.findById({_id: req.userId}), Customer.find({userID: null})])
             .then(([user, customers]) => {
-				// console.log('user', mongooseToObject(user))
                 res.render('marketing/employ/employ-customer', {
 					user: mongooseToObject(user),
                     customers: multipleMongooseToObject(customers),
@@ -115,7 +114,6 @@ class MarketingController {
 				}
 			)
 				.then((customer) => {
-					// console.log(customer.image.name);
 					let imgCustomer = customer.image.name;
 					let url = customer.image.url;
 					let files = fs.readdirSync(

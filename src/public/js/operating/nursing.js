@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 		inputMultiVideoCounselor.addEventListener('change', (e) => {
 			let files = e.target;//event.target.files;
-			videosPreviewBefore(files);
+			videosPreviewCounselor(files);
 		})
 	
 		let videosPreviewCounselor = function (input) {

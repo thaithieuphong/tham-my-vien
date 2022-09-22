@@ -109,3 +109,26 @@ for(i=0; i < alertElement.length; i++) {
 		}
 	}
 }
+
+var deleteServiceNoteDone = document.getElementById("delete-service-note-done-modal");
+deleteServiceNoteDone.addEventListener("show.bs.modal", function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget;
+	// Get data from delete button
+	var serviceNoteId = button.getAttribute('data-delete-id');
+	var firstName = button.getAttribute("data-delete-firstname");
+	var lastName = button.getAttribute("data-delete-lastname");
+
+	// Get element need embeded input
+	var deleteUser = document.getElementById("delete-service-note-done");
+
+	deleteServiceNoteDoneForm.setAttribute('action', `/operating-room/nursing/service-note/${serviceNoteId}?_method=DELETE`);
+	deleteUser.innerText = `${firstName} ${lastName}`;
+});
+
+// Handle delete info Customer
+var deleteServiceNoteDoneBtn = document.getElementById("delete-service-note-done-btn");
+var deleteServiceNoteDoneForm = document.forms["delete-service-note-done-form"];
+deleteServiceNoteDoneBtn.addEventListener("click", () => {
+	deleteServiceNoteDoneForm.submit();
+});

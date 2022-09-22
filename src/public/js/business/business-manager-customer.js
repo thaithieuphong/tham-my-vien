@@ -327,7 +327,6 @@ function handleFileSelect(){
 function _handleReaderLoaded(readerEvt) {
 	var binaryString = readerEvt.target.result;
 	var base64textString= btoa(binaryString);
-	console.log('binary', btoa(binaryString));
 	var src = "data:image/png;base64,";
 	src += base64textString;
 
@@ -339,6 +338,5 @@ function _handleReaderLoaded(readerEvt) {
 	closeButtonLink.setAttribute('aria-label', 'Close');
 	closeButtonLink.classList.add('btn-close');
 	var imgc = document.querySelector('#imageContainer');
-	console.log('new img', newImage)
 	imgc.append(newImage, closeButtonLink);
 }

@@ -23,13 +23,14 @@ class NursingController {
 	showDashboard(req, res, next) {
 		Promise.all([
 			User.findById({ _id: req.userId }),
-			ServiceNote.find({status: "Hoàn thành", nursing: req.userId}).populate('recept').populate('customerID').populate('performer').populate('nursing')
-
+			ServiceNote.find({status: "Hoàn thành", nursing: req.userId, deleted: false}).populate('recept').populate('customerID').populate('performer').populate('nursing'),
+			ServiceNote.countDeleted({})
 		])
-		.then(([user, serviceNotes]) => {
+		.then(([user, serviceNotes, counts]) => {
 			res.render("operating/nursing/over-view", {
 				user: mongooseToObject(user),
 				serviceNotes: multipleMongooseToObject(serviceNotes),
+				counts: counts,
 				title: "Phiếu hoàn thành"
 			})
 		})
@@ -112,7 +113,6 @@ class NursingController {
 				}
 			)
 				.then((customer) => {
-					// console.log(customer.image.name);
 					let imgCustomer = customer.image.name;
 					let url = customer.image.url;
 					let files = fs.readdirSync(
@@ -161,12 +161,10 @@ class NursingController {
 	}
 
 	showServiceNote(req, res, next) {
-		Promise.all([ServiceNote.findOne({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'),
-		User.findById({ _id: req.userId })])
-			.then(([serviceNote, user]) => {
+		Promise.all([ServiceNote.findOne({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')])
+		.then(([serviceNote]) => {
 				res.render("operating/nursing/operating-service-note", {
 					serviceNote: mongooseToObject(serviceNote),
-					user: mongooseToObject(user),
 					title: "Phiếu phẩu thuật"
 				})
 			})
@@ -174,10 +172,16 @@ class NursingController {
 			.catch(next);
 	}
 
+	deleteServiceNote(req, res, next) {
+		Promise.all([Reexamination.delete({ serviceNoteId: req.params.id }), ServiceNote.delete({ _id: req.params.id }),
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { stored: "Yes" } })])
+			.then(() => res.redirect("back"))
+			.catch(next);
+	}
+
 	showReExamination(req, res, next) {
 		Promise.all([Reexamination.findOne({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId'), User.findById({ _id: req.userId })])
 			.then(([reExam, user]) => {
-				console.log('re exam', reExam)
 				res.render("operating/nursing/operating-re-exam", {
 					reExam: mongooseToObject(reExam),
 					user: mongooseToObject(user),
@@ -191,8 +195,8 @@ class NursingController {
 
 	updateServiceNote(req, res, next) {
 		Promise.all([
-			User.findByIdAndUpdate({ _id: req.body.performerID }, { $set: { stateUser: 'Medium' }}),
-			User.findAndUpdate({ _id: req.body.nursingID }, { $set: { stateUser: 'Medium' }}),
+			User.find({ _id: req.body.performerID }).updateMany({state: 'Medium'}),
+			User.find({ _id: req.body.nursingID }).updateMany({state: 'Medium'}),
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: "Hoàn thành", notes: req.body.notes, stepsToTake: req.body.stepsToTake } }),
 		])
 		.then(() => {
@@ -203,8 +207,8 @@ class NursingController {
 
 	updateReExamination(req, res, next) {
 		Promise.all([
-			User.findByIdAndUpdate({ _id: req.body.performerID }, { $set: { stateUser: 'Medium' }}),
-			User.findByIdAndUpdate({ _id: req.body.nursingID }, { $set: { stateUser: 'Medium' }}),
+			User.find({ _id: req.body.performerID }).updateMany({state: 'Medium'}),
+			User.find({ _id: req.body.nursingID }).updateMany({state: 'Medium'}),
 			Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: "Hoàn thành", stepsToTake: req.body.stepsToTake } }),
 		])
 		.then(() => {
@@ -343,6 +347,23 @@ class NursingController {
 				res.redirect('back');
 
 			})
+	}
+
+	showServiceNoteStore(req, res, next) {
+		ServiceNote.findDeleted({}).populate('customerID').populate('createName').populate('performer').populate('nursing').populate('recept')
+			.then((serviceNotes) => {
+				res.render('operating/nursing/service-note-store', {
+					serviceNotes: multipleMongooseToObject(serviceNotes),
+					title: 'Kho lưu trữ'
+				})
+			})
+	}
+
+	restoreServiceNote(req, res, next) {
+		Promise.all([Reexamination.restore({ serviceNoteId: req.params.id }), ServiceNote.restore({ _id: req.params.id }), ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { stored: "No" } })])
+			.then(() => res.redirect("back"))
+			.catch(next);
+
 	}
 }
 

@@ -12,7 +12,7 @@ const rootPath = path.sep;
 require('dotenv').config();
 
 
-class EmployBusinessController {
+class EmployCustomerCareController {
 	//BUSINESS EMPLOY
 
 	showProfile(req, res, next) {
@@ -49,7 +49,6 @@ class EmployBusinessController {
 			Reexamination.find({ serviceNoteId: req.params.id})
 		])
 			.then(([serviceNote, reExamination]) => {
-				console.log('service note', serviceNote)
 				res.render('customer-care/employ/employ-re-exam-detail', {
 					serviceNote: mongooseToObject(serviceNote),
 					reExamination: multipleMongooseToObject(reExamination),
@@ -60,4 +59,4 @@ class EmployBusinessController {
 	}
 }
 
-module.exports = new EmployBusinessController();
+module.exports = new EmployCustomerCareController();

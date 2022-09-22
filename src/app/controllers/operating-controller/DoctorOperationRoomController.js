@@ -36,7 +36,6 @@ class DoctorOperationRoomController {
 	showServiceNote(req, res, next) {
 		Promise.all([ServiceNote.findOne({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'), User.findById({ _id: req.userId })])
 			.then(([serviceNote, user]) => {
-				console.log(serviceNote)
 				res.render("operating/doctor/operating-service-note", {
 					serviceNote:  mongooseToObject(serviceNote),
 					user: mongooseToObject(user), 

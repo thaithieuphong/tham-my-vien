@@ -111,12 +111,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer bg-transparent d-flex justify-content-between">
-                    <button class="btn btn-danger btn-sm btn-mobile" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
+                <div class="card-footer bg-transparent">
+                    <button class="btn btn-danger btn-mobile mb-1" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
 							data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}"
                             data-delete-customerID="{{this.customerID._id}}"
 							data-delete-lastname="{{this.customerID.lastName}}">Xóa lịch hẹn</button>
-                    <button type="button" class="btn btn-primary btn-sm btn-mobile" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-primary btn-mobile mb-1 float-right" data-bs-toggle="modal"
                         data-bs-target="#add-performer-modal" data-id="{{this._id}}"
                         data-customerID="{{this.customerID._id}}"
                         data-name="{{this.customerID.firstName}} {{this.customerID.lastName}}"
@@ -234,6 +234,7 @@
 									</label>
 									<select id="select-performer" class="chosen-select" multiple
 										tabindex="6" name="performer[]">
+                                        
 										{{#each doctors}}
 										<option value="{{this._id}}">
 											{{this.firstName}}

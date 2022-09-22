@@ -31,7 +31,7 @@ const User = new Schema({
 			timestamps: true
 		}
 	],
-	stateUser: String
+	state: String
 }, {
     timestamps: true
 });
