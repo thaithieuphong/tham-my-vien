@@ -40,7 +40,7 @@ class ManagerBusinessController {
 					customers: multipleMongooseToObject(customers),
 					user1s: multipleMongooseToObject(user1s),
 					user: mongooseToObject(user),
-					title: 'Quản lý khách hàng'
+					title: 'Quản lý khách hàng 1'
 				});
 			})
 	}

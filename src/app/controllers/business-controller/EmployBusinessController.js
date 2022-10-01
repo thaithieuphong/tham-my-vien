@@ -32,7 +32,7 @@ class EmployBusinessController {
 
 	/** Customer */
 	showCustomer(req, res, next) {
-		Promise.all([Customer.find({ userID: req.userId}), User.findById({ _id: req.userId }),
+		Promise.all([Customer.find({}), User.findById({ _id: req.userId }),
 		TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
 				let cusNew = [];
