@@ -175,9 +175,10 @@ class EmployBusinessController {
 	}
 
 	createComment(req, res, next) {
+		console.log('user id', req.userId)
 		Customer.findByIdAndUpdate(
 			{ _id: req.params.id },
-			{ $push: { comments: { comment: req.body.comments } } }
+			{$push: { comments: { comment: req.body.comments } }, userID: req.userId}
 		)
 			.then(() => res.redirect("back"))
 			.catch(next);
