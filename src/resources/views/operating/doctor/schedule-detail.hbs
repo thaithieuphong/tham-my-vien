@@ -1,0 +1,157 @@
+<link rel="stylesheet" href="/css/root.css">
+{{!-- <link rel="stylesheet" href="/css/assistant.css"> --}}
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/operating-room/doctor" class="sidebar-item-title pl-3">
+                <i class="ti-dashboard mr-3"></i>Lịch hẹn phẩu thuật
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/doctor/customers" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3 active"></i>Danh sách khách hàng
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/operating-room/doctor/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-cut mr-3"></i>Danh sách phiếu phẩu thuật
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/operating-room/doctor/re-examination" class="sidebar-item-title pl-3">
+                <i class="ti-clipboard mr-3"></i>Danh sách phiếu tái khám
+            </a>
+        </div>
+    </div>
+	<div class="offcanvas-footer bg-dark border-top">
+        <div class="sidebar-item">
+            <a href="/manager/assistant/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-primary">
+        <div class="img-container">
+            <a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-3"></i>
+			</a>
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+	{{!-- <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.."> --}}
+</div>
+<div class="container-fluid">
+    <div class="card m-3 shadow">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Họ tên:</label>
+                <p class="m-0 text-primary">{{serviceNote.customerID.firstName}} {{serviceNote.customerID.lastName}}</p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Ngày sinh:</label>
+                <p class="m-0 text-primary">{{formatBirth serviceNote.customerID.birth}}</p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Giới tính:</label>
+                <p class="m-0">
+                    {{serviceNote.customerID.gender}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Điện thoại:</label>
+                <p class="m-0 text-danger">
+                    0{{serviceNote.customerID.phone}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Địa chỉ:</label>
+                <p class="m-0">
+                    {{serviceNote.customerID.address}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Email:</label>
+                <p class="m-0">
+                    {{serviceNote.customerID.email}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Nguồn khách:</label>
+                <p class="m-0">
+                    {{serviceNote.customerID.resource}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Nhân viên:</label>
+                <p class="m-0 text-info">
+                    {{serviceNote.createName.firstName}} {{serviceNote.createName.lastName}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Trạng thái:</label>
+                <p class="m-0">
+                    {{serviceNote.status}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Dịch vụ:</label>
+                {{#each serviceNote.service}}
+                    <p class="m-0">
+                        {{this}}
+                    </p>
+                {{/each}}
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Ghi chú:</label>
+                {{#each serviceNote.comments}}
+                    <p class="m-0">
+                        {{this.comment}}
+                    </p>
+                {{/each}}
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Ngày hẹn:</label>
+                <p class="m-0 text-purple">
+                    {{formatDate serviceNote.schedule}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0">Phí dịch vụ:</label>
+                <p class="m-0 text-danger">
+                    {{serviceNote.price}}
+                </p>
+            </div>
+            <hr class="mt-0">
+        </div>
+    </div>
+</div>

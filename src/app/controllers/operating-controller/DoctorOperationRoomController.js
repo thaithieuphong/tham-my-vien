@@ -1,8 +1,10 @@
 const { mongooseToObject, multipleMongooseToObject } = require('../../../util/mongoose');
 const ServiceNote = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
+const Customer = require('../../models/Customer');
 const User = require('../../models/User');
 const path = require('path');
+const { model } = require('mongoose');
 const rootPath = path.sep;
 
 class DoctorOperationRoomController {
@@ -18,28 +20,44 @@ class DoctorOperationRoomController {
 			.catch(next);
 	}
 
-	showDashboard(req, res, next){
+	showSchedule(req, res, next){
 		Promise.all([
 			User.findById({ _id: req.userId }),
-			ServiceNote.find({status: "Hoàn thành", doctor: req.userId}).populate('recept').populate('customerID').populate('performer').populate('nursing')
+			ServiceNote.find({ status: "Tạo mới" }).populate('customerID')
 		])
 		.then(([user, serviceNotes]) => {
-			res.render("operating/doctor/over-view", {
+			console.log('service notes', serviceNotes)
+			res.render("operating/doctor/schedule", {
 				user: mongooseToObject(user),
 				serviceNotes: multipleMongooseToObject(serviceNotes),
-				title: "Phiếu hoàn thành"
+				title: "Lịch hẹn phẩu thuật"
 			})
 		})
 		.catch(next);
 	}
 
-	showServiceNote(req, res, next) {
-		Promise.all([ServiceNote.findOne({ stored: "No", status: "Đang xử lý", performer: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing'), User.findById({ _id: req.userId })])
-			.then(([serviceNote, user]) => {
-				res.render("operating/doctor/operating-service-note", {
-					serviceNote:  mongooseToObject(serviceNote),
+	showScheduleDetail(req, res, next) {
+		ServiceNote.findById({ _id: req.params.id}).populate('customerID').populate('createName')
+			.then((serviceNote) => {
+				console.log('service note', serviceNote)
+				res.render('operating/doctor/schedule-detail', {
+					serviceNote: mongooseToObject(serviceNote),
+					title: 'Chi tiết lịch hẹn'
+				})
+			})
+			.catch(next);
+	}
+
+	showCustomer(req, res, next) {
+		Promise.all([Customer.find({}).populate({
+			path: 'serviceNoteID',
+			model: 'ServiceNote'
+		}), User.findById({ _id: req.userId })])
+			.then(([customers, user]) => {
+				res.render("operating/doctor/customers", {
+					customers:  multipleMongooseToObject(customers),
 					user: mongooseToObject(user), 
-					title: "Phiếu phẩu thuật"
+					title: "Danh sách khách hàng"
 				});
 			})
 			.catch(next);

@@ -1,0 +1,360 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/operating-room/doctor" class="sidebar-item-title pl-3">
+                <i class="ti-receipt mr-3"></i>Phiếu hoàn thành
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/doctor/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Phiếu phẩu thuật
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/doctor/re-examination" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Phiếu tái khám
+            </a>
+        </div>
+    </div>
+	<div class="offcanvas-footer bg-dark border-top">
+        <div class="sidebar-item">
+            <a href="/operating-room/doctor/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-primary">
+        <div class="img-container">
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+</div>
+<div class="p-3">
+	{{#if serviceNote}}
+	<div class="card mb-3">
+		<div class="card-header bg-transparent">
+			<h5 class="text-uppercase text-center mt-3 mb-3">
+				<strong>Phiếu phẩu thuật</strong>
+			</h5>
+			<ul class="nav nav-pills flex-column flex-sm-row" id="pills-tab" role="tablist">
+				<li class="nav-item" role="presentation">
+					<button class="nav-link active" id="pills-profile-customer-tab-{{serviceNote._id}}" data-bs-toggle="pill"
+						data-bs-target="#pills-profile-customer-{{serviceNote._id}}" type="button" role="tab" aria-controls="pills-home"
+						aria-selected="true">Thông tin khách hàng</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link " id="pills-counselor-tab-{{serviceNote._id}}" data-bs-toggle="pill"
+						data-bs-target="#pills-counselor-{{serviceNote._id}}" type="button" role="tab" aria-controls="pills-counselor"
+						aria-selected="false">Hình ảnh tư vấn</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link " id="pills-before-tab-{{serviceNote._id}}" data-bs-toggle="pill" data-bs-target="#pills-before-{{serviceNote._id}}"
+						type="button" role="tab" aria-controls="pills-before" aria-selected="false">Hình ảnh trước phẩu</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link " id="pills-after-tab-{{serviceNote._id}}" data-bs-toggle="pill" data-bs-target="#pills-after-{{serviceNote._id}}"
+						type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh sau phẩu</button>
+				</li>
+			</ul>
+		</div>
+		<div class="card-body">
+			<div class="tab-content" id="pills-tabContent">
+				<div class="d-flex justify-content-between justify-content-sm-start">
+					<label for="status">
+						<strong>Ngày hẹn:</strong>&nbsp;
+					</label>
+					<label class="text-right text-success"><em>{{formatDate serviceNote.schedule}}</em></label>
+				</div>
+				<div class="d-flex justify-content-between justify-content-sm-start">
+					<label for="status">
+						<strong>Trạng thái:</strong>&nbsp;
+					</label>
+					<label class="text-danger text-right">
+						<em>{{serviceNote.status}}</em>
+					</label>
+				</div>
+				<div class="d-flex justify-content-between justify-content-sm-start">
+					<label for="status">
+						<strong>Khách hàng:</strong>&nbsp;
+					</label>
+					<label class="text-primary text-right">
+						{{serviceNote.customerID.firstName}} {{serviceNote.customerID.lastName}}
+					</label>
+				</div>
+				<div class="d-flex justify-content-between justify-content-sm-start">
+					<label for="status">
+						<strong>Lễ tân:</strong>&nbsp;
+					</label>
+					<label class="text-primary text-right">
+						{{serviceNote.recept.firstName}} {{serviceNote.recept.lastName}}
+					</label>
+				</div>
+				<div class="d-flex justify-content-between justify-content-sm-start">
+					<label for="status">
+						<strong>Dịch vụ:</strong>&nbsp;
+					</label>
+					<label class="text-primary text-right">
+						{{serviceNote.service}}
+					</label>
+				</div>
+				<hr>
+				<div class="tab-pane fade show active" id="pills-profile-customer-{{serviceNote._id}}" role="tabpanel"
+					aria-labelledby="pills-home-tab">
+					<form method="POST" id="submit-doctor-form">
+						<div class="d-flex justify-content-between justify-content-sm-start">
+							<label for="status">
+								<strong>Bác sĩ:</strong>&nbsp;
+							</label>
+							<label class="text-primary">
+								{{#each serviceNote.performer}}
+								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+								<em>{{this.firstName}} {{this.lastName}};</em>
+								{{/each}}
+							</label>
+						</div>
+						<div class="d-flex justify-content-between justify-content-sm-start">
+							<label for="status">
+								<strong>Điều dưỡng:</strong>&nbsp;
+							</label>
+							<label class="text-primary">
+								{{#each serviceNote.nursing}}
+								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
+								<em>{{this.firstName}} {{this.lastName}};</em>
+								{{/each}}
+							</label>
+						</div>
+						<div class="row">
+							<div class="">
+								<label for="steps-to-take-area"><strong>Các bước thực hiện:</strong></label>
+							</div>
+							<div class="">
+								<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" name="stepsToTake" id="steps-to-take-area" cols="30" rows="8"></textarea>
+							</div>
+						</div>
+					</form>
+
+					<div class="row mt-3">
+						<div class="">
+							<label for="comments"><strong>Ghi chú:</strong></label>
+						</div>
+						<div class="">
+							{{#if serviceNote.comments}}
+							{{#each serviceNote.comments}}
+							<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" id="comments" cols="30" rows="8" disabled>{{this.comment}}</textarea>
+							{{/each}}
+							{{else}}
+							<label class="">
+								<em>Không có ghi chú</em>
+							</label>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane fade" id="pills-counselor-{{serviceNote._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+					<div class="accordion accordion-flush" id="accordionFlush-counselor-{{serviceNote._id}}">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-counselor-img-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-img-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-img-{{serviceNote._id}}">
+									Xem ảnh
+								</button>
+							</h2>
+							<div id="flush-collapse-counselor-img-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-img-{{serviceNote._id}}" data-bs-parent="#accordionFlush-counselor-{{serviceNote._id}}">
+								<div class="accordion-body">
+									<div class="row">
+										{{#if serviceNote.counselorImg}}
+										{{#each serviceNote.counselorImg}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure imgbox">
+												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có hình ảnh
+										</p>
+										{{/if}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-counselor-video-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-video-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-video-{{serviceNote._id}}">
+									Xem video
+								</button>
+							</h2>
+							<div id="flush-collapse-counselor-video-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-video-{{serviceNote._id}}" data-bs-parent="#accordionFlush-counselor-{{serviceNote._id}}">
+								<div class="accordion-body">
+									<div class="row">
+										{{#if serviceNote.counselorVideo}}
+										{{#each serviceNote.counselorVideo}}
+										<div class="col-xl-2 col-lg-3 col-md-4">
+											<figure class="figure img-container">
+												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có video
+										</p>
+										{{/if}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab-pane fade" id="pills-before-{{serviceNote._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+					<div class="accordion accordion-flush" id="accordionFlush-before-{{serviceNote._id}}">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-before-img-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-img-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-before-img-{{serviceNote._id}}">
+									Xem ảnh
+								</button>
+							</h2>
+							<div id="flush-collapse-before-img-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-img-{{serviceNote._id}}" data-bs-parent="#accordionFlush-before-{{serviceNote._id}}">
+								<div class="accordion-body">
+									<div class="row">
+										{{#if serviceNote.beforeImg}}
+										{{#each serviceNote.beforeImg}}
+										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
+											<figure class="figure imgbox">
+												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có hình ảnh
+										</p>
+										{{/if}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-before-video-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-video-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-before-video-{{serviceNote._id}}">
+									Xem video
+								</button>
+							</h2>
+							<div id="flush-collapse-before-video-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-video-{{serviceNote._id}}" data-bs-parent="#accordionFlush-before-{{serviceNote._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if serviceNote.beforeVideo}}
+										{{#each serviceNote.beforeVideo}}
+										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
+											<figure class="figure img-container">
+												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có video
+										</p>
+										{{/if}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="pills-after-{{serviceNote._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
+					<div class="accordion accordion-flush" id="accordionFlush-after-{{serviceNote._id}}">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-after-img-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-img-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-after-img-{{serviceNote._id}}">
+									Xem ảnh
+								</button>
+							</h2>
+							<div id="flush-collapse-after-img-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-img-{{serviceNote._id}}" data-bs-parent="#accordionFlush-after-{{serviceNote._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if serviceNote.afterImg}}
+										{{#each serviceNote.afterImg}}
+										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
+											<figure class="figure imgbox">
+												<img src="{{this.url}}" class="figure-img img-fluid text-center rounded upd-ava" alt="...">
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có hình ảnh
+										</p>
+										{{/if}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-after-video-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-video-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-after-video-{{serviceNote._id}}">
+									Xem video
+								</button>
+							</h2>
+							<div id="flush-collapse-after-video-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-video-{{serviceNote._id}}" data-bs-parent="#accordionFlush-after-{{serviceNote._id}}">
+								<div class="accordion-body">
+									<div class="row">    
+										{{#if serviceNote.afterVideo}}
+										{{#each serviceNote.afterVideo}}
+										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
+											<figure class="figure img-container">
+												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
+											</figure>
+										</div>
+										{{/each}}
+										{{else}}
+										<p class="text-center">
+											Chưa có video
+										</p>
+										{{/if}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr class="mt-3">
+			<div class="d-flex justify-content-between justify-content-sm-end mt-3">
+				<label for="status">
+					<strong>Phí dịch vụ:</strong>&nbsp;
+				</label>
+				<label class="text-danger text-right">
+					{{serviceNote.price}} VND
+				</label>
+			</div>
+		</div>
+	</div>
+	{{else}}
+	<div class="text-center">
+		Chưa có phiếu phẩu thuật
+	</div>
+	{{/if}}
+</div>
