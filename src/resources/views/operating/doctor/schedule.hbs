@@ -2,11 +2,11 @@
 {{!-- <link rel="stylesheet" href="/css/assistant.css"> --}}
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
     aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header bg-primary border-bottom">
+    <div class="offcanvas-header bg-blue border-bottom">
         <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
         <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body container-sidebar bg-primary">
+    <div class="offcanvas-body container-sidebar bg-blue">
         <div class="sidebar-item">
             <a href="/operating-room/doctor" class="sidebar-item-title pl-3">
                 <i class="ti-dashboard mr-3"></i>Lịch hẹn phẩu thuật
@@ -18,18 +18,8 @@
             </a>
         </div>
 		<div class="sidebar-item">
-            <a href="/manager/assistant/customer" class="sidebar-item-title pl-3">
+            <a href="/operating-room/doctor/customers" class="sidebar-item-title pl-3">
                 <i class="ti-user mr-3 active"></i>Danh sách khách hàng
-            </a>
-        </div>
-        <div class="sidebar-item">
-            <a href="/manager/assistant/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-cut mr-3"></i>Danh sách phiếu phẩu thuật
-            </a>
-        </div>
-        <div class="sidebar-item">
-            <a href="/manager/assistant/re-examination" class="sidebar-item-title pl-3">
-                <i class="ti-clipboard mr-3"></i>Danh sách phiếu tái khám
             </a>
         </div>
     </div>
@@ -47,7 +37,7 @@
     </div>
 </div>
 <div class="sticky-top">
-    <nav class="navbar navbar-light bg-primary">
+    <nav class="navbar navbar-light bg-blue border-bottom">
         <div class="img-container">
         </div>
         <div class="text-light text-uppercase fw-bold">
@@ -70,49 +60,47 @@
 	<div class="row">
 		{{#each serviceNotes}}
 		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-			<div class="card mb-3">
+			<div class="card mb-3 shadow text-white bg-glass">
 				<div class="card-header bg-transparent d-flex justify-content-between">
-					<div class="text-success">
+					<div class="text-light">
 						{{formatDate this.schedule}}
 					</div>
-					<div class="text-danger">
-						{{this.status}}
-					</div>
+					<div class="badge bg-danger lh-lg">{{this.status}}</div>
 				</div>
 				<div class="card-body">
 					<div class="d-flex justify-content-between">
-						<label class="form-label" for=""><strong>Khách hàng:</strong></label>
-						<div class="text-primary form-label text-uppercase">
+						<label class="form-label text-light"><strong>Khách hàng:</strong></label>
+						<div class="text-light text-uppercase fw-bold">
 							{{this.customerID.firstName}} {{this.customerID.lastName}}
 						</div>
 					</div>
 					<div class="d-flex justify-content-between">
-						<label class="form-label" for=""><strong>Giới tính:</strong></label>
+						<label class="form-label text-light"><strong>Giới tính:</strong></label>
 						<div class="form-label">
 							{{this.customerID.gender}}
 						</div>
 					</div>
 					<div class="d-flex justify-content-between">
-						<label class="form-label" for=""><strong>Số điện thoại:</strong></label>
-						<div class="text-primary form-label">
+						<label class="form-label text-light" for=""><strong>Số điện thoại:</strong></label>
+						<div class="text-light form-label">
 							0{{this.customerID.phone}}
 						</div>
 					</div>
 					<div class="d-flex justify-content-between">
-						<label class="form-label" for=""><strong>Dịch vụ:</strong></label>
+						<label class="form-label text-light" for=""><strong>Dịch vụ:</strong></label>
 						<div class="form-label text-right">
 							{{this.service}}
 						</div>
 					</div>
 					<div class="d-flex justify-content-between">
-						<label class="form-label" for=""><strong>Phí dịch vụ:</strong></label>
-						<div class="text-danger form-label">
+						<label class="form-label text-light" for=""><strong>Phí dịch vụ:</strong></label>
+						<div class="text-warning form-label">
 							{{this.price}}
 						</div>
 					</div>
 				</div>
-				<div class="card-footer bg-transparent">
-					<a class="float-right" href="/operating-room/doctor/schedule/{{this._id}}/detail">Xem chi tiết</a>
+				<div class="card-footer  bg-transparent">
+					<a class="btn btn-primary float-right" href="/operating-room/doctor/schedule/{{this._id}}/detail">Xem chi tiết</a>
 					{{!-- <button class="btn btn-danger btn-mobile mb-1" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
 							data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}"
 							data-delete-customerID="{{this.customerID._id}}"

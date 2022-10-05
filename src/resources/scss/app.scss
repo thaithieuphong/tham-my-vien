@@ -12,10 +12,28 @@
 body {
     overflow: auto;
     height: auto;
+    background-image: url('/img/background_1929x969-min.jpg');
+    background-size: cover;
 }
 
 .text-purple {
     color: #6f42c1;
+}
+
+.text-blue {
+    color: #002357;
+}
+
+.bg-blue {
+    background-color: #002357;
+}
+
+.bg-glass {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.bg-glass-0 {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .container-content-page {

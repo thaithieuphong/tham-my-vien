@@ -114,7 +114,7 @@ app.engine(
 				return params.url
 			},
 			view: (value) => {
-				console.log(value)
+				console.log('view', value)
 			},
 			getDoctor: (arr) => {
 				arr.filter(item => item.state === 'Medium' ? item : null)

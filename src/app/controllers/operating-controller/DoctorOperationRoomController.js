@@ -54,6 +54,10 @@ class DoctorOperationRoomController {
 			model: 'ServiceNote'
 		}), User.findById({ _id: req.userId })])
 			.then(([customers, user]) => {
+				customers.forEach(customer => {
+					
+					console.log(customer)
+				})
 				res.render("operating/doctor/customers", {
 					customers:  multipleMongooseToObject(customers),
 					user: mongooseToObject(user), 
