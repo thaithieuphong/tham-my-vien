@@ -20,21 +20,34 @@ class NursingController {
 			.catch(next);
 	}
 
-	showDashboard(req, res, next) {
-		Promise.all([
-			User.findById({ _id: req.userId }),
-			ServiceNote.find({status: "Hoàn thành", nursing: req.userId, deleted: false}).populate('recept').populate('customerID').populate('performer').populate('nursing'),
-			ServiceNote.countDeleted({})
-		])
-		.then(([user, serviceNotes, counts]) => {
-			res.render("operating/nursing/over-view", {
-				user: mongooseToObject(user),
+	showSchedule(req, res, next){
+		Promise.all([ServiceNote.countDeleted({}), ServiceNote.find({ status: 'Tạo mới'}).populate('customerID')])
+		.then(([countDelete, serviceNotes]) => {
+			res.render("operating/nursing/schedule", {
+				countDelete: countDelete,
 				serviceNotes: multipleMongooseToObject(serviceNotes),
-				counts: counts,
-				title: "Phiếu hoàn thành"
+				title: "Lịch hẹn phẩu thuật"
 			})
 		})
 		.catch(next);
+	}
+
+	showScheduleDetail(req, res, next) {
+		ServiceNote.findById({ _id: req.params.id}).populate('customerID').populate('createName')
+			.then((serviceNote) => {
+				res.render('operating/nursing/schedule-detail', {
+					serviceNote: mongooseToObject(serviceNote),
+					title: 'Chi tiết lịch hẹn'
+				})
+			})
+			.catch(next);
+	}
+
+	showCreateCusInfor(req, res, next) {
+		ServiceNote.findById({ _id: req.params.id,}).populate('customerID').populate('createName')
+			.then(serviceNote => {
+				console.log('service note', serviceNote)
+			})
 	}
 	
 	showCustomers(req, res, next) {
@@ -160,21 +173,32 @@ class NursingController {
 			.catch(next);
 	}
 
-	showServiceNote(req, res, next) {
-		Promise.all([ServiceNote.findOne({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')])
-		.then(([serviceNote]) => {
-				res.render("operating/nursing/operating-service-note", {
-					serviceNote: mongooseToObject(serviceNote),
-					title: "Phiếu phẩu thuật"
+	showStorage(req, res, next) {
+		ServiceNote.findDeleted({}).populate('customerID')
+			.then((schedule) => {
+				res.render('operating/nursing/storage', {
+					schedule: multipleMongooseToObject(schedule),
+					title: 'Kho lưu trữ'
 				})
 			})
-			// })
-			.catch(next);
+	}
+
+	showServiceNote(req, res, next) {
+		// Promise.all([ServiceNote.findOne({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')])
+		// .then(([serviceNote]) => {
+		// 		res.render("operating/nursing/operating-service-note", {
+		// 			serviceNote: mongooseToObject(serviceNote),
+		// 			title: "Phiếu phẩu thuật"
+		// 		})
+		// 	})
+		// 	// })
+		// 	.catch(next);
 	}
 
 	deleteServiceNote(req, res, next) {
-		Promise.all([Reexamination.delete({ serviceNoteId: req.params.id }), ServiceNote.delete({ _id: req.params.id }),
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { stored: "Yes" } })])
+		console.log('schedule id', req.params.id)
+		console.log('customer id', req.body.cusID)
+		Promise.all([Customer.findByIdAndUpdate({ _id: req.body.cusID}, { $pull: { serviceNoteID: req.params.id  }}), ServiceNote.delete({ _id: req.params.id })])
 			.then(() => res.redirect("back"))
 			.catch(next);
 	}

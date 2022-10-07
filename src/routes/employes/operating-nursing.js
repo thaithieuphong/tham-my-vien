@@ -4,7 +4,7 @@ const NursingController = require('../../app/controllers/operating-controller/Nu
 const validateUpload = require('../../middleware/validateUpload');
 const AuthController = require("../../app/controllers/AuthController");
 
-router.delete('/service-note/:id', NursingController.deleteServiceNote);
+router.delete('/:id/schedule', NursingController.deleteServiceNote);
 router.patch('/service-note/:id/restore', NursingController.restoreServiceNote);
 router.patch('/service-note/:id', NursingController.updateServiceNote);
 router.patch('/re-examination/:id', NursingController.updateReExamination);
@@ -25,6 +25,9 @@ router.post('/customers', validateUpload.uploadSingleCustomer, NursingController
 router.get('/customers/:id/detail', NursingController.showCustomerDetail);
 router.get('/customers', NursingController.showCustomers);
 router.get('/profile', NursingController.showProfile);
-router.get('/', NursingController.showDashboard)
+router.get('/storage', NursingController.showStorage);
+router.get('/schedule/:id/detail', NursingController.showScheduleDetail);
+router.get('/schedule/:id/create', NursingController.showCreateCusInfor);
+router.get('/', NursingController.showSchedule)
 
 module.exports = router;

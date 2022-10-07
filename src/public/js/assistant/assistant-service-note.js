@@ -127,11 +127,10 @@ deleteSchedule.addEventListener("show.bs.modal", function (event) {
 	// Get element need embeded input
 	var deleteSchedule = document.getElementById("delete-schedule");
 	var deleteCusID = document.getElementById("delete-cusID");
-
-	deleteScheduleForm.setAttribute('action', `/manager/assistant/${serviceNoteId}/service-note?_method=DELETE`);
+	deleteScheduleForm.setAttribute('action', `/operating-room/nursing/${serviceNoteId}/schedule?_method=DELETE`);
 
 	deleteCusID.value = cusID;
-	deleteSchedule.innerText = `${firstName} ${lastName}`;
+	deleteSchedule.innerHTML = firstName + ' ' + lastName;
 });
 
 // Handle delete info Customer

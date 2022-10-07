@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="/css/root.css">
+{{!-- <link rel="stylesheet" href="/css/assistant.css"> --}}
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-blue">
+        <div class="sidebar-item">
+            <a href="/operating-room/doctor" class="sidebar-item-title pl-3">
+                <i class="ti-dashboard mr-3"></i>Lịch hẹn phẩu thuật
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/doctor/customers" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3 active"></i>Danh sách khách hàng
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/operating-room/doctor/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-cut mr-3"></i>Danh sách phiếu phẩu thuật
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/operating-room/doctor/re-examination" class="sidebar-item-title pl-3">
+                <i class="ti-clipboard mr-3"></i>Danh sách phiếu tái khám
+            </a>
+        </div>
+    </div>
+	<div class="offcanvas-footer bg-dark border-top">
+        <div class="sidebar-item">
+            <a href="/operating-room/nursing/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-blue border-bottom">
+        <div class="img-container">
+            <a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-3"></i>
+			</a>
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+	{{!-- <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.."> --}}
+</div>
+<div class="container-fluid">
+    <div class="card m-3 bg-glass-0 shadow">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Họ tên:</label>
+                <p class="m-0 text-light">
+                    <span class="badge bg-info fs-6">
+                        {{serviceNote.customerID.firstName}} {{serviceNote.customerID.lastName}}
+                    </span>
+                </p>
+            </div>
+            <hr class="mt-0 text-light">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Ngày sinh:</label>
+                <p class="m-0 text-light">{{formatBirth serviceNote.customerID.birth}}</p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Giới tính:</label>
+                <p class="m-0 text-light">
+                    {{serviceNote.customerID.gender}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Điện thoại:</label>
+                <p class="m-0 text-danger">
+                    <span class="badge bg-danger fs-6">0{{serviceNote.customerID.phone}}</span>
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light text-nowrap">Địa chỉ:</label>
+                <p class="m-0 text-wrap text-light text-justify">
+                    {{serviceNote.customerID.address}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Email:</label>
+                <p class="m-0 text-light">
+                    {{serviceNote.customerID.email}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Nguồn khách:</label>
+                <p class="m-0 text-light">
+                    {{serviceNote.customerID.resource}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Nhân viên:</label>
+                <p class="m-0 text-light">
+                    {{serviceNote.createName.firstName}} {{serviceNote.createName.lastName}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Trạng thái:</label>
+                <p class="m-0 text-light">
+                    <span class="badge bg-danger fs-6">{{serviceNote.status}}</span>
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light text-nowrap">Dịch vụ:</label>
+                {{#each serviceNote.service}}
+                    <p class="m-0 text-light text-right">
+                        {{this}}
+                    </p>
+                {{/each}}
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Ghi chú:</label>
+                {{#each serviceNote.comments}}
+                    <p class="m-0 text-light">
+                        {{this.comment}}
+                    </p>
+                {{/each}}
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light text-nowrap">Ngày hẹn:</label>
+                <p class="m-0">
+                    <span class="badge bg-success fs-6 text-wrap text-justify">
+                        {{formatDate serviceNote.schedule}}
+                    </span>
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Phí dịch vụ:</label>
+                <p class="m-0 text-warning">
+                    <span class="badge bg-warning fs-6">{{serviceNote.price}}</span>
+                </p>
+            </div>
+            <hr class="mt-0">
+        </div>
+    </div>
+</div>

@@ -2,20 +2,20 @@ var subDoctorForm = document.forms['submit-doctor-form'];
 var subDoctorModal = document.getElementById('submit-doctor-modal');
 var subDoctorBtn = document.getElementById('submit-form-doctor-btn');
 
-subDoctorBtn.addEventListener("click", () => {
-    subDoctorForm.submit();
-
-});
-
-subDoctorModal.addEventListener('show.bs.modal', function(event){
+if (subDoctorBtn) {
+	subDoctorBtn.addEventListener("click", () => {
+		subDoctorForm.submit();
 	
-    var button = event.relatedTarget;
+	});
+}
 
-    var id = button.getAttribute("data-id")
-
-    subDoctorForm.setAttribute('action', `/operating-room/nursing/service-note/${id}?_method=PATCH`)
-
-})
+if (subDoctorModal) {
+	subDoctorModal.addEventListener('show.bs.modal', function(event){
+		var button = event.relatedTarget;
+		var id = button.getAttribute("data-id")
+		subDoctorForm.setAttribute('action', `/operating-room/nursing/service-note/${id}?_method=PATCH`)
+	})
+}
 
 document.addEventListener("DOMContentLoaded", function () {
 	let inputMultiImageCounselor = document.getElementById('input-multi-images-counselor');
@@ -287,4 +287,28 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 });
 
+// Handle push data to delete modal
+var deleteSchedule = document.getElementById("delete-schedule-modal");
+deleteSchedule.addEventListener("show.bs.modal", function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget;
+	// Get data from delete button
+	var serviceNoteId = button.getAttribute('data-delete-id');
+	var firstName = button.getAttribute("data-delete-firstname");
+	var lastName = button.getAttribute("data-delete-lastname");
+	var cusID = button.getAttribute("data-delete-customerID");
+	// Get element need embeded input
+	var deleteSchedule = document.getElementById("delete-schedule");
+	var deleteCusID = document.getElementById("delete-cusID");
+	deleteScheduleForm.setAttribute('action', `/operating-room/nursing/${serviceNoteId}/schedule?_method=DELETE`);
 
+	deleteCusID.value = cusID;
+	deleteSchedule.innerHTML = firstName + ' ' + lastName;
+});
+
+// Handle delete info Customer
+var deleteBtn = document.getElementById("delete-schedule-btn");
+var deleteScheduleForm = document.forms["delete-schedule-form"];
+deleteBtn.addEventListener("click", () => {
+	deleteScheduleForm.submit();
+});
