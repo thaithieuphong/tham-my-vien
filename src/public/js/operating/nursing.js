@@ -289,26 +289,115 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Handle push data to delete modal
 var deleteSchedule = document.getElementById("delete-schedule-modal");
-deleteSchedule.addEventListener("show.bs.modal", function (event) {
-	// Button that triggered the modal
-	var button = event.relatedTarget;
-	// Get data from delete button
-	var serviceNoteId = button.getAttribute('data-delete-id');
-	var firstName = button.getAttribute("data-delete-firstname");
-	var lastName = button.getAttribute("data-delete-lastname");
-	var cusID = button.getAttribute("data-delete-customerID");
-	// Get element need embeded input
-	var deleteSchedule = document.getElementById("delete-schedule");
-	var deleteCusID = document.getElementById("delete-cusID");
-	deleteScheduleForm.setAttribute('action', `/operating-room/nursing/${serviceNoteId}/schedule?_method=DELETE`);
-
-	deleteCusID.value = cusID;
-	deleteSchedule.innerHTML = firstName + ' ' + lastName;
-});
+if (deleteSchedule) {
+	deleteSchedule.addEventListener("show.bs.modal", function (event) {
+		// Button that triggered the modal
+		var button = event.relatedTarget;
+		// Get data from delete button
+		var serviceNoteId = button.getAttribute('data-delete-id');
+		var firstName = button.getAttribute("data-delete-firstname");
+		var lastName = button.getAttribute("data-delete-lastname");
+		var cusID = button.getAttribute("data-delete-customerID");
+		// Get element need embeded input
+		var deleteSchedule = document.getElementById("delete-schedule");
+		var deleteCusID = document.getElementById("delete-cusID");
+		deleteScheduleForm.setAttribute('action', `/operating-room/nursing/${serviceNoteId}/schedule?_method=DELETE`);
+	
+		deleteCusID.value = cusID;
+		deleteSchedule.innerHTML = firstName + ' ' + lastName;
+	});
+}
 
 // Handle delete info Customer
 var deleteBtn = document.getElementById("delete-schedule-btn");
 var deleteScheduleForm = document.forms["delete-schedule-form"];
-deleteBtn.addEventListener("click", () => {
-	deleteScheduleForm.submit();
-});
+if (deleteBtn) {
+	deleteBtn.addEventListener("click", () => {
+		deleteScheduleForm.submit();
+	});
+}
+
+
+var restoreServiceNote = document.getElementById("restore-service-note-modal");
+if (restoreServiceNote) {
+	restoreServiceNote.addEventListener("show.bs.modal", function (event) {
+		// Button that triggered the modal
+		var button = event.relatedTarget;
+		// Get data from delete button
+		var serviceNoteId = button.getAttribute('data-restore-id');
+		var firstName = button.getAttribute("data-restore-firstname");
+		var lastName = button.getAttribute("data-restore-lastname");
+	
+		// Get element need embeded input
+		var restoreUser = document.getElementById("restore-service-note");
+	
+		restoreServiceNoteForm.setAttribute('action', `/operating-room/nursing/schedule/${serviceNoteId}/restore?_method=PATCH`);
+		restoreUser.innerText = `${firstName} ${lastName}`;
+	});
+	
+	// Handle delete info Customer
+	var restoreServiceNoteBtn = document.getElementById("restore-service-note-btn");
+	var restoreServiceNoteForm = document.forms["restore-service-note-form"];
+	restoreServiceNoteBtn.addEventListener("click", () => {
+		restoreServiceNoteForm.submit();
+	});
+}
+
+
+
+
+var serviceContainer = document.getElementById('service-container')
+var createService = function(str) {
+	let divContainer = document.createElement('div');
+	divContainer.setAttribute('class', 'input-group input-group-sm mb-1');
+	let btnClose = document.createElement('button');
+	btnClose.setAttribute('class', 'btn btn-danger btn-sm close-btn');
+	let iconClose = document.createElement('i');
+	iconClose.setAttribute('class', 'ti-close');
+	btnClose.append(iconClose);
+	let inputService = document.createElement('span');
+	inputService.innerHTML = str;
+	inputService.setAttribute('class', 'input-group-text text-light bg-info text-wrap');
+	let inputPrice = document.createElement('input');
+	inputPrice.setAttribute('class', 'form-control text-right input-price');
+	divContainer.append(inputService, inputPrice, btnClose)
+	serviceContainer.append(divContainer)
+}
+
+var addServicesBtn = document.getElementById('add-services');
+var selectServices = document.getElementById('select-service');
+var totalInput = document.getElementById('total');
+var priceBefore = document.getElementById('price-before');
+if (addServicesBtn) {
+	totalInput.value = priceBefore.innerHTML
+	addServicesBtn.addEventListener('click', () => {
+		let textService = selectServices.value;
+		textService.length > 20 ? textService = textService.slice(0, 20) + '...' : textService;
+		createService(textService);
+		let inputPrice = document.querySelectorAll('.input-price');
+		inputPrice.forEach(item => {
+			item.addEventListener('keyup', function(evt){
+				let convertMoney = parseFloat(this.value.replace(/\D/g,''), 10);
+				let convertedMoney = convertMoney.toLocaleString();
+				this.value = convertedMoney;
+				let moneyBefore = Number(totalInput.value.replace(/[^0-9.-]+/g,""));
+				let moneyAdd = Number(convertedMoney.replace(/[^0-9.-]+/g,""));
+				console.log(moneyBefore)
+				console.log(moneyAdd)
+				let arrPrice = Array.from(inputPrice);
+				let totalPrice = arrPrice.reduce((moneyBefore, moneyAdd) => {
+					return moneyBefore + moneyAdd;
+				}, 0)
+				console.log(totalPrice)
+				totalInput.value = totalPrice;
+			}, false);
+		})
+		let closeBtn = document.querySelectorAll('.close-btn');
+		closeBtn.forEach(btn => {
+			btn.addEventListener('click', (e) => {
+				let parent = btn.parentElement;
+				parent.remove();
+			})
+		})
+	})
+}

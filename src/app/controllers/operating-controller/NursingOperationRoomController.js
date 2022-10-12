@@ -6,6 +6,7 @@ const Customer = require('../../models/Customer');
 const path = require('path');
 const rootPath = path.sep;
 const TypeService = require("../../models/TypeService");
+const { mongo } = require('mongoose');
 
 class NursingController {
 
@@ -44,10 +45,37 @@ class NursingController {
 	}
 
 	showCreateCusInfor(req, res, next) {
-		ServiceNote.findById({ _id: req.params.id,}).populate('customerID').populate('createName')
-			.then(serviceNote => {
-				console.log('service note', serviceNote)
+		Promise.all([ServiceNote.findById({ _id: req.params.id,}).populate('customerID').populate('createName'),
+		User.find({ departmentEng: 'operating-room', positionEng: 'doctor'}),
+		User.find({ departmentEng: 'operating-room', positionEng: 'nursing'}),
+		TypeService.find({})])
+			.then(([serviceNotes, doctors, nursings, typeService]) => {
+				console.log('service notes', serviceNotes)
+				res.render('operating/nursing/create-customer-info', {
+					serviceNotes: mongooseToObject(serviceNotes),
+					doctors: multipleMongooseToObject(doctors),
+					nursings: multipleMongooseToObject(nursings),
+					typeService: multipleMongooseToObject(typeService),
+					title: 'Hồ sơ khách hàng'
+				})
 			})
+	}
+
+	showStorage(req, res, next) {
+		ServiceNote.findDeleted({}).populate('customerID')
+			.then((schedule) => {
+				res.render('operating/nursing/storage', {
+					schedule: multipleMongooseToObject(schedule),
+					title: 'Kho lưu trữ'
+				})
+			})
+	}
+
+	restoreSchedule(req, res, next) {
+		ServiceNote.restore({ _id: req.params.id })
+			.then(() => res.redirect("back"))
+			.catch(next);
+
 	}
 	
 	showCustomers(req, res, next) {
@@ -173,15 +201,7 @@ class NursingController {
 			.catch(next);
 	}
 
-	showStorage(req, res, next) {
-		ServiceNote.findDeleted({}).populate('customerID')
-			.then((schedule) => {
-				res.render('operating/nursing/storage', {
-					schedule: multipleMongooseToObject(schedule),
-					title: 'Kho lưu trữ'
-				})
-			})
-	}
+	
 
 	showServiceNote(req, res, next) {
 		// Promise.all([ServiceNote.findOne({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')])
@@ -373,22 +393,7 @@ class NursingController {
 			})
 	}
 
-	showServiceNoteStore(req, res, next) {
-		ServiceNote.findDeleted({}).populate('customerID').populate('createName').populate('performer').populate('nursing').populate('recept')
-			.then((serviceNotes) => {
-				res.render('operating/nursing/service-note-store', {
-					serviceNotes: multipleMongooseToObject(serviceNotes),
-					title: 'Kho lưu trữ'
-				})
-			})
-	}
-
-	restoreServiceNote(req, res, next) {
-		Promise.all([Reexamination.restore({ serviceNoteId: req.params.id }), ServiceNote.restore({ _id: req.params.id }), ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { stored: "No" } })])
-			.then(() => res.redirect("back"))
-			.catch(next);
-
-	}
+	
 }
 
 module.exports = new NursingController;

@@ -44,7 +44,7 @@
 <div class="sticky-top">
     <nav class="navbar navbar-light bg-blue border-bottom">
         <div class="img-container">
-            <a type="button" onclick="history.back()">
+            <a type="button" href="/operating-room/nursing">
 				<i class="fa-solid fa-circle-arrow-left text-light fs-3"></i>
 			</a>
         </div>
@@ -56,7 +56,6 @@
                 class="ti-menu"></i>
         </button>
     </nav>
-	{{!-- <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.."> --}}
 </div>
 <div class="mt-3 ml-3 mr-3">
 	{{#if messages_pushReExamination_error}}
@@ -113,7 +112,9 @@
 					</div>
 				</div>
 				<div class="card-footer bg-transparent">
-					<button type="button" class="btn btn-primary btn-mobile mb-2">Khôi phục</button>
+					<button class="btn btn-primary btn-mobile mb-1" data-bs-toggle="modal" data-bs-target="#restore-service-note-modal"
+							data-restore-id="{{this._id}}" data-restore-firstname="{{this.customerID.firstName}}"
+							data-restore-lastname="{{this.customerID.lastName}}">Khôi phục</button>
 				</div>
 			</div>
 		</div>
@@ -121,26 +122,44 @@
 	</div>
 </div>
 
-<!-- Delete customer modal -->
-<div class="modal fade" id="delete-schedule-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Xóa lịch hẹn</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form id="delete-schedule-form" method="POST">
-                <input id="delete-cusID" type="text" name="cusID" hidden>
-            </form>
-            Bạn có chắc muốn xóa lịch hẹn <strong id="delete-schedule" class="text-danger"></strong> không?
-        </div>
-        <div class="modal-footer">
-            <button id="delete-schedule-btn" type="button" class="btn btn-danger">Chắc chắn, xóa</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
-        </div>
-        </div>
+
+
+
+<!-- Restore service note modal -->
+<div class="modal fade" id="restore-service-note-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Khôi phục phiếu dịch vụ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn có chắc muốn khôi phục phiếu dịch vụ của <strong id="restore-service-note"></strong> không?
+      </div>
+      <div class="modal-footer">
+        <button id="restore-service-note-btn" type="button" class="btn btn-danger">Chắc chắn</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+      </div>
     </div>
+  </div>
 </div>
 
+<form id="restore-service-note-form" method="POST"></form>
 <script src="/js/operating/nursing.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+	const textarea = document.querySelectorAll('.message-content');
+	for (i = 0; i < textarea.length; i++) {
+		let element = textarea[i];
+		let textValue = element.innerHTML;
+		let textSplit = textValue.split('\n');
+		let cols = textValue.length;
+		let rows = textSplit.length;
+		let result = textSplit.join('<br>');
+		element.innerHTML = result;
+		let parent = element.clientWidth;
+		let ex = parent - cols;
+	}
+})
+</script>

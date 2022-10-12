@@ -117,7 +117,12 @@ app.engine(
 				console.log('view', value)
 			},
 			getDoctor: (arr) => {
-				arr.filter(item => item.state === 'Medium' ? item : null)
+				let newArr = [];
+				arr.forEach(item => {
+					newArr.push({ id: item._id, fullName: `${item.firstName} ${item.lastName}`})
+				})
+				console.log(newArr)
+				return newArr;
 			},
 			formatMoney: (money) => {
 				let convertMoney = parseFloat(money);

@@ -24,6 +24,10 @@ body {
     color: #002357;
 }
 
+.bg-blue-ray {
+    background-color: #001fd9;
+}
+
 .bg-blue {
     background-color: #002357;
 }
@@ -34,6 +38,10 @@ body {
 
 .bg-glass-0 {
     background: rgba(255, 255, 255, 0.1);
+}
+
+.height-300 {
+    max-height: 300px;
 }
 
 .container-content-page {
@@ -52,7 +60,7 @@ body {
 .dropdown-check-list {
     display: inline-block;
     width: 100%;
-  }
+}
   
   .dropdown-check-list .anchor {
     position: relative;

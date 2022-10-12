@@ -25,14 +25,8 @@
     </div>
 	<div class="offcanvas-footer border-top">
 		<div class="sidebar-item border-bottom">
-            <a href="/operating-room/nursing/storage" class="sidebar-item-title pl-3">
-				<button type="button" class="btn btn-primary position-relative lh-lg">
-					<i class="ti-trash mr-3 active"></i>Kho lưu trữ
-					<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-						{{countDelete}}
-						<span class="visually-hidden">unread messages</span>
-					</span>
-				</button>
+            <a href="/operating-room/nursing/storage" class="sidebar-item-title pl-3 position-relative">
+				<i class="ti-trash mr-3 active"></i>Kho lưu trữ<span class="badge bg-danger rounded-pill position-absolute top-50 start-100 translate-middle">{{countDelete}}</span>
             </a>
         </div>
         <div class="sidebar-item">
@@ -59,7 +53,6 @@
                 class="ti-menu"></i>
         </button>
     </nav>
-	{{!-- <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.."> --}}
 </div>
 <div class="mt-3 ml-3 mr-3">
 	{{#if messages_pushReExamination_error}}
