@@ -80,11 +80,7 @@
 							{{!-- <button class="btn btn-primary btn-sm btn-mobile">Cập nhật</button> --}}
 						</div>
 						<div class="col-md-6 mb-3">
-							<div class="input-group input-group-sm mb-3">
-								<span class="input-group-text text-light bg-blue">Dịch vụ</span>
-								<span class="input-group-text bg-info text-light text-right">{{serviceNotes.service}}</span>
-								<span id="price-before" class="input-group-text bg-danger text-light text-right">{{serviceNotes.price}}</span>
-							</div>
+							
 							<div class="input-group input-group-sm mb-3">
 								<span class="input-group-text text-light bg-blue">Thêm dịch vụ</span>
 								<select class="form-select" id="select-service">
@@ -100,7 +96,11 @@
 							</div>
 							<div class="list-group mb-3 height-300">
 								<div id="service-container" class="list-group-item bg-glass container-content-page p-2 ml-0">
-								
+									<div class="input-group input-group-sm mb-1">
+										<span class="input-group-text text-light bg-info text-wrap">{{serviceNotes.service}}</span>
+										<input id="price-before" class="form-control text-right input-price" value="{{serviceNotes.price}}">
+										<button class="btn btn-danger btn-sm close-btn"><i class="ti-close"></i></button>
+									</div>
 								</div>
 							</div>
 							<div class="input-group input-group-sm mb-3">

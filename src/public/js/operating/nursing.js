@@ -364,40 +364,50 @@ var createService = function(str) {
 	serviceContainer.append(divContainer)
 }
 
+let funMoney = function sum(a) {
+	
+	return total += a;
+}
+
 var addServicesBtn = document.getElementById('add-services');
 var selectServices = document.getElementById('select-service');
 var totalInput = document.getElementById('total');
 var priceBefore = document.getElementById('price-before');
+
+
+
 if (addServicesBtn) {
-	totalInput.value = priceBefore.innerHTML
+	totalInput.value = priceBefore.value
 	addServicesBtn.addEventListener('click', () => {
 		let textService = selectServices.value;
 		textService.length > 20 ? textService = textService.slice(0, 20) + '...' : textService;
+		let arrMoney = [];
+		let moneyBefore = Number(totalInput.value.replace(/[^0-9.-]+/g,""));
 		createService(textService);
 		let inputPrice = document.querySelectorAll('.input-price');
-		inputPrice.forEach(item => {
-			item.addEventListener('keyup', function(evt){
-				let convertMoney = parseFloat(this.value.replace(/\D/g,''), 10);
+		var formatter = new Intl.NumberFormat('vi-VN', {
+			style: 'currency',
+			currency: 'VND',
+		});
+		inputPrice.forEach((item, index) => {
+			item.setAttribute('id', index);
+			item.addEventListener('input', function(e) {
+				let total = 0;
+				var convertMoney = parseFloat(e.target.value.replace(/\D/g,''), 10);
 				let convertedMoney = convertMoney.toLocaleString();
 				this.value = convertedMoney;
-				let moneyBefore = Number(totalInput.value.replace(/[^0-9.-]+/g,""));
-				let moneyAdd = Number(convertedMoney.replace(/[^0-9.-]+/g,""));
-				console.log(moneyBefore)
-				console.log(moneyAdd)
-				let arrPrice = Array.from(inputPrice);
-				let totalPrice = arrPrice.reduce((moneyBefore, moneyAdd) => {
-					return moneyBefore + moneyAdd;
-				}, 0)
-				console.log(totalPrice)
-				totalInput.value = totalPrice;
-			}, false);
-		})
+				let totalMoney = moneyBefore + (total += convertMoney);
+				  
+				let totalFinal = formatter.format(totalMoney);
+				totalInput.value = totalMoney;
+			});
+		});
 		let closeBtn = document.querySelectorAll('.close-btn');
-		closeBtn.forEach(btn => {
+		closeBtn.forEach((btn) => {
 			btn.addEventListener('click', (e) => {
 				let parent = btn.parentElement;
 				parent.remove();
 			})
 		})
-	})
+	});
 }
