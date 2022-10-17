@@ -2,11 +2,11 @@
 <link rel="stylesheet" href="/css/assistant.css">
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
     aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header bg-dark border-bottom">
+    <div class="offcanvas-header bg-blue border-bottom">
         <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
         <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body container-sidebar bg-dark">
+    <div class="offcanvas-body container-sidebar bg-blue">
         <div class="sidebar-item">
             <a href="/business/employ/service-note" class="sidebar-item-title pl-3">
                 <i class="ti-receipt mr-3"></i>Dịch vụ
@@ -18,7 +18,7 @@
             </a>
         </div>
     </div>
-	<div class="offcanvas-footer bg-dark border-top">
+	<div class="offcanvas-footer bg-blue border-top">
         <div class="sidebar-item">
             <a href="/business/employ/profile" class="sidebar-item-title pl-3">
                 <i class="ti-user mr-3"></i>Thông tin người dùng
@@ -32,10 +32,10 @@
     </div>
 </div>
 <div class="sticky-top">
-	<div class="redirect-bar bg-primary d-flex justify-content-between">
+	<div class="redirect-bar bg-blue d-flex justify-content-between border-bottom">
 		<a class="ml-3 text-light" type="button" onclick="history.back()"><i class="ti-arrow-left"></i> Quay lại</a>
 	</div>
-	<ul class="nav nav-pills ml-0 bg-secondary d-flex justify-content-between justify-content-sm-start" id="pills-tab" role="tablist">
+	<ul class="nav nav-pills ml-0 bg-blue d-flex justify-content-between justify-content-sm-start" id="pills-tab" role="tablist">
 		<li class="nav-item" role="presentation">
 			<button class="nav-link active text-light" id="pills-system-customer-tab" data-bs-toggle="pill"
 				data-bs-target="#pills-system-customer" type="button" role="tab" aria-controls="pills-home"
@@ -64,48 +64,48 @@
 						<img src="/img/user-icon.png" id="add-avt" class="rounded  add-avata" alt="...">
 					</div>
 					{{/if}}
-					<div class="d-flex justify-content-between mt-3">
+					<div class="d-flex justify-content-between mt-3 text-light">
 						<label for="status">
 							<strong>Họ tên:</strong>&nbsp;
 						</label>
 						<label class="text-uppercase text-danger">{{customer.firstName}} {{customer.lastName}}</label>
 					</div>
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between text-light">
 						<label for="status">
 							<strong>Ngày sinh:</strong>&nbsp;
 						</label>
 						<label id="create-service-note-birth" name="birth">{{formatBirth customer.birth}}</label>
 					</div>
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between text-light">
 						<label for="status">
 							<strong>Giới tính:</strong>&nbsp;
 						</label>
 						<label id="create-service-note-gender" name="gender">{{customer.gender}}</label>
 					</div>
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between text-light">
 						<label for="status">
 							<strong>Email:</strong>&nbsp;
 						</label>
 						<label id="create-service-note-email" name="email">{{customer.email}}</label>
 					</div>
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between text-light">
 						<label for="status">
 							<strong>Số điện thoại:</strong>&nbsp;
 						</label>
 						<label id="create-service-note-phone" name="phone" readonly>{{customer.phone}}</label>
 					</div>
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between text-light">
 						<label for="status">
 							<strong>Địa chỉ:</strong>&nbsp;
 						</label>
-						<label id="create-service-note-address" name="address">{{customer.address}}</label>
 					</div>
-					<div class="d-flex justify-content-between">
+					<p id="create-service-note-address" name="address" class="text-wrap text-justify text-light">{{customer.address}}</p>
+					<div class="d-flex justify-content-between text-light">
 						<label for="status">
 							<strong>Mô tả:</strong>&nbsp;
 						</label>
 					</div>
-					<textarea id="detail-description" class="form-control bg-white" rows="8" disabled>{{customer.description}}</textarea>
+					<textarea id="detail-description" class="form-control bg-light" rows="8" readonly>{{customer.description}}</textarea>
 				</div>
 				<div class="col-xl-8 col-lg-8 col-md-8">
 					<ul class="list-group border comment-ctv-page mt-3">
@@ -132,12 +132,12 @@
 			</div>
 		</div>
 		<div class="tab-pane fade" id="pills-user-customer" role="tabpanel" aria-labelledby="pills-profile-tab">
-			<p class="none-mb" value="" for="service-note-service"><strong>Dịch vụ:</strong></p>
+			<p class="none-mb text-light" value="" for="service-note-service"><strong>Dịch vụ:</strong></p>
 			{{#each customer.serviceNoteID}}
-			<p class="none-mb" value="" for="service-note-service">{{this.service}} ({{this.status}})</p>
+			<p class="none-mb text-light" value="" for="service-note-service">{{this.service}} ({{this.status}})</p>
 			<hr>
 			{{else}}
-			Chưa sử dụng dịch vụ nào
+			<p class="text-light">Chưa sử dụng dịch vụ nào</p>
 			{{/each}}
 		</div>
 	</div>

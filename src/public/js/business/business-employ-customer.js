@@ -184,21 +184,25 @@ document.addEventListener("DOMContentLoaded", function () {
 		$("#customerNew_table").DataTable({
 			paging: true,
 			reponsive: true,
+			scrollY: '300px',
 			scrollCollapse: true,
 		});
 		$("#customerPotential_table").DataTable({
 			paging: true,
 			reponsive: true,
+			scrollY: '300px',
 			scrollCollapse: true,
 		});
 		$("#customerSchedule_table").DataTable({
 			paging: true,
 			reponsive: true,
+			scrollY: '300px',
 			scrollCollapse: true,
 		});
 		$("#customerFail_table").DataTable({
 			paging: true,
 			reponsive: true,
+			scrollY: '300px',
 			scrollCollapse: true,
 		});
 	});
@@ -338,13 +342,13 @@ function convert_vi_to_en(str) {
 // 	}
 // })
 
-var checkList = document.getElementById('list1');
-checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
-	if (checkList.classList.contains('visible'))
-		checkList.classList.remove('visible');
-	else
-		checkList.classList.add('visible');
-}
+// var checkList = document.getElementById('list1');
+// checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+// 	if (checkList.classList.contains('visible'))
+// 		checkList.classList.remove('visible');
+// 	else
+// 		checkList.classList.add('visible');
+// }
 
 let dropDown = document.getElementsByClassName('dropdown-item');
 let moveToBtns = document.getElementsByClassName('btn-moveTo');

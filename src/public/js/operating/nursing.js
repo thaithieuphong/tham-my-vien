@@ -32,20 +32,20 @@ document.addEventListener("DOMContentLoaded", function () {
 				for (let i = 0; i < inputFiles.length; i++) {
 					let reader = new FileReader();
 					let newImage = document.createElement('img');
-					let closeButtonLink = document.createElement('button');
+					let iconClose = document.createElement('i');
+					iconClose.setAttribute('class', 'ti-close');
+					let closeButtonLink = document.createElement('div');
+					closeButtonLink.append(iconClose);
 					let divMain = document.createElement('figure');
 					reader.addEventListener('load', (event) => {
-						// newImage.setAttribute('alt', filesAmount)
 						let src = event.target.result;
-						divMain.classList = 'col-md-4 col-sm figure img-container position-relative mt-2';
+						divMain.classList = 'col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
 						newImage.id = i;
 						closeButtonLink.id = i;
-						closeButtonLink.type = 'button';
-						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-img';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
 						let imgc = document.querySelector('.preview-images-counselor');
 						divMain.append(newImage, closeButtonLink);
 						imgc.append(divMain);
@@ -65,9 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	let inputMultiVideoCounselor = document.getElementById('input-multi-videos-counselor');
 	if (inputMultiVideoCounselor) {
-
 		inputMultiVideoCounselor.addEventListener('change', (e) => {
-			let files = e.target;//event.target.files;
+			let files = e.target;
 			videosPreviewCounselor(files);
 		})
 	
@@ -344,12 +343,15 @@ if (restoreServiceNote) {
 }
 
 
+function totalMoneyFn(before, current) {
+	return before + current.price;
+}
 
-
+// Hàm tạo dịch vụ mới
 var serviceContainer = document.getElementById('service-container')
 var createService = function(str) {
 	let divContainer = document.createElement('div');
-	divContainer.setAttribute('class', 'input-group input-group-sm mb-1');
+	divContainer.setAttribute('class', 'input-group mb-3');
 	let btnClose = document.createElement('button');
 	btnClose.setAttribute('class', 'btn btn-danger btn-sm close-btn');
 	let iconClose = document.createElement('i');
@@ -357,16 +359,12 @@ var createService = function(str) {
 	btnClose.append(iconClose);
 	let inputService = document.createElement('span');
 	inputService.innerHTML = str;
-	inputService.setAttribute('class', 'input-group-text text-light bg-info text-wrap');
+	inputService.setAttribute('class', 'input-group-text text-light bg-dark-yellow text-wrap');
 	let inputPrice = document.createElement('input');
 	inputPrice.setAttribute('class', 'form-control text-right input-price');
+	inputPrice.setAttribute('value', 0);
 	divContainer.append(inputService, inputPrice, btnClose)
 	serviceContainer.append(divContainer)
-}
-
-let funMoney = function sum(a) {
-	
-	return total += a;
 }
 
 var addServicesBtn = document.getElementById('add-services');
@@ -374,40 +372,59 @@ var selectServices = document.getElementById('select-service');
 var totalInput = document.getElementById('total');
 var priceBefore = document.getElementById('price-before');
 
-
-
 if (addServicesBtn) {
 	totalInput.value = priceBefore.value
+	/* Khi người dùng click nút thêm dịch vụ sẽ tiến hành thêm dịch vụ mới và thẻ input để nhập giá tiền kèm nút xóa */
+	// Lắng nghe nút thêm dịch vụ
 	addServicesBtn.addEventListener('click', () => {
 		let textService = selectServices.value;
+		// Cắt ngắn tên dịch vụ cho vừa khung
 		textService.length > 20 ? textService = textService.slice(0, 20) + '...' : textService;
-		let arrMoney = [];
-		let moneyBefore = Number(totalInput.value.replace(/[^0-9.-]+/g,""));
+		// Gọi đến hàm tạo dịch vụ khi click
 		createService(textService);
-		let inputPrice = document.querySelectorAll('.input-price');
-		var formatter = new Intl.NumberFormat('vi-VN', {
-			style: 'currency',
-			currency: 'VND',
-		});
-		inputPrice.forEach((item, index) => {
-			item.setAttribute('id', index);
-			item.addEventListener('input', function(e) {
-				let total = 0;
-				var convertMoney = parseFloat(e.target.value.replace(/\D/g,''), 10);
+		let serviceArr = [];
+		let serviceElement = serviceContainer.children;
+		for (let i = 0; i < serviceElement.length; i++) {
+			serviceElement[i].setAttribute('id', i);
+			let serviceInput = serviceElement[i].children[1];
+			
+			serviceInput.setAttribute('id', i)
+			serviceArr.push({ 'index': i,'price': parseFloat(serviceInput.value.replace(/\D/g,''), 10)});
+			serviceInput.addEventListener('focus', (e) => {
+				serviceInput.value = null;
+			})
+			serviceInput.addEventListener('input', (e) => {
+				let valueMoney = e.target.value;
+				let id = serviceInput.getAttribute('id')
+				let convertMoney = parseFloat(valueMoney.replace(/\D/g,''), 10);
+				convertMoney === NaN ? convertMoney = 0 : convertMoney;
+				serviceArr.filter((service) => {
+					if (parseInt(id) === service.index) {
+						service.price = convertMoney
+					}
+				})
+				
+				let totalMoney = serviceArr.reduce(totalMoneyFn, 0);
+				totalInput.value = totalMoney.toLocaleString()
 				let convertedMoney = convertMoney.toLocaleString();
-				this.value = convertedMoney;
-				let totalMoney = moneyBefore + (total += convertMoney);
-				  
-				let totalFinal = formatter.format(totalMoney);
-				totalInput.value = totalMoney;
-			});
-		});
-		let closeBtn = document.querySelectorAll('.close-btn');
-		closeBtn.forEach((btn) => {
-			btn.addEventListener('click', (e) => {
-				let parent = btn.parentElement;
+				serviceInput.value = convertedMoney;
+			})
+
+			let serviceClose = serviceElement[i].children[2];
+			serviceClose.setAttribute('id', i);
+			serviceClose.addEventListener('click', (e) => {
+				let parent = serviceClose.parentElement;
+				let id = serviceClose.getAttribute('id')
+				serviceArr.forEach((service) => {
+					if (parseInt(id) === service.index) {
+						let index = serviceArr.indexOf(service)
+						serviceArr.splice(index, 1);
+					}
+					let totalMoney = serviceArr.reduce(totalMoneyFn, 0);
+					totalInput.value = totalMoney.toLocaleString();
+				})
 				parent.remove();
 			})
-		})
+		}
 	});
 }
