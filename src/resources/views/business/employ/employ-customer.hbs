@@ -445,7 +445,7 @@
 <!-- Modal Create Customer -->
 <div class="modal fade" id="create-customer-modal" tabindex="-1" aria-labelledby="create-customer-modal"
 	aria-hidden="true">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header bg-primary">
 				<h5 class="modal-title text-light" id="create-customer-modal">Tạo thông tin khách hàng</h5>
@@ -467,34 +467,27 @@
 						<ul class="list-group">
 							<li class="list-group-item">
 								<div class="row">
-									<div class="col-md-6 mb-3">
-										<label for="create-firstName" class="form-label">
-											<h6>Họ <span class="badge text-danger">*</span></h6>
-										</label>
-										<input type="text" class="form-control form-control-sm" id="create-firstName"
-											placeholder="Vd: Trần Văn" name="firstName" required>
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Họ tên</span>
+										<input type="text" class="form-control" id="create-firstName"
+											placeholder="Vd: Trần Văn An" name="nickName" required>
 									</div>
-									<div class="col-md-6">
-										<label for="create-lastName" class="form-label">
-											<h6>Tên <span class="badge text-danger">*</span></h6>
-										</label>
-										<input type="text" class="form-control form-control-sm" id="create-lastName"
-											placeholder="Vd: Khánh" name="lastName" required>
-									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="col-md-6 mb-3">
-										<label for="create-birth" class="form-label">
-											<h6>Ngày sinh <span class="badge text-danger">*</span></h6>
-										</label>
-										<input type="date" class="form-control form-control-sm" id="create-birth"
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Ngày sinh</span>
+										<input type="date" class="form-control" id="create-birth"
 											aria-describedby="birthFeedback" name="birth" required>
 									</div>
-									<div class="col-md-6">
-										<label for="create-gender" class="form-label">
-											<h6>Giới tính <span class="badge text-danger">*</span></h6>
-										</label>
-										<select class="form-select form-select-sm" aria-label=".form-select-sm example"
+								</div>
+								<div class="row">
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Số điện thoại</span>
+										<input type="text" class="form-control" id="create-phone"
+											placeholder="Vd: 0909888888" name="phone" required>
+										<div id="create_phone_error" class="text-danger off mt-1">Vui lòng nhập đúng số điện thoại</div>
+									</div>
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Giới tính</span>
+										<select class="form-select" aria-label=".form-select-sm example"
 											name="gender" required>
 											<option value="" selected>-- Chọn giới tính --</option>
 											<option value="Nữ">Nữ</option>
@@ -502,46 +495,39 @@
 										</select>
 									</div>
 								</div>
-								<div class="row mt-3">
-									<div class="col-md-6 mb-3">
-										<label for="create-phone" class="form-label">
-											<h6>Số điện thoại <span class="badge text-danger">*</span></h6>
-										</label>
-										<input type="text" class="form-control form-control-sm" id="create-phone"
-											placeholder="Vd: 0909888888" name="phone" required>
-										<div id="create_phone_error" class="text-danger off mt-1">Vui lòng nhập đúng số điện thoại</div>
-									</div>
-									<div class="col-md-6">
-										<label for="create-email" class="form-label">
-											<h6>Email</h6>
-										</label>
-										<input type="email" class="form-control form-control-sm" id="create-email"
+								<div class="row">
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Email</span>
+										<input type="email" class="form-control" id="create-email"
 											placeholder="Vd: tranvankhanh@gmail.com" name="email" required>
 									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="col-md-6 mb-3">
-										<label for="create-address" class="form-label">
-											<h6>Địa chỉ</h6>
-										</label>
-										<input type="text" class="form-control form-control-sm" id="create-address"
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Địa chỉ</span>
+										<input type="text" class="form-control" id="create-address"
 											aria-describedby="addressFeedback" placeholder="Vd: 123 Đường số 10"
 											name="address" required>
 									</div>
-									<div class="col-md-6">
-										<label for="create-resource" class="form-label">
-											<h6>Nguồn khách</h6>
-										</label>
-										<input type="text" class="form-control form-control-sm" id="create-resource"
+								</div>
+								<div class="row">
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Trạng thái</span>
+										<select class="form-select" aria-label=".form-select-sm example" name="statusCus" required>
+											<option value="" selected>-- Chọn trạng thái --</option>
+											<option value="New">Tạo mới</option>
+											<option value="Potential">Tiềm năng</option>
+											<option value="Schedule">Đặt lịch</option>
+										</select>
+									</div>
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Nguồn khách</span>
+										<input type="text" class="form-control" id="create-resource"
 											aria-describedby="resource"
 											name="resource" required>
 									</div>
 								</div>
-								<div class="row mt-3">
+								<div class="row">
 									<div class="col-md-12 mb-3">
-										<label for="create-description" class="form-label">
-											<h6>Mô tả</h6>
-										</label>
+										<span  class="input-group-text bg-blue-ray text-light">Mô tả</span>
 										<textarea class="form-control" id="create-description" rows="6"
 											placeholder="Mô tả khách hàng" name="description"></textarea>
 									</div>
@@ -585,65 +571,55 @@
 						<ul class="list-group">
 							<li class="list-group-item">
 								<div class="row">
-									<div class="col-md-6 mt-3">
-										<label for="edit-firstName" class="form-label">
-											<h6>Họ</h6>
-										</label>
-										<input type="text" class="form-control form-control-sm firstName"
-											data-bs-focus="focus" id="edit-firstName" name="firstName">
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Họ tên</span>
+										<input type="text" class="form-control firstName"
+											data-bs-focus="focus" id="edit-firstName" name="nickName">
 									</div>
-									<div class="col-md-6 mt-3">
-										<label for="edit-lastName" class="form-label">
-											<h6>Tên</h6>
-										</label>
-										<input type="text" class="form-control form-control-sm lastName"
-											id="edit-lastName" name="lastName">
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Ngày sinh</span>
+										<input type="date" class="form-control" id="edit-birth"
+											aria-describedby="birthFeedback" name="birth" required>
 									</div>
 								</div>
 								<div class="row mt-3">
-									<div class="col-md-6 mt-3">
-										<label for="edit-birth" class="form-label">
-											<h6>Ngày sinh</h6>
-										</label>
-										<input type="date" class="form-control form-control-sm" id="edit-birth"
-											aria-describedby="birthFeedback" name="birth" required>
-									</div>
-									<div class="col-md-6 mt-3">
-										<label for="edit-gender" class="form-label">
-											<h6>Giới tính</h6>
-										</label>
-										<select id="edit-gender" class="form-select form-select-sm"
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Giới tính</span>
+										<select id="edit-gender" class="form-select"
 											aria-label=".form-select-sm example" name="gender">
 											<option value="" selected>-- Chọn giới tính --</option>
 											<option value="Nữ">Nữ</option>
 											<option value="Nam">Nam</option>
 										</select>
 									</div>
-								</div>
-								<div class="row mt-3">
-									<div class="col-md-6 mt-3">
-										<label for="edit-phone" class="form-label">
-											<h6>Số điện thoại</h6>
-										</label>
-										<input type="tel" class="form-control form-control-sm" id="edit-phone"
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Số điện thoại</span>
+										<input type="tel" class="form-control" id="edit-phone"
 											name="phone" required>
 										<div id="edit_phone_error" class="text-danger off mt-1">Vui lòng nhập đúng số điện thoại</div>
 									</div>
-									<div class="col-md-6 mt-3">
-										<label for="edit-email" class="form-label">
-											<h6>Email</h6>
-										</label>
-										<input type="email" class="form-control form-control-sm" id="edit-email"
+								</div>
+								<div class="row">
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Email</span>
+										<input type="email" class="form-control" id="edit-email"
 											name="email" required>
+									</div>
+									<div class="col-md-6 input-group mb-3">
+										<span class="input-group-text bg-blue-ray text-light">Địa chỉ</span>
+										<input type="text" class="form-control" id="edit-address"
+											aria-describedby="addressFeedback" name="address" required>
 									</div>
 								</div>
 								<div class="row mt-3">
 									<div class="col-md-6 mb-3">
-										<label for="edit-address" class="form-label">
-											<h6>Địa chỉ</h6>
-										</label>
-										<input type="text" class="form-control form-control-sm" id="edit-address"
-											aria-describedby="addressFeedback" name="address" required>
+										<span class="input-group-text bg-blue-ray text-light">Trạng thái</span>
+										<select class="form-select" aria-label=".form-select-sm example" name="statusCus" required>
+											<option value="" selected>-- Chọn trạng thái --</option>
+											<option value="New">Tạo mới</option>
+											<option value="Potential">Tiềm năng</option>
+											<option value="Schedule">Đặt lịch</option>
+										</select>
 									</div>
 									<div class="col-md-6">
 										<label for="edit-resource" class="form-label">

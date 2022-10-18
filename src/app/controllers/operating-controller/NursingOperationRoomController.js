@@ -1,6 +1,7 @@
 const User = require('../../models/User');
 const { multipleMongooseToObject, mongooseToObject } = require('../../../util/mongoose');
 const ServiceNote = require('../../models/ServiceNote');
+const Schedule = require('../../models/Schedule');
 const Reexamination = require('../../models/Reexamination');
 const Customer = require('../../models/Customer');
 const path = require('path');
@@ -22,11 +23,11 @@ class NursingController {
 	}
 
 	showSchedule(req, res, next){
-		Promise.all([ServiceNote.countDeleted({}), ServiceNote.find({ status: 'Tạo mới'}).populate('customerID')])
-		.then(([countDelete, serviceNotes]) => {
+		Promise.all([Schedule.countDeleted({}), Schedule.find({ status: 'Tạo mới'}).populate('customerID')])
+		.then(([countDelete, schedules]) => {
 			res.render("operating/nursing/schedule", {
 				countDelete: countDelete,
-				serviceNotes: multipleMongooseToObject(serviceNotes),
+				schedules: multipleMongooseToObject(schedules),
 				title: "Lịch hẹn phẩu thuật"
 			})
 		})
@@ -34,10 +35,10 @@ class NursingController {
 	}
 
 	showScheduleDetail(req, res, next) {
-		ServiceNote.findById({ _id: req.params.id}).populate('customerID').populate('createName')
-			.then((serviceNote) => {
+		Schedule.findById({ _id: req.params.id}).populate('customerID').populate('createName')
+			.then((schedule) => {
 				res.render('operating/nursing/schedule-detail', {
-					serviceNote: mongooseToObject(serviceNote),
+					schedule: mongooseToObject(schedule),
 					title: 'Chi tiết lịch hẹn'
 				})
 			})
@@ -45,14 +46,14 @@ class NursingController {
 	}
 
 	showCreateCusInfor(req, res, next) {
-		Promise.all([ServiceNote.findById({ _id: req.params.id,}).populate('customerID').populate('createName'),
+		Promise.all([Schedule.findById({ _id: req.params.id,}).populate('customerID').populate('createName'),
 		User.find({ departmentEng: 'operating-room', positionEng: 'doctor'}),
 		User.find({ departmentEng: 'operating-room', positionEng: 'nursing'}),
 		TypeService.find({})])
-			.then(([serviceNotes, doctors, nursings, typeService]) => {
-				console.log('service notes', serviceNotes)
+			.then(([schedule, doctors, nursings, typeService]) => {
+				console.log('service notes', schedule)
 				res.render('operating/nursing/create-customer-info', {
-					serviceNotes: mongooseToObject(serviceNotes),
+					schedule: mongooseToObject(schedule),
 					doctors: multipleMongooseToObject(doctors),
 					nursings: multipleMongooseToObject(nursings),
 					typeService: multipleMongooseToObject(typeService),

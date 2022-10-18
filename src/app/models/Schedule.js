@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const mongooseDelete = require("mongoose-delete");
+
 
 const Schedule = new Schema({
     customerID:
@@ -57,6 +59,11 @@ const Schedule = new Schema({
 	schedule: String,
 }, {
     timestamps: true
+});
+
+Schedule.plugin(mongooseDelete, {
+	deletedAt: true,
+	overrideMethods: 'all',
 });
 
 module.exports = mongoose.model('Schedule', Schedule);

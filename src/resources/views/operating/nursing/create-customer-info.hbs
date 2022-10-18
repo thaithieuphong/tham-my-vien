@@ -25,7 +25,7 @@
 	</div>
 	{{/if}}
 	<div class="row">
-		{{#if serviceNotes}}
+		{{#if schedule}}
 			<div class="card bg-glass p-0">
 				<div class="card-body p-3">
 					<div class="tab-content" id="myTabContent">
@@ -34,17 +34,17 @@
 								<div class="row">
 									<div class="col-md-6 input-group mb-4">
 										<span class="input-group-text text-light bg-blue-ray">Họ tên</span>
-										<input class="form-control" type="text" value="{{serviceNotes.customerID.firstName}} {{serviceNotes.customerID.lastName}}" name="fullName">
+										<input class="form-control" type="text" value="{{schedule.customerID.firstName}} {{schedule.customerID.lastName}}" name="fullName">
 									</div>
 									<div class="col-md-6 input-group mb-4">
 										<span class="input-group-text text-light bg-blue-ray">Số điện thoại</span>
-										<input class="form-control" type="text" value="{{serviceNotes.customerID.phone}}">
+										<input class="form-control" type="text" value="{{schedule.customerID.phone}}">
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-6 input-group mb-4">
 										<span class="input-group-text text-light bg-blue-ray">Ngày sinh</span>
-										<input class="form-control" type="date" value="{{serviceNotes.customerID.birth}}" name="birth">
+										<input class="form-control" type="date" value="{{schedule.customerID.birth}}" name="birth">
 									</div>
 									<div class="col-md-6 input-group mb-4">
 										<span class="input-group-text text-light bg-blue-ray">Giới tính</span>
@@ -58,7 +58,7 @@
 								{{!-- <div class="row">
 									<div class="col-md-6 input-group mb-4">
 										<span class="input-group-text text-light bg-blue-ray">Ngày phẩu thuật</span>
-										<input class="form-control" type="date" value="{{serviceNotes.customerID.birth}}" name="birth">
+										<input class="form-control" type="date" value="{{schedule.customerID.birth}}" name="birth">
 									</div>
 									<div class="col-md-6 mb-4 d-flex justify-content-between justify-content-sm-start">
 										<div class="form-check form-check-inline">
@@ -98,7 +98,7 @@
 									</div>
 									<div class="col-md-3 input-group mb-4">
 										<span class="input-group-text text-light bg-blue-ray">Ngày phẩu thuật</span>
-										<input class="form-control" type="date" value="{{serviceNotes.customerID.birth}}" name="birth">
+										<input class="form-control" type="date" value="{{schedule.customerID.birth}}" name="birth">
 									</div>
 								</div>
 							</form>
@@ -122,8 +122,8 @@
 								<div class="list-group mb-4 height-300 p-0">
 									<div id="service-container" class="list-group-item bg-glass-0 container-content-page p-2 ml-0">
 										{{!-- <div class="input-group mb-4">
-											<span class="input-group-text text-light bg-dark-yellow text-wrap">{{serviceNotes.service}}</span>
-											<input id="price-before" class="form-control text-right input-price" value="{{serviceNotes.price}}">
+											<span class="input-group-text text-light bg-dark-yellow text-wrap">{{schedule.service}}</span>
+											<input id="price-before" class="form-control text-right input-price" value="{{schedule.price}}">
 											<button class="btn btn-danger btn-sm close-btn"><i class="ti-close"></i></button>
 										</div> --}}
 									</div>
@@ -137,19 +137,19 @@
 						</div>
 						<div class="tab-pane fade" id="operating-room" role="tabpanel" aria-labelledby="contact-tab">
 							<form method="POST" id="submit-operating-room-form">
-								<div class="accordion accordion-flush mb-4" id="accordionFlush-{{serviceNotes._id}}">
+								<div class="accordion accordion-flush mb-4" id="accordionFlush-{{schedule._id}}">
 									<div class="accordion-item bg-glass">
-										<h2 class="accordion-header" id="flush-counselor-{{serviceNotes._id}}">
-											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-{{serviceNotes._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-{{serviceNotes._id}}">
+										<h2 class="accordion-header" id="flush-counselor-{{schedule._id}}">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-{{schedule._id}}">
 												Thông tin tư vấn
 											</button>
 										</h2>
-										<div id="flush-collapse-counselor-{{serviceNotes._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-{{serviceNotes._id}}" data-bs-parent="#accordionFlush-{{serviceNotes._id}}">
+										<div id="flush-collapse-counselor-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
 											<div class="accordion-body">
 												<div class="row">
 													<div class="col-md-6 mb-4">
-														{{#if serviceNotes.counselorImg}}
-														{{#each serviceNotes.counselorImg}}
+														{{#if schedule.counselorImg}}
+														{{#each schedule.counselorImg}}
 														<div class="col-xl-2 col-lg-3 col-md-4">
 															<figure class="figure imgbox">
 																<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
@@ -161,18 +161,18 @@
 															Chưa có hình ảnh
 														</p>
 														{{/if}}
-														<form method="POST" id="upload-img-counselor-form-{{serviceNotes._id}}" action="/operating-room/nursing/service-note/counselor/{{serviceNotes._id}}" enctype="multipart/form-data">
-															<input hidden type="text" value="{{serviceNotes.customerID._id}}" name="customerID">
+														<form method="POST" id="upload-img-counselor-form-{{schedule._id}}" action="/operating-room/nursing/service-note/counselor/{{schedule._id}}" enctype="multipart/form-data">
+															<input hidden type="text" value="{{schedule.customerID._id}}" name="customerID">
 															<div class="preview-images-counselor row ml-0 text-center"></div>
-															<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{serviceNotes._id}}">
+															<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{schedule._id}}">
 																<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
 															</label>
 															<input id="input-multi-images-counselor" class="form-control" type="file" name="counselor" hidden multiple>
 														</form>
 													</div>
 													<div class="col-md-6">
-														{{#if serviceNotes.counselorVideo}}
-														{{#each serviceNotes.counselorVideo}}
+														{{#if schedule.counselorVideo}}
+														{{#each schedule.counselorVideo}}
 														<div class="col-xl-2 col-lg-3 col-md-4">
 															<figure class="figure img-container">
 																<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
@@ -185,7 +185,7 @@
 														</p>
 														{{/if}}
 														<div class="preview-videos-counselor row ml-0 text-center"></div>
-														<label for="input-multi-videos-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{serviceNotes._id}}">
+														<label for="input-multi-videos-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{schedule._id}}">
 															<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
 														</label>
 														<input id="input-multi-videos-counselor" class="form-control" type="file" name="counselor" hidden multiple>
@@ -206,17 +206,17 @@
 										</div>
 									</div>
 									<div class="accordion-item bg-glass">
-										<h2 class="accordion-header" id="flush-before-{{serviceNotes._id}}">
-											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-{{serviceNotes._id}}" aria-expanded="false" aria-controls="flush-collapse-before-{{serviceNotes._id}}">
+										<h2 class="accordion-header" id="flush-before-{{schedule._id}}">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-before-{{schedule._id}}">
 												Thông tin trước phẩu
 											</button>
 										</h2>
-										<div id="flush-collapse-before-{{serviceNotes._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-{{serviceNotes._id}}" data-bs-parent="#accordionFlush-{{serviceNotes._id}}">
+										<div id="flush-collapse-before-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
 											<div class="accordion-body">
 												<div class="row">
 													<div class="col-md-6 mb-4">
-														{{#if serviceNotes.counselorImg}}
-														{{#each serviceNotes.counselorImg}}
+														{{#if schedule.counselorImg}}
+														{{#each schedule.counselorImg}}
 														<div class="col-xl-2 col-lg-3 col-md-4">
 															<figure class="figure imgbox">
 																<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
@@ -228,18 +228,18 @@
 															Chưa có hình ảnh
 														</p>
 														{{/if}}
-														<form method="POST" id="upload-img-counselor-form-{{serviceNotes._id}}" action="/operating-room/nursing/service-note/counselor/{{serviceNotes._id}}" enctype="multipart/form-data">
-															<input hidden type="text" value="{{serviceNotes.customerID._id}}" name="customerID">
+														<form method="POST" id="upload-img-counselor-form-{{schedule._id}}" action="/operating-room/nursing/service-note/counselor/{{schedule._id}}" enctype="multipart/form-data">
+															<input hidden type="text" value="{{schedule.customerID._id}}" name="customerID">
 															<div class="preview-images-counselor row ml-0 text-center"></div>
-															<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{serviceNotes._id}}">
+															<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{schedule._id}}">
 																<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
 															</label>
 															<input id="input-multi-images-counselor" class="form-control" type="file" name="counselor" hidden multiple>
 														</form>
 													</div>
 													<div class="col-md-6">
-														{{#if serviceNotes.counselorVideo}}
-														{{#each serviceNotes.counselorVideo}}
+														{{#if schedule.counselorVideo}}
+														{{#each schedule.counselorVideo}}
 														<div class="col-xl-2 col-lg-3 col-md-4">
 															<figure class="figure img-container">
 																<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
@@ -252,7 +252,7 @@
 														</p>
 														{{/if}}
 														<div class="preview-videos-counselor row ml-0 text-center"></div>
-														<label for="input-multi-videos-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{serviceNotes._id}}">
+														<label for="input-multi-videos-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{schedule._id}}">
 															<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
 														</label>
 														<input id="input-multi-videos-counselor" class="form-control" type="file" name="counselor" hidden multiple>
@@ -273,17 +273,17 @@
 										</div>
 									</div>
 									<div class="accordion-item bg-glass">
-										<h2 class="accordion-header" id="flush-in-{{serviceNotes._id}}">
-											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-in-{{serviceNotes._id}}" aria-expanded="false" aria-controls="flush-collapse-in-{{serviceNotes._id}}">
+										<h2 class="accordion-header" id="flush-in-{{schedule._id}}">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-in-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-in-{{schedule._id}}">
 												Thông tin phẩu thuật
 											</button>
 										</h2>
-										<div id="flush-collapse-in-{{serviceNotes._id}}" class="accordion-collapse collapse" aria-labelledby="flush-in-{{serviceNotes._id}}" data-bs-parent="#accordionFlush-{{serviceNotes._id}}">
+										<div id="flush-collapse-in-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-in-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
 											<div class="accordion-body">
 												<div class="row">
 													<div class="col-md-6 mb-4">
-														{{#if serviceNotes.counselorImg}}
-														{{#each serviceNotes.counselorImg}}
+														{{#if schedule.counselorImg}}
+														{{#each schedule.counselorImg}}
 														<div class="col-xl-2 col-lg-3 col-md-4">
 															<figure class="figure imgbox">
 																<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
@@ -295,18 +295,18 @@
 															Chưa có hình ảnh
 														</p>
 														{{/if}}
-														<form method="POST" id="upload-img-counselor-form-{{serviceNotes._id}}" action="/operating-room/nursing/service-note/counselor/{{serviceNotes._id}}" enctype="multipart/form-data">
-															<input hidden type="text" value="{{serviceNotes.customerID._id}}" name="customerID">
+														<form method="POST" id="upload-img-counselor-form-{{schedule._id}}" action="/operating-room/nursing/service-note/counselor/{{schedule._id}}" enctype="multipart/form-data">
+															<input hidden type="text" value="{{schedule.customerID._id}}" name="customerID">
 															<div class="preview-images-counselor row ml-0 text-center"></div>
-															<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{serviceNotes._id}}">
+															<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{schedule._id}}">
 																<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
 															</label>
 															<input id="input-multi-images-counselor" class="form-control" type="file" name="counselor" hidden multiple>
 														</form>
 													</div>
 													<div class="col-md-6">
-														{{#if serviceNotes.counselorVideo}}
-														{{#each serviceNotes.counselorVideo}}
+														{{#if schedule.counselorVideo}}
+														{{#each schedule.counselorVideo}}
 														<div class="col-xl-2 col-lg-3 col-md-4">
 															<figure class="figure img-container">
 																<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
@@ -319,7 +319,7 @@
 														</p>
 														{{/if}}
 														<div class="preview-videos-counselor row ml-0 text-center"></div>
-														<label for="input-multi-videos-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{serviceNotes._id}}">
+														<label for="input-multi-videos-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{schedule._id}}">
 															<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
 														</label>
 														<input id="input-multi-videos-counselor" class="form-control" type="file" name="counselor" hidden multiple>
@@ -340,17 +340,17 @@
 										</div>
 									</div>
 									<div class="accordion-item bg-glass">
-										<h2 class="accordion-header" id="flush-after-{{serviceNotes._id}}">
-											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-{{serviceNotes._id}}" aria-expanded="false" aria-controls="flush-collapse-after-{{serviceNotes._id}}">
+										<h2 class="accordion-header" id="flush-after-{{schedule._id}}">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-after-{{schedule._id}}">
 												Thông tin hậu phẩu - hồi sức
 											</button>
 										</h2>
-										<div id="flush-collapse-after-{{serviceNotes._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-{{serviceNotes._id}}" data-bs-parent="#accordionFlush-{{serviceNotes._id}}">
+										<div id="flush-collapse-after-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
 											<div class="accordion-body">
 												<div class="row">
 													<div class="col-md-6 mb-4">
-														{{#if serviceNotes.counselorImg}}
-														{{#each serviceNotes.counselorImg}}
+														{{#if schedule.counselorImg}}
+														{{#each schedule.counselorImg}}
 														<div class="col-xl-2 col-lg-3 col-md-4">
 															<figure class="figure imgbox">
 																<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
@@ -362,18 +362,18 @@
 															Chưa có hình ảnh
 														</p>
 														{{/if}}
-														<form method="POST" id="upload-img-counselor-form-{{serviceNotes._id}}" action="/operating-room/nursing/service-note/counselor/{{serviceNotes._id}}" enctype="multipart/form-data">
-															<input hidden type="text" value="{{serviceNotes.customerID._id}}" name="customerID">
+														<form method="POST" id="upload-img-counselor-form-{{schedule._id}}" action="/operating-room/nursing/service-note/counselor/{{schedule._id}}" enctype="multipart/form-data">
+															<input hidden type="text" value="{{schedule.customerID._id}}" name="customerID">
 															<div class="preview-images-counselor row ml-0 text-center"></div>
-															<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{serviceNotes._id}}">
+															<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{schedule._id}}">
 																<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
 															</label>
 															<input id="input-multi-images-counselor" class="form-control" type="file" name="counselor" hidden multiple>
 														</form>
 													</div>
 													<div class="col-md-6">
-														{{#if serviceNotes.counselorVideo}}
-														{{#each serviceNotes.counselorVideo}}
+														{{#if schedule.counselorVideo}}
+														{{#each schedule.counselorVideo}}
 														<div class="col-xl-2 col-lg-3 col-md-4">
 															<figure class="figure img-container">
 																<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
@@ -386,7 +386,7 @@
 														</p>
 														{{/if}}
 														<div class="preview-videos-counselor row ml-0 text-center"></div>
-														<label for="input-multi-videos-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{serviceNotes._id}}">
+														<label for="input-multi-videos-counselor" class="label-avt d-flex justify-content-start" data-input-img-id="{{schedule._id}}">
 															<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
 														</label>
 														<input id="input-multi-videos-counselor" class="form-control" type="file" name="counselor" hidden multiple>
@@ -409,7 +409,7 @@
 								</div>
 							</form>
 							<button type="button" data-bs-toggle="modal" data-bs-target="#submit-doctor-modal"
-								class="btn btn-success btn-mobile" data-id="{{serviceNotes._id}}">Hoàn thành</button>
+								class="btn btn-success btn-mobile" data-id="{{schedule._id}}">Hoàn thành</button>
 							{{!-- <div class="card-footer bg-transparent d-flex justify-content-end">
 							</div> --}}
 						</div>

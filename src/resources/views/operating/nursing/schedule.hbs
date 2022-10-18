@@ -62,7 +62,7 @@
 	</div>
 	{{/if}}
 	<div class="row">
-		{{#each serviceNotes}}
+		{{#each schedules}}
 		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
 			<div class="card mb-3 shadow text-white bg-glass">
 				<div class="card-header bg-transparent d-flex justify-content-between">
@@ -104,7 +104,7 @@
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-light text-nowrap" for=""><strong>Phí dịch vụ:</strong></label>
 						<div class="text-warning form-label">
-							{{this.price}}
+							{{this.priceBefore}}
 						</div>
 					</div>
 				</div>

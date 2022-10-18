@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 const mongooseDelete = require("mongoose-delete");
 
 const Customer = new Schema({
-	firstName: String,
-	lastName: String,
+	nickName: String,
+	fullName: String,
 	birth: String,
 	gender: String,
 	phone: Number,

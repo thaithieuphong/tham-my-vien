@@ -65,68 +65,68 @@
                 <label class="m-0 text-light">Họ tên:</label>
                 <p class="m-0 text-light">
                     <span class="badge bg-info fs-6">
-                        {{serviceNote.customerID.firstName}} {{serviceNote.customerID.lastName}}
+                        {{schedule.customerID.firstName}} {{schedule.customerID.lastName}}
                     </span>
                 </p>
             </div>
             <hr class="mt-0 text-light">
             <div class="d-flex justify-content-between">
                 <label class="m-0 text-light">Ngày sinh:</label>
-                <p class="m-0 text-light">{{formatBirth serviceNote.customerID.birth}}</p>
+                <p class="m-0 text-light">{{formatBirth schedule.customerID.birth}}</p>
             </div>
             <hr class="mt-0">
             <div class="d-flex justify-content-between">
                 <label class="m-0 text-light">Giới tính:</label>
                 <p class="m-0 text-light">
-                    {{serviceNote.customerID.gender}}
+                    {{schedule.customerID.gender}}
                 </p>
             </div>
             <hr class="mt-0">
             <div class="d-flex justify-content-between">
                 <label class="m-0 text-light">Điện thoại:</label>
                 <p class="m-0 text-danger">
-                    <span class="badge bg-danger fs-6">0{{serviceNote.customerID.phone}}</span>
+                    <span class="badge bg-danger fs-6">0{{schedule.customerID.phone}}</span>
                 </p>
             </div>
             <hr class="mt-0">
             <div class="d-flex justify-content-between">
                 <label class="m-0 text-light text-nowrap">Địa chỉ:</label>
                 <p class="m-0 text-wrap text-light text-justify">
-                    {{serviceNote.customerID.address}}
+                    {{schedule.customerID.address}}
                 </p>
             </div>
             <hr class="mt-0">
             <div class="d-flex justify-content-between">
                 <label class="m-0 text-light">Email:</label>
                 <p class="m-0 text-light">
-                    {{serviceNote.customerID.email}}
+                    {{schedule.customerID.email}}
                 </p>
             </div>
             <hr class="mt-0">
             <div class="d-flex justify-content-between">
                 <label class="m-0 text-light">Nguồn khách:</label>
                 <p class="m-0 text-light">
-                    {{serviceNote.customerID.resource}}
+                    {{schedule.customerID.resource}}
                 </p>
             </div>
             <hr class="mt-0">
             <div class="d-flex justify-content-between">
                 <label class="m-0 text-light">Nhân viên:</label>
                 <p class="m-0 text-light">
-                    {{serviceNote.createName.firstName}} {{serviceNote.createName.lastName}}
+                    {{schedule.createName.firstName}} {{schedule.createName.lastName}}
                 </p>
             </div>
             <hr class="mt-0">
             <div class="d-flex justify-content-between">
                 <label class="m-0 text-light">Trạng thái:</label>
                 <p class="m-0 text-light">
-                    <span class="badge bg-danger fs-6">{{serviceNote.status}}</span>
+                    <span class="badge bg-danger fs-6">{{schedule.status}}</span>
                 </p>
             </div>
             <hr class="mt-0">
             <div class="d-flex justify-content-between">
                 <label class="m-0 text-light text-nowrap">Dịch vụ:</label>
-                {{#each serviceNote.service}}
+                {{#each schedule.service}}
                     <p class="m-0 text-light text-right">
                         {{this}}
                     </p>
@@ -135,7 +135,7 @@
             <hr class="mt-0">
             <div class="d-flex justify-content-between">
                 <label class="m-0 text-light">Ghi chú:</label>
-                {{#each serviceNote.comments}}
+                {{#each schedule.comments}}
                     <p class="m-0 text-light">
                         {{this.comment}}
                     </p>
@@ -146,7 +146,7 @@
                 <label class="m-0 text-light text-nowrap">Ngày hẹn:</label>
                 <p class="m-0">
                     <span class="badge bg-success fs-6 text-wrap text-justify">
-                        {{formatDate serviceNote.schedule}}
+                        {{formatDate schedule.schedule}}
                     </span>
                 </p>
             </div>
@@ -154,7 +154,7 @@
             <div class="d-flex justify-content-between">
                 <label class="m-0 text-light">Phí dịch vụ:</label>
                 <p class="m-0 text-warning">
-                    <span class="badge bg-warning fs-6">{{serviceNote.price}}</span>
+                    <span class="badge bg-warning fs-6">{{schedule.priceBefore}}</span>
                 </p>
             </div>
             <hr class="mt-0">
