@@ -373,10 +373,11 @@ var totalInput = document.getElementById('total');
 var priceBefore = document.getElementById('price-before');
 
 if (addServicesBtn) {
-	totalInput.value = priceBefore.value
+	// totalInput.value = priceBefore.value
 	/* Khi người dùng click nút thêm dịch vụ sẽ tiến hành thêm dịch vụ mới và thẻ input để nhập giá tiền kèm nút xóa */
 	// Lắng nghe nút thêm dịch vụ
-	addServicesBtn.addEventListener('click', () => {
+	addServicesBtn.addEventListener('click', (e) => {
+		e.preventDefault();
 		let textService = selectServices.value;
 		// Cắt ngắn tên dịch vụ cho vừa khung
 		textService.length > 20 ? textService = textService.slice(0, 20) + '...' : textService;

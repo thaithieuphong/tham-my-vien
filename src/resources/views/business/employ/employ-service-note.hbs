@@ -2,25 +2,25 @@
 <link rel="stylesheet" href="/css/assistant.css">
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
     aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header bg-dark border-bottom">
+    <div class="offcanvas-header bg-blue border-bottom">
         <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
         <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body container-sidebar bg-dark">
+    <div class="offcanvas-body container-sidebar bg-blue">
         <div class="sidebar-item">
-            <a href="/business/employ/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-receipt mr-3"></i>Dịch vụ
+            <a href="/business/employ/service-note" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-receipt mr-3"></i>Lịch hẹn
             </a>
         </div>
 		<div class="sidebar-item">
-            <a href="/business/employ/customers" class="sidebar-item-title pl-3">
+            <a href="/business/employ/customers" class="sidebar-item-title pl-3 bg-blue">
                 <i class="ti-user mr-3"></i>Khách hàng
             </a>
         </div>
     </div>
-	<div class="offcanvas-footer bg-dark border-top">
+	<div class="offcanvas-footer bg-blue border-top">
         <div class="sidebar-item">
-            <a href="/business/employ/profile" class="sidebar-item-title pl-3">
+            <a href="/business/employ/profile" class="sidebar-item-title pl-3 bg-blue">
                 <i class="ti-user mr-3"></i>Thông tin người dùng
             </a>
         </div>
@@ -32,7 +32,7 @@
     </div>
 </div>
 <div class="sticky-top">
-    <nav class="navbar navbar-light bg-dark">
+    <nav class="navbar navbar-light bg-blue border-bottom">
         <div class="img-container">
         </div>
         <div class="text-light text-uppercase fw-bold">
@@ -43,19 +43,19 @@
                 class="ti-menu"></i>
         </button>
     </nav>
-    <ul class="nav nav-pills ml-0 bg-secondary d-flex justify-content-between justify-content-sm-start" id="pills-tab" role="tablist">
+    <ul class="nav nav-pills ml-0 bg-blue d-flex justify-content-between justify-content-sm-start" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active text-light" id="pills-profile-customer-tab" data-bs-toggle="pill"
                 data-bs-target="#pills-new" type="button" role="tab" aria-controls="pills-home"
-                aria-selected="true">Phiếu mới</button>
+                aria-selected="true">Lịch mới</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link text-light" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-loading"
-                type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Đang xử lý</button>
+                type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Lịch đang xử lý</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link text-light" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-complete"
-                type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Hoàn thành</button>
+                type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Lịch hoàn thành</button>
         </li>
     </ul>
 </div>
@@ -64,7 +64,7 @@
         <div class="tab-pane fade show active" id="pills-new" role="tabpanel" aria-labelledby="pills-home-tab">
             <div id="search-items">
                 <div class="row">
-                    {{#each serviceNotes}}
+                    {{#each newSchedule}}
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 note-wrapper">
                         <div class="card mb-3">
                             <div class="card-header bg-transparent">
@@ -97,7 +97,7 @@
                                     <label for="status">
                                         <strong>Phí dịch vụ:</strong>&nbsp;
                                     </label>
-                                    <label class="form-label text-right text-danger">{{formatMoney this.price}}</label>
+                                    <label class="form-label text-right text-danger">{{this.priceBefore}}</label>
                                 </div>
                             </div>
                             <div class="card-footer bg-transparent d-flex justify-content-end">
@@ -187,7 +187,7 @@
         <div class="tab-pane fade show" id="pills-loading" role="tabpanel" aria-labelledby="pills-home-tab">
             <div id="search-items-loading">
                 <div class="row">
-                    {{#each serviceNote1s}}
+                    {{#each handlingSchedule}}
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                         <div class="card mb-3">
                             <div class="card-header bg-transparent">
@@ -216,7 +216,7 @@
                                     <label for="status">
                                         <strong>Phí dịch vụ:</strong>&nbsp;
                                     </label>
-                                    <label class="form-label text-right text-danger">{{formatMoney this.price}}</label>
+                                    <label class="form-label text-right text-danger">{{this.priceBefore}}</label>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between">
@@ -334,7 +334,7 @@
         <div class="tab-pane fade show" id="pills-complete" role="tabpanel" aria-labelledby="pills-home-tab">
             <div id="search-items-complete">
                 <div class="row">
-                    {{#each serviceNote2s}}
+                    {{#each doneSchedule}}
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                         <div class="card mb-3">
                             <div class="card-header bg-transparent">
@@ -363,7 +363,7 @@
                                     <label for="status">
                                         <strong>Phí dịch vụ:</strong>&nbsp;
                                     </label>
-                                    <label class="form-label text-right text-danger">{{formatMoney this.price}}</label>
+                                    <label class="form-label text-right text-danger">{{this.priceBefore}}</label>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between">

@@ -2,9 +2,8 @@ const Customer = require("../../models/Customer");
 const User = require("../../models/User");
 const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mongoose");
 const TypeService = require("../../models/TypeService");
+const Schedule = require("../../models/Schedule");
 const ServiceNote = require('../../models/ServiceNote');
-const ServiceNote1 = require('../../models/ServiceNote');
-const ServiceNote2 = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
 const fs = require('fs');
 const path = require('path');
@@ -208,18 +207,18 @@ class EmployBusinessController {
 			.catch(next);
 	}
 
-	showServiceNote(req, res, next) {
+	showSchedule(req, res, next) {
 		Promise.all([
-			ServiceNote.find({ createName: req.userId, status: "Tạo mới" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
-			ServiceNote1.find({ createName: req.userId, status: "Đang xử lý" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
-			ServiceNote2.find({ createName: req.userId, status: "Hoàn thành" }).sort({ shedule: 1 }).populate('customerID').populate('createName').populate('recept').populate('performer').populate('nursing'),
+			Schedule.find({ createName: req.userId, status: "Tạo mới" }).sort({ shedule: 1 }).populate('customerID').populate('createName'),
+			Schedule.find({ createName: req.userId, status: "Đang xử lý" }).sort({ shedule: 1 }).populate('customerID').populate('createName'),
+			Schedule.find({ createName: req.userId, status: "Hoàn thành" }).sort({ shedule: 1 }).populate('customerID').populate('createName'),
 			User.findById({ _id: req.userId })
 		])
-			.then(([serviceNotes, serviceNote1s, serviceNote2s, user]) => {
+			.then(([newSchedule, handlingSchedule, doneSchedule, user]) => {
 				res.render('business/employ/employ-service-note', {
-					serviceNotes: multipleMongooseToObject(serviceNotes),
-					serviceNote1s: multipleMongooseToObject(serviceNote1s),
-					serviceNote2s: multipleMongooseToObject(serviceNote2s),
+					newSchedule: multipleMongooseToObject(newSchedule),
+					handlingSchedule: multipleMongooseToObject(handlingSchedule),
+					doneSchedule: multipleMongooseToObject(doneSchedule),
 					user: mongooseToObject(user),
 					title: "Quản lý phiếu dịch vụ"
 				});
@@ -227,7 +226,7 @@ class EmployBusinessController {
 			.catch(next);
 	}
 
-	createServiceNote(req, res, next) {
+	createSchedule(req, res, next) {
 		const file = req.files;
 		const imgArr = [];
 		const videoArr = [];
@@ -240,20 +239,19 @@ class EmployBusinessController {
 				return videoArr;
 			}
 		})
-		const serviceNote = new ServiceNote({
+		const schedule = new Schedule({
 			customerID: req.body.customerID,
-			performer: req.body.performer,
 			createName: req.body.createName,
 			status: "Tạo mới",
 			service: req.body.service,
 			comments: { comment: req.body.comment },
 			schedule: req.body.schedule,
-			price: req.body.price,
+			priceBefore: req.body.priceBefore,
 			counselorImg: imgArr,
 			counselorVideo: videoArr,
 		});
-		serviceNote.save();
-		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id }})
+		schedule.save();
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: schedule.id }})
 			.then(() => {
 				res.redirect('back');
 

@@ -9,7 +9,7 @@
     <div class="offcanvas-body container-sidebar bg-blue">
         <div class="sidebar-item">
             <a href="/business/employ/service-note" class="sidebar-item-title pl-3 bg-blue">
-                <i class="ti-receipt mr-3"></i>Dịch vụ
+                <i class="ti-receipt mr-3"></i>Lịch hẹn
             </a>
         </div>
 		<div class="sidebar-item">
@@ -50,7 +50,7 @@
 </div>
 <div class="tab-content mt-3" id="pills-tabContent">
 	<div class="tab-pane fade show active mr-3 ml-3" id="pills-customer-new" role="tabpanel" aria-labelledby="pills-new-tab">
-		<table id="customerNew_table" class="table table-hover table-bordered table-sm table-striped">
+		<table id="customerNew_table" class="table table-hover table-bordered table-striped">
 			<thead class="bg-primary">
 				<tr class="text-light">
 					<th class="text-center" scope="col">#</th>
@@ -79,7 +79,7 @@
 					</td>
 					<td class="text-center">{{this.statusCus.statusVi}}</td>
 					<td class="text-center">
-						<button type="button" class="btn btn-info btn-sm border" data-bs-toggle="modal"
+						<button type="button" class="btn btn-info border" data-bs-toggle="modal"
 							data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
 							data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
 							data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
@@ -90,7 +90,7 @@
 						</button>
 						<!-- Example single danger button -->
 						<div class="btn-group">
-							<button class="btn btn-primary btn-sm rounded border" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti-angle-double-right"></i>
+							<button class="btn btn-primary rounded border" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-arrow-right-arrow-left"></i>
 							</button>
 							<ul class="dropdown-menu">
 								<li><a type="submit" class="dropdown-item border" data-potential="Potential" data-cusID="{{this._id}}">Tiềm năng</a></li>
@@ -106,7 +106,7 @@
 		<form id="customer-potential-form" method="POST"></form>
 	</div>
 	<div class="tab-pane fade mr-3 ml-3" id="pills-customer-potential" role="tabpanel" aria-labelledby="pills-potential-tab">
-		<table id="customerPotential_table" class="table table-hover table-bordered table-sm table-striped">
+		<table id="customerPotential_table" class="table table-hover table-bordered table-striped">
 			<thead class="bg-primary">
 				<tr class="text-light">
 					<th class="text-center" scope="col">#</th>
@@ -135,7 +135,7 @@
 					</td>
 					<td class="text-center">{{this.statusCus.statusVi}}</td>
 					<td class="text-center">
-						<button type="button" class="btn btn-info btn-sm border" data-bs-toggle="modal"
+						<button type="button" class="btn btn-info border" data-bs-toggle="modal"
 							data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
 							data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
 							data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
@@ -150,7 +150,7 @@
 						</button> --}}
 
 						<div class="btn-group">
-							<button class="btn btn-primary btn-sm rounded border" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti-angle-double-right"></i>
+							<button class="btn btn-primary rounded border" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-arrow-right-arrow-left"></i>
 							</button>
 							<ul class="dropdown-menu">
 								<li><a type="submit" class="dropdown-item" data-potential="Schedule" data-cusID="{{this._id}}">Đặt lịch</a></li>
@@ -192,7 +192,7 @@
 	</div>
 
 	<div class="tab-pane fade mr-3 ml-3" id="pills-customer-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
-		<table id="customerSchedule_table" class="table table-hover table-bordered table-sm">
+		<table id="customerSchedule_table" class="table table-hover table-bordered">
 			<thead class="bg-primary">
 				<tr class="text-light">
 					<th class="text-center" scope="col">#</th>
@@ -221,7 +221,7 @@
 					</td>
 					<td class="text-center">{{this.statusCus.statusVi}}</td>
 					<td class="text-center">
-						<button type="button" class="btn btn-info btn-sm border" data-bs-toggle="modal"
+						<button type="button" class="btn btn-info border" data-bs-toggle="modal"
 							data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
 							data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
 							data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
@@ -234,9 +234,9 @@
 							</div>
 						</button>
 						<div class="btn-group">
-							<button class="btn btn-primary btn-sm rounded border" data-bs-toggle="dropdown" aria-expanded="false">
+							<button class="btn btn-primary rounded border" data-bs-toggle="dropdown" aria-expanded="false">
 								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển hướng">
-									<i class="ti-angle-double-right"></i>
+									<i class="fa-solid fa-arrow-right-arrow-left"></i>
 								</div>
 							</button>
 							<ul class="dropdown-menu">
@@ -245,7 +245,7 @@
 								<li><a type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</a></li>
 							</ul>
 						</div>
-						<button class="btn btn-success btn-sm border" data-bs-toggle="modal" data-service-note-id="{{this._id}}"
+						<button class="btn btn-success border" data-bs-toggle="modal" data-service-note-id="{{this._id}}"
 							data-service-note-img="{{this.image.name}}"
 							data-service-note-firstname="{{this.firstName}}"
 							data-service-note-lastname="{{this.lastName}}"
@@ -269,7 +269,7 @@
 	</div>
 
 	<div class="tab-pane fade mr-3 ml-3" id="pills-customer-fail" role="tabpanel" aria-labelledby="pills-fail-tab">
-		<table id="customerFail_table" class="table table-hover table-bordered table-sm">
+		<table id="customerFail_table" class="table table-hover table-bordered">
 			<thead class="bg-primary">
 				<tr class="text-light">
 					<th class="text-center" scope="col">#</th>
@@ -292,7 +292,7 @@
 					<td class="text-center">{{formatDate this.createdAt}}</td>
 					<td class="text-center">{{this.statusCus.statusVi}}</td>
 					<td class="text-center">
-						<button type="button" class="btn btn-info btn-sm border" data-bs-toggle="modal"
+						<button type="button" class="btn btn-info border" data-bs-toggle="modal"
 							data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
 							data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
 							data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
@@ -303,7 +303,7 @@
 							<i class="ti-pencil-alt"></i>
 						</button>
 						<div class="btn-group">
-							<button class="btn btn-primary btn-sm rounded border" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti-angle-double-left"></i>
+							<button class="btn btn-primary rounded border" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-arrow-right-arrow-left"></i>
 							</button>
 							<ul class="dropdown-menu">
 								<li><a type="submit" class="dropdown-item" data-potential="Potential" data-cusID="{{this._id}}">Tiềm năng</a></li>
@@ -675,7 +675,7 @@
 	</div>
 </div>
 
-<!-- Modal Create Service Note -->
+<!-- Modal Create Schedule -->
 <div class="modal fade " id="create-service-note-modal" tabindex="-1" aria-labelledby="create-service-note"
 	aria-hidden="true">
 	<div class="modal-dialog modal-xl">
@@ -821,7 +821,7 @@
 									<h6>Phí dịch vụ:</h6>
 								</label>
 								<input type="text" class="form-control"
-									id="create-service-note-price" name="price">
+									id="create-service-note-price" name="priceBefore">
 							</div>
 
 							<div class="mb-3">
