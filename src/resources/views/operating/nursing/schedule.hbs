@@ -22,6 +22,11 @@
                 <i class="ti-user mr-3 active"></i>Danh sách khách hàng
             </a>
         </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3 active"></i>Danh sách phiếu phẩu thuật
+            </a>
+        </div>
     </div>
 	<div class="offcanvas-footer border-top">
 		<div class="sidebar-item border-bottom">
@@ -75,44 +80,39 @@
 					</a>
 				</div>
 				<div class="card-body">
-					<div class="d-flex justify-content-between">
-						<label class="form-label text-light text-nowrap"><strong>Khách hàng:</strong></label>
-						<p class="m-0 text-wrap">
-							<span class="badge bg-info text-uppercase fw-bold">
-								{{this.customerID.firstName}} {{this.customerID.lastName}}
-							</span>
-						</p>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label class="form-label text-light"><strong>Giới tính:</strong></label>
-						<div class="form-label">
-							{{this.customerID.gender}}
+					<form id="create-customer-information-form" action="/operating-room/nursing/customer-information/{{this._id}}/create" method="POST">
+						<input class="form-control text-wrap text-right" type="text" value="{{this.customerID._id}}" name="cusID" hidden>
+						<div class="input-group input-group-sm mb-4">
+							<span class="input-group-text text-light bg-blue-ray">Họ tên:</span>
+							<input class="form-control text-wrap text-right" type="text" value="{{this.customerID.nickName}}" name="nickName" readonly>
 						</div>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label class="form-label text-light text-nowrap" for=""><strong>Số điện thoại:</strong></label>
-						<div class="text-light form-label">
-							0{{this.customerID.phone}}
+						<div class="input-group input-group-sm mb-4">
+							<span class="input-group-text text-light bg-blue-ray">Giới tính:</span>
+							<input class="form-control text-wrap text-right" type="text" value="{{this.customerID.gender}}" name="gender" readonly>
 						</div>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label class="form-label text-light text-nowrap" for=""><strong>Dịch vụ:</strong></label>
-						<div class="form-label text-right">
-							{{this.service}}
+						<div class="input-group input-group-sm mb-4">
+							<span class="input-group-text text-light bg-blue-ray">Số điện thoại:</span>
+							<input class="form-control text-wrap text-right" type="text" value="{{this.customerID.phone}}" name="phone" readonly>
 						</div>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label class="form-label text-light text-nowrap" for=""><strong>Phí dịch vụ:</strong></label>
-						<div class="text-warning form-label">
-							{{this.priceBefore}}
+						<div class="input-group input-group-sm mb-4">
+							<span class="input-group-text text-light bg-blue-ray">Dịch vụ</span>
+							<textarea class="form-control" aria-label="With textarea" readonly name="service">{{this.service}}</textarea>
 						</div>
-					</div>
+						<div class="input-group input-group-sm mb-4">
+							<span class="input-group-text text-light bg-blue-ray">Phí dịch vụ:</span>
+							<input class="form-control text-wrap text-right text-danger" type="text" value="{{this.priceBefore}}" name="priceBefore" readonly>
+						</div>
+						<div class="input-group input-group-sm">
+							<span class="input-group-text text-light bg-blue-ray">Tiền cọc</span>
+							<input class="form-control text-wrap text-right text-warning" type="text" value="{{this.deposit}}" name="deposit" readonly>
+						</div>
+					</form>
 				</div>
 				<div class="card-footer bg-transparent">
 					<button type="button" class="btn btn-danger btn-mobile mb-2" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
 					data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}" data-delete-lastname="{{this.customerID.lastName}}"
 					data-delete-customerID="{{this.customerID._id}}">Xóa lịch hẹn</button>
-					<a class="btn btn-primary btn-mobile float-right mb-2" href="/operating-room/nursing/schedule/{{this._id}}/create">Tạo phiếu tư vấn</a>
+					<a class="btn btn-primary btn-mobile float-right mb-2" id="create-customer-information-btn">Tạo hồ sơ khách hàng</a>
 				</div>
 			</div>
 		</div>

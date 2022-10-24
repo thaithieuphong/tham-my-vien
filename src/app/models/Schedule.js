@@ -15,6 +15,13 @@ const Schedule = new Schema({
 		type: String,
 		ref: "User"
 	},
+
+	serviceNoteID:
+	{
+		type: String,
+		ref: "ServiceNote"
+	},
+
 	counselorImg: [
 		{
 			name: {
@@ -56,6 +63,7 @@ const Schedule = new Schema({
 		}
 	],
 	priceBefore: String,
+	deposit: String,
 	schedule: String,
 }, {
     timestamps: true

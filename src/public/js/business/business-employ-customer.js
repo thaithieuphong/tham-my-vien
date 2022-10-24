@@ -64,8 +64,8 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	// Get data from edit button
 	var idEdit = button.getAttribute('data-id');
 	var imageEdit = button.getAttribute("data-edit-img");
-	var firstName = button.getAttribute("data-edit-firstname");
-	var lastName = button.getAttribute("data-edit-lastname");
+	var nickName = button.getAttribute("data-edit-nickname");
+	var statusCus = button.getAttribute("data-edit-statusCus");
 	var birth = button.getAttribute("data-edit-birth");
 	var gender = button.getAttribute("data-edit-gender");
 	var phone = button.getAttribute("data-edit-phone");
@@ -76,8 +76,8 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 
 	// Get element need embeded input
 	var editAvt = document.getElementById("edit-customer-avt");
-	var editFirstName = document.getElementById("edit-firstName");
-	var editLastName = document.getElementById("edit-lastName");
+	var editNickName = document.getElementById("edit-nickName");
+	var editStatusCus = document.getElementById("edit-statusCus");
 	var editBirth = document.getElementById("edit-birth");
 	var editGender = document.getElementById("edit-gender");
 	var editPhone = document.getElementById("edit-phone");
@@ -86,7 +86,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	var editResource = document.getElementById("edit-resource");
 	var editDescription = document.getElementById("edit-description");
 
-	editFirstName.focus();
+	editNickName.focus();
 
 	if (imageEdit === '') {
 		editAvt.setAttribute('src', '/img/user-icon.png');
@@ -94,8 +94,8 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 		editAvt.setAttribute('src', imageEdit);
 	}
 	editCustomerForm.setAttribute('action', `/business/employ/customers/${idEdit}?_method=PUT`);
-	editFirstName.value = firstName;
-	editLastName.value = lastName;
+	editNickName.value = nickName;
+	editStatusCus.value = statusCus;
 	editBirth.value = birth;
 	editGender.value = gender;
 	editPhone.value = phone;
@@ -113,70 +113,74 @@ editBtn.addEventListener("click", () => {
 });
 //EDIT END: Load edit customer modal and submit edit customer forms
 
-let inputPrice = document.getElementById('create-service-note-price');
-inputPrice.addEventListener('keyup', function(evt){
+let inputPriceBefore = document.getElementById('create-schedule-priceBefore');
+inputPriceBefore.addEventListener('keyup', function(evt){
 	let convertMoney = parseFloat(this.value.replace(/\D/g,''), 10);
 	let convertedMoney = convertMoney.toLocaleString();
-    inputPrice.value = convertedMoney;
+    inputPriceBefore.value = convertedMoney;
+}, false);
+
+let inputDeposit = document.getElementById('create-schedule-deposit');
+inputDeposit.addEventListener('keyup', function(evt){
+	let convertMoney = parseFloat(this.value.replace(/\D/g,''), 10);
+	let convertedMoney = convertMoney.toLocaleString();
+    inputDeposit.value = convertedMoney;
 }, false);
 
 //CREATE: submit create service note forms
-var createServiceNote = document.getElementById("create-service-note-btn");
-createServiceNote.addEventListener("click", () => {
-	createServiceNoteForm.submit();
+var createScheduleBtn = document.getElementById("create-schedule-btn");
+createScheduleBtn.addEventListener("click", () => {
+	createScheduleForm.submit();
   });
 // Handle create service-note
-var createServiceNoteForm = document.forms["create-service-note-form"]
-var createServiceNote = document.getElementById("create-service-note-modal");
-createServiceNote.addEventListener("show.bs.modal", function (event) {
+var createScheduleForm = document.forms["create-schedule-form"]
+var createSchedule = document.getElementById("create-schedule-modal");
+createSchedule.addEventListener("show.bs.modal", function (event) {
 	// Button that triggered the modal
 	var button = event.relatedTarget;
 	// Get data from detail button
 	// Handle edit info Customer
-	var dataServiceNoteID = button.getAttribute("data-service-note-id");
-	var dataServiceNoteImg = button.getAttribute("data-service-note-img");
-	var dataFirstName = button.getAttribute("data-service-note-firstname");
-	var dataLastName = button.getAttribute("data-service-note-lastname");
-	var dataBirth = button.getAttribute("data-service-note-birth");
-	var dataGender = button.getAttribute("data-service-note-gender");
-	var dataPhone = button.getAttribute("data-service-note-phone");
-	var dataEmail = button.getAttribute("data-service-note-email");
-	var dataAddress = button.getAttribute("data-service-note-address");
-	var dataDescription = button.getAttribute("data-service-note-description");
+	var dataScheduleID = button.getAttribute("data-schedule-id");
+	var dataScheduleImg = button.getAttribute("data-schedule-img");
+	var dataNickName = button.getAttribute("data-schedule-nickname");
+	var dataBirth = button.getAttribute("data-schedule-birth");
+	var dataGender = button.getAttribute("data-schedule-gender");
+	var dataPhone = button.getAttribute("data-schedule-phone");
+	var dataEmail = button.getAttribute("data-schedule-email");
+	var dataAddress = button.getAttribute("data-schedule-address");
+	var dataDescription = button.getAttribute("data-schedule-description");
 
 	// // Get element need embeded input
-	var serviceNoteCustomerID = document.getElementById('create-service-note-customerID');
-	var serviceNoteCustomerImg = document.getElementById('create-service-note-img');
-	var serviceNoteFirstLastName = document.getElementById(
-		"create-service-note-firstLastName"
+	var scheduleCustomerID = document.getElementById('create-schedule-customerID');
+	var scheduleCustomerImg = document.getElementById('create-schedule-img');
+	var scheduleNickName = document.getElementById(
+		"create-schedule-nickName"
 	);
-	var serviceNoteBirth = document.getElementById("create-service-note-birth");
-	var serviceNoteGender = document.getElementById("create-service-note-gender");
-	var serviceNotePhone = document.getElementById("create-service-note-phone");
-	var serviceNoteEmail = document.getElementById("create-service-note-email");
-	var serviceNoteAddress = document.getElementById(
-		"create-service-note-address"
-	);
-	var serviceNoteDescription = document.getElementById("create-service-note-description");
+	var scheduleBirth = document.getElementById("create-schedule-birth");
+	var scheduleGender = document.getElementById("create-schedule-gender");
+	var schedulePhone = document.getElementById("create-schedule-phone");
+	var scheduleEmail = document.getElementById("create-schedule-email");
+	var scheduleAddress = document.getElementById("create-schedule-address");
+	var scheduleDescription = document.getElementById("create-schedule-description");
 
-	createServiceNoteForm.setAttribute(
+	createScheduleForm.setAttribute(
 		"action",
-		`/business/employ/customers/${dataServiceNoteID}/service-note`
+		`/business/employ/customers/${dataScheduleID}/schedule/create`
 	);
-	if (dataServiceNoteImg === '') {
-		serviceNoteCustomerImg.setAttribute('src', '/img/user-icon.png');
+	if (dataScheduleImg === '') {
+		scheduleCustomerImg.setAttribute('src', '/img/user-icon.png');
 	} else {
-		serviceNoteCustomerImg.setAttribute('src', dataServiceNoteImg);
+		scheduleCustomerImg.setAttribute('src', dataScheduleImg);
 	}
 
-	serviceNoteCustomerID.value = dataServiceNoteID;
-	serviceNoteFirstLastName.innerHTML = dataFirstName + " " + dataLastName;
-	serviceNoteBirth.innerHTML = formatBirth(dataBirth);
-	serviceNoteGender.innerHTML = dataGender;
-	serviceNotePhone.innerHTML = dataPhone;
-	serviceNoteEmail.innerHTML = dataEmail;
-	serviceNoteAddress.innerHTML = dataAddress;
-	serviceNoteDescription.innerHTML = dataDescription;
+	scheduleCustomerID.value = dataScheduleID;
+	scheduleNickName.innerHTML = dataNickName;
+	scheduleBirth.innerHTML = formatBirth(dataBirth);
+	scheduleGender.innerHTML = dataGender;
+	schedulePhone.innerHTML = dataPhone;
+	scheduleEmail.innerHTML = dataEmail;
+	scheduleAddress.innerHTML = dataAddress;
+	scheduleDescription.innerHTML = dataDescription;
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -184,71 +188,73 @@ document.addEventListener("DOMContentLoaded", function () {
 		$("#customerNew_table").DataTable({
 			paging: true,
 			reponsive: true,
-			scrollY: '300px',
+			
 			scrollCollapse: true,
 		});
 		$("#customerPotential_table").DataTable({
 			paging: true,
 			reponsive: true,
-			scrollY: '300px',
+			
 			scrollCollapse: true,
 		});
 		$("#customerSchedule_table").DataTable({
 			paging: true,
 			reponsive: true,
-			scrollY: '300px',
+		
 			scrollCollapse: true,
 		});
 		$("#customerFail_table").DataTable({
 			paging: true,
 			reponsive: true,
-			scrollY: '300px',
+			
 			scrollCollapse: true,
 		});
 	});
 
-	// let inputMultiImageConselor = document.getElementById('input-multi-images-counselor');
-	// inputMultiImageConselor.addEventListener('change', (e) => {
-	// 	let files = e.target;//event.target.files;
-	// 	imagesPreviewConselor(files);
-	// })
-
-	// let imagesPreviewConselor = function (input) {
-	// 	let inputFiles = Array.from(input.files);
-	// 	if (input.files) {
-	// 		// let filesAmount = inputFiles.length
-	// 		for (let i = 0; i < inputFiles.length; i++) {
-	// 			let reader = new FileReader();
-	// 			let newImage = document.createElement('img');
-	// 			let closeButtonLink = document.createElement('button');
-	// 			let divMain = document.createElement('div');
-	// 			reader.addEventListener('load', (event) => {
-	// 				// newImage.setAttribute('alt', filesAmount)
-	// 				let src = event.target.result;
-	// 				divMain.classList = 'col-xl-2 col-lg-3 col-md-4 col-sm-12 mt-3 mb-3 ml-2 mr-2 pl-0 pr-0 position-relative';
-	// 				divMain.id = i;
-	// 				newImage.src = src;
-	// 				newImage.classList = 'img-fluid';
-	// 				newImage.id = i;
-	// 				closeButtonLink.id = i;
-	// 				closeButtonLink.type = 'button';
-	// 				closeButtonLink.ariaLabel = 'Close';
-	// 				closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-2 mt-2 close-img';
-	// 				let imgc = document.querySelector('.preview-images-counselor');
-	// 				divMain.append(newImage, closeButtonLink);
-	// 				imgc.append(divMain);
-	// 				let closeBtns = document.querySelectorAll('.close-img');
-	// 				closeBtns.forEach(btn => {
-	// 					btn.addEventListener('click', () => {
-	// 						let parent = btn.parentElement;
-	// 						parent.remove();
-	// 					})
-	// 				})
-	// 			});
-	// 			reader.readAsDataURL(inputFiles[i]);
-	// 		}
-	// 	}
-	// };
+	let inputMultiImageCounselor = document.getElementById('input-multi-images-counselor');
+	if(inputMultiImageCounselor) {
+		inputMultiImageCounselor.addEventListener('change', (e) => {
+			let files = e.target;//event.target.files;
+			imagesPreviewCounselor(files);
+		})
+	
+		let imagesPreviewCounselor = function (input) {
+			let inputFiles = Array.from(input.files);
+			if (input.files) {
+				// let filesAmount = inputFiles.length
+				for (let i = 0; i < inputFiles.length; i++) {
+					let reader = new FileReader();
+					let newImage = document.createElement('img');
+					let iconClose = document.createElement('i');
+					iconClose.setAttribute('class', 'ti-close');
+					let closeButtonLink = document.createElement('div');
+					closeButtonLink.append(iconClose);
+					let divMain = document.createElement('figure');
+					reader.addEventListener('load', (event) => {
+						let src = event.target.result;
+						divMain.classList = 'col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative';
+						divMain.id = i;
+						newImage.src = src;
+						newImage.classList = 'figure-img img-fluid rounded img-cover';
+						newImage.id = i;
+						closeButtonLink.id = i;
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
+						let imgc = document.querySelector('.preview-images-counselor');
+						divMain.append(newImage, closeButtonLink);
+						imgc.append(divMain);
+						let closeBtns = document.querySelectorAll('.close-img');
+						closeBtns.forEach(btn => {
+							btn.addEventListener('click', () => {
+								let parent = btn.parentElement;
+								parent.remove();
+							})
+						})
+					});
+					reader.readAsDataURL(inputFiles[i]);
+				}
+			}
+		};
+	}
 
 	// let inputMultiVideoConselor = document.getElementById('input-multi-videos-counselor');
 	// inputMultiVideoConselor.addEventListener('change', (e) => {
@@ -374,4 +380,15 @@ for (i = 0; i < dropDown.length; i++) {
 			notOKForm.submit();
 		}
 	})
+}
+
+var alertElement = document.getElementsByClassName('alert');
+for(i=0; i < alertElement.length; i++) {
+	if(alertElement[i]) {
+		let element = alertElement[i];
+		let timerOut = setTimeout(closeAlert, 5000);
+		function closeAlert() {
+			element.remove();
+		}
+	}
 }

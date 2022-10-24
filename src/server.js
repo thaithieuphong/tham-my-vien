@@ -151,6 +151,9 @@ app.use(function (req, res, next) {
 	res.locals.messages_token_wrong = req.flash('messages_token_wrong');
 	res.locals.messages_createReExamination_success = req.flash('messages_createReExamination_success');
 	res.locals.messages_pushReExamination_error = req.flash('messages_pushReExamination_error');
+	res.locals.messages_createSchedule_success = req.flash('messages_createSchedule_success');
+	res.locals.messages_createCustomer_success = req.flash('messages_createCustomer_success');
+	res.locals.messages_editCustomer_success = req.flash('messages_editCustomer_success');
 	next();
 });
 

@@ -3,12 +3,13 @@ const Schema = mongoose.Schema;
 const mongooseDelete = require("mongoose-delete");
 
 const ServiceNote = new Schema({
-	name: String,
-	customerID:
+	scheduleID:
 	{
 		type: String,
-		ref: "Customer"
+		ref: "Schedule"
 	},
+
+	fullName: String,
 
 	createName:
 	{
@@ -22,7 +23,6 @@ const ServiceNote = new Schema({
 			ref: "User"
 		}
 	],
-
 	
 	nursing: [
 		{
@@ -30,6 +30,12 @@ const ServiceNote = new Schema({
 			ref: "User"
 		}
 	],
+
+	recept:
+	{
+		type: String,
+		ref: "User"
+	},
 
 	counselorImg: [
 		{
@@ -53,11 +59,6 @@ const ServiceNote = new Schema({
 		}
 	],
 
-	recept:
-	{
-		type: String,
-		ref: "User"
-	},
 
 	status:
 	{
@@ -123,9 +124,10 @@ const ServiceNote = new Schema({
 	stepsToTake: String,
 	notes: String,
 	stored: String,
-	schedule: String,
+	surgeryDay: String,
 	reason: String,
-	price: String,
+	priceBefore: String,
+	deposit: String,
 }, {
 	timestamps: true
 });

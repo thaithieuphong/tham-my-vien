@@ -25,7 +25,9 @@ router.get('/customers', NursingController.showCustomers);
 router.get('/profile', NursingController.showProfile);
 router.patch('/schedule/:id/restore', NursingController.restoreSchedule);
 router.get('/storage', NursingController.showStorage);
-router.get('/schedule/:id/create', NursingController.showCreateCusInfor);
+router.put('/customer-information/:id/update', NursingController.updateCreateCusInfor);
+router.post('/customer-information/:id/create', NursingController.createCusInfor);
+router.get('/customer-information/:id', NursingController.showCreateCusInfor);
 router.get('/schedule/:id/detail', NursingController.showScheduleDetail);
 router.get('/', NursingController.showSchedule)
 

@@ -45,8 +45,30 @@ class NursingController {
 			.catch(next);
 	}
 
+	createCusInfor(req, res, next) {
+		const serviceNote = new ServiceNote({
+			scheduleID: req.params.id,
+			recept: ''
+		})
+		serviceNote.save()
+			.then(newServiceNote => {
+				Promise.all([Schedule.findByIdAndUpdate({ _id: req.params.id }, { status: 'Đang xử lý', serviceNoteID: newServiceNote._id}),
+					Customer.findByIdAndUpdate({ _id: req.body.cusID }, {serviceNoteID: newServiceNote._id}),
+					ServiceNote.findByIdAndUpdate({ _id: newServiceNote._id }, { status: 'Đang xử lý'})])
+					.then(([schedule, customer, serviceNote]) => {
+						res.redirect(`/operating-room/nursing/customer-information/${serviceNote._id}`)
+					})
+			})
+	}
+
 	showCreateCusInfor(req, res, next) {
-		Promise.all([Schedule.findById({ _id: req.params.id,}).populate('customerID').populate('createName'),
+		Promise.all([ServiceNote.findById({ _id: req.params.id }).populate({
+			path: 'scheduleID',
+			populate: {
+				path: 'customerID',
+				model: 'Customer'
+			}
+		}),
 		User.find({ departmentEng: 'operating-room', positionEng: 'doctor'}),
 		User.find({ departmentEng: 'operating-room', positionEng: 'nursing'}),
 		TypeService.find({})])
@@ -60,6 +82,16 @@ class NursingController {
 					title: 'Hồ sơ khách hàng'
 				})
 			})
+	}
+
+	updateCreateCusInfor(req, res, next) {
+		console.log('body', req.body)
+		console.log('params', req.params.id)
+		// Customer.findByIdAndUpdate({ _id: req.params.id }, {
+		// 	fullName: req.body.fullName,
+		// 	birth: req.body.birth,
+		// 	gender: req.body.gender,
+		// })
 	}
 
 	showStorage(req, res, next) {
@@ -205,15 +237,20 @@ class NursingController {
 	
 
 	showServiceNote(req, res, next) {
-		// Promise.all([ServiceNote.findOne({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing')])
-		// .then(([serviceNote]) => {
-		// 		res.render("operating/nursing/operating-service-note", {
-		// 			serviceNote: mongooseToObject(serviceNote),
-		// 			title: "Phiếu phẩu thuật"
-		// 		})
-		// 	})
-		// 	// })
-		// 	.catch(next);
+		ServiceNote.find({ status: 'Đang xử lý' }).populate({
+			path: 'scheduleID',
+			populate: {
+				path: 'customerID',
+				model: 'Customer'
+			},
+		}).populate('recept')
+		.then((serviceNote) => {
+				res.render("operating/nursing/operating-service-note", {
+					serviceNote: multipleMongooseToObject(serviceNote),
+					title: "Danh sách phiếu phẩu thuật"
+				})
+			})
+		.catch(next);
 	}
 
 	deleteServiceNote(req, res, next) {

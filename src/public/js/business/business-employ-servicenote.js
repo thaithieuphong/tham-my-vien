@@ -1,10 +1,10 @@
 //Create re exam
-var createExamForm = document.forms['create-re-exam-form'];
-var createExamBtn = document.getElementById("create-re-exam-btn");
+var createExamForm = document.forms['customer-information-form'];
+var createExamBtn = document.getElementById("customer-information-btn");
 createExamBtn.addEventListener("click", () =>{
     createExamForm.submit();
 })
-var createExamModal = document.getElementById("create-re-examination-modal");
+var createExamModal = document.getElementById("customer-information-modal");
 createExamModal.addEventListener("show.bs.modal", function (event) {
 
     var button = event.relatedTarget;
@@ -20,15 +20,15 @@ createExamModal.addEventListener("show.bs.modal", function (event) {
     var dataService = button.getAttribute("data-service");
     var dataServiceNoteId = button.getAttribute("data-service-note-id");
 
-    var customerID = document.getElementById("create-re-exam-customerID");
-    var img = document.getElementById("create-re-exam-img")
-    var name = document.getElementById("create-re-exam-firstLastName");
-    var birth = document.getElementById("create-re-exam-birth");
-    var gender = document.getElementById("create-re-exam-gender");
-    var email = document.getElementById("create-re-exam-email");
-    var phone = document.getElementById("create-re-exam-phone");
-    var address = document.getElementById("create-re-exam-address");
-    var serviced = document.getElementById("create-re-exam-serviced");
+    var customerID = document.getElementById("customer-information-customerID");
+    var img = document.getElementById("customer-information-img")
+    var name = document.getElementById("customer-information-firstLastName");
+    var birth = document.getElementById("customer-information-birth");
+    var gender = document.getElementById("customer-information-gender");
+    var email = document.getElementById("customer-information-email");
+    var phone = document.getElementById("customer-information-phone");
+    var address = document.getElementById("customer-information-address");
+    var serviced = document.getElementById("customer-information-serviced");
     var serviceNoteID = document.getElementById("create-service-note-id")
 
     createExamForm.setAttribute("action",'/business/employ/service-note/exam')

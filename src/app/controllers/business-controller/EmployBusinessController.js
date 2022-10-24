@@ -67,58 +67,365 @@ class EmployBusinessController {
 
 	createCustomer(req, res, next) {
 		if (req.file) {
-			const customer = new Customer({
-				userID: req.userId,
-				firstName: req.body.firstName,
-				lastName: req.body.lastName,
-				birth: req.body.birth,
-				gender: req.body.gender,
-				phone: req.body.phone,
-				email: req.body.email,
-				address: req.body.address,
-				resource: req.body.resource,
-				description: req.body.description,
-				statusCus: {
-					statusVi: 'Tạo mới',
-					statusEng: 'New'
-				},
-				image: {
-					name: req.file.filename,
-					url: req.file.path,
-				},
-			});
-			customer.save();
+			if(req.body.statusVi === 'Tạo mới') {
+				const customer = new Customer({
+					userID: req.userId,
+					nickName: req.body.nickName,
+					fullName: req.body.fullName,
+					birth: req.body.birth,
+					gender: req.body.gender,
+					phone: req.body.phone,
+					email: req.body.email,
+					address: req.body.address,
+					resource: req.body.resource,
+					description: req.body.description,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'New'
+					},
+					image: {
+						name: req.file.filename,
+						url: req.file.path,
+					},
+				});
+				customer.save();
+			}
+
+			if(req.body.statusVi === 'Tiềm năng') {
+				const customer = new Customer({
+					userID: req.userId,
+					nickName: req.body.nickName,
+					fullName: req.body.fullName,
+					birth: req.body.birth,
+					gender: req.body.gender,
+					phone: req.body.phone,
+					email: req.body.email,
+					address: req.body.address,
+					resource: req.body.resource,
+					description: req.body.description,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'Potential'
+					},
+					image: {
+						name: req.file.filename,
+						url: req.file.path,
+					},
+				});
+				customer.save();
+			}
+
+			if(req.body.statusVi === 'Đặt lịch') {
+				const customer = new Customer({
+					userID: req.userId,
+					nickName: req.body.nickName,
+					fullName: req.body.fullName,
+					birth: req.body.birth,
+					gender: req.body.gender,
+					phone: req.body.phone,
+					email: req.body.email,
+					address: req.body.address,
+					resource: req.body.resource,
+					description: req.body.description,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'Schedule'
+					},
+					image: {
+						name: req.file.filename,
+						url: req.file.path,
+					},
+				});
+				customer.save();
+			}
+
+			if(req.body.statusVi === 'Không thành công') {
+				const customer = new Customer({
+					userID: req.userId,
+					nickName: req.body.nickName,
+					fullName: req.body.fullName,
+					birth: req.body.birth,
+					gender: req.body.gender,
+					phone: req.body.phone,
+					email: req.body.email,
+					address: req.body.address,
+					resource: req.body.resource,
+					description: req.body.description,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'Fail'
+					},
+					image: {
+						name: req.file.filename,
+						url: req.file.path,
+					},
+				});
+				customer.save();
+			}
 		} else {
-			const customer = new Customer({
-				userID: req.userId,
-				firstName: req.body.firstName,
-				lastName: req.body.lastName,
-				birth: req.body.birth,
-				gender: req.body.gender,
-				phone: req.body.phone,
-				email: req.body.email,
-				address: req.body.address,
-				resource: req.body.resource,
-				description: req.body.description,
-				statusCus: {
-					statusVi: 'Tạo mới',
-					statusEng: 'New'
-				},
-				image: {
-					name: "",
-					url: "",
-				},
-			});
-			customer.save();
+			if(req.body.statusVi === 'Tạo mới') {
+				const customer = new Customer({
+					userID: req.userId,
+					nickName: req.body.nickName,
+					fullName: req.body.fullName,
+					birth: req.body.birth,
+					gender: req.body.gender,
+					phone: req.body.phone,
+					email: req.body.email,
+					address: req.body.address,
+					resource: req.body.resource,
+					description: req.body.description,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'New'
+					},
+					image: {
+						name: "",
+						url: "",
+					},
+				});
+				customer.save();
+			}
+
+			if(req.body.statusVi === 'Tiềm năng') {
+				const customer = new Customer({
+					userID: req.userId,
+					nickName: req.body.nickName,
+					fullName: req.body.fullName,
+					birth: req.body.birth,
+					gender: req.body.gender,
+					phone: req.body.phone,
+					email: req.body.email,
+					address: req.body.address,
+					resource: req.body.resource,
+					description: req.body.description,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'Potential'
+					},
+					image: {
+						name: "",
+						url: "",
+					},
+				});
+				customer.save();
+			}
+
+			if(req.body.statusVi === 'Đặt lịch') {
+				const customer = new Customer({
+					userID: req.userId,
+					nickName: req.body.nickName,
+					fullName: req.body.fullName,
+					birth: req.body.birth,
+					gender: req.body.gender,
+					phone: req.body.phone,
+					email: req.body.email,
+					address: req.body.address,
+					resource: req.body.resource,
+					description: req.body.description,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'Schedule'
+					},
+					image: {
+						name: "",
+						url: "",
+					},
+				});
+				customer.save();
+			}
+			if(req.body.statusVi === 'Đặt lịch') {
+				const customer = new Customer({
+					userID: req.userId,
+					nickName: req.body.nickName,
+					fullName: req.body.fullName,
+					birth: req.body.birth,
+					gender: req.body.gender,
+					phone: req.body.phone,
+					email: req.body.email,
+					address: req.body.address,
+					resource: req.body.resource,
+					description: req.body.description,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'Schedule'
+					},
+					image: {
+						name: "",
+						url: "",
+					},
+				});
+				customer.save();
+			}
 		}
+		req.flash('messages_createCustomer_success', 'Tạo khách hàng thành công');
 		res.redirect("back");
 	}
 
 	editCustomer(req, res, next) {
 		if (req.file) {
-			Customer.findOneAndUpdate(
-				{ _id: req.params.id },
-				{
+			if(req.body.statusVi === 'Tạo mới') {
+				Customer.findOneAndUpdate(
+					{ _id: req.params.id },
+					{
+						firstName: req.body.firstName,
+						lastName: req.body.lastName,
+						birth: req.body.birth,
+						gender: req.body.gender,
+						phone: req.body.phone,
+						email: req.body.email,
+						address: req.body.address,
+						resource: req.body.resource,
+						description: req.body.description,
+						statusCus: {
+							statusVi: req.body.statusVi,
+							statusEng: 'New'
+						},
+						image: {
+							name: req.file.filename,
+							url: req.file.path,
+						},
+					}
+				)
+					.then((customer) => {
+						let imgCustomer = customer.image.name;
+						let url = customer.image.url;
+						let files = fs.readdirSync(
+							rootPath + "mnt/vdb/crm.drtuananh.vn/customers/"
+						);
+						files.filter((img) => {
+							if (img === imgCustomer) {
+								fs.unlinkSync(url);
+							}
+						});
+						req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
+						res.redirect("back");
+					})
+					.catch(next);
+			}
+
+			if(req.body.statusVi === 'Tiềm năng') {
+				Customer.findOneAndUpdate(
+					{ _id: req.params.id },
+					{
+						firstName: req.body.firstName,
+						lastName: req.body.lastName,
+						birth: req.body.birth,
+						gender: req.body.gender,
+						phone: req.body.phone,
+						email: req.body.email,
+						address: req.body.address,
+						resource: req.body.resource,
+						description: req.body.description,
+						statusCus: {
+							statusVi: req.body.statusVi,
+							statusEng: 'Potential'
+						},
+						image: {
+							name: req.file.filename,
+							url: req.file.path,
+						},
+					}
+				)
+					.then((customer) => {
+						let imgCustomer = customer.image.name;
+						let url = customer.image.url;
+						let files = fs.readdirSync(
+							rootPath + "mnt/vdb/crm.drtuananh.vn/customers/"
+						);
+						files.filter((img) => {
+							if (img === imgCustomer) {
+								fs.unlinkSync(url);
+							}
+						});
+						req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
+						res.redirect("back");
+					})
+					.catch(next);
+			}
+
+			if(req.body.statusVi === 'Đặt lịch') {
+				Customer.findOneAndUpdate(
+					{ _id: req.params.id },
+					{
+						firstName: req.body.firstName,
+						lastName: req.body.lastName,
+						birth: req.body.birth,
+						gender: req.body.gender,
+						phone: req.body.phone,
+						email: req.body.email,
+						address: req.body.address,
+						resource: req.body.resource,
+						description: req.body.description,
+						statusCus: {
+							statusVi: req.body.statusVi,
+							statusEng: 'Schedule'
+						},
+						image: {
+							name: req.file.filename,
+							url: req.file.path,
+						},
+					}
+				)
+					.then((customer) => {
+						let imgCustomer = customer.image.name;
+						let url = customer.image.url;
+						let files = fs.readdirSync(
+							rootPath + "mnt/vdb/crm.drtuananh.vn/customers/"
+						);
+						files.filter((img) => {
+							if (img === imgCustomer) {
+								fs.unlinkSync(url);
+							}
+						});
+						req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
+						res.redirect("back");
+					})
+					.catch(next);
+			}
+
+			if(req.body.statusVi === 'Không thành công') {
+				Customer.findOneAndUpdate(
+					{ _id: req.params.id },
+					{
+						firstName: req.body.firstName,
+						lastName: req.body.lastName,
+						birth: req.body.birth,
+						gender: req.body.gender,
+						phone: req.body.phone,
+						email: req.body.email,
+						address: req.body.address,
+						resource: req.body.resource,
+						description: req.body.description,
+						statusCus: {
+							statusVi: req.body.statusVi,
+							statusEng: 'Fail'
+						},
+						image: {
+							name: req.file.filename,
+							url: req.file.path,
+						},
+					}
+				)
+					.then((customer) => {
+						let imgCustomer = customer.image.name;
+						let url = customer.image.url;
+						let files = fs.readdirSync(
+							rootPath + "mnt/vdb/crm.drtuananh.vn/customers/"
+						);
+						files.filter((img) => {
+							if (img === imgCustomer) {
+								fs.unlinkSync(url);
+							}
+						});
+						req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
+						res.redirect("back");
+					})
+					.catch(next);
+			}
+		} else {
+			if(req.body.statusVi === 'Tạo mới') {
+				Customer.updateOne({ _id: req.params.id },{
 					firstName: req.body.firstName,
 					lastName: req.body.lastName,
 					birth: req.body.birth,
@@ -128,32 +435,83 @@ class EmployBusinessController {
 					address: req.body.address,
 					resource: req.body.resource,
 					description: req.body.description,
-					image: {
-						name: req.file.filename,
-						url: req.file.path,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'New'
 					},
-				}
-			)
+				})
 				.then((customer) => {
-					let imgCustomer = customer.image.name;
-					let url = customer.image.url;
-					let files = fs.readdirSync(
-						rootPath + "mnt/vdb/crm.drtuananh.vn/customers/"
-					);
-					files.filter((img) => {
-						if (img === imgCustomer) {
-							fs.unlinkSync(url);
-						}
-					});
+					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
 					res.redirect("back");
 				})
 				.catch(next);
-		} else {
-			Customer.updateOne({ _id: req.params.id }, req.body)
+			}
+			if(req.body.statusVi === 'Tiềm năng') {
+				Customer.updateOne({ _id: req.params.id },{
+					firstName: req.body.firstName,
+					lastName: req.body.lastName,
+					birth: req.body.birth,
+					gender: req.body.gender,
+					phone: req.body.phone,
+					email: req.body.email,
+					address: req.body.address,
+					resource: req.body.resource,
+					description: req.body.description,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'Potential'
+					},
+				})
 				.then((customer) => {
+					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
 					res.redirect("back");
 				})
 				.catch(next);
+			}
+			if(req.body.statusVi === 'Đặt lịch') {
+				Customer.updateOne({ _id: req.params.id },{
+					firstName: req.body.firstName,
+					lastName: req.body.lastName,
+					birth: req.body.birth,
+					gender: req.body.gender,
+					phone: req.body.phone,
+					email: req.body.email,
+					address: req.body.address,
+					resource: req.body.resource,
+					description: req.body.description,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'Schedule'
+					},
+				})
+				.then((customer) => {
+					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
+					res.redirect("back");
+				})
+				.catch(next);
+			}
+			if(req.body.statusVi === 'Không thành công') {
+				Customer.updateOne({ _id: req.params.id },{
+					firstName: req.body.firstName,
+					lastName: req.body.lastName,
+					birth: req.body.birth,
+					gender: req.body.gender,
+					phone: req.body.phone,
+					email: req.body.email,
+					address: req.body.address,
+					resource: req.body.resource,
+					description: req.body.description,
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'Fail'
+					},
+				})
+				.then((customer) => {
+					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
+					res.redirect("back");
+				})
+				.catch(next);
+			}
 		}
 	}
 
@@ -209,13 +567,14 @@ class EmployBusinessController {
 
 	showSchedule(req, res, next) {
 		Promise.all([
-			Schedule.find({ createName: req.userId, status: "Tạo mới" }).sort({ shedule: 1 }).populate('customerID').populate('createName'),
-			Schedule.find({ createName: req.userId, status: "Đang xử lý" }).sort({ shedule: 1 }).populate('customerID').populate('createName'),
-			Schedule.find({ createName: req.userId, status: "Hoàn thành" }).sort({ shedule: 1 }).populate('customerID').populate('createName'),
+			Schedule.find({ createName: req.userId, status: "Tạo mới" }).populate('customerID').populate('createName'),
+			Schedule.find({ createName: req.userId, status: 'Đang xử lý'}).populate('customerID').populate('createName').populate('serviceNoteID'),
+			Schedule.find({ createName: req.userId, status: "Hoàn thành" }).populate('customerID').populate('createName').populate('serviceNoteID'),
 			User.findById({ _id: req.userId })
 		])
 			.then(([newSchedule, handlingSchedule, doneSchedule, user]) => {
-				res.render('business/employ/employ-service-note', {
+				console.log('handling schedule', handlingSchedule)
+				res.render('business/employ/employ-schedule', {
 					newSchedule: multipleMongooseToObject(newSchedule),
 					handlingSchedule: multipleMongooseToObject(handlingSchedule),
 					doneSchedule: multipleMongooseToObject(doneSchedule),
@@ -228,6 +587,7 @@ class EmployBusinessController {
 
 	createSchedule(req, res, next) {
 		const file = req.files;
+		console.log('file', file)
 		const imgArr = [];
 		const videoArr = [];
 		file.forEach(element => {
@@ -247,14 +607,15 @@ class EmployBusinessController {
 			comments: { comment: req.body.comment },
 			schedule: req.body.schedule,
 			priceBefore: req.body.priceBefore,
+			deposit: req.body.deposit,
 			counselorImg: imgArr,
 			counselorVideo: videoArr,
 		});
 		schedule.save();
-		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: schedule.id }})
+		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { scheduleID: schedule.id }})
 			.then(() => {
+				req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
 				res.redirect('back');
-
 			})
 	}
 

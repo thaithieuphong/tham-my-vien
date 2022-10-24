@@ -1,21 +1,22 @@
-var subDoctorForm = document.forms['submit-doctor-form'];
-var subDoctorModal = document.getElementById('submit-doctor-modal');
-var subDoctorBtn = document.getElementById('submit-form-doctor-btn');
+var createCusInfoForm = document.forms['create-customer-information-form'];
+var createCusInfoBtn = document.getElementById('create-customer-information-btn');
 
-if (subDoctorBtn) {
-	subDoctorBtn.addEventListener("click", () => {
-		subDoctorForm.submit();
+if (createCusInfoBtn) {
+	createCusInfoBtn.addEventListener("click", () => {
+		createCusInfoForm.submit();
 	
 	});
 }
 
-if (subDoctorModal) {
-	subDoctorModal.addEventListener('show.bs.modal', function(event){
-		var button = event.relatedTarget;
-		var id = button.getAttribute("data-id")
-		subDoctorForm.setAttribute('action', `/operating-room/nursing/service-note/${id}?_method=PATCH`)
-	})
+var submitCustomerForm = document.forms['submit-customer-form'];
+var submitCusFormBtn = document.getElementById('submit-customer-form-btn');
+if (submitCusFormBtn) {
+	submitCusFormBtn.addEventListener("click", () => {
+		submitCustomerForm.submit();
+	
+	});
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
 	let inputMultiImageCounselor = document.getElementById('input-multi-images-counselor');
@@ -370,6 +371,7 @@ var createService = function(str) {
 var addServicesBtn = document.getElementById('add-services');
 var selectServices = document.getElementById('select-service');
 var totalInput = document.getElementById('total');
+var depositInput = document.getElementById('deposit');
 var priceBefore = document.getElementById('price-before');
 
 if (addServicesBtn) {
@@ -406,7 +408,9 @@ if (addServicesBtn) {
 				})
 				
 				let totalMoney = serviceArr.reduce(totalMoneyFn, 0);
-				totalInput.value = totalMoney.toLocaleString()
+				let convertDeposit = parseFloat(depositInput.value.replace(/\D/g,''), 10);
+				let trucoc = totalMoney - convertDeposit;
+				totalInput.value = trucoc.toLocaleString()
 				let convertedMoney = convertMoney.toLocaleString();
 				serviceInput.value = convertedMoney;
 			})
@@ -422,7 +426,9 @@ if (addServicesBtn) {
 						serviceArr.splice(index, 1);
 					}
 					let totalMoney = serviceArr.reduce(totalMoneyFn, 0);
-					totalInput.value = totalMoney.toLocaleString();
+					let convertDeposit = parseFloat(depositInput.value.replace(/\D/g,''), 10);
+					let trucoc = totalMoney - convertDeposit;
+					totalInput.value = trucoc.toLocaleString();
 				})
 				parent.remove();
 			})
