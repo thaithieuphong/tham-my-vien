@@ -13,10 +13,16 @@ var submitCusFormBtn = document.getElementById('submit-customer-form-btn');
 if (submitCusFormBtn) {
 	submitCusFormBtn.addEventListener("click", () => {
 		submitCustomerForm.submit();
-	
 	});
 }
 
+var submitServiceForm = document.forms['submit-service-form'];
+var submitServiceFormBtn = document.getElementById('submit-service-form-btn');
+if (submitServiceFormBtn) {
+	submitServiceFormBtn.addEventListener("click", () => {
+		submitServiceForm.submit();
+	});
+}
 
 document.addEventListener("DOMContentLoaded", function () {
 	let inputMultiImageCounselor = document.getElementById('input-multi-images-counselor');
@@ -358,11 +364,14 @@ var createService = function(str) {
 	let iconClose = document.createElement('i');
 	iconClose.setAttribute('class', 'ti-close');
 	btnClose.append(iconClose);
-	let inputService = document.createElement('span');
-	inputService.innerHTML = str;
-	inputService.setAttribute('class', 'input-group-text text-light bg-dark-yellow text-wrap');
+	let inputService = document.createElement('input');
+	inputService.value = str;
+	inputService.setAttribute('class', 'form-control bg-dark-yellow text-wrap text-light');
+	inputService.setAttribute('name', 'service');
+	inputService.readOnly = true;
 	let inputPrice = document.createElement('input');
 	inputPrice.setAttribute('class', 'form-control text-right input-price');
+	inputPrice.setAttribute('name', 'price');
 	inputPrice.setAttribute('value', 0);
 	divContainer.append(inputService, inputPrice, btnClose)
 	serviceContainer.append(divContainer)
@@ -382,7 +391,7 @@ if (addServicesBtn) {
 		e.preventDefault();
 		let textService = selectServices.value;
 		// Cắt ngắn tên dịch vụ cho vừa khung
-		textService.length > 20 ? textService = textService.slice(0, 20) + '...' : textService;
+		// textService.length > 20 ? textService = textService.slice(0, 20) + '...' : textService;
 		// Gọi đến hàm tạo dịch vụ khi click
 		createService(textService);
 		let serviceArr = [];

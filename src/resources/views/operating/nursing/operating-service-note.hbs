@@ -58,38 +58,37 @@
 	<div class="row">
 		{{#each serviceNote}}
 			<div class="col-xl-3 col-lg-3 col-md-4">
-				<a href='/operating-room/nursing/customer-information/{{this._id}}'>
 					<div class="card bg-glass-0">
-						<div class="card-header">
-							<div class="d-flex justify-content-between justify-content-sm-start">
-								<label for="status" class="text-nowrap text-light">
-									<strong>Tên thường gọi:</strong>&nbsp;
-								</label>
-								<label class="text-primary text-right">
-									<span class="badge bg-info lh-lg">{{this.scheduleID.customerID.nickName}}</span>
-								</label>
-							</div>
-						</div>
 						<div class="card-body">
 							<div class="d-flex justify-content-between justify-content-sm-start">
 								<label for="status" class="text-nowrap text-light">
 									<strong>Họ tên khai sinh:</strong>&nbsp;
 								</label>
-								<label class="text-primary text-right">
+								<label class="fs-6 text-light text-right">
 									{{this.scheduleID.customerID.fullName}}
+								</label>
+							</div>
+							<div class="d-flex justify-content-between justify-content-sm-start">
+								<label for="status" class="text-nowrap text-light">
+									<strong>Tên thường gọi:</strong>&nbsp;
+								</label>
+								<label class="fs-6 text-light text-right">
+									{{this.scheduleID.customerID.nickName}}
 								</label>
 							</div>
 							<div class="d-flex justify-content-between justify-content-sm-start">
 								<label for="status" class="text-nowrap text-light">
 									<strong>Ngày hẹn:</strong>&nbsp;
 								</label>
-								<label for=""class="text-success text-right"><em>{{formatDate this.scheduleID.schedule}}</em></label>
+								<label for=""class="fs-6 text-success text-right">
+									<em>{{formatDate this.scheduleID.schedule}}</em>
+								</label>
 							</div>
 							<div class="d-flex justify-content-between justify-content-sm-start">
 								<label for="status" class="text-nowrap text-light">
 									<strong>Trạng thái:</strong>&nbsp;
 								</label>
-								<label class="text-danger text-right">
+								<label class="fs-6 text-danger text-right">
 									<em>{{this.status}}</em>
 								</label>
 							</div>
@@ -97,9 +96,8 @@
 								<label for="status" class="text-nowrap text-light">
 									<strong>Bác sĩ:</strong>&nbsp;
 								</label>
-								<label class="text-primary">
+								<label class="text-light">
 									{{#each this.performer}}
-									<input hidden type="text" name="performerID[]" value="{{this._id}}">
 									<em>{{this.firstName}} {{this.lastName}};</em>
 									{{/each}}
 								</label>
@@ -108,9 +106,8 @@
 								<label for="status" class="text-nowrap text-light">
 									<strong>Điều dưỡng:</strong>&nbsp;
 								</label>
-								<label class="text-primary">
+								<label class="text-light">
 									{{#each this.nursing}}
-									<input hidden type="text" name="nursingID[]" value="{{this._id}}">
 									<em>{{this.firstName}} {{this.lastName}};</em>
 									{{/each}}
 								</label>
@@ -119,29 +116,39 @@
 								<label for="status" class="text-nowrap text-light">
 									<strong>Dẫn khách:</strong>&nbsp;
 								</label>
-								<label class="text-primary text-right">
+								<label class="text-light text-right">
 									{{this.recept.firstName}} {{this.recept.lastName}}
 								</label>
 							</div>
 							<div class="d-flex justify-content-between justify-content-sm-start">
 								<label for="status" class="text-nowrap text-light">
-									<strong>Dịch vụ:</strong>&nbsp;
-								</label>
-								<label class="text-primary text-right">
-									{{this.service}}
+									<strong>Dịch vụ đăng ký:</strong>&nbsp;
 								</label>
 							</div>
+							{{#each this.service}}
+							<div class="d-flex justify-content-between justify-content-sm-start">
+							<label class="text-light">
+								{{this.name}}
+							</label>
+							<label class="text-light text-right">
+								{{this.price}}
+							</label>
+							</div>
+							<hr>
+							{{/each}}
 							<div class="d-flex justify-content-between justify-content-sm-start">
 								<label for="status" class="text-nowrap text-light">
-									<strong>Phí dịch vụ:</strong>&nbsp;
+									<strong>Tổng chi phí:</strong>&nbsp;
 								</label>
 								<label class="text-danger text-right">
-									{{this.priceBefore}} VND
+									{{this.total}}
 								</label>
 							</div>
 						</div>
+						<div class="card-footer">
+							<a class="btn btn-primary btn-mobile" href='/operating-room/nursing/customer-information/{{this._id}}'>Cập nhật hồ sơ</a>
+						</div>
 					</div>
-				</a>
 			</div>
 		{{/each}}
 	</div>

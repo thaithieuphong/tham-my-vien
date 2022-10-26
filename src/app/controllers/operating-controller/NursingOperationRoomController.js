@@ -79,19 +79,47 @@ class NursingController {
 					doctors: multipleMongooseToObject(doctors),
 					nursings: multipleMongooseToObject(nursings),
 					typeService: multipleMongooseToObject(typeService),
-					title: 'Hồ sơ khách hàng'
+					title: 'Cập nhật hồ sơ khách hàng'
 				})
 			})
 	}
 
-	updateCreateCusInfor(req, res, next) {
-		console.log('body', req.body)
-		console.log('params', req.params.id)
-		// Customer.findByIdAndUpdate({ _id: req.params.id }, {
-		// 	fullName: req.body.fullName,
-		// 	birth: req.body.birth,
-		// 	gender: req.body.gender,
-		// })
+	updateCusInfor(req, res, next) {
+		Promise.all([ServiceNote.findByIdAndUpdate({_id: req.params.id}, {
+			performer: req.body.performer,
+			nursing: req.body.nursing,
+			recept: req.body.recept,
+			surgeryDay: req.body.surgeryDay
+		}),
+		Customer.findByIdAndUpdate({ _id: req.body.cusID }, {
+			fullName: req.body.fullName,
+			birth: req.body.birth,
+			gender: req.body.gender,
+		})])
+		.then(([serviceNote, customer]) => {
+			res.redirect('/operating-room/nursing/service-note');
+		})
+	}
+
+	updateServiceCusInfor(req, res, next) {
+		let serviceArr = [];
+		let serviceNameArr = req.body.service;
+		let servicePriceArr = req.body.price;
+		serviceNameArr.forEach((serviceName, index) => {
+			let servicePrice = servicePriceArr[index]
+			serviceArr.push({
+				name: serviceName,
+				price: servicePrice
+			})
+		})
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
+			service: serviceArr,
+			deposit: req.body.deposit,
+			total: req.body.total
+		})
+		.then(serviceNote => {
+			res.redirect('/operating-room/nursing/service-note');
+		})
 	}
 
 	showStorage(req, res, next) {
@@ -234,20 +262,20 @@ class NursingController {
 			.catch(next);
 	}
 
-	
 
 	showServiceNote(req, res, next) {
+		console.log('userid', req.userId)
 		ServiceNote.find({ status: 'Đang xử lý' }).populate({
 			path: 'scheduleID',
 			populate: {
 				path: 'customerID',
 				model: 'Customer'
 			},
-		}).populate('recept')
+		}).populate('performer').populate('nursing').populate('recept')
 		.then((serviceNote) => {
 				res.render("operating/nursing/operating-service-note", {
 					serviceNote: multipleMongooseToObject(serviceNote),
-					title: "Danh sách phiếu phẩu thuật"
+					title: "Hồ sơ khách hàng"
 				})
 			})
 		.catch(next);

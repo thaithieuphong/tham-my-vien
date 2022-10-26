@@ -30,7 +30,7 @@
 				<div class="card-body p-3">
 					<div class="tab-content" id="myTabContent">
 						<div class="tab-pane fade show active" id="customer" role="tabpanel" aria-labelledby="home-tab">
-							<form method="POST" id="submit-customer-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/update?_method=PUT">
+							<form method="POST" id="submit-customer-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/cus-info?_method=PUT">
 								<input class="form-control bg-light" type="text" value="{{schedule.scheduleID.customerID._id}}" hidden name="cusID">
 								<div class="row">
 									<div class="col-md-6 input-group mb-4">
@@ -79,7 +79,7 @@
 									</div>
 									<div class="col-md-3 input-group mb-4">
 										<span class="input-group-text text-light bg-blue-ray">Chọn dẫn khách</span>
-										<select multiple="multiple" id="select-recept" name="recept[]">
+										<select multiple="multiple" id="select-recept" name="recept">
 											{{#each nursings}}
 											<option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
 											{{/each}}
@@ -161,7 +161,7 @@
 							<button id="submit-customer-form-btn" class="btn btn-primary btn-mobile">Cập nhật</button>
 						</div>
 						<div class="tab-pane fade" id="service" role="tabpanel" aria-labelledby="profile-tab">
-							<form method="POST" id="submit-service-form">
+							<form method="POST" id="submit-service-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/service-info?_method=PUT">
 								<div class="input-group mb-4">
 									<span class="input-group-text text-light bg-blue-ray">Thêm dịch vụ</span>
 									<select class="form-select" id="select-service">
@@ -181,17 +181,17 @@
 								</div>
 								<div class="input-group mb-4">
 									<span class="input-group-text text-light bg-blue-ray">Đặt cọc</span>
-									<input id="deposit" class="form-control text-right text-warning fw-bold" type="text" value="{{schedule.scheduleID.deposit}}" readonly>
+									<input id="deposit" class="form-control text-right text-warning fw-bold" type="text" value="{{schedule.scheduleID.deposit}}" name="deposit" readonly>
 								</div>
 								<div class="input-group mb-4">
 									<span class="input-group-text text-light bg-blue-ray">Tổng chi phí</span>
-									<input id="total" class="form-control text-right text-danger fw-bold" type="text" readonly>
+									<input id="total" class="form-control text-right text-danger fw-bold" type="text" readonly name="total">
 								</div>
 							</form>
-							<button class="btn btn-primary btn-mobile">Cập nhật</button>
+							<button id="submit-service-form-btn" class="btn btn-primary btn-mobile">Cập nhật</button>
 						</div>
 						<div class="tab-pane fade" id="operating-room" role="tabpanel" aria-labelledby="contact-tab">
-							<form method="POST" id="submit-operating-room-form">
+							<form method="POST" id="submit-operating-room-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/operating-info?_method=PUT">
 								<div class="accordion accordion-flush mb-4" id="accordionFlush-{{schedule._id}}">
 									<div class="accordion-item bg-glass">
 										<h2 class="accordion-header" id="flush-counselor-{{schedule._id}}">

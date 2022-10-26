@@ -10,7 +10,7 @@ const ServiceNote = new Schema({
 	},
 
 	fullName: String,
-
+	
 	createName:
 	{
 		type: String,
@@ -68,8 +68,8 @@ const ServiceNote = new Schema({
 
 	service: [
 		{
-			type: String,
-			ref: "Service"
+			name: String,
+			price: String
 		}
 	],
 
@@ -121,6 +121,7 @@ const ServiceNote = new Schema({
 			comment: String
 		}
 	],
+	total: String,
 	stepsToTake: String,
 	notes: String,
 	stored: String,
