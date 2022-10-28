@@ -93,6 +93,28 @@ const ServiceNote = new Schema({
 			}
 		}
 	],
+
+	inSurgeryImg: [
+		{
+			name: {
+				type: String,
+			},
+			url: {
+				type: String,
+			}
+		}
+	],
+	
+	inSurgeryVideo: [
+		{
+			name: {
+				type: String,
+			},
+			url: {
+				type: String,
+			}
+		}
+	],
 	
 	afterImg: [
 		{
@@ -121,9 +143,16 @@ const ServiceNote = new Schema({
 			comment: String
 		}
 	],
+	reExamID:
+	{
+		type: String,
+		ref: "Reexamination"
+	},
 	total: String,
+	counselorInfo: String,
+	beforeInfo: String,
 	stepsToTake: String,
-	notes: String,
+	afterInfo: String,
 	stored: String,
 	surgeryDay: String,
 	reason: String,

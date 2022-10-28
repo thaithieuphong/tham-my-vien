@@ -22,7 +22,7 @@ const Schedule = new Schema({
 		ref: "ServiceNote"
 	},
 
-	counselorImg: [
+	beforeCounselorImg: [
 		{
 			name: {
 				type: String,
@@ -33,7 +33,7 @@ const Schedule = new Schema({
 		}
 	],
 
-	counselorVideo: [
+	beforeCounselorVideo: [
 		{
 			name: {
 				type: String,

@@ -36,12 +36,12 @@ hr {
     max-height: 93%;
     overflow-y: scroll;
 }
-
+/* 
 .container-content-user {
-    /* padding: 0px; */
-    /* margin-left: 18px;
-    margin-right: 18px; */
-}
+    padding: 0px;
+    margin-left: 18px;
+    margin-right: 18px;
+} */
 
 .admin-content {
     max-height: 93.5%;

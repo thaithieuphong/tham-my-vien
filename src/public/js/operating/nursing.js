@@ -4,7 +4,6 @@ var createCusInfoBtn = document.getElementById('create-customer-information-btn'
 if (createCusInfoBtn) {
 	createCusInfoBtn.addEventListener("click", () => {
 		createCusInfoForm.submit();
-	
 	});
 }
 
@@ -21,6 +20,38 @@ var submitServiceFormBtn = document.getElementById('submit-service-form-btn');
 if (submitServiceFormBtn) {
 	submitServiceFormBtn.addEventListener("click", () => {
 		submitServiceForm.submit();
+	});
+}
+
+var submitCounselorForm = document.forms['submit-counselor-form'];
+var submitCounselorFormBtn = document.getElementById('submit-counselor-form-btn');
+if (submitCounselorFormBtn) {
+	submitCounselorFormBtn.addEventListener("click", () => {
+		submitCounselorForm.submit();
+	});
+}
+
+var submitBeforeForm = document.forms['submit-before-form'];
+var submitBeforeFormBtn = document.getElementById('submit-before-form-btn');
+if (submitBeforeFormBtn) {
+	submitBeforeFormBtn.addEventListener("click", () => {
+		submitBeforeForm.submit();
+	});
+}
+
+var submitInSurgeryForm = document.forms['submit-inSurgery-form'];
+var submitInSurgeryFormBtn = document.getElementById('submit-in-surgery-form-btn');
+if (submitInSurgeryFormBtn) {
+	submitInSurgeryFormBtn.addEventListener("click", () => {
+		submitInSurgeryForm.submit();
+	});
+}
+
+var submitBeforeForm = document.forms['submit-before-form'];
+var submitBeforeFormBtn = document.getElementById('submit-before-form-btn');
+if (submitBeforeFormBtn) {
+	submitBeforeFormBtn.addEventListener("click", () => {
+		submitBeforeForm.submit();
 	});
 }
 
@@ -128,20 +159,20 @@ document.addEventListener("DOMContentLoaded", function () {
 				for (let i = 0; i < inputFiles.length; i++) {
 					let reader = new FileReader();
 					let newImage = document.createElement('img');
-					let closeButtonLink = document.createElement('button');
+					let iconClose = document.createElement('i');
+					iconClose.setAttribute('class', 'ti-close');
+					let closeButtonLink = document.createElement('div');
+					closeButtonLink.append(iconClose);
 					let divMain = document.createElement('figure');
 					reader.addEventListener('load', (event) => {
-						// newImage.setAttribute('alt', filesAmount)
 						let src = event.target.result;
-						divMain.classList = 'col-md-4 col-sm figure img-container position-relative mt-2';
+						divMain.classList = 'col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
 						newImage.id = i;
 						closeButtonLink.id = i;
-						closeButtonLink.type = 'button';
-						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-img';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
 						let imgc = document.querySelector('.preview-images-before');
 						divMain.append(newImage, closeButtonLink);
 						imgc.append(divMain);
@@ -162,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	let inputMultiVideoBefore = document.getElementById('input-multi-videos-before');
 	if (inputMultiVideoBefore) {
 		inputMultiVideoBefore.addEventListener('change', (e) => {
-			let files = e.target;//event.target.files;
+			let files = e.target;
 			videosPreviewBefore(files);
 		})
 	
@@ -203,8 +234,97 @@ document.addEventListener("DOMContentLoaded", function () {
 		};
 	}
 
+	let inputMultiImageInSurgery = document.getElementById('input-multi-images-in-surgery');
+	if(inputMultiImageInSurgery) {
+		inputMultiImageInSurgery.addEventListener('change', (e) => {
+			let files = e.target; //event.target.files;
+			imagesPreviewInSurgery(files);
+		})
+	
+		let imagesPreviewInSurgery = function (input) {
+			let inputFiles = Array.from(input.files);
+			if (input.files) {
+				// let filesAmount = inputFiles.length
+				for (let i = 0; i < inputFiles.length; i++) {
+					let reader = new FileReader();
+					let newImage = document.createElement('img');
+					let iconClose = document.createElement('i');
+					iconClose.setAttribute('class', 'ti-close');
+					let closeButtonLink = document.createElement('div');
+					closeButtonLink.append(iconClose);
+					let divMain = document.createElement('figure');
+					reader.addEventListener('load', (event) => {
+						let src = event.target.result;
+						divMain.classList = 'col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
+						divMain.id = i;
+						newImage.src = src;
+						newImage.classList = 'figure-img img-fluid rounded img-cover';
+						newImage.id = i;
+						closeButtonLink.id = i;
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
+						let imgc = document.querySelector('.preview-images-in-surgery');
+						divMain.append(newImage, closeButtonLink);
+						imgc.append(divMain);
+						let closeBtns = document.querySelectorAll('.close-img');
+						closeBtns.forEach(btn => {
+							btn.addEventListener('click', () => {
+								let parent = btn.parentElement;
+								parent.remove();
+							})
+						})
+					});
+					reader.readAsDataURL(inputFiles[i]);
+				}
+			}
+		};
+	}
+
+	let inputMultiVideoInSurgery = document.getElementById('input-multi-videos-in-surgery');
+	if (inputMultiVideoInSurgery) {
+		inputMultiVideoInSurgery.addEventListener('change', (e) => {
+			let files = e.target;
+			videosPreviewInSurgery(files);
+		})
+	
+		let videosPreviewInSurgery = function (input) {
+			let inputFiles = Array.from(input.files);
+			if (input.files) {
+				for (i = 0; i < inputFiles.length; i++) {
+					let reader = new FileReader();
+					reader.onload = function (event) {
+						let newVideo = document.createElement('video');
+						let closeButtonLink = document.createElement('button');
+						let divMain = document.createElement('figure');
+						let src = event.target.result;
+						divMain.classList = 'col-md-4 col-sm figure imgbox position-relative mt-2';
+						divMain.id = i;
+						newVideo.src = src;
+						newVideo.classList = 'img-fluid';
+						newVideo.controls = true;
+						newVideo.id = i;
+						closeButtonLink.type = 'button';
+						closeButtonLink.id = i;
+						closeButtonLink.ariaLabel = 'Close';
+						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-video';
+						let videoc = document.querySelector('.preview-videos-in-surgery');
+						divMain.append(newVideo, closeButtonLink);
+						videoc.append(divMain);
+						let closeBtn = document.querySelectorAll('.close-video');
+						closeBtn.forEach(btn => {
+							btn.addEventListener('click', (e) => {
+								let parent = btn.parentElement;
+								parent.remove();
+							})
+						})
+					};
+					reader.readAsDataURL(inputFiles[i]);
+				}
+			}
+		};
+	}
+
 	let inputMultiImageAfter = document.getElementById('input-multi-images-after');
-	if (inputMultiImageAfter) {
+	if(inputMultiImageAfter) {
 		inputMultiImageAfter.addEventListener('change', (e) => {
 			let files = e.target;//event.target.files;
 			imagesPreviewAfter(files);
@@ -213,24 +333,23 @@ document.addEventListener("DOMContentLoaded", function () {
 		let imagesPreviewAfter = function (input) {
 			let inputFiles = Array.from(input.files);
 			if (input.files) {
-				// let filesAmount = inputFiles.length
 				for (let i = 0; i < inputFiles.length; i++) {
 					let reader = new FileReader();
 					let newImage = document.createElement('img');
-					let closeButtonLink = document.createElement('button');
+					let iconClose = document.createElement('i');
+					iconClose.setAttribute('class', 'ti-close');
+					let closeButtonLink = document.createElement('div');
+					closeButtonLink.append(iconClose);
 					let divMain = document.createElement('figure');
 					reader.addEventListener('load', (event) => {
-						// newImage.setAttribute('alt', filesAmount)
 						let src = event.target.result;
-						divMain.classList = 'col-md-4 col-sm figure img-container position-relative mt-2';
+						divMain.classList = 'col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
 						newImage.id = i;
 						closeButtonLink.id = i;
-						closeButtonLink.type = 'button';
-						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-img';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
 						let imgc = document.querySelector('.preview-images-after');
 						divMain.append(newImage, closeButtonLink);
 						imgc.append(divMain);
@@ -251,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	let inputMultiVideoAfter = document.getElementById('input-multi-videos-after');
 	if (inputMultiVideoAfter) {
 		inputMultiVideoAfter.addEventListener('change', (e) => {
-			let files = e.target;//event.target.files;
+			let files = e.target;
 			videosPreviewAfter(files);
 		})
 	

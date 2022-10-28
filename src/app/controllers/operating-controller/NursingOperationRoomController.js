@@ -45,10 +45,10 @@ class NursingController {
 			.catch(next);
 	}
 
+	// Tạo hồ sơ khách hàng từ lịch hẹn
 	createCusInfor(req, res, next) {
 		const serviceNote = new ServiceNote({
-			scheduleID: req.params.id,
-			recept: ''
+			scheduleID: req.params.id
 		})
 		serviceNote.save()
 			.then(newServiceNote => {
@@ -56,11 +56,12 @@ class NursingController {
 					Customer.findByIdAndUpdate({ _id: req.body.cusID }, {serviceNoteID: newServiceNote._id}),
 					ServiceNote.findByIdAndUpdate({ _id: newServiceNote._id }, { status: 'Đang xử lý'})])
 					.then(([schedule, customer, serviceNote]) => {
-						res.redirect(`/operating-room/nursing/customer-information/${serviceNote._id}`)
+						res.redirect(`/operating-room/nursing/customer-information/${schedule._id}`)
 					})
 			})
 	}
 
+	// Hiển thị trang nhập hồ sơ khách hàng
 	showCreateCusInfor(req, res, next) {
 		Promise.all([ServiceNote.findById({ _id: req.params.id }).populate({
 			path: 'scheduleID',
@@ -84,6 +85,7 @@ class NursingController {
 			})
 	}
 
+	// Cập nhật thông tin cá nhân hồ sơ khách hàng
 	updateCusInfor(req, res, next) {
 		Promise.all([ServiceNote.findByIdAndUpdate({_id: req.params.id}, {
 			performer: req.body.performer,
@@ -101,6 +103,7 @@ class NursingController {
 		})
 	}
 
+	// Cập nhật dịch vụ hồ sơ khách hàng
 	updateServiceCusInfor(req, res, next) {
 		let serviceArr = [];
 		let serviceNameArr = req.body.service;
@@ -122,6 +125,7 @@ class NursingController {
 		})
 	}
 
+	// Hiển thị kho lưu trữ
 	showStorage(req, res, next) {
 		ServiceNote.findDeleted({}).populate('customerID')
 			.then((schedule) => {
@@ -132,13 +136,14 @@ class NursingController {
 			})
 	}
 
+	// Khôi phục lịch hẹn
 	restoreSchedule(req, res, next) {
 		ServiceNote.restore({ _id: req.params.id })
 			.then(() => res.redirect("back"))
 			.catch(next);
-
 	}
 	
+	// Danh sách khách hàng
 	showCustomers(req, res, next) {
 		Promise.all([Customer.find({ userID: req.userId }), User.findById({ _id: req.userId }),
 		TypeService.find({})])
@@ -153,6 +158,7 @@ class NursingController {
 			.catch(next);
 	}
 
+	// Tạo thông tin khách hàng
 	createCustomer(req, res, next) {
 		if (req.file) {
 			const customer = new Customer({
@@ -194,6 +200,7 @@ class NursingController {
 		res.redirect("back");
 	}
 
+	// Sửa thông tin khách hàng
 	editCustomer(req, res, next) {
 		if (req.file) {
 			Customer.findOneAndUpdate(
@@ -237,6 +244,7 @@ class NursingController {
 		}
 	}
 
+	// Chi tiết khách hàng
 	showCustomerDetail(req, res, next) {
 		Promise.all([
 			Customer.findById({ _id: req.params.id }).populate('serviceNoteID'),
@@ -253,6 +261,7 @@ class NursingController {
 			.catch(next);
 	}
 
+	// Tạo hoạt động tư vấn khách hàng
 	createComment(req, res, next) {
 		Customer.findByIdAndUpdate(
 			{ _id: req.params.id },
@@ -262,9 +271,8 @@ class NursingController {
 			.catch(next);
 	}
 
-
+	// Danh sách hồ sơ khách hàng
 	showServiceNote(req, res, next) {
-		console.log('userid', req.userId)
 		ServiceNote.find({ status: 'Đang xử lý' }).populate({
 			path: 'scheduleID',
 			populate: {
@@ -281,6 +289,25 @@ class NursingController {
 		.catch(next);
 	}
 
+	// Chi tiết hồ sơ khách hàng
+	showServiceNoteDetail(req, res, next) {
+		ServiceNote.findById({ _id: req.params.id }).populate({
+			path: 'scheduleID',
+			populate: {
+				path: 'customerID',
+				model: 'Customer'
+			},
+		}).populate('performer').populate('nursing').populate('recept')
+		.then((serviceNote) => {
+				res.render("operating/nursing/operating-service-note-detail", {
+					serviceNote: mongooseToObject(serviceNote),
+					title: "Chi tiết hồ sơ khách hàng"
+				})
+			})
+		.catch(next);
+	}
+
+	// Xóa hồ sơ khách hàng
 	deleteServiceNote(req, res, next) {
 		console.log('schedule id', req.params.id)
 		console.log('customer id', req.body.cusID)
@@ -289,6 +316,7 @@ class NursingController {
 			.catch(next);
 	}
 
+	// Xóa phiếu tái khám
 	showReExamination(req, res, next) {
 		Promise.all([Reexamination.findOne({ stored: "No", status: "Đang xử lý", nursing: req.userId }).populate('recept').populate('customerID').populate('performer').populate('nursing').populate('serviceNoteId'), User.findById({ _id: req.userId })])
 			.then(([reExam, user]) => {
@@ -303,6 +331,7 @@ class NursingController {
 
 	}
 
+	// Cập nhật hồ sơ khách hàng
 	updateServiceNote(req, res, next) {
 		Promise.all([
 			User.find({ _id: req.body.performerID }).updateMany({state: 'Medium'}),
@@ -315,6 +344,7 @@ class NursingController {
 			.catch(next);
 	}
 
+	// Cập nhật phiếu tái khám
 	updateReExamination(req, res, next) {
 		Promise.all([
 			User.find({ _id: req.body.performerID }).updateMany({state: 'Medium'}),
@@ -327,10 +357,12 @@ class NursingController {
 		.catch(next);
 	}
 
+	// Tải ảnh khi tư vấn
 	uploadCounselor(req, res, next) {
 		const file = req.files;
 		const imgArr = [];
 		const videoArr = [];
+		console.log('file', req.body)
 		file.forEach(element => {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
 				imgArr.push({ name: element.filename, url: element.path });
@@ -340,13 +372,14 @@ class NursingController {
 				return videoArr;
 			}
 		})
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { counselorImg: imgArr, counselorVideo: videoArr } })
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { counselorImg: imgArr, counselorVideo: videoArr }, $set: { counselorInfo: req.body.counselorInfo }})
 			.then(() => {
 				res.redirect('back')
 			})
 			.catch(next);
 	}
 
+	// Tải ảnh trước phẩu thuật
 	uploadBefore(req, res, next) {
 		const file = req.files;
 		const imgArr = [];
@@ -360,13 +393,35 @@ class NursingController {
 				return videoArr;
 			}
 		})
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { beforeImg: imgArr, beforeVideo: videoArr } })
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { beforeImg: imgArr, beforeVideo: videoArr }, $set: { beforeInfo: req.body.beforeInfo } })
 			.then(() => {
 				res.redirect('back')
 			})
 			.catch(next);
 	}
 
+	// Tải ảnh trong phẩu thuật
+	uploadInSurgery(req, res, next) {
+		const file = req.files;
+		const imgArr = [];
+		const videoArr = [];
+		file.forEach(element => {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+				imgArr.push({ name: element.filename, url: element.path });
+				return imgArr;
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+				videoArr.push({ name: element.filename, url: element.path });
+				return videoArr;
+			}
+		})
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { inSurgeryImg: imgArr, inSurgeryVideo: videoArr }, $set: { stepsToTake: req.body.stepsToTake } })
+			.then(() => {
+				res.redirect('back')
+			})
+			.catch(next);
+	}
+
+	// Tải ảnh sau phẩu thuật - hồi sức
 	uploadAfter(req, res, next) {
 		const file = req.files;
 		const imgArr = [];
@@ -380,13 +435,14 @@ class NursingController {
 				return videoArr;
 			}
 		})
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { afterImg: imgArr, afterVideo: videoArr } })
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { afterImg: imgArr, afterVideo: videoArr }, $set: { afterInfo: req.body.afterInfo } })
 			.then(() => {
 				res.redirect('back')
 			})
 			.catch(next);
 	}
 
+	// Tải ảnh tái khám
 	uploadReExam(req, res, next) {
 		const file = req.files;
 		const imgArr = [];
@@ -407,6 +463,7 @@ class NursingController {
 			.catch(next);
 	}
 
+	// Tạo hồ sơ khách hàng => đang dư
 	createServiceNote(req, res, next) {
 		const file = req.files;
 		const imgArr = [];
@@ -441,6 +498,7 @@ class NursingController {
 			})
 	}
 
+	// Tạo phiếu tái khám
 	createReExam(req, res, next) {
 		const reexamination = new Reexamination({
 			customerID: req.body.customerID,
