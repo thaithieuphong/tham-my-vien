@@ -9,11 +9,11 @@
     <div class="offcanvas-body container-sidebar bg-blue">
         <div class="sidebar-item">
             <a href="/operating-room/nursing" class="sidebar-item-title pl-3">
-                <i class="ti-dashboard mr-3"></i>Lịch hẹn phẩu thuật
+                <i class="ti-dashboard mr-3"></i>Lịch hẹn tư vấn
             </a>
         </div>
         <div class="sidebar-item">
-            <a href="/operating-room/nursing/coordinator-re-examination" class="sidebar-item-title pl-3">
+            <a href="/operating-room/nursing/re-examination" class="sidebar-item-title pl-3">
                 <i class="ti-headphone-alt mr-3"></i>Lịch hẹn tái khám
             </a>
         </div>
@@ -24,14 +24,14 @@
         </div>
 		<div class="sidebar-item">
             <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3 active"></i>Danh sách phiếu phẩu thuật
+                <i class="ti-user mr-3 active"></i>Danh sách hồ sơ khách hàng
             </a>
         </div>
     </div>
 	<div class="offcanvas-footer border-top">
 		<div class="sidebar-item border-bottom">
-            <a href="/operating-room/nursing/storage" class="sidebar-item-title pl-3 position-relative">
-				<i class="ti-trash mr-3 active"></i>Kho lưu trữ<span class="badge bg-danger rounded-pill position-absolute top-50 start-100 translate-middle">{{countDelete}}</span>
+            <a href="/operating-room/nursing/storage-cus-info" class="sidebar-item-title pl-3">
+				<i class="ti-trash mr-3 active"></i>Kho lưu trữ hồ sơ
             </a>
         </div>
         <div class="sidebar-item">
@@ -71,10 +71,10 @@
 		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
 			<div class="card shadow text-white bg-glass">
 				<div class="card-header bg-transparent d-flex justify-content-between">
-					<div class="badge bg-success lh-lg">
+					<div class="badge bg-success lh-lg rounded-pill">
 						{{formatDate this.schedule}}
 					</div>
-					<div class="badge bg-danger lh-lg">{{this.status}}</div>
+					<div class="badge bg-danger lh-lg rounded-pill">{{this.status}}</div>
 					<a class="text-light" href="/operating-room/nursing/schedule/{{this._id}}/detail">
 						<i class="fa-solid fa-ellipsis"></i>
 					</a>
@@ -82,37 +82,41 @@
 				<div class="card-body">
 					<form id="create-customer-information-form" action="/operating-room/nursing/customer-information/{{this._id}}/create" method="POST">
 						<input class="form-control text-wrap text-right" type="text" value="{{this.customerID._id}}" name="cusID" hidden>
-						<div class="input-group input-group-sm mb-4">
-							<span class="input-group-text text-light bg-blue-ray">Họ tên:</span>
-							<input class="form-control text-wrap text-right" type="text" value="{{this.customerID.nickName}}" name="nickName" readonly>
+						<div class="form-floating mb-4">
+							<input id="input-nicknName" class="form-control text-wrap text-right bg-transparent text-light" type="text" value="{{this.customerID.nickName}}" name="nickName" readonly>
+							<label for="input-nicknName" class="text-light">Họ tên:</label>
 						</div>
-						<div class="input-group input-group-sm mb-4">
-							<span class="input-group-text text-light bg-blue-ray">Giới tính:</span>
-							<input class="form-control text-wrap text-right" type="text" value="{{this.customerID.gender}}" name="gender" readonly>
+						<div class="form-floating mb-4">
+							<input id="input-nicknName" class="form-control text-wrap text-right bg-transparent text-light" type="text" value="{{this.customerID.gender}}" name="gender" readonly>
+							<label class="text-light">Giới tính:</label>
 						</div>
-						<div class="input-group input-group-sm mb-4">
-							<span class="input-group-text text-light bg-blue-ray">Số điện thoại:</span>
-							<input class="form-control text-wrap text-right" type="text" value="{{this.customerID.phone}}" name="phone" readonly>
+						<div class="form-floating mb-4">
+							<input id="input-nicknName" class="form-control text-wrap text-right bg-transparent text-light" type="text" value="{{this.customerID.phone}}" name="phone" readonly>
+							<label class="text-light">Số điện thoại:</label>
 						</div>
-						<div class="input-group input-group-sm mb-4">
-							<span class="input-group-text text-light bg-blue-ray">Dịch vụ</span>
-							<textarea class="form-control" aria-label="With textarea" readonly name="service">{{this.service}}</textarea>
+						<label class="text-light">Dịch vụ</label>
+						{{#each this.service}}
+						<div class="d-flex justify-content-between">
+							{{!-- <input id="input-nicknName" class="form-control bg-transparent text-light textarea-none" value="{{this.service}}" hidden  name="service"> --}}
+							<label class="text-light">{{this}}</label>
 						</div>
-						<div class="input-group input-group-sm mb-4">
-							<span class="input-group-text text-light bg-blue-ray">Phí dịch vụ:</span>
-							<input class="form-control text-wrap text-right text-danger" type="text" value="{{this.priceBefore}}" name="priceBefore" readonly>
+						<hr class="mt-0">
+						{{/each}}
+						<div class="form-floating mb-4">
+							<input id="input-nicknName" class="form-control text-wrap text-right bg-transparent text-danger" type="text" value="{{this.priceBefore}}" name="priceBefore" readonly>
+							<label class="text-light">Phí dịch vụ:</label>
 						</div>
-						<div class="input-group input-group-sm">
-							<span class="input-group-text text-light bg-blue-ray">Tiền cọc</span>
-							<input class="form-control text-wrap text-right text-warning" type="text" value="{{this.deposit}}" name="deposit" readonly>
+						<div class="form-floating">
+							<input id="input-nicknName" class="form-control text-wrap text-right bg-transparent text-warning" type="text" value="{{this.deposit}}" name="deposit" readonly>
+							<label class="text-light">Tiền cọc</label>
 						</div>
 					</form>
 				</div>
 				<div class="card-footer bg-transparent">
-					<button type="button" class="btn btn-danger btn-mobile mb-2" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
+					<button type="button" class="btn btn-danger btn-mobile mb-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
 					data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}" data-delete-lastname="{{this.customerID.lastName}}"
 					data-delete-customerID="{{this.customerID._id}}">Xóa lịch hẹn</button>
-					<a class="btn btn-primary btn-mobile float-right mb-2" id="create-customer-information-btn">Tạo hồ sơ khách hàng</a>
+					<a class="btn btn-primary btn-mobile float-right mb-2 rounded-pill" id="create-customer-information-btn">Tạo hồ sơ khách hàng</a>
 				</div>
 			</div>
 		</div>
@@ -142,163 +146,4 @@
     </div>
 </div>
 
-
-<!-- Modal Add Performer-->
-
-<div class="modal fade" id="add-performer-modal" tabindex="-1" aria-labelledby="add-performer" aria-hidden="true">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header bg-info">
-				<h5 class="modal-title text-light" id="add-performer-title">Phiếu phẩu thuật</h5>
-				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<form method="POST" id="add-performer-form">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="d-flex justify-content-between">
-                                <label for="status">
-                                    <strong>Khách hàng:</strong>&nbsp;
-                                </label>
-                                <label class="text-uppercase text-danger" id="add-performer-firstLastName" name="name" readonly>
-                            </div>
-                            <hr>
-							<div class="d-flex justify-content-between">
-                                <label for="status">
-                                    <strong>Ngày sinh:</strong>&nbsp;
-                                </label>
-                                <label id="add-performer-birth" name="birth" readonly></label>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between">
-                                <label for="status">
-                                    <strong>Giới tính:</strong>&nbsp;
-                                </label>
-                                <label id="add-performer-gender" name="gender" readonly></label>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between">
-                                <label for="status">
-                                    <strong>Email:</strong>&nbsp;
-                                </label>
-                                <label id="add-performer-email" class="d-inline-block text-truncate text-truncate-service" name="email" readonly></label>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between">
-                                <label for="status">
-                                    <strong>Số điện thoại:</strong>&nbsp;
-                                </label>
-                                <label id="add-performer-phone" name="phone" readonly></label>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between">
-                                <label for="status">
-                                    <strong>Địa chỉ:</strong>&nbsp;
-                                </label>
-                                <label id="add-performer-address" name="address" readonly></label>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between">
-                                <label for="status">
-                                    <strong>Người tạo:</strong>&nbsp;
-                                </label>
-                                <label id="add-performer-createName" readonly></label>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between">
-                                <label for="status">
-                                    <strong>Dịch vụ:</strong>&nbsp;
-                                </label>
-                                <label id="add-performer-service" class="text-right" readonly></label>
-                            </div>
-                            <hr>
-						</div>
-						<div class="col-md-6 verticalLine">
-							<div class="container-table mb-3">
-								<div class="mb-3">
-									<label for="performer" class="form-label">
-										<h6><strong>Chọn bác sĩ</strong></h6>
-									</label>
-									<select id="select-performer" class="chosen-select" multiple
-										tabindex="6" name="performer[]">
-                                        
-										{{#each doctors}}
-										<option value="{{this._id}}">
-											{{this.firstName}}
-											{{this.lastName}}</option>
-										{{/each}}
-									</select>
-								</div>
-								<div class="mb-3">
-									<label for="nursing" class="form-label">
-										<h6><strong>Chọn Điều dưỡng</strong></h6>
-									</label>
-									<select id="select-nursing" class="chosen-select" multiple tabindex="6"
-										name="nursing[]">
-										{{#each nursings}}
-										<option value="{{this._id}}">
-											{{this.firstName}}
-											{{this.lastName}}</option>
-										{{/each}}
-									</select>
-								</div>
-							</div>
-							<div class="container-card mb-3">
-								<label for="performer" class="form-label">
-									<h6>Chọn bác sĩ và điều dưỡng</h6>
-								</label>
-								<div id="list1" class="dropdown-check-list" tabindex="100">
-									<span class="anchor">Chọn bác sĩ và điều dưỡng</span>
-									<ul class="items">
-										{{#each doctors}}
-										<li>
-											<hr>
-											<label class="form-check " for="{{this._id}}">
-												<input type="checkbox" class="mt-2" id="{{this._id}}"
-													value="{{this._id}}" name="performer[]" /> <strong
-													class="text-success">Bác sĩ:</strong>
-												<label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
-											</label>
-										</li>
-										{{/each}}
-										{{#each nursings}}
-										<li>
-											<hr>
-											<label class="form-check " for="{{this._id}}">
-												<input type="checkbox" class="mt-2" id="{{this._id}}"
-													value="{{this._id}}" name="nursing[]" /><strong class="text-success"> Điều dưỡng:</strong>
-												<label for="{{this._id}}">{{this.firstName}} {{this.lastName}}</label>
-											</label>
-										</li>
-										{{/each}}
-
-									</ul>
-								</div>
-							</div>
-							<div class="mb-3">
-								<label for="gender" class="form-label">
-									<h6>Ngày hẹn</h6>
-								</label>
-								<div type="text" class="form-control" id="add-performer-schedule" name="schedule"></div>
-							</div>
-
-							<div class="mb-3">
-								<label for="comment" class="form-label">
-									<h6>Ghi chú: </h6>
-								</label>
-								<textarea class="form-control bg-white" id="add-performer-comment" rows="6" name="comment"
-									readonly></textarea>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
-				<button type="button" id="add-performer-btn" class="btn btn-primary">Cập nhật</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<script src="/js/operating/nursing.js"></script>
+<script src="/js/operating/nursing-create-cus-info.js"></script>

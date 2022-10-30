@@ -49,3 +49,27 @@ function handleSearchServiceNote(txtConvert) {
 		}
 	}
 }
+
+
+// Handle push data to done modal
+var updateDoneModal = document.getElementById("submit-doctor-modal");
+updateDoneModal.addEventListener("show.bs.modal", function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget;
+	// Get data from edit button
+	var serviceNoteID = button.getAttribute('data-id');
+	var fullName = button.getAttribute("data-fullName");
+
+	// Get element need embeded input
+	var fullNameModal = document.getElementById("fullName-modal");
+
+	serviceNoteDoneForm.setAttribute('action', `/operating-room/nursing/service-note/${serviceNoteID}/done?_method=PUT`);
+	fullNameModal.innerHTML = fullName;
+});
+
+// Handle edit info Customer
+var doneBtn = document.getElementById("submit-service-note-done-btn");
+var serviceNoteDoneForm = document.forms["submit-service-note-done-form"];
+doneBtn.addEventListener("click", () => {
+	serviceNoteDoneForm.submit();
+});

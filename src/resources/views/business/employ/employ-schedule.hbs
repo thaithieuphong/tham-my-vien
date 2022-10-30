@@ -105,10 +105,10 @@
                                     <label class="form-label text-right text-danger">{{this.deposit}}</label>
                                 </div>
                             </div>
-                            <div class="card-footer bg-transparent d-flex justify-content-end">
+                            {{!-- <div class="card-footer bg-transparent d-flex justify-content-end">
                                 <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
                                     data-bs-target="#a{{this._id}}">Hình ảnh tư vấn</button>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     {{!-- Detail counselor --}}
@@ -228,12 +228,12 @@
                                     </label>
                                     <label class="form-label text-right text-danger">{{this.deposit}}</label>
                                 </div>
-                                <div class="d-flex justify-content-between">
+                                {{!-- <div class="d-flex justify-content-between">
                                     <label for="status">
                                         <strong>Hồ sơ khách hàng:</strong>&nbsp;
                                     </label>
                                     <a class="text-right link-primary" data-bs-toggle="modal" data-bs-target="#customer-information-modal">{{this.serviceNoteID._id}}</a>
-                                </div>
+                                </div> --}}
                                 {{!-- <div class="d-flex justify-content-between">
                                     <label for="status">
                                         <strong>Bác sĩ:</strong>&nbsp;
@@ -263,10 +263,10 @@
                                     <label class="form-label text-uppercase text-right">{{this.recept.firstName}} {{this.recept.lastName}};</label>
                                 </div> --}}
                             </div>
-                            <div class="card-footer bg-transparent d-flex justify-content-end">
+                            {{!-- <div class="card-footer bg-transparent d-flex justify-content-end">
                                 <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
                                     data-bs-target="#a{{this._id}}">Hình ảnh tư vấn</button>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     {{!-- Detail counselor --}}
@@ -370,7 +370,7 @@
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <label for="status">
-                                        <strong>Dịch vụ:</strong>&nbsp;
+                                        <strong class="text-nowrap">Dịch vụ:</strong>&nbsp;
                                     </label>
                                     <label class="form-label text-right">{{this.service}}</label>
                                 </div>
@@ -386,12 +386,12 @@
                                     </label>
                                     <label class="form-label text-right text-danger">{{this.deposit}}</label>
                                 </div>
-                                <hr>
+                                {{!-- <hr>
                                 <div class="d-flex justify-content-between">
                                     <label for="status">
                                         <strong>Bác sĩ:</strong>&nbsp;
                                     </label>
-                                    {{#each this.performer}}
+                                    {{#each this.serviceNoteID.performer}}
                                     <em>
                                         <label class="text-success form-label text-uppercase text-right">{{this.firstName}}
                                             {{this.lastName}};</label>
@@ -413,12 +413,12 @@
                                         <strong>Dẫn khách:</strong>&nbsp;
                                     </label>
                                     <label class="form-label text-uppercase text-right">{{this.recept.firstName}} {{this.recept.lastName}};</label>
-                                </div>
+                                </div> --}}
                             </div>
-                            <div class="card-footer bg-transparent d-flex justify-content-end">
+                            {{!-- <div class="card-footer bg-transparent d-flex justify-content-end">
                                 <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
                                     data-bs-target="#a{{this._id}}">Hình ảnh tư vấn</button>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     {{!-- Detail counselor --}}

@@ -3,32 +3,37 @@
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
     aria-labelledby="offcanvasWithBackdropLabel">
     <div class="offcanvas-header bg-blue border-bottom">
-        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <h5 class="offcanvas-title text-white text-center" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
         <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body container-sidebar bg-blue">
         <div class="sidebar-item">
             <a href="/operating-room/nursing" class="sidebar-item-title pl-3">
-                <i class="ti-receipt mr-3"></i>Lịch hẹn phẩu thuật
+                <i class="ti-dashboard mr-3"></i>Lịch hẹn tư vấn
             </a>
         </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Phiếu phẩu thuật
-            </a>
-        </div>
-		<div class="sidebar-item">
+        <div class="sidebar-item">
             <a href="/operating-room/nursing/re-examination" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Phiếu tái khám
+                <i class="ti-headphone-alt mr-3"></i>Lịch hẹn tái khám
             </a>
         </div>
 		<div class="sidebar-item">
             <a href="/operating-room/nursing/customers" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Khách hàng
+                <i class="ti-user mr-3 active"></i>Danh sách khách hàng
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3 active"></i>Danh sách hồ sơ khách hàng
             </a>
         </div>
     </div>
-	<div class="offcanvas-footer bg-blue border-top">
+	<div class="offcanvas-footer border-top">
+		<div class="sidebar-item border-bottom">
+            <a href="/operating-room/nursing/storage-cus-info" class="sidebar-item-title pl-3">
+				<i class="ti-trash mr-3 active"></i>Kho lưu trữ hồ sơ
+            </a>
+        </div>
         <div class="sidebar-item">
             <a href="/operating-room/nursing/profile" class="sidebar-item-title pl-3">
                 <i class="ti-user mr-3"></i>Thông tin người dùng
@@ -53,9 +58,9 @@
                 class="ti-menu"></i>
         </button>
     </nav>
-	<div class="bg-blue p-2">
-		<input type="text" id="search-service-note" class="form-control" placeholder="Tìm kiếm...">
-	</div>
+	{{!-- <div class="bg-blue p-2">
+		<input type="text" id="search-service-note" class="form-control rounded-pill" placeholder="Tìm kiếm...">
+	</div> --}}
 </div>
 <div class="p-3">
 	<div class="row">
@@ -102,11 +107,33 @@
 						</div>
 					</div>
 					<div class="card-footer">
-						<a class="btn btn-primary btn-mobile" href='/operating-room/nursing/customer-information/{{this._id}}'>Cập nhật hồ sơ</a>
+						<a class="btn btn-primary btn-mobile mb-2 rounded-pill" href='/operating-room/nursing/customer-information/{{this._id}}'>Cập nhật hồ sơ</a>
+						<button type="button" data-bs-toggle="modal" data-bs-target="#submit-doctor-modal"
+							class="btn btn-success btn-mobile rounded-pill" data-id="{{this._id}}" data-fullName="{{this.scheduleID.customerID.fullName}}">Hoàn thành</button>
 					</div>
 				</div>
 			</div>
 		{{/each}}
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="submit-doctor-modal" tabindex="-1" aria-labelledby="submit-doctor-modal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title text-light" id="exampleModalLabel">Thông báo</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="submit-service-note-done-form">
+					Bạn chắc chắn đã hoàn thành hồ sơ của khách hàng <label id="fullName-modal"></label>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="submit-service-note-done-btn" type="button" class="btn btn-primary">Có, chắc chắn</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chưa</button>
+			</div>
+		</div>
 	</div>
 </div>
 <script src="/js/operating/nursing-service-note.js"></script>

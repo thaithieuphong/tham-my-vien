@@ -567,13 +567,13 @@ class EmployBusinessController {
 
 	showSchedule(req, res, next) {
 		Promise.all([
-			Schedule.find({ createName: req.userId, status: "Tạo mới" }).populate('customerID').populate('createName'),
+			Schedule.find({ createName: req.userId, status: "Tạo mới" }).populate('customerID').populate('createName'),
 			Schedule.find({ createName: req.userId, status: 'Đang xử lý'}).populate('customerID').populate('createName').populate('serviceNoteID'),
-			Schedule.find({ createName: req.userId, status: "Hoàn thành" }).populate('customerID').populate('createName').populate('serviceNoteID'),
+			Schedule.find({ createName: req.userId, status: "Hoàn thành" }).populate('customerID').populate('createName').populate('serviceNoteID'),
 			User.findById({ _id: req.userId })
 		])
 			.then(([newSchedule, handlingSchedule, doneSchedule, user]) => {
-				console.log('handling schedule', handlingSchedule)
+				console.log('handling schedule', doneSchedule)
 				res.render('business/employ/employ-schedule', {
 					newSchedule: multipleMongooseToObject(newSchedule),
 					handlingSchedule: multipleMongooseToObject(handlingSchedule),
@@ -602,7 +602,7 @@ class EmployBusinessController {
 		const schedule = new Schedule({
 			customerID: req.body.customerID,
 			createName: req.body.createName,
-			status: "Tạo mới",
+			status: "Tạo mới",
 			service: req.body.service,
 			comments: { comment: req.body.comment },
 			schedule: req.body.schedule,

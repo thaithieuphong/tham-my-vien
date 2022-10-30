@@ -47,11 +47,11 @@ if (submitInSurgeryFormBtn) {
 	});
 }
 
-var submitBeforeForm = document.forms['submit-before-form'];
-var submitBeforeFormBtn = document.getElementById('submit-before-form-btn');
-if (submitBeforeFormBtn) {
-	submitBeforeFormBtn.addEventListener("click", () => {
-		submitBeforeForm.submit();
+var submitAfterForm = document.forms['submit-after-form'];
+var submitAfterFormBtn = document.getElementById('submit-after-form-btn');
+if (submitAfterFormBtn) {
+	submitAfterFormBtn.addEventListener("click", () => {
+		submitAfterForm.submit();
 	});
 }
 
@@ -115,7 +115,10 @@ document.addEventListener("DOMContentLoaded", function () {
 					let reader = new FileReader();
 					reader.onload = function (event) {
 						let newVideo = document.createElement('video');
-						let closeButtonLink = document.createElement('button');
+						let iconClose = document.createElement('i');
+						iconClose.setAttribute('class', 'ti-close');
+						let closeButtonLink = document.createElement('div');
+						closeButtonLink.append(iconClose);
 						let divMain = document.createElement('figure');
 						let src = event.target.result;
 						divMain.classList = 'col-md-4 col-sm figure imgbox position-relative mt-2';
@@ -127,7 +130,8 @@ document.addEventListener("DOMContentLoaded", function () {
 						closeButtonLink.type = 'button';
 						closeButtonLink.id = i;
 						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-video';
+						// closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-video';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
 						let videoc = document.querySelector('.preview-videos-counselor');
 						divMain.append(newVideo, closeButtonLink);
 						videoc.append(divMain);
@@ -412,88 +416,39 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 });
 
-// Handle push data to delete modal
-var deleteSchedule = document.getElementById("delete-schedule-modal");
-if (deleteSchedule) {
-	deleteSchedule.addEventListener("show.bs.modal", function (event) {
-		// Button that triggered the modal
-		var button = event.relatedTarget;
-		// Get data from delete button
-		var serviceNoteId = button.getAttribute('data-delete-id');
-		var firstName = button.getAttribute("data-delete-firstname");
-		var lastName = button.getAttribute("data-delete-lastname");
-		var cusID = button.getAttribute("data-delete-customerID");
-		// Get element need embeded input
-		var deleteSchedule = document.getElementById("delete-schedule");
-		var deleteCusID = document.getElementById("delete-cusID");
-		deleteScheduleForm.setAttribute('action', `/operating-room/nursing/${serviceNoteId}/schedule?_method=DELETE`);
-	
-		deleteCusID.value = cusID;
-		deleteSchedule.innerHTML = firstName + ' ' + lastName;
-	});
-}
-
-// Handle delete info Customer
-var deleteBtn = document.getElementById("delete-schedule-btn");
-var deleteScheduleForm = document.forms["delete-schedule-form"];
-if (deleteBtn) {
-	deleteBtn.addEventListener("click", () => {
-		deleteScheduleForm.submit();
-	});
-}
-
-
-var restoreServiceNote = document.getElementById("restore-service-note-modal");
-if (restoreServiceNote) {
-	restoreServiceNote.addEventListener("show.bs.modal", function (event) {
-		// Button that triggered the modal
-		var button = event.relatedTarget;
-		// Get data from delete button
-		var serviceNoteId = button.getAttribute('data-restore-id');
-		var firstName = button.getAttribute("data-restore-firstname");
-		var lastName = button.getAttribute("data-restore-lastname");
-	
-		// Get element need embeded input
-		var restoreUser = document.getElementById("restore-service-note");
-	
-		restoreServiceNoteForm.setAttribute('action', `/operating-room/nursing/schedule/${serviceNoteId}/restore?_method=PATCH`);
-		restoreUser.innerText = `${firstName} ${lastName}`;
-	});
-	
-	// Handle delete info Customer
-	var restoreServiceNoteBtn = document.getElementById("restore-service-note-btn");
-	var restoreServiceNoteForm = document.forms["restore-service-note-form"];
-	restoreServiceNoteBtn.addEventListener("click", () => {
-		restoreServiceNoteForm.submit();
-	});
-}
-
 
 function totalMoneyFn(before, current) {
+	console.log('before', before);
+	console.log('current', current);
 	return before + current.price;
 }
 
 // Hàm tạo dịch vụ mới
 var serviceContainer = document.getElementById('service-container')
 var createService = function(str) {
+	let divInputGroup = document.createElement('div');
+	let inputLabelHidden = document.createElement('input');
+	inputLabelHidden.hidden = true;
+	inputLabelHidden.value = str;
+	inputLabelHidden.setAttribute('name', 'service');
+	divInputGroup.setAttribute('class', 'input-group mb-3 input-group-service');
 	let divContainer = document.createElement('div');
-	divContainer.setAttribute('class', 'input-group mb-3');
+	divContainer.setAttribute('class', 'form-floating');
 	let btnClose = document.createElement('button');
-	btnClose.setAttribute('class', 'btn btn-danger btn-sm close-btn');
+	btnClose.setAttribute('class', 'btn btn-danger close-btn');
 	let iconClose = document.createElement('i');
 	iconClose.setAttribute('class', 'ti-close');
 	btnClose.append(iconClose);
-	let inputService = document.createElement('input');
-	inputService.value = str;
-	inputService.setAttribute('class', 'form-control bg-dark-yellow text-wrap text-light');
-	inputService.setAttribute('name', 'service');
-	inputService.readOnly = true;
+	let inputService = document.createElement('label');
+	inputService.innerHTML = str;
+	inputService.setAttribute('class', 'form-control bg-transparent text-wrap text-dark-yellow');
 	let inputPrice = document.createElement('input');
-	inputPrice.setAttribute('class', 'form-control text-right input-price');
+	inputPrice.setAttribute('class', 'form-control text-right input-price bg-transparent text-light');
 	inputPrice.setAttribute('name', 'price');
 	inputPrice.setAttribute('value', 0);
-	divContainer.append(inputService, inputPrice, btnClose)
-	serviceContainer.append(divContainer)
+	divContainer.append(inputPrice, inputService);
+	divInputGroup.append(divContainer, btnClose, inputLabelHidden)
+	serviceContainer.append(divInputGroup)
 }
 
 var addServicesBtn = document.getElementById('add-services');
@@ -514,27 +469,27 @@ if (addServicesBtn) {
 		// Gọi đến hàm tạo dịch vụ khi click
 		createService(textService);
 		let serviceArr = [];
-		let serviceElement = serviceContainer.children;
+		let serviceElement = document.getElementById('service-container').children;
 		for (let i = 0; i < serviceElement.length; i++) {
+			let inputGroup = serviceElement[i];
 			serviceElement[i].setAttribute('id', i);
-			let serviceInput = serviceElement[i].children[1];
-			
-			serviceInput.setAttribute('id', i)
+			let formFloating = inputGroup.children[0];
+			let serviceInput = formFloating.children[0];
+			serviceInput.setAttribute('id', i);
 			serviceArr.push({ 'index': i,'price': parseFloat(serviceInput.value.replace(/\D/g,''), 10)});
 			serviceInput.addEventListener('focus', (e) => {
 				serviceInput.value = null;
 			})
 			serviceInput.addEventListener('input', (e) => {
 				let valueMoney = e.target.value;
-				let id = serviceInput.getAttribute('id')
+				let id = serviceInput.getAttribute('id');
 				let convertMoney = parseFloat(valueMoney.replace(/\D/g,''), 10);
 				convertMoney === NaN ? convertMoney = 0 : convertMoney;
 				serviceArr.filter((service) => {
 					if (parseInt(id) === service.index) {
-						service.price = convertMoney
+						service.price = convertMoney;
 					}
 				})
-				
 				let totalMoney = serviceArr.reduce(totalMoneyFn, 0);
 				let convertDeposit = parseFloat(depositInput.value.replace(/\D/g,''), 10);
 				let trucoc = totalMoney - convertDeposit;
@@ -543,11 +498,14 @@ if (addServicesBtn) {
 				serviceInput.value = convertedMoney;
 			})
 
-			let serviceClose = serviceElement[i].children[2];
+			let serviceClose = inputGroup.children[1];
+			console.log(serviceClose)
 			serviceClose.setAttribute('id', i);
 			serviceClose.addEventListener('click', (e) => {
+				e.preventDefault();
 				let parent = serviceClose.parentElement;
-				let id = serviceClose.getAttribute('id')
+				let id = serviceClose.getAttribute('id');
+				console.log(parent)
 				serviceArr.forEach((service) => {
 					if (parseInt(id) === service.index) {
 						let index = serviceArr.indexOf(service)
@@ -562,4 +520,36 @@ if (addServicesBtn) {
 			})
 		}
 	});
+}
+
+let slideIndex = 1;
+showSlidesBeforeCounselorImg(slideIndex);
+
+
+// Next/previous controls
+function plusSlidesBeforeCounselorImg(n) {
+	showSlidesBeforeCounselorImg(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlideBeforeCounselorImg(n) {
+	showSlidesBeforeCounselorImg(slideIndex = n);
+}
+
+function showSlidesBeforeCounselorImg(n) {
+	let i;
+	let slides = document.getElementsByClassName("slide-before-counselor-img");
+	if(slides) {
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active-click", "");
+		}
+		slides[slideIndex-1].style.display = "block";
+		dots[slideIndex-1].className += " active-click";
+	}
 }

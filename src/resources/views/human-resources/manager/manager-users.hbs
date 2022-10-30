@@ -62,9 +62,9 @@
 			</thead>
 			<tbody id="table-content">
 				{{#each users}}
-				<tr>
+				<tr class="text-light">
 					<th class="text-center" scope="row">{{sum @index 1}}</th>
-					<td><a href="/human-resources/manager/user/{{this._id}}/detail">{{this.firstName}}
+					<td><a class="link-light" href="/human-resources/manager/user/{{this._id}}/detail">{{this.firstName}}
 							{{this.lastName}}</a></td>
 					<td class="text-center">{{this.department}}</td>
 					<td class="text-center">{{this.position}}</td>
@@ -72,7 +72,7 @@
 					<td class="text-center">{{this.gender}}</td>
 					<td class="text-center">0{{this.phone}}</td>
 					<td>{{this.email}}</td>
-					<td>{{this.description}}</td>
+					<td>{{cutPassword this.description 16}}</td>
 					<td class="text-center">
 						<button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
 							data-id="{{this._id}}" data-edit-img="{{this.image.url}}"

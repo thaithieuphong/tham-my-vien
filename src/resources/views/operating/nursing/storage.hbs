@@ -9,11 +9,11 @@
     <div class="offcanvas-body container-sidebar bg-blue">
         <div class="sidebar-item">
             <a href="/operating-room/nursing" class="sidebar-item-title pl-3">
-                <i class="ti-dashboard mr-3"></i>Lịch hẹn phẩu thuật
+                <i class="ti-dashboard mr-3"></i>Lịch hẹn tư vấn
             </a>
         </div>
         <div class="sidebar-item">
-            <a href="/operating-room/nursing/coordinator-re-examination" class="sidebar-item-title pl-3">
+            <a href="/operating-room/nursing/re-examination" class="sidebar-item-title pl-3">
                 <i class="ti-headphone-alt mr-3"></i>Lịch hẹn tái khám
             </a>
         </div>
@@ -22,11 +22,16 @@
                 <i class="ti-user mr-3 active"></i>Danh sách khách hàng
             </a>
         </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3 active"></i>Danh sách hồ sơ khách hàng
+            </a>
+        </div>
     </div>
 	<div class="offcanvas-footer border-top">
 		<div class="sidebar-item border-bottom">
-            <a href="/operating-room/nursing/storage" class="sidebar-item-title pl-3">
-                <i class="ti-trash mr-3 active"></i>Kho lưu trữ
+            <a href="/operating-room/nursing/storage-cus-info" class="sidebar-item-title pl-3">
+				<i class="ti-trash mr-3 active"></i>Kho lưu trữ hồ sơ
             </a>
         </div>
         <div class="sidebar-item">
@@ -56,24 +61,24 @@
                 class="ti-menu"></i>
         </button>
     </nav>
+	{{!-- <div class="bg-blue p-2">
+		<input type="text" id="search-service-note" class="form-control rounded-pill" placeholder="Tìm kiếm...">
+	</div> --}}
 </div>
 <div class="mt-3 ml-3 mr-3">
-	{{#if messages_pushReExamination_error}}
-	<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
-		{{messages_pushReExamination_error}}
+	{{#if messages_createReExamination_success}}
+	<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+		{{messages_createReExamination_success}}
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 	{{/if}}
 	<div class="row">
-		{{#each schedule}}
+		{{#each serviceNote}}
 		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
 			<div class="card mb-3 shadow text-white bg-glass">
 				<div class="card-header bg-transparent d-flex justify-content-between">
-					<div class="badge bg-success lh-lg">
-						{{formatDate this.schedule}}
-					</div>
-					<div class="badge bg-danger lh-lg">{{this.status}}</div>
-					<a class="text-light" href="/operating-room/nursing/schedule/{{this._id}}/detail">
+					<div class="badge bg-danger lh-lg rounded-pill">{{this.status}}</div>
+					<a class="text-light" href="/operating-room/nursing/service-note/{{this._id}}/detail">
 						<i class="fa-solid fa-ellipsis"></i>
 					</a>
 				</div>
@@ -81,85 +86,78 @@
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-light text-nowrap"><strong>Khách hàng:</strong></label>
 						<p class="m-0 text-wrap">
-							<span class="badge bg-info text-uppercase fw-bold">
-								{{this.customerID.firstName}} {{this.customerID.lastName}}
-							</span>
+							{{this.scheduleID.customerID.fullName}}
 						</p>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-light"><strong>Giới tính:</strong></label>
 						<div class="form-label">
-							{{this.customerID.gender}}
+							{{this.scheduleID.customerID.gender}}
 						</div>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-light text-nowrap" for=""><strong>Số điện thoại:</strong></label>
 						<div class="text-light form-label">
-							0{{this.customerID.phone}}
+							0{{this.scheduleID.customerID.phone}}
 						</div>
 					</div>
 					<div class="d-flex justify-content-between">
-						<label class="form-label text-light text-nowrap" for=""><strong>Dịch vụ:</strong></label>
-						<div class="form-label text-right">
-							{{this.service}}
+						<label class="form-label text-light text-nowrap" for=""><strong>Đặt cọc:</strong></label>
+						<div class="text-warning form-label">
+							{{this.deposit}}
 						</div>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-light text-nowrap" for=""><strong>Phí dịch vụ:</strong></label>
-						<div class="text-warning form-label">
-							{{this.price}}
+						<div class="text-danger form-label">
+							{{this.total}}
 						</div>
 					</div>
 				</div>
 				<div class="card-footer bg-transparent">
-					<button class="btn btn-primary btn-mobile mb-1" data-bs-toggle="modal" data-bs-target="#restore-service-note-modal"
-							data-restore-id="{{this._id}}" data-restore-firstname="{{this.customerID.firstName}}"
-							data-restore-lastname="{{this.customerID.lastName}}">Khôi phục</button>
+					<button class="btn btn-primary btn-mobile mb-1 rounded-pill" data-bs-toggle="modal" data-bs-target="#create-re-exam-modal" data-id="{{this._id}}"
+					data-cusId="{{this.scheduleID.customerID._id}}" data-fullname="{{this.scheduleID.customerID.fullName}}"
+					data-gender="{{this.scheduleID.customerID.gender}}" data-phone="{{this.scheduleID.customerID.phone}}">Tạo lịch tái khám</button>
 				</div>
 			</div>
 		</div>
 		{{/each}}
 	</div>
 </div>
-
-
-
-
-<!-- Restore service note modal -->
-<div class="modal fade" id="restore-service-note-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Khôi phục phiếu dịch vụ</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Bạn có chắc muốn khôi phục phiếu dịch vụ của <strong id="restore-service-note"></strong> không?
-      </div>
-      <div class="modal-footer">
-        <button id="restore-service-note-btn" type="button" class="btn btn-danger">Chắc chắn</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
-      </div>
-    </div>
-  </div>
+<!-- Modal -->
+<div class="modal fade" id="create-re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-blue">
+				<h5 class="modal-title text-light" id="exampleModalLabel">Tạo lịch tái khám</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="create-re-exam-form" method="POST">
+					<input id="submit-re-exam-cusId" type="text" name="cusID" hidden>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Khách hàng:</strong></label>
+						<div id="submit-re-exam-fullname" class="m-0 text-wrap" ></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label"><strong>Giới tính:</strong></label>
+						<div id="submit-re-exam-gender" class="form-label"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Số điện thoại:</strong></label>
+						<div id="submit-re-exam-phone" class="form-label"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Ngày hẹn:</strong></label>
+						<input type="datetime-local" id="submit-re-exam-schedule" class="form-control" name="schedule">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button id="create-re-exam-btn" type="button" class="btn btn-primary">Tạo lịch</button>
+			</div>
+		</div>
+	</div>
 </div>
-
-<form id="restore-service-note-form" method="POST"></form>
-<script src="/js/operating/nursing.js"></script>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-	const textarea = document.querySelectorAll('.message-content');
-	for (i = 0; i < textarea.length; i++) {
-		let element = textarea[i];
-		let textValue = element.innerHTML;
-		let textSplit = textValue.split('\n');
-		let cols = textValue.length;
-		let rows = textSplit.length;
-		let result = textSplit.join('<br>');
-		element.innerHTML = result;
-		let parent = element.clientWidth;
-		let ex = parent - cols;
-	}
-})
-</script>
+<script src="/js/operating/nursing-re-exam.js"></script>

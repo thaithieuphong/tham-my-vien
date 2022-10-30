@@ -185,29 +185,21 @@ createSchedule.addEventListener("show.bs.modal", function (event) {
 
 document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {
-		$("#customerNew_table").DataTable({
-			paging: true,
-			reponsive: true,
-			
-			scrollCollapse: true,
+		$("#customerNew").bootstrapTable({
+			pagination: true,
+			search: true,
 		});
-		$("#customerPotential_table").DataTable({
-			paging: true,
-			reponsive: true,
-			
-			scrollCollapse: true,
+		$("#customerPotential").bootstrapTable({
+			pagination: true,
+			search: true,
 		});
-		$("#customerSchedule_table").DataTable({
-			paging: true,
-			reponsive: true,
-		
-			scrollCollapse: true,
+		$("#customerSchedule").bootstrapTable({
+			pagination: true,
+			search: true,
 		});
-		$("#customerFail_table").DataTable({
-			paging: true,
-			reponsive: true,
-			
-			scrollCollapse: true,
+		$("#customerFail").bootstrapTable({
+			pagination: true,
+			search: true,
 		});
 	});
 

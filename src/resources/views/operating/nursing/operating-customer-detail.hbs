@@ -1,34 +1,39 @@
 <link rel="stylesheet" href="/css/root.css">
-<link rel="stylesheet" href="/css/assistant.css">
+{{!-- <link rel="stylesheet" href="/css/assistant.css"> --}}
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
     aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header bg-dark border-bottom">
-        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+    <div class="offcanvas-header bg-blue border-bottom">
+        <h5 class="offcanvas-title text-white text-center" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
         <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body container-sidebar bg-dark">
+    <div class="offcanvas-body container-sidebar bg-blue">
         <div class="sidebar-item">
             <a href="/operating-room/nursing" class="sidebar-item-title pl-3">
-                <i class="ti-receipt mr-3"></i>Phiếu hoàn thành
+                <i class="ti-dashboard mr-3"></i>Lịch hẹn tư vấn
             </a>
         </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Phiếu phẩu thuật
-            </a>
-        </div>
-		<div class="sidebar-item">
+        <div class="sidebar-item">
             <a href="/operating-room/nursing/re-examination" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Phiếu tái khám
+                <i class="ti-headphone-alt mr-3"></i>Lịch hẹn tái khám
             </a>
         </div>
 		<div class="sidebar-item">
             <a href="/operating-room/nursing/customers" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Khách hàng
+                <i class="ti-user mr-3 active"></i>Danh sách khách hàng
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3 active"></i>Danh sách hồ sơ khách hàng
             </a>
         </div>
     </div>
-	<div class="offcanvas-footer bg-dark border-top">
+	<div class="offcanvas-footer border-top">
+		<div class="sidebar-item border-bottom">
+            <a href="/operating-room/nursing/storage-cus-info" class="sidebar-item-title pl-3">
+				<i class="ti-trash mr-3 active"></i>Kho lưu trữ hồ sơ
+            </a>
+        </div>
         <div class="sidebar-item">
             <a href="/operating-room/nursing/profile" class="sidebar-item-title pl-3">
                 <i class="ti-user mr-3"></i>Thông tin người dùng

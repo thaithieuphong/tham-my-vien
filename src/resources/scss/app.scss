@@ -13,7 +13,7 @@ body {
     overflow: auto;
     height: auto;
     background-image: url('/img/background_1929x969-min.jpg');
-    background-size: cover;
+    background-size:auto;
     // background-image: linear-gradient(to bottom right, #002357, #0a4dce);
 }
 
@@ -184,6 +184,10 @@ body {
 
 textarea {
     resize: none !important;
+}
+
+.textarea-none {
+    resize: unset !important;
 }
 
 .message-content {
