@@ -24,18 +24,7 @@ const ServiceNote = new Schema({
 		}
 	],
 	
-	nursing: [
-		{
-			type: String,
-			ref: "User"
-		}
-	],
-
-	recept:
-	{
-		type: String,
-		ref: "User"
-	},
+	floor: String,
 
 	counselorImg: [
 		{

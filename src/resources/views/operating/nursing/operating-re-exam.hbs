@@ -9,34 +9,39 @@
     <div class="offcanvas-body container-sidebar bg-blue">
         <div class="sidebar-item">
             <a href="/operating-room/nursing" class="sidebar-item-title pl-3">
-                <i class="ti-dashboard mr-3"></i>Lịch hẹn tư vấn
+                <i class="fa-sharp fa-solid fa-calendar-check mr-3"></i>Lịch hẹn tư vấn
             </a>
         </div>
         <div class="sidebar-item">
             <a href="/operating-room/nursing/re-examination" class="sidebar-item-title pl-3">
-                <i class="ti-headphone-alt mr-3"></i>Lịch hẹn tái khám
+                <i class="fa-sharp fa-solid fa-calendar-plus mr-3"></i>Lịch hẹn tái khám
             </a>
         </div>
 		<div class="sidebar-item">
             <a href="/operating-room/nursing/customers" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3 active"></i>Danh sách khách hàng
+                <i class="fa-sharp fa-solid fa-users mr-2"></i>Danh sách khách hàng
             </a>
         </div>
 		<div class="sidebar-item">
             <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3 active"></i>Danh sách hồ sơ khách hàng
+                <i class="fa-sharp fa-solid fa-receipt mr-3"></i>Danh sách hồ sơ khách hàng
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/operating-room/nursing/discharge-from-hospital" class="sidebar-item-title pl-3">
+				<i class="fa-sharp fa-solid fa-arrow-right-from-bracket mr-2"></i>Danh sách khách hàng xuất viện
             </a>
         </div>
     </div>
 	<div class="offcanvas-footer border-top">
 		<div class="sidebar-item border-bottom">
-            <a href="/operating-room/nursing/storage-cus-info" class="sidebar-item-title pl-3">
-				<i class="ti-trash mr-3 active"></i>Kho lưu trữ hồ sơ
+            <a href="/operating-room/nursing/storage-cus-info-done" class="sidebar-item-title pl-3">
+				<i class="fa-sharp fa-solid fa-boxes-packing mr-3"></i>Kho lưu trữ hồ sơ
             </a>
         </div>
         <div class="sidebar-item">
             <a href="/operating-room/nursing/profile" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Thông tin người dùng
+                <i class="fa-sharp fa-solid fa-address-book mr-3"></i>Thông tin người dùng
             </a>
         </div>
 		<div class="sidebar-item">
@@ -62,41 +67,49 @@
 <div class="p-3">
 	<div class="row">
 		{{#each reExam}}
-		<div class="col-xl-3 col-lg-3 col-md-4 mb-3">
-			<div class="card bg-glass-0">
+		<div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 mb-3">
+			<div class="card bg-glass">
 				<div class="card-header text-right">
 					<a class="text-light" href="/operating-room/nursing/re-examination/{{this._id}}/detail">
 						<i class="fa-solid fa-ellipsis"></i>
 					</a>
 				</div>
 				<div class="card-body">
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between border-bottom mb-3">
 						<label for="status" class="text-nowrap text-light">
-							<strong>Họ tên khai sinh:</strong>&nbsp;
+							<strong>Mã định danh:</strong>
+						</label>
+						<label class="fs-6 text-light text-right text-name">
+							{{this.customerID.identification}}
+						</label>
+					</div>
+					<div class="d-flex justify-content-between border-bottom mb-3">
+						<label for="status" class="text-nowrap text-light">
+							<strong>Họ tên khai sinh:</strong>
 						</label>
 						<label class="fs-6 text-light text-right text-name">
 							{{this.customerID.fullName}}
 						</label>
 					</div>
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between border-bottom mb-3">
 						<label for="status" class="text-nowrap text-light">
-							<strong>Tên thường gọi:</strong>&nbsp;
+							<strong>Tên thường gọi:</strong>
 						</label>
 						<label class="fs-6 text-light text-right text-name">
 							{{this.customerID.nickName}}
 						</label>
 					</div>
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between border-bottom mb-3">
 						<label for="status" class="text-nowrap text-light">
-							<strong>Ngày hẹn:</strong>&nbsp;
+							<strong>Ngày hẹn:</strong>
 						</label>
 						<label for=""class="fs-6 text-success text-right">
 							<em>{{formatDate this.schedule}}</em>
 						</label>
 					</div>
-					<div class="d-flex justify-content-between">
+					<div class="d-flex justify-content-between border-bottom mb-3">
 						<label for="status" class="text-nowrap text-light">
-							<strong>Trạng thái:</strong>&nbsp;
+							<strong>Trạng thái:</strong>
 						</label>
 						<label class="fs-6 text-danger text-right">
 							<em>{{this.status}}</em>
@@ -104,9 +117,15 @@
 					</div>
 				</div>
 				<div class="card-footer">
-					<a class="btn btn-primary btn-mobile mb-2 rounded-pill" href='/operating-room/nursing/re-examination/{{this._id}}'>Cập nhật</a>
-					<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal-done"
-						class="btn btn-success btn-mobile rounded-pill" data-id="{{this._id}}" data-cusId="{{this.customerID._id}}" data-fullName="{{this.customerID.fullName}}">Hoàn thành</button>
+					<div class="row d-flex justify-content-between">
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<a class="btn btn-primary btn-mobile mb-2 rounded-pill border" href='/operating-room/nursing/re-examination/{{this._id}}'>Cập nhật</a>
+						</div>
+						<div class="col-lg-6 col-md-12 col-sm-12 text-right">
+							<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal-done"
+								class="btn btn-success btn-mobile rounded-pill border" data-id="{{this._id}}" data-cusId="{{this.customerID._id}}" data-fullName="{{this.customerID.fullName}}">Hoàn thành</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -127,8 +146,8 @@
 				Đã hoàn thành tái khám cho khách hàng <strong id="submit-re-exam-fullname"></strong>
 			</div>
 			<div class="modal-footer d-flex justify-content-between">
-				<button id="submit-re-exam-btn-done" type="button" class="btn btn-success">Đã hoàn thành</button>
-				<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Chưa hoàn thành</button>
+				<button id="submit-re-exam-btn-done" type="button" class="btn btn-success rounded-pill">Đã hoàn thành</button>
+				<button type="button" class="btn btn-danger rounded-pill" data-bs-dismiss="modal">Chưa hoàn thành</button>
 			</div>
 		</div>
 	</div>

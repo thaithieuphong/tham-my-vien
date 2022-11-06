@@ -20,7 +20,15 @@
 {{#if reExamination}}
 	<div class="card bg-glass-0">
 		<div class="card-body">
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
+				<label for="status" class="text-nowrap text-light">
+					<strong>Mã định danh:</strong>&nbsp;
+				</label>
+				<label class="fs-6 text-light text-right">
+					{{reExamination.customerID.identification}}
+				</label>
+			</div>
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Họ tên khai sinh:</strong>&nbsp;
 				</label>
@@ -28,7 +36,7 @@
 					{{reExamination.customerID.fullName}}
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Tên thường gọi:</strong>&nbsp;
 				</label>
@@ -36,7 +44,7 @@
 					{{reExamination.customerID.nickName}}
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Ngày hẹn:</strong>&nbsp;
 				</label>
@@ -44,7 +52,7 @@
 					<em>{{formatDate reExamination.schedule}}</em>
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Trạng thái:</strong>&nbsp;
 				</label>
@@ -52,7 +60,7 @@
 					<em>{{reExamination.status}}</em>
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Bác sĩ:</strong>&nbsp;
 				</label>
@@ -62,30 +70,20 @@
 					{{/each}}
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
-				<label for="status" class="text-nowrap text-light">
-					<strong>Điều dưỡng:</strong>&nbsp;
-				</label>
-				<label class="text-light">
-					{{#each reExamination.nursing}}
-					<em>{{this.firstName}} {{this.lastName}};</em>
-					{{/each}}
-				</label>
-			</div>
-			<div class="d-flex justify-content-between">
+			{{!-- <div class="d-flex justify-content-between">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Dẫn khách:</strong>&nbsp;
 				</label>
 				<label class="text-light text-right">
 					{{reExamination.recept.firstName}} {{reExamination.recept.lastName}}
 				</label>
-			</div>
-			<div class="d-flex justify-content-between">
+			</div> --}}
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Ngày phẩu thuật:</strong>&nbsp;
 				</label>
 				<label class="text-light text-right">
-					{{formatDate reExamination.serviceNoteId.surgeryDay}}
+					{{formatBirth reExamination.serviceNoteId.surgeryDay}}
 				</label>
 			</div>
 			<div class="d-flex justify-content-between">
@@ -94,7 +92,7 @@
 				</label>
 			</div>
 			{{#each reExamination.serviceNoteId.service}}
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label class="text-dark-yellow">
 					<em>{{this.name}}</em>
 				</label>
@@ -102,9 +100,8 @@
 					<em>{{this.price}}</em>
 				</label>
 			</div>
-			<hr>
 			{{/each}}
-			<div class="d-flex justify-content-between justify-content-sm-start">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Đặt cọc:</strong>&nbsp;
 				</label>
@@ -112,8 +109,7 @@
 					{{reExamination.serviceNoteId.deposit}}
 				</label>
 			</div>
-			<hr>
-			<div class="d-flex justify-content-between justify-content-sm-start">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Tổng chi phí:</strong>&nbsp;
 				</label>
@@ -135,12 +131,13 @@
 								{{#if reExamination.reExamImg}}
 								{{#each reExamination.reExamImg}}
 								<div class="slide-re-exam-img fadeOn">
-									<img class="figure-img img-fluid rounded img-cover img-center" src="/re-examination/img/{{this.name}}">
+									<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+									{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/re-examination/img/{{this.name}}"> --}}
 								</div>
 								{{/each}}
 								{{else}}
 								<div class="slide-re-exam-img fadeOn">
-									<div class="text-center">Chưa có ảnh và video</div>
+									<div class="text-center">Chưa có ảnh</div>
 								</div>
 								{{/if}}
 								<!-- Next and previous buttons -->
@@ -159,7 +156,8 @@
 								{{#each reExamination.reExamVideo}}
 								<div class="slide-re-exam-video fadeOn">
 									<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
-										<source src="/re-examination/video/{{this.name}}">
+										<source src="/re-examination/video/{{this.url}}">
+										{{!-- <source src="/re-examination/video/{{this.name}}"> --}}
 									</video>
 								</div>
 								{{/each}}

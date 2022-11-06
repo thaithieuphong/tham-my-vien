@@ -20,7 +20,15 @@
 {{#if serviceNote}}
 	<div class="card bg-glass-0">
 		<div class="card-body">
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
+				<label for="status" class="text-nowrap text-light">
+					<strong>Mã định danh:</strong>&nbsp;
+				</label>
+				<label class="fs-6 text-light text-right">
+					{{serviceNote.scheduleID.customerID.identification}}
+				</label>
+			</div>
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Họ tên khai sinh:</strong>&nbsp;
 				</label>
@@ -28,7 +36,7 @@
 					{{serviceNote.scheduleID.customerID.fullName}}
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Tên thường gọi:</strong>&nbsp;
 				</label>
@@ -36,7 +44,15 @@
 					{{serviceNote.scheduleID.customerID.nickName}}
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
+				<label for="status" class="text-nowrap text-light">
+					<strong>Quê quán:</strong>&nbsp;
+				</label>
+				<label class="fs-6 text-light text-right">
+					{{serviceNote.scheduleID.customerID.homeTown}}
+				</label>
+			</div>
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Ngày hẹn:</strong>&nbsp;
 				</label>
@@ -44,7 +60,7 @@
 					<em>{{formatDate serviceNote.scheduleID.schedule}}</em>
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Trạng thái:</strong>&nbsp;
 				</label>
@@ -52,40 +68,46 @@
 					<em>{{serviceNote.status}}</em>
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Bác sĩ:</strong>&nbsp;
 				</label>
 				<label class="text-light">
 					{{#each serviceNote.performer}}
-					<em>{{this.firstName}} {{this.lastName}};</em>
+					<em>{{this.firstName}} {{this.lastName}}</em>
 					{{/each}}
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Điều dưỡng:</strong>&nbsp;
+					<strong>Chiều cao:</strong>&nbsp;
 				</label>
 				<label class="text-light">
-					{{#each serviceNote.nursing}}
-					<em>{{this.firstName}} {{this.lastName}};</em>
-					{{/each}}
+					<em>{{serviceNote.scheduleID.customerID.height}}</em>
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Dẫn khách:</strong>&nbsp;
+					<strong>Cân nặng:</strong>&nbsp;
 				</label>
 				<label class="text-light text-right">
-					{{serviceNote.recept.firstName}} {{serviceNote.recept.lastName}}
+					<em>{{serviceNote.scheduleID.customerID.weight}}</em>
 				</label>
 			</div>
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Ngày phẩu thuật:</strong>&nbsp;
 				</label>
 				<label class="text-light text-right">
-					{{formatDate serviceNote.surgeryDay}}
+					{{formatBirth serviceNote.surgeryDay}}
+				</label>
+			</div>
+			<div class="d-flex justify-content-between border-bottom mb-3">
+				<label for="status" class="text-nowrap text-light">
+					<strong>Tầng phẩu thuật:</strong>&nbsp;
+				</label>
+				<label class="text-light text-right">
+					{{serviceNote.floor}}
 				</label>
 			</div>
 			<div class="d-flex justify-content-between">
@@ -94,7 +116,7 @@
 				</label>
 			</div>
 			{{#each serviceNote.service}}
-			<div class="d-flex justify-content-between">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label class="text-dark-yellow">
 					<em>{{this.name}}</em>
 				</label>
@@ -102,9 +124,8 @@
 					<em>{{this.price}}</em>
 				</label>
 			</div>
-			<hr>
 			{{/each}}
-			<div class="d-flex justify-content-between justify-content-sm-start">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Đặt cọc:</strong>&nbsp;
 				</label>
@@ -112,8 +133,7 @@
 					{{serviceNote.deposit}}
 				</label>
 			</div>
-			<hr>
-			<div class="d-flex justify-content-between justify-content-sm-start">
+			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
 					<strong>Tổng chi phí:</strong>&nbsp;
 				</label>
@@ -136,7 +156,8 @@
 								{{#if serviceNote.counselorImg}}
 								{{#each serviceNote.counselorImg}}
 								<div class="slide-counselor-img fadeOn">
-									<img class="figure-img img-fluid rounded img-cover img-center" src="/counselor/img/{{this.name}}">
+									<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+									{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/counselor/img/{{this.name}}"> --}}
 								</div>
 								{{/each}}
 								{{else}}
@@ -160,7 +181,8 @@
 								{{#each serviceNote.counselorVideo}}
 								<div class="slide-counselor-video fadeOn">
 									<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
-										<source src="/counselor/video/{{this.name}}">
+										<source src="{{this.url}}">
+										{{!-- <source src="/counselor/video/{{this.name}}"> --}}
 									</video>
 								</div>
 								{{/each}}
@@ -196,7 +218,8 @@
 								{{#if serviceNote.beforeImg}}
 								{{#each serviceNote.beforeImg}}
 								<div class="slide-before-img fadeOn">
-									<img class="figure-img img-fluid rounded img-cover img-center" src="/before/img/{{this.name}}">
+									<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+									{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/before/img/{{this.name}}"> --}}
 								</div>
 								{{/each}}
 								{{else}}
@@ -220,7 +243,8 @@
 								{{#each serviceNote.beforeVideo}}
 								<div class="slide-before-video fadeOn">
 									<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
-										<source src="/before/video/{{this.name}}">
+										<source src="{{this.url}}">
+										{{!-- <source src="/before/video/{{this.name}}"> --}}
 									</video>
 								</div>
 								{{/each}}
@@ -256,7 +280,8 @@
 								{{#if serviceNote.inSurgeryImg}}
 								{{#each serviceNote.inSurgeryImg}}
 								<div class="slide-in-img fadeOn">
-									<img class="figure-img img-fluid rounded img-cover img-center" src="/in-surgery/img/{{this.name}}">
+									<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+									{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/in-surgery/img/{{this.name}}"> --}}
 								</div>
 								{{/each}}
 								{{else}}
@@ -281,7 +306,8 @@
 								{{#each serviceNote.inSurgeryVideo}}
 								<div class="slide-in-video fadeOn">
 									<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
-										<source src="/in-surgery/video/{{this.name}}">
+										<source src="{{this.url}}">
+										{{!-- <source src="/in-surgery/video/{{this.name}}"> --}}
 									</video>
 								</div>
 								{{/each}}
@@ -318,7 +344,8 @@
 								{{#if serviceNote.afterImg}}
 								{{#each serviceNote.afterImg}}
 								<div class="slide-after-img fadeOn">
-									<img class="figure-img img-fluid rounded img-cover img-center" src="/after/img/{{this.name}}">
+									<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+									{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/after/img/{{this.name}}"> --}}
 								</div>
 								{{/each}}
 								{{else}}
@@ -343,7 +370,8 @@
 								{{#each serviceNote.afterVideo}}
 								<div class="slide-after-video fadeOn">
 									<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
-										<source src="/after/video/{{this.name}}">
+										<source src="{{this.url}}">
+										{{!-- <source src="/after/video/{{this.name}}"> --}}
 									</video>
 								</div>
 								{{/each}}

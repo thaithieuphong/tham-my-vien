@@ -36,7 +36,9 @@ function showSlidesReExamImg(n) {
 		  dots[i].className = dots[i].className.replace(" active-click", "");
 		}
 		slides[slideIndex-1].style.display = "block";
-		dots[slideIndex-1].className += " active-click";
+		if(dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
 	}
 }
 
@@ -54,6 +56,8 @@ function showSlidesReExamVideo(n) {
 		  dots[i].className = dots[i].className.replace(" active-click", "");
 		}
 		slides[slideIndex-1].style.display = "block";
-		dots[slideIndex-1].className += " active-click";
+		if(dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
 	}
 }

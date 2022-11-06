@@ -70,15 +70,13 @@ class NursingController {
 				model: 'Customer'
 			}
 		}),
-		User.find({ departmentEng: 'operating-room', positionEng: 'doctor'}),
-		User.find({ departmentEng: 'operating-room', positionEng: 'nursing'}),
+		User.find({ departmentEng: 'operating-room', positionEng: 'doctor', firstName: 'Nguyễn Tuấn', lastName: 'Anh'}),
 		TypeService.find({})])
-			.then(([schedule, doctors, nursings, typeService]) => {
-				console.log('service notes', schedule)
+			.then(([schedule, doctor, typeService]) => {
+				console.log(schedule)
 				res.render('operating/nursing/create-customer-info', {
 					schedule: mongooseToObject(schedule),
-					doctors: multipleMongooseToObject(doctors),
-					nursings: multipleMongooseToObject(nursings),
+					doctor: multipleMongooseToObject(doctor),
 					typeService: multipleMongooseToObject(typeService),
 					title: 'Cập nhật hồ sơ khách hàng'
 				})
@@ -89,14 +87,17 @@ class NursingController {
 	updateCusInfor(req, res, next) {
 		Promise.all([ServiceNote.findByIdAndUpdate({_id: req.params.id}, {
 			performer: req.body.performer,
-			nursing: req.body.nursing,
-			recept: req.body.recept,
-			surgeryDay: req.body.surgeryDay
+			floor: req.body.floor,
+			surgeryDay: req.body.surgeryDay,
 		}),
 		Customer.findByIdAndUpdate({ _id: req.body.cusID }, {
+			identification: req.body.identification,
 			fullName: req.body.fullName,
 			birth: req.body.birth,
 			gender: req.body.gender,
+			height: req.body.height,
+			weight: req.body.weight,
+			homeTown: req.body.homeTown,
 		})])
 		.then(([serviceNote, customer]) => {
 			res.redirect('/operating-room/nursing/service-note');
@@ -125,9 +126,9 @@ class NursingController {
 		})
 	}
 
-	// Hiển thị kho lưu trữ hồ sơ
+	// Hiển thị danh sách hồ sơ xuất viện
 	showStorageCusInfo(req, res, next) {
-		ServiceNote.find({ status: 'Hoàn thành' }).populate({
+		ServiceNote.find({ status: 'Xuất viện' }).populate({
 			path: 'scheduleID',
 			populate: {
 				path: 'customerID',
@@ -135,22 +136,28 @@ class NursingController {
 			}
 		})
 			.then((serviceNote) => {
-				res.render('operating/nursing/storage', {
+				res.render('operating/nursing/discharge-from-hospital', {
 					serviceNote: multipleMongooseToObject(serviceNote),
-					title: 'Kho lưu trữ hồ sơ'
+					title: 'Hồ sơ xuất viện'
 				})
 			})
 	}
 
-	// Hiển thị kho lưu trữ lịch hẹn
-	showStorageSchedule(req, res, next) {
-		Schedule.findDeleted({}).populate('customerID')
-			.then((schedule) => {
-				res.render('operating/nursing/storage', {
-					schedule: multipleMongooseToObject(schedule),
-					title: 'Kho lưu trữ lịch hẹn'
-				})
+	// Hiển thị danh sách hồ sơ hoàn thành
+	showStorageCusInfoDone(req, res, next) {
+		ServiceNote.find({ status: 'Hoàn thành' }).populate({
+			path: 'scheduleID',
+			populate: {
+				path: 'customerID',
+				model: 'Customer'
+			}
+		})
+		.then((serviceNoteDone) => {
+			res.render('operating/nursing/storage-done', {
+				serviceNoteDone: multipleMongooseToObject(serviceNoteDone),
+				title: 'Kho hồ sơ hoàn thành'
 			})
+		})
 	}
 
 	// Khôi phục lịch hẹn
@@ -297,7 +304,7 @@ class NursingController {
 				path: 'customerID',
 				model: 'Customer'
 			},
-		}).populate('performer').populate('nursing').populate('recept')
+		}).populate('performer')
 		.then((serviceNote) => {
 				res.render("operating/nursing/operating-service-note", {
 					serviceNote: multipleMongooseToObject(serviceNote),
@@ -315,7 +322,7 @@ class NursingController {
 				path: 'customerID',
 				model: 'Customer'
 			},
-		}).populate('performer').populate('nursing').populate('recept')
+		}).populate('performer')
 		.then((serviceNote) => {
 				res.render("operating/nursing/operating-service-note-detail", {
 					serviceNote: mongooseToObject(serviceNote),
@@ -325,14 +332,25 @@ class NursingController {
 		.catch(next);
 	}
 
-	// Cập nhật hồ sơ khách hàng hoàn thành
-	updateServiceNoteDone(req, res, next) {
-		console.log(req.params.id)
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: 'Hoàn thành' }})
+	// Cập nhật hồ sơ khách hàng xuất viện
+	updateServiceNoteDischargeFromHospital(req, res, next) {
+		Promise.all([
+			Schedule.findOneAndUpdate({ serviceNoteID: req.params.id }, { $set: { status: 'Hoàn thành' }}),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: 'Xuất viện' }}),
+		])
 			.then(() => {
 				res.redirect('back');
 			})
 			.catch(next)
+	}
+
+	// Cập nhật hồ sơ khách hàng hoàn thành
+	updateServiceNoteDone(req, res, next) {	
+		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: "Hoàn thành"} })
+		.then(() => {
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Xóa lịch hẹn
@@ -380,8 +398,9 @@ class NursingController {
 
 	// Chi tiết phiếu tái khám
 	showReExaminationDetail(req, res, next) {
-		Reexamination.findById({ _id: req.params.id }).populate('customerID').populate('createName').populate('serviceNoteId').populate('performer').populate('nursing').populate('recept')
+		Reexamination.findById({ _id: req.params.id }).populate('customerID').populate('createName').populate('serviceNoteId').populate('performer')
 			.then(reExamination => {
+				console.log(reExamination);
 				res.render('operating/nursing/operating-re-exam-detail', {
 					reExamination: mongooseToObject(reExamination),
 					title: "Chi tiết phiếu tái khám"
@@ -389,18 +408,16 @@ class NursingController {
 			})
 	}
 
-	// Hiển thị trang cập nhập phiếu tái khám
+	// Hiển thị trang cập nhật phiếu tái khám
 	showReExaminationUpdate(req, res, next) {
 		Promise.all([Reexamination.findByIdAndUpdate({ _id: req.params.id }, { status: 'Đang xử lý' }).populate('customerID').populate('createName').populate('serviceNoteId'),
-		User.find({ departmentEng: 'operating-room', positionEng: 'doctor'}),
-		User.find({ departmentEng: 'operating-room', positionEng: 'nursing'}),
+		User.find({ departmentEng: 'operating-room', positionEng: 'doctor', firstName: 'Nguyễn Tuấn', lastName: 'Anh'}),
 		TypeService.find({})])
-			.then(([reExam, doctors, nursings, typeService]) => {
+			.then(([reExam, doctors, typeService]) => {
 				console.log('re-exam', reExam)
 				res.render('operating/nursing/update-re-exam', {
 					reExam: mongooseToObject(reExam),
 					doctors: multipleMongooseToObject(doctors),
-					nursings: multipleMongooseToObject(nursings),
 					typeService: multipleMongooseToObject(typeService),
 					title: 'Cập nhật phiếu tái khám'
 				})
@@ -528,42 +545,6 @@ class NursingController {
 			.catch(next);
 	}
 
-	// Tạo hồ sơ khách hàng => đang dư
-	createServiceNote(req, res, next) {
-		const file = req.files;
-		const imgArr = [];
-		const videoArr = [];
-		file.forEach(element => {
-			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
-				imgArr.push({ name: element.filename, url: element.path });
-				return imgArr;
-			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
-				videoArr.push({ name: element.filename, url: element.path });
-				return videoArr;
-			}
-		})
-		const serviceNote = new ServiceNote({
-			customerID: req.body.customerID,
-			performer: req.body.performer,
-			createName: req.body.createName,
-			status: "Tạo mới",
-			service: req.body.service,
-			comments: { comment: req.body.comment },
-			schedule: req.body.schedule,
-			price: req.body.price,
-			counselorImg: imgArr,
-			counselorVideo: videoArr,
-		});
-		serviceNote.save();
-		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { serviceNoteID: serviceNote.id } })
-
-			.then(() => {
-				res.redirect('back');
-
-			})
-	}
-
-	
 }
 
 module.exports = new NursingController;

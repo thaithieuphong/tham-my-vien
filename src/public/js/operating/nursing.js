@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					let divMain = document.createElement('figure');
 					reader.addEventListener('load', (event) => {
 						let src = event.target.result;
-						divMain.classList = 'col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
+						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						closeButtonLink.append(iconClose);
 						let divMain = document.createElement('figure');
 						let src = event.target.result;
-						divMain.classList = 'col-md-4 col-sm figure imgbox position-relative mt-2';
+						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					let divMain = document.createElement('figure');
 					reader.addEventListener('load', (event) => {
 						let src = event.target.result;
-						divMain.classList = 'col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
+						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						let closeButtonLink = document.createElement('button');
 						let divMain = document.createElement('figure');
 						let src = event.target.result;
-						divMain.classList = 'col-md-4 col-sm figure imgbox position-relative mt-2';
+						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					let divMain = document.createElement('figure');
 					reader.addEventListener('load', (event) => {
 						let src = event.target.result;
-						divMain.classList = 'col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
+						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
@@ -300,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						let closeButtonLink = document.createElement('button');
 						let divMain = document.createElement('figure');
 						let src = event.target.result;
-						divMain.classList = 'col-md-4 col-sm figure imgbox position-relative mt-2';
+						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
@@ -347,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					let divMain = document.createElement('figure');
 					reader.addEventListener('load', (event) => {
 						let src = event.target.result;
-						divMain.classList = 'col-xl-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
+						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
@@ -388,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						let closeButtonLink = document.createElement('button');
 						let divMain = document.createElement('figure');
 						let src = event.target.result;
-						divMain.classList = 'col-md-4 col-sm figure imgbox position-relative mt-2';
+						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
@@ -418,37 +418,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function totalMoneyFn(before, current) {
-	console.log('before', before);
-	console.log('current', current);
 	return before + current.price;
 }
 
 // Hàm tạo dịch vụ mới
 var serviceContainer = document.getElementById('service-container')
 var createService = function(str) {
-	let divInputGroup = document.createElement('div');
-	let inputLabelHidden = document.createElement('input');
-	inputLabelHidden.hidden = true;
-	inputLabelHidden.value = str;
-	inputLabelHidden.setAttribute('name', 'service');
-	divInputGroup.setAttribute('class', 'input-group mb-3 input-group-service');
 	let divContainer = document.createElement('div');
-	divContainer.setAttribute('class', 'form-floating');
+	divContainer.setAttribute('class', 'input-group mb-3');
 	let btnClose = document.createElement('button');
-	btnClose.setAttribute('class', 'btn btn-danger close-btn');
+	btnClose.setAttribute('class', 'btn btn-danger close-btn border rounded-pill-end pt-2 pb-1 pl-2 pr-2 m-0');
 	let iconClose = document.createElement('i');
-	iconClose.setAttribute('class', 'ti-close');
+	iconClose.setAttribute('class', 'ti-close mr-2');
 	btnClose.append(iconClose);
-	let inputService = document.createElement('label');
-	inputService.innerHTML = str;
-	inputService.setAttribute('class', 'form-control bg-transparent text-wrap text-dark-yellow');
+	let inputService = document.createElement('input');
+	inputService.setAttribute('class', 'form-control bg-transparent text-wrap text-light rounded-pill-start pl-3');
+	inputService.setAttribute('name', 'service');
+	inputService.setAttribute('type', 'text');
 	let inputPrice = document.createElement('input');
 	inputPrice.setAttribute('class', 'form-control text-right input-price bg-transparent text-light');
 	inputPrice.setAttribute('name', 'price');
 	inputPrice.setAttribute('value', 0);
-	divContainer.append(inputPrice, inputService);
-	divInputGroup.append(divContainer, btnClose, inputLabelHidden)
-	serviceContainer.append(divInputGroup)
+	divContainer.append(inputService, inputPrice, btnClose);
+	serviceContainer.append(divContainer);
 }
 
 var addServicesBtn = document.getElementById('add-services');
@@ -463,18 +455,15 @@ if (addServicesBtn) {
 	// Lắng nghe nút thêm dịch vụ
 	addServicesBtn.addEventListener('click', (e) => {
 		e.preventDefault();
-		let textService = selectServices.value;
+		// let textService = selectServices.value;
 		// Cắt ngắn tên dịch vụ cho vừa khung
 		// textService.length > 20 ? textService = textService.slice(0, 20) + '...' : textService;
 		// Gọi đến hàm tạo dịch vụ khi click
-		createService(textService);
+		createService();
 		let serviceArr = [];
-		let serviceElement = document.getElementById('service-container').children;
+		let serviceElement = serviceContainer.children;
 		for (let i = 0; i < serviceElement.length; i++) {
-			let inputGroup = serviceElement[i];
-			serviceElement[i].setAttribute('id', i);
-			let formFloating = inputGroup.children[0];
-			let serviceInput = formFloating.children[0];
+			let serviceInput = serviceElement[i].children[1];
 			serviceInput.setAttribute('id', i);
 			serviceArr.push({ 'index': i,'price': parseFloat(serviceInput.value.replace(/\D/g,''), 10)});
 			serviceInput.addEventListener('focus', (e) => {
@@ -498,14 +487,12 @@ if (addServicesBtn) {
 				serviceInput.value = convertedMoney;
 			})
 
-			let serviceClose = inputGroup.children[1];
-			console.log(serviceClose)
+			let serviceClose = serviceElement[i].children[2];
 			serviceClose.setAttribute('id', i);
 			serviceClose.addEventListener('click', (e) => {
 				e.preventDefault();
 				let parent = serviceClose.parentElement;
 				let id = serviceClose.getAttribute('id');
-				console.log(parent)
 				serviceArr.forEach((service) => {
 					if (parseInt(id) === service.index) {
 						let index = serviceArr.indexOf(service)
@@ -523,22 +510,100 @@ if (addServicesBtn) {
 }
 
 let slideIndex = 1;
-showSlidesBeforeCounselorImg(slideIndex);
-
+showSlidesCounselorImg(slideIndex);
+showSlidesCounselorVideo(slideIndex);
+showSlidesBeforeImg(slideIndex);
+showSlidesBeforeVideo(slideIndex);
+showSlidesInImg(slideIndex);
+showSlidesInVideo(slideIndex);
+showSlidesAfterImg(slideIndex);
+showSlidesAfterVideo(slideIndex);
+// showSlidesReExamImg(slideIndex);
+// showSlidesReExamVideo(slideIndex);
 
 // Next/previous controls
-function plusSlidesBeforeCounselorImg(n) {
-	showSlidesBeforeCounselorImg(slideIndex += n);
+function plusSlidesCounselorImg(n) {
+	showSlidesCounselorImg(slideIndex += n);
 }
+function plusSlidesCounselorVideo(n) {
+	showSlidesCounselorVideo(slideIndex += n);
+}
+
+function plusSlidesBeforeImg(n) {
+	showSlidesBeforeImg(slideIndex += n);
+}
+
+function plusSlidesBeforeVideo(n) {
+	showSlidesBeforeVideo(slideIndex += n);
+}
+
+function plusSlidesInImg(n) {
+	showSlidesInImg(slideIndex += n);
+}
+
+function plusSlidesInVideo(n) {
+	showSlidesInVideo(slideIndex += n);
+}
+
+function plusSlidesAfterImg(n) {
+	showSlidesAfterImg(slideIndex += n);
+}
+
+function plusSlidesAfterVideo(n) {
+	showSlidesAfterVideo(slideIndex += n);
+}
+
+// function plusSlidesReExamImg(n) {
+// 	showSlidesReExamImg(slideIndex += n);
+// }
+
+// function plusSlidesReExamVideo(n) {
+// 	showSlidesReExamVideo(slideIndex += n);
+// }
 
 // Thumbnail image controls
-function currentSlideBeforeCounselorImg(n) {
-	showSlidesBeforeCounselorImg(slideIndex = n);
+function currentSlideCounselorImg(n) {
+	showSlidesCounselor(slideIndex = n);
+}
+function currentSlideCounselorVideo(n) {
+	showSlidesCounselorVideo(slideIndex = n);
 }
 
-function showSlidesBeforeCounselorImg(n) {
+function currentSlideBeforeImg(n) {
+	showSlidesBeforeImg(slideIndex = n);
+}
+
+function currentSlideBeforeVideo(n) {
+	showSlidesBeforeVideo(slideIndex = n);
+}
+
+function currentSlideInImg(n) {
+	showSlidesInImg(slideIndex = n);
+}
+
+function currentSlideInVideo(n) {
+	showSlidesInVideo(slideIndex = n);
+}
+
+function currentSlideAfterImg(n) {
+	showSlidesAfterImg(slideIndex = n);
+}
+
+function currentSlideAfterVideo(n) {
+	showSlidesAfterVideo(slideIndex = n);
+}
+
+// function currentSlideReExamImg(n) {
+// 	showSlidesReExamImg(slideIndex = n);
+// }
+
+// function currentSlideReExamVideo(n) {
+// 	showSlidesReExamVideo(slideIndex = n);
+// }
+
+function showSlidesCounselorImg(n) {
 	let i;
-	let slides = document.getElementsByClassName("slide-before-counselor-img");
+	let slides = document.getElementsByClassName("slide-counselor-img");
 	if(slides) {
 		let dots = document.getElementsByClassName("dot");
 		if (n > slides.length) {slideIndex = 1}
@@ -550,6 +615,188 @@ function showSlidesBeforeCounselorImg(n) {
 			dots[i].className = dots[i].className.replace(" active-click", "");
 		}
 		slides[slideIndex-1].style.display = "block";
-		dots[slideIndex-1].className += " active-click";
+		if (dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
 	}
 }
+
+function showSlidesCounselorVideo(n) {
+	let i;
+	let slides = document.getElementsByClassName("slide-counselor-video");
+	if(slides) {
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active-click", "");
+		}
+		slides[slideIndex-1].style.display = "block";
+		if (dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
+	}
+}
+
+function showSlidesBeforeImg(n) {
+	let i;
+	let slides = document.getElementsByClassName("slide-before-img");
+	if(slides) {
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+		  slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+		  dots[i].className = dots[i].className.replace(" active-click", "");
+		}
+		slides[slideIndex-1].style.display = "block";
+		if (dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
+	}
+}
+
+function showSlidesBeforeVideo(n) {
+	let i;
+	let slides = document.getElementsByClassName("slide-before-video");
+	if(slides) {
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+		  slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+		  dots[i].className = dots[i].className.replace(" active-click", "");
+		}
+		slides[slideIndex-1].style.display = "block";
+		if (dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
+	}
+}
+
+function showSlidesInImg(n) {
+	let i;
+	let slides = document.getElementsByClassName("slide-in-img");
+	if(slides) {
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+		  slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+		  dots[i].className = dots[i].className.replace(" active-click", "");
+		}
+		slides[slideIndex-1].style.display = "block";
+		if (dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
+	}
+}
+
+function showSlidesInVideo(n) {
+	let i;
+	let slides = document.getElementsByClassName("slide-in-video");
+	if(slides) {
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+		  slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+		  dots[i].className = dots[i].className.replace(" active-click", "");
+		}
+		slides[slideIndex-1].style.display = "block";
+		if (dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
+	}
+}
+
+function showSlidesAfterImg(n) {
+	let i;
+	let slides = document.getElementsByClassName("slide-after-img");
+	if(slides) {
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+		  slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+		  dots[i].className = dots[i].className.replace(" active-click", "");
+		}
+		slides[slideIndex-1].style.display = "block";
+		if (dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
+	}
+}
+
+function showSlidesAfterVideo(n) {
+	let i;
+	let slides = document.getElementsByClassName("slide-after-video");
+	if(slides) {
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+		  slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+		  dots[i].className = dots[i].className.replace(" active-click", "");
+		}
+		slides[slideIndex-1].style.display = "block";
+		if (dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
+	}
+}
+
+// function showSlidesReExamImg(n) {
+// 	let i;
+// 	let slides = document.getElementsByClassName("slide-re-exam-img");
+// 	if(slides) {
+// 		let dots = document.getElementsByClassName("dot");
+// 		if (n > slides.length) {slideIndex = 1}
+// 		if (n < 1) {slideIndex = slides.length}
+// 		for (i = 0; i < slides.length; i++) {
+// 		  slides[i].style.display = "none";
+// 		}
+// 		for (i = 0; i < dots.length; i++) {
+// 		  dots[i].className = dots[i].className.replace(" active-click", "");
+// 		}
+// 		slides[slideIndex-1].style.display = "block";
+// 		if (dots[slideIndex-1]) {
+// 			dots[slideIndex-1].className += " active-click";
+// 		}
+// 	}
+// }
+
+// function showSlidesReExamVideo(n) {
+// 	let i;
+// 	let slides = document.getElementsByClassName("slide-re-exam-video");
+// 	if(slides) {
+// 		let dots = document.getElementsByClassName("dot");
+// 		if (n > slides.length) {slideIndex = 1}
+// 		if (n < 1) {slideIndex = slides.length}
+// 		for (i = 0; i < slides.length; i++) {
+// 		  slides[i].style.display = "none";
+// 		}
+// 		for (i = 0; i < dots.length; i++) {
+// 		  dots[i].className = dots[i].className.replace(" active-click", "");
+// 		}
+// 		slides[slideIndex-1].style.display = "block";
+// 		if (dots[slideIndex-1]) {
+// 			dots[slideIndex-1].className += " active-click";
+// 		}
+// 	}
+// }

@@ -22,7 +22,7 @@
 	{{#if reExam}}
 		<div class="card bg-glass">
 			<div class="card-body p-3">
-				<div class="d-flex justify-content-between">
+				<div class="d-flex justify-content-between border-bottom mb-3">
 					<label for="status" class="text-nowrap text-light">
 						<strong>Họ tên khai sinh:</strong>&nbsp;
 					</label>
@@ -30,7 +30,7 @@
 						{{reExam.customerID.fullName}}
 					</label>
 				</div>
-				<div class="d-flex justify-content-between">
+				<div class="d-flex justify-content-between border-bottom mb-3">
 					<label for="status" class="text-nowrap text-light">
 						<strong>Tên thường gọi:</strong>&nbsp;
 					</label>
@@ -38,7 +38,7 @@
 						{{reExam.customerID.nickName}}
 					</label>
 				</div>
-				<div class="d-flex justify-content-between mb-2">
+				<div class="d-flex justify-content-between border-bottom mb-3">
 					<label for="status" class="text-nowrap text-light">
 						<strong>Ngày hẹn:</strong>&nbsp;
 					</label>
@@ -48,50 +48,80 @@
 				</div>
 				<form method="POST" id="submit-reExamination-form" action="/operating-room/nursing/re-examination/{{reExam._id}}/update?_method=PUT" enctype="multipart/form-data">
 					<input hidden type="text" value="{{reExam.customerID._id}}" name="customerID">
-					<div class="row mb-4">
-						<div class="col-md-4 mb-4">
-							<label class="text-nowrap text-light">
-								<strong>Chọn Bác sĩ:</strong>&nbsp;
-							</label>
-							<select class="w-100 bg-transparent" multiple="multiple" id="select-doctor" name="performer[]">
-								{{#each doctors}}
-								<option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
-								{{/each}}
-							</select>
-						</div>
-						<div class="col-md-4 mb-4">
-							<label class="text-nowrap text-light">
-								<strong>Chọn Điều dưỡng:</strong>&nbsp;
-							</label>
-							<select class="w-100 bg-transparent" multiple="multiple" id="select-nursing" name="nursing[]">
-								{{#each nursings}}
-								<option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
-								{{/each}}
-							</select>
-						</div>
-						<div class="col-md-4">
-							<label class="text-nowrap text-light">
-								<strong>Chọn Dẫn khách:</strong>&nbsp;
-							</label>
-							<select class="w-100 bg-transparent" multiple="multiple" id="select-recept" name="recept">
-								{{#each nursings}}
-								<option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
-								{{/each}}
-							</select>
-						</div>
+					<div class="d-flex justify-content-between border-bottom mb-3">
+						<label for="status" class="text-nowrap text-light">
+							<strong>Bác sĩ:</strong>&nbsp;
+						</label>
+						{{#each doctors}}
+						<label for=""class="fs-6 text-light text-right">
+							<em>{{this.firstName}} {{this.lastName}}</em>
+						</label>
+						<input value="{{this._id}}" name="performer[]" hidden>
+						{{/each}}
 					</div>
 					<div class="row">
 						<div class="col-md-6">
+							<!-- Slideshow container -->
+							<div class="slideshow-container mt-3 mb-3">
+								<!-- Full-width images with number and caption text -->
+								{{#if reExam.reExamImg}}
+								{{#each reExam.reExamImg}}
+								<div class="slide-re-exam-img fadeOn">
+									<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+									{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/re-examination/img/{{this.name}}"> --}}
+								</div>
+								{{/each}}
+								{{else}}
+								<div class="slide-re-exam-img fadeOn text-center">
+									Chưa có hình ảnh
+								</div>
+								{{/if}}
+
+								<!-- Next and previous buttons -->
+								<a class="prev" onclick="plusSlidesReExamImg(-1)">&#10094;</a>
+								<a class="next" onclick="plusSlidesReExamImg(1)">&#10095;</a>
+								<div style="text-align:center">
+									{{#each reExam.reExamImg}}
+									<span class="dot" onclick="currentSlidesReExamImg({{@index}})"></span>
+									{{/each}}
+								</div>
+							</div>
 							<div class="preview-images-reExamination row m-0 text-center"></div>
-							<label for="input-multi-images-reExamination" class="label-avt d-flex justify-content-start" data-input-img-id="{{reExam._id}}">
-								<h5 id="text-img-reExamination" class="btn bg-secondary text-uppercase text-light btn-mobile  rounded-pill"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
+							<label for="input-multi-images-reExamination" class="label-avt d-flex justify-content-center" data-input-img-id="{{reExam._id}}">
+								<h5 id="text-img-reExamination" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
 							</label>
 							<input id="input-multi-images-reExamination" class="form-control" type="file" name="reExamination" hidden multiple>
 						</div>
 						<div class="col-md-6">
+							<div class="slideshow-container mt-3 mb-3">
+								<!-- Full-width images with number and caption text -->
+								{{#if reExam.reExamVideo}}
+								{{#each reExam.reExamVideo}}
+								<div class="slide-re-exam-video fadeOn">
+									<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+										<source src="{{this.url}}">
+										{{!-- <source src="/re-examination/video/{{this.name}}"> --}}
+									</video>
+								</div>
+								{{/each}}
+								{{else}}
+								<div class="slide-re-exam-video fadeOn text-center">
+									Chưa có video
+								</div>
+								{{/if}}
+
+								<!-- Next and previous buttons -->
+								<a class="prev" onclick="plusSlidesReExamVideo(-1)">&#10094;</a>
+								<a class="next" onclick="plusSlidesReExamVideo(1)">&#10095;</a>
+								<div style="text-align:center">
+									{{#each reExam.reExamVideo}}
+									<span class="dot" onclick="currentSlidesReExamVideo({{@index}})"></span>
+									{{/each}}
+								</div>
+							</div>
 							<div class="preview-videos-reExamination row m-0 text-center"></div>
-							<label for="input-multi-videos-reExamination" class="label-avt d-flex justify-content-start" data-input-img-id="{{reExam._id}}">
-								<h5 id="text-img-reExamination" class="btn bg-secondary text-uppercase text-light btn-mobile  rounded-pill"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
+							<label for="input-multi-videos-reExamination" class="label-avt d-flex justify-content-center" data-input-img-id="{{reExam._id}}">
+								<h5 id="text-img-reExamination" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
 							</label>
 							<input id="input-multi-videos-reExamination" class="form-control" type="file" name="reExamination" hidden multiple>
 						</div>
@@ -99,10 +129,10 @@
 							<label for="steps-to-take-area"><strong>Các bước thực hiện:</strong></label>
 						</div>
 						<div class="mb-4">
-							<textarea class="form-control mr-3 pl-3 bg-transparent text-light" name="stepsToTake" cols="30" rows="8"></textarea>
+							<textarea class="form-control mr-3 pl-3 bg-transparent text-light" name="stepsToTake" cols="30" rows="8">{{reExam.stepsToTake}}</textarea>
 						</div>
-						<div>
-							<button id="submit-reExamination-form-btn" class="btn btn-primary btn-mobile rounded-pill">CẬP NHẬT</button>
+						<div class="text-right">
+							<button id="submit-reExamination-form-btn" class="btn btn-primary btn-mobile rounded-pill border">CẬP NHẬT</button>
 						</div>
 					</div>
 				</form>
@@ -116,10 +146,3 @@
 </div>
 
 <script src="/js/operating/nursing-re-exam.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-	NiceSelect.bind(document.getElementById("select-doctor"), {searchable: true, Selection: 'Chọn bác sĩ'});
-	NiceSelect.bind(document.getElementById("select-nursing"), {searchable: true});
-	NiceSelect.bind(document.getElementById("select-recept"), {searchable: true});
-})
-</script>

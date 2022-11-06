@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					reader.addEventListener('load', (event) => {
 						// newImage.setAttribute('alt', filesAmount)
 						let src = event.target.result;
-						divMain.classList = 'col-md-4 col-sm figure img-container position-relative mt-2 p-0';
+						divMain.classList = 'col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						closeButtonLink.type = 'button';
 						closeButtonLink.ariaLabel = 'Close';
 						// closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-img';
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-3 close-img';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 close-img mr-4 mt-2';
 						let imgc = document.querySelector('.preview-images-reExamination');
 						divMain.append(newImage, closeButtonLink);
 						imgc.append(divMain);
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						closeButtonLink.append(iconClose);
 						let divMain = document.createElement('figure');
 						let src = event.target.result;
-						divMain.classList = 'col-md-4 col-sm figure imgbox position-relative mt-2 p-0';
+						divMain.classList = 'col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						closeButtonLink.id = i;
 						closeButtonLink.ariaLabel = 'Close';
 						// closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-video';
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 close-img';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 close-img mr-4 mt-2';
 						let videoc = document.querySelector('.preview-videos-reExamination');
 						divMain.append(newVideo, closeButtonLink);
 						videoc.append(divMain);
@@ -116,16 +116,19 @@ if (createReExaminationModal) {
 		var button = event.relatedTarget;
 		let id = button.getAttribute("data-id");
 		let cusId = button.getAttribute("data-cusId");
+		let identification = button.getAttribute("data-identification");
 		let fullName = button.getAttribute("data-fullName");
 		let gender = button.getAttribute("data-gender");
 		let phone = button.getAttribute("data-phone");
-		createReExaminationForm.setAttribute('action', `/operating-room/nursing/storage-cus-info/${id}/create-re-examination`);
+		createReExaminationForm.setAttribute('action', `/operating-room/nursing/discharge-from-hospital/${id}/create-re-examination`);
 	
 		let submitId = document.getElementById('submit-re-exam-cusId');
+		let submitIdentification = document.getElementById('submit-re-exam-identification');
 		let submitFullName = document.getElementById('submit-re-exam-fullname');
 		let submitGender = document.getElementById('submit-re-exam-gender');
 		let submitPhone = document.getElementById('submit-re-exam-phone');
 		submitId.value = cusId;
+		submitIdentification.innerHTML = identification;
 		submitFullName.innerHTML = fullName;
 		submitGender.innerHTML = gender;
 		submitPhone.innerHTML = '0' + phone;
@@ -170,6 +173,93 @@ if (submitReExaminationModal) {
 		submitReExaminationForm.setAttribute('action', `/operating-room/nursing/re-examination/${id}/done?_method=PATCH`);
 	
 		let submitFullName = document.getElementById('submit-re-exam-fullname');
+		submitFullName.innerHTML = fullName;
+	
+	})
+}
+
+let slideIndex = 1;
+showSlidesReExamImg(slideIndex);
+showSlidesReExamVideo(slideIndex);
+
+function plusSlidesReExamImg(n) {
+	showSlidesReExamImg(slideIndex += n);
+}
+
+function plusSlidesReExamVideo(n) {
+	showSlidesReExamVideo(slideIndex += n);
+}
+
+function currentSlidesReExamImg(n) {
+	showSlidesReExamImg(slideIndex = n);
+}
+
+function currentSlidesReExamVideo(n) {
+	showSlidesReExamVideo(slideIndex = n);
+}
+
+function showSlidesReExamImg(n) {
+	let i;
+	let slides = document.getElementsByClassName("slide-re-exam-img");
+	if(slides) {
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active-click", "");
+		}
+		if (slides[slideIndex-1]) {
+			slides[slideIndex-1].style.display = "block";
+		}
+		if (dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
+	}
+}
+	
+function showSlidesReExamVideo(n) {
+	let i;
+	let slides = document.getElementsByClassName("slide-re-exam-video");
+	if(slides) {
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) {slideIndex = 1}
+		if (n < 1) {slideIndex = slides.length}
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active-click", "");
+		}
+		if (slides[slideIndex-1]) {
+			slides[slideIndex-1].style.display = "block";
+		}
+		if (dots[slideIndex-1]) {
+			dots[slideIndex-1].className += " active-click";
+		}
+	}
+}
+
+var submitServiceNoteForm = document.forms['submit-service-note-done-form'];
+var submitServiceNoteModal = document.getElementById('submit-service-note-done-modal');
+var submitServiceBtn = document.getElementById('submit-service-note-done-btn');
+
+if (submitServiceBtn) {
+	submitServiceBtn.addEventListener("click", () => {
+		submitServiceNoteForm.submit();
+	});
+}
+
+if (submitServiceNoteModal) {
+	submitServiceNoteModal.addEventListener('show.bs.modal', function(event){
+		var button = event.relatedTarget;
+		let id = button.getAttribute("data-id");
+		let fullName = button.getAttribute("data-fullName");
+		submitServiceNoteForm.setAttribute('action', `/operating-room/nursing/service-note/${id}/done?_method=PATCH`);
+	
+		let submitFullName = document.getElementById('fullName-modal');
 		submitFullName.innerHTML = fullName;
 	
 	})

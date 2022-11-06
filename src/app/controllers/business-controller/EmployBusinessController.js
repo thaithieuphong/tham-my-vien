@@ -234,7 +234,7 @@ class EmployBusinessController {
 				});
 				customer.save();
 			}
-			if(req.body.statusVi === 'Đặt lịch') {
+			if(req.body.statusVi === 'Không thành công') {
 				const customer = new Customer({
 					userID: req.userId,
 					nickName: req.body.nickName,
@@ -248,7 +248,7 @@ class EmployBusinessController {
 					description: req.body.description,
 					statusCus: {
 						statusVi: req.body.statusVi,
-						statusEng: 'Schedule'
+						statusEng: 'Fail'
 					},
 					image: {
 						name: "",
@@ -587,9 +587,15 @@ class EmployBusinessController {
 
 	createSchedule(req, res, next) {
 		const file = req.files;
-		console.log('file', file)
 		const imgArr = [];
 		const videoArr = [];
+		const cusID = req.body.customerID;
+		const createName = req.body.createName;
+		const service = req.body.service;
+		const scheduleBody = req.body.schedule;
+		const priceBefore = req.body.priceBefore;
+		const deposit = req.body.deposit;
+		const comment = req.body.comment;
 		file.forEach(element => {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
 				imgArr.push({ name: element.filename, url: element.path });
@@ -599,24 +605,45 @@ class EmployBusinessController {
 				return videoArr;
 			}
 		})
-		const schedule = new Schedule({
-			customerID: req.body.customerID,
-			createName: req.body.createName,
-			status: "Tạo mới",
-			service: req.body.service,
-			comments: { comment: req.body.comment },
-			schedule: req.body.schedule,
-			priceBefore: req.body.priceBefore,
-			deposit: req.body.deposit,
-			counselorImg: imgArr,
-			counselorVideo: videoArr,
-		});
-		schedule.save();
-		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { scheduleID: schedule.id }})
-			.then(() => {
-				req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
-				res.redirect('back');
-			})
+		if (deposit === '') {
+			const schedule = new Schedule({
+				customerID: cusID,
+				createName: createName,
+				status: "Tạo mới",
+				service: service,
+				comments: { comment: comment },
+				schedule: scheduleBody,
+				priceBefore: priceBefore,
+				deposit: 0,
+				counselorImg: imgArr,
+				counselorVideo: videoArr,
+			});
+			schedule.save();
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { scheduleID: schedule.id }})
+				.then(() => {
+					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
+					res.redirect('back');
+				})
+		} else {
+			const schedule = new Schedule({
+				customerID: cusID,
+				createName: createName,
+				status: "Tạo mới",
+				service: service,
+				comments: { comment: comment },
+				schedule: scheduleBody,
+				priceBefore: priceBefore,
+				deposit: deposit,
+				counselorImg: imgArr,
+				counselorVideo: videoArr,
+			});
+			schedule.save();
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { scheduleID: schedule.id }})
+				.then(() => {
+					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
+					res.redirect('back');
+				})
+		}
 	}
 
 	createReExam(req, res, next) {
