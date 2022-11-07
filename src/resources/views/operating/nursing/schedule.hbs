@@ -74,70 +74,70 @@
 	<div class="row">
 		{{#each schedules}}
 		<div class="col-xl-6 col-lg-6 col-md-12 col-sm-6">
-			<div class="card bg-glass mb-3">
-				<div class="card-header bg-transparent d-flex justify-content-between">
-					<div class="badge bg-success lh-lg rounded-pill">
-						{{formatDate this.schedule}}
+			<form id="create-customer-information-form" method="POST" action="/operating-room/nursing/customer-information/{{this._id}}/create">
+				<div class="card bg-glass mb-3">
+					<div class="card-header bg-transparent d-flex justify-content-between">
+						<div class="badge bg-success lh-lg rounded-pill">
+							{{formatDate this.schedule}}
+						</div>
+						<a class="text-light" href="/operating-room/nursing/schedule/{{this._id}}/detail">
+							<i class="fa-solid fa-ellipsis"></i>
+						</a>
 					</div>
-					<a class="text-light" href="/operating-room/nursing/schedule/{{this._id}}/detail">
-						<i class="fa-solid fa-ellipsis"></i>
-					</a>
-				</div>
-				<div class="card-body">
-					<form id="create-customer-information-form" method="POST" action="/operating-room/nursing/customer-information/{{this._id}}/create">
-						<input class="form-control text-wrap text-right" type="text" value="{{this.customerID._id}}" name="cusID" hidden>
-						<div class="d-flex justify-content-between">
-							<label for="" class="text-nowrap text-light">Trạng thái:</label>
-							<label class="text-wrap text-right text-danger">{{this.status}}</label>
-						</div>
-						<hr class="mt-0">
-						<div class="d-flex justify-content-between">
-							<label  class="text-nowrap text-light">Họ tên:</label>
-							<label id="input-nickName" class="text-wrap text-right text-light">{{this.customerID.nickName}}</label>
-						</div>
-						<hr class="mt-0">
-						<div class="d-flex justify-content-between">
-							<label class="text-nowrap text-light">Giới tính:</label>
-							<label id="input-gender" class="text-wrap text-light">{{this.customerID.gender}}</label>
-						</div>
-						<hr class="mt-0">
-						<div class="d-flex justify-content-between">
-							<label class="text-nowrap text-light">Số điện thoại:</label>
-							<label id="input-phone" class="text-wrap text-right text-light">0{{this.customerID.phone}}</label>
-						</div>
-						<hr class="mt-0">
-						<label class="text-nowrap text-light">Dịch vụ</label>
-						{{#each this.service}}
-						<div class="text-right">
-							<label class="text-dark-yellow">{{this}}</label>
-							{{!-- <input id="input-nicknName" class="form-control bg-transparent text-light textarea-none" value="{{this.service}}" hidden  name="service"> --}}
-						</div>
-						<hr class="mt-0">
-						{{/each}}
-						<div class="d-flex justify-content-between">
-							<label class="text-nowrap text-light">Tiền cọc</label>
-							<label id="input-deposit" class="text-wrap text-right text-warning">{{this.deposit}}</label>
-						</div>
-						<hr class="mt-0">
-						<div class="d-flex justify-content-between">
-							<label class="text-light">Phí dịch vụ:</label>
-							<label id="input-beforePrice" class="text-wrap text-right text-danger">{{this.priceBefore}}</label>
-						</div>
-					</form>
-				</div>
-				<div class="card-footer bg-transparent">
-					<div class="row d-flex justify-content-between">
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<button type="button" class="btn btn-danger btn-mobile rounded-pill mb-2 border" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
-							data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}" data-delete-lastname="{{this.customerID.lastName}}"
-							data-delete-customerID="{{this.customerID._id}}">Xóa lịch hẹn</button>
-						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12 text-right">
-							<button class="btn btn-primary btn-mobile rounded-pill mb-2 border" id="create-customer-information-btn">Tạo hồ sơ khách hàng</button>
+					<div class="card-body">
+							<input class="form-control text-wrap text-right" type="text" value="{{this.customerID._id}}" name="cusID" hidden>
+							<div class="d-flex justify-content-between">
+								<label for="" class="text-nowrap text-light">Trạng thái:</label>
+								<label class="text-wrap text-right text-danger">{{this.status}}</label>
+							</div>
+							<hr class="mt-0">
+							<div class="d-flex justify-content-between">
+								<label  class="text-nowrap text-light">Họ tên:</label>
+								<label id="input-nickName" class="text-wrap text-right text-light">{{this.customerID.nickName}}</label>
+							</div>
+							<hr class="mt-0">
+							<div class="d-flex justify-content-between">
+								<label class="text-nowrap text-light">Giới tính:</label>
+								<label id="input-gender" class="text-wrap text-light">{{this.customerID.gender}}</label>
+							</div>
+							<hr class="mt-0">
+							<div class="d-flex justify-content-between">
+								<label class="text-nowrap text-light">Số điện thoại:</label>
+								<label id="input-phone" class="text-wrap text-right text-light">0{{this.customerID.phone}}</label>
+							</div>
+							<hr class="mt-0">
+							<label class="text-nowrap text-light">Dịch vụ</label>
+							{{#each this.service}}
+							<div class="text-right">
+								<label class="text-dark-yellow">{{this}}</label>
+								{{!-- <input id="input-nicknName" class="form-control bg-transparent text-light textarea-none" value="{{this.service}}" hidden  name="service"> --}}
+							</div>
+							<hr class="mt-0">
+							{{/each}}
+							<div class="d-flex justify-content-between">
+								<label class="text-nowrap text-light">Tiền cọc</label>
+								<label id="input-deposit" class="text-wrap text-right text-warning">{{this.deposit}}</label>
+							</div>
+							<hr class="mt-0">
+							<div class="d-flex justify-content-between">
+								<label class="text-light">Phí dịch vụ:</label>
+								<label id="input-beforePrice" class="text-wrap text-right text-danger">{{this.priceBefore}}</label>
+							</div>
+					</div>
+					<div class="card-footer bg-transparent">
+						<div class="row d-flex justify-content-between">
+							<div class="col-lg-6 col-md-12 col-sm-12">
+								<button type="button" class="btn btn-danger btn-mobile rounded-pill mb-2 border" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
+								data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}" data-delete-lastname="{{this.customerID.lastName}}"
+								data-delete-customerID="{{this.customerID._id}}">Xóa lịch hẹn</button>
+							</div>
+							<div class="col-lg-6 col-md-12 col-sm-12 text-right">
+								<button class="btn btn-primary btn-mobile rounded-pill mb-2 border" id="create-customer-information-btn">Tạo hồ sơ khách hàng</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 		{{/each}}
 	</div>
