@@ -1,336 +1,336 @@
 <link rel="stylesheet" href="/css/root.css">
-<link rel="stylesheet" href="/css/assistant.css">
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
-    aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header bg-dark border-bottom">
-        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
-        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body container-sidebar bg-dark">
-        <div class="sidebar-item">
-            <a href="/operating-room/doctor" class="sidebar-item-title pl-3">
-                <i class="ti-receipt mr-3"></i>Phiếu hoàn thành
-            </a>
-        </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/doctor/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Phiếu phẩu thuật
-            </a>
-        </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/doctor/re-examination" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Phiếu tái khám
-            </a>
-        </div>
-    </div>
-	<div class="offcanvas-footer bg-dark border-top">
-        <div class="sidebar-item">
-            <a href="/operating-room/doctor/profile" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Thông tin người dùng
-            </a>
-        </div>
-		<div class="sidebar-item">
-			<form method="POST" action="/logout">
-				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
-			</form>
-		</div>
-    </div>
-</div>
 <div class="sticky-top">
     <nav class="navbar navbar-light bg-blue border-bottom">
         <div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
         </div>
-        <div class="text-light text-uppercase fw-bold">
-            {{this.title}}
-        </div>
-        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
-                class="ti-menu"></i>
-        </button>
+		<div>
+			<a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
+			</a>
+			<a href="/operating-room/nursing/profile" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-user-nurse fs-5 p-2"></i>
+			</a>
+		</div>
     </nav>
 </div>
-<div class="p-3">
-	{{#each customers}}
-	<div class="card mb-3 bg-glass">
-		<div class="card-header">
-			<h5 class="text-uppercase text-center text-light mt-3 mb-3">
-				<strong>Phiếu phẩu thuật</strong>
-			</h5>
-		</div>
-		<div class="card-body">
-			<div class="tab-content" id="pills-tabContent">
-				<div class="d-flex justify-content-between justify-content-sm-start">
-					<label for="status">
-						<strong>Ngày hẹn:</strong>&nbsp;
-					</label>
-					<label class="text-right text-success"><em>{{formatDate this.serviceNoteID.schedule}}</em></label>
-				</div>
-				<div class="d-flex justify-content-between justify-content-sm-start">
-					<label for="status">
-						<strong>Trạng thái:</strong>&nbsp;
-					</label>
-					<label class="text-danger text-right">
-						<em>{{serviceNote.status}}</em>
-					</label>
-				</div>
-				<div class="d-flex justify-content-between justify-content-sm-start">
-					<label for="status">
-						<strong>Khách hàng:</strong>&nbsp;
-					</label>
-					<label class="text-primary text-right">
-						{{serviceNote.customerID.firstName}} {{serviceNote.customerID.lastName}}
-					</label>
-				</div>
-				<div class="d-flex justify-content-between justify-content-sm-start">
-					<label for="status">
-						<strong>Lễ tân:</strong>&nbsp;
-					</label>
-					<label class="text-primary text-right">
-						{{serviceNote.recept.firstName}} {{serviceNote.recept.lastName}}
-					</label>
-				</div>
-				<div class="d-flex justify-content-between justify-content-sm-start">
-					<label for="status">
-						<strong>Dịch vụ:</strong>&nbsp;
-					</label>
-					<label class="text-primary text-right">
-						{{serviceNote.service}}
-					</label>
-				</div>
-				<hr>
-				<div class="tab-pane fade show active" id="pills-profile-customer-{{serviceNote._id}}" role="tabpanel"
-					aria-labelledby="pills-home-tab">
-					<form method="POST" id="submit-doctor-form">
-						<div class="d-flex justify-content-between justify-content-sm-start">
-							<label for="status">
-								<strong>Bác sĩ:</strong>&nbsp;
-							</label>
-							<label class="text-primary">
-								{{#each serviceNote.performer}}
-								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
-								<em>{{this.firstName}} {{this.lastName}};</em>
-								{{/each}}
-							</label>
+{{#if messages_createSchedule_success}}
+<div class="alert alert-success alert-dismissible fade show m-2" role="alert">
+	{{messages_createSchedule_success}}
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+<div class="m-16">
+	<table class="table table-sm">
+		<tbody>
+			{{#each customers}}
+			<tr>
+				<th class="align-middle p-0" scope="row">
+					{{#if this.image.url}}
+					<figure class="figure align-middle p-2 m-0">
+						<img src="/img/uploads/customers/{{this.image.name}}" class="figure-img w-46 h-46 rounded-circle m-0" alt="Ảnh đại diện khách hàng">
+						{{!-- <img src="{{this.image.url}}" class="figure-img img-thumbnail rounded" alt="Ảnh đại diện khách hàng"> --}}
+					</figure>
+					{{else}}
+					<div class="align-middle p-2">
+						<img src="/img/user-ray.png" class="card-img-top w-46 h46 m-0 rounded-circle border border-secondary" alt="Khách hàng chưa có ảnh đại diện">
+					</div>
+					{{/if}}
+				</th>
+				<td class="p-0 text-light text-wrap fs-6 text align-middle">
+					<a class="link-light" href="/operating-room/nursing/customers/{{this._id}}/detail">
+						<div data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.fullName}}">
+							{{cutPassword this.fullName 24}}
 						</div>
-						<div class="d-flex justify-content-between justify-content-sm-start">
-							<label for="status">
-								<strong>Điều dưỡng:</strong>&nbsp;
-							</label>
-							<label class="text-primary">
-								{{#each serviceNote.nursing}}
-								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
-								<em>{{this.firstName}} {{this.lastName}};</em>
-								{{/each}}
-							</label>
+					</a>
+				</td>
+				{{!-- <td class="align-middle text-center">
+					<a type="button" class="text-info m-2" data-bs-toggle="modal"
+						data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
+						data-edit-img="{{this.image.url}}"
+						data-edit-img="{{this.image.name}}"
+						data-edit-fullname="{{this.fullName}}" data-edit-height="{{this.height}}"
+						data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
+						data-edit-phone="{{this.phone}}" data-edit-weight="{{this.weight}}"
+							data-edit-homeTown="{{this.homeTown}}"
+						data-edit-address="{{this.address}}" data-edit-resource="{{this.resource}}" data-edit-description="{{this.description}}">
+						<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa thông tin">
+							<i class="fa-sharp fa-solid fa-user-pen rounded-circle"></i>
 						</div>
-						<div class="row">
-							<div class="">
-								<label for="steps-to-take-area"><strong>Các bước thực hiện:</strong></label>
-							</div>
-							<div class="">
-								<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" name="stepsToTake" id="steps-to-take-area" cols="30" rows="8"></textarea>
-							</div>
+					</a>
+					<a type="button" href="/operating-room/nursing/schedule/{{this._id}}/create" class="text-success m-2">
+						<div data-bs-toggle="tooltip" data-bs-placement="top" title="Đặt lịch">
+							<i class="ti-calendar"></i>
 						</div>
-					</form>
+					</a>
+				</td> --}}
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>
 
-					<div class="row mt-3">
-						<div class="">
-							<label for="comments"><strong>Ghi chú:</strong></label>
-						</div>
-						<div class="">
-							{{#if serviceNote.comments}}
-							{{#each serviceNote.comments}}
-							<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" id="comments" cols="30" rows="8" disabled>{{this.comment}}</textarea>
-							{{/each}}
-							{{else}}
-							<label class="">
-								<em>Không có ghi chú</em>
-							</label>
-							{{/if}}
-						</div>
-					</div>
-				</div>
-
-				<div class="tab-pane fade" id="pills-counselor-{{serviceNote._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="accordion accordion-flush" id="accordionFlush-counselor-{{serviceNote._id}}">
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-counselor-img-{{serviceNote._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-img-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-img-{{serviceNote._id}}">
-									Xem ảnh
-								</button>
-							</h2>
-							<div id="flush-collapse-counselor-img-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-img-{{serviceNote._id}}" data-bs-parent="#accordionFlush-counselor-{{serviceNote._id}}">
-								<div class="accordion-body">
-									<div class="row">
-										{{#if serviceNote.counselorImg}}
-										{{#each serviceNote.counselorImg}}
-										<div class="col-xl-2 col-lg-3 col-md-4">
-											<figure class="figure imgbox">
-												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-											</figure>
-										</div>
-										{{/each}}
-										{{else}}
-										<p class="text-center">
-											Chưa có hình ảnh
-										</p>
-										{{/if}}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-counselor-video-{{serviceNote._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-video-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-video-{{serviceNote._id}}">
-									Xem video
-								</button>
-							</h2>
-							<div id="flush-collapse-counselor-video-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-video-{{serviceNote._id}}" data-bs-parent="#accordionFlush-counselor-{{serviceNote._id}}">
-								<div class="accordion-body">
-									<div class="row">
-										{{#if serviceNote.counselorVideo}}
-										{{#each serviceNote.counselorVideo}}
-										<div class="col-xl-2 col-lg-3 col-md-4">
-											<figure class="figure img-container">
-												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
-											</figure>
-										</div>
-										{{/each}}
-										{{else}}
-										<p class="text-center">
-											Chưa có video
-										</p>
-										{{/if}}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="tab-pane fade" id="pills-before-{{serviceNote._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="accordion accordion-flush" id="accordionFlush-before-{{serviceNote._id}}">
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-before-img-{{serviceNote._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-img-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-before-img-{{serviceNote._id}}">
-									Xem ảnh
-								</button>
-							</h2>
-							<div id="flush-collapse-before-img-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-img-{{serviceNote._id}}" data-bs-parent="#accordionFlush-before-{{serviceNote._id}}">
-								<div class="accordion-body">
-									<div class="row">
-										{{#if serviceNote.beforeImg}}
-										{{#each serviceNote.beforeImg}}
-										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
-											<figure class="figure imgbox">
-												<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-											</figure>
-										</div>
-										{{/each}}
-										{{else}}
-										<p class="text-center">
-											Chưa có hình ảnh
-										</p>
-										{{/if}}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-before-video-{{serviceNote._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-video-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-before-video-{{serviceNote._id}}">
-									Xem video
-								</button>
-							</h2>
-							<div id="flush-collapse-before-video-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-video-{{serviceNote._id}}" data-bs-parent="#accordionFlush-before-{{serviceNote._id}}">
-								<div class="accordion-body">
-									<div class="row">    
-										{{#if serviceNote.beforeVideo}}
-										{{#each serviceNote.beforeVideo}}
-										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
-											<figure class="figure img-container">
-												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
-											</figure>
-										</div>
-										{{/each}}
-										{{else}}
-										<p class="text-center">
-											Chưa có video
-										</p>
-										{{/if}}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="pills-after-{{serviceNote._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="accordion accordion-flush" id="accordionFlush-after-{{serviceNote._id}}">
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-after-img-{{serviceNote._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-img-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-after-img-{{serviceNote._id}}">
-									Xem ảnh
-								</button>
-							</h2>
-							<div id="flush-collapse-after-img-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-img-{{serviceNote._id}}" data-bs-parent="#accordionFlush-after-{{serviceNote._id}}">
-								<div class="accordion-body">
-									<div class="row">    
-										{{#if serviceNote.afterImg}}
-										{{#each serviceNote.afterImg}}
-										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
-											<figure class="figure imgbox">
-												<img src="{{this.url}}" class="figure-img img-fluid text-center rounded upd-ava" alt="...">
-											</figure>
-										</div>
-										{{/each}}
-										{{else}}
-										<p class="text-center">
-											Chưa có hình ảnh
-										</p>
-										{{/if}}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="flush-after-video-{{serviceNote._id}}">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-video-{{serviceNote._id}}" aria-expanded="false" aria-controls="flush-collapse-after-video-{{serviceNote._id}}">
-									Xem video
-								</button>
-							</h2>
-							<div id="flush-collapse-after-video-{{serviceNote._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-video-{{serviceNote._id}}" data-bs-parent="#accordionFlush-after-{{serviceNote._id}}">
-								<div class="accordion-body">
-									<div class="row">    
-										{{#if serviceNote.afterVideo}}
-										{{#each serviceNote.afterVideo}}
-										<div class="col-xl-2 col-lg-3 col-md-4 col-sm">
-											<figure class="figure img-container">
-												<video src="{{this.url}}" class="figure-img img-fluid rounded img-cover" alt="..." controls></video>
-											</figure>
-										</div>
-										{{/each}}
-										{{else}}
-										<p class="text-center">
-											Chưa có video
-										</p>
-										{{/if}}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+<!-- Modal Create Schedule -->
+<div class="modal fade " id="create-schedule-modal" tabindex="-1" aria-labelledby="create-schedule"
+	aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header bg-blue">
+				<h5 class="modal-title text-light" id="create-schedule-title">Đặt lịch hẹn</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
 			</div>
-			<hr class="mt-3">
-			<div class="d-flex justify-content-between justify-content-sm-end mt-3">
-				<label for="status">
-					<strong>Phí dịch vụ:</strong>&nbsp;
-				</label>
-				<label class="text-danger text-right">
-					{{serviceNote.price}} VND
-				</label>
+			<div class="modal-body bg-blue">
+				<form id="create-schedule-form" method="POST" action="/operating-room/nursing/schedule/create" class="row" enctype="multipart/form-data">
+					<input hidden type="text" class="form-control" id="create-schedule-customerID" name="customerID" readonly>
+					<div class="form-floating mb-3">
+						<input type="text" class="form-control bg-transparent text-light text-right rounded-pill pr-4" id="create-schedule-priceBefore"
+							placeholder="Vd: 80,000,000" name="priceBefore">
+						<label for="create-schedule-priceBefore" class="text-light pl-5">Phí dịch vụ</label>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="text" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+							id="create-schedule-deposit" placeholder="Vd: 20,000,000" name="deposit">
+						<label for="create-schedule-deposit" class="text-light pl-5">Đặt cọc</label>
+					</div>
+					<div class="form-floating mb-3">
+						<textarea class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+						placeholder="Nâng ngực, hút mỡ" id="create-schedule-description" rows="6" name="comment"></textarea>
+						<label for="create-schedule-description" class="text-light pl-5">Ghi chú dịch vụ</label>
+					</div>
+					<div class="form-floating mb-3">
+						<input type="datetime-local" class="form-control bg-transparent text-light text-right rounded-pill pr-4" id="create-schedule-schedule"
+							placeholder="1/1/1991" name="schedule">
+						<label for="create-schedule-schedule" class="text-light pl-5">Ngày hẹn</label>
+					</div>
+					{{!-- <input  type="text" value="{{schedule.customerID._id}}" name="customerID"> --}}
+					<div class="preview-images-before-counselor row ml-0 text-center"></div>
+						<label for="input-multi-images-before-counselor" class="label-avt d-flex justify-content-end" data-input-img-id="{{schedule._id}}">
+							<h5 id="text-img-before-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-1"></i>Chọn ảnh trước tư vấn</h5>
+						</label>
+						<input id="input-multi-images-before-counselor" class="form-control" type="file" name="beforeCounselor" hidden multiple>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer bg-blue">
+				<button type="button" id="create-schedule-btn" class="btn btn-primary rounded-pill border">Đặt lịch</button>
+				<button type="button" class="btn btn-secondary rounded-pill border" data-bs-dismiss="modal">Đóng lại</button>
 			</div>
 		</div>
 	</div>
-	{{/each}}
 </div>
+
+<!-- Modal Create Customer -->
+<div class="modal fade" id="create-customer-modal" tabindex="-1" aria-labelledby="create-customer-modal"
+	aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header bg-blue">
+				<h5 class="modal-title text-light" id="create-customer-title">Tạo thông tin khách hàng</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body bg-blue">
+				<form id="create-customer-form" method="POST" class="row" enctype="multipart/form-data">
+					<div class="col-xl-3 text-center mb-3">
+						<img src="/img/user-ray.png" id="add-avt-customer" class="rounded mx-auto d-block add-avata"
+							alt="...">
+						<label for="input-create-img" class="label-avt btn btn-sm btn-primary mt-3 rounded-pill border">
+							<h6>Chọn ảnh đại diện</h6>
+						</label>
+						<input hidden id="input-create-img" type="file" name="image"
+							accept="image/png, image/gif, image/jpeg">
+					</div>
+					<div class="col-xl-9">
+						<div class="row">
+							<div class="col-md-6 form-floating mb-3">
+								<input type="text" class="form-control text-light text-right bg-transparent rounded-pill pr-4" id="create-firstName"
+									placeholder="Vd: Trần Văn An" name="fullName" required>
+								<label for="create-firstName" class="text-light pl-5">Họ tên</label>
+							</div>
+							<div class="col-md-6 form-floating mb-3">
+								<input type="date" class="form-control text-light text-right bg-transparent rounded-pill pr-4" id="create-birth"
+									name="birth" required>
+								<label for="create-birth" class="text-light pl-5">Ngày sinh</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-floating mb-3">
+								<input type="text" class="form-control bg-transparent text-light text-right rounded-pill pr-4" id="create-phone"
+									placeholder="Vd: 0909888888" name="phone" required>
+								<label for="create-phone" class="text-light pl-5">Số điện thoại</label>
+								<div id="create_phone_error" class="text-danger off mt-1">Vui lòng nhập đúng số điện thoại</div>
+							</div>
+							<div class="col-md-6 form-floating mb-3">
+								<select id="create-gender" class="form-select bg-transparent text-light rounded-pill text-right" aria-label=".form-select-sm example"
+									name="gender" required>
+									<option class="bg-blue text-light" value="" selected>-- Chọn giới tính --</option>
+									<option class="bg-blue text-light" value="Nữ">Nữ</option>
+									<option class="bg-blue text-light" value="Nam">Nam</option>
+								</select>
+								<label for="create-gender" class="text-light pl-5">Giới tính</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-floating mb-3">
+								<input type="text" class="form-control bg-transparent text-light text-right rounded-pill pr-4" id="create-height"
+									placeholder="Vd: 1.70" name="height" required>
+								<label for="create-height" class="text-light pl-5">Chiều cao</label>
+							</div>
+							<div class="col-md-6 form-floating mb-3">
+								<input type="text" class="form-control bg-transparent text-light text-right rounded-pill pr-4" id="create-weight"
+									placeholder="Vd: 48"name="weight" required>
+								<label for="create-weight" class="bg-transparent text-light pl-5">Cân nặng</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-floating mb-3">
+								<input type="text" class="form-control bg-transparent text-light text-right rounded-pill pr-4" id="create-homeTown"
+									placeholder="Vd: Gia Lai" name="homeTown" required>
+								<label for="create-homeTown" class="bg-transparent text-light pl-5">Quê quán</label>
+							</div>
+							<div class="col-md-6 form-floating mb-3">
+								<input type="text" class="form-control bg-transparent text-light text-right rounded-pill pr-4" id="create-resource"
+									placeholder="Vd: Facebook" name="resource" required>
+								<label for="create-resource" class="bg-transparent text-light pl-5">Nguồn khách</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 form-floating">
+								<textarea class="form-control bg-transparent text-light rounded-pill pl-4" id="create-description" rows="6"
+									placeholder="Mô tả khách hàng" name="description"></textarea>
+								<label for="create-description" class="bg-transparent text-light pl-5">Mô tả</label>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer bg-blue d-flex justify-content-between">
+				<button type="button" class="btn btn-secondary rounded-pill border" data-bs-dismiss="modal">Đóng</button>
+				<button id="create-customer-btn" type="submit" class="btn btn-primary rounded-pill border">Tạo mới</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal Edit Customer -->
+<div class="modal fade" id="edit-customer-modal" tabindex="-1" aria-labelledby="edit-customer" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header bg-blue">
+				<h5 class="modal-title text-light" id="edit-customer-title">Cập nhật thông tin người dùng</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body bg-blue">
+				<form method="POST" id="edit-customer-form" class="row" enctype="multipart/form-data">
+					<div class="col-xl-3">
+						<img src="/img/user-ray.png" id="edit-customer-avt" class="rounded mx-auto d-block add-avata"
+							alt="...">
+						<div class="mt-3 mb-3 text-center">
+							<label for="input-edit-img" class="label-avt btn btn-sm btn-primary rounded-pill border">
+								<h6>Chọn ảnh đại diện</h6>
+							</label>
+							<input hidden class="form-control" id="input-edit-img" type="file" name="image"
+								accept="image/png, image/gif, image/jpeg">
+						</div>
+					</div>
+					<div class="col-xl-9">
+						<div class="row">
+							<div class="col-md-6 form-floating mb-3">
+								<input type="text" class="form-control bg-transparent text-light rounded-pill pr-4 text-right"
+									placeholder="Vd: Trần Văn A" id="edit-fullName" name="fullName">
+								<label for="edit-fullName" class="text-light pl-5">Họ tên</label>
+							</div>
+							<div class="col-md-6 form-floating mb-3">
+								<input type="date" class="form-control bg-transparent text-light rounded-pill pr-4 text-right" id="edit-birth"
+									aria-describedby="birthFeedback" name="birth" required>
+								<label for="edit-birth" class="text-light pl-5">Ngày sinh</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-floating mb-3">
+								<select id="edit-gender" class="form-select bg-transparent text-light rounded-pill pr-4 text-right"
+									aria-label=".form-select-sm example" name="gender">
+									<option class="bg-blue text-light" value="" selected>-- Chọn giới tính --</option>
+									<option class="bg-blue text-light" value="Nữ">Nữ</option>
+									<option class="bg-blue text-light" value="Nam">Nam</option>
+								</select>
+								<label for="edit-gender" class="text-light pl-5">Giới tính</label>
+							</div>
+							<div class="col-md-6 form-floating mb-3">
+								<input type="tel" class="form-control bg-transparent text-light rounded-pill text-right pr-4" id="edit-phone"
+									placeholder="Vd: 0909001002" name="phone" required>
+								<label for="edit-phone" class="text-light pl-5">Số điện thoại</label>
+								<div id="edit_phone_error" class="text-danger off mt-1">Vui lòng nhập đúng số điện thoại</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-floating mb-3">
+								<input type="text" class="form-control bg-transparent text-light rounded-pill text-right pr-4" id="edit-height"
+									placeholder="Vd: 1.70" name="height" required>
+								<label for="edit-height" class="text-light pl-5">Chiều cao</label>
+							</div>
+							<div class="col-md-6 form-floating mb-3">
+								<input type="text" class="form-control bg-transparent text-light rounded-pill text-right pr-4" id="edit-weight"
+									placeholder="Vd: 48" name="weight" required>
+								<label for="edit-weight" class="text-light pl-5">Cân nặng</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 form-floating mb-3">
+								<input type="email" class="form-control bg-transparent text-light rounded-pill text-right pr-4" id="edit-homeTown"
+									placeholder="Vd: Quãng Ngãi" name="homeTown" required>
+								<label for="edit-homeTown" class="text-light pl-5">Quê quán</label>
+							</div>
+							<div class="col-md-6 form-floating mb-3">
+								<input type="text" class="form-control bg-transparent text-light rounded-pill text-right pr-4" id="edit-resource"
+									placeholder="Vd: Facebook" name="resource" required>
+								<label for="edit-resource" class="text-light pl-5">Nguồn khách</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 form-floating">
+								<textarea class="form-control bg-transparent text-light rounded-pill text-right pr-4" id="edit-description" rows="6"
+									placeholder="Vd: Mô tả khách hàng" name="description"></textarea>
+								<label for="edit-description" class="text-light pl-5">Mô tả</label>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer bg-blue d-flex justify-content-between">
+				<button type="button" class="btn btn-secondary rounded-pill border" data-bs-dismiss="modal">Đóng lại</button>
+				<button type="button" id="edit-customer-btn" class="btn btn-primary rounded-pill border">Lưu thay đổi</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="fixed-bottom">
+    <nav class="navbar navbar-light bg-blue border-top p-3">
+		<a href="/operating-room/nursing" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-check fs-5"></i>
+			<small>Lịch tư vấn</small>
+		</a>
+		<a href="/operating-room/nursing/re-examination" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-plus fs-5"></i>
+			<small>Lịch tái khám</small>
+		</a>
+		<a href="/operating-room/nursing/customers" class="d-flex flex-column text-center link-light">
+			<i class="fa-sharp fa-solid fa-user fs-5"></i>
+			<small>Khách hàng</small>
+		</a>
+		<a href="/operating-room/nursing/service-note" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-receipt fs-5"></i>
+			<small>Hồ sơ</small>
+		</a>
+		<a href="/operating-room/nursing/discharge-from-hospital" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-arrow-right-from-bracket fs-5"></i>
+			<small>Xuất viện</small>
+		</a>
+    </nav>
+</div>
+<script src="/js/operating/nursing-customer.js"></script>

@@ -36,6 +36,8 @@ router.put('/customer-information/:id/cus-info', NursingController.updateCusInfo
 router.post('/customer-information/:id/create', NursingController.createCusInfor);
 router.get('/customer-information/:id', NursingController.showCreateCusInfor);
 router.delete('/schedule/:id/delete', NursingController.deleteSchedule);
+router.post('/schedule/:id/create', NursingController.createSchedule);
+router.get('/schedule/:id/create', NursingController.showCreateSchedule);
 router.get('/schedule/:id/detail', NursingController.showScheduleDetail);
 router.get('/', NursingController.showSchedule)
 

@@ -1,70 +1,22 @@
 <link rel="stylesheet" href="/css/root.css">
-{{!-- <link rel="stylesheet" href="/css/assistant.css"> --}}
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
-    aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header bg-blue border-bottom">
-        <h5 class="offcanvas-title text-white text-center" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
-        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body container-sidebar bg-blue">
-        <div class="sidebar-item">
-            <a href="/operating-room/nursing" class="sidebar-item-title pl-3">
-                <i class="fa-sharp fa-solid fa-calendar-check mr-3"></i>Lịch hẹn tư vấn
-            </a>
-        </div>
-        <div class="sidebar-item">
-            <a href="/operating-room/nursing/re-examination" class="sidebar-item-title pl-3">
-                <i class="fa-sharp fa-solid fa-calendar-plus mr-3"></i>Lịch hẹn tái khám
-            </a>
-        </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/nursing/customers" class="sidebar-item-title pl-3">
-                <i class="fa-sharp fa-solid fa-users mr-2"></i>Danh sách khách hàng
-            </a>
-        </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
-                <i class="fa-sharp fa-solid fa-receipt mr-3"></i>Danh sách hồ sơ khách hàng
-            </a>
-        </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/nursing/discharge-from-hospital" class="sidebar-item-title pl-3">
-				<i class="fa-sharp fa-solid fa-arrow-right-from-bracket mr-2"></i>Danh sách khách hàng xuất viện
-            </a>
-        </div>
-    </div>
-	<div class="offcanvas-footer border-top">
-		<div class="sidebar-item border-bottom">
-            <a href="/operating-room/nursing/storage-cus-info-done" class="sidebar-item-title pl-3">
-				<i class="fa-sharp fa-solid fa-boxes-packing mr-3"></i>Kho lưu trữ hồ sơ
-            </a>
-        </div>
-        <div class="sidebar-item">
-            <a href="/operating-room/nursing/profile" class="sidebar-item-title pl-3">
-                <i class="fa-sharp fa-solid fa-address-book mr-3"></i>Thông tin người dùng
-            </a>
-        </div>
-		<div class="sidebar-item">
-			<form method="POST" action="/logout">
-				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
-			</form>
-		</div>
-    </div>
-</div>
 <div class="sticky-top">
-    <nav class="navbar navbar-light bg-blue">
+    <nav class="navbar navbar-light bg-blue border-bottom">
         <div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
         </div>
-        <div class="text-light text-uppercase fw-bold">
-            {{title}}
-        </div>
-        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
-                class="ti-menu"></i>
-        </button>
+		<div>
+			<a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
+			</a>
+			<a href="/operating-room/nursing/profile" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-user-nurse fs-5 p-2"></i>
+			</a>
+		</div>
     </nav>
 </div>
-<div class="p-3">
+<div class="p-3 m-16">
 	<div class="row">
 		{{#each reExam}}
 		<div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 mb-3">
@@ -130,7 +82,7 @@
 			</div>
 		</div>
 		{{else}}
-		<div class="text-center">Chưa có dịch vụ cần thực hiện.</div>
+		<div class="text-center">Chưa có lịch tái khám.</div>
 		{{/each}}
 	</div>
 </div>
@@ -154,6 +106,30 @@
 </div>
 
 <form method="POST" id="submit-re-exam-form-done"></form>
+<div class="fixed-bottom">
+    <nav class="navbar navbar-light bg-blue border-top p-3">
+		<a href="/operating-room/nursing" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-check fs-5"></i>
+			<small>Lịch tư vấn</small>
+		</a>
+		<a href="/operating-room/nursing/re-examination" class="d-flex flex-column text-center link-light">
+			<i class="fa-sharp fa-solid fa-calendar-plus fs-5"></i>
+			<small>Lịch tái khám</small>
+		</a>
+		<a href="/operating-room/nursing/customers" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-user fs-5"></i>
+			<small>Khách hàng</small>
+		</a>
+		<a href="/operating-room/nursing/service-note" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-receipt fs-5"></i>
+			<small>Hồ sơ</small>
+		</a>
+		<a href="/operating-room/nursing/discharge-from-hospital" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-arrow-right-from-bracket fs-5"></i>
+			<small>Xuất viện</small>
+		</a>
+    </nav>
+</div>
 <script src="/js/operating/nursing-re-exam.js"></script>
 <script>
 	const textarea = document.querySelectorAll('.message-content');

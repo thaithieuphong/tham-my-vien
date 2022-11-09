@@ -1,14 +1,18 @@
 <link rel="stylesheet" href="/css/root.css">
-<link rel="stylesheet" href="/css/assistant.css">
 <div class="sticky-top">
-	<nav class="navbar navbar-light bg-blue border-bottom">
-		<a type="button" href="/operating-room/nursing/re-examination">
-			<i class="fa-solid fa-circle-arrow-left text-light fs-3"></i>
-		</a>
-        <div class="text-light text-uppercase fw-bold">
-            {{title}}
+    <nav class="navbar navbar-light bg-blue border-bottom">
+        <div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
         </div>
-		<div class="img-container">
+		<div>
+			<a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
+			</a>
+			<a href="/operating-room/nursing/profile" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-user-nurse fs-5 p-2"></i>
+			</a>
 		</div>
     </nav>
 </div>
@@ -145,4 +149,28 @@
 	{{/if}}
 </div>
 
+<div class="fixed-bottom">
+    <nav class="navbar navbar-light bg-blue border-top p-3">
+		<a href="/operating-room/nursing" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-check fs-5"></i>
+			<small>Lịch tư vấn</small>
+		</a>
+		<a href="/operating-room/nursing/re-examination" class="d-flex flex-column text-center link-light">
+			<i class="fa-sharp fa-solid fa-calendar-plus fs-5"></i>
+			<small>Lịch tái khám</small>
+		</a>
+		<a href="/operating-room/nursing/customers" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-user fs-5"></i>
+			<small>Khách hàng</small>
+		</a>
+		<a href="/operating-room/nursing/service-note" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-receipt fs-5"></i>
+			<small>Hồ sơ</small>
+		</a>
+		<a href="/operating-room/nursing/discharge-from-hospital" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-arrow-right-from-bracket fs-5"></i>
+			<small>Xuất viện</small>
+		</a>
+    </nav>
+</div>
 <script src="/js/operating/nursing-re-exam.js"></script>

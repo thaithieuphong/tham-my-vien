@@ -6,6 +6,8 @@ const Reexamination = require('../../models/Reexamination');
 const Customer = require('../../models/Customer');
 const path = require('path');
 const rootPath = path.sep;
+const appRoot = require('app-root-path');
+const fs = require('fs');
 const TypeService = require("../../models/TypeService");
 const { mongo } = require('mongoose');
 
@@ -22,9 +24,62 @@ class NursingController {
 			.catch(next);
 	}
 
+	showCreateSchedule(req, res, next) {
+		Customer.findById({ _id: req.params.id }).populate('userID')
+		.then(customer => {
+				res.render('operating/nursing/create-schedule', {
+					title: 'Tạo lịch hẹn',
+					customer: mongooseToObject(customer)
+				});
+			})
+	}
+
+	createSchedule(req, res, next) {
+		const cusID = req.params.id;
+		const createName = req.body.createID;
+		const scheduleBody = req.body.schedule;
+		const priceBefore = req.body.priceBefore;
+		const deposit = req.body.deposit;
+		const comment = req.body.comment;
+		if (deposit === '') {
+			const schedule = new Schedule({
+				customerID: cusID,
+				createName: createName,
+				status: "Tạo mới",
+				comments: { comment: comment },
+				schedule: scheduleBody,
+				priceBefore: priceBefore,
+				deposit: 0,
+			});
+			schedule.save();
+			Customer.findByIdAndUpdate({ _id: req.body.createID }, { $push: { scheduleID: schedule.id }})
+				.then(() => {
+					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
+					res.redirect('/operating-room/nursing/customers');
+				})
+		} else {
+			const schedule = new Schedule({
+				customerID: cusID,
+				createName: createName,
+				status: "Tạo mới",
+				comments: { comment: comment },
+				schedule: scheduleBody,
+				priceBefore: priceBefore,
+				deposit: deposit,
+			});
+			schedule.save();
+			Customer.findByIdAndUpdate({ _id: req.body.createID }, { $push: { scheduleID: schedule.id }})
+				.then(() => {
+					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
+					res.redirect('/operating-room/nursing/customers');
+				})
+		}
+	}
+
 	showSchedule(req, res, next){
 		Promise.all([Schedule.countDeleted({}), Schedule.find({ status: 'Tạo mới'}).populate('customerID')])
 		.then(([countDelete, schedules]) => {
+			console.log(schedules)
 			res.render("operating/nursing/schedule", {
 				countDelete: countDelete,
 				schedules: multipleMongooseToObject(schedules),
@@ -56,7 +111,7 @@ class NursingController {
 					Customer.findByIdAndUpdate({ _id: req.body.cusID }, {serviceNoteID: newServiceNote._id}),
 					ServiceNote.findByIdAndUpdate({ _id: newServiceNote._id }, { status: 'Đang xử lý'})])
 					.then(([schedule, customer, serviceNote]) => {
-						res.redirect(`/operating-room/nursing/customer-information/${serviceNote._id}`)
+						res.redirect(`/operating-room/nursing/customer-information/${newServiceNote._id}`)
 					})
 			})
 	}
@@ -188,13 +243,13 @@ class NursingController {
 		if (req.file) {
 			const customer = new Customer({
 				userID: req.userId,
-				firstName: req.body.firstName,
-				lastName: req.body.lastName,
+				fullName: req.body.fullName,
 				birth: req.body.birth,
 				gender: req.body.gender,
 				phone: req.body.phone,
-				email: req.body.email,
-				address: req.body.address,
+				height: req.body.height,
+				weight: req.body.weight,
+				homeTown: req.body.homeTown,
 				resource: req.body.resource,
 				description: req.body.description,
 				image: {
@@ -206,13 +261,13 @@ class NursingController {
 		} else {
 			const customer = new Customer({
 				userID: req.userId,
-				firstName: req.body.firstName,
-				lastName: req.body.lastName,
+				fullName: req.body.fullName,
 				birth: req.body.birth,
 				gender: req.body.gender,
 				phone: req.body.phone,
-				email: req.body.email,
-				address: req.body.address,
+				height: req.body.height,
+				weight: req.body.weight,
+				homeTown: req.body.homeTown,
 				resource: req.body.resource,
 				description: req.body.description,
 				image: {
@@ -231,13 +286,13 @@ class NursingController {
 			Customer.findOneAndUpdate(
 				{ _id: req.params.id },
 				{
-					firstName: req.body.firstName,
-					lastName: req.body.lastName,
+					fullName: req.body.fullName,
 					birth: req.body.birth,
-					gender: req.body.gender,
 					phone: req.body.phone,
-					email: req.body.email,
-					address: req.body.address,
+					gender: req.body.gender,
+					height: req.body.height,
+					weight: req.body.weight,
+					homeTown: req.body.homeTown,
 					resource: req.body.resource,
 					description: req.body.description,
 					image: {
@@ -250,6 +305,7 @@ class NursingController {
 					let imgCustomer = customer.image.name;
 					let url = customer.image.url;
 					let files = fs.readdirSync(
+						// appRoot + "/img/uploads/customers/"
 						rootPath + "mnt/vdb/crm.drtuananh.vn/customers/"
 					);
 					files.filter((img) => {
@@ -276,6 +332,7 @@ class NursingController {
 			User.findById({ _id: req.userId })
 		])
 			.then(([customer, user]) => {
+				console.log(customer)
 				res.render('operating/nursing/operating-customer-detail', {
 					customer: mongooseToObject(customer),
 					user: mongooseToObject(user),
@@ -438,7 +495,6 @@ class NursingController {
 		const file = req.files;
 		const imgArr = [];
 		const videoArr = [];
-		console.log('file', req.body)
 		file.forEach(element => {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
 				imgArr.push({ name: element.filename, url: element.path });
@@ -520,7 +576,6 @@ class NursingController {
 
 	// Tải ảnh tái khám
 	uploadReExam(req, res, next) {
-		console.log('req body', req.body)
 		const file = req.files;
 		const imgArr = [];
 		const videoArr = [];

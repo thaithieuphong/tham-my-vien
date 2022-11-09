@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="/css/root.css">
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-blue border-bottom">
+        <div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
+        </div>
+		<div>
+			<a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
+			</a>
+			<a href="/operating-room/nursing/profile" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-user-nurse fs-5 p-2"></i>
+			</a>
+		</div>
+    </nav>
+</div>
+{{#if messages_createReExamination_success}}
+<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+	{{messages_createReExamination_success}}
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+<div class="m-16">
+	<div class="card bg-glass">
+		<div class="card-body">
+			<form id="create-schedule-form" method="POST" action="/operating-room/nursing/schedule/{{customer._id}}/create" class="row">
+				<input hidden type="text" class="form-control" id="create-schedule-createID" value="{{customer.userID._id}}" name="createID">
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control bg-transparent text-light text-right rounded-pill pr-4" id="create-schedule-priceBefore"
+						placeholder="Vd: 80,000,000" name="priceBefore">
+					<label for="create-schedule-priceBefore" class="text-light pl-5">Phí dịch vụ</label>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="text" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+						id="create-schedule-deposit" placeholder="Vd: 20,000,000" name="deposit">
+					<label for="create-schedule-deposit" class="text-light pl-5">Đặt cọc</label>
+				</div>
+				<div class="form-floating mb-3">
+					<textarea class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+					placeholder="Nâng ngực, hút mỡ" id="create-schedule-description" rows="6" name="comment"></textarea>
+					<label for="create-schedule-description" class="text-light pl-5">Ghi chú dịch vụ</label>
+				</div>
+				<div class="form-floating mb-3">
+					<input type="datetime-local" class="form-control bg-transparent text-light text-right rounded-pill pr-4" id="create-schedule-schedule"
+						placeholder="1/1/1991" name="schedule">
+					<label for="create-schedule-schedule" class="text-light pl-5">Ngày hẹn</label>
+				</div>
+				<div class="card-footer text-end">
+					<button type="submit" id="create-schedule-btn" class="btn btn-primary rounded-pill border">Đặt lịch</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="fixed-bottom">
+    <nav class="navbar navbar-light bg-blue border-top p-3">
+		<a href="/operating-room/nursing" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-check fs-5"></i>
+			<small>Lịch tư vấn</small>
+		</a>
+		<a href="/operating-room/nursing/re-examination" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-plus fs-5"></i>
+			<small>Lịch tái khám</small>
+		</a>
+		<a href="/operating-room/nursing/customers" class="d-flex flex-column text-center link-light">
+			<i class="fa-sharp fa-solid fa-user fs-5"></i>
+			<small>Khách hàng</small>
+		</a>
+		<a href="/operating-room/nursing/service-note" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-receipt fs-5"></i>
+			<small>Hồ sơ</small>
+		</a>
+		<a href="/operating-room/nursing/discharge-from-hospital" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-arrow-right-from-bracket fs-5"></i>
+			<small>Xuất viện</small>
+		</a>
+    </nav>
+</div>
+<script src="/js/operating/nursing-create-schedule.js"></script>

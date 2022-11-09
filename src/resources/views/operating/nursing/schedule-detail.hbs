@@ -1,175 +1,146 @@
 <link rel="stylesheet" href="/css/root.css">
-{{!-- <link rel="stylesheet" href="/css/assistant.css"> --}}
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
-    aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header bg-blue border-bottom">
-        <h5 class="offcanvas-title text-white text-center" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
-        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body container-sidebar bg-blue">
-        <div class="sidebar-item">
-            <a href="/operating-room/nursing" class="sidebar-item-title pl-3">
-                <i class="fa-sharp fa-solid fa-calendar-check mr-3"></i>Lịch hẹn tư vấn
-            </a>
-        </div>
-        <div class="sidebar-item">
-            <a href="/operating-room/nursing/re-examination" class="sidebar-item-title pl-3">
-                <i class="fa-sharp fa-solid fa-calendar-plus mr-3"></i>Lịch hẹn tái khám
-            </a>
-        </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/nursing/customers" class="sidebar-item-title pl-3">
-                <i class="fa-sharp fa-solid fa-users mr-2"></i>Danh sách khách hàng
-            </a>
-        </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/nursing/service-note" class="sidebar-item-title pl-3">
-                <i class="fa-sharp fa-solid fa-receipt mr-3"></i>Danh sách hồ sơ khách hàng
-            </a>
-        </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/nursing/discharge-from-hospital" class="sidebar-item-title pl-3">
-				<i class="fa-sharp fa-solid fa-arrow-right-from-bracket mr-2"></i>Danh sách khách hàng xuất viện
-            </a>
-        </div>
-    </div>
-	<div class="offcanvas-footer border-top">
-		<div class="sidebar-item border-bottom">
-            <a href="/operating-room/nursing/storage-cus-info-done" class="sidebar-item-title pl-3">
-				<i class="fa-sharp fa-solid fa-boxes-packing mr-3"></i>Kho lưu trữ hồ sơ
-            </a>
-        </div>
-        <div class="sidebar-item">
-            <a href="/operating-room/nursing/profile" class="sidebar-item-title pl-3">
-                <i class="fa-sharp fa-solid fa-address-book mr-3"></i>Thông tin người dùng
-            </a>
-        </div>
-		<div class="sidebar-item">
-			<form method="POST" action="/logout">
-				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
-			</form>
-		</div>
-    </div>
-</div>
 <div class="sticky-top">
     <nav class="navbar navbar-light bg-blue border-bottom">
         <div class="img-container">
-            <a type="button" onclick="history.back()">
-				<i class="fa-solid fa-circle-arrow-left text-light fs-3"></i>
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
 			</a>
         </div>
-        <div class="text-light text-uppercase fw-bold">
-            {{this.title}}
-        </div>
-        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
-                class="ti-menu"></i>
-        </button>
+		<div>
+			<a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
+			</a>
+			<a href="/operating-room/nursing/profile" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-user-nurse fs-5 p-2"></i>
+			</a>
+		</div>
     </nav>
-	{{!-- <input type="text" id="myInput" class="myInput" onkeyup="myFunction()" placeholder="Search for names.."> --}}
 </div>
-<div class="card bg-glass-0 shadow">
-    <div class="card-body">
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light">Họ tên:</label>
-            <p class="m-0 text-light">
-                {{schedule.customerID.nickName}}
-            </p>
-        </div>
-        <hr class="mt-0 text-light">
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light">Ngày sinh:</label>
-            <p class="m-0 text-light">{{formatBirth schedule.customerID.birth}}</p>
-        </div>
-        <hr class="mt-0">
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light">Giới tính:</label>
-            <p class="m-0 text-light">
-                {{schedule.customerID.gender}}
-            </p>
-        </div>
-        <hr class="mt-0">
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light">Điện thoại:</label>
-            <p class="m-0 text-danger">
-                0{{schedule.customerID.phone}}
-            </p>
-        </div>
-        <hr class="mt-0">
-        <label class="m-0 text-light text-nowrap">Địa chỉ:</label>
-        <p class="m-0 text-wrap text-light">
-            {{schedule.customerID.address}}
-        </p>
-        <hr class="mt-0">
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light">Email:</label>
-            <p class="m-0 text-light">
-                {{schedule.customerID.email}}
-            </p>
-        </div>
-        <hr class="mt-0">
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light">Nguồn khách:</label>
-            <p class="m-0 text-light">
-                {{schedule.customerID.resource}}
-            </p>
-        </div>
-        <hr class="mt-0">
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light text-nowrap">Nhân viên:</label>
-            <p class="m-0 text-light text-right">
-                {{schedule.createName.firstName}} {{schedule.createName.lastName}}
-            </p>
-        </div>
-        <hr class="mt-0">
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light">Trạng thái:</label>
-            <p class="m-0 text-light">
-                {{schedule.status}}
-            </p>
-        </div>
-        <hr class="mt-0">
-        <label class="m-0 text-light text-nowrap">Dịch vụ:</label>
-        <div class="text-right">
-            {{#each schedule.service}}
-                <label class="text-dark-yellow">
-                    <em>{{this}}</em>
-                </label>
-                <hr class="mt-0">
-                {{!-- <p class="m-0 text-light text-right">
-                    {{this}}
-                </p> --}}
-            {{/each}}
-        </div>
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light text-nowrap">Ngày hẹn:</label>
-            <p class="m-0 text-success text-right">
-                {{formatDate schedule.schedule}}
-            </p>
-        </div>
-        <hr class="mt-0">
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light">Đặt cọc:</label>
-            <p class="text-warning">
-                {{schedule.deposit}}
-            </p>
-        </div>
-        <hr class="mt-0">
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light">Phí dịch vụ:</label>
-            <p class="text-danger">
-                {{schedule.priceBefore}}
-            </p>
-        </div>
-        <hr class="mt-0">
-        <div class="d-flex justify-content-between">
-            <label class="m-0 text-light">Ghi chú:</label>
-            {{#each schedule.comments}}
+<div class="m-16">
+    <div class="card bg-glass-0 shadow">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Họ tên:</label>
                 <p class="m-0 text-light">
-                    {{this.comment}}
+                    {{schedule.customerID.nickName}}
                 </p>
-            {{/each}}
+            </div>
+            <hr class="mt-0 text-light">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Ngày sinh:</label>
+                <p class="m-0 text-light">{{formatBirth schedule.customerID.birth}}</p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Giới tính:</label>
+                <p class="m-0 text-light">
+                    {{schedule.customerID.gender}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Điện thoại:</label>
+                <p class="m-0 text-danger">
+                    0{{schedule.customerID.phone}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <label class="m-0 text-light text-nowrap">Địa chỉ:</label>
+            <p class="m-0 text-wrap text-light">
+                {{schedule.customerID.address}}
+            </p>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Email:</label>
+                <p class="m-0 text-light">
+                    {{schedule.customerID.email}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Nguồn khách:</label>
+                <p class="m-0 text-light">
+                    {{schedule.customerID.resource}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light text-nowrap">Nhân viên:</label>
+                <p class="m-0 text-light text-right">
+                    {{schedule.createName.firstName}} {{schedule.createName.lastName}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Trạng thái:</label>
+                <p class="m-0 text-light">
+                    {{schedule.status}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <label class="m-0 text-light text-nowrap">Dịch vụ:</label>
+            <div class="text-right">
+                {{#each schedule.service}}
+                    <label class="text-dark-yellow">
+                        <em>{{this}}</em>
+                    </label>
+                    <hr class="mt-0">
+                {{/each}}
+            </div>
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light text-nowrap">Ngày hẹn:</label>
+                <p class="m-0 text-success text-right">
+                    {{formatDate schedule.schedule}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Đặt cọc:</label>
+                <p class="text-warning">
+                    {{schedule.deposit}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Phí dịch vụ:</label>
+                <p class="text-danger">
+                    {{schedule.priceBefore}}
+                </p>
+            </div>
+            <hr class="mt-0">
+            <div class="d-flex justify-content-between">
+                <label class="m-0 text-light">Ghi chú:</label>
+                {{#each schedule.comments}}
+                    <p class="m-0 text-light">
+                        {{this.comment}}
+                    </p>
+                {{/each}}
+            </div>
         </div>
     </div>
+</div>
+<div class="fixed-bottom">
+    <nav class="navbar navbar-light bg-blue border-top p-3">
+		<a href="/operating-room/nursing" class="d-flex flex-column text-center link-light">
+			<i class="fa-sharp fa-solid fa-calendar-check fs-5"></i>
+			<small>Lịch tư vấn</small>
+		</a>
+		<a href="/operating-room/nursing/re-examination" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-plus fs-5"></i>
+			<small>Lịch tái khám</small>
+		</a>
+		<a href="/operating-room/nursing/customers" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-user fs-5"></i>
+			<small>Khách hàng</small>
+		</a>
+		<a href="/operating-room/nursing/service-note" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-receipt fs-5"></i>
+			<small>Hồ sơ</small>
+		</a>
+		<a href="/operating-room/nursing/discharge-from-hospital" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-arrow-right-from-bracket fs-5"></i>
+			<small>Xuất viện</small>
+		</a>
+    </nav>
 </div>
 

@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
+						newImage.setAttribute('accept', 'image/*');
 						newImage.id = i;
 						closeButtonLink.id = i;
 						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
@@ -125,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
+						newVideo.setAttribute('accept', 'video/*');
 						newVideo.controls = true;
 						newVideo.id = i;
 						closeButtonLink.type = 'button';
@@ -174,6 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
+						newImage.setAttribute('accept', 'image/*');
 						newImage.id = i;
 						closeButtonLink.id = i;
 						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
@@ -215,6 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
+						newVideo.setAttribute('accept', 'video/*');
 						newVideo.controls = true;
 						newVideo.id = i;
 						closeButtonLink.type = 'button';
@@ -263,6 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
+						newImage.setAttribute('accept', 'image/*');
 						newImage.id = i;
 						closeButtonLink.id = i;
 						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
@@ -304,6 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
+						newVideo.setAttribute('accept', 'video/*');
 						newVideo.controls = true;
 						newVideo.id = i;
 						closeButtonLink.type = 'button';
@@ -351,6 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
+						newImage.setAttribute('accept', 'image/*');
 						newImage.id = i;
 						closeButtonLink.id = i;
 						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
@@ -392,6 +399,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
+						newVideo.setAttribute('accept', 'video/*');
 						newVideo.controls = true;
 						newVideo.id = i;
 						closeButtonLink.type = 'button';

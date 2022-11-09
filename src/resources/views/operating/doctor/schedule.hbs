@@ -1,65 +1,22 @@
 <link rel="stylesheet" href="/css/root.css">
-{{!-- <link rel="stylesheet" href="/css/assistant.css"> --}}
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
-    aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header bg-blue border-bottom">
-        <h5 class="offcanvas-title text-white text-center" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
-        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body container-sidebar bg-blue">
-        <div class="sidebar-item">
-            <a href="/operating-room/doctor" class="sidebar-item-title pl-3">
-                <i class="ti-dashboard mr-3"></i>Lịch hẹn tư vấn
-            </a>
-        </div>
-        {{!-- <div class="sidebar-item">
-            <a href="/operating-room/doctor/re-examination" class="sidebar-item-title pl-3">
-                <i class="ti-headphone-alt mr-3"></i>Lịch hẹn tái khám
-            </a>
-        </div> --}}
-		{{!-- <div class="sidebar-item">
-            <a href="/operating-room/doctor/customers" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3 active"></i>Danh sách khách hàng
-            </a>
-        </div> --}}
-		{{!-- <div class="sidebar-item">
-            <a href="/operating-room/doctor/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3 active"></i>Danh sách hồ sơ khách hàng
-            </a>
-        </div> --}}
-    </div>
-	<div class="offcanvas-footer border-top">
-		{{!-- <div class="sidebar-item border-bottom">
-            <a href="/operating-room/doctor/storage-cus-info" class="sidebar-item-title pl-3">
-				<i class="ti-trash mr-3 active"></i>Kho lưu trữ hồ sơ
-            </a>
-        </div> --}}
-        <div class="sidebar-item">
-            <a href="/operating-room/doctor/profile" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Thông tin người dùng
-            </a>
-        </div>
-		<div class="sidebar-item">
-			<form method="POST" action="/logout">
-				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
-			</form>
-		</div>
-    </div>
-</div>
 <div class="sticky-top">
     <nav class="navbar navbar-light bg-blue border-bottom">
         <div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
         </div>
-        <div class="text-light text-uppercase fw-bold">
-            {{this.title}}
-        </div>
-        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
-                class="ti-menu"></i>
-        </button>
+		<div>
+			<a href="/operating-room/doctor/storage-cus-info-done" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
+			</a>
+			<a href="/operating-room/doctor/profile" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-user-nurse fs-5 p-2"></i>
+			</a>
+		</div>
     </nav>
 </div>
-<div class="mt-3 ml-3 mr-3">
+<div class="mt-3 ml-3 mr-3 m-16">
 	{{#if messages_pushReExamination_error}}
 	<div class="alert alert-warning alert-dismissible fade show mt-2" role="alert">
 		{{messages_pushReExamination_error}}
@@ -68,57 +25,65 @@
 	{{/if}}
 	<div class="row">
 		{{#each schedules}}
-		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
-			<div class="card shadow text-white bg-glass">
-				<div class="card-header bg-transparent d-flex justify-content-between">
-					<div class="badge bg-success lh-lg rounded-pill">
-						{{formatDate this.schedule}}
+		<div class="col-xl-6 col-lg-6 col-md-12 col-sm-6">
+			<form id="create-customer-information-form" method="POST" action="/operating-room/nursing/customer-information/{{this._id}}/create">
+				<div class="card bg-glass mb-3">
+					<div class="card-header bg-transparent d-flex justify-content-between">
+						<div class="badge bg-success lh-lg rounded-pill">
+							{{formatDate this.schedule}}
+						</div>
+						<a class="text-light" href="/operating-room/nursing/schedule/{{this._id}}/detail">
+							<i class="fa-solid fa-ellipsis"></i>
+						</a>
 					</div>
-					<div class="badge bg-danger lh-lg rounded-pill">{{this.status}}</div>
-					<a class="text-light" href="/operating-room/nursing/schedule/{{this._id}}/detail">
-						<i class="fa-solid fa-ellipsis"></i>
-					</a>
-				</div>
-				<div class="card-body">
-					{{!-- <form id="create-customer-information-form" action="/operating-room/doctor/customer-information/{{this._id}}/create" method="POST"> --}}
+					<div class="card-body">
 						<input class="form-control text-wrap text-right" type="text" value="{{this.customerID._id}}" name="cusID" hidden>
-						<div class="form-floating mb-4">
-							<input id="input-nicknName" class="form-control text-wrap text-right bg-transparent text-light" type="text" value="{{this.customerID.nickName}}" name="nickName" readonly>
-							<label for="input-nicknName" class="text-light">Họ tên:</label>
+						<div class="d-flex justify-content-between border-bottom mb-3">
+							<label for="" class="text-nowrap text-light m-0">Trạng thái:</label>
+							<label class="text-wrap text-right text-danger m-0">{{this.status}}</label>
 						</div>
-						<div class="form-floating mb-4">
-							<input id="input-nicknName" class="form-control text-wrap text-right bg-transparent text-light" type="text" value="{{this.customerID.gender}}" name="gender" readonly>
-							<label class="text-light">Giới tính:</label>
+						<div class="d-flex justify-content-between border-bottom mb-3">
+							<label  class="text-nowrap text-light m-0">Họ tên:</label>
+							<label id="input-nickName" class="text-wrap text-right text-light m-0">{{this.customerID.nickName}}</label>
 						</div>
-						<div class="form-floating mb-4">
-							<input id="input-nicknName" class="form-control text-wrap text-right bg-transparent text-light" type="text" value="{{this.customerID.phone}}" name="phone" readonly>
-							<label class="text-light">Số điện thoại:</label>
+						<div class="d-flex justify-content-between border-bottom mb-3">
+							<label class="text-nowrap text-light m-0">Giới tính:</label>
+							<label id="input-gender" class="text-wrap text-light m-0">{{this.customerID.gender}}</label>
 						</div>
-						<label class="text-light">Dịch vụ</label>
+						<div class="d-flex justify-content-between border-bottom mb-3">
+							<label class="text-nowrap text-light m-0">Số điện thoại:</label>
+							<label id="input-phone" class="text-wrap text-right text-light m-0">0{{this.customerID.phone}}</label>
+						</div>
+						<label class="text-nowrap text-light">Dịch vụ</label>
 						{{#each this.service}}
-						<div class="d-flex justify-content-between">
+						<div class="text-right border-bottom mb-0">
+							<label class="text-dark-yellow m-0">{{this}}</label>
 							{{!-- <input id="input-nicknName" class="form-control bg-transparent text-light textarea-none" value="{{this.service}}" hidden  name="service"> --}}
-							<label class="text-light">{{this}}</label>
 						</div>
-						<hr class="mt-0">
 						{{/each}}
-						<div class="form-floating mb-4">
-							<input id="input-nicknName" class="form-control text-wrap text-right bg-transparent text-danger" type="text" value="{{this.priceBefore}}" name="priceBefore" readonly>
-							<label class="text-light">Phí dịch vụ:</label>
+						<div class="d-flex justify-content-between border-bottom mb-3">
+							<label class="text-nowrap text-light m-0">Tiền cọc</label>
+							<label id="input-deposit" class="text-wrap text-right text-warning m-0">{{this.deposit}}</label>
 						</div>
-						<div class="form-floating">
-							<input id="input-nicknName" class="form-control text-wrap text-right bg-transparent text-warning" type="text" value="{{this.deposit}}" name="deposit" readonly>
-							<label class="text-light">Tiền cọc</label>
+						<div class="d-flex justify-content-between border-bottom">
+							<label class="text-light m-0">Phí dịch vụ:</label>
+							<label id="input-beforePrice" class="text-wrap text-right text-danger m-0">{{this.priceBefore}}</label>
 						</div>
-					{{!-- </form> --}}
+					</div>
+					{{!-- <div class="card-footer bg-transparent">
+						<div class="row d-flex justify-content-between">
+							<div class="col-lg-6 col-md-12 col-sm-12">
+								<button type="button" class="btn btn-danger btn-mobile rounded-pill mb-2 border" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
+								data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}" data-delete-lastname="{{this.customerID.lastName}}"
+								data-delete-customerID="{{this.customerID._id}}">Xóa lịch hẹn</button>
+							</div>
+							<div class="col-lg-6 col-md-12 col-sm-12 text-right">
+								<button class="btn btn-primary btn-mobile rounded-pill mb-2 border" id="create-customer-information-btn">Tạo hồ sơ khách hàng</button>
+							</div>
+						</div>
+					</div> --}}
 				</div>
-				{{!-- <div class="card-footer bg-transparent">
-					<button type="button" class="btn btn-danger btn-mobile mb-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
-					data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}" data-delete-lastname="{{this.customerID.lastName}}"
-					data-delete-customerID="{{this.customerID._id}}">Xóa lịch hẹn</button>
-					<a class="btn btn-primary btn-mobile float-right mb-2 rounded-pill" id="create-customer-information-btn">Tạo hồ sơ khách hàng</a>
-				</div> --}}
-			</div>
+			</form>
 		</div>
 		{{/each}}
 	</div>
@@ -146,4 +111,28 @@
     </div>
 </div>
 
+<div class="fixed-bottom">
+    <nav class="navbar navbar-light bg-blue border-top p-3">
+		<a href="/operating-room/doctor" class="d-flex flex-column text-center link-light">
+			<i class="fa-sharp fa-solid fa-calendar-check fs-5"></i>
+			<small>Lịch tư vấn</small>
+		</a>
+		<a href="/operating-room/doctor/re-examination" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-plus fs-5"></i>
+			<small>Lịch tái khám</small>
+		</a>
+		<a href="/operating-room/doctor/customers" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-user fs-5"></i>
+			<small>Khách hàng</small>
+		</a>
+		<a href="/operating-room/doctor/service-note" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-receipt fs-5"></i>
+			<small>Hồ sơ</small>
+		</a>
+		<a href="/operating-room/doctor/discharge-from-hospital" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-arrow-right-from-bracket fs-5"></i>
+			<small>Xuất viện</small>
+		</a>
+    </nav>
+</div>
 <script src="/js/operating/nursing-create-cus-info.js"></script>

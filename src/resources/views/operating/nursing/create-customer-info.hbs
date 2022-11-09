@@ -1,14 +1,18 @@
 <link rel="stylesheet" href="/css/root.css">
-<link rel="stylesheet" href="/css/assistant.css">
 <div class="sticky-top">
-	<nav class="navbar navbar-light bg-blue border-bottom">
-		<a type="button" href="/operating-room/nursing/service-note">
-			<i class="fa-solid fa-circle-arrow-left text-light fs-3"></i>
-		</a>
-        <div class="text-light text-uppercase fw-bold text-nowrap">
-            {{title}}
+    <nav class="navbar navbar-light bg-blue border-bottom">
+        <div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
         </div>
-		<div class="img-container">
+		<div>
+			<a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
+			</a>
+			<a href="/operating-room/nursing/profile" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-user-nurse fs-5 p-2"></i>
+			</a>
 		</div>
     </nav>
 	<nav class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column justify-content-center bg-blue p-2">
@@ -23,541 +27,465 @@
 	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {{/if}}
-{{#if schedule}}
-	<div class="card bg-glass">
-		<div class="card-body">
-			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="customer" role="tabpanel" aria-labelledby="home-tab">
-					<form method="POST" id="submit-customer-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/cus-info?_method=PUT">
-						<input class="form-control bg-light" type="text" value="{{schedule.scheduleID.customerID._id}}" hidden name="cusID">
-						<div class="row">
-							<div class="col-md-3 form-floating mb-4">
-								<input id="input-identification" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
-								value="{{schedule.scheduleID.customerID.identification}}" type="text" name="identification">
-								<label for="input-identification" class="text-light pl-5">Mã định danh</label>
+<div class="m-16">
+	{{#if schedule}}
+		<div class="card bg-glass">
+			<div class="card-body">
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="customer" role="tabpanel" aria-labelledby="home-tab">
+						<form method="POST" id="submit-customer-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/cus-info?_method=PUT">
+							<input class="form-control bg-light" type="text" value="{{schedule.scheduleID.customerID._id}}" hidden name="cusID">
+							<div class="row">
+								<div class="col-md-3 form-floating mb-4">
+									<input id="input-identification" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+									value="{{schedule.scheduleID.customerID.identification}}" type="text" name="identification">
+									<label for="input-identification" class="text-light pl-5">Mã định danh</label>
+								</div>
+								<div class="col-md-3 form-floating mb-4">
+									<input id="input-fullname" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+									value="{{schedule.scheduleID.customerID.fullName}}" type="text" name="fullName">
+									<label for="input-fullname" class="text-light pl-5">Họ tên khai sinh</label>
+								</div>
+								<div class="col-md-3 form-floating mb-4">
+									<input id="input-gender" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+									value="{{schedule.scheduleID.customerID.birth}}" type="date" value="{{schedule.scheduleID.customerID.birth}}" name="birth">
+									<label for="inpute-gender" class="text-light pl-5">Ngày sinh</label>
+								</div>
+								<div class="col-md-3 form-floating mb-4">
+									<select class="form-select bg-transparent text-light text-right rounded-pill pr-4" id="select-gender" name="gender">
+										<option class="bg-blue text-light" selected>Chọn giới tính...</option>
+										<option class="bg-blue text-light" value="Nam">Nam</option>
+										<option class="bg-blue text-light" value="Nữ">Nữ</option>
+									</select>
+									<label for="select-gender" class="text-light pl-5">Giới tính</label>
+								</div>
 							</div>
-							<div class="col-md-3 form-floating mb-4">
-								<input id="input-fullname" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
-								value="{{schedule.scheduleID.customerID.fullName}}" type="text" name="fullName">
-								<label for="input-fullname" class="text-light pl-5">Họ tên khai sinh</label>
-							</div>
-							<div class="col-md-3 form-floating mb-4">
-								<input id="input-gender" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
-								value="{{schedule.scheduleID.customerID.birth}}" type="date" value="{{schedule.scheduleID.customerID.birth}}" name="birth">
-								<label for="inpute-gender" class="text-light pl-5">Ngày sinh</label>
-							</div>
-							<div class="col-md-3 form-floating mb-4">
-								<select class="form-select bg-transparent text-light text-right rounded-pill pr-4" id="select-gender" name="gender">
-									<option class="bg-blue text-light" selected>Chọn giới tính...</option>
-									<option class="bg-blue text-light" value="Nam">Nam</option>
-									<option class="bg-blue text-light" value="Nữ">Nữ</option>
-								</select>
-								<label for="select-gender" class="text-light pl-5">Giới tính</label>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3 form-floating mb-4">
-								<input id="input-phone" class="form-control bg-transparent text-light text-right rounded-pill pr-4" type="text" value="{{schedule.scheduleID.customerID.phone}}">
-								<label for="input-phone" class="text-light pl-5">Số điện thoại</label>
-							</div>
-							<div class="col-md-3 form-floating mb-4">
-								<input id="input-home-town" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
-								value="{{schedule.scheduleID.customerID.homeTown}}" type="text" name="homeTown">
-								<label for="input-home-town" class="text-light pl-5">Quê quán</label>
-							</div>
-							<div class="col-md-3 form-floating mb-4">
-								<input id="input-height" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
-								value="{{schedule.scheduleID.customerID.height}}" type="text" name="height">
-								<label for="input-height" class="text-light pl-5">Chiều cao</label>
-							</div>
-							<div class="col-md-3 form-floating mb-4">
-								<input id="input-weight" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
-								value="{{schedule.scheduleID.customerID.weight}}" type="text" name="weight">
-								<label for="input-weight" class="text-light pl-5">Cân nặng</label>
-							</div>
-							<div class="col-md-3 form-floating mb-4">
-								<input id="input-surgeryDay" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
-								value="{{schedule.surgeryDay}}" type="date" name="surgeryDay">
-								<label for="inpute-surgeryDay" class="text-light pl-5">Ngày phẩu thuật</label>
-							</div>
-							<div class="col-md-3 form-floating mb-4">
-								<input id="input-floor" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
-								value="{{schedule.floor}}" type="text" name="floor">
-								<label for="input-floor" class="text-light pl-5">Tầng phẩu thuật</label>
-							</div>
-							<div class="col-md-3 form-floating mb-4">
-								{{#each doctor}}
-								<input id="input-doctor" class="form-control bg-transparent text-light text-right rounded-pill pr-4" value="{{this.firstName}} {{this.lastName}}" type="text">
-								{{/each}}
-								{{#each doctor}}<input type="text" value="{{this._id}}" hidden name="performer[]">{{/each}}
-								<label for="input-doctor" class="text-light pl-5">Bác sĩ</label>
-							</div>
-							{{!-- <div class="col-md-3 mb-4">	
-								<select class="w-100 bg-transparent" multiple="multiple" id="select-doctor" name="performer[]">
-									<option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
-								</select>
-							</div> --}}
-						</div>
-							{{!-- <label class="text-light">Chọn Bác sĩ</label> --}}
-						{{!-- <div class="row">
-							<label class="text-light">Chọn Phụ mổ</label>
-							<div class="col-md-3 mb-4">
-								<select class="w-100 bg-transparent" multiple="multiple" id="select-nursing" name="nursing[]">
-									{{#each nursings}}
-									<option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
+							<div class="row">
+								<div class="col-md-3 form-floating mb-4">
+									<input id="input-phone" class="form-control bg-transparent text-light text-right rounded-pill pr-4" type="text" value="{{schedule.scheduleID.customerID.phone}}">
+									<label for="input-phone" class="text-light pl-5">Số điện thoại</label>
+								</div>
+								<div class="col-md-3 form-floating mb-4">
+									<input id="input-home-town" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+									value="{{schedule.scheduleID.customerID.homeTown}}" type="text" name="homeTown">
+									<label for="input-home-town" class="text-light pl-5">Quê quán</label>
+								</div>
+								<div class="col-md-3 form-floating mb-4">
+									<input id="input-height" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+									value="{{schedule.scheduleID.customerID.height}}" type="text" name="height">
+									<label for="input-height" class="text-light pl-5">Chiều cao</label>
+								</div>
+								<div class="col-md-3 form-floating mb-4">
+									<input id="input-weight" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+									value="{{schedule.scheduleID.customerID.weight}}" type="text" name="weight">
+									<label for="input-weight" class="text-light pl-5">Cân nặng</label>
+								</div>
+								<div class="col-md-3 form-floating mb-4">
+									<input id="input-surgeryDay" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+									value="{{schedule.surgeryDay}}" type="date" name="surgeryDay">
+									<label for="inpute-surgeryDay" class="text-light pl-5">Ngày phẩu thuật</label>
+								</div>
+								<div class="col-md-3 form-floating mb-4">
+									<input id="input-floor" class="form-control bg-transparent text-light text-right rounded-pill pr-4"
+									value="{{schedule.floor}}" type="text" name="floor">
+									<label for="input-floor" class="text-light pl-5">Tầng phẩu thuật</label>
+								</div>
+								<div class="col-md-3 form-floating mb-4">
+									{{#each doctor}}
+									<input id="input-doctor" class="form-control bg-transparent text-light text-right rounded-pill pr-4" value="{{this.firstName}} {{this.lastName}}" type="text">
 									{{/each}}
-								</select>
+									{{#each doctor}}<input type="text" value="{{this._id}}" hidden name="performer[]">{{/each}}
+									<label for="input-doctor" class="text-light pl-5">Bác sĩ</label>
+								</div>
 							</div>
-							<label class="text-light">Chọn dẫn khách</label>
-							<div class="col-md-3 mb-4">
-								<select class="w-100 bg-transparent" multiple="multiple" id="select-recept" name="recept">
-									{{#each nursings}}
-									<option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
-									{{/each}}
-								</select>
+						</form>
+						<div class="text-right">
+							<button id="submit-customer-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="service" role="tabpanel" aria-labelledby="profile-tab">
+						<form method="POST" id="submit-service-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/service-info?_method=PUT">
+							<div class="text-right">
+								<button id="add-services" class="btn bg-blue text-light border-light mb-4 btn-mobile rounded-pill"><i class="ti-plus mr-2"></i>Thêm dịch vụ</button>
 							</div>
-							<div class="col-md-3 form-floating mb-4">
-								<input id="input-surgery" class="form-control bg-transparent text-light" type="datetime-local" value="{{schedule.scheduleID.customerID.surgeryDay}}" name="surgeryDay">
-								<label for="input-surgery" class="text-light pl-4">Ngày phẩu thuật</label>
+							<div class="list-group mb-4 height-300 p-0">
+								<div id="service-container" class="list-group-item bg-glass-0 container-content-page p-2 ml-0">
+								</div>
 							</div>
-						</div> --}}
-						{{!-- <div class="accordion accordion-flush mb-4" id="accordionFlush-before-counselor">
+							<div class="form-floating mb-4">
+								<input id="deposit" class="form-control text-right text-warning fw-bold bg-transparent rounded-pill pr-4" type="text" value="{{schedule.scheduleID.deposit}}" name="deposit" readonly>
+								<label for="deposit" class="text-light pl-4">Đặt cọc</label>
+							</div>
+							<div class="form-floating mb-4">
+								<input id="total" class="form-control text-right text-danger fw-bold bg-transparent rounded-pill pr-4" type="text" readonly name="total">
+								<label for="total" class="text-light pl-4">Tổng chi phí</label>
+							</div>
+						</form>
+						<div class="text-right">
+							<button id="submit-service-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="operating-room" role="tabpanel" aria-labelledby="contact-tab">
+						<div class="accordion accordion-flush mb-4" id="accordionFlush-{{schedule._id}}">
 							<div class="accordion-item bg-transparent">
-								<h2 class="accordion-header bg-transparent border rounded" id="flush-before-counselor">
-									<button class="accordion-button collapsed bg-transparent text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-counselor" aria-expanded="false" aria-controls="flush-collapse-before-counselor">
-										Thông tin sale tư vấn
+								<h2 class="accordion-header bg-transparent" id="flush-counselor-{{schedule._id}}">
+									<button class="accordion-button collapsed bg-transparent text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-{{schedule._id}}">
+										Thông tin tư vấn
 									</button>
 								</h2>
-								<div id="flush-collapse-before-counselor" class="accordion-collapse collapse" aria-labelledby="flush-before-counselor" data-bs-parent="#accordionFlush-before-counselor">
+								<div id="flush-collapse-counselor-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
 									<div class="accordion-body">
-										<!-- Slideshow container -->
-										<div class="slideshow-container mt-3 mb-3">
-											<!-- Full-width images with number and caption text -->
-											{{#if schedule.scheduleID.counselorImg}}
-											{{#each schedule.scheduleID.counselorImg}}
-											<div class="slide-before-counselor-img fadeOn">
-												<img class="figure-img img-fluid rounded img-cover img-center" src="/beforeCounselor/img/{{this.name}}">
-											</div>
-											{{/each}}
-											{{else}}
-											<div class="slide-before-counselor-img fadeOn text-center text-light">
-												Chưa có hình ảnh
-											</div>
-											{{/if}}
-
-											<!-- Next and previous buttons -->
-											<a class="prev" onclick="plusSlidesBeforeCounselorImg(-1)">&#10094;</a>
-											<a class="next" onclick="plusSlidesBeforeCounselorImg(1)">&#10095;</a>
-											<div style="text-align:center">
-												{{#each schedule.scheduleID.counselorImg}}
-												<span class="dot" onclick="currentSlideBeforeCounselorImg({{@index}})"></span>
+										<form method="POST" id="submit-counselor-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/operating-counselor" enctype="multipart/form-data">
+											<input hidden type="text" value="{{schedule.scheduleID.customerID._id}}" name="customerID">
+											<!-- Slideshow container -->
+											<div class="slideshow-container mt-3 mb-3">
+												<!-- Full-width images with number and caption text -->
+												{{#if schedule.counselorImg}}
+												{{#each schedule.counselorImg}}
+												<div class="slide-counselor-img fadeOn">
+													<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+													{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/counselor/img/{{this.name}}"> --}}
+												</div>
 												{{/each}}
+												{{else}}
+												<div class="slide-counselor-img fadeOn text-center">
+													Chưa có hình ảnh
+												</div>
+												{{/if}}
+
+												<!-- Next and previous buttons -->
+												<a class="prev" onclick="plusSlidesCounselorImg(-1)">&#10094;</a>
+												<a class="next" onclick="plusSlidesCounselorImg(1)">&#10095;</a>
+												<div style="text-align:center">
+													{{#each schedule.counselorImg}}
+													<span class="dot" onclick="currentSlideCounselorImg({{@index}})"></span>
+													{{/each}}
+												</div>
 											</div>
-										</div>
-										<textarea class="form-control mr-3 pl-3 bg-transparent text-light" cols="30" rows="8">{{schedule.scheduleID.comments.comment}}</textarea>
+											<div class="slideshow-container mb-3">
+												<!-- Full-width images with number and caption text -->
+												{{#if schedule.counselorVideo}}
+												{{#each schedule.counselorVideo}}
+												<div class="slide-counselor-video fadeOn">
+													<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+														<source src="{{this.url}}">
+														{{!-- <source src="/counselor/video/{{this.name}}"> --}}
+													</video>
+												</div>
+												{{/each}}
+												{{else}}
+												<div class="slide-counselor-video fadeOn text-center">
+													Chưa có video
+												</div>
+												{{/if}}
+
+												<!-- Next and previous buttons -->
+												<a class="prev" onclick="plusSlidesCounselorVideo(-1)">&#10094;</a>
+												<a class="next" onclick="plusSlidesCounselorVideo(1)">&#10095;</a>
+												<div style="text-align:center">
+													{{#each schedule.counselorVideo}}
+													<span class="dot" onclick="currentSlideCounselorVideo({{@index}})"></span>
+													{{/each}}
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6 mb-4">
+													<div class="preview-images-counselor row ml-0 text-center"></div>
+													<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
+														<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
+													</label>
+													<input id="input-multi-images-counselor" class="form-control" type="file" name="counselor" hidden multiple>
+												</div>
+												<div class="col-md-6">
+													<div class="preview-videos-counselor row ml-0 text-center"></div>
+													<label for="input-multi-videos-counselor" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
+														<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
+													</label>
+													<input id="input-multi-videos-counselor" class="form-control" type="file" name="counselor" hidden multiple>
+												</div>
+												<div class="text-light">
+													<label for="steps-to-take-area"><strong>Thông tin tư vấn:</strong></label>
+												</div>
+												<div class="mb-4">
+													<textarea class="form-control mr-3 pl-3 bg-transparent text-light" name="counselorInfo" cols="30" rows="8">{{schedule.counselorInfo}}</textarea>
+												</div>
+												<div class="text-right">
+													<button id="submit-counselor-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
+												</div>
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
-						</div> --}}
-					</form>
-					<div class="text-right">
-						<button id="submit-customer-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="service" role="tabpanel" aria-labelledby="profile-tab">
-					<form method="POST" id="submit-service-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/service-info?_method=PUT">
-						<div class="w-100 mb-4">
-							{{!-- <span class="input-group-text bg-transparent text-light">Thêm dịch vụ</span> --}}
-							{{!-- <select class="form-select bg-transparent text-light" id="select-service">
-								{{#each typeService}}
-								<option class="fw-bold text-uppercase" disabled>{{this.name}}</option>
-									{{#each this.services}}
-										<option class="text-dark" value="{{this.service}}">{{this.service}}</option>
-									{{/each}}
-									<br>
-								{{/each}}
-							</select> --}}
-						</div>
-						<div class="text-right">
-							<button id="add-services" class="btn bg-blue text-light border-light mb-4 btn-mobile rounded-pill"><i class="ti-plus mr-2"></i>Thêm dịch vụ</button>
-						</div>
-						<div class="list-group mb-4 height-300 p-0">
-							<div id="service-container" class="list-group-item bg-glass-0 container-content-page p-2 ml-0">
-							</div>
-						</div>
-						<div class="form-floating mb-4">
-							<input id="deposit" class="form-control text-right text-warning fw-bold bg-transparent rounded-pill pr-4" type="text" value="{{schedule.scheduleID.deposit}}" name="deposit" readonly>
-							<label for="deposit" class="text-light pl-4">Đặt cọc</label>
-						</div>
-						<div class="form-floating mb-4">
-							<input id="total" class="form-control text-right text-danger fw-bold bg-transparent rounded-pill pr-4" type="text" readonly name="total">
-							<label for="total" class="text-light pl-4">Tổng chi phí</label>
-						</div>
-					</form>
-					<div class="text-right">
-						<button id="submit-service-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="operating-room" role="tabpanel" aria-labelledby="contact-tab">
-					<div class="accordion accordion-flush mb-4" id="accordionFlush-{{schedule._id}}">
-						<div class="accordion-item bg-transparent">
-							<h2 class="accordion-header bg-transparent" id="flush-counselor-{{schedule._id}}">
-								<button class="accordion-button collapsed bg-transparent text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-counselor-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-counselor-{{schedule._id}}">
-									Thông tin tư vấn
-								</button>
-							</h2>
-							<div id="flush-collapse-counselor-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
-								<div class="accordion-body">
-									<form method="POST" id="submit-counselor-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/operating-counselor" enctype="multipart/form-data">
-										<input hidden type="text" value="{{schedule.scheduleID.customerID._id}}" name="customerID">
-										<!-- Slideshow container -->
-										<div class="slideshow-container mt-3 mb-3">
-											<!-- Full-width images with number and caption text -->
-											{{#if schedule.counselorImg}}
-											{{#each schedule.counselorImg}}
-											<div class="slide-counselor-img fadeOn">
-												<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
-												{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/counselor/img/{{this.name}}"> --}}
-											</div>
-											{{/each}}
-											{{else}}
-											<div class="slide-counselor-img fadeOn text-center">
-												Chưa có hình ảnh
-											</div>
-											{{/if}}
-
-											<!-- Next and previous buttons -->
-											<a class="prev" onclick="plusSlidesCounselorImg(-1)">&#10094;</a>
-											<a class="next" onclick="plusSlidesCounselorImg(1)">&#10095;</a>
-											<div style="text-align:center">
-												{{#each schedule.counselorImg}}
-												<span class="dot" onclick="currentSlideCounselorImg({{@index}})"></span>
-												{{/each}}
-											</div>
-										</div>
-										<div class="slideshow-container mb-3">
-											<!-- Full-width images with number and caption text -->
-											{{#if schedule.counselorVideo}}
-											{{#each schedule.counselorVideo}}
-											<div class="slide-counselor-video fadeOn">
-												<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
-													<source src="{{this.url}}">
-													{{!-- <source src="/counselor/video/{{this.name}}"> --}}
-												</video>
-											</div>
-											{{/each}}
-											{{else}}
-											<div class="slide-counselor-video fadeOn text-center">
-												Chưa có video
-											</div>
-											{{/if}}
-
-											<!-- Next and previous buttons -->
-											<a class="prev" onclick="plusSlidesCounselorVideo(-1)">&#10094;</a>
-											<a class="next" onclick="plusSlidesCounselorVideo(1)">&#10095;</a>
-											<div style="text-align:center">
-												{{#each schedule.counselorVideo}}
-												<span class="dot" onclick="currentSlideCounselorVideo({{@index}})"></span>
-												{{/each}}
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6 mb-4">
-												<div class="preview-images-counselor row ml-0 text-center"></div>
-												<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
-													<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
-												</label>
-												<input id="input-multi-images-counselor" class="form-control" type="file" name="counselor" hidden multiple>
-											</div>
-											<div class="col-md-6">
-												<div class="preview-videos-counselor row ml-0 text-center"></div>
-												<label for="input-multi-videos-counselor" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
-													<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
-												</label>
-												<input id="input-multi-videos-counselor" class="form-control" type="file" name="counselor" hidden multiple>
-											</div>
-											<div class="text-light">
-												<label for="steps-to-take-area"><strong>Thông tin tư vấn:</strong></label>
-											</div>
-											<div class="mb-4">
-												<textarea class="form-control mr-3 pl-3 bg-transparent text-light" name="counselorInfo" cols="30" rows="8">{{schedule.counselorInfo}}</textarea>
-											</div>
-											<div class="text-right">
-												<button id="submit-counselor-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-						<div class="accordion-item bg-transparent">
-							<h2 class="accordion-header bg-transparent" id="flush-before-{{schedule._id}}">
-								<button class="accordion-button collapsed bg-transparent text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-before-{{schedule._id}}">
-									Thông tin trước phẩu
-								</button>
-							</h2>
-							<div id="flush-collapse-before-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
-								<div class="accordion-body">
-									<form method="POST" id="submit-before-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/operating-before" enctype="multipart/form-data">
-										<input hidden type="text" value="{{schedule.scheduleID.customerID._id}}" name="customerID">
-										<div class="slideshow-container mt-3 mb-3">
-											<!-- Full-width images with number and caption text -->
-											{{#if schedule.beforeImg}}
-											{{#each schedule.beforeImg}}
-											<div class="slide-before-img fadeOn">
-												<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
-												{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/before/img/{{this.name}}"> --}}
-											</div>
-											{{/each}}
-											{{else}}
-											<div class="slide-before-img fadeOn text-center">
-												Chưa có hình ảnh
-											</div>
-											{{/if}}
-											<!-- Next and previous buttons -->
-											<a class="prev" onclick="plusSlidesBeforeImg(-1)">&#10094;</a>
-											<a class="next" onclick="plusSlidesBeforeImg(1)">&#10095;</a>
-											<!-- The dots/circles -->
-											<div style="text-align:center">
+							<div class="accordion-item bg-transparent">
+								<h2 class="accordion-header bg-transparent" id="flush-before-{{schedule._id}}">
+									<button class="accordion-button collapsed bg-transparent text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-before-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-before-{{schedule._id}}">
+										Thông tin trước phẩu
+									</button>
+								</h2>
+								<div id="flush-collapse-before-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-before-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
+									<div class="accordion-body">
+										<form method="POST" id="submit-before-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/operating-before" enctype="multipart/form-data">
+											<input hidden type="text" value="{{schedule.scheduleID.customerID._id}}" name="customerID">
+											<div class="slideshow-container mt-3 mb-3">
+												<!-- Full-width images with number and caption text -->
+												{{#if schedule.beforeImg}}
 												{{#each schedule.beforeImg}}
-												<span class="dot" onclick="currentSlideBeforeImg({{@index}})"></span>
+												<div class="slide-before-img fadeOn">
+													<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+													{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/before/img/{{this.name}}"> --}}
+												</div>
 												{{/each}}
+												{{else}}
+												<div class="slide-before-img fadeOn text-center">
+													Chưa có hình ảnh
+												</div>
+												{{/if}}
+												<!-- Next and previous buttons -->
+												<a class="prev" onclick="plusSlidesBeforeImg(-1)">&#10094;</a>
+												<a class="next" onclick="plusSlidesBeforeImg(1)">&#10095;</a>
+												<!-- The dots/circles -->
+												<div style="text-align:center">
+													{{#each schedule.beforeImg}}
+													<span class="dot" onclick="currentSlideBeforeImg({{@index}})"></span>
+													{{/each}}
+												</div>
 											</div>
-										</div>
-										<div class="slideshow-container mb-3">
-											<!-- Full-width images with number and caption text -->
-											{{#if schedule.beforeVideo}}
-											{{#each schedule.beforeVideo}}
-											<div class="slide-before-video fadeOn">
-												<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
-													<source src="/before/video/{{this.url}}">
-													{{!-- <source src="/before/video/{{this.name}}"> --}}
-												</video>
-											</div>
-											{{/each}}
-											{{else}}
-											<div class="slide-before-video fadeOn text-center">
-												Chưa có video
-											</div>
-											{{/if}}
-											<!-- Next and previous buttons -->
-											<a class="prev" onclick="plusSlidesBeforeVideo(-1)">&#10094;</a>
-											<a class="next" onclick="plusSlidesBeforeVideo(1)">&#10095;</a>
-											<!-- The dots/circles -->
-											<div style="text-align:center">
+											<div class="slideshow-container mb-3">
+												<!-- Full-width images with number and caption text -->
+												{{#if schedule.beforeVideo}}
 												{{#each schedule.beforeVideo}}
-												<span class="dot" onclick="currentSlideBeforeVideo({{@index}})"></span>
+												<div class="slide-before-video fadeOn">
+													<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+														<source src="/before/video/{{this.url}}">
+														{{!-- <source src="/before/video/{{this.name}}"> --}}
+													</video>
+												</div>
 												{{/each}}
+												{{else}}
+												<div class="slide-before-video fadeOn text-center">
+													Chưa có video
+												</div>
+												{{/if}}
+												<!-- Next and previous buttons -->
+												<a class="prev" onclick="plusSlidesBeforeVideo(-1)">&#10094;</a>
+												<a class="next" onclick="plusSlidesBeforeVideo(1)">&#10095;</a>
+												<!-- The dots/circles -->
+												<div style="text-align:center">
+													{{#each schedule.beforeVideo}}
+													<span class="dot" onclick="currentSlideBeforeVideo({{@index}})"></span>
+													{{/each}}
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6 mb-4">
-												<div class="preview-images-before row ml-0 text-center"></div>
-												<label for="input-multi-images-before" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
-													<h5 id="text-img-before" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
-												</label>
-												<input id="input-multi-images-before" class="form-control" type="file" name="before" hidden multiple>
+											<div class="row">
+												<div class="col-md-6 mb-4">
+													<div class="preview-images-before row ml-0 text-center"></div>
+													<label for="input-multi-images-before" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
+														<h5 id="text-img-before" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
+													</label>
+													<input id="input-multi-images-before" class="form-control" type="file" name="before" hidden multiple>
+												</div>
+												<div class="col-md-6">
+													<div class="preview-videos-before row ml-0 text-center"></div>
+													<label for="input-multi-videos-before" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
+														<h5 id="text-img-before" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
+													</label>
+													<input id="input-multi-videos-before" class="form-control" type="file" name="before" hidden multiple>
+												</div>
+												<div class="text-light">
+													<label for="steps-to-take-area"><strong>Thông tin trước phẩu thuật:</strong></label>
+												</div>
+												<div class="mb-4">
+													<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-transparent text-light" name="beforeInfo" cols="30" rows="8">{{schedule.beforeInfo}}</textarea>
+												</div>
+												<div class="text-right">
+													<button id="submit-before-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
+												</div>
 											</div>
-											<div class="col-md-6">
-												<div class="preview-videos-before row ml-0 text-center"></div>
-												<label for="input-multi-videos-before" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
-													<h5 id="text-img-before" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
-												</label>
-												<input id="input-multi-videos-before" class="form-control" type="file" name="before" hidden multiple>
-											</div>
-											<div class="text-light">
-												<label for="steps-to-take-area"><strong>Thông tin trước phẩu thuật:</strong></label>
-											</div>
-											<div class="mb-4">
-												<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-transparent text-light" name="beforeInfo" cols="30" rows="8">{{schedule.beforeInfo}}</textarea>
-											</div>
-											<div class="text-right">
-												<button id="submit-before-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
-											</div>
-										</div>
-									</form>
+										</form>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="accordion-item bg-transparent">
-							<h2 class="accordion-header bg-transparent" id="flush-in-{{schedule._id}}">
-								<button class="accordion-button collapsed bg-transparent text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-in-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-in-{{schedule._id}}">
-									Thông tin phẩu thuật
-								</button>
-							</h2>
-							<div id="flush-collapse-in-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-in-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
-								<div class="accordion-body">
-									<form method="POST" id="submit-inSurgery-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/operating-in-surgery" enctype="multipart/form-data">
-										<input hidden type="text" value="{{schedule.scheduleID.customerID._id}}" name="customerID">
-										<div class="slideshow-container mt-3 mb-3">
-											<!-- Full-width images with number and caption text -->
-											{{#if schedule.inSurgeryImg}}
-											{{#each schedule.inSurgeryImg}}
-											<div class="slide-in-img fadeOn">
-												<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
-												{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/in-surgery/img/{{this.name}}"> --}}
-											</div>
-											{{/each}}
-											{{else}}
-											<div class="slide-in-img fadeOn text-center">
-												Chưa có hình ảnh
-											</div>
-											{{/if}}
-
-											<!-- Next and previous buttons -->
-											<a class="prev" onclick="plusSlidesInImg(-1)">&#10094;</a>
-											<a class="next" onclick="plusSlidesInImg(1)">&#10095;</a>
-											<!-- The dots/circles -->
-											<div style="text-align:center">
+							<div class="accordion-item bg-transparent">
+								<h2 class="accordion-header bg-transparent" id="flush-in-{{schedule._id}}">
+									<button class="accordion-button collapsed bg-transparent text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-in-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-in-{{schedule._id}}">
+										Thông tin phẩu thuật
+									</button>
+								</h2>
+								<div id="flush-collapse-in-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-in-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
+									<div class="accordion-body">
+										<form method="POST" id="submit-inSurgery-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/operating-in-surgery" enctype="multipart/form-data">
+											<input hidden type="text" value="{{schedule.scheduleID.customerID._id}}" name="customerID">
+											<div class="slideshow-container mt-3 mb-3">
+												<!-- Full-width images with number and caption text -->
+												{{#if schedule.inSurgeryImg}}
 												{{#each schedule.inSurgeryImg}}
-												<span class="dot" onclick="currentSlideInImg({{@index}})"></span>
+												<div class="slide-in-img fadeOn">
+													<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+													{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/in-surgery/img/{{this.name}}"> --}}
+												</div>
 												{{/each}}
-											</div>
-										</div>
-										<div class="slideshow-container mb-3">
-											<!-- Full-width images with number and caption text -->
-											{{#if schedule.inSurgeryVideo}}
-											{{#each schedule.inSurgeryVideo}}
-											<div class="slide-in-video fadeOn">
-												<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
-													<source src="/in-surgery/video/{{this.url}}">
-													{{!-- <source src="/in-surgery/video/{{this.name}}"> --}}
-												</video>
-											</div>
-											{{/each}}
-											{{else}}
-											<div class="slide-in-video fadeOn text-center">
-												Chưa có video
-											</div>
-											{{/if}}
+												{{else}}
+												<div class="slide-in-img fadeOn text-center">
+													Chưa có hình ảnh
+												</div>
+												{{/if}}
 
-											<!-- Next and previous buttons -->
-											<a class="prev" onclick="plusSlidesInVideo(-1)">&#10094;</a>
-											<a class="next" onclick="plusSlidesInVideo(1)">&#10095;</a>
-											<!-- The dots/circles -->
-											<div style="text-align:center">
+												<!-- Next and previous buttons -->
+												<a class="prev" onclick="plusSlidesInImg(-1)">&#10094;</a>
+												<a class="next" onclick="plusSlidesInImg(1)">&#10095;</a>
+												<!-- The dots/circles -->
+												<div style="text-align:center">
+													{{#each schedule.inSurgeryImg}}
+													<span class="dot" onclick="currentSlideInImg({{@index}})"></span>
+													{{/each}}
+												</div>
+											</div>
+											<div class="slideshow-container mb-3">
+												<!-- Full-width images with number and caption text -->
+												{{#if schedule.inSurgeryVideo}}
 												{{#each schedule.inSurgeryVideo}}
-												<span class="dot" onclick="currentSlideInVideo({{@index}})"></span>
+												<div class="slide-in-video fadeOn">
+													<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+														<source src="/in-surgery/video/{{this.url}}">
+														{{!-- <source src="/in-surgery/video/{{this.name}}"> --}}
+													</video>
+												</div>
 												{{/each}}
+												{{else}}
+												<div class="slide-in-video fadeOn text-center">
+													Chưa có video
+												</div>
+												{{/if}}
+
+												<!-- Next and previous buttons -->
+												<a class="prev" onclick="plusSlidesInVideo(-1)">&#10094;</a>
+												<a class="next" onclick="plusSlidesInVideo(1)">&#10095;</a>
+												<!-- The dots/circles -->
+												<div style="text-align:center">
+													{{#each schedule.inSurgeryVideo}}
+													<span class="dot" onclick="currentSlideInVideo({{@index}})"></span>
+													{{/each}}
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6 mb-4">
-												<div class="preview-images-in-surgery row ml-0 text-center"></div>
-												<label for="input-multi-images-in-surgery" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
-													<h5 id="text-img-in-surgery" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
-												</label>
-												<input id="input-multi-images-in-surgery" class="form-control" type="file" name="inSurgery" hidden multiple>
+											<div class="row">
+												<div class="col-md-6 mb-4">
+													<div class="preview-images-in-surgery row ml-0 text-center"></div>
+													<label for="input-multi-images-in-surgery" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
+														<h5 id="text-img-in-surgery" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
+													</label>
+													<input id="input-multi-images-in-surgery" class="form-control" type="file" name="inSurgery" hidden multiple>
+												</div>
+												<div class="col-md-6">
+													<div class="preview-videos-in-surgery row ml-0 text-center"></div>
+													<label for="input-multi-videos-in-surgery" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
+														<h5 id="text-img-in-surgery" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
+													</label>
+													<input id="input-multi-videos-in-surgery" class="form-control" type="file" name="inSurgery" hidden multiple>
+												</div>
+												<div class="text-light">
+													<label for="steps-to-take-area"><strong>Các bước thục hiện:</strong></label>
+												</div>
+												<div class="mb-4">
+													<textarea class="form-control mr-3 pl-3 bg-transparent text-light" name="stepsToTake" cols="30" rows="8">{{schedule.stepsToTake}}</textarea>
+												</div>
+												<div class="text-right">
+													<button id="submit-in-surgery-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
+												</div>
 											</div>
-											<div class="col-md-6">
-												<div class="preview-videos-in-surgery row ml-0 text-center"></div>
-												<label for="input-multi-videos-in-surgery" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
-													<h5 id="text-img-in-surgery" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
-												</label>
-												<input id="input-multi-videos-in-surgery" class="form-control" type="file" name="inSurgery" hidden multiple>
-											</div>
-											<div class="text-light">
-												<label for="steps-to-take-area"><strong>Các bước thục hiện:</strong></label>
-											</div>
-											<div class="mb-4">
-												<textarea class="form-control mr-3 pl-3 bg-transparent text-light" name="stepsToTake" cols="30" rows="8">{{schedule.stepsToTake}}</textarea>
-											</div>
-											<div class="text-right">
-												<button id="submit-in-surgery-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
-											</div>
-										</div>
-									</form>
+										</form>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="accordion-item bg-transparent">
-							<h2 class="accordion-header bg-transparent" id="flush-after-{{schedule._id}}">
-								<button class="accordion-button collapsed bg-transparent text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-after-{{schedule._id}}">
-									Thông tin hậu phẩu - hồi sức
-								</button>
-							</h2>
-							<div id="flush-collapse-after-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
-								<div class="accordion-body">
-									<form method="POST" id="submit-after-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/operating-after" enctype="multipart/form-data">
-										<input hidden type="text" value="{{schedule.scheduleID.customerID._id}}" name="customerID">
-										<div class="slideshow-container mt-3 mb-3">
-											<!-- Full-width images with number and caption text -->
-											{{#if schedule.afterImg}}
-											{{#each schedule.afterImg}}
-											<div class="slide-after-img fadeOn">
-												<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
-												{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/after/img/{{this.name}}"> --}}
-											</div>
-											{{/each}}
-											{{else}}
-											<div class="slide-after-img fadeOn text-center">
-												Chưa có hình ảnh
-											</div>
-											{{/if}}
-
-											<!-- Next and previous buttons -->
-											<a class="prev" onclick="plusSlidesAfterImg(-1)">&#10094;</a>
-											<a class="next" onclick="plusSlidesAfterImg(1)">&#10095;</a>
-											<!-- The dots/circles -->
-											<div style="text-align:center">
+							<div class="accordion-item bg-transparent">
+								<h2 class="accordion-header bg-transparent" id="flush-after-{{schedule._id}}">
+									<button class="accordion-button collapsed bg-transparent text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-{{schedule._id}}" aria-expanded="false" aria-controls="flush-collapse-after-{{schedule._id}}">
+										Thông tin hậu phẩu - hồi sức
+									</button>
+								</h2>
+								<div id="flush-collapse-after-{{schedule._id}}" class="accordion-collapse collapse" aria-labelledby="flush-after-{{schedule._id}}" data-bs-parent="#accordionFlush-{{schedule._id}}">
+									<div class="accordion-body">
+										<form method="POST" id="submit-after-form" action="/operating-room/nursing/customer-information/{{schedule._id}}/operating-after" enctype="multipart/form-data">
+											<input hidden type="text" value="{{schedule.scheduleID.customerID._id}}" name="customerID">
+											<div class="slideshow-container mt-3 mb-3">
+												<!-- Full-width images with number and caption text -->
+												{{#if schedule.afterImg}}
 												{{#each schedule.afterImg}}
-												<span class="dot" onclick="currentSlideAfterImg({{@index}})"></span>
+												<div class="slide-after-img fadeOn">
+													<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+													{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/after/img/{{this.name}}"> --}}
+												</div>
 												{{/each}}
-											</div>
-										</div>
-										<div class="slideshow-container mb-3">
-											<!-- Full-width images with number and caption text -->
-											{{#if schedule.afterVideo}}
-											{{#each schedule.afterVideo}}
-											<div class="slide-after-video fadeOn">
-												<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
-													<source src="/after/video/{{this.url}}">
-													{{!-- <source src="/after/video/{{this.name}}"> --}}
-												</video>
-											</div>
-											{{/each}}
-											{{else}}
-											<div class="slide-after-video fadeOn text-center">
-												Chưa có video
-											</div>
-											{{/if}}
+												{{else}}
+												<div class="slide-after-img fadeOn text-center">
+													Chưa có hình ảnh
+												</div>
+												{{/if}}
 
-											<!-- Next and previous buttons -->
-											<a class="prev" onclick="plusSlidesAfterVideo(-1)">&#10094;</a>
-											<a class="next" onclick="plusSlidesAfterVideo(1)">&#10095;</a>
-											<!-- The dots/circles -->
-											<div style="text-align:center">
-												{{#each schedule.afterImg}}
-												<span class="dot" onclick="currentSlideAfterVideo({{@index}})"></span>
+												<!-- Next and previous buttons -->
+												<a class="prev" onclick="plusSlidesAfterImg(-1)">&#10094;</a>
+												<a class="next" onclick="plusSlidesAfterImg(1)">&#10095;</a>
+												<!-- The dots/circles -->
+												<div style="text-align:center">
+													{{#each schedule.afterImg}}
+													<span class="dot" onclick="currentSlideAfterImg({{@index}})"></span>
+													{{/each}}
+												</div>
+											</div>
+											<div class="slideshow-container mb-3">
+												<!-- Full-width images with number and caption text -->
+												{{#if schedule.afterVideo}}
+												{{#each schedule.afterVideo}}
+												<div class="slide-after-video fadeOn">
+													<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+														<source src="/after/video/{{this.url}}">
+														{{!-- <source src="/after/video/{{this.name}}"> --}}
+													</video>
+												</div>
 												{{/each}}
+												{{else}}
+												<div class="slide-after-video fadeOn text-center">
+													Chưa có video
+												</div>
+												{{/if}}
+
+												<!-- Next and previous buttons -->
+												<a class="prev" onclick="plusSlidesAfterVideo(-1)">&#10094;</a>
+												<a class="next" onclick="plusSlidesAfterVideo(1)">&#10095;</a>
+												<!-- The dots/circles -->
+												<div style="text-align:center">
+													{{#each schedule.afterImg}}
+													<span class="dot" onclick="currentSlideAfterVideo({{@index}})"></span>
+													{{/each}}
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6 mb-4">
-												<div class="preview-images-after row ml-0 text-center"></div>
-												<label for="input-multi-images-after" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
-													<h5 id="text-img-after" class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
-												</label>
-												<input id="input-multi-images-after" class="form-control" type="file" name="after" hidden multiple>
+											<div class="row">
+												<div class="col-md-6 mb-4">
+													<div class="preview-images-after row ml-0 text-center"></div>
+													<label for="input-multi-images-after" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
+														<h5 id="text-img-after" class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
+													</label>
+													<input id="input-multi-images-after" class="form-control" type="file" name="after" hidden multiple>
+												</div>
+												<div class="col-md-6">
+													<div class="preview-videos-after row ml-0 text-center"></div>
+													<label for="input-multi-videos-after" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
+														<h5 id="text-img-after" class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
+													</label>
+													<input id="input-multi-videos-after" class="form-control" type="file" name="after" hidden multiple>
+												</div>
+												<div class="text-light">
+													<label for="steps-to-take-area"><strong>Thông tin hậu phẩu:</strong></label>
+												</div>
+												<div class="mb-4">
+													<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-transparent text-light" name="afterInfo" cols="30" rows="8">{{schedule.afterInfo}}</textarea>
+												</div>
+												<div class="text-right">
+													<button id="submit-after-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
+												</div>
 											</div>
-											<div class="col-md-6">
-												<div class="preview-videos-after row ml-0 text-center"></div>
-												<label for="input-multi-videos-after" class="label-avt d-flex justify-content-center" data-input-img-id="{{schedule._id}}">
-													<h5 id="text-img-after" class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
-												</label>
-												<input id="input-multi-videos-after" class="form-control" type="file" name="after" hidden multiple>
-											</div>
-											<div class="text-light">
-												<label for="steps-to-take-area"><strong>Thông tin hậu phẩu:</strong></label>
-											</div>
-											<div class="mb-4">
-												<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-transparent text-light" name="afterInfo" cols="30" rows="8">{{schedule.afterInfo}}</textarea>
-											</div>
-											<div class="text-right">
-												<button id="submit-after-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
-											</div>
-										</div>
-									</form>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -565,11 +493,35 @@
 				</div>
 			</div>
 		</div>
+	{{else}}
+	<div class="text-center">
+		Chưa có phiếu phẩu thuật
 	</div>
-{{else}}
-<div class="text-center">
-	Chưa có phiếu phẩu thuật
+	{{/if}}
 </div>
-{{/if}}
 
+<div class="fixed-bottom">
+    <nav class="navbar navbar-light bg-blue border-top p-3">
+		<a href="/operating-room/nursing" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-check fs-5"></i>
+			<small>Lịch tư vấn</small>
+		</a>
+		<a href="/operating-room/nursing/re-examination" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-plus fs-5"></i>
+			<small>Lịch tái khám</small>
+		</a>
+		<a href="/operating-room/nursing/customers" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-user fs-5"></i>
+			<small>Khách hàng</small>
+		</a>
+		<a href="/operating-room/nursing/service-note" class="d-flex flex-column text-center link-light">
+			<i class="fa-sharp fa-solid fa-receipt fs-5"></i>
+			<small>Hồ sơ</small>
+		</a>
+		<a href="/operating-room/nursing/discharge-from-hospital" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-arrow-right-from-bracket fs-5"></i>
+			<small>Xuất viện</small>
+		</a>
+    </nav>
+</div>
 <script src="/js/operating/nursing.js"></script>

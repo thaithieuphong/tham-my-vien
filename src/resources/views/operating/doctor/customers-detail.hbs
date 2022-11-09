@@ -1,393 +1,138 @@
 <link rel="stylesheet" href="/css/root.css">
-<link rel="stylesheet" href="/css/assistant.css">
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
-    aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header bg-dark border-bottom">
-        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
-        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body container-sidebar bg-dark">
-        <div class="sidebar-item">
-            <a href="/operating-room/doctor" class="sidebar-item-title pl-3">
-                <i class="ti-receipt mr-3"></i>Phiếu hoàn thành
-            </a>
-        </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/doctor/service-note" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Phiếu phẩu thuật
-            </a>
-        </div>
-		<div class="sidebar-item">
-            <a href="/operating-room/doctor/re-examination" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Phiếu tái khám
-            </a>
-        </div>
-    </div>
-	<div class="offcanvas-footer bg-dark border-top">
-        <div class="sidebar-item">
-            <a href="/operating-room/doctor/profile" class="sidebar-item-title pl-3">
-                <i class="ti-user mr-3"></i>Thông tin người dùng
-            </a>
-        </div>
-		<div class="sidebar-item">
-			<form method="POST" action="/logout">
-				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
-			</form>
-		</div>
-    </div>
-</div>
 <div class="sticky-top">
-    <nav class="navbar navbar-light bg-dark">
+    <nav class="navbar navbar-light bg-blue border-bottom">
         <div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
         </div>
-        <div class="text-light text-uppercase fw-bold">
-            {{this.title}}
-        </div>
-        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
-                class="ti-menu"></i>
-        </button>
+		<div>
+			<a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
+			</a>
+			<a href="/operating-room/nursing/profile" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-user-nurse fs-5 p-2"></i>
+			</a>
+		</div>
     </nav>
 </div>
-<div class="p-3">
-	{{#if reExam}}
-	<div class="card mb-3">
-		<div class="card-header bg-transparent">
-			<h5 class="text-uppercase text-center mb-3 mt-3">
-				<strong>Phiếu tái khám</strong>
-			</h5>
-			<ul class="nav nav-pills flex-column flex-sm-row" id="pills-tab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="pills-profile-customer-tab" data-bs-toggle="pill"
-						data-bs-target="#pills-profile-customer" type="button" role="tab" aria-controls="pills-home"
-						aria-selected="true">Thông tin khách hàng</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="pills-counselor-tab" data-bs-toggle="pill"
-						data-bs-target="#pills-counselor-{{reExam._id}}" type="button" role="tab" aria-controls="pills-counselor"
-						aria-selected="false">Hình ảnh tư vấn</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="pills-before-tab" data-bs-toggle="pill" data-bs-target="#pills-before-{{reExam._id}}"
-						type="button" role="tab" aria-controls="pills-before" aria-selected="false">Hình ảnh trước
-						phẩu</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="pills-after-tab" data-bs-toggle="pill" data-bs-target="#pills-after-{{reExam._id}}"
-						type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh sau
-						phẩu</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="pills-re-exam-tab" data-bs-toggle="pill" data-bs-target="#pills-re-exam-{{reExam._id}}"
-						type="button" role="tab" aria-controls="pills-after" aria-selected="false">Hình ảnh tái
-						khám</button>
-				</li>
-			</ul>
-		</div>
-		<div class="card-body">
-			<div class="tab-content" id="pills-tabContent">
-				<div class="d-flex justify-content-between justify-content-sm-start">
-					<label for="status">
-						<strong>Ngày hẹn:</strong>&nbsp;
-					</label>
-					<label class="text-right text-danger"><em>{{formatDate reExam.schedule}}</em></label>
-				</div>
-				<div class="d-flex justify-content-between justify-content-sm-start">
-					<label for="status">
-						<strong>Trạng thái:</strong>&nbsp;
-					</label>
-					<label class="text-right text-danger"><em>{{reExam.status}}</em></label>
-				</div>
-				<div class="d-flex justify-content-between justify-content-sm-start">
-					<label for="status">
-						<strong>Khách hàng:</strong>&nbsp;
-					</label>
-					<label class="text-right text-primary">{{reExam.customerID.firstName}} {{reExam.customerID.lastName}}</label>
-				</div>
-				<div class="d-flex justify-content-between justify-content-sm-start">
-					<label for="status">
-						<strong>Lễ tân:</strong>&nbsp;
-					</label>
-					<label class="text-right text-primary"><em>{{reExam.recept.firstName}} {{reExam.recept.lastName}}</em></label>
-				</div>
-				<div class="d-flex justify-content-between justify-content-sm-start">
-					<label for="status">
-						<strong>Dịch vụ đã sử dụng:</strong>&nbsp;
-					</label>
-					<label class="text-right text-primary"><em>{{reExam.serviceNoteId.service}}</em></label>
-				</div>
-				<hr>
-				<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
-					aria-labelledby="pills-home-tab">
-					<form method="POST" id="submit-re-exam-form">
-						<div class="d-flex justify-content-between justify-content-sm-start">
-							<label for="status">
-								<strong>Bác sĩ:</strong>&nbsp;
-							</label>
-							<label class="text-right text-primary">
-								{{#each reExam.performer}}
-								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
-								<em>{{this.firstName}} {{this.lastName}};</em>
-								{{/each}}
-							</label>
-						</div>
-						<div class="d-flex justify-content-between justify-content-sm-start">
-							<label for="status">
-								<strong>Điều dưỡng:</strong>&nbsp;
-							</label>
-							<label class="text-right text-primary">
-								{{#each reExam.nursing}}
-								<input hidden type="text" name="operatingID[]" value="{{this._id}}">
-								<em>{{this.firstName}} {{this.lastName}};</em>
-								{{/each}}
-							</label>
-						</div>
-						<div class="row">
-							<div class="">
-								<label for="steps-to-take-area"><strong>Các bước thực hiện</strong></label>
-							</div>
-							<div class="">
-								<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" name="stepsToTake" id="steps-to-take-area" cols="30" rows="8"></textarea>
-							</div>
-						</div>
-					</form>
-					<div class="row mt-3">
-						<div class="">
-							<label for="comments"><strong>Ghi chú:</strong></label>
-						</div>
-						<div class="">
-							{{#if reExam.comments}}
-							{{#each reExam.comments}}
-							<textarea style="width: inherit;" class="form-control mr-3 pl-3 bg-white" id="comments" cols="30" rows="8" disabled>{{this.comment}}</textarea>
-							{{/each}}
-							{{else}}
-							<label class="">
-								<em>Không có ghi chú</em>
-							</label>
-							{{/if}}
-						</div>
-					</div>
-				</div>
-
-				<div class="tab-pane fade" id="pills-counselor-{{reExam._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div class="">
-						<a data-bs-toggle="collapse" href="#counselor-img-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="counselor-img">
-							Xem ảnh <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="counselor-img-{{reExam._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if reExam.serviceNoteId.counselorImg}}
-									{{#each reExam.serviceNoteId.counselorImg}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-										</figure>
-									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có hình ảnh
-									</p>
-									{{/if}}
-								</div>
-							</div>
-						</div>
-					</div>
-					<div>
-						<a data-bs-toggle="collapse" href="#counselor-video-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="counselor-video">
-							Xem video <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="counselor-video-{{reExam._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if reExam.serviceNoteId.counselorVideo}}
-									{{#each reExam.serviceNoteId.counselorVideo}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-										</figure>
-									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có video
-									</p>
-									{{/if}}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="tab-pane fade" id="pills-before-{{reExam._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div>
-						<a data-bs-toggle="collapse" href="#before-img-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="before-img">
-							Xem ảnh <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="before-img-{{reExam._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if reExam.serviceNoteId.beforeImg}}
-									{{#each reExam.serviceNoteId.beforeImg}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-										</figure>
-									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có hình ảnh
-									</p>
-									{{/if}}
-								</div>
-							</div>
-						</div>
-					</div>
-					<div>
-						<a data-bs-toggle="collapse" href="#before-video-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="before-video">
-							Xem video <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="before-video-{{reExam._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if reExam.serviceNoteId.beforeVideo}}
-									{{#each reExam.serviceNoteId.beforeVideo}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-										</figure>
-									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có video
-									</p>
-									{{/if}}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="tab-pane fade" id="pills-after-{{reExam._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div>
-						<a data-bs-toggle="collapse" href="#after-img-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="after-img">
-							Xem ảnh <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="after-img-{{reExam._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if reExam.serviceNoteId.afterImg}}
-									{{#each reExam.serviceNoteId.afterImg}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-										</figure>
-									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có hình ảnh
-									</p>
-									{{/if}}
-								</div>
-							</div>
-						</div>
-					</div>
-					<div>
-						<a data-bs-toggle="collapse" href="#after-video-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="after-video">
-							Xem video <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="after-video-{{reExam._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if reExam.serviceNoteId.afterVideo}}
-									{{#each reExam.serviceNoteId.afterVideo}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-										</figure>
-									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có video
-									</p>
-									{{/if}}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="tab-pane fade" id="pills-re-exam-{{reExam._id}}" role="tabpanel" aria-labelledby="pills-profile-tab">
-					<div>
-						<a data-bs-toggle="collapse" href="#re-examination-img-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="re-examination-img">
-							Xem ảnh <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="re-examination-img-{{reExam._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if reExam.reExamImg}}
-									{{#each reExam.reExamImg}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<img src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="...">
-										</figure>
-									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có hình ảnh
-									</p>
-									{{/if}}
-								</div>
-							</div>
-						</div>
-					</div>
-					<div>
-						<a data-bs-toggle="collapse" href="#re-examination-video-{{reExam._id}}" role="button" aria-expanded="false" aria-controls="re-examination-video">
-							Xem video <i class="ti-arrow-circle-down"></i>
-						</a>
-						<div class="collapse mt-3 mb-3" id="re-examination-video-{{reExam._id}}">
-							<div class="card card-body">
-								<div class="row">    
-									{{#if reExam.reExamVideo}}
-									{{#each reExam.reExamVideo}}
-									<div class="col-xl-2 col-lg-3 col-md-4">
-										<figure class="figure imgbox">
-											<video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-										</figure>
-									</div>
-									{{/each}}
-									{{else}}
-									<p class="text-center">
-										Chưa có video
-									</p>
-									{{/if}}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="d-flex justify-content-between justify-content-sm-end mt-3">
-				<label for="status">
-					<strong>Phí dịch vụ:</strong>&nbsp;
-				</label>
-				<label class="text-danger text-right">
-					{{#if reExam.price}}
-					{{reExam.price}} VND
-					{{else}}
-					0 VND
-					{{/if}}
-				</label>
-			</div>
-		</div>
+<div class="container-fluid m-18">
+	{{#if customer.image.url}}
+	<div class="mt-2 text-center mb-3">
+		<img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt" class="rounded add-avata" alt="...">
+		{{!-- <img src="{{customer.image.url}}" id="add-avt" class="rounded add-avata" alt="..."> --}}
 	</div>
 	{{else}}
-	<div class="text-center">Chưa có phiếu phẩu thuật cần thực hiện.</div>
+	<div class="col-md-6 mt-2 text-center mb-3">
+		<img src="/img/user-ray.png" id="add-avt" class="rounded add-avata" alt="...">
+	</div>
 	{{/if}}
+	<div class="d-flex justify-content-between border-bottom mb-3">
+		<label for="status" class="text-light text-nowrap">
+			<strong>Họ tên:</strong>
+		</label>
+		<label class="text-uppercase text-dark-yellow text-wrap text-right">{{customer.fullName}}</label>
+	</div>
+	<div class="d-flex justify-content-between border-bottom mb-3">
+		<label for="status" class="text-light">
+			<strong>Ngày sinh:</strong>
+		</label>
+		<label class="text-light" id="create-service-note-birth" name="birth">{{formatBirth customer.birth}}</label>
+	</div>
+	<div class="d-flex justify-content-between border-bottom mb-3">
+		<label for="status" class="text-light">
+			<strong>Giới tính:</strong>
+		</label>
+		<label class="text-light" id="create-service-note-gender" name="gender">{{customer.gender}}</label>
+	</div>
+	<div class="d-flex justify-content-between border-bottom mb-3">
+		<label for="status" class="text-light">
+			<strong>Số điện thoại:</strong>
+		</label>
+		<label class="text-light">{{customer.phone}}</label>
+	</div>
+	<div class="d-flex justify-content-between border-bottom mb-3">
+		<label for="status" class="text-light">
+			<strong>Quê quán:</strong>
+		</label>
+		<label class="text-light">{{customer.homeTown}}</label>
+	</div>
+	<div class="d-flex justify-content-between border-bottom mb-3">
+		<label for="status" class="text-light">
+			<strong>Chiều cao:</strong>
+		</label>
+		<label class="text-light">{{customer.height}}</label>
+	</div>
+	<div class="d-flex justify-content-between border-bottom mb-3">
+		<label for="status" class="text-light">
+			<strong>Cân nặng:</strong>
+		</label>
+		<label class="text-light">{{customer.weight}}</label>
+	</div>
+	<label for="status" class="text-light">
+		<strong>Dịch vụ:</strong>
+	</label>
+	{{#if customer.serviceNoteID.service}}
+	<div class="border-bottom mb-3">
+		{{#each customer.serviceNoteID}}
+		<label class="text-dark-yellow m-0">{{this.service}}</label>
+		{{/each}}
+	</div>
+	{{else}}
+	<div class="border-bottom mb-3 text-light text-right">
+		Chưa sử dụng dịch vụ nào
+	</div>
+	{{/if}}
+	<div class="d-flex justify-content-between border-bottom mb-3">
+		<label for="status" class="text-light">
+			<strong>Nguồn khách:</strong>
+		</label>
+		<label class="text-light">{{customer.resource}}</label>
+	</div>
+	<div class="d-flex justify-content-between">
+		<label for="status" class="text-light">
+			<strong>Mô tả:</strong>
+		</label>
+	</div>
+	<textarea id="detail-description" class="form-control bg-transparent text-light mb-3" rows="6" disabled>{{customer.description}}</textarea>
 </div>
+<div class="fixed-bottom">
+    <nav class="navbar navbar-light bg-blue border-top p-3">
+		<a href="/operating-room/nursing" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-check fs-5"></i>
+			<small>Lịch tư vấn</small>
+		</a>
+		<a href="/operating-room/nursing/re-examination" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-calendar-plus fs-5"></i>
+			<small>Lịch tái khám</small>
+		</a>
+		<a href="/operating-room/nursing/customers" class="d-flex flex-column text-center link-light">
+			<i class="fa-sharp fa-solid fa-user fs-5"></i>
+			<small>Khách hàng</small>
+		</a>
+		<a href="/operating-room/nursing/service-note" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-receipt fs-5"></i>
+			<small>Hồ sơ</small>
+		</a>
+		<a href="/operating-room/nursing/discharge-from-hospital" class="d-flex flex-column text-center link-secondary">
+			<i class="fa-sharp fa-solid fa-arrow-right-from-bracket fs-5"></i>
+			<small>Xuất viện</small>
+		</a>
+    </nav>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+	const textarea = document.querySelectorAll('.message-content');
+	for (i = 0; i < textarea.length; i++) {
+		let element = textarea[i];
+		let textValue = element.innerHTML;
+		let textSplit = textValue.split('\n');
+		let cols = textValue.length;
+		let rows = textSplit.length;
+		let result = textSplit.join('<br>');
+		element.innerHTML = result;
+		let parent = element.clientWidth;
+		let ex = parent - cols;
+	}
+})
+</script>
