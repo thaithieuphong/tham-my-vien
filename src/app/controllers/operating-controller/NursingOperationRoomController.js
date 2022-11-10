@@ -79,7 +79,6 @@ class NursingController {
 	showSchedule(req, res, next){
 		Promise.all([Schedule.countDeleted({}), Schedule.find({ status: 'Tạo mới'}).populate('customerID')])
 		.then(([countDelete, schedules]) => {
-			console.log(schedules)
 			res.render("operating/nursing/schedule", {
 				countDelete: countDelete,
 				schedules: multipleMongooseToObject(schedules),
@@ -128,7 +127,6 @@ class NursingController {
 		User.find({ departmentEng: 'operating-room', positionEng: 'doctor', firstName: 'Nguyễn Tuấn', lastName: 'Anh'}),
 		TypeService.find({})])
 			.then(([schedule, doctor, typeService]) => {
-				console.log(schedule)
 				res.render('operating/nursing/create-customer-info', {
 					schedule: mongooseToObject(schedule),
 					doctor: multipleMongooseToObject(doctor),
@@ -225,11 +223,17 @@ class NursingController {
 	
 	// Danh sách khách hàng
 	showCustomers(req, res, next) {
-		Promise.all([Customer.find({}), User.findById({ _id: req.userId }),
+		Promise.all([Customer.find({}).populate('userID'), User.findById({ _id: req.userId }),
 		TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
+				let cusNursings = [];
+				customers.forEach(cusNursing => {
+					if (cusNursing.userID.departmentEng === 'operating-room' && cusNursing.userID.positionEng === 'nursing') {
+						cusNursings.push(cusNursing);
+					}
+				})
 				res.render("operating/nursing/operating-customer", {
-					customers: multipleMongooseToObject(customers),
+					customers: multipleMongooseToObject(cusNursings),
 					user: mongooseToObject(user),
 					typeservices: multipleMongooseToObject(typeservices),
 					title: 'Quản lý khách hàng'
@@ -346,7 +350,6 @@ class NursingController {
 			User.findById({ _id: req.userId })
 		])
 			.then(([customer, user]) => {
-				console.log(customer)
 				res.render('operating/nursing/operating-customer-detail', {
 					customer: mongooseToObject(customer),
 					user: mongooseToObject(user),
@@ -471,7 +474,6 @@ class NursingController {
 	showReExaminationDetail(req, res, next) {
 		Reexamination.findById({ _id: req.params.id }).populate('customerID').populate('createName').populate('serviceNoteId').populate('performer')
 			.then(reExamination => {
-				console.log(reExamination);
 				res.render('operating/nursing/operating-re-exam-detail', {
 					reExamination: mongooseToObject(reExamination),
 					title: "Chi tiết phiếu tái khám"
@@ -485,7 +487,6 @@ class NursingController {
 		User.find({ departmentEng: 'operating-room', positionEng: 'doctor', firstName: 'Nguyễn Tuấn', lastName: 'Anh'}),
 		TypeService.find({})])
 			.then(([reExam, doctors, typeService]) => {
-				console.log('re-exam', reExam)
 				res.render('operating/nursing/update-re-exam', {
 					reExam: mongooseToObject(reExam),
 					doctors: multipleMongooseToObject(doctors),
