@@ -244,6 +244,7 @@ class NursingController {
 			const customer = new Customer({
 				userID: req.userId,
 				fullName: req.body.fullName,
+				nickName: req.body.fullName,
 				birth: req.body.birth,
 				gender: req.body.gender,
 				phone: req.body.phone,
@@ -262,6 +263,7 @@ class NursingController {
 			const customer = new Customer({
 				userID: req.userId,
 				fullName: req.body.fullName,
+				nickName: req.body.fullName,
 				birth: req.body.birth,
 				gender: req.body.gender,
 				phone: req.body.phone,
@@ -287,6 +289,7 @@ class NursingController {
 				{ _id: req.params.id },
 				{
 					fullName: req.body.fullName,
+					nickName: req.body.fullName,
 					birth: req.body.birth,
 					phone: req.body.phone,
 					gender: req.body.gender,
@@ -317,7 +320,22 @@ class NursingController {
 				})
 				.catch(next);
 		} else {
-			Customer.updateOne({ _id: req.params.id }, req.body)
+			Customer.updateOne({ _id: req.params.id }, {
+				fullName: req.body.fullName,
+				nickName: req.body.fullName,
+				birth: req.body.birth,
+				phone: req.body.phone,
+				gender: req.body.gender,
+				height: req.body.height,
+				weight: req.body.weight,
+				homeTown: req.body.homeTown,
+				resource: req.body.resource,
+				description: req.body.description,
+				image: {
+					name: '',
+					url: '',
+				},
+			})
 				.then((customer) => {
 					res.redirect("back");
 				})

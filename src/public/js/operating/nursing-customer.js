@@ -171,8 +171,8 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	if (imageEdit === '') {
 		editAvt.setAttribute('src', '/img/user-ray.png');
 	} else {
-		editAvt.setAttribute('src', `/img/uploads/customers/${imageEdit}`);
-		// editAvt.setAttribute('src', imageEdit);
+		// editAvt.setAttribute('src', `/img/uploads/customers/${imageEdit}`);
+		editAvt.setAttribute('src', imageEdit);
 	}
 	editCustomerForm.setAttribute('action', `/operating-room/nursing/customers/${idEdit}?_method=PUT`);
 	editFullName.value = fullName;
