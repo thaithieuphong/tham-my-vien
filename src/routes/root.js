@@ -40,6 +40,7 @@ router.delete('/user/:id', [authJwt.verifyToken, authJwt.isRoot], RootController
 
 // [GET] Root Customer UI
 router.get('/customer', RootController.getRootCustomerDashboard);
+router.get('/customer/:id/detail', RootController.getRootCustomerDetail);
 
 
 // [GET] Root Department UI

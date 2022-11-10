@@ -1,5 +1,6 @@
 const Role = require("../models/Role");
 const Account = require("../models/Account");
+const Customer = require("../models/Customer");
 const User = require("../models/User");
 const Department = require("../models/Department");
 const Position = require("../models/Position");
@@ -19,10 +20,15 @@ const flash = require('connect-flash');
 class RootController {
 
 	getRootDashboard(req, res, next) {
-		User.findById({ _id: req.userId })
-			.then(user => {
+		Promise.all([
+			User.findById({ _id: req.userId }),
+			Customer.find({})
+		])
+			.then(([user, customers]) => {
+				console.log(customers)
 				res.render("root/root-dashboard", {
-					user: mongooseToObject(user)
+					user: mongooseToObject(user),
+					customers: multipleMongooseToObject(customers),
 				});
 			})
 		// res.render("root/root-dashboard");
@@ -46,6 +52,16 @@ class RootController {
 
 	getRootCustomerDashboard(req, res, next) {
 		res.render("root/root-customer");
+	}
+
+	getRootCustomerDetail(req, res, next) {
+		Customer.findById({ _id: req.params.id})
+			.then(customer => {
+				console.log(customer)
+				res.render("root/root-customer-detail", {
+					customer: mongooseToObject(customer),
+				});
+			})
 	}
 
 	getRootServiceNoteDashboard(req, res, next) {

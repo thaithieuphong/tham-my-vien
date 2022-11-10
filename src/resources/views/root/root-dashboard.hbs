@@ -62,165 +62,105 @@
         </div>
     </div>
 </div>
-<div class="row container-content">
-    <div class="col-lg-2 col-md-3 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 border">
+            <table class="table mt-3">
+                <thead>
+                    <tr class="text-light bg-primary">
+                        <th scope="col">#</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Nick Name</th>
+                    </tr>
+                </thead>
+                <tbody class="container-content-page">
+                    {{#each customers}}
+                    <tr class="text-light">
+                        <th scope="row">{{sum @index 1}}</th>
+                        <td><img class="w-46 h-46 rounded-circle border mr-3" src="/img/uploads/customers/user-ray.png" alt=""><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
+                        {{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
+                        {{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
+                        <td>{{this.fullName}}</td>
+                        <td>{{this.nickName}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 border">
+            <table class="table mt-3">
+                <thead>
+                    <tr class="text-light bg-primary">
+                        <th scope="col">#</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Nick Name</th>
+                    </tr>
+                </thead>
+                <tbody class="container-content-page">
+                    {{#each customers}}
+                    <tr class="text-light">
+                        <th scope="row">{{sum @index 1}}</th>
+                        <td><img class="w-46 h-46 rounded-circle border mr-3" src="/img/uploads/customers/user-ray.png" alt=""><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
+                        {{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
+                        {{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
+                        <td>{{this.fullName}}</td>
+                        <td>{{this.nickName}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+    <div class="row">
+        <div class="col-md-6 border">
+            <table class="table mt-3">
+                <thead>
+                    <tr class="text-light bg-primary">
+                        <th scope="col">#</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Nick Name</th>
+                    </tr>
+                </thead>
+                <tbody class="container-content-page">
+                    {{#each customers}}
+                    <tr class="text-light">
+                        <th scope="row">{{sum @index 1}}</th>
+                        <td><img class="w-46 h-46 rounded-circle border mr-3" src="/img/uploads/customers/user-ray.png" alt=""><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
+                        {{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
+                        {{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
+                        <td>{{this.fullName}}</td>
+                        <td>{{this.nickName}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
         </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-2 mr-3 mb-3 ml-3 mt-3">
-        <div class="card">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+        <div class="col-md-6 border">
+            <table class="table mt-3">
+                <thead>
+                    <tr class="text-light bg-primary">
+                        <th scope="col">#</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">Nick Name</th>
+                    </tr>
+                </thead>
+                <tbody class="container-content-page">
+                    {{#each customers}}
+                    <tr class="text-light">
+                        <th scope="row">{{sum @index 1}}</th>
+                        <td><img class="w-46 h-46 rounded-circle border mr-3" src="/img/uploads/customers/user-ray.png" alt=""><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
+                        {{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
+                        {{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
+                        <td>{{this.fullName}}</td>
+                        <td>{{this.nickName}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -22,7 +22,7 @@
 		<div class="card-body">
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Mã định danh:</strong>&nbsp;
+					<strong>Mã định danh:</strong>
 				</label>
 				<label class="fs-6 text-light text-right">
 					{{serviceNote.scheduleID.customerID.identification}}
@@ -30,7 +30,7 @@
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Họ tên khai sinh:</strong>&nbsp;
+					<strong>Họ tên khai sinh:</strong>
 				</label>
 				<label class="fs-6 text-light text-right">
 					{{serviceNote.scheduleID.customerID.fullName}}
@@ -38,7 +38,7 @@
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Tên thường gọi:</strong>&nbsp;
+					<strong>Tên thường gọi:</strong>
 				</label>
 				<label class="fs-6 text-light text-right">
 					{{serviceNote.scheduleID.customerID.nickName}}
@@ -46,7 +46,7 @@
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Quê quán:</strong>&nbsp;
+					<strong>Quê quán:</strong>
 				</label>
 				<label class="fs-6 text-light text-right">
 					{{serviceNote.scheduleID.customerID.homeTown}}
@@ -54,7 +54,7 @@
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Ngày hẹn:</strong>&nbsp;
+					<strong>Ngày hẹn:</strong>
 				</label>
 				<label for=""class="fs-6 text-success text-right">
 					<em>{{formatDate serviceNote.scheduleID.schedule}}</em>
@@ -62,7 +62,7 @@
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Trạng thái:</strong>&nbsp;
+					<strong>Trạng thái:</strong>
 				</label>
 				<label class="fs-6 text-danger text-right">
 					<em>{{serviceNote.status}}</em>
@@ -70,7 +70,7 @@
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Bác sĩ:</strong>&nbsp;
+					<strong>Bác sĩ:</strong>
 				</label>
 				<label class="text-light">
 					{{#each serviceNote.performer}}
@@ -80,7 +80,7 @@
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Chiều cao:</strong>&nbsp;
+					<strong>Chiều cao:</strong>
 				</label>
 				<label class="text-light">
 					<em>{{serviceNote.scheduleID.customerID.height}}</em>
@@ -88,7 +88,7 @@
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Cân nặng:</strong>&nbsp;
+					<strong>Cân nặng:</strong>
 				</label>
 				<label class="text-light text-right">
 					<em>{{serviceNote.scheduleID.customerID.weight}}</em>
@@ -96,7 +96,7 @@
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Ngày phẩu thuật:</strong>&nbsp;
+					<strong>Ngày phẩu thuật:</strong>
 				</label>
 				<label class="text-light text-right">
 					{{formatBirth serviceNote.surgeryDay}}
@@ -104,7 +104,7 @@
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Tầng phẩu thuật:</strong>&nbsp;
+					<strong>Tầng phẩu thuật:</strong>
 				</label>
 				<label class="text-light text-right">
 					{{serviceNote.floor}}
@@ -112,7 +112,7 @@
 			</div>
 			<div class="d-flex justify-content-between">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Dịch vụ đăng ký:</strong>&nbsp;
+					<strong>Dịch vụ đăng ký:</strong>
 				</label>
 			</div>
 			{{#each serviceNote.service}}
@@ -127,7 +127,7 @@
 			{{/each}}
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Đặt cọc:</strong>&nbsp;
+					<strong>Đặt cọc:</strong>
 				</label>
 				<label class="text-warning text-right">
 					{{serviceNote.deposit}}
@@ -135,7 +135,7 @@
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
 				<label for="status" class="text-nowrap text-light">
-					<strong>Tổng chi phí:</strong>&nbsp;
+					<strong>Tổng chi phí:</strong>
 				</label>
 				<label class="text-danger text-right">
 					{{serviceNote.total}}
