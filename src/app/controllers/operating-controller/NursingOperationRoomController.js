@@ -223,13 +223,14 @@ class NursingController {
 	
 	// Danh sách khách hàng
 	showCustomers(req, res, next) {
-		Promise.all([Customer.find({}).populate('userID'), User.findById({ _id: req.userId }),
-		TypeService.find({})])
+		Promise.all([Customer.find({}), User.findById({ _id: req.userId }),
+			TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
-				let cusNursings = [];
-				customers.forEach(cusNursing => {
+				console.log(customers)
+				let cusNursings = customers.filter(cusNursing => {
 					if (cusNursing.userID.departmentEng === 'operating-room' && cusNursing.userID.positionEng === 'nursing') {
-						cusNursings.push(cusNursing);
+						// cusNursings.push(cusNursing);
+						return cusNursing;
 					}
 				})
 				res.render("operating/nursing/operating-customer", {
