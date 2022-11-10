@@ -144,7 +144,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	// Get data from edit button
 	var idEdit = button.getAttribute('data-id');
 	var imageEdit = button.getAttribute("data-edit-img");
-	var fullName = button.getAttribute("data-edit-fullname");
+	var nickName = button.getAttribute("data-edit-nickname");
 	var birth = button.getAttribute("data-edit-birth");
 	var phone = button.getAttribute("data-edit-phone");
 	var gender = button.getAttribute("data-edit-gender");
@@ -156,7 +156,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 
 	// Get element need embeded input
 	var editAvt = document.getElementById("edit-customer-avt");
-	var editFullName = document.getElementById("edit-fullName");
+	var editNickName = document.getElementById("edit-nickName");
 	var editBirth = document.getElementById("edit-birth");
 	var editGender = document.getElementById("edit-gender");
 	var editPhone = document.getElementById("edit-phone");
@@ -166,7 +166,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 	var editResource = document.getElementById("edit-resource");
 	var editDescription = document.getElementById("edit-description");
 
-	editFullName.focus();
+	editNickName.focus();
 
 	if (imageEdit === '') {
 		editAvt.setAttribute('src', '/img/user-ray.png');
@@ -175,7 +175,7 @@ editCustomer.addEventListener("show.bs.modal", function (event) {
 		editAvt.setAttribute('src', imageEdit);
 	}
 	editCustomerForm.setAttribute('action', `/operating-room/nursing/customers/${idEdit}?_method=PUT`);
-	editFullName.value = fullName;
+	editNickName.value = nickName;
 	editBirth.value = birth;
 	editGender.value = gender;
 	editPhone.value = phone;

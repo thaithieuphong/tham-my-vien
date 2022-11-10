@@ -42,8 +42,8 @@
 				</th>
 				<td class="p-0 text-light text-wrap fs-6 text align-middle">
 					<a class="link-light" href="/operating-room/nursing/customers/{{this._id}}/detail">
-						<div data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.fullName}}">
-							{{cutPassword this.fullName 24}}
+						<div data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.nickName}}">
+							{{cutPassword this.nickName 24}}
 						</div>
 					</a>
 				</td>
@@ -52,7 +52,7 @@
 						data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
 						data-edit-img="{{this.image.url}}"
 						{{!-- data-edit-img="{{this.image.name}}" --}}
-						data-edit-fullname="{{this.fullName}}" data-edit-height="{{this.height}}"
+						data-edit-nickname="{{this.nickName}}" data-edit-height="{{this.height}}"
 						data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
 						data-edit-phone="{{this.phone}}" data-edit-weight="{{this.weight}}"
 							data-edit-homeTown="{{this.homeTown}}"
@@ -146,9 +146,9 @@
 					<div class="col-xl-9">
 						<div class="row">
 							<div class="col-md-6 form-floating mb-3">
-								<input type="text" class="form-control text-light text-right bg-transparent rounded-pill pr-4" id="create-firstName"
-									placeholder="Vd: Trần Văn An" name="fullName" required>
-								<label for="create-firstName" class="text-light pl-5">Họ tên</label>
+								<input type="text" class="form-control text-light text-right bg-transparent rounded-pill pr-4" id="create-nickName"
+									placeholder="Vd: Trần Văn An" name="nickName" required>
+								<label for="create-nickName" class="text-light pl-5">Tên thường gọi</label>
 							</div>
 							<div class="col-md-6 form-floating mb-3">
 								<input type="date" class="form-control text-light text-right bg-transparent rounded-pill pr-4" id="create-birth"
@@ -241,8 +241,8 @@
 						<div class="row">
 							<div class="col-md-6 form-floating mb-3">
 								<input type="text" class="form-control bg-transparent text-light rounded-pill pr-4 text-right"
-									placeholder="Vd: Trần Văn A" id="edit-fullName" name="fullName">
-								<label for="edit-fullName" class="text-light pl-5">Họ tên</label>
+									placeholder="Vd: Trần Văn A" id="edit-nickName" name="nickName">
+								<label for="edit-nickName" class="text-light pl-5">Tên thường gọi</label>
 							</div>
 							<div class="col-md-6 form-floating mb-3">
 								<input type="date" class="form-control bg-transparent text-light rounded-pill pr-4 text-right" id="edit-birth"

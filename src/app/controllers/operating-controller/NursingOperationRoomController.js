@@ -225,7 +225,7 @@ class NursingController {
 	
 	// Danh sách khách hàng
 	showCustomers(req, res, next) {
-		Promise.all([Customer.find({ userID: req.userId }), User.findById({ _id: req.userId }),
+		Promise.all([Customer.find({}), User.findById({ _id: req.userId }),
 		TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
 				res.render("operating/nursing/operating-customer", {
@@ -243,8 +243,7 @@ class NursingController {
 		if (req.file) {
 			const customer = new Customer({
 				userID: req.userId,
-				fullName: req.body.fullName,
-				nickName: req.body.fullName,
+				nickName: req.body.nickName,
 				birth: req.body.birth,
 				gender: req.body.gender,
 				phone: req.body.phone,
@@ -262,8 +261,7 @@ class NursingController {
 		} else {
 			const customer = new Customer({
 				userID: req.userId,
-				fullName: req.body.fullName,
-				nickName: req.body.fullName,
+				nickName: req.body.nickName,
 				birth: req.body.birth,
 				gender: req.body.gender,
 				phone: req.body.phone,
@@ -288,8 +286,7 @@ class NursingController {
 			Customer.findOneAndUpdate(
 				{ _id: req.params.id },
 				{
-					fullName: req.body.fullName,
-					nickName: req.body.fullName,
+					nickName: req.body.nickName,
 					birth: req.body.birth,
 					phone: req.body.phone,
 					gender: req.body.gender,
@@ -321,8 +318,7 @@ class NursingController {
 				.catch(next);
 		} else {
 			Customer.updateOne({ _id: req.params.id }, {
-				fullName: req.body.fullName,
-				nickName: req.body.fullName,
+				nickName: req.body.nickName,
 				birth: req.body.birth,
 				phone: req.body.phone,
 				gender: req.body.gender,
