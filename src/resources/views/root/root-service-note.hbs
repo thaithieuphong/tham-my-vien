@@ -1,0 +1,515 @@
+<link rel="stylesheet" href="/css/root.css">
+<nav class="navbar navbar-light bg-dark sticky-top">
+    <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+            class="ti-angle-double-right"></i></button>
+    <div class="img-container">
+        {{#if root.image.name}}
+        <a class="text-light" href="/god/profile">{{root.firstName}} {{root.lastName}}<img
+                class="ml-2 mr-3" src="/img/uploads/users/{{root.image.name}}" alt=""></a>
+        {{else}}
+        <a class="text-light" href="/god/profile">{{root.firstName}} {{root.lastName}}<img
+                class="ml-2 mr-3" src="/img/user-icon.png" alt=""></a>
+        {{/if}}
+        <div />
+</nav>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/god/dashboard" class="sidebar-item-title pl-3">
+                <i class="ti-dashboard mr-3"></i>Bảng điều khiển
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/god/user" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Phòng nhân sự
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/god/operating-room" class="sidebar-item-title pl-3">
+                <i class="ti-cut mr-3"></i>Phòng phẩu thuật
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/god/reception" class="sidebar-item-title pl-3">
+                <i class="ti-clipboard mr-3"></i>Phòng lễ tân
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/god/business" class="sidebar-item-title pl-3">
+                <i class="ti-headphone-alt mr-3"></i>Phòng kinh doanh
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/god/marketing" class="sidebar-item-title pl-3">
+                <i class="ti-bar-chart mr-3"></i>Phòng marketing
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" class="sidebar-item-title pl-3">
+                <i class="ti-server mr-3"></i>Phòng IT
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/god/setting" class="sidebar-item-title pl-3">
+                <i class="ti-settings mr-3"></i>Cài đặt
+            </a>
+			<!-- Example single danger button -->
+			<div class="btn-group">
+				<button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+					Cài đặt
+				</button>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" href="/god/department">Action</a></li>
+					<li><a class="dropdown-item" href="#">Another action</a></li>
+					<li><a class="dropdown-item" href="#">Something else here</a></li>
+					<li><hr class="dropdown-divider"></li>
+					<li><a class="dropdown-item" href="#">Separated link</a></li>
+				</ul>
+			</div>
+        </div>
+    </div>
+</div>
+<div class="row">
+	<nav id="sub-nav-sm" class="navbar navbar-light d-flex justify-content-between"
+		style="background-color: #e3f2fd;">
+		<!-- Navbar content -->
+		<button type="button" class="btn btn-danger btn-storage">
+			<i class="ti-archive"></i>
+		</button>
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary btn-create" data-bs-toggle="modal"
+			data-bs-target="#create-user">
+			<i class="ti-plus"></i>
+		</button>
+	</nav>
+	<div class="ml-3 pr-5 mt-3">
+		<table id="user_table" class="table table-hover table-bordered table-sm">
+			<thead class="table-info">
+				<tr>
+					<th class="text-center" scope="col">#</th>
+					<th class="text-center" scope="col">ID</th>
+					<th class="text-center" scope="col">Schedule ID</th>
+					<th class="text-center" scope="col">Vị trí</th>
+					<th class="text-center" scope="col">Ngày sinh</th>
+					<th class="text-center" scope="col">Giới tính</th>
+					<th class="text-center" scope="col">Số điện thoại</th>
+					<th class="text-center" scope="col">Email</th>
+					<th class="text-center" scope="col">Mô tả</th>
+					<th class="text-center" scope="col">Hành động</th>
+				</tr>
+			</thead>
+			<tbody id="table-content" class="text-light">
+				{{#each serviceNote}}
+				<tr>
+					<th class="text-center" scope="row">{{sum @index 1}}</th>
+					<td><a href="/god/service-note/{{this._id}}/detail">{{this._id}}</a></td>
+					<td class="text-center">{{this.scheduleID._id}}</td>
+					<td class="text-center">{{this.position}}</td>
+					<td class="text-center">{{formatBirth this.birth}}</td>
+					<td class="text-center">{{this.gender}}</td>
+					<td class="text-center">0{{this.phone}}</td>
+					<td>{{this.email}}</td>
+					<td>{{this.description}}</td>
+					<td class="text-center">
+						<button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#edit-user-modal"
+							data-id="{{this._id}}" data-edit-img="{{this.image.name}}"
+							data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
+							data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
+							data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
+							data-edit-department="{{this.department}}" data-edit-position="{{this.position}}"
+							data-edit-account="{{this.account}}" data-edit-address="{{this.address}}"
+							data-edit-description="{{this.description}}">Sửa</button>
+						<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-user-modal"
+							data-delete-id="{{this._id}}" data-delete-firstname="{{this.firstName}}"
+							data-delete-lastname="{{this.lastName}}">Xóa</button>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+	<!-- Modal Details User -->
+	<div class="modal fade" id="detail-user" tabindex="-1" aria-labelledby="detailUser" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header bg-info text-light">
+					<h5 class="modal-title" id="detailUser">Thông tin chi tiết</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="card">
+					<div class="row g-0">
+						<div class="col-md-4 text-center">
+							<img id="detail-avt" class="img-fluid rounded-start" alt="...">
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h3 class="none-mb" id="detail-firstLastName"></h3>
+								<p class="none-mb" id="detail-birth" for="detail-birth"></p>
+								<p class="none-mb" id="detail-gender"></p>
+								<p class="none-mb" id="detail-phone"></p>
+								<p class="none-mb" id="detail-email"></p>
+								<p class="none-mb" id="detail-address"></p>
+								<p class="none-mb" id="detail-department"></p>
+								<p class="none-mb" id="detail-position"></p>
+								<p class="none-mb" id="detail-account"></p>
+								<p class="none-mb" id="detail-role"></p>
+								<label class="">Mô tả:</label>
+								<textarea id="detail-description" class="form-control mb-2" rows="6"
+									disabled></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal Create User -->
+	<div class="modal fade" id="create-user" tabindex="-1" aria-labelledby="infoUser" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header bg-primary text-light">
+					<h5 class="modal-title" id="infoUser">Tạo thông tin người dùng mới</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form method="POST" action="/god/user" id="create-user-form" class="row"
+						enctype="multipart/form-data">
+						<div class="mt-3 text-center mb-3">
+							<img src="/img/user-icon.png" id="add-avt" class="rounded mx-auto d-block add-avata"
+								alt="...">
+							<label for="create-img" class="label-avt btn btn-sm btn-primary mt-3">
+								<h6>Chọn ảnh đại diện</h6>
+							</label>
+							<input id="create-img" type="file" name="image" accept="image/png, image/gif, image/jpeg">
+						</div>
+						<div class="col-xl-8 mb-3">
+							<ul class="list-group">
+								<li class="list-group-item bg-info">
+									<div class="row">
+										<div class="col-md-6">
+											<label for="firstName" class="form-label">
+												<h6>Họ</h6>
+											</label>
+											<input type="text" class="form-control form-control-sm firstName"
+												id="firstName" pattern="[a-z]{1,15}" placeholder="Vd: Trần Văn"
+												name="firstName"
+												title="Username should only contain lowercase letters. e.g. john"
+												autofocus required>
+										</div>
+										<div class="col-md-6">
+											<label for="lastName" class="form-label">
+												<h6>Tên</h6>
+											</label>
+											<input type="text" class="form-control form-control-sm lastName"
+												id="lastName" placeholder="Vd: Khánh" name="lastName" required>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-md-6">
+											<label for="birth" class="form-label">
+												<h6>Ngày sinh</h6>
+											</label>
+											<input type="date" class="form-control form-control-sm" id="birth"
+												aria-describedby="birthFeedback" name="birth" required>
+										</div>
+										<div class="col-md-6">
+											<label for="gender" class="form-label">
+												<h6>Giới tính</h6>
+											</label>
+											<select class="form-select form-select-sm"
+												aria-label=".form-select-sm example" name="gender">
+												<option value="" selected>-- Chọn giới tính --</option>
+												<option value="Nữ">Nữ</option>
+												<option value="Nam">Nam</option>
+											</select>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-md-6">
+											<label for="phone" class="form-label">
+												<h6>Số điện thoại</h6>
+											</label>
+											<input type="tel" class="form-control form-control-sm" id="phone"
+												placeholder="Vd: 0909888888" name="phone" required>
+										</div>
+										<div class="col-md-6">
+											<label for="email" class="form-label">
+												<h6>Email</h6>
+											</label>
+											<input type="email" class="form-control form-control-sm" id="email"
+												placeholder="Vd: tranvankhanh@gmail.com" name="email" required>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-md-12">
+											<label for="address" class="form-label">
+												<h6>Địa chỉ</h6>
+											</label>
+											<input type="text" class="form-control form-control-sm" id="address"
+												aria-describedby="addressFeedback" placeholder="Vd: 123 Đường số 10"
+												name="address" required>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-md-6">
+											<label for="departments" class="form-label">
+												<h6>Phòng ban</h6>
+											</label>
+											<select class="form-select form-select-sm"
+												aria-label=".form-select-sm example" name="department">
+												<option value="" selected>-- Chọn phòng ban --</option>
+												{{#each departments}}
+												<option value="{{this.name}}">{{this.name}}</option>
+												{{/each}}
+											</select>
+										</div>
+										<div class="col-md-6">
+											<label for="positions" class="form-label">
+												<h6>Chức vụ</h6>
+											</label>
+											<select class="form-select form-select-sm"
+												aria-label=".form-select-sm example" name="position">
+												<option value="" selected>-- Chọn chức vụ --</option>
+												{{#each positions}}
+												<option value="{{this.name}}">{{this.name}}</option>
+												{{/each}}
+											</select>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-md-12 mb-3">
+											<label for="description" class="form-label">
+												<h6>Mô tả</h6>
+											</label>
+											<textarea class="form-control" id="description" rows="6"
+												placeholder="Vd: Kinh nghiệm làm việc, sở thích..."
+												name="description"></textarea>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="col-xl-4">
+							<ul class="list-group">
+								<li class="list-group-item bg-danger text-light">
+									<div class="col-xl">
+										<label for="account" class="form-label">
+											<h6>Tài khoản</h6>
+										</label>
+										<input type="text" class="form-control form-control-sm account" id="account"
+											name="account" required>
+									</div>
+									<div class="col-xl mt-3">
+										<label for="password" class="form-label">
+											<h6>Mật khẩu</h6>
+										</label>
+										<input type="password" class="form-control form-control-sm" id="password"
+											name="password" required>
+									</div>
+									<div class="col-xl mt-3 mb-3">
+										<label for="roles" class="form-label">
+											<h6>Quyền hạn</h6>
+										</label>
+										<select class="form-select form-select-sm" aria-label=".form-select-sm example"
+											name="role">
+											<option value="" selected>-- Chọn quyền hạn --</option>
+											{{#each roles}}
+											<option value="{{this.name}}">{{this.name}}</option>
+											{{/each}}
+										</select>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
+					<button type="button" id="create" class="btn btn-primary">Tạo mới</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal Edit User -->
+	<div class="modal fade" id="edit-user-modal" tabindex="-1" aria-labelledby="editUser" aria-hidden="true">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header bg-info text-light">
+					<h5 class="modal-title" id="editUser">Sửa / Cập nhật thông tin người dùng</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form method="POST" id="edit-user-form" class="row" enctype="multipart/form-data">
+						<img src="/img/user-icon.png" id="edit-avt" class="rounded mx-auto d-block add-avata" alt="...">
+						<div class="mt-3 mb-3 text-center">
+							<label for="edit-img" class="label-avt btn btn-sm btn-primary">
+								<h6>Chọn ảnh đại diện</h6>
+							</label>
+							<input class="form-control" id="edit-img" type="file" name="image"
+								accept="image/png, image/gif, image/jpeg">
+						</div>
+						<div class="col-xl-8 mb-3">
+							<ul class="list-group">
+								<li class="list-group-item bg-info text-light">
+									<div class="row">
+										<div class="col-md-6">
+											<label for="firstName" class="form-label">
+												<h6>Họ</h6>
+											</label>
+											<input type="text" class="form-control form-control-sm firstName"
+												data-bs-focus="focus" id="edit-firstName" name="firstName" disabled>
+										</div>
+										<div class="col-md-6">
+											<label for="lastName" class="form-label">
+												<h6>Tên</h6>
+											</label>
+											<input type="text" class="form-control form-control-sm lastName"
+												id="edit-lastName" name="lastName" disabled>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-md-6">
+											<label for="birth" class="form-label">
+												<h6>Ngày sinh</h6>
+											</label>
+											<input type="date" class="form-control form-control-sm" id="edit-birth"
+												aria-describedby="birthFeedback" name="birth" required>
+										</div>
+										<div class="col-md-6">
+											<label for="gender" class="form-label">
+												<h6>Giới tính</h6>
+											</label>
+											<select id="edit-gender" class="form-select form-select-sm"
+												aria-label=".form-select-sm example" name="gender">
+												<option value="" selected>-- Chọn giới tính --</option>
+												<option value="Nữ">Nữ</option>
+												<option value="Nam">Nam</option>
+											</select>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-md-6">
+											<label for="phone" class="form-label">
+												<h6>Số điện thoại</h6>
+											</label>
+											<input type="tel" class="form-control form-control-sm" id="edit-phone"
+												name="phone" required>
+										</div>
+										<div class="col-md-6">
+											<label for="email" class="form-label">
+												<h6>Email</h6>
+											</label>
+											<input type="email" class="form-control form-control-sm" id="edit-email"
+												name="email" required>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-md-12">
+											<label for="address" class="form-label">
+												<h6>Địa chỉ</h6>
+											</label>
+											<input type="text" class="form-control form-control-sm" id="edit-address"
+												aria-describedby="addressFeedback" name="address" required>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-md-6">
+											<label for="departments" class="form-label">
+												<h6>Phòng ban</h6>
+											</label>
+											<select id="edit-department" class="form-select form-select-sm"
+												aria-label=".form-select-sm example" name="department">
+												<option value="" selected>-- Chọn phòng ban --</option>
+												{{#each departments}}
+												<option value="{{this.name}}">{{this.name}}</option>
+												{{/each}}
+											</select>
+										</div>
+										<div class="col-md-6">
+											<label for="positions" class="form-label">
+												<h6>Chức vụ</h6>
+											</label>
+											<select id="edit-position" class="form-select form-select-sm"
+												aria-label=".form-select-sm example" name="position">
+												<option value="" selected>-- Chọn chức vụ --</option>
+												{{#each positions}}
+												<option value="{{this.name}}">{{this.name}}</option>
+												{{/each}}
+											</select>
+										</div>
+									</div>
+									<div class="row mt-3">
+										<div class="col-md-12 mb-3">
+											<label for="description" class="form-label">
+												<h6>Mô tả</h6>
+											</label>
+											<textarea class="form-control" id="edit-description" rows="6"
+												name="description"></textarea>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="col-xl-4">
+							<ul class="list-group">
+								<li class="list-group-item bg-danger text-light">
+									<div class="col-xl">
+										<label for="account" class="form-label">
+											<h6>Tài khoản</h6>
+										</label>
+										<input type="text" class="form-control form-control-sm account"
+											id="edit-account" value="{{this.account}}" name="account" disabled>
+									</div>
+									<div class="col-xl mt-3">
+										<label for="password" class="form-label">
+											<h6>Mật khẩu</h6>
+										</label>
+										<input type="password" class="form-control form-control-sm" id="edit-password"
+											name="password" required>
+									</div>
+									<div class="col-xl mb-3 mt-3">
+										<label for="roles" class="form-label">
+											<h6>Quyền hạn</h6>
+										</label>
+										<select id="edit-role" class="form-select form-select-sm"
+											aria-label=".form-select-sm example" name="role">
+											<option value="" selected>-- Chọn quyền hạn --</option>
+											{{#each roles}}
+											<option value="{{this.name}}">{{this.name}}</option>
+											{{/each}}
+										</select>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng lại</button>
+					<button type="button" id="edit" class="btn btn-primary">Lưu thay đổi</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/sidebar.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			$(document).ready(function () {
+				$('#user_table').DataTable({
+					responsive: true,
+				});
+			});
+		});
+	</script>

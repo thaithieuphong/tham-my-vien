@@ -16,6 +16,7 @@ const path = require("path");
 const appRoot = require("app-root-path");
 const fs = require("fs");
 const flash = require('connect-flash');
+const ServiceNote = require("../models/ServiceNote");
 
 class RootController {
 
@@ -65,7 +66,13 @@ class RootController {
 	}
 
 	getRootServiceNoteDashboard(req, res, next) {
-		res.render("root/root-service-note");
+		ServiceNote.find({}).populate('scheduleID')
+			.then(serviceNote => {
+				console.log(serviceNote)
+				res.render("root/root-service-note", {
+					serviceNote: multipleMongooseToObject(serviceNote)
+				});
+			})
 	}
 
 	getRootProfile(req, res, next) {

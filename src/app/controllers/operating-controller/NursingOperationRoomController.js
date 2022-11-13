@@ -1,6 +1,8 @@
 const User = require('../../models/User');
 const { multipleMongooseToObject, mongooseToObject } = require('../../../util/mongoose');
 const ServiceNote = require('../../models/ServiceNote');
+const Department = require('../../models/Department');
+const Position = require('../../models/Position');
 const Schedule = require('../../models/Schedule');
 const Reexamination = require('../../models/Reexamination');
 const Customer = require('../../models/Customer');
@@ -24,6 +26,7 @@ class NursingController {
 			.catch(next);
 	}
 
+	// Hiển thị trang tạo lịch hẹn
 	showCreateSchedule(req, res, next) {
 		Customer.findById({ _id: req.params.id }).populate('userID')
 		.then(customer => {
@@ -34,21 +37,16 @@ class NursingController {
 			})
 	}
 
+	// Tạo lịch hẹn
 	createSchedule(req, res, next) {
-		const cusID = req.params.id;
-		const createName = req.body.createID;
-		const scheduleBody = req.body.schedule;
-		const priceBefore = req.body.priceBefore;
-		const deposit = req.body.deposit;
-		const comment = req.body.comment;
-		if (deposit === '') {
+		if (req.body.deposit === '') {
 			const schedule = new Schedule({
-				customerID: cusID,
-				createName: createName,
+				customerID: req.params.id,
+				createName: req.body.createID,
 				status: "Tạo mới",
-				comments: { comment: comment },
-				schedule: scheduleBody,
-				priceBefore: priceBefore,
+				comments: { comment: req.body.comment },
+				schedule: req.body.schedule,
+				priceBefore: req.body.priceBefore,
 				deposit: 0,
 			});
 			schedule.save();
@@ -59,13 +57,13 @@ class NursingController {
 				})
 		} else {
 			const schedule = new Schedule({
-				customerID: cusID,
-				createName: createName,
+				customerID: req.params.id,
+				createName: req.body.createID,
 				status: "Tạo mới",
-				comments: { comment: comment },
-				schedule: scheduleBody,
-				priceBefore: priceBefore,
-				deposit: deposit,
+				comments: { comment: req.body.comment },
+				schedule: req.body.schedule,
+				priceBefore: req.body.priceBefore,
+				deposit: req.body.deposit,
 			});
 			schedule.save();
 			Customer.findByIdAndUpdate({ _id: req.body.createID }, { $push: { scheduleID: schedule.id }})
@@ -76,6 +74,7 @@ class NursingController {
 		}
 	}
 
+	// Hiển thị danh sách lịch hẹn
 	showSchedule(req, res, next){
 		Promise.all([Schedule.countDeleted({}), Schedule.find({ status: 'Tạo mới'}).populate('customerID')])
 		.then(([countDelete, schedules]) => {
@@ -88,6 +87,7 @@ class NursingController {
 		.catch(next);
 	}
 
+	// Hiến thị chi tiết lịch hẹn
 	showScheduleDetail(req, res, next) {
 		Schedule.findById({ _id: req.params.id}).populate('customerID').populate('createName')
 			.then((schedule) => {
@@ -226,15 +226,18 @@ class NursingController {
 		Promise.all([Customer.find({}), User.findById({ _id: req.userId }),
 			TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
-				console.log(customers)
-				let cusNursings = customers.filter(cusNursing => {
-					if (cusNursing.userID.departmentEng === 'operating-room' && cusNursing.userID.positionEng === 'nursing') {
-						// cusNursings.push(cusNursing);
-						return cusNursing;
+				// console.log(customers);
+				let cusArr = [];
+				customers.forEach(customer => {
+					// console.log(customer.userID)
+					if (customer.userID === null) {
+						return null;
+					} else {
+						cusArr.push(customer)
 					}
 				})
 				res.render("operating/nursing/operating-customer", {
-					customers: multipleMongooseToObject(cusNursings),
+					customers: multipleMongooseToObject(cusArr),
 					user: mongooseToObject(user),
 					typeservices: multipleMongooseToObject(typeservices),
 					title: 'Quản lý khách hàng'
