@@ -223,21 +223,21 @@ class NursingController {
 	
 	// Danh sách khách hàng
 	showCustomers(req, res, next) {
-		Promise.all([Customer.find({}).populate('userID'), User.findById({ _id: req.userId }),
+		Promise.all([Customer.find({ userID: req.userId }), User.findById({ _id: req.userId }),
 			TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
-				let cusArr = [];
-				customers.forEach(customer => {
-					if (customer.userID !== null) {
+				// let cusArr = [];
+				// customers.forEach(customer => {
+				// 	if (customer.userID !== null) {
 						
-						if (customer.userID.departmentEng === 'operating-room' && customer.userID.positionEng === 'nursing') {
-							console.log('customer', customer)
-							cusArr.push(customer);
-						}
-					}
-				});
+				// 		if (customer.userID.departmentEng === 'operating-room' && customer.userID.positionEng === 'nursing') {
+				// 			console.log('customer', customer)
+				// 			cusArr.push(customer);
+				// 		}
+				// 	}
+				// });
 				res.render("operating/nursing/operating-customer", {
-					customers: multipleMongooseToObject(cusArr),
+					customers: multipleMongooseToObject(customers),
 					user: mongooseToObject(user),
 					typeservices: multipleMongooseToObject(typeservices),
 					title: 'Quản lý khách hàng'
