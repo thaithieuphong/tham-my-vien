@@ -39,8 +39,12 @@ router.delete('/user/:id', [authJwt.verifyToken, authJwt.isRoot], RootController
 
 
 // [GET] Root Customer UI
-router.get('/customer', RootController.getRootCustomerDashboard);
-router.get('/customer/:id/detail', RootController.getRootCustomerDetail);
+router.patch('/customer/:id/update-reexamID', [authJwt.verifyToken, authJwt.isRoot], RootController.patchCustomerRexamID);
+router.patch('/customer/:id/update-serviceNoteID', [authJwt.verifyToken, authJwt.isRoot], RootController.patchCustomerServiceNoteID);
+router.patch('/customer/:id/update-scheduleID', [authJwt.verifyToken, authJwt.isRoot], RootController.patchCustomerScheduleID);
+router.patch('/customer/:id/update-userID', [authJwt.verifyToken, authJwt.isRoot], RootController.patchCustomerUserID);
+router.get('/customer/:id/detail', [authJwt.verifyToken, authJwt.isRoot], RootController.getRootCustomerDetail);
+router.get('/customer', [authJwt.verifyToken, authJwt.isRoot], RootController.getRootCustomerDashboard);
 
 
 // [GET] Root Department UI

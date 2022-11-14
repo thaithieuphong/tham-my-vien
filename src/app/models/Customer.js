@@ -34,10 +34,10 @@ const Customer = new Schema({
 		type: String,
 		ref: "User"
 	},
-	scheduleID: {
+	scheduleID: [{
 		type: String,
 		ref: "Schedule"
-	},
+	}],
 	serviceNoteID: [
 		{
 			type: String,

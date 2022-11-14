@@ -87,7 +87,13 @@ body {
 
 .container-content-page {
     overflow-y: scroll;
-    max-height: 90%;
+    height: 300px;
+    width: inherit;
+    display: inline-block;
+}
+
+.mt-6 {
+    margin-top: 5rem !important;
 }
 
 .m-16 {
@@ -440,12 +446,12 @@ a {
 //     overflow: auto;
 // }
 
-.container-content-page {
-    margin-left: 6px;
-    // margin-right: 16px;
-    max-height: 100vh;
-    overflow-y: auto;
-}
+// .container-content-page {
+//     margin-left: 6px;
+//     // margin-right: 16px;
+//     max-height: 100vh;
+//     overflow-y: auto;
+// }
 
 .comment-content-page {
     height: 77vh;

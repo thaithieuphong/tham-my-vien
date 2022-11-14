@@ -1,19 +1,5 @@
 <link rel="stylesheet" href="/css/root.css">
 {{!-- <link rel="stylesheet" href="/css/profile.css"> --}}
-<nav class="navbar navbar-light bg-dark sticky-top">
-    <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
-            class="ti-angle-double-right"></i></button>
-    <div class="img-container">
-        {{#if root.image.name}}
-        <a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
-                class="ml-2 mr-3" src="/img/uploads/customers/{{root.image.name}}" alt=""></a>
-        {{else}}
-        <a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
-                class="ml-2 mr-3" src="/img/customer-icon.png" alt=""></a>
-        {{/if}}
-        <div />
-</nav>
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
     aria-labelledby="offcanvasWithBackdropLabel">
     <div class="offcanvas-header bg-dark border-bottom mb-3">
@@ -58,147 +44,311 @@
         </div>
     </div>
 </div>
-
-<nav id="sub-nav-sm" class="navbar navbar-light d-flex justify-content-between sticky-top">    
-	<a type="button" onclick="history.back()" class="btn btn-dark text-white ml-3"><i class="ti-back-left mr-2"></i>Quay lại</a>
-</nav>
-<div class="bg-transparent container-fluid mb-3">
+<div class="fixed-top">
+	<nav class="navbar navbar-light bg-dark d-flex justify-content-between border-bottom">
+		<a type="button" onclick="history.back()" class="btn bg-blue btn-outline-primary text-white ml-3"><i class="ti-back-left mr-2"></i>Quay lại</a>
+		<div class="text-light text-uppercase">
+			{{!-- {{#if root.image.name}}
+			<a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
+					class="ml-2 mr-3" src="/img/uploads/customers/{{root.image.name}}" alt=""></a>
+			{{else}}
+			<a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
+					class="ml-2 mr-3" src="/img/customer-icon.png" alt=""></a>
+			{{/if}} --}}
+			{{title}}
+		</div>
+		<button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+			data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
+			{{!-- <i class="ti-angle-double-right"></i> --}}Menu
+		</button>
+	</nav>
+</div>
+<div class="bg-transparent container-fluid mt-6 mb-3">
+	<ul class="list-group container-content-page border pr-0">
+		<li class="list-group-item bg-transparent border text-light">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">CusID:</label>&nbsp;
+				<p class="text-right m-0 text-danger">{{customer._id}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent border text-light">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Mã định danh:</label>&nbsp;
+				<p class="text-right m-0 text-danger">{{customer.identification}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Họ tên khai sinh:</label>&nbsp;
+				<p class="text-right m-0 text-dark-yellow">{{customer.fullName}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Tên thường gọi:</label>&nbsp;
+				<p class="text-right m-0 text-light">{{customer.nickName}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Ngày sinh:</label>&nbsp;
+				<p class="text-right m-0">{{customer.birth}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Giới tính:</label>&nbsp;
+				<p class="text-right m-0">{{customer.gender}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Điện thoại:</label>&nbsp;
+				<p class="text-right m-0">0{{customer.phone}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Quê quán:</label>&nbsp;
+				<p class="text-right m-0">{{customer.homeTown}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Chiều cao:</label>&nbsp;
+				<p class="text-right m-0">{{customer.height}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Cân nặng:</label>&nbsp;
+				<p class="text-right m-0">{{customer.weight}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Email:</label>&nbsp;
+				<p class="text-right m-0">{{customer.email}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Địa chỉ:</label>&nbsp;
+				<p class="text-right m-0">{{customer.address}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Nguồn:</label>&nbsp;
+				<p class="text-right m-0">{{customer.resource}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent border">
+			<div class="d-flex justify-content-between">
+				<div class="inline pl-0">
+					<label class="m-0 text-light">UID:</label>&nbsp;
+					<p class="text-right m-0 text-danger mr-3">{{customer.userID._id}}</p>
+				</div>
+				<form action="/god/customer/{{customer._id}}/update-userID?_PATCH" method="POST">
+					<div class="input-group text-right">
+						<input class="form-control form-control-sm" type="text" name="userID">
+						<button class="btn btn-sm btn-primary">Cập nhật</button>
+					</div>
+				</form>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Người tạo:</label>&nbsp;
+				<p class="text-right m-0 text-danger">{{customer.userID.firstName}} {{customer.userID.lastName}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent border">
+			<div class="d-flex justify-content-between">
+				<div class="inline pl-0">
+					<label class="m-0 text-light text-nowrap">Schedule ID:</label>&nbsp;
+					<p class="text-right m-0 text-info mr-3">{{customer.scheduleID}}</p>
+				</div>
+				<form action="/god/customer/{{customer._id}}/update-scheduleID?_PATCH" method="POST">
+					<div class="input-group">
+						<input class="form-control form-control-sm" type="text" name="scheduleID">
+						<button class="btn btn-sm btn-primary">Cập nhật</button>
+					</div>
+				</form>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent border">
+			<div class="d-flex justify-content-between">
+				<div class="inline pl-0">
+					<label class="m-0 text-light text-nowrap">Service Note ID:</label>&nbsp;
+					<p class="text-right m-0 text-warning mr-3">{{customer.serviceNoteID}}</p>
+				</div>
+				<form action="/god/customer/{{customer._id}}/update-serviceNoteID?_PATCH" method="POST">
+					<div class="input-group">
+						<input class="form-control form-control-sm" type="text" name="serviceNoteID">
+						<button class="btn btn-sm btn-primary">Cập nhật</button>
+					</div>
+				</form>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent border">
+			<div class="d-flex justify-content-between">
+				<div class="inline pl-0">
+					<label class="m-0 text-light text-nowrap">Re-Exam ID:</label>&nbsp;
+					<p class="text-right m-0 text-success mr-3">{{customer.reexamID}}</p>
+				</div>
+				<form action="/god/customer/{{customer._id}}/update-reexamID?_PATCH" method="POST">
+					<div class="input-group">
+						<input class="form-control form-control-sm" type="text" name="reexamID">
+						<button class="btn btn-sm btn-primary">Cập nhật</button>
+					</div>
+				</form>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Ngày tạo:</label>&nbsp;
+				<p class="text-right m-0">{{formatDate customer.createdAt}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Ngày cập nhật:</label>&nbsp;
+				<p class="text-right m-0">{{formatDate customer.updatedAt}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Comments:</label>&nbsp;
+				<p class="text-right m-0 text-success">{{customer.comments}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent border">
+			<label class="m-0 text-light" for="description">Mô tả:</label>
+			<div class="d-flex justify-content-between text-light">
+					<textarea id="description" class="form-control bg-transparent text-light" d-flex justify-content-betweens="6"
+						readonly>{{customer.description}}</textarea>
+			</div>
+		</li>
+	</ul>
+	<table class="table table-sm container-content-page table-bordered mb-2">
+		<thead class="sticky-top">
+			<tr class="text-light bg-primary">
+				<th scope="col">#</th>
+				<th class="text-nowrap" scope="col">SheduleID</th>
+				<th class="text-nowrap" scope="col">Shedule</th>
+				<th class="text-nowrap" scope="col">Status</th>
+				<th class="text-nowrap" scope="col">CusID</th>
+				<th class="text-nowrap" scope="col">Full Name</th>
+				<th class="text-nowrap" scope="col">Nick Name</th>
+				<th class="text-nowrap" scope="col">User ID</th>
+				<th class="text-nowrap" scope="col">User Full Name</th>
+				<th class="text-nowrap" scope="col">Created At</th>
+				<th class="text-nowrap" scope="col">Updated At</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each schedules}}
+			<tr class="text-light">
+				<th scope="row">{{sum @index 1}}</th>
+				<td class="text-nowrap"><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
+				<td class="text-nowrap">{{formatDate this.schedule}}</td>
+				<td class="text-nowrap">{{this.status}}</td>
+				{{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
+				{{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
+				<td class="text-nowrap">{{this.customerID._id}}</td>
+				<td class="text-nowrap">{{this.customerID.fullName}}</td>
+				<td class="text-nowrap">{{this.customerID.nickName}}</td>
+				<td class="text-warning">{{this.customerID.userID._id}}</td>
+				<td class="text-nowrap">{{this.customerID.userID.firstName}} {{this.customerID.userID.lastName}}</td>
+				<td class="text-nowrap">{{formatDate this.customerID.createdAt}}</td>
+				<td class="text-nowrap">{{formatDate this.customerID.updatedAt}}</td>
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
     <div class="row">
-        <div class="text-light">
-			<ul class="list-group">
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between align-items-center mb-3">
-						<h4 class="text-right text-light">THÔNG TIN KHÁCH HÀNG</h4>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">CusID:</label>
-						<p class="text-right m-0 text-danger">{{customer._id}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Mã định danh:</label>
-						<p class="text-right m-0 text-danger">{{customer.identification}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Họ tên khai sinh:</label>
-						<p class="text-right m-0 text-dark-yellow">{{customer.fullName}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Tên thường gọi:</label>
-						<p class="text-right m-0 text-light">{{customer.nickName}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Ngày sinh:</label>
-						<p class="text-right m-0">{{customer.birth}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Giới tính:</label>
-						<p class="text-right m-0">{{customer.gender}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Điện thoại:</label>
-						<p class="text-right m-0">{{customer.phone}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Quê quán:</label>
-						<p class="text-right m-0">{{customer.homeTown}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Chiều cao:</label>
-						<p class="text-right m-0">{{customer.height}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Cân nặng:</label>
-						<p class="text-right m-0">{{customer.weight}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Email:</label>
-						<p class="text-right m-0">{{customer.email}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Địa chỉ:</label>
-						<p class="text-right m-0">{{customer.address}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Nguồn:</label>
-						<p class="text-right m-0">{{customer.resource}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">UID:</label>
-						<p class="text-right m-0 text-danger">{{customer.userID}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Schedule ID:</label>
-						<p class="text-right m-0 text-info">{{customer.scheduleID}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Service Note ID:</label>
-						<p class="text-right m-0 text-warning">{{customer.serviceNoteID}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Re-Exam ID:</label>
-						<p class="text-right m-0 text-success">{{customer.reexamID}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Ngày tạo:</label>
-						<p class="text-right m-0">{{formatDate customer.createdAt}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent text-light">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Ngày cập nhật:</label>
-						<p class="text-right m-0">{{formatDate customer.updatedAt}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent">
-					<div class="d-flex justify-content-between border-bottom mb-3">
-						<label class="m-0 text-light">Comments:</label>
-						<p class="text-right m-0 text-success">{{customer.comments}}</p>
-					</div>
-				</li>
-				<li class="list-group-item bg-transparent">
-					<label class="m-0 text-light" for="description">Mô tả:</label>
-					<div class="d-flex justify-content-between text-light">
-							<textarea id="description" class="form-control bg-transparent text-light" d-flex justify-content-betweens="6"
-								readonly>{{customer.description}}</textarea>
-					</div>
-				</li>
-			</ul>
+        <div class="col-md-6 text-light pr-0">
+			<table class="table table-sm container-content-page table-bordered mb-0">
+				<thead>
+					<tr class="text-light bg-primary">
+						<th scope="col">#</th>
+						<th scope="col">UID</th>
+						<th scope="col">Full Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each users}}
+					<tr class="text-light">
+						<th scope="row">{{sum @index 1}}</th>
+						<td><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
+						{{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
+						{{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
+						<td>{{this.firstName}} {{this.lastName}}</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
         </div>
+        <div class="col-md-6 text-light pl-0">
+			<table class="table table-sm container-content-page table-bordered">
+				<thead class="sticky-top">
+					<tr class="text-light bg-primary">
+						<th scope="col">#</th>
+						<th scope="col">ID</th>
+						<th scope="col">Full Name</th>
+						<th scope="col">Nick Name</th>
+						<th scope="col">User ID</th>
+						<th scope="col">Full Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each serviceNotes}}
+					<tr class="text-light">
+						<th scope="row">{{sum @index 1}}</th>
+						<td><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
+						{{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
+						{{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
+						<td>{{this.fullName}}</td>
+						<td>{{this.nickName}}</td>
+						<td class="text-warning">{{this.userID._id}}</td>
+						<td>{{this.userID.firstName}} {{this.userID.lastName}}</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
     </div>
+	<div class="row">
+        <div class="col-md-6 text-light">
+		</div>
+        <div class="col-md-6 text-light">
+			<table class="table table-sm container-content-page">
+				<thead>
+					<tr class="text-light bg-primary">
+						<th scope="col">#</th>
+						<th scope="col">ID</th>
+						<th scope="col">Full Name</th>
+						<th scope="col">Nick Name</th>
+						<th scope="col">User ID</th>
+						<th scope="col">Full Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each reExamintions}}
+					<tr class="text-light">
+						<th scope="row">{{sum @index 1}}</th>
+						<td><img class="w-46 h-46 rounded-circle border mr-3" src="/img/uploads/customers/user-ray.png" alt=""><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
+						{{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
+						{{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
+						<td>{{this.fullName}}</td>
+						<td>{{this.nickName}}</td>
+						<td class="text-warning">{{this.userID._id}}</td>
+						<td>{{this.userID.firstName}} {{this.userID.lastName}}</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>

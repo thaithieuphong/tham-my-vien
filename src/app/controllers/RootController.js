@@ -16,20 +16,22 @@ const path = require("path");
 const appRoot = require("app-root-path");
 const fs = require("fs");
 const flash = require('connect-flash');
+const Schedule = require("../models/Schedule");
 const ServiceNote = require("../models/ServiceNote");
+const Reexamination = require("../models/Reexamination");
 
 class RootController {
 
 	getRootDashboard(req, res, next) {
 		Promise.all([
 			User.findById({ _id: req.userId }),
-			Customer.find({})
+			Customer.find({}).populate('userID')
 		])
 			.then(([user, customers]) => {
-				console.log(customers)
 				res.render("root/root-dashboard", {
 					user: mongooseToObject(user),
 					customers: multipleMongooseToObject(customers),
+					title: 'Danh sách khách hàng'
 				});
 			})
 		// res.render("root/root-dashboard");
@@ -55,16 +57,55 @@ class RootController {
 		res.render("root/root-customer");
 	}
 
+	// Hiển thị chi tiết khách hàng
 	getRootCustomerDetail(req, res, next) {
-		Customer.findById({ _id: req.params.id})
-			.then(customer => {
-				console.log(customer)
+		Promise.all([
+			Customer.findById({ _id: req.params.id}).populate('userID'),
+			User.find({}),
+			Schedule.find({}).populate({
+				path: 'customerID',
+				populate: {
+					path: 'userID',
+					model: 'User',
+				}
+			}),
+			ServiceNote.find({}).populate('scheduleID'),
+			Reexamination.find({}).populate('customerID').populate('serviceNoteId')
+		])
+			.then(([customer, users, schedules, serviceNotes, reExaminations]) => {
+				console.log(schedules)
 				res.render("root/root-customer-detail", {
 					customer: mongooseToObject(customer),
+					users: multipleMongooseToObject(users),
+					schedules: multipleMongooseToObject(schedules),
+					serviceNotes: multipleMongooseToObject(serviceNotes),
+					reExaminations: multipleMongooseToObject(reExaminations),
+					title: 'Chi tiết khách hàng'
 				});
 			})
 	}
 
+	// Cập nhật user id cho customer cũ
+	patchCustomerUserID(req, res, next) {
+		console.log('reexamID', req.body.userID)
+	}
+
+	// Cập nhật schedule id cho customer cũ
+	patchCustomerScheduleID(req, res, next) {
+		console.log('reexamID', req.body.scheduleID)
+	}
+
+	// Cập nhật service note id cho customer cũ
+	patchCustomerServiceNoteID(req, res, next) {
+		console.log('reexamID', req.body.serviceNoteID)
+	}
+
+	// Cập nhật re-examination id cho customer cũ
+	patchCustomerRexamID(req, res, next) {
+		console.log('reexamID', req.body.reexamID)
+	}
+
+	// Hiển thị danh hồ sơ khách hàng
 	getRootServiceNoteDashboard(req, res, next) {
 		ServiceNote.find({}).populate('scheduleID')
 			.then(serviceNote => {
