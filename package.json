@@ -37,7 +37,7 @@
     "mongoose-delete": "^0.5.4",
     "mongoose-slug-generator": "^1.0.4",
     "multer": "^1.4.5-lts.1",
-    "tar": "^6.1.11"
+    "tar": "^6.1.12"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
