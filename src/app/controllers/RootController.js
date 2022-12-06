@@ -23,18 +23,8 @@ const Reexamination = require("../models/Reexamination");
 class RootController {
 
 	getRootDashboard(req, res, next) {
-		Promise.all([
-			User.findById({ _id: req.userId }),
-			Customer.find({}).populate('userID')
-		])
-			.then(([user, customers]) => {
-				res.render("root/root-dashboard", {
-					user: mongooseToObject(user),
-					customers: multipleMongooseToObject(customers),
-					title: 'Danh sách khách hàng'
-				});
-			})
-		// res.render("root/root-dashboard");
+		
+		res.render("root/root-dashboard");
 	}
 
 	getRootMarketingDashboard(req, res, next) {
@@ -54,7 +44,18 @@ class RootController {
 	}
 
 	getRootCustomerDashboard(req, res, next) {
-		res.render("root/root-customer");
+		Promise.all([
+			User.findById({ _id: req.userId }),
+			Customer.find({}).populate('userID')
+		])
+			.then(([user, customers]) => {
+				console.log(customers)
+				res.render("root/root-customer", {
+					user: mongooseToObject(user),
+					customers: multipleMongooseToObject(customers),
+					title: 'Danh sách khách hàng'
+				});
+			})
 	}
 
 	// Hiển thị chi tiết khách hàng

@@ -42,6 +42,11 @@
             </a>
         </div>
         <div class="sidebar-item">
+            <a href="/god/customer" class="sidebar-item-title pl-3">
+                <i class="ti-server mr-3"></i>Danh sách khách hàng
+            </a>
+        </div>
+        <div class="sidebar-item">
             <a href="/god/setting" class="sidebar-item-title pl-3">
                 <i class="ti-settings mr-3"></i>Cài đặt
             </a>
@@ -68,27 +73,66 @@
 </div>
 <div class="container-fluid">
     <table class="table mt-3 container-content-page table-sm table-bordered">
-        <thead class="sticky-top">
+        <thead class="sticky-top text-nowrap">
             <tr class="text-light bg-primary">
                 <th scope="col">#</th>
-                <th scope="col">ID</th>
-                <th scope="col">Full Name</th>
-                <th scope="col">Nick Name</th>
-                <th scope="col">User ID</th>
-                <th scope="col">Full Name</th>
+                <th scope="col">Mã KH</th>
+                <th scope="col">Mã Định danh</th>
+                <th scope="col">Họ tên khai sinh</th>
+                <th scope="col">Tên thường gọi</th>
+                <th scope="col">Ngày sinh</th>
+                <th scope="col">Giới tính</th>
+                <th scope="col">Điện thoại</th>
+                <th scope="col">Quê quán</th>
+                <th scope="col">Chiều cao</th>
+                <th scope="col">Cân nặng</th>
+                <th scope="col">Email</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Nguồn</th>
+                <th scope="col">Mã người tạo</th>
+                <th scope="col">Họ tên người tạo</th>
+                <th scope="col">Mã lịch hẹn</th>
+                <th scope="col">Mã phiếu dịch vụ</th>
+                <th scope="col">Mã phiếu tái khám</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col">Đã xóa</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col">Ngày cập nhật</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col">Hoạt động</th>
             </tr>
         </thead>
         <tbody>
             {{#each customers}}
-            <tr class="text-light">
+            <tr class="text-light text-nowrap">
                 <th scope="row">{{sum @index 1}}</th>
                 <td><img class="w-46 h-46 rounded-circle border mr-3" src="/img/uploads/customers/user-ray.png" alt=""><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
                 {{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
                 {{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
+                <td>{{this.identification}}</td>
                 <td>{{this.fullName}}</td>
                 <td>{{this.nickName}}</td>
+                <td>{{this.birth}}</td>
+                <td>{{this.gender}}</td>
+                <td>{{this.phone}}</td>
+                <td>{{this.homeTown}}</td>
+                <td>{{this.height}}</td>
+                <td>{{this.weight}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.address}}</td>
+                <td>{{this.resource}}</td>
                 <td class="text-warning">{{this.userID._id}}</td>
                 <td>{{this.userID.firstName}} {{this.userID.lastName}}</td>
+                <td>{{this.scheduleID}}</td>
+                <td>{{this.serviceNoteID}}</td>
+                <td>{{this.reexamID}}</td>
+                <td>{{this.statusCus.statusVi}}</td>
+                <td>{{this.deleted}}</td>
+                <td>{{formatDate this.createdAt}}</td>
+                <td>{{formatDate this.updatedAt}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.comments}}</td>
+
             </tr>
             {{/each}}
         </tbody>

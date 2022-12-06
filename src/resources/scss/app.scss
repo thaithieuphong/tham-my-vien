@@ -85,13 +85,6 @@ body {
     width: 50%;
 }
 
-.container-content-page {
-    overflow-y: scroll;
-    height: 300px;
-    width: inherit;
-    display: inline-block;
-}
-
 .mt-6 {
     margin-top: 5rem !important;
 }
@@ -285,8 +278,8 @@ a {
 
 .img-container {
     img {
-        width: 30px;
-        height: 30px;
+        width: 300px;
+        height: 300px;
         object-fit: cover;
         border-radius: 50%;
     }

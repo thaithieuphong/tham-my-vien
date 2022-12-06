@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="/css/root.css">
+{{!-- <link rel="stylesheet" href="/css/profile.css"> --}}
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-dark border-bottom mb-3">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-dark">
+        <div class="sidebar-item">
+            <a href="/root/dashboard" class="sidebar-item-title pl-3">
+                <i class="ti-dashboard mr-3"></i>Bảng điều khiển
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/root/customer" class="sidebar-item-title pl-3">
+                <i class="ti-customer mr-3"></i>Phòng nhân sự
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/operating-room" class="sidebar-item-title pl-3">
+                <i class="ti-cut mr-3"></i>Phòng phẩu thuật
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/reception" class="sidebar-item-title pl-3">
+                <i class="ti-clipboard mr-3"></i>Phòng lễ tân
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/business" class="sidebar-item-title pl-3">
+                <i class="ti-headphone-alt mr-3"></i>Phòng kinh doanh
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/root/marketing" class="sidebar-item-title pl-3">
+                <i class="ti-bar-chart mr-3"></i>Phòng marketing
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" class="sidebar-item-title pl-3">
+                <i class="ti-server mr-3"></i>Phòng IT
+            </a>
+        </div>
+    </div>
+</div>
+<div class="fixed-top">
+	<nav class="navbar navbar-light bg-dark d-flex justify-content-between border-bottom">
+		<a type="button" onclick="history.back()" class="btn bg-blue btn-outline-primary text-white ml-3"><i class="ti-back-left mr-2"></i>Quay lại</a>
+		<div class="text-light text-uppercase">
+			{{!-- {{#if root.image.name}}
+			<a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
+					class="ml-2 mr-3" src="/img/uploads/customers/{{root.image.name}}" alt=""></a>
+			{{else}}
+			<a class="text-light" href="/root/profile">{{root.firstName}} {{root.lastName}}<img
+					class="ml-2 mr-3" src="/img/customer-icon.png" alt=""></a>
+			{{/if}} --}}
+			{{title}}
+		</div>
+		<button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+			data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
+			{{!-- <i class="ti-angle-double-right"></i> --}}Menu
+		</button>
+	</nav>
+</div>
+<div class="bg-transparent container-fluid mt-6 mb-3">
+	<table class="table table-sm container-content-page table-bordered mb-2">
+		<thead class="sticky-top">
+			<tr class="text-light bg-primary">
+				<th scope="col">#</th>
+				<th class="text-nowrap" scope="col">SheduleID</th>
+				<th class="text-nowrap" scope="col">Shedule</th>
+				<th class="text-nowrap" scope="col">Status</th>
+				<th class="text-nowrap" scope="col">CusID</th>
+				<th class="text-nowrap" scope="col">Full Name</th>
+				<th class="text-nowrap" scope="col">Nick Name</th>
+				<th class="text-nowrap" scope="col">User ID</th>
+				<th class="text-nowrap" scope="col">User Full Name</th>
+				<th class="text-nowrap" scope="col">Created At</th>
+				<th class="text-nowrap" scope="col">Updated At</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each schedules}}
+			<tr class="text-light">
+				<th scope="row">{{sum @index 1}}</th>
+				<td class="text-nowrap"><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
+				<td class="text-nowrap">{{formatDate this.schedule}}</td>
+				<td class="text-nowrap">{{this.status}}</td>
+				{{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
+				{{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
+				<td class="text-nowrap">{{this.customerID._id}}</td>
+				<td class="text-nowrap">{{this.customerID.fullName}}</td>
+				<td class="text-nowrap">{{this.customerID.nickName}}</td>
+				<td class="text-warning">{{this.customerID.userID._id}}</td>
+				<td class="text-nowrap">{{this.customerID.userID.firstName}} {{this.customerID.userID.lastName}}</td>
+				<td class="text-nowrap">{{formatDate this.customerID.createdAt}}</td>
+				<td class="text-nowrap">{{formatDate this.customerID.updatedAt}}</td>
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>

@@ -37,8 +37,9 @@
     overflow-y: scroll;
 }
 
-.container-content-user {
-    /* padding: 0px; */
-    /* margin-left: 18px;
-    margin-right: 18px; */
+.container-content-page {
+    overflow: scroll;
+    height: 84vh;
+    width: inherit;
+    display: inline-block;
 }

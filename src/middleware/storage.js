@@ -49,12 +49,12 @@ const beforeCounselorUpload = multer.diskStorage({
 const counselorUpload = multer.diskStorage({
     destination: function(req, file, cb) {
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            // cb(null, appRoot + '/src/public/counselor/img');
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/counselor/img');
+            cb(null, appRoot + '/src/public/counselor/img');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/counselor/img');
         } 
         else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            // cb(null, appRoot + '/src/public/counselor/video');
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/counselor/video');
+            cb(null, appRoot + '/src/public/counselor/video');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/counselor/video');
         }
     },
 
