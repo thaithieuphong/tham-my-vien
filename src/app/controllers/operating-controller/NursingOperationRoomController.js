@@ -49,12 +49,16 @@ class NursingController {
 				priceBefore: req.body.priceBefore,
 				deposit: 0,
 			});
-			schedule.save();
-			Customer.findByIdAndUpdate({ _id: req.body.createID }, { $push: { scheduleID: schedule.id }})
-				.then(() => {
-					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
-					res.redirect('/operating-room/nursing/customers');
+			schedule.save()
+				.then(newSchedule => {
+					console.log("1", newSchedule._id);
+					Customer.findByIdAndUpdate({ _id: req.params.id }, { $push: { scheduleID: newSchedule._id }})
+						.then(() => {
+							req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
+							res.redirect('/operating-room/nursing/customers');
+						})
 				})
+				.catch(next);
 		} else {
 			const schedule = new Schedule({
 				customerID: req.params.id,
@@ -65,12 +69,16 @@ class NursingController {
 				priceBefore: req.body.priceBefore,
 				deposit: req.body.deposit,
 			});
-			schedule.save();
-			Customer.findByIdAndUpdate({ _id: req.body.createID }, { $push: { scheduleID: schedule.id }})
-				.then(() => {
-					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
-					res.redirect('/operating-room/nursing/customers');
+			schedule.save()
+				.then(newSchedule => {
+					console.log("2", newSchedule._id);
+					Customer.findByIdAndUpdate({ _id: req.params.id }, { $push: { scheduleID: newSchedule._id }})
+						.then(() => {
+							req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
+							res.redirect('/operating-room/nursing/customers');
+						})
 				})
+				.catch(next);
 		}
 	}
 
@@ -521,6 +529,13 @@ class NursingController {
 			res.redirect('back')
 		})
 		.catch(next);
+	}
+
+	// Xóa lịch hẹn tái khám
+	deleteReExam(req, res, next) {
+		Promise.all([Customer.findByIdAndUpdate({ _id: req.body.cusID}, { $pull: { reexamID: req.params.id  }}), Reexamination.delete({ _id: req.params.id })])
+			.then(() => res.redirect("back"))
+			.catch(next);
 	}
 
 	// Tải ảnh khi tư vấn

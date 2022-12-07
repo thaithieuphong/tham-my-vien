@@ -178,6 +178,31 @@ if (submitReExaminationModal) {
 	})
 }
 
+var deleteReExaminationForm = document.forms['delete-re-exam-form'];
+var deleteReExaminationModal = document.getElementById('delete-re-exam-modal');
+var deleteReExaminationBtn = document.getElementById('delete-re-exam-btn');
+var deleteReExamInput = document.getElementById('delete-re-exam-input');
+
+if (deleteReExaminationBtn) {
+	deleteReExaminationBtn.addEventListener("click", () => {
+		deleteReExaminationForm.submit();
+	});
+}
+
+if (deleteReExaminationModal) {
+	deleteReExaminationModal.addEventListener('show.bs.modal', function(event){
+		var button = event.relatedTarget;
+		let id = button.getAttribute("data-id");
+		let cusID = button.getAttribute("data-cusId");
+		let fullName = button.getAttribute("data-fullName");
+		deleteReExaminationForm.setAttribute('action', `/operating-room/nursing/re-examination/${id}/delete?_method=DELETE`);
+	
+		let deleteFullName = document.getElementById('delete-re-exam-fullname');
+		deleteFullName.innerHTML = fullName;
+		deleteReExamInput.value = cusID;
+	})
+}
+
 let slideIndex = 1;
 showSlidesReExamImg(slideIndex);
 showSlidesReExamVideo(slideIndex);

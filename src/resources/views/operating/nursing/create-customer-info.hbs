@@ -2,7 +2,7 @@
 <div class="sticky-top">
     <nav class="navbar navbar-light bg-blue border-bottom">
         <div class="img-container">
-			<a type="button" onclick="history.back()">
+			<a type="button" href="/operating-room/nursing/service-note">
 				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
 			</a>
         </div>
@@ -143,8 +143,8 @@
 												{{#if schedule.counselorImg}}
 												{{#each schedule.counselorImg}}
 												<div class="slide-counselor-img fadeOn">
-													{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}"> --}}
-													<img class="figure-img img-fluid rounded img-cover img-center" src="/counselor/img/{{this.name}}">
+													<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+													{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/counselor/img/{{this.name}}"> --}}
 												</div>
 												{{/each}}
 												{{else}}
@@ -168,8 +168,8 @@
 												{{#each schedule.counselorVideo}}
 												<div class="slide-counselor-video fadeOn">
 													<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
-														{{!-- <source src="{{this.url}}"> --}}
-														<source src="/counselor/video/{{this.name}}">
+														<source src="{{this.url}}">
+														{{!-- <source src="/counselor/video/{{this.name}}"> --}}
 													</video>
 												</div>
 												{{/each}}

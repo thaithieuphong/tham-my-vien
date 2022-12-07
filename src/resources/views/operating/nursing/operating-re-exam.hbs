@@ -21,7 +21,11 @@
 		{{#each reExam}}
 		<div class="col-xl-4 col-lg-6 col-md-12 col-sm-6 mb-3">
 			<div class="card bg-glass">
-				<div class="card-header text-right">
+				<div class="card-header d-flex justify-content-between">
+					<button id="delete-reexam" class="btn btn-danger text-light btn-sm" data-bs-toggle="modal" data-bs-target="#delete-re-exam-modal"
+					data-id="{{this._id}}" data-cusId="{{this.customerID._id}}" data-fullName="{{this.customerID.fullName}}">
+						<i class="fa-sharp fa-solid fa-xmark"></i>
+					</button>
 					<a class="text-light" href="/operating-room/nursing/re-examination/{{this._id}}/detail">
 						<i class="fa-solid fa-ellipsis"></i>
 					</a>
@@ -106,6 +110,30 @@
 </div>
 
 <form method="POST" id="submit-re-exam-form-done"></form>
+
+{{!-- Delete re-exam --}}
+<div class="modal fade" id="delete-re-exam-modal" tabindex="-1" aria-labelledby="delete-re-exam-label" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title text-light" id="delete-re-exam-label">Xóa lịch tái khám</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="delete-re-exam-form">
+					<input type="text" name="cusID" id="delete-re-exam-input" hidden>
+				</form>
+				Bạn chắc chắn muốn xóa lịch tái khám của khách hàng <strong id="delete-re-exam-fullname"></strong>?
+			</div>
+			<div class="modal-footer d-flex justify-content-between">
+				<button id="delete-re-exam-btn" type="button" class="btn btn-success rounded-pill">Chắc chắn</button>
+				<button type="button" class="btn btn-danger rounded-pill" data-bs-dismiss="modal">Không, Hủy bỏ</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
 <div class="fixed-bottom">
     <nav class="navbar navbar-light bg-blue border-top p-3">
 		<a href="/operating-room/nursing" class="d-flex flex-column text-center link-secondary">

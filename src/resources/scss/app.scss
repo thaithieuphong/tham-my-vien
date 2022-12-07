@@ -12,10 +12,8 @@
 body {
     overflow: auto;
     height: auto;
-    background-image: url('/img/background_1929x969-min.jpg');
-    background-size:auto;
     // background-image: linear-gradient(to bottom right, #002357, #0a4dce);
-    // background-color: #043f8c;
+    background-color: #041434;
 }
 
 .rounded-pill-start {
@@ -109,8 +107,8 @@ body {
     display: inline-block;
     width: 100%;
 }
-  
-  .dropdown-check-list .anchor {
+
+.dropdown-check-list .anchor {
     position: relative;
     cursor: pointer;
     display: inline-block;
@@ -118,7 +116,7 @@ body {
     border: 1px solid #ccc;
     width: 100%;
 
-  }
+}
   
   .dropdown-check-list .anchor:after {
     position: absolute;

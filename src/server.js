@@ -23,7 +23,7 @@ if (`${process.env.NODE_ENV}` !== "production") {
 
 // Cung cấp middleware trên Express để kích hoạt CORS
 var corsOptions = {
-	origin: "http://crm.drtuananh.vn",
+	origin: "https://crm.drtuananh.vn",
 };
 
 // Method Override
@@ -36,7 +36,7 @@ app.use(cors(corsOptions));
 app.use(
 	cookieSession({
 		name: "Hachitech-session",
-		secret: "PHONGTT119",
+		secret: `${process.env.SECURITY_KEY}`,
 		httpOnly: true,
 		secure: false, // change to 'true' when switching to production enviroment
 		sameSite: 'strict',
@@ -45,7 +45,7 @@ app.use(
 );
 
 app.use(session({
-	secret: "khoabaomatdanhchoflash",
+	secret: `${process.env.FLASH_SESSION_KEY}`,
 	saveUninitialized: true,
 	resave: true
 }));
@@ -176,7 +176,7 @@ function initRoot() {
 		.then(user => {
 			const userRoot = new User({
 				account: 'root',
-				password: bcrypt.hashSync("Hachitech123", 8),
+				password: bcrypt.hashSync(`${process.env.PASSWORD_ROOT}`, 8),
 				role: 'Gốc',
 				roleEng: 'root'
 			})
@@ -195,7 +195,7 @@ function initAdmin() {
 		.then(user => {
 			const userRoot = new User({
 				account: 'admin',
-				password: bcrypt.hashSync("Administrator@123", 8),
+				password: bcrypt.hashSync(`${process.env.PASSWORD_ADMIN}`, 8),
 				role: 'Quản trị viên',
 				roleEng: 'administrator'
 			})
@@ -215,6 +215,6 @@ initAdmin();
 // Khởi tạo các tuyến đường
 route(app);
 
-app.listen(PORT, () => {
-	console.log(`Ứng dụng đang chạy trên port ${PORT}`);
+app.listen(`${process.env.PORT}`, () => {
+	console.log(`Ứng dụng đang chạy trên port ${process.env.PORT}`);
 });
