@@ -37,30 +37,3 @@ window.addEventListener('load',function(){
 		});
 	}
 })
-
-
-// var restoreSchedule = document.getElementById("restore-schedule-modal");
-// if (restoreSchedule) {
-// 	restoreSchedule.addEventListener("show.bs.modal", function (event) {
-// 		// Button that triggered the modal
-// 		var button = event.relatedTarget;
-// 		// Get data from delete button
-// 		var scheduleId = button.getAttribute('data-restore-id');
-// 		var nickName = button.getAttribute("data-restore-nickname");
-// 		var cusID = button.getAttribute("data-restore-cusID");
-	
-// 		// Get element need embeded input
-// 		var restoreCusNickName = document.getElementById("restore-schedule");
-// 		var restoreCusID = document.getElementById("restore-input-cusID");
-// 		restoreScheduleForm.setAttribute('action', `/operating-room/nursing/schedule/${scheduleId}/restore?_method=PATCH`);
-// 		restoreCusNickName.innerText = `${nickName}`;
-//         restoreCusID.value = cusID;
-// 	});
-	
-// 	// Handle delete info Customer
-// 	var restoreScheduleBtn = document.getElementById("restore-schedule-btn");
-// 	var restoreScheduleForm = document.forms["restore-schedule-form"];
-// 	restoreScheduleBtn.addEventListener("click", () => {
-// 		restoreScheduleForm.submit();
-// 	});
-// }

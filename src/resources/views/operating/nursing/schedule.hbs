@@ -6,6 +6,7 @@
 				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
 			</a>
         </div>
+		<input id="search-schedule" class="rounded-pill" placeholder="Tìm kiếm lịch tư vấn" type="text">
 		<div>
 			<a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
 				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
@@ -25,7 +26,7 @@
 	{{/if}}
 	<div class="row">
 		{{#each schedules}}
-		<div class="col-xl-6 col-lg-6 col-md-12 col-sm-6">
+		<div class="col-xl-6 col-lg-6 col-md-12 col-sm-6 card-col">
 			<form id="create-customer-information-form" method="POST" action="/operating-room/nursing/customer-information/{{this._id}}/create">
 				<div class="card bg-glass mb-3">
 					<div class="card-header bg-transparent d-flex justify-content-between">
@@ -44,11 +45,11 @@
 						</div>
 						<div class="d-flex justify-content-between border-bottom mb-3">
 							<label  class="text-nowrap text-light m-0">Họ tên khai sinh:</label>
-							<label id="input-fullName" class="text-wrap text-right text-light m-0">{{this.customerID.fullName}}</label>
+							<label id="input-fullName" class="text-wrap text-right text-light m-0 text-fullName">{{this.customerID.fullName}}</label>
 						</div>
 						<div class="d-flex justify-content-between border-bottom mb-3">
 							<label  class="text-nowrap text-light m-0">Tên thường gọi:</label>
-							<label id="input-nickName" class="text-wrap text-right text-light m-0">{{this.customerID.nickName}}</label>
+							<label id="input-nickName" class="text-wrap text-right text-light m-0 text-nickName">{{this.customerID.nickName}}</label>
 						</div>
 						<div class="d-flex justify-content-between border-bottom mb-3">
 							<label class="text-nowrap text-light m-0">Giới tính:</label>
@@ -56,7 +57,7 @@
 						</div>
 						<div class="d-flex justify-content-between border-bottom mb-3">
 							<label class="text-nowrap text-light m-0">Số điện thoại:</label>
-							<label id="input-phone" class="text-wrap text-right text-light m-0">0{{this.customerID.phone}}</label>
+							<label id="input-phone" class="text-wrap text-right text-light m-0 text-phone">0{{this.customerID.phone}}</label>
 						</div>
 						<label class="text-nowrap text-light">Dịch vụ</label>
 						{{#each this.service}}
