@@ -47,7 +47,7 @@ window.addEventListener('load',function(){
 			var scheduleId = button.getAttribute('data-edit-id');
 			var fullName = button.getAttribute("data-edit-fullName");
 			var nickName = button.getAttribute("data-edit-nickName");
-			var gender = button.getAttribute("data-edit-gender");
+			// var gender = button.getAttribute("data-edit-gender");
 			var phone = button.getAttribute("data-edit-phone");
 			// var cusID = button.getAttribute("data-edit-customerID");
 			// Get element need embeded input

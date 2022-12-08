@@ -4,16 +4,15 @@
     box-sizing: border-box;
 }
 
-// html {
-//     height: auto;
-//     // overflow: hidden;
-// }
-
 body {
     overflow: auto;
     height: auto;
     // background-image: linear-gradient(to bottom right, #002357, #0a4dce);
     background-color: #041434;
+}
+
+#search-schedule {
+    padding-left: .5rem;
 }
 
 .rounded-pill-start {
