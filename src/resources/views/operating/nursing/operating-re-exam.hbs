@@ -74,12 +74,17 @@
 				</div>
 				<div class="card-footer">
 					<div class="row d-flex justify-content-between">
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<a class="btn btn-primary btn-mobile mb-2 rounded-pill border" href='/operating-room/nursing/re-examination/{{this._id}}'>Cập nhật</a>
+						<div class="col-lg-4 col-md-12 col-sm-12">
+							<button type="button" class="btn btn-info btn-mobile rounded-pill mb-3 border btn-sm" data-bs-toggle="modal" data-bs-target="#edit-reexam-schedule-modal"
+							data-edit-reexam-id="{{this._id}}" data-edit-reexam-fullName="{{this.customerID.fullName}}" data-edit-reexam-nickName="{{this.customerID.nickName}}" data-edit-reexam-gender="{{this.customerID.gender}}"
+							data-edit-reexam-phone="{{this.customerID.phone}}">Sửa lịch hẹn tái khám</button>
 						</div>
-						<div class="col-lg-6 col-md-12 col-sm-12 text-right">
+						<div class="col-lg-4 col-md-12 col-sm-12">
+							<a class="btn btn-primary btn-mobile mb-3 rounded-pill border btn-sm" href='/operating-room/nursing/re-examination/{{this._id}}'>Cập nhật</a>
+						</div>
+						<div class="col-lg-4 col-md-12 col-sm-12 text-right">
 							<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal-done"
-								class="btn btn-success btn-mobile rounded-pill border" data-id="{{this._id}}" data-cusId="{{this.customerID._id}}" data-fullName="{{this.customerID.fullName}}">Hoàn thành</button>
+								class="btn btn-success btn-mobile rounded-pill border mb-3 btn-sm" data-id="{{this._id}}" data-cusId="{{this.customerID._id}}" data-fullName="{{this.customerID.fullName}}">Hoàn thành</button>
 						</div>
 					</div>
 				</div>
@@ -90,6 +95,50 @@
 		{{/each}}
 	</div>
 </div>
+
+<!-- Edit schedule modal -->
+<div class="modal fade" id="edit-reexam-schedule-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+			<div class="modal-header bg-info">
+				<h5 class="modal-title text-light" id="staticBackdropLabel">Sửa lịch hẹn tái khám</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="edit-reexam-schedule-form" method="POST">
+					{{!-- <input id="edit-cusId" type="text" name="cusID" hidden> --}}
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Họ và tên:</strong></label>
+						<div id="edit-reexam-schedule-fullname" class="m-0 text-wrap"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Tên thường gọi:</strong></label>
+						<div id="edit-reexam-schedule-nickname" class="m-0 text-wrap"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label"><strong>Giới tính:</strong></label>
+						<div id="edit-reexam-schedule-gender" class="form-label"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Số điện thoại:</strong></label>
+						<div id="edit-reexam-schedule-phone" class="form-label"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Ngày hẹn:</strong></label>
+						<div>
+							<input type="datetime-local" id="edit-reexam-schedule-input" class="form-control rounded-pill" name="schedule">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="edit-reexam-schedule-btn" type="button" class="btn btn-info rounded-pill">Cập nhật lịch</button>
+				<button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Hủy bỏ</button>
+			</div>
+        </div>
+    </div>
+</div>
+
 {{!-- Complete re-exam --}}
 <div class="modal fade" id="submit-re-exam-modal-done" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">

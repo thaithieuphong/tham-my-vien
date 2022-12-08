@@ -203,6 +203,40 @@ if (deleteReExaminationModal) {
 	})
 }
 
+// Sửa lịch hẹn tái khám
+var editReExaminationForm = document.forms['edit-reexam-schedule-form'];
+var editReExaminationModal = document.getElementById('edit-reexam-schedule-modal');
+var editReExaminationBtn = document.getElementById('edit-reexam-schedule-btn');
+var editReExamInput = document.getElementById('edit-reexam-schedule-input');
+
+if (editReExaminationBtn) {
+	editReExaminationBtn.addEventListener("click", () => {
+		editReExaminationForm.submit();
+	});
+}
+
+if (editReExaminationModal) {
+	editReExaminationModal.addEventListener('show.bs.modal', function(event){
+		var button = event.relatedTarget;
+		let id = button.getAttribute("data-edit-reexam-id");
+		let fullName = button.getAttribute("data-edit-reexam-fullName");
+		let nickName = button.getAttribute("data-edit-reexam-nickName");
+		let gender = button.getAttribute("data-edit-reexam-gender");
+		let phone = button.getAttribute("data-edit-reexam-phone");
+		editReExaminationForm.setAttribute('action', `/operating-room/nursing/re-examination/${id}/edit?_method=PATCH`);
+	
+		let editFullName = document.getElementById('edit-reexam-schedule-fullname');
+		let editNickName = document.getElementById('edit-reexam-schedule-nickname');
+		let editGender = document.getElementById('edit-reexam-schedule-gender');
+		let editPhone = document.getElementById('edit-reexam-schedule-phone');
+		editFullName.innerHTML = fullName;
+		editNickName.innerHTML = nickName;
+		editGender.innerHTML = gender;
+		editPhone.innerHTML = phone;
+		// editReExamInput.value = cusID;
+	})
+}
+
 let slideIndex = 1;
 showSlidesReExamImg(slideIndex);
 showSlidesReExamVideo(slideIndex);

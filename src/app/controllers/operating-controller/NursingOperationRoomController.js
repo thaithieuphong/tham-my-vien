@@ -84,7 +84,7 @@ class NursingController {
 
 	// Hiển thị danh sách lịch hẹn
 	showSchedule(req, res, next){
-		Promise.all([Schedule.countDeleted({}), Schedule.find({ status: 'Tạo mới'}).populate('customerID')])
+		Promise.all([Schedule.countDeleted({}), Schedule.find({ status: 'Tạo mới'}).populate('customerID').sort({schedule: 1})])
 		.then(([countDelete, schedules]) => {
 			res.render("operating/nursing/schedule", {
 				countDelete: countDelete,
@@ -195,7 +195,7 @@ class NursingController {
 				path: 'customerID',
 				model: 'Customer'
 			}
-		})
+		}).sort({updatedAt: 1})
 			.then((serviceNote) => {
 				res.render('operating/nursing/discharge-from-hospital', {
 					serviceNote: multipleMongooseToObject(serviceNote),
@@ -404,7 +404,7 @@ class NursingController {
 				path: 'customerID',
 				model: 'Customer'
 			},
-		}).populate('performer')
+		}).populate('performer').sort({ surgeryDay: 1 })
 		.then((serviceNote) => {
 				res.render("operating/nursing/operating-service-note", {
 					serviceNote: multipleMongooseToObject(serviceNote),
@@ -453,6 +453,17 @@ class NursingController {
 		.catch(next);
 	}
 
+	// Sửa lịch hẹn
+	editSchedule(req, res, next) {
+		console.log(req.body)
+		console.log(req.params.id)
+		Schedule.findByIdAndUpdate({ _id: req.params.id }, { schedule: req.body.schedule })
+			.then(() => {
+				res.redirect('back');
+			})
+			.catch(next);
+	}
+
 	// Xóa lịch hẹn
 	deleteSchedule(req, res, next) {
 		Promise.all([Customer.findByIdAndUpdate({ _id: req.body.cusID}, { $pull: { scheduleID: req.params.id  }}), Schedule.delete({ _id: req.params.id })])
@@ -483,8 +494,9 @@ class NursingController {
 
 	// Danh sách phiếu tái khám
 	showReExamination(req, res, next) {
-		Promise.all([Reexamination.find({$or:[{status: "Tạo mới"},{status:"Đang xử lý"},{status:"Đã cập nhật"}]}).populate('customerID').populate('createName').populate('serviceNoteId'), User.findById({ _id: req.userId })])
+		Promise.all([Reexamination.find({$or:[{status: "Tạo mới"},{status:"Đang xử lý"},{status:"Đã cập nhật"}]}).populate('customerID').populate('createName').populate('serviceNoteId').sort({ schedule: 1 }), User.findById({ _id: req.userId })])
 			.then(([reExam, user]) => {
+				console.log(reExam)
 				res.render("operating/nursing/operating-re-exam", {
 					reExam: multipleMongooseToObject(reExam),
 					user: mongooseToObject(user),
@@ -526,9 +538,19 @@ class NursingController {
 	updateReExamDone(req, res, next) {	
 		Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: "Hoàn thành"} })
 		.then(() => {
-			res.redirect('back')
+			res.redirect('back');
 		})
 		.catch(next);
+	}
+
+
+	// Sửa lịch hẹn tái khám
+	editReExam(req, res, next) {
+		Reexamination.findByIdAndUpdate({ _id: req.params.id }, { schedule: req.body.schedule })
+			.then(() => {
+				res.redirect('back');
+			})
+			.catch(next);
 	}
 
 	// Xóa lịch hẹn tái khám

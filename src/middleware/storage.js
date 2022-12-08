@@ -156,11 +156,11 @@ const afterUpload = multer.diskStorage({
 const reExaminationUpload = multer.diskStorage({
     destination: function(req, file, cb) {
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            // cb(null, appRoot + '/src/public/re-examination/img');
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/img');
+            cb(null, appRoot + '/src/public/re-examination/img');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/img');
         } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            // cb(null, appRoot + '/src/public/re-examination/video');
-            cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/video');
+            cb(null, appRoot + '/src/public/re-examination/video');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/video');
         }
     },
 

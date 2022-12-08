@@ -36,6 +36,39 @@ window.addEventListener('load',function(){
 			createCusInfoForm.submit();
 		});
 	}
+
+	// Handle push data to edit schedule modal
+	var editSchedule = document.getElementById("edit-schedule-modal");
+	if (editSchedule) {
+		editSchedule.addEventListener("show.bs.modal", function (event) {
+			// Button that triggered the modal
+			var button = event.relatedTarget;
+			// Get data from delete button
+			var scheduleId = button.getAttribute('data-edit-id');
+			var fullName = button.getAttribute("data-edit-fullName");
+			var nickName = button.getAttribute("data-edit-nickName");
+			var gender = button.getAttribute("data-edit-gender");
+			var phone = button.getAttribute("data-edit-phone");
+			// var cusID = button.getAttribute("data-edit-customerID");
+			// Get element need embeded input
+			var editFullName = document.getElementById("edit-schedule-fullname");
+			var editNickName = document.getElementById("edit-schedule-nickname");
+			var editPhone = document.getElementById("edit-schedule-phone");
+			editScheduleForm.setAttribute('action', `/operating-room/nursing/schedule/${scheduleId}/edit?_method=PATCH`);
+			editFullName.innerHTML = fullName;
+			editNickName.innerHTML = nickName;
+			editPhone.innerHTML = phone;
+		});
+	}
+
+	// Handle edit schedule form
+	var editBtn = document.getElementById("edit-schedule-btn");
+	var editScheduleForm = document.forms["edit-schedule-form"];
+	if (editBtn) {
+		editBtn.addEventListener("click", () => {
+			editScheduleForm.submit();
+		});
+	}
 })
 
 

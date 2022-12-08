@@ -17,6 +17,7 @@ router.get('/profile', NursingController.showProfile);
 router.patch('/schedule/:id/restore', NursingController.restoreSchedule);
 router.get('/storage-cus-info-done', NursingController.showStorageCusInfoDone);
 router.delete('/re-examination/:id/delete', NursingController.deleteReExam);
+router.patch('/re-examination/:id/edit', NursingController.editReExam);
 router.patch('/re-examination/:id/done', NursingController.updateReExamDone);
 router.put('/re-examination/:id/update', validateUpload.reExaminationUpload, NursingController.uploadReExam);
 router.get('/re-examination/:id', NursingController.showReExaminationUpdate);
@@ -37,6 +38,7 @@ router.put('/customer-information/:id/cus-info', NursingController.updateCusInfo
 router.post('/customer-information/:id/create', NursingController.createCusInfor);
 router.get('/customer-information/:id', NursingController.showCreateCusInfor);
 router.delete('/schedule/:id/delete', NursingController.deleteSchedule);
+router.patch('/schedule/:id/edit', NursingController.editSchedule);
 router.post('/schedule/:id/create', NursingController.createSchedule);
 router.get('/schedule/:id/create', NursingController.showCreateSchedule);
 router.get('/schedule/:id/detail', NursingController.showScheduleDetail);

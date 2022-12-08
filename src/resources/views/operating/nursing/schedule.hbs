@@ -75,13 +75,18 @@
 					</div>
 					<div class="card-footer bg-transparent">
 						<div class="row d-flex justify-content-between">
-							<div class="col-lg-6 col-md-12 col-sm-12">
-								<button type="button" class="btn btn-danger btn-mobile rounded-pill mb-2 border" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
-								data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.firstName}}" data-delete-lastname="{{this.customerID.lastName}}"
+							<div class="col-lg-4 col-md-12 col-sm-12">
+								<button type="button" class="btn btn-danger btn-mobile rounded-pill mb-3 border btn-sm" data-bs-toggle="modal" data-bs-target="#delete-schedule-modal"
+								data-delete-id="{{this._id}}" data-delete-firstname="{{this.customerID.fullName}}" data-delete-lastname="{{this.customerID.nickName}}"
 								data-delete-customerID="{{this.customerID._id}}">Xóa lịch hẹn</button>
 							</div>
-							<div class="col-lg-6 col-md-12 col-sm-12 text-right">
-								<button class="btn btn-primary btn-mobile rounded-pill mb-2 border" id="create-customer-information-btn">Tạo hồ sơ khách hàng</button>
+							<div class="col-lg-4 col-md-12 col-sm-12">
+								<button type="button" class="btn btn-info btn-mobile rounded-pill mb-3 border btn-sm" data-bs-toggle="modal" data-bs-target="#edit-schedule-modal"
+								data-edit-id="{{this._id}}" data-edit-fullName="{{this.customerID.fullName}}" data-edit-nickName="{{this.customerID.nickName}}" data-edit-gender="{{this.customerID.gender}}"
+								data-edit-phone="{{this.customerID.phone}}">Sửa lịch hẹn tư vấn</button>
+							</div>
+							<div class="col-lg-4 col-md-12 col-sm-12 text-right">
+								<button class="btn btn-primary btn-mobile rounded-pill mb-3 border btn-sm" id="create-customer-information-btn">Tạo hồ sơ khách hàng</button>
 							</div>
 						</div>
 					</div>
@@ -90,6 +95,45 @@
 		</div>
 		{{/each}}
 	</div>
+</div>
+
+<!-- Edit schedule modal -->
+<div class="modal fade" id="edit-schedule-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+			<div class="modal-header bg-info">
+				<h5 class="modal-title text-light" id="staticBackdropLabel">Sửa lịch hẹn</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="edit-schedule-form" method="POST">
+					{{!-- <input id="edit-cusId" type="text" name="cusID" hidden> --}}
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Họ và tên:</strong></label>
+						<div id="edit-schedule-fullname" class="m-0 text-wrap"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Tên thường gọi:</strong></label>
+						<div id="edit-schedule-nickname" class="m-0 text-wrap"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Số điện thoại:</strong></label>
+						<div id="edit-schedule-phone" class="form-label"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Ngày hẹn:</strong></label>
+						<div>
+							<input type="datetime-local" id="edit-schedule-input" class="form-control rounded-pill" name="schedule">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="edit-schedule-btn" type="button" class="btn btn-info rounded-pill">Cập nhật lịch</button>
+				<button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Hủy bỏ</button>
+			</div>
+        </div>
+    </div>
 </div>
 
 <!-- Delete customer modal -->
