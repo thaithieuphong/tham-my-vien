@@ -73,3 +73,25 @@ var serviceNoteDoneForm = document.forms["submit-service-note-discharge-from-hos
 doneBtn.addEventListener("click", () => {
 	serviceNoteDoneForm.submit();
 });
+
+
+var inputSearch = document.getElementById('search-service-note'); // Lấy thẻ input từ giao diện
+inputSearch.addEventListener('keyup', (e) => {
+	let value = e.target.value.toLowerCase(); // Lấy giá trị được nhập vào từ thẻ input
+	getData(value);
+});
+
+function getData(value) {
+	const cards = document.querySelectorAll('.card');
+	cards.forEach(card => {
+		let fullName = card.querySelector('.text-fullName');
+		let nickName = card.querySelector('.text-nickName');
+		let idendify = card.querySelector('.text-identify');
+		let textFullName = fullName.innerHTML;
+		let textNickName = nickName.innerHTML;
+		let textIdentify = idendify.innerHTML;
+		let obj = { fullName: textFullName, nickName: textNickName, idendify: textIdentify, element: card }
+		const isVisible = obj.fullName.toLowerCase().includes(value) || obj.nickName.toLowerCase().includes(value) || obj.idendify.toLowerCase().includes(value);
+		card.classList.toggle('off', !isVisible);
+	})
+}

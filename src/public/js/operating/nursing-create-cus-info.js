@@ -69,6 +69,7 @@ window.addEventListener('load',function(){
 			editScheduleForm.submit();
 		});
 	}
+
 })
 
 
@@ -81,7 +82,7 @@ window.addEventListener('load',function(){
 // 		var scheduleId = button.getAttribute('data-restore-id');
 // 		var nickName = button.getAttribute("data-restore-nickname");
 // 		var cusID = button.getAttribute("data-restore-cusID");
-	
+
 // 		// Get element need embeded input
 // 		var restoreCusNickName = document.getElementById("restore-schedule");
 // 		var restoreCusID = document.getElementById("restore-input-cusID");
@@ -94,6 +95,27 @@ window.addEventListener('load',function(){
 // 	var restoreScheduleBtn = document.getElementById("restore-schedule-btn");
 // 	var restoreScheduleForm = document.forms["restore-schedule-form"];
 // 	restoreScheduleBtn.addEventListener("click", () => {
-// 		restoreScheduleForm.submit();
-// 	});
-// }
+	// 		restoreScheduleForm.submit();
+	// 	});
+	// }
+	
+var inputSearch = document.getElementById('search-schedule'); // Lấy thẻ input từ giao diện
+inputSearch.addEventListener('keyup', (e) => {
+	let value = e.target.value.toLowerCase(); // Lấy giá trị được nhập vào từ thẻ input
+	getData(value);
+});
+
+function getData(value) {
+	const cards = document.querySelectorAll('.card');
+	cards.forEach(card => {
+		let fullName = card.querySelector('.text-fullName');
+		let nickName = card.querySelector('.text-nickName');
+		let phone = card.querySelector('.text-phone');
+		let textFullName = fullName.innerHTML;
+		let textNickName = nickName.innerHTML;
+		let textPhone = phone.innerHTML;
+		let obj = { fullName: textFullName, nickName: textNickName, phone: textPhone, element: card }
+		const isVisible = obj.fullName.toLowerCase().includes(value) || obj.nickName.toLowerCase().includes(value) || obj.phone.toLowerCase().includes(value);
+		card.classList.toggle('off', !isVisible);
+	})
+}

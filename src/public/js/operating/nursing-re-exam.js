@@ -323,3 +323,43 @@ if (submitServiceNoteModal) {
 	
 	})
 }
+
+var inputSearch = document.getElementById('search-reexamination'); // Lấy thẻ input từ giao diện
+if (inputSearch) {
+	inputSearch.addEventListener('keyup', (e) => {
+		let value = e.target.value.toLowerCase(); // Lấy giá trị được nhập vào từ thẻ input
+		getData(value);
+	});
+}
+
+var inputSearchDischarge = document.getElementById('search-discharge'); // Lấy thẻ input từ giao diện
+if (inputSearchDischarge) {
+	inputSearchDischarge.addEventListener('keyup', (e) => {
+		let value = e.target.value.toLowerCase(); // Lấy giá trị được nhập vào từ thẻ input
+		getData(value);
+	});
+}
+
+var inputSearchStorageDone = document.getElementById('search-storage-done'); // Lấy thẻ input từ giao diện
+if (inputSearchStorageDone) {
+	inputSearchStorageDone.addEventListener('keyup', (e) => {
+		let value = e.target.value.toLowerCase(); // Lấy giá trị được nhập vào từ thẻ input
+		getData(value);
+	});
+}
+
+function getData(value) {
+	const cards = document.querySelectorAll('.card');
+	cards.forEach(card => {
+		let fullName = card.querySelector('.text-fullName');
+		let nickName = card.querySelector('.text-nickName');
+		let idendify = card.querySelector('.text-identify');
+		let textFullName = fullName.innerHTML;
+		let textNickName = nickName.innerHTML;
+		let textIdentify = idendify.innerHTML;
+		let obj = { fullName: textFullName, nickName: textNickName, idendify: textIdentify, element: card }
+		const isVisible = obj.fullName.toLowerCase().includes(value) || obj.nickName.toLowerCase().includes(value) || obj.idendify.toLowerCase().includes(value);
+		card.classList.toggle('off', !isVisible);
+	})
+}
+

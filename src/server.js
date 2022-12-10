@@ -134,9 +134,8 @@ app.engine(
 				let convertedMoney = formatter.format(convertMoney);
 				return convertedMoney;
 			},
-			getLength: (arr) => {
-				console.log(arr)
-				// return arr.length;
+			getArr: (arr) => {
+				
 			}
 		}
 	})

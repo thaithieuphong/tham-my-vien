@@ -43,14 +43,14 @@
 				<td class="p-0 text-light text-wrap fs-6 text align-middle">
 					{{#if this.fullName}}
 					<a class="link-light" href="/operating-room/nursing/customers/{{this._id}}/detail">
-						<div data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.fullName}}">
+						<div class="text-fullName" data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.fullName}}">
 							{{cutPassword this.fullName 24}}
 						</div>
 					</a>
 					{{/if}}
 					{{#if this.nickName}}
 					<a class="link-light" href="/operating-room/nursing/customers/{{this._id}}/detail">
-						<div data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.nickName}}">
+						<div class="text-nickName" data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.nickName}}">
 							{{cutPassword this.nickName 24}}
 						</div>
 					</a>

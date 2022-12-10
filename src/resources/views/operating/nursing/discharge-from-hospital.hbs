@@ -7,6 +7,9 @@
 			</a>
         </div>
 		<div>
+			<input id="search-discharge" class="rounded-pill form-control form-control-sm" placeholder="Tìm kiếm..." type="text">
+		</div>
+		<div>
 			<a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
 				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
 			</a>
@@ -36,14 +39,20 @@
 				<div class="card-body">
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-light text-nowrap"><strong>Mã định danh:</strong></label>
-						<p class="m-0 text-wrap text-right">
+						<p class="m-0 text-wrap text-right text-identify">
 							{{this.scheduleID.customerID.identification}}
 						</p>
 					</div>
 					<div class="d-flex justify-content-between">
-						<label class="form-label text-light text-nowrap"><strong>Khách hàng:</strong></label>
-						<p class="m-0 text-wrap text-right">
+						<label class="form-label text-light text-nowrap"><strong>Họ tên khai sinh:</strong></label>
+						<p class="m-0 text-wrap text-right text-fullName">
 							{{this.scheduleID.customerID.fullName}}
+						</p>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-light text-nowrap"><strong>Tên thường gọi:</strong></label>
+						<p class="m-0 text-wrap text-right text-nickName">
+							{{this.scheduleID.customerID.nickName}}
 						</p>
 					</div>
 					<div class="d-flex justify-content-between">

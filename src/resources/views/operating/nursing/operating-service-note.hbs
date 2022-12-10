@@ -7,6 +7,9 @@
 			</a>
         </div>
 		<div>
+			<input id="search-service-note" class="rounded-pill form-control form-control-sm" placeholder="Tìm kiếm..." type="text">
+		</div>
+		<div>
 			<a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
 				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
 			</a>
@@ -31,7 +34,7 @@
 							<label for="status" class="text-nowrap text-light">
 								<strong>Mã định danh:</strong>&nbsp;
 							</label>
-							<label class="fs-6 text-light text-right text-name">
+							<label class="fs-6 text-light text-right text-identify">
 								{{this.scheduleID.customerID.identification}}
 							</label>
 						</div>
@@ -39,7 +42,7 @@
 							<label for="status" class="text-nowrap text-light">
 								<strong>Họ tên khai sinh:</strong>&nbsp;
 							</label>
-							<label class="fs-6 text-light text-right text-name">
+							<label class="fs-6 text-light text-right text-fullName">
 								{{this.scheduleID.customerID.fullName}}
 							</label>
 						</div>
@@ -47,7 +50,7 @@
 							<label for="status" class="text-nowrap text-light">
 								<strong>Tên thường gọi:</strong>&nbsp;
 							</label>
-							<label class="fs-6 text-light text-right text-name">
+							<label class="fs-6 text-light text-right text-nickName">
 								{{this.scheduleID.customerID.nickName}}
 							</label>
 						</div>

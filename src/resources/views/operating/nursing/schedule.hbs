@@ -6,7 +6,9 @@
 				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
 			</a>
         </div>
-		{{!-- <input id="search-schedule" class="rounded-pill" placeholder="Tìm kiếm lịch tư vấn" type="text"> --}}
+		<div>
+			<input id="search-schedule" class="rounded-pill form-control form-control-sm" placeholder="Tìm kiếm..." type="text">
+		</div>
 		<div>
 			<a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
 				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
@@ -40,8 +42,8 @@
 					<div class="card-body">
 						<input class="form-control text-wrap text-right" type="text" value="{{this.customerID._id}}" name="cusID" hidden>
 						<div class="d-flex justify-content-between border-bottom mb-3">
-							<label for="" class="text-nowrap text-light m-0">Trạng thái:</label>
-							<label class="text-wrap text-right text-danger m-0">{{this.status}}</label>
+							<label for="status" class="text-nowrap text-light m-0">Trạng thái:</label>
+							<label id="status" class="text-wrap text-right text-danger m-0">{{this.status}}</label>
 						</div>
 						<div class="d-flex justify-content-between border-bottom mb-3">
 							<label  class="text-nowrap text-light m-0">Họ tên khai sinh:</label>
