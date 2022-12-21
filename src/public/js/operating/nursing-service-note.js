@@ -22,35 +22,6 @@ function convert_vi_to_en(str) {
 	return str;
 }
 
-// var inputSearch = document.getElementById("search-service-note");
-// var card = document.getElementsByClassName("card");
-// inputSearch.addEventListener('input', (e) => {
-// 	let txt = e.target.value;
-// 	let txtConvert = convert_vi_to_en(txt)
-// 	console.log(txtConvert);
-// 	handleSearchServiceNote(txtConvert)
-// })
-// function handleSearchServiceNote(txtConvert) {
-// 	console.log(card);
-// 	for (let i = 0; i < card.length; i++) {
-// 		let cardChildArr = card[i].children;
-// 		console.log('child', cardChildArr[1])
-// 		let txtContent = cardChildArr[1].getElementsByClassName('text-name');
-// 		for (let j = 0; j < txtContent.length; j++) {
-// 			txtValue = convert_vi_to_en(txtContent[i].textContent) || convert_vi_to_en(txtContent[i].innerText);
-// 			console.log('text value', txtValue)
-// 			if (txtConvert.match(txtValue)) {
-// 				console.log('yes')
-// 				card[i].classList.add("on");
-// 			} else {
-// 				console.log('no')
-// 				card[i].classList.add("off");
-// 			}
-// 		}
-// 	}
-// }
-
-
 // Handle service note done modal
 var updateDoneModal = document.getElementById("submit-discharge-from-hospital-modal");
 updateDoneModal.addEventListener("show.bs.modal", function (event) {
@@ -58,13 +29,18 @@ updateDoneModal.addEventListener("show.bs.modal", function (event) {
 	var button = event.relatedTarget;
 	// Get data from edit button
 	var serviceNoteID = button.getAttribute('data-id');
+	var dataCusID = button.getAttribute('data-cusID');
 	var fullName = button.getAttribute("data-fullName");
-
+	var surgeryDay = button.getAttribute('data-surgeryDay')
 	// Get element need embeded input
+	var inputCusID = document.getElementById("input-cusID");
 	var fullNameModal = document.getElementById("fullName-modal");
+	var inputSurgeryDay = document.getElementById('input-surgeryDay');
 
 	serviceNoteDoneForm.setAttribute('action', `/operating-room/nursing/service-note/${serviceNoteID}/discharge-from-hospital?_method=PATCH`);
+	inputCusID.value = dataCusID;
 	fullNameModal.innerHTML = fullName;
+	inputSurgeryDay.value = surgeryDay;
 });
 
 // Handle service note form done

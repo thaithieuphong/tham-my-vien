@@ -141,6 +141,8 @@ const ServiceNote = new Schema({
 	counselorInfo: String,
 	beforeInfo: String,
 	stepsToTake: String,
+	statusAfterInfo: String,
+	directedByDoctor: String,
 	afterInfo: String,
 	stored: String,
 	surgeryDay: String,

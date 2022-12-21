@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const mongooseDelete = require("mongoose-delete");
 
 const Reexamination = new Schema({
-	name: String,
 	customerID:
 	{
 		type: String,
@@ -75,10 +74,23 @@ const Reexamination = new Schema({
 			comment: String
 		}
 	],
+	statusInfo: String,
+	directedByDoctor: String,
 	stepsToTake: String,
 	stored: String,
 	schedule: String,
-	reason: String,
+	times: String,
+	logSchedules: [
+		{
+			type: new mongoose.Schema(
+				{
+					schedule: String,
+					reason: String,
+				},
+				{ timestamps: true }
+			)
+		}
+	],
 }, {
 	timestamps: true
 });

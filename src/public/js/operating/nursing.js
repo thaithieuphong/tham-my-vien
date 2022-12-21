@@ -66,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		let imagesPreviewCounselor = function (input) {
 			let inputFiles = Array.from(input.files);
 			if (input.files) {
-				// let filesAmount = inputFiles.length
 				for (let i = 0; i < inputFiles.length; i++) {
 					let reader = new FileReader();
 					let newImage = document.createElement('img');
@@ -132,7 +131,6 @@ document.addEventListener("DOMContentLoaded", function () {
 						closeButtonLink.type = 'button';
 						closeButtonLink.id = i;
 						closeButtonLink.ariaLabel = 'Close';
-						// closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-video';
 						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
 						let videoc = document.querySelector('.preview-videos-counselor');
 						divMain.append(newVideo, closeButtonLink);
@@ -161,7 +159,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		let imagesPreviewBefore = function (input) {
 			let inputFiles = Array.from(input.files);
 			if (input.files) {
-				// let filesAmount = inputFiles.length
 				for (let i = 0; i < inputFiles.length; i++) {
 					let reader = new FileReader();
 					let newImage = document.createElement('img');
@@ -252,7 +249,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		let imagesPreviewInSurgery = function (input) {
 			let inputFiles = Array.from(input.files);
 			if (input.files) {
-				// let filesAmount = inputFiles.length
 				for (let i = 0; i < inputFiles.length; i++) {
 					let reader = new FileReader();
 					let newImage = document.createElement('img');
@@ -441,7 +437,7 @@ var createService = function(str) {
 	btnClose.append(iconClose);
 	let inputService = document.createElement('input');
 	inputService.setAttribute('class', 'form-control bg-transparent text-wrap text-light rounded-pill-start pl-3');
-	inputService.setAttribute('name', 'service');
+	inputService.setAttribute('name', 'service[]');
 	inputService.setAttribute('type', 'text');
 	let inputPrice = document.createElement('input');
 	inputPrice.setAttribute('class', 'form-control text-right input-price bg-transparent text-light');
@@ -526,8 +522,6 @@ showSlidesInImg(slideIndex);
 showSlidesInVideo(slideIndex);
 showSlidesAfterImg(slideIndex);
 showSlidesAfterVideo(slideIndex);
-// showSlidesReExamImg(slideIndex);
-// showSlidesReExamVideo(slideIndex);
 
 // Next/previous controls
 function plusSlidesCounselorImg(n) {
@@ -561,14 +555,6 @@ function plusSlidesAfterVideo(n) {
 	showSlidesAfterVideo(slideIndex += n);
 }
 
-// function plusSlidesReExamImg(n) {
-// 	showSlidesReExamImg(slideIndex += n);
-// }
-
-// function plusSlidesReExamVideo(n) {
-// 	showSlidesReExamVideo(slideIndex += n);
-// }
-
 // Thumbnail image controls
 function currentSlideCounselorImg(n) {
 	showSlidesCounselor(slideIndex = n);
@@ -601,14 +587,6 @@ function currentSlideAfterVideo(n) {
 	showSlidesAfterVideo(slideIndex = n);
 }
 
-// function currentSlideReExamImg(n) {
-// 	showSlidesReExamImg(slideIndex = n);
-// }
-
-// function currentSlideReExamVideo(n) {
-// 	showSlidesReExamVideo(slideIndex = n);
-// }
-
 function showSlidesCounselorImg(n) {
 	let i;
 	let slides = document.getElementsByClassName("slide-counselor-img");
@@ -622,7 +600,7 @@ function showSlidesCounselorImg(n) {
 		for (i = 0; i < dots.length; i++) {
 			dots[i].className = dots[i].className.replace(" active-click", "");
 		}
-		slides[slideIndex-1].style.display = "block";
+		if (slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
 		if (dots[slideIndex-1]) {
 			dots[slideIndex-1].className += " active-click";
 		}
@@ -642,7 +620,7 @@ function showSlidesCounselorVideo(n) {
 		for (i = 0; i < dots.length; i++) {
 			dots[i].className = dots[i].className.replace(" active-click", "");
 		}
-		slides[slideIndex-1].style.display = "block";
+		if (slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
 		if (dots[slideIndex-1]) {
 			dots[slideIndex-1].className += " active-click";
 		}
@@ -662,7 +640,7 @@ function showSlidesBeforeImg(n) {
 		for (i = 0; i < dots.length; i++) {
 		  dots[i].className = dots[i].className.replace(" active-click", "");
 		}
-		slides[slideIndex-1].style.display = "block";
+		if (slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
 		if (dots[slideIndex-1]) {
 			dots[slideIndex-1].className += " active-click";
 		}
@@ -682,7 +660,7 @@ function showSlidesBeforeVideo(n) {
 		for (i = 0; i < dots.length; i++) {
 		  dots[i].className = dots[i].className.replace(" active-click", "");
 		}
-		slides[slideIndex-1].style.display = "block";
+		if (slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
 		if (dots[slideIndex-1]) {
 			dots[slideIndex-1].className += " active-click";
 		}
@@ -702,7 +680,7 @@ function showSlidesInImg(n) {
 		for (i = 0; i < dots.length; i++) {
 		  dots[i].className = dots[i].className.replace(" active-click", "");
 		}
-		slides[slideIndex-1].style.display = "block";
+		if (slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
 		if (dots[slideIndex-1]) {
 			dots[slideIndex-1].className += " active-click";
 		}
@@ -722,7 +700,7 @@ function showSlidesInVideo(n) {
 		for (i = 0; i < dots.length; i++) {
 		  dots[i].className = dots[i].className.replace(" active-click", "");
 		}
-		slides[slideIndex-1].style.display = "block";
+		if (slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
 		if (dots[slideIndex-1]) {
 			dots[slideIndex-1].className += " active-click";
 		}
@@ -742,7 +720,7 @@ function showSlidesAfterImg(n) {
 		for (i = 0; i < dots.length; i++) {
 		  dots[i].className = dots[i].className.replace(" active-click", "");
 		}
-		slides[slideIndex-1].style.display = "block";
+		if (slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
 		if (dots[slideIndex-1]) {
 			dots[slideIndex-1].className += " active-click";
 		}
@@ -762,49 +740,9 @@ function showSlidesAfterVideo(n) {
 		for (i = 0; i < dots.length; i++) {
 		  dots[i].className = dots[i].className.replace(" active-click", "");
 		}
-		slides[slideIndex-1].style.display = "block";
+		if (slides[slideIndex-1]) slides[slideIndex-1].style.display = "block";
 		if (dots[slideIndex-1]) {
 			dots[slideIndex-1].className += " active-click";
 		}
 	}
 }
-
-// function showSlidesReExamImg(n) {
-// 	let i;
-// 	let slides = document.getElementsByClassName("slide-re-exam-img");
-// 	if(slides) {
-// 		let dots = document.getElementsByClassName("dot");
-// 		if (n > slides.length) {slideIndex = 1}
-// 		if (n < 1) {slideIndex = slides.length}
-// 		for (i = 0; i < slides.length; i++) {
-// 		  slides[i].style.display = "none";
-// 		}
-// 		for (i = 0; i < dots.length; i++) {
-// 		  dots[i].className = dots[i].className.replace(" active-click", "");
-// 		}
-// 		slides[slideIndex-1].style.display = "block";
-// 		if (dots[slideIndex-1]) {
-// 			dots[slideIndex-1].className += " active-click";
-// 		}
-// 	}
-// }
-
-// function showSlidesReExamVideo(n) {
-// 	let i;
-// 	let slides = document.getElementsByClassName("slide-re-exam-video");
-// 	if(slides) {
-// 		let dots = document.getElementsByClassName("dot");
-// 		if (n > slides.length) {slideIndex = 1}
-// 		if (n < 1) {slideIndex = slides.length}
-// 		for (i = 0; i < slides.length; i++) {
-// 		  slides[i].style.display = "none";
-// 		}
-// 		for (i = 0; i < dots.length; i++) {
-// 		  dots[i].className = dots[i].className.replace(" active-click", "");
-// 		}
-// 		slides[slideIndex-1].style.display = "block";
-// 		if (dots[slideIndex-1]) {
-// 			dots[slideIndex-1].className += " active-click";
-// 		}
-// 	}
-// }

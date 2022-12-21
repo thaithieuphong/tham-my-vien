@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
 	let inputMultiImageReExamination = document.getElementById('input-multi-images-reExamination');
-	if(inputMultiImageReExamination) {
+	if (inputMultiImageReExamination) {
 		inputMultiImageReExamination.addEventListener('change', (e) => {
 			let files = e.target;//event.target.files;
 			imagesPreviewReExamination(files);
@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		let imagesPreviewReExamination = function (input) {
 			let inputFiles = Array.from(input.files);
 			if (input.files) {
-				// let filesAmount = inputFiles.length
 				for (let i = 0; i < inputFiles.length; i++) {
 					let reader = new FileReader();
 					let newImage = document.createElement('img');
@@ -20,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function () {
 					closeButtonLink.append(iconClose);
 					let divMain = document.createElement('figure');
 					reader.addEventListener('load', (event) => {
-						// newImage.setAttribute('alt', filesAmount)
 						let src = event.target.result;
 						divMain.classList = 'col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
 						divMain.id = i;
@@ -30,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
 						closeButtonLink.id = i;
 						closeButtonLink.type = 'button';
 						closeButtonLink.ariaLabel = 'Close';
-						// closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-img';
 						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 close-img mr-4 mt-2';
 						let imgc = document.querySelector('.preview-images-reExamination');
 						divMain.append(newImage, closeButtonLink);
@@ -50,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 
 	let inputMultiVideoReExamination = document.getElementById('input-multi-videos-reExamination');
-	if(inputMultiVideoReExamination) {
+	if (inputMultiVideoReExamination) {
 		inputMultiVideoReExamination.addEventListener('change', (e) => {
 			let files = e.target;//event.target.files;
 			videosPreviewReExamination(files);
@@ -77,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
 						closeButtonLink.type = 'button';
 						closeButtonLink.id = i;
 						closeButtonLink.ariaLabel = 'Close';
-						// closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-video';
 						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 close-img mr-4 mt-2';
 						let videoc = document.querySelector('.preview-videos-reExamination');
 						divMain.append(newVideo, closeButtonLink);
@@ -112,7 +108,7 @@ if (createReExaminationBtn) {
 }
 
 if (createReExaminationModal) {
-	createReExaminationModal.addEventListener('show.bs.modal', function(event){
+	createReExaminationModal.addEventListener('show.bs.modal', function (event) {
 		var button = event.relatedTarget;
 		let id = button.getAttribute("data-id");
 		let cusId = button.getAttribute("data-cusId");
@@ -121,7 +117,7 @@ if (createReExaminationModal) {
 		let gender = button.getAttribute("data-gender");
 		let phone = button.getAttribute("data-phone");
 		createReExaminationForm.setAttribute('action', `/operating-room/nursing/discharge-from-hospital/${id}/create-re-examination`);
-	
+
 		let submitId = document.getElementById('submit-re-exam-cusId');
 		let submitIdentification = document.getElementById('submit-re-exam-identification');
 		let submitFullName = document.getElementById('submit-re-exam-fullname');
@@ -132,13 +128,13 @@ if (createReExaminationModal) {
 		submitFullName.innerHTML = fullName;
 		submitGender.innerHTML = gender;
 		submitPhone.innerHTML = '0' + phone;
-	
+
 	})
 }
 
 var alertElement = document.getElementsByClassName('alert');
-for(i=0; i < alertElement.length; i++) {
-	if(alertElement[i]) {
+for (i = 0; i < alertElement.length; i++) {
+	if (alertElement[i]) {
 		let element = alertElement[i];
 		let timerOut = setTimeout(closeAlert, 5000);
 		function closeAlert() {
@@ -166,15 +162,15 @@ if (submitReExaminationBtn) {
 }
 
 if (submitReExaminationModal) {
-	submitReExaminationModal.addEventListener('show.bs.modal', function(event){
+	submitReExaminationModal.addEventListener('show.bs.modal', function (event) {
 		var button = event.relatedTarget;
 		let id = button.getAttribute("data-id");
 		let fullName = button.getAttribute("data-fullName");
 		submitReExaminationForm.setAttribute('action', `/operating-room/nursing/re-examination/${id}/done?_method=PATCH`);
-	
+
 		let submitFullName = document.getElementById('submit-re-exam-fullname');
 		submitFullName.innerHTML = fullName;
-	
+
 	})
 }
 
@@ -190,20 +186,20 @@ if (deleteReExaminationBtn) {
 }
 
 if (deleteReExaminationModal) {
-	deleteReExaminationModal.addEventListener('show.bs.modal', function(event){
+	deleteReExaminationModal.addEventListener('show.bs.modal', function (event) {
 		var button = event.relatedTarget;
 		let id = button.getAttribute("data-id");
 		let cusID = button.getAttribute("data-cusId");
 		let fullName = button.getAttribute("data-fullName");
 		deleteReExaminationForm.setAttribute('action', `/operating-room/nursing/re-examination/${id}/delete?_method=DELETE`);
-	
+
 		let deleteFullName = document.getElementById('delete-re-exam-fullname');
 		deleteFullName.innerHTML = fullName;
 		deleteReExamInput.value = cusID;
 	})
 }
 
-// Sửa lịch hẹn tái khám
+// Sửa lịch hẹn tái khám của nursing
 var editReExaminationForm = document.forms['edit-reexam-schedule-form'];
 var editReExaminationModal = document.getElementById('edit-reexam-schedule-modal');
 var editReExaminationBtn = document.getElementById('edit-reexam-schedule-btn');
@@ -216,7 +212,7 @@ if (editReExaminationBtn) {
 }
 
 if (editReExaminationModal) {
-	editReExaminationModal.addEventListener('show.bs.modal', function(event){
+	editReExaminationModal.addEventListener('show.bs.modal', function (event) {
 		var button = event.relatedTarget;
 		let id = button.getAttribute("data-edit-reexam-id");
 		let fullName = button.getAttribute("data-edit-reexam-fullName");
@@ -224,7 +220,7 @@ if (editReExaminationModal) {
 		let gender = button.getAttribute("data-edit-reexam-gender");
 		let phone = button.getAttribute("data-edit-reexam-phone");
 		editReExaminationForm.setAttribute('action', `/operating-room/nursing/re-examination/${id}/edit?_method=PATCH`);
-	
+
 		let editFullName = document.getElementById('edit-reexam-schedule-fullname');
 		let editNickName = document.getElementById('edit-reexam-schedule-nickname');
 		let editGender = document.getElementById('edit-reexam-schedule-gender');
@@ -233,7 +229,40 @@ if (editReExaminationModal) {
 		editNickName.innerHTML = nickName;
 		editGender.innerHTML = gender;
 		editPhone.innerHTML = phone;
-		// editReExamInput.value = cusID;
+	})
+}
+
+
+// Sửa lịch hẹn tái khám của customer care
+var editReExaminationFormCustomerCare = document.forms['edit-reexam-schedule-form-customer-care'];
+var editReExaminationModalCustomerCare = document.getElementById('edit-reexam-schedule-modal-customer-care');
+var editReExaminationBtnCustomerCare = document.getElementById('edit-reexam-schedule-btn-customer-care');
+var editReExamInputCustomerCare = document.getElementById('edit-reexam-schedule-input-customer-care');
+
+if (editReExaminationBtnCustomerCare) {
+	editReExaminationBtnCustomerCare.addEventListener("click", () => {
+		editReExaminationFormCustomerCare.submit();
+	});
+}
+
+if (editReExaminationModalCustomerCare) {
+	editReExaminationModalCustomerCare.addEventListener('show.bs.modal', function (event) {
+		var button = event.relatedTarget;
+		let id = button.getAttribute("data-edit-reexam-id-customer-care");
+		let fullName = button.getAttribute("data-edit-reexam-fullName-customer-care");
+		let nickName = button.getAttribute("data-edit-reexam-nickName-customer-care");
+		let gender = button.getAttribute("data-edit-reexam-gender-customer-care");
+		let phone = button.getAttribute("data-edit-reexam-phone-customer-care");
+		editReExaminationFormCustomerCare.setAttribute('action', `/customer-care/employ/re-exam/${id}/edit?_method=PATCH`);
+
+		let editFullName = document.getElementById('edit-reexam-schedule-fullname-customer-care');
+		let editNickName = document.getElementById('edit-reexam-schedule-nickname-customer-care');
+		let editGender = document.getElementById('edit-reexam-schedule-gender-customer-care');
+		let editPhone = document.getElementById('edit-reexam-schedule-phone-customer-care');
+		editFullName.innerHTML = fullName;
+		editNickName.innerHTML = nickName;
+		editGender.innerHTML = gender;
+		editPhone.innerHTML = '0' + phone;
 	})
 }
 
@@ -260,47 +289,48 @@ function currentSlidesReExamVideo(n) {
 function showSlidesReExamImg(n) {
 	let i;
 	let slides = document.getElementsByClassName("slide-re-exam-img");
-	if(slides) {
+	if (slides) {
 		let dots = document.getElementsByClassName("dot");
-		if (n > slides.length) {slideIndex = 1}
-		if (n < 1) {slideIndex = slides.length}
+		if (n > slides.length) { slideIndex = 1 }
+		if (n < 1) { slideIndex = slides.length }
 		for (i = 0; i < slides.length; i++) {
 			slides[i].style.display = "none";
 		}
 		for (i = 0; i < dots.length; i++) {
 			dots[i].className = dots[i].className.replace(" active-click", "");
 		}
-		if (slides[slideIndex-1]) {
-			slides[slideIndex-1].style.display = "block";
+		if (slides[slideIndex - 1]) {
+			slides[slideIndex - 1].style.display = "block";
 		}
-		if (dots[slideIndex-1]) {
-			dots[slideIndex-1].className += " active-click";
-		}
-	}
-}
-	
-function showSlidesReExamVideo(n) {
-	let i;
-	let slides = document.getElementsByClassName("slide-re-exam-video");
-	if(slides) {
-		let dots = document.getElementsByClassName("dot");
-		if (n > slides.length) {slideIndex = 1}
-		if (n < 1) {slideIndex = slides.length}
-		for (i = 0; i < slides.length; i++) {
-			slides[i].style.display = "none";
-		}
-		for (i = 0; i < dots.length; i++) {
-			dots[i].className = dots[i].className.replace(" active-click", "");
-		}
-		if (slides[slideIndex-1]) {
-			slides[slideIndex-1].style.display = "block";
-		}
-		if (dots[slideIndex-1]) {
-			dots[slideIndex-1].className += " active-click";
+		if (dots[slideIndex - 1]) {
+			dots[slideIndex - 1].className += " active-click";
 		}
 	}
 }
 
+function showSlidesReExamVideo(n) {
+	let i;
+	let slides = document.getElementsByClassName("slide-re-exam-video");
+	if (slides) {
+		let dots = document.getElementsByClassName("dot");
+		if (n > slides.length) { slideIndex = 1 }
+		if (n < 1) { slideIndex = slides.length }
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active-click", "");
+		}
+		if (slides[slideIndex - 1]) {
+			slides[slideIndex - 1].style.display = "block";
+		}
+		if (dots[slideIndex - 1]) {
+			dots[slideIndex - 1].className += " active-click";
+		}
+	}
+}
+
+// Cập nhật phiếu hoàn thành của nursing
 var submitServiceNoteForm = document.forms['submit-service-note-done-form'];
 var submitServiceNoteModal = document.getElementById('submit-service-note-done-modal');
 var submitServiceBtn = document.getElementById('submit-service-note-done-btn');
@@ -312,15 +342,43 @@ if (submitServiceBtn) {
 }
 
 if (submitServiceNoteModal) {
-	submitServiceNoteModal.addEventListener('show.bs.modal', function(event){
+	submitServiceNoteModal.addEventListener('show.bs.modal', function (event) {
 		var button = event.relatedTarget;
 		let id = button.getAttribute("data-id");
+		let surgeryDayData = button.getAttribute("data-surgeryDay");
+		let cusID = button.getAttribute('data-cusID')
 		let fullName = button.getAttribute("data-fullName");
 		submitServiceNoteForm.setAttribute('action', `/operating-room/nursing/service-note/${id}/done?_method=PATCH`);
-	
+
+		let inputCusID = document.getElementById('submit-service-note-done-cusId');
+		let inputSurgeryDay = document.getElementById('submit-service-note-done-surgeryDay');
 		let submitFullName = document.getElementById('fullName-modal');
+		inputCusID.value = cusID;
+		inputSurgeryDay.value = surgeryDayData;
 		submitFullName.innerHTML = fullName;
-	
+	})
+}
+
+// Cập nhật phiếu hoàn thành của customer care
+var submitReExaminationFormCustomerCare = document.forms['submit-re-exam-form-done-customer-care'];
+var submitReExaminationModalCustomerCare = document.getElementById('submit-re-exam-modal-done-customer-care');
+var submitReExaminationBtnCustomerCare = document.getElementById('submit-re-exam-btn-done-customer-care');
+
+if (submitReExaminationBtnCustomerCare) {
+	submitReExaminationBtnCustomerCare.addEventListener("click", () => {
+		submitReExaminationFormCustomerCare.submit();
+	});
+}
+
+if (submitReExaminationModalCustomerCare) {
+	submitReExaminationModalCustomerCare.addEventListener('show.bs.modal', function (event) {
+		var button = event.relatedTarget;
+		let id = button.getAttribute("data-id-customer-care");
+		let fullName = button.getAttribute("data-fullName-customer-care");
+		submitReExaminationFormCustomerCare.setAttribute('action', `/customer-care/employ/re-exam/${id}/done?_method=PATCH`);
+
+		let submitFullNameCustomerCare = document.getElementById('submit-re-exam-fullname-customer-care');
+		submitFullNameCustomerCare.innerHTML = fullName;
 	})
 }
 
@@ -346,6 +404,55 @@ if (inputSearchStorageDone) {
 		let value = e.target.value.toLowerCase(); // Lấy giá trị được nhập vào từ thẻ input
 		getData(value);
 	});
+}
+
+var inputSearchSchedule = document.getElementById('search-schedule'); // Lấy thẻ input từ giao diện
+if (inputSearchSchedule) {
+	inputSearchSchedule.addEventListener('keyup', (e) => {
+		let value = e.target.value.toLowerCase(); // Lấy giá trị được nhập vào từ thẻ input
+		getDataTable(value);
+	});
+}
+
+function getDataTable(value) {
+	// Declare variables
+	var table, tr;
+	let filter = value;
+	table = document.getElementById("table-schedule");
+	tr = table.querySelectorAll(".text-value");
+	tr.forEach(item => {
+		let identifies = item.querySelectorAll(".text-identify");
+		let fullNames = item.querySelectorAll(".text-fullName");
+		let nickNames = item.querySelectorAll(".text-nickName");
+		let phones = item.querySelectorAll(".text-phone");
+		let schedules = item.querySelectorAll(".text-schedule");
+		let statuses = item.querySelectorAll(".text-status");
+		let identifyText, fullNameText, nickNameText, phoneText, scheduleText, statusText;
+		identifies.forEach(identify => {
+			return identifyText = identify.innerHTML.toLowerCase().trim();
+		})
+		fullNames.forEach(fullName => {
+			let fullNameLink = fullName.querySelector(".fullName-link");
+			return fullNameText = fullNameLink.innerHTML.toLowerCase().trim();
+		})
+		nickNames.forEach(nickName => {
+			return nickNameText = nickName.innerHTML.toLowerCase().trim();
+		})
+		phones.forEach(phone => {
+			return phoneText = phone.innerHTML.toLowerCase().trim();
+		})
+		schedules.forEach(schedule => {
+			return scheduleText = schedule.innerHTML.toLowerCase().trim();
+		})
+		statuses.forEach(status => {
+			return statusText = status.innerHTML.toLowerCase().trim();
+		})
+		let obj = { fullName: fullNameText, nickName: nickNameText, identify: identifyText, phone: phoneText, schedule: scheduleText, status: statusText }
+		if (obj.identify || obj.fullName || obj.nickName || obj.phone || obj.schedule || obj.status !== undefined) {
+			const isVisible = obj.identify.includes(filter) || obj.fullName.includes(filter) || obj.nickName.includes(filter) || obj.phone.includes(filter) || obj.schedule.includes(filter) || obj.status.includes(filter);
+			item.classList.toggle('off', !isVisible);
+		}
+	})
 }
 
 function getData(value) {

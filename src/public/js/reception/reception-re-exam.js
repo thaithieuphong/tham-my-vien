@@ -1,7 +1,6 @@
 //PATCH: load form and submit push performer rexamination forms
 var reExamBtn = document.getElementById("add-performer-re-exam-btn");
 var reExamForm = document.forms['add-performer-re-exam-form'];
-// var userStateForm = document.forms['user-state-form'];
 reExamBtn.addEventListener("click", () => {
 	reExamForm.submit();
 })
@@ -31,7 +30,6 @@ reExamModal.addEventListener("show.bs.modal", function (event) {
 	var comment = button.getAttribute("data-re-exam-comment");
 
 	// Get element need embeded input
-	// var modalCustomerID = document.getElementById("customerID");
 	var modalName = document.getElementById("add-performer-re-exam-firstLastName");
 	var modalBirth = document.getElementById("add-performer-re-exam-birth");
 	var modalGender = document.getElementById("add-performer-re-exam-gender");

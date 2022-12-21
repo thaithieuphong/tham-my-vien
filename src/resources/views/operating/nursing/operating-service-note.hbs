@@ -77,8 +77,8 @@
 								<a class="btn btn-primary btn-mobile mb-2 rounded-pill border" href='/operating-room/nursing/customer-information/{{this._id}}'>Cập nhật hồ sơ</a>
 							</div>
 							<div class="col-lg-6 col-md-12 col-sm-12 text-right">
-								<button type="button" data-bs-toggle="modal" data-bs-target="#submit-discharge-from-hospital-modal"
-									class="btn btn-success btn-mobile mb-2 rounded-pill border" data-id="{{this._id}}" data-fullName="{{this.scheduleID.customerID.fullName}}">Xuất viện</button>
+								<button type="button" data-bs-toggle="modal" data-bs-target="#submit-discharge-from-hospital-modal" data-surgeryDay="{{this.surgeryDay}}"
+								class="btn btn-success btn-mobile mb-2 rounded-pill border" data-id="{{this._id}}" data-cusID="{{this.scheduleID.customerID._id}}" data-fullName="{{this.scheduleID.customerID.fullName}}">Xuất viện</button>
 							</div>
 						</div>
 					</div>
@@ -97,6 +97,8 @@
 			</div>
 			<div class="modal-body">
 				<form method="POST" id="submit-service-note-discharge-from-hospital-form">
+					<input id="input-cusID" type="text" name="cusID" hidden>
+					<input id="input-surgeryDay" type="text" name="surgeryDay" hidden>
 					Bạn chắc chắn muốn lưu khách hàng <strong class="text-danger" id="fullName-modal"></strong> vào kho hồ sơ xuất viện
 				</form>
 			</div>

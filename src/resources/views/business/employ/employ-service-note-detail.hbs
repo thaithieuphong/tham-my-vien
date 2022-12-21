@@ -1,0 +1,180 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-blue border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-blue">
+        <div class="sidebar-item">
+            <a href="/business/employ/schedule" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-receipt mr-3"></i>Lịch hẹn
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/business/employ/customers" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-user mr-3"></i>Khách hàng
+            </a>
+        </div>
+    </div>
+	<div class="offcanvas-footer border-top">
+        <div class="sidebar-item">
+            <a href="/business/employ/profile" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-blue">
+        <div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+</div>
+<div class="container-fluid">
+	{{#if serviceNote}}
+	<div class="card shadow mt-3 mb-3">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-4">
+					<div class="d-flex justify-content-between">
+						<label for="status" class="text-nowrap text-dark">
+							<strong>Mã khách hàng:</strong>
+						</label>
+						<label class="fs-6 text-right text-danger">
+							{{serviceNote.scheduleID.customerID.identification}}
+						</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status" class="text-nowrap text-dark">
+							<strong>Họ tên khai sinh:</strong>
+						</label>
+						<label class="fs-6 text-right text-primary">
+							{{serviceNote.scheduleID.customerID.fullName}}
+						</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status" class="text-nowrap text-dark">
+							<strong>Tên thường gọi:</strong>
+						</label>
+						<label class="fs-6 text-right">
+							{{serviceNote.scheduleID.customerID.nickName}}
+						</label>
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="d-flex justify-content-between">
+						<label for="status" class="text-nowrap text-dark">
+							<strong>Quê quán:</strong>
+						</label>
+						<label class="fs-6 text-right">
+							{{serviceNote.scheduleID.customerID.homeTown}}
+						</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status" class="text-nowrap text-dark">
+							<strong>Trạng thái:</strong>
+						</label>
+						<label class="fs-6 text-danger text-right">
+							<em>{{serviceNote.status}}</em>
+						</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status" class="text-nowrap text-dark">
+							<strong>Bác sĩ thực hiện:</strong>
+						</label>
+						<label class="">
+							{{#each serviceNote.performer}}
+							<em>{{this.firstName}} {{this.lastName}}</em>
+							{{/each}}
+						</label>
+					</div>
+				</div>
+				<div class="col-4">
+					<div class="d-flex justify-content-between">
+						<label for="status" class="text-nowrap text-dark">
+							<strong>Chiều cao:</strong>
+						</label>
+						<label class="">
+							<em>{{serviceNote.scheduleID.customerID.height}}</em>
+						</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status" class="text-nowrap text-dark">
+							<strong>Cân nặng:</strong>
+						</label>
+						<label class="text-right">
+							<em>{{serviceNote.scheduleID.customerID.weight}}</em>
+						</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status" class="text-nowrap text-dark">
+							<strong>Ngày phẩu thuật:</strong>
+						</label>
+						<label class="text-right text-success">
+							{{formatDate serviceNote.surgeryDay}}
+						</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status" class="text-nowrap text-dark">
+							<strong>Tầng phẩu thuật:</strong>
+						</label>
+						<label class="text-right">
+							{{serviceNote.floor}}
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Dịch vụ đăng ký:</strong>
+				</label>
+			</div>
+			{{#each serviceNote.service}}
+			<div class="d-flex justify-content-between border-bottom mb-3">
+				<label class="text-dark-yellow">
+					<em>{{this.name}}</em>
+				</label>
+				<label class="text-right">
+					<em>{{this.price}}</em>
+				</label>
+			</div>
+			{{/each}}
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Đặt cọc:</strong>
+				</label>
+				<label class="text-warning text-right">
+					{{serviceNote.deposit}}
+				</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Tổng chi phí:</strong>
+				</label>
+				<label class="text-danger text-right">
+					{{serviceNote.total}}
+				</label>
+			</div>
+		</div>
+	</div>
+	{{/if}}
+</div>
+
+<script src="/js/customer-care/customer-care-employ-customer.js"></script>

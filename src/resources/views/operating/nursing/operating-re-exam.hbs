@@ -68,6 +68,14 @@
 					</div>
 					<div class="d-flex justify-content-between border-bottom mb-3">
 						<label for="status" class="text-nowrap text-light">
+							<strong>Tái khám lần:</strong>
+						</label>
+						<label class="fs-6 text-primary text-right">
+							<em>0{{this.times}}</em>
+						</label>
+					</div>
+					<div class="d-flex justify-content-between border-bottom mb-3">
+						<label for="status" class="text-nowrap text-light">
 							<strong>Trạng thái:</strong>
 						</label>
 						<label class="fs-6 text-danger text-right">
@@ -109,7 +117,6 @@
 			</div>
 			<div class="modal-body">
 				<form id="edit-reexam-schedule-form" method="POST">
-					{{!-- <input id="edit-cusId" type="text" name="cusID" hidden> --}}
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-nowrap"><strong>Họ và tên:</strong></label>
 						<div id="edit-reexam-schedule-fullname" class="m-0 text-wrap"></div>

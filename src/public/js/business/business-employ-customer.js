@@ -10,9 +10,7 @@ createPhone.addEventListener('input', (e) => {
 		document.getElementById('create_phone_error').classList.add('off');
 			// alert("validation success")
 	}
-})
-
-
+});
 
 //CREATE: submit create customer forms
 // Handle create info Customer
@@ -188,18 +186,32 @@ document.addEventListener("DOMContentLoaded", function () {
 		$("#customerNew").bootstrapTable({
 			pagination: true,
 			search: true,
+			// scrollY: 200
 		});
 		$("#customerPotential").bootstrapTable({
 			pagination: true,
 			search: true,
+			scrollY: 300
 		});
 		$("#customerSchedule").bootstrapTable({
 			pagination: true,
 			search: true,
+			scrollY: 300
 		});
 		$("#customerFail").bootstrapTable({
 			pagination: true,
 			search: true,
+			scrollY: 300
+		});
+		$("#customerDischargeFromHospital").bootstrapTable({
+			pagination: true,
+			search: true,
+			scrollY: 300
+		});
+		$("#customerStorage").bootstrapTable({
+			pagination: true,
+			search: true,
+			scrollY: 300
 		});
 	});
 
@@ -315,63 +327,6 @@ function convert_vi_to_en(str) {
 	);
 	str = str.replace(/  +/g, " ");
 	return str;
-}
-
-// var input = document.getElementById("myInput");
-// var li = document.getElementsByClassName("card");
-// input.addEventListener('input', (e) => {
-// 	var value = e.target.value;
-// 	var filters = convert_vi_to_en(value);
-// 	var a = document.getElementsByClassName("text-success");
-// 	for (i = 0; i < a.length; i++) {
-// 		txtValue = convert_vi_to_en(a[i].textContent) || convert_vi_to_en(a[i].innerText) ;
-// 		// console.log("content", a.textContent)
-// 		// console.log("innert", a.innerText)
-// 		var text1 = txtValue.toUpperCase();
-// 		var text2 = filters.toUpperCase();
-// 		if (text1.match(text2)) {
-// 			console.log('filter', text1);
-// 			console.log('txtValue', text2)
-// 			console.log('li', li[i]);
-// 			li[i].style.display = "";
-// 		} else {
-// 			li[i].style.display = "none";
-// 		}
-// 	}
-// })
-
-// var checkList = document.getElementById('list1');
-// checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
-// 	if (checkList.classList.contains('visible'))
-// 		checkList.classList.remove('visible');
-// 	else
-// 		checkList.classList.add('visible');
-// }
-
-let dropDown = document.getElementsByClassName('dropdown-item');
-let moveToBtns = document.getElementsByClassName('btn-moveTo');
-let potentialForm = document.forms['customer-potential-form'];
-let notOKForm = document.forms['customer-notOK-form'];
-let scheduleForm = document.forms['customer-schedule-form'];
-
-for (i = 0; i < dropDown.length; i++) {
-	let dropDownItem = dropDown[i];
-	dropDownItem.addEventListener('click', (e) => {
-		let value = e.target.innerHTML;
-		let cusID = e.target.getAttribute('data-cusID');
-		if(value === 'Tiềm năng') {
-			potentialForm.setAttribute("action", `/business/employ/customers/${cusID}/potential?_method=PATCH`);
-			potentialForm.submit();
-		}
-		if(value === 'Không thành công') {
-			notOKForm.setAttribute("action", `/business/employ/customers/${cusID}/notOK?_method=PATCH`);
-			notOKForm.submit();
-		}
-		if(value === 'Đặt lịch') {
-			notOKForm.setAttribute("action", `/business/employ/customers/${cusID}/schedule?_method=PATCH`);
-			notOKForm.submit();
-		}
-	})
 }
 
 var alertElement = document.getElementsByClassName('alert');

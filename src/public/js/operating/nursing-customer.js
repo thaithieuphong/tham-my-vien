@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
 				let closeButtonLink = document.createElement('button');
 				let divMain = document.createElement('div');
 				reader.addEventListener('load', (event) => {
-					// newImage.setAttribute('alt', filesAmount)
 					let src = event.target.result;
 					divMain.classList = 'col-xl-2 col-lg-3 col-md-4 col-sm-12 mt-3 mb-3 ml-2 mr-2 pl-0 pr-0 position-relative';
 					divMain.id = i;
@@ -42,48 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 		}
 	};
-
-	// let inputMultiVideoConselor = document.getElementById('input-multi-videos-counselor');
-	// inputMultiVideoConselor.addEventListener('change', (e) => {
-	// 	let files = e.target;//event.target.files;
-	// 	videosPreviewConselor(files);
-	// })
-
-	// let videosPreviewConselor = function (input) {
-	// 	let inputFiles = Array.from(input.files);
-	// 	if (input.files) {
-	// 		for (i = 0; i < inputFiles.length; i++) {
-	// 			let reader = new FileReader();
-	// 			reader.onload = function (event) {
-	// 				let newVideo = document.createElement('video');
-	// 				let closeButtonLink = document.createElement('button');
-	// 				let divMain = document.createElement('div');
-	// 				let src = event.target.result;
-	// 				divMain.classList = 'col-xl-2 col-lg-3 col-md-4 col-sm-12 mt-3 mb-3 ml-2 mr-2 pl-0 pr-0 position-relative';
-	// 				divMain.id = i;
-	// 				newVideo.src = src;
-	// 				newVideo.classList = 'img-fluid';
-	// 				newVideo.controls = true;
-	// 				newVideo.id = i;
-	// 				closeButtonLink.type = 'button';
-	// 				closeButtonLink.id = i;
-	// 				closeButtonLink.ariaLabel = 'Close';
-	// 				closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-2 mt-2 close-video';
-	// 				let videoc = document.querySelector('.preview-videos-counselor');
-	// 				divMain.append(newVideo, closeButtonLink);
-	// 				videoc.append(divMain);
-	// 				let closeBtn = document.querySelectorAll('.close-video');
-	// 				closeBtn.forEach(btn => {
-	// 					btn.addEventListener('click', (e) => {
-	// 						let parent = btn.parentElement;
-	// 						parent.remove();
-	// 					})
-	// 				})
-	// 			};
-	// 			reader.readAsDataURL(inputFiles[i]);
-	// 		}
-	// 	}
-	// };
 });
 
 function validatePhoneNumber(input_str) {
@@ -96,7 +53,6 @@ createPhone.addEventListener('input', (e) => {
 		document.getElementById('create_phone_error').classList.remove('off');
 	} else {
 		document.getElementById('create_phone_error').classList.add('off');
-			// alert("validation success")
 	}
 })
 
@@ -211,64 +167,6 @@ for(i=0; i < alertElement.length; i++) {
 	}
 }
 
-// //CREATE: submit create service note forms
-// var createServiceNote = document.getElementById("create-service-note-btn");
-// createServiceNote.addEventListener("click", () => {
-// 	createServiceNoteForm.submit();
-//   });
-// // Handle create service-note
-// var createServiceNoteForm = document.forms["create-service-note-form"]
-// var createServiceNote = document.getElementById("create-service-note-modal");
-// createServiceNote.addEventListener("show.bs.modal", function (event) {
-// 	// Button that triggered the modal
-// 	var button = event.relatedTarget;
-// 	// Get data from detail button
-// 	// Handle edit info Customer
-// 	var dataServiceNoteID = button.getAttribute("data-service-note-id");
-// 	var dataServiceNoteImg = button.getAttribute("data-service-note-img");
-// 	var dataFirstName = button.getAttribute("data-service-note-firstname");
-// 	var dataLastName = button.getAttribute("data-service-note-lastname");
-// 	var dataBirth = button.getAttribute("data-service-note-birth");
-// 	var dataGender = button.getAttribute("data-service-note-gender");
-// 	var dataPhone = button.getAttribute("data-service-note-phone");
-// 	var dataEmail = button.getAttribute("data-service-note-email");
-// 	var dataAddress = button.getAttribute("data-service-note-address");
-// 	var dataDescription = button.getAttribute("data-service-note-description");
-
-// 	// // Get element need embeded input
-// 	var serviceNoteCustomerID = document.getElementById('create-service-note-customerID');
-// 	var serviceNoteCustomerImg = document.getElementById('create-service-note-img');
-// 	var serviceNoteFirstLastName = document.getElementById(
-// 		"create-service-note-firstLastName"
-// 	);
-// 	var serviceNoteBirth = document.getElementById("create-service-note-birth");
-// 	var serviceNoteGender = document.getElementById("create-service-note-gender");
-// 	var serviceNotePhone = document.getElementById("create-service-note-phone");
-// 	var serviceNoteEmail = document.getElementById("create-service-note-email");
-// 	var serviceNoteAddress = document.getElementById(
-// 		"create-service-note-address"
-// 	);
-// 	var serviceNoteDescription = document.getElementById("create-service-note-description");
-
-// 	createServiceNoteForm.setAttribute(
-// 		"action",
-// 		`/operating-room/nursing/customers/${dataServiceNoteID}/service-note`
-// 	);
-// 	if (dataServiceNoteImg === '') {
-// 		serviceNoteCustomerImg.setAttribute('src', '/img/user-icon.png');
-// 	} else {
-// 		serviceNoteCustomerImg.setAttribute('src', dataServiceNoteImg);
-// 	}
-
-// 	serviceNoteCustomerID.value = dataServiceNoteID;
-// 	serviceNoteFirstLastName.innerHTML = dataFirstName + " " + dataLastName;
-// 	serviceNoteBirth.innerHTML = dataBirth;
-// 	serviceNoteGender.innerHTML = dataGender;
-// 	serviceNotePhone.innerHTML = dataPhone;
-// 	serviceNoteEmail.innerHTML = dataEmail;
-// 	serviceNoteAddress.innerHTML = dataAddress;
-// 	serviceNoteDescription.innerHTML = dataDescription;
-// });
 //Search
 function convert_vi_to_en(str) {
 	str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -292,111 +190,3 @@ function convert_vi_to_en(str) {
 	str = str.replace(/  +/g, " ");
 	return str;
 }
-
-// var input = document.getElementById("myInput");
-// var li = document.getElementsByClassName("card");
-// input.addEventListener('input', (e) => {
-// 	var value = e.target.value;
-// 	var filters = convert_vi_to_en(value);
-// 	var a = document.getElementsByClassName("text-success");
-// 	for (i = 0; i < a.length; i++) {
-// 		txtValue = convert_vi_to_en(a[i].textContent) || convert_vi_to_en(a[i].innerText) ;
-// 		// console.log("content", a.textContent)
-// 		// console.log("innert", a.innerText)
-// 		var text1 = txtValue.toUpperCase();
-// 		var text2 = filters.toUpperCase();
-// 		if (text1.match(text2)) {
-// 			console.log('filter', text1);
-// 			console.log('txtValue', text2)
-// 			console.log('li', li[i]);
-// 			li[i].style.display = "";
-// 		} else {
-// 			li[i].style.display = "none";
-// 		}
-// 	}
-// })
-
-// var checkList = document.getElementById('list1');
-// checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
-// 	if (checkList.classList.contains('visible'))
-// 		checkList.classList.remove('visible');
-// 	else
-// 		checkList.classList.add('visible');
-// }
-
-//CREATE: submit create service note forms
-// var createScheduleBtn = document.getElementById("create-schedule-btn");
-// var createScheduleForm = document.forms["create-schedule-form"];
-// createScheduleBtn.addEventListener("click", () => {
-// 	createScheduleForm.submit();
-// });
-// Handle create service-note
-// var createSchedule = document.getElementById("create-schedule-modal");
-// createSchedule.addEventListener("show.bs.modal", function (event) {
-	// Button that triggered the modal
-	// var button = event.relatedTarget;
-	// Get data from detail button
-	// Handle edit info Customer
-	// var dataScheduleID = button.getAttribute("data-schedule-id");
-	// var dataScheduleImg = button.getAttribute("data-schedule-img");
-	// var dataNickName = button.getAttribute("data-schedule-nickname");
-	// var dataBirth = button.getAttribute("data-schedule-birth");
-	// var dataGender = button.getAttribute("data-schedule-gender");
-	// var dataPhone = button.getAttribute("data-schedule-phone");
-	// var dataEmail = button.getAttribute("data-schedule-email");
-	// var dataAddress = button.getAttribute("data-schedule-address");
-	// var dataDescription = button.getAttribute("data-schedule-description");
-
-	// // // Get element need embeded input
-	// var scheduleCustomerID = document.getElementById('create-schedule-customerID');
-	// var scheduleCustomerImg = document.getElementById('create-schedule-img');
-	// var scheduleNickName = document.getElementById(
-	// 	"create-schedule-nickName"
-	// );
-	// var scheduleBirth = document.getElementById("create-schedule-birth");
-	// var scheduleGender = document.getElementById("create-schedule-gender");
-	// var schedulePhone = document.getElementById("create-schedule-phone");
-	// var scheduleEmail = document.getElementById("create-schedule-email");
-	// var scheduleAddress = document.getElementById("create-schedule-address");
-	// var scheduleDescription = document.getElementById("create-schedule-description");
-
-	// createScheduleForm.setAttribute(
-	// 	"action",
-	// 	`/operating-room/nursing/schedule/create`
-	// );
-	// if (dataScheduleImg === '') {
-	// 	scheduleCustomerImg.setAttribute('src', '/img/user-icon.png');
-	// } else {
-	// 	scheduleCustomerImg.setAttribute('src', dataScheduleImg);
-	// }
-
-	// scheduleCustomerID.value = dataScheduleID;
-	// scheduleNickName.innerHTML = dataNickName;
-	// scheduleBirth.innerHTML = formatBirth(dataBirth);
-	// scheduleGender.innerHTML = dataGender;
-	// schedulePhone.innerHTML = dataPhone;
-	// scheduleEmail.innerHTML = dataEmail;
-	// scheduleAddress.innerHTML = dataAddress;
-	// scheduleDescription.innerHTML = dataDescription;
-// });
-
-// var inputSearch = document.getElementById('search-customer'); // Lấy thẻ input từ giao diện
-// inputSearch.addEventListener('keyup', (e) => {
-// 	let value = e.target.value.toLowerCase(); // Lấy giá trị được nhập vào từ thẻ input
-// 	getData(value);
-// });
-
-// function getData(value) {
-// 	const cards = document.querySelectorAll('.card');
-// 	cards.forEach(card => {
-// 		let fullName = card.querySelector('.text-fullName');
-// 		let nickName = card.querySelector('.text-nickName');
-// 		let idendify = card.querySelector('.text-identify');
-// 		let textFullName = fullName.innerHTML;
-// 		let textNickName = nickName.innerHTML;
-// 		let textIdentify = idendify.innerHTML;
-// 		let obj = { fullName: textFullName, nickName: textNickName, idendify: textIdentify, element: card }
-// 		const isVisible = obj.fullName.toLowerCase().includes(value) || obj.nickName.toLowerCase().includes(value) || obj.idendify.toLowerCase().includes(value);
-// 		card.classList.toggle('off', !isVisible);
-// 	})
-// }

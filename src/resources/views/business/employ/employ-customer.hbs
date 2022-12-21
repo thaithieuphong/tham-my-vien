@@ -43,9 +43,9 @@
                 class="ti-menu"></i>
         </button>
     </nav>
-	<div class="redirect-bar bg-blue d-flex justify-content-between">
+	<div class="redirect-bar bg-blue d-flex justify-content-between" style="height: 48px;">
 		<div></div>
-		<button type="button" data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="btn btn-sm text-light btn-primary rounded-pill m-2 border"><i class="ti-plus"></i> Tạo khách hàng</button>
+		<button type="button" data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="btn btn-sm text-light btn-primary rounded-pill mt-2 ml-2 mb-2 mr-3 border">Tạo khách hàng</button>
 	</div>
 </div>
 {{#if messages_createSchedule_success}}
@@ -66,11 +66,11 @@
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 {{/if}}
-<div class="container-fluid">
-	<div class="tab-content mt-3" id="pills-tabContent">
+<div class="ps-3 pe-3 mb-5">
+	<div class="tab-content" id="pills-tabContent">
 		<div class="tab-pane fade show active" id="pills-customer-new" role="tabpanel" aria-labelledby="pills-new-tab">
-			<table id="customerNew" class="table table-hover table-sm table-bordered">
-				<thead class="bg-primary">
+			<table id="customerNew" class="table table-striped table-hover table-sm table-bordered table-sm">
+				<thead class="bg-blue">
 					<tr class="text-light">
 						<th class="text-center">#</th>
 						<th class="text-center">Họ tên</th>
@@ -84,16 +84,16 @@
 				</thead>
 				<tbody id="table-content">
 					{{#each cusNew}}
-					<tr class="text-light">
+					<tr class="text-dark">
 						<th class="text-center" scope="row">{{sum @index 1}}</th>
-						<td><a class="link-light" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
+						<td><a class="link-primary" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
 						<td class="text-center">0{{this.phone}}</td>
 						<td class="text-center">{{this.resource}}</td>
 						<td class="text-center">{{formatDate this.createdAt}}</td>
 						<div data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.description}}">
-						<td class="text-nowrap">
+							<td class="text-nowrap">
 								{{cutPassword this.description 16}}
-						</td>
+							</td>
 						</div>
 						<td class="text-center">{{this.statusCus.statusVi}}</td>
 						<td class="text-center">
@@ -104,26 +104,39 @@
 								data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
 								data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
 								data-edit-resource="{{this.resource}}"
-								data-edit-description="{{this.description}}"><i class="ti-pencil-alt"></i>
+								data-edit-description="{{this.description}}">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa thông tin khách hàng">
+									<i class="ti-pencil-alt"></i>
+								</div>
 							</button>
 							<!-- Example single danger button -->
-							<button class="btn btn-primary btn-sm border" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-arrow-right-arrow-left"></i>
+							<button class="btn btn-primary btn-sm border" data-bs-toggle="dropdown" aria-expanded="false">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển trạng thái">
+									<i class="fa-solid fa-arrow-right-arrow-left"></i>
+								</div>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a type="submit" class="dropdown-item border" data-potential="Potential" data-cusID="{{this._id}}">Tiềm năng</a></li>
+								<li>
+									<form id="customer-potential-form" method="POST" action="/business/employ/customers/{{this._id}}/potential?_method=PATCH">
+										<button type="submit" class="dropdown-item border" data-potential="Potential" data-cusID="{{this._id}}">Tiềm năng</button>
+									</form>
+								</li>
 								<li><hr class="dropdown-divider"></li>
-								<li><a type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</a></li>
+								<li>
+									<form id="customer-notOK-form" method="POST" action="/business/employ/customers/{{this._id}}/notOK?_method=PATCH">
+										<button type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</button>
+									</form>
+								</li>
 							</ul>
 						</td>
 					</tr>
 					{{/each}}
 				</tbody>
 			</table>
-			<form id="customer-potential-form" method="POST"></form>
 		</div>
-		<div class="tab-pane fade mr-3 ml-3" id="pills-customer-potential" role="tabpanel" aria-labelledby="pills-potential-tab">
-			<table id="customerPotential" class="table table-hover table-sm table-bordered">
-				<thead class="bg-primary">
+		<div class="tab-pane fade" id="pills-customer-potential" role="tabpanel" aria-labelledby="pills-potential-tab">
+			<table id="customerPotential" class="table table-striped table-hover table-sm table-bordered display">
+				<thead class="bg-blue">
 					<tr class="text-light">
 						<th class="text-center">#</th>
 						<th class="text-center">Họ tên</th>
@@ -137,9 +150,9 @@
 				</thead>
 				<tbody id="table-content">
 					{{#each cusPotential}}
-					<tr class="text-light">
+					<tr class="text-dark">
 						<th class="text-center" scope="row">{{sum @index 1}}</th>
-						<td><a class="link-light" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
+						<td><a class="link-primary" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
 						<td class="text-center">0{{this.phone}}</td>
 						<td class="text-center">{{this.resource}}</td>
 						<td class="text-center">{{formatDate this.createdAt}}</td>
@@ -158,51 +171,38 @@
 								data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
 								data-edit-resource="{{this.resource}}"
 								data-edit-description="{{this.description}}">
-								<i class="ti-pencil-alt"></i>
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa thông tin khách hàng">
+									<i class="ti-pencil-alt"></i>
+								</div>
 							</button>
-							<button class="btn btn-primary btn-sm border" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-arrow-right-arrow-left"></i>
+							<button class="btn btn-primary btn-sm border" data-bs-toggle="dropdown" aria-expanded="false">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển trạng thái">
+									<i class="fa-solid fa-arrow-right-arrow-left"></i>
+								</div>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a type="submit" class="dropdown-item" data-potential="Schedule" data-cusID="{{this._id}}">Đặt lịch</a></li>
+								<li>
+									<form id="customer-schedule-form" method="POST" action="/business/employ/customers/{{this._id}}/schedule?_method=PATCH">
+										<button type="submit" class="dropdown-item" data-potential="Schedule" data-cusID="{{this._id}}">Đặt lịch</button>
+									</form>
+								</li>
 								<li><hr class="dropdown-divider"></li>
-								<li><a type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</a></li>
+								<li>
+									<form id="customer-notOK-form" method="POST" action="/business/employ/customers/{{this._id}}/notOK?_method=PATCH">
+										<button type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</button>
+									</form>
+								</li>
 							</ul>
 						</td>
-						{{!-- <td class="text-center">
-							<button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal"
-								data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
-								data-edit-img="{{this.image.name}}" data-edit-firstname="{{this.firstName}}"
-								data-edit-lastname="{{this.lastName}}" data-edit-birth="{{this.birth}}"
-								data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
-								data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
-								data-edit-resource="{{this.resource}}"
-								data-edit-description="{{this.description}}">
-								Sửa
-							</button>
-							<button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-service-note-id="{{this._id}}"
-								data-service-note-img="{{this.image.name}}"
-								data-service-note-firstname="{{this.firstName}}"
-								data-service-note-lastname="{{this.lastName}}"
-								data-service-note-birth="{{this.birth}}"
-								data-service-note-gender="{{this.gender}}"
-								data-service-note-phone="{{this.phone}}"
-								data-service-note-email="{{this.email}}"
-								data-service-note-address="{{this.address}}"
-								data-service-note-description="{{this.description}}" {{#each
-								this.serviceNoteID}} data-service-note-serviceID="{{this.service}}" {{/each}}
-								data-bs-target="#create-service-note-modal">
-								Đặt lịch
-							</button>
-						</td> --}}
 					</tr>
 					{{/each}}
 				</tbody>
 			</table>
 		</div>
 
-		<div class="tab-pane fade mr-3 ml-3" id="pills-customer-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
-			<table id="customerSchedule" class="table table-hover table-sm table-bordered">
-				<thead class="bg-primary">
+		<div class="tab-pane fade" id="pills-customer-schedule" role="tabpanel" aria-labelledby="pills-schedule-tab">
+			<table id="customerSchedule" class="table table-striped table-hover table-sm table-bordered display">
+				<thead class="bg-blue">
 					<tr class="text-light">
 						<th class="text-center">#</th>
 						<th class="text-center">Họ tên</th>
@@ -216,9 +216,9 @@
 				</thead>
 				<tbody id="table-content">
 					{{#each cusSchedule}}
-					<tr class="text-light">
+					<tr class="text-dark">
 						<th class="text-center" scope="row">{{sum @index 1}}</th>
-						<td><a class="link-light" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
+						<td><a class="link-primary" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
 						<td class="text-center">0{{this.phone}}</td>
 						<td class="text-center">{{this.resource}}</td>
 						<td class="text-center">{{formatDate this.createdAt}}</td>
@@ -237,19 +237,27 @@
 								data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
 								data-edit-resource="{{this.resource}}"
 								data-edit-description="{{this.description}}">
-								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa thông tin khách hàng">
 									<i class="ti-pencil-alt"></i>
 								</div>
 							</button>
 							<button class="btn btn-primary btn-sm border" data-bs-toggle="dropdown" aria-expanded="false">
-								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển hướng">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển trạng thái">
 									<i class="fa-solid fa-arrow-right-arrow-left"></i>
 								</div>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a type="submit" class="dropdown-item" data-potential="Potential" data-cusID="{{this._id}}">Tiềm năng</a></li>
+								<li>
+									<form id="customer-potential-form" method="POST" action="/business/employ/customers/{{this._id}}/potential?_method=PATCH">
+										<button type="submit" class="dropdown-item" data-potential="Potential" data-cusID="{{this._id}}">Tiềm năng</button>
+									</form>
+								</li>
 								<li><hr class="dropdown-divider"></li>
-								<li><a type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</a></li>
+								<li>
+									<form id="customer-notOK-form" method="POST" action="/business/employ/customers/{{this._id}}/notOK?_method=PATCH">
+										<button type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</button>
+									</form>
+								</li>
 							</ul>
 							<button class="btn btn-success border btn-sm" data-bs-toggle="modal" data-schedule-id="{{this._id}}"
 								data-schedule-img="{{this.image.name}}"
@@ -262,7 +270,7 @@
 								data-schedule-description="{{this.description}}" {{#each
 								this.serviceNoteID}} data-schedule-serviceID="{{this.service}}" {{/each}}
 								data-bs-target="#create-schedule-modal">
-								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Đặt lịch">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Đặt lịch hẹn tư vấn">
 									<i class="ti-calendar"></i>
 								</div>
 							</button>
@@ -273,9 +281,9 @@
 			</table>
 		</div>
 
-		<div class="tab-pane fade mr-3 ml-3" id="pills-customer-fail" role="tabpanel" aria-labelledby="pills-fail-tab">
-			<table id="customerFail" class="table table-hover table-sm table-bordered">
-				<thead class="bg-primary">
+		<div class="tab-pane fade" id="pills-customer-fail" role="tabpanel" aria-labelledby="pills-fail-tab">
+			<table id="customerFail" class="table table-striped table-hover table-sm table-bordered display">
+				<thead class="bg-blue">
 					<tr class="text-light">
 						<th class="text-center">#</th>
 						<th class="text-center">Họ tên</th>
@@ -288,9 +296,9 @@
 				</thead>
 				<tbody id="table-content">
 					{{#each cusFail}}
-					<tr class="text-light">
+					<tr class="text-dark">
 						<th class="text-center" scope="row">{{sum @index 1}}</th>
-						<td><a class="link-light" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
+						<td><a class="link-primary" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
 						<td class="text-center">0{{this.phone}}</td>
 						<td class="text-center">{{this.resource}}</td>
 						<td class="text-center">{{formatDate this.createdAt}}</td>
@@ -304,146 +312,144 @@
 								data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
 								data-edit-resource="{{this.resource}}"
 								data-edit-description="{{this.description}}">
-								<i class="ti-pencil-alt"></i>
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa thông tin khách hàng">
+									<i class="ti-pencil-alt"></i>
+								</div>
 							</button>
-							<button class="btn btn-primary border btn-sm" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-arrow-right-arrow-left"></i>
+							<button class="btn btn-primary border btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển trạng thái">
+									<i class="fa-solid fa-arrow-right-arrow-left"></i>
+								</div>
 							</button>
 							<ul class="dropdown-menu">
-								<li><a type="submit" class="dropdown-item" data-potential="Potential" data-cusID="{{this._id}}">Tiềm năng</a></li>
+								<li>
+									<form id="customer-potential-form" method="POST" action="/business/employ/customers/{{this._id}}/potential?_method=PATCH">
+										<button type="submit" class="dropdown-item" data-potential="Potential" data-cusID="{{this._id}}">Tiềm năng</button>
+									</form>
+								</li>
 								<li><hr class="dropdown-divider"></li>
-								<li><a type="submit" class="dropdown-item" data-notOK="Schedule" data-cusID="{{this._id}}">Đặt lịch</a></li>
+								<li>
+									<form id="customer-schedule-form" method="POST" action="/business/employ/customers/{{this._id}}/schedule?_method=PATCH">
+										<button type="submit" class="dropdown-item" data-notOK="Schedule" data-cusID="{{this._id}}">Đặt lịch</button>
+									</form>
+								</li>
 							</ul>
 						</td>
 					</tr>
 					{{/each}}
 				</tbody>
 			</table>
-			<form id="customer-notOK-form" method="POST"></form>
-			<form id="customer-schedule-form" method="POST"></form>
+		</div>
+
+		<div class="tab-pane fade" id="pills-customer-discharge-from-hospital" role="tabpanel" aria-labelledby="pills-discharge-from-hospital-tab">
+			<table id="customerDischargeFromHospital" class="table table-striped table-hover table-sm table-bordered display">
+				<thead class="bg-blue">
+					<tr class="text-light">
+						<th class="text-center">#</th>
+						<th class="text-center">Họ tên</th>
+						<th class="text-center">Số điện thoại</th>
+						<th class="text-center">Nguồn</th>
+						<th class="text-center">Ngày tạo</th>
+						<th class="text-center">Trạng thái</th>
+					</tr>
+				</thead>
+				<tbody id="table-content">
+					{{#each customerDischargeFromHospital}}
+					<tr class="text-dark">
+						<th class="text-center" scope="row">{{sum @index 1}}</th>
+						<td><a class="link-primary" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
+						<td class="text-center">0{{this.phone}}</td>
+						<td class="text-center">{{this.resource}}</td>
+						<td class="text-center">{{formatDate this.createdAt}}</td>
+						<td class="text-center">{{this.statusCus.statusVi}}</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+
+		<div class="tab-pane fade" id="pills-customer-storage" role="tabpanel" aria-labelledby="pills-storage-tab">
+			<table id="customerStorage" class="table table-striped table-hover table-sm table-bordered display">
+				<thead class="bg-blue">
+					<tr class="text-light">
+						<th class="text-center">#</th>
+						<th class="text-center">Họ tên</th>
+						<th class="text-center">Số điện thoại</th>
+						<th class="text-center">Nguồn</th>
+						<th class="text-center">Ngày tạo</th>
+						<th class="text-center">Trạng thái</th>
+						<th class="text-center">Hành động</th>
+					</tr>
+				</thead>
+				<tbody id="table-content">
+					{{#each customerStorage}}
+					<tr class="text-dark">
+						<th class="text-center" scope="row">{{sum @index 1}}</th>
+						<td><a class="link-primary" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
+						<td class="text-center">0{{this.phone}}</td>
+						<td class="text-center">{{this.resource}}</td>
+						<td class="text-center">{{formatDate this.createdAt}}</td>
+						<td class="text-center">{{this.statusCus.statusVi}}</td>
+						<td class="text-center">
+							<button class="btn btn-primary border btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển trạng thái">
+									<i class="fa-solid fa-arrow-right-arrow-left"></i>
+								</div>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<form id="customer-schedule-form" method="POST" action="/business/employ/customers/{{this._id}}/schedule?_method=PATCH">
+										<button type="submit" class="dropdown-item" data-notOK="Schedule" data-cusID="{{this._id}}">Đặt lịch</button>
+									</form>
+								</li>
+							</ul>
+						</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
-<ul class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column fixed-bottom bg-blue ml-0" id="pills-tab" role="tablist">
+<ul class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column fixed-bottom bg-blue ml-0" style="height: 40px;" id="pills-tab" role="tablist">
 	<li class="nav-item" role="presentation">
 		<button class="nav-link active text-white" id="pills-new-tab" data-bs-toggle="pill"
 			data-bs-target="#pills-customer-new" type="button" role="tab" aria-controls="pills-new-tab"
 			aria-selected="false">
-				Tạo mới <label class="badge bg-danger rounded-pill">{{count cusNew}}</label>
+			Khách mới <label class="badge bg-danger rounded-pill">{{count cusNew}}</label>
   		</button>
 	</li>
 	<li class="nav-item" role="presentation">
 		<button class="nav-link text-white" id="pills-potential-tab" data-bs-toggle="pill" data-bs-target="#pills-customer-potential"
 			type="button" role="tab" aria-controls="pills-potential-tab" aria-selected="false">
-			Tiềm năng <label class="badge rounded-pill bg-danger">{{count cusPotential}}</label>
+			Khách tiềm năng <label class="badge rounded-pill bg-danger">{{count cusPotential}}</label>
 		</button>
 	</li>
 	<li class="nav-item" role="presentation">
 		<button class="nav-link text-white" id="pills-schedule-tab" data-bs-toggle="pill" data-bs-target="#pills-customer-schedule"
 			type="button" role="tab" aria-controls="pills-schedule-tab" aria-selected="false">
-			Đặt lịch <label class="badge rounded-pill bg-danger">{{count cusSchedule}}</label>
+			Khách đặt lịch <label class="badge rounded-pill bg-danger">{{count cusSchedule}}</label>
 		</button>
 	</li>
 	<li class="nav-item" role="presentation">
 		<button class="nav-link text-white" id="pills-fail-tab" data-bs-toggle="pill" data-bs-target="#pills-customer-fail"
 			type="button" role="tab" aria-controls="pills-fail-tab" aria-selected="false">
-			Not OK <label class="badge rounded-pill bg-danger">{{count cusFail}}</label>
+			Khách tư vấn không thành công <label class="badge rounded-pill bg-danger">{{count cusFail}}</label>
+		</button>
+	</li>
+	<li class="nav-item" role="presentation">
+		<button class="nav-link text-white" id="pills-discharge-from-hospital-tab" data-bs-toggle="pill" data-bs-target="#pills-customer-discharge-from-hospital"
+			type="button" role="tab" aria-controls="pills-discharge-from-hospital-tab" aria-selected="false">
+			Khách xuất viện <label class="badge rounded-pill bg-danger">{{count customerDischargeFromHospital}}</label>
+		</button>
+	</li>
+	<li class="nav-item" role="presentation">
+		<button class="nav-link text-white" id="pills-storage-tab" data-bs-toggle="pill" data-bs-target="#pills-customer-storage"
+			type="button" role="tab" aria-controls="pills-storage-tab" aria-selected="false">
+			Khách hoàn thành <label class="badge rounded-pill bg-danger">{{count customerStorage}}</label>
 		</button>
 	</li>
 </ul>
-{{!-- <div class="container-table mr-3 mt-3">
-</div>
-<div class="container-fluid">
-	<div class="row">
-		{{#each customers}}
-		<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs">
-			<div class="card mt-3 mb-3 text-center">
-				{{#if this.image}}
-				<figure class="figure">
-					<img src="{{this.image.url}}" class="figure-img img-thumbnail rounded" alt="...">
-				</figure>
-				{{else}}
-				<img src="/img/user-icon.png" class="card-img-top" alt="...">
-				{{/if}}
-				<div class="card-body">
-					<h5 class="card-title"><a href="/business/employ/customers/{{this._id}}/detail"
-							class="text-success">{{this.firstName}} {{this.lastName}}</a></h5>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Ngày sinh:</strong>&nbsp;
-						</label>
-						<label
-						class="text-primary form-label text-right">{{formatBirth this.birth}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Giới tính:</strong>&nbsp;
-						</label>
-						<label
-						class="text-primary form-label text-right">{{this.gender}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Số điện thoại:</strong>&nbsp;
-						</label>
-						<label
-						class="text-primary form-label text-right">0{{this.phone}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Email:</strong>&nbsp;
-						</label>
-						<label
-						class="text-primary form-label text-right">{{this.email}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Địa chỉ:</strong>&nbsp;
-						</label>
-						<label
-						class="text-primary form-label text-right">{{this.address}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Nguồn:</strong>&nbsp;
-						</label>
-						<label
-						class="text-primary form-label text-right">{{this.resource}}</label>
-					</div>
-					<div class="d-flex justify-content-between">
-						<label for="status">
-							<strong>Mô tả:</strong>&nbsp;
-						</label>
-					</div>
-					<label class="text-primary">{{this.description}}</label>
-				</div>
-				<div class="card-footer bg-transparent text-center">
-					<button type="button" class="btn btn-primary btn-mobile mb-1 rounded-circle" data-bs-toggle="modal"
-						data-bs-target="#edit-customer-modal" data-id="{{this._id}}" data-edit-img="{{this.image.url}}"
-						data-edit-firstname="{{this.firstName}}" data-edit-lastname="{{this.lastName}}"
-						data-edit-birth="{{this.birth}}" data-edit-gender="{{this.gender}}"
-						data-edit-phone="{{this.phone}}" data-edit-email="{{this.email}}"
-						data-edit-address="{{this.address}}" data-edit-resource="{{this.resource}}" data-edit-description="{{this.description}}">
-						Sửa thông tin
-					</button>
-					<button type="button" class="btn btn-success btn-mobile mb-1" data-bs-toggle="modal"
-						data-service-note-id="{{this._id}}" data-service-note-img="{{this.image.url}}"
-						data-service-note-firstname="{{this.firstName}}" data-service-note-lastname="{{this.lastName}}"
-						data-service-note-birth="{{this.birth}}" data-service-note-gender="{{this.gender}}"
-						data-service-note-phone="{{this.phone}}" data-service-note-email="{{this.email}}"
-						data-service-note-address="{{this.address}}"
-						data-service-note-description="{{this.description}}" {{#each this.serviceNoteID}}
-						data-service-note-serviceID="{{this.service}}" {{/each}}
-						data-bs-target="#create-service-note-modal">
-						Tạo phiếu
-					</button>
-				</div>
-			</div>
-		</div>
-		{{/each}}
-	</div>
-</div> --}}
-
-
 
 <!-- Modal Create Customer -->
 <div class="modal fade" id="create-customer-modal" tabindex="-1" aria-labelledby="create-customer-modal"
@@ -753,7 +759,6 @@
 									</optgroup>
 									{{/each}}
 								</select>
-								{{!-- <label for="select-service" class="text-light">Chọn dịch vụ:</label> --}}
 							</div>
 
 								<div id="list1" class="dropdown-check-list container-card" tabindex="100">
@@ -793,7 +798,6 @@
 								<textarea class="form-control bg-transparent text-light" id="create-schedule-description" rows="6" name="comment"></textarea>
 								<label for="create-schedule-description" class="text-light">Ghi chú</label>
 							</div>
-							{{!-- <input  type="text" value="{{schedule.customerID._id}}" name="customerID"> --}}
 							<div class="preview-images-counselor row ml-0 text-center"></div>
 							<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-end" data-input-img-id="{{schedule._id}}">
 								<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill"><i class="ti-cloud-up fw-bold pr-1"></i>Chọn ảnh trước tư vấn</h5>

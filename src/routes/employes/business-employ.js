@@ -15,8 +15,10 @@ router.post('/customers', validateUploadImage.uploadSingleCustomer, EmployBusine
 router.post('/schedule/exam', EmployBusinessController.createReExam);
 router.post('/change-pass', AuthController.changePassword);
 
+router.get('/service-note/:id/detail', EmployBusinessController.showServiceNoteDetail);
 router.get('/customers/:id/detail', EmployBusinessController.showCustomerDetail);
 router.get('/schedule', EmployBusinessController.showSchedule);
+router.get('/customer/:id/discharge-from-hospital-detail', EmployBusinessController.showCustomerDischargeFromHospitalDetail);
 router.get('/customers', EmployBusinessController.showCustomer);
 router.get('/profile', EmployBusinessController.showProfile);
 router.get('/', EmployBusinessController.showDashboard);

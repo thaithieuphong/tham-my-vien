@@ -68,7 +68,7 @@
 						<label for=""class="fs-6 text-light text-right">
 							<em>{{this.firstName}} {{this.lastName}}</em>
 						</label>
-						<input value="{{this._id}}" name="performer[]" hidden>
+						<input value="{{this._id}}" name="performer" hidden>
 						{{/each}}
 					</div>
 					<div class="row">
@@ -136,6 +136,18 @@
 								<h5 id="text-img-reExamination" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border"><i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
 							</label>
 							<input id="input-multi-videos-reExamination" class="form-control" type="file" name="reExamination" hidden multiple>
+						</div>
+						<div class="text-light">
+							<label for="steps-to-take-area"><strong>Tình trạng khách hàng:</strong></label>
+						</div>
+						<div class="mb-4">
+							<textarea class="form-control mr-3 pl-3 bg-transparent text-light" name="statusInfo" cols="30" rows="6">{{reExam.stepsToTake}}</textarea>
+						</div>
+						<div class="text-light">
+							<label for="steps-to-take-area"><strong>Chỉ định của bác sĩ:</strong></label>
+						</div>
+						<div class="mb-4">
+							<textarea class="form-control mr-3 pl-3 bg-transparent text-light" name="directedByDoctor" cols="30" rows="6">{{reExam.stepsToTake}}</textarea>
 						</div>
 						<div class="text-light">
 							<label for="steps-to-take-area"><strong>Các bước thực hiện:</strong></label>

@@ -16,6 +16,21 @@ const Customer = new Schema({
 	address: String,
 	description: String,
 	resource: String,
+	logStatus: [
+		{
+			type: new mongoose.Schema(
+				{
+					statusCus: {
+						statusVi: String,
+						statusEng: String
+					},
+					surgeryDay: String,
+				},
+				{ timestamps: true }
+			)
+		}
+	],
+	storage: String,
 	image: {
 		name: String,
 		url: String,

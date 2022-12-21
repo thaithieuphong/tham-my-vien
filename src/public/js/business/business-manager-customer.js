@@ -163,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function () {
 				let closeButtonLink = document.createElement('button');
 				let divMain = document.createElement('div');
 				reader.addEventListener('load', (event) => {
-					// newImage.setAttribute('alt', filesAmount)
 					let src = event.target.result;
 					divMain.classList = 'col-xl-2 col-lg-3 col-md-4 col-sm-12 mt-3 mb-3 ml-2 mr-2 pl-0 pr-0 position-relative';
 					divMain.id = i;
@@ -308,20 +307,12 @@ function myFunctionCTV() {
 	}
 }
 
-// Handle message
-// var alertMessage = document.getElementById('alert-message');
-//
 var checkList = document.getElementById('list1');
-	checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
-		if (checkList.classList.contains('visible'))
-			checkList.classList.remove('visible');
-		else
-			checkList.classList.add('visible');
-	}
-
-
-function handleFileSelect(){
-	
+checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+	if (checkList.classList.contains('visible'))
+		checkList.classList.remove('visible');
+	else
+		checkList.classList.add('visible');
 }
 
 function _handleReaderLoaded(readerEvt) {

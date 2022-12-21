@@ -76,28 +76,22 @@
 			</tr>
 		</thead>
 		<tbody id="table-content">
-			{{#each serviceNote}}
+			{{#each customers}}
 			<tr class="text-nowrap text-value">
 				<th class="text-center">{{sum @index 1}}</th>
-				<td class="text-identify">{{this.scheduleID.customerID.identification}}</td>
-				<td class="text-fullName"><a class="fullName-link" href="/customer-care/employ/customers/{{this._id}}/detail">{{this.scheduleID.customerID.fullName}}</a></td>
-				<td class="text-nickName">{{this.scheduleID.customerID.nickName}}</td>
-				<td class="">{{this.scheduleID.customerID.gender}}</td>
-				<td class="text-phone">0{{this.scheduleID.customerID.phone}}</td>
-				<td class="text-status">{{this.status}}</td>
+				<td class="text-identify">{{this.identification}}</td>
+				<td class="text-fullName"><a class="fullName-link" href="/customer-care/employ/storage/{{this._id}}/detail">{{this.fullName}}</a></td>
+				<td class="text-nickName">{{this.nickName}}</td>
+				<td class="">{{this.gender}}</td>
+				<td class="text-phone">0{{this.phone}}</td>
+				<td class="text-status">{{this.statusCus.statusVi}}</td>
 				<td class="text-center">
 					<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Tạo lịch tái khám">
 						<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#create-re-exam-modal-customer-care"
-						data-id="{{this._id}}" data-cusId="{{this.scheduleID.customerID._id}}" data-identification="{{this.scheduleID.customerID.identification}}"
-						data-fullName="{{this.scheduleID.customerID.fullName}}" data-nickName="{{this.scheduleID.customerID.nickName}}" data-gender="{{this.scheduleID.customerID.gender}}"
-						data-phone="{{this.scheduleID.customerID.phone}}">
+						data-id="{{this._id}}" data-cusId="{{this._id}}" data-identification="{{this.identification}}"
+						data-fullName="{{this.fullName}}" data-nickName="{{this.nickName}}" data-gender="{{this.gender}}"
+						data-phone="{{this.phone}}">
 							<i class="fa-sharp fa-solid fa-calendar-plus"></i>
-						</button>
-					</div>
-					<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Lưu hồ sơ">
-						<button class="btn btn-success btn-sm" data-fullName-customer-care="{{this.scheduleID.customerID.fullName}}" data-cusID="{{this.scheduleID.customerID._id}}"
-						data-bs-toggle="modal" data-bs-target="#submit-service-note-done-modal-customer-care" data-id-customer-care="{{this._id}}">
-							<i class="fa-sharp fa-solid fa-boxes-packing"></i>
 						</button>
 					</div>
 				</td>

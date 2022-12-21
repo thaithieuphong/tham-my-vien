@@ -1,155 +1,209 @@
 <link rel="stylesheet" href="/css/root.css">
 <link rel="stylesheet" href="/css/assistant.css">
-<div class="sticky-top">
-	<div class="redirect-bar bg-primary">
-		<a class="ml-3 text-light" type="button" onclick="history.back()"><i class="ti-arrow-left"></i> Quay lại</a>
-	</div>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-blue border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-blue">
+		<div class="sidebar-item">
+            <a href="/customer-care/employ/customers" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i> Danh sách khách hàng xuất viện
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/customer-care/employ/re-exam" class="sidebar-item-title pl-3">
+                <i class="fa-regular fa-calendar mr-3"></i> Danh sách lịch tái khám
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/customer-care/employ/storage" class="sidebar-item-title pl-3">
+                <i class="fa-sharp fa-solid fa-boxes-packing mr-3"></i>Kho lưu trữ hồ sơ
+            </a>
+        </div>
+    </div>
+	<div class="offcanvas-footer bg-blue border-top">
+        <div class="sidebar-item">
+            <a href="/business/employ/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
 </div>
-<div class="container-fluid mt-3">
-	<ul class="list-group">
-		<li class="list-group-item">
-			<div class="row">
-				<div class="col-6">		
-					<div class="d-flex justify-content-start">
-						<label class="text-dark">Mã khách hàng:</label>&nbsp;
-						<div class="text-danger">{{serviceNote.customerID._id}}</div>
-					</div>
-					<div class="d-flex justify-content-start">
-						<label class="text-dark">Họ tên:</label>&nbsp;
-						<div class="text-primary">{{serviceNote.customerID.firstName}} {{serviceNote.customerID.lastName}}</div>
-					</div>
-					<div class="d-flex justify-content-start">
-						<label class="text-dark">Ngày sinh:</label>&nbsp;{{formatBirth serviceNote.customerID.birth}}
-					</div>
-					<div class="d-flex justify-content-start">
-						<label class="text-dark">Giới tính:</label>&nbsp;{{serviceNote.customerID.gender}}
-					</div>
-					<div class="d-flex justify-content-start">
-						<label class="text-dark">Trạng thái:</label>&nbsp;{{serviceNote.status}}
-					</div>
-				</div>
-				<div class="col-6">
-					<div class="d-flex justify-content-start">
-						<label class="text-dark">Số điện thoại:</label>&nbsp;0{{serviceNote.customerID.phone}}
-					</div>
-					<div class="d-flex justify-content-start">
-						<label class="text-dark">Email:</label>&nbsp;{{serviceNote.customerID.email}}
-					</div>
-					<div class="d-flex justify-content-start">
-						<label class="text-dark">Địa chỉ:</label>&nbsp;{{serviceNote.customerID.address}}
-					</div>
-					<div class="d-flex justify-content-start">
-						<label class="text-dark">Mã nhân viên:</label>&nbsp;{{serviceNote.customerID.userID}}
-					</div>
-					<div class="d-flex justify-content-start">
-						<label class="text-dark">Dịch vụ:</label>&nbsp;{{serviceNote.service}}
-					</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-blue border-bottom">
+        <div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
+		</div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+</div>
+<div class="pl-3 pe-3 pt-3 bg-white">
+	<div class="row">
+		<div class="col-4">
+			<div class="d-flex justify-content-start">
+				<label class="text-dark"><b>Mã khách hàng:</b></label>&nbsp;
+				<div class="text-danger">{{reExam.customerID.identification}}</div>
+			</div>
+			<div class="d-flex justify-content-start">
+				<label class="text-dark"><b>Họ tên khai sinh:</b></label>&nbsp;
+				<div class="text-primary">{{reExam.customerID.fullName}}</div>
+			</div>
+			<div class="d-flex justify-content-start">
+				<label class="text-dark"><b>Tên thường gọi:</b></label>&nbsp;
+				<div class="text-primary">{{reExam.customerID.nickName}}</div>
+			</div>
+			<div class="d-flex justify-content-start">
+				<label class="text-dark"><b>Ngày sinh:</b></label>&nbsp;
+				<div class="text-dark">{{formatBirth reExam.customerID.birth}}</div>
+			</div>
+			<div class="d-flex justify-content-start">
+				<label class="text-dark"><b>Giới tính:</b></label>&nbsp;
+				<div class="text-dark">{{reExam.customerID.gender}}</div>
+			</div>
+		</div>
+		<div class="col-4">		
+			<div class="d-flex justify-content-start">
+				<label class="text-dark"><b>Số điện thoại:</b></label>&nbsp;
+				<div class="text-dark">
+					0{{reExam.customerID.phone}}
 				</div>
 			</div>
-		</li>
-	</ul>
-	<div class="accordion accordion-flush" id="accordionFlushExample">
-		{{!-- <div class="accordion-item mt-3">
-			<h2 class="accordion-header" id="flush-headingOne">
-				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-					Phiếu dịch vụ: {{count serviceNote.customerID.serviceNoteID}}
-				</button>
-			</h2>
-			<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-				<div class="accordion-body">
-					<div class="card card-body">
-						<div class="row">
-							{{#if serviceNote.customerID.serviceNoteID}}
-							{{#each serviceNote.customerID.serviceNoteID}}
-							<div class="col-xl-3">
-								<ul class="list-group">
-									<li id="width-li" class="list-group-item bg-white">
-										#{{sum @index 1}}
-										<small class="d-flex justify-content-between">
-											<label class="none-mb" for="">Mã phiếu dịch vụ:</label>
-											<p class="none-mb text-danger"><em>{{this._id}}</em></p>
-										</small>
-										<small class="d-flex justify-content-between">
-											<label class="none-mb" for="">Trạng thái:</label>
-											<p class="none-mb status-color">{{this.status}}</p>
-										</small>
-										<small class="d-flex justify-content-between">
-											<label class="none-mb" for="">Dịch vụ:</label>
-											<p class="none-mb">{{this.service}}</p>
-										</small>
-										<small class="d-flex justify-content-between">
-											<label class="none-mb" for="">Ngày hoàn thành:</label>
-											<p id="createdAt" class="none-mb comment-createdAt"><em>{{formatDate this.updatedAt}}</em></p>
-										</small>
-									</li>
-								</ul>
-							</div>	
-							{{/each}}
-							{{else}}
-							<p class="text-center">
-								Chưa có phiếu dịch vụ nào
-							</p>
-							{{/if}}
-						</div>
-					</div>
+			<div class="d-flex justify-content-start">
+				<label class="text-dark"><b>Email:</b></label>&nbsp;
+				<div class="text-dark">{{reExam.customerID.email}}</div>
+			</div>
+			<div class="d-flex justify-content-start">
+				<label class="text-dark"><b>Địa chỉ:</b></label>&nbsp;
+				<div class="text-dark">
+					{{reExam.customerID.homeTown}}
 				</div>
 			</div>
-		</div> --}}
-		<div class="accordion-item mt-3">
-			<h2 class="accordion-header" id="flush-headingTwo">
-				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-					Phiếu tái khám: {{count reExamination}}
-				</button>
-			</h2>
-			<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-				<div class="accordion-body">
-					<div class="card card-body">
-						<div class="row">
-							{{#if reExamination}}
-							{{#each reExamination}}
-							{{view this}}
-							<div class="col-xl-3">
-								<ul class="list-group">
-									<li id="width-li" class="list-group-item bg-white">
-										#{{sum @index 1}}
-										<small class="d-flex justify-content-between">
-											<label class="none-mb" for="">Mã phiếu dịch vụ:</label>
-											<p class="none-mb text-danger"><em>{{this.serviceNoteId}}</em></p>
-										</small>
-										<small class="d-flex justify-content-between">
-											<label class="none-mb" for="">Mã phiếu tái khám:</label>
-											<p class="none-mb text-danger"><em>{{this._id}}</em></p>
-										</small>
-										<small class="d-flex justify-content-between">
-											<label class="none-mb" for="">Trạng thái:</label>
-											<p class="none-mb status-color">{{this.status}}</p>
-										</small>
-										<small class="d-flex justify-content-between">
-											<label class="none-mb" for="">Ghi chú:</label>
-											{{#each this.comments}}
-												<p class="none-mb">{{this.comment}}</p>
-											{{/each}}
-										</small>
-										<small class="d-flex justify-content-between">
-											<label class="none-mb" for="">Ngày hẹn:</label>
-											<p id="createdAt" class="none-mb comment-createdAt"><em>{{formatDate this.schedule}}</em></p>
-										</small>
-										<small class="">
-											<label class="none-mb" for="">Các bước thực hiện:</label>
-											<p id="createdAt" class="none-mb message-content"><em>{{this.stepsToTake}}</em></p>
-										</small>
-									</li>
-									{{!-- {{view this}} --}}
-							</div>	
-							{{/each}}
-							{{else}}
-							</ul>
-							<p class="text-center">
-								Chưa có phiếu dịch vụ nào
-							</p>
-							{{/if}}
-						</div>
+			<div class="d-flex justify-content-start">
+				<label class="text-dark"><b>Chiều cao:</b></label>&nbsp;
+				<div class="text-dark">{{reExam.customerID.height}}</div>
+			</div>
+			<div class="d-flex justify-content-start">
+				<label class="text-dark"><b>Cân nặng:</b></label>&nbsp;
+				<div class="text-dark">{{reExam.customerID.weight}}</div>
+			</div>
+		</div>
+		<div class="col-4">
+			<div class="d-flex justify-content-start">
+				<label class="text-dark text-nowrap"><b>Ngày phẩu thuật:</b></label>&nbsp;
+				<div class="text-success">{{formatDate reExam.serviceNoteId.surgeryDay}}</div>
+			</div>
+			<div class="d-flex justify-content-start">
+				<label class="text-dark"><b>Trạng thái:</b></label>&nbsp;
+				<div class="text-danger">{{reExam.status}}</div>
+			</div>
+			<div class="d-flex justify-content-start">
+				<label class="text-dark text-nowrap"><b>Tái khám lần:</b></label>&nbsp;
+				<div class="text-success">0{{reExam.times}}</div>
+			</div>
+			<div class="d-flex justify-content-start">
+				<label class="text-dark text-nowrap"><b>Ngày hẹn tái khám:</b></label>&nbsp;
+				<div class="text-primary">{{formatDate reExam.schedule}}</div>
+			</div>
+		</div>
+	</div>
+	<div class="p-3 bg-transparent">
+		<label for="" class="d-flex justify-content-center text-dark"><b>THÔNG TIN HẬU PHẨU</b></label>
+		<div class="row">
+			<div class="col-4">
+				<div>
+					<label for="" class="text-dark"><b>Tình trạng khách hàng:</b></label>
+				</div>
+				<div>
+					<textarea name="" id="" cols="30" rows="6" class="bg-transparent text-dark w-100 p-3" readonly disabled>{{reExam.serviceNoteId.statusAfterInfo}}</textarea>
+				</div>
+			</div>
+			<div class="col-4">
+				<div>
+					<label for="" class="text-dark"><b>Chỉ định của bác sĩ:</b></label>
+				</div>
+				<div>
+					<textarea name="" id="" cols="30" rows="6" class="bg-transparent text-dark w-100 p-3" readonly disabled>{{reExam.serviceNoteId.directedByDoctor}}</textarea>
+				</div>
+			</div>
+			<div class="col-4">
+				<div>
+					<label for="" class="text-dark"><b>Các bước thực hiện hậu phẩu:</b></label>
+				</div>
+				<div>
+					<textarea name="" id="" cols="30" rows="6" class="bg-transparent text-dark w-100 p-3" readonly disabled>{{reExam.serviceNoteId.afterInfo}}</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-6">
+			<div class="slideshow-container mt-3 mb-3">
+				<!-- Full-width images with number and caption text -->
+				{{#if reExam.serviceNoteId.afterImg}}
+				{{#each reExam.serviceNoteId.afterImg}}
+					<div class="slide-after-img fadeOn">
+						<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+						{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/after/img/{{this.name}}"> --}}
 					</div>
+				{{/each}}
+				{{else}}
+				<div class="slide-after-img fadeOn text-center text-dark">
+					Chưa có hình ảnh
+				</div>
+				{{/if}}
+
+				<!-- Next and previous buttons -->
+				<a class="prev" onclick="plusSlidesAfterImg(-1)">&#10094;</a>
+				<a class="next" onclick="plusSlidesAfterImg(1)">&#10095;</a>
+				<!-- The dots/circles -->
+				<div style="text-align:center">
+					{{#each reExam.serviceNoteId.afterImg}}
+						<span class="dot" onclick="currentSlideAfterImg({{@index}})"></span>
+					{{/each}}
+				</div>
+			</div>
+		</div>
+		<div class="col-6">
+			<div class="slideshow-container mt-3 mb-3">
+				<!-- Full-width images with number and caption text -->
+				{{#if reExam.serviceNoteId.afterVideo}}
+				{{#each reExam.serviceNoteId.afterVideo}}
+					<div class="slide-after-video fadeOn">
+						<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+							<source src="{{this.url}}">
+							{{!-- <source src="/after/video/{{this.name}}"> --}}
+						</video>
+					</div>
+				{{/each}}
+				{{else}}
+				<div class="slide-after-video fadeOn text-center text-dark">
+					Chưa có video
+				</div>
+				{{/if}}
+
+				<!-- Next and previous buttons -->
+				<a class="prev" onclick="plusSlidesAfterVideo(-1)">&#10094;</a>
+				<a class="next" onclick="plusSlidesAfterVideo(1)">&#10095;</a>
+				<!-- The dots/circles -->
+				<div style="text-align:center">
+					{{#each reExam.serviceNoteId.afterVideo}}
+						<span class="dot" onclick="currentSlideAfterVideo({{@index}})"></span>
+					{{/each}}
 				</div>
 			</div>
 		</div>

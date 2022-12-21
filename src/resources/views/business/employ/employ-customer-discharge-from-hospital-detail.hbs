@@ -1,0 +1,202 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-blue border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-blue">
+        <div class="sidebar-item">
+            <a href="/business/employ/schedule" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-receipt mr-3"></i>Lịch hẹn
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/business/employ/customers" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-user mr-3"></i>Khách hàng
+            </a>
+        </div>
+    </div>
+    <div class="offcanvas-footer border-top">
+        <div class="sidebar-item">
+            <a href="/business/employ/profile" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <form method="POST" action="/logout">
+                <button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-blue border-bottom">
+		<div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i class="ti-menu"></i>
+        </button>
+    </nav>
+</div>
+{{#if messages_createSchedule_success}}
+<div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+    {{messages_createSchedule_success}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+{{#if messages_createCustomer_success}}
+<div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+    {{messages_createCustomer_success}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+{{#if messages_editCustomer_success}}
+<div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+    {{messages_editCustomer_success}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+<div class="container">
+	{{#if customer}}
+	<div class="card shadow mt-3 mb-3">
+		<div class="card-body">
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Mã định danh:</strong>
+				</label>
+				<label class="fs-6 text-right text-danger">
+					{{customer.identification}}
+				</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Họ tên khai sinh:</strong>
+				</label>
+				<label class="fs-6 text-right text-primary">
+					{{customer.fullName}}
+				</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Tên thường gọi:</strong>
+				</label>
+				<label class="fs-6 text-right">
+					{{customer.nickName}}
+				</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Quê quán:</strong>
+				</label>
+				<label class="fs-6 text-right">
+					{{customer.homeTown}}
+				</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Trạng thái:</strong>
+				</label>
+				<label class="fs-6 text-danger text-right">
+					<em>{{customer.statusCus.statusVi}}</em>
+				</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Bác sĩ thực hiện:</strong>
+				</label>
+				<label class="">
+					{{#each customer.serviceNoteID}}
+					{{#each this.performer}}
+					<em>{{this.firstName}} {{this.lastName}}</em>
+					{{/each}}
+					{{/each}}
+				</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Chiều cao:</strong>
+				</label>
+				<label class="">
+					<em>{{customer.height}}</em>
+				</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Cân nặng:</strong>
+				</label>
+				<label class="text-right">
+					<em>{{customer.weight}}</em>
+				</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Ngày phẩu thuật:</strong>
+				</label>
+				<label class="text-right text-success">
+					{{#each customer.serviceNoteID}}
+					{{formatDate this.surgeryDay}}
+					{{/each}}
+				</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status" class="text-nowrap text-dark">
+					<strong>Tầng phẩu thuật:</strong>
+				</label>
+				<label class="text-right">
+					{{#each customer.serviceNoteID}}
+					{{this.floor}}
+					{{/each}}
+				</label>
+			</div>
+			<div class="accordion accordion-flush" id="accordionFlushExample">
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="flush-headingSix">
+						<button class="accordion-button collapsed pl-0 pr-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+							<strong>Thông tin các phiếu dịch vụ</strong>
+						</button>
+					</h2>
+					<div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+						<div class="accordion-body">
+							<div class="row overflow-auto">
+							{{#if customer.serviceNoteID}}
+							{{#each customer.serviceNoteID}}
+								<div class="col-6 mb-3">
+									<a href="/business/employ/service-note/{{this._id}}/detail">
+										<div class="card p-3">
+											<div class="d-flex justify-content-between">
+												<label class="text-nowrap text-dark" for=""><strong>Trạng thái:</strong></label>
+												<div class="text-nowrap text-danger">{{this.status}}</div>
+											</div>
+											<div class="d-flex justify-content-between">
+												<label class="text-nowrap text-dark" for=""><strong>Ngày phẩu thuật:</strong></label>
+												<div class="text-nowrap text-warning">{{formatDate this.surgeryDay}}</div>
+											</div>
+										</div>
+									</a>
+								</div>
+							{{/each}}
+							{{else}}
+								<div class="text-center">
+									<label for="">Chưa có phiếu tái khám</label>
+								</div>
+							{{/if}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{/if}}
+</div>
+
+<script src="/js/business/business-employ-customer-discharge-from-hospital.js"></script>

@@ -119,9 +119,9 @@ app.engine(
 			getDoctor: (arr) => {
 				let newArr = [];
 				arr.forEach(item => {
+					console.log(newArr);
 					newArr.push({ id: item._id, fullName: `${item.firstName} ${item.lastName}`})
 				})
-				console.log(newArr)
 				return newArr;
 			},
 			formatMoney: (money) => {
@@ -134,8 +134,15 @@ app.engine(
 				let convertedMoney = formatter.format(convertMoney);
 				return convertedMoney;
 			},
-			getArr: (arr) => {
-				
+			getID: (arr) => {
+				let arrServiceNote = arr;
+				let idItem;
+				arrServiceNote.forEach(item => {
+					console.log(item);
+					if (item.status === 'Xuất viện') {
+						return idItem = item._id;
+					}
+				})
 			}
 		}
 	})
@@ -153,6 +160,7 @@ app.use(function (req, res, next) {
 	res.locals.messages_token_failure = req.flash('messages_token_failure');
 	res.locals.messages_token_wrong = req.flash('messages_token_wrong');
 	res.locals.messages_createReExamination_success = req.flash('messages_createReExamination_success');
+	res.locals.messages_editReExamination_success = req.flash('messages_editReExamination_success');
 	res.locals.messages_pushReExamination_error = req.flash('messages_pushReExamination_error');
 	res.locals.messages_createSchedule_success = req.flash('messages_createSchedule_success');
 	res.locals.messages_createCustomer_success = req.flash('messages_createCustomer_success');
@@ -192,7 +200,7 @@ function initRoot() {
 function initAdmin() {
 	User.findOne({ roleEng: 'administrator' })
 		.then(user => {
-			const userRoot = new User({
+			const userAdmin = new User({
 				account: 'admin',
 				password: bcrypt.hashSync(`${process.env.PASSWORD_ADMIN}`, 8),
 				role: 'Quản trị viên',
@@ -202,7 +210,7 @@ function initAdmin() {
 				console.log(`User ${user.account} is existed`)
 				return;
 			} else {
-				userRoot.save();
+				userAdmin.save();
 				console.log('Created user admin successfully!!!')
 			}
 		})

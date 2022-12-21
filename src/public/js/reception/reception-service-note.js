@@ -31,7 +31,6 @@ performerModal.addEventListener("show.bs.modal", function (event) {
 	var comment = button.getAttribute("data-comment");
 
 	// Get element need embeded input
-	// var modalCustomerID = document.getElementById("customerID");
 	var modalName = document.getElementById("add-performer-firstLastName");
 	var modalBirth = document.getElementById("add-performer-birth");
 	var modalGender = document.getElementById("add-performer-gender");

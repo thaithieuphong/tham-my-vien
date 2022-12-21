@@ -99,7 +99,7 @@
 					<strong>Ngày phẩu thuật:</strong>
 				</label>
 				<label class="text-light text-right">
-					{{formatBirth serviceNote.surgeryDay}}
+					{{formatDate serviceNote.surgeryDay}}
 				</label>
 			</div>
 			<div class="d-flex justify-content-between border-bottom mb-3">
@@ -201,6 +201,9 @@
 									{{/each}}
 								</div>
 							</div>
+							<label for="status" class="text-nowrap text-light">
+								<strong>Thông tin tư vấn:</strong>
+							</label>
 							<textarea class="form-control" cols="30" rows="8" readonly>{{serviceNote.counselorInfo}}</textarea>
 						</div>
 					</div>
@@ -263,6 +266,9 @@
 									{{/each}}
 								</div>
 							</div>
+							<label for="status" class="text-nowrap text-light">
+								<strong>Thông tin trước phẫu thuật:</strong>
+							</label>
 							<textarea class="form-control" cols="30" rows="8" readonly>{{serviceNote.beforeInfo}}</textarea>
 						</div>
 					</div>
@@ -327,6 +333,9 @@
 									{{/each}}
 								</div>
 							</div>
+							<label for="status" class="text-nowrap text-light">
+								<strong>Các bước thực hiện:</strong>
+							</label>
 							<textarea class="form-control" cols="30" rows="8" readonly>{{serviceNote.stepsToTake}}</textarea>
 						</div>
 					</div>
@@ -386,11 +395,22 @@
 								<a class="next" onclick="plusSlidesAfterVideo(1)">&#10095;</a>
 								<!-- The dots/circles -->
 								<div style="text-align:center">
-									{{#each serviceNote.afterImg}}
+									{{#each serviceNote.afterVideo}}
 									<span class="dot" onclick="currentSlideAfterVideo({{@index}})"></span>
 									{{/each}}
 								</div>
 							</div>
+							<label for="status" class="text-nowrap text-light">
+								<strong>Tình trạng khách hàng:</strong>
+							</label>
+							<textarea class="form-control mb-3" cols="30" rows="8" readonly>{{serviceNote.statusAfterInfo}}</textarea>
+							<label for="status" class="text-nowrap text-light">
+								<strong>Chỉ định của bác sĩ:</strong>
+							</label>
+							<textarea class="form-control mb-3" cols="30" rows="8" readonly>{{serviceNote.directedByDoctor}}</textarea>
+							<label for="status" class="text-nowrap text-light">
+								<strong>Các bước thực hiện:</strong>
+							</label>
 							<textarea class="form-control" cols="30" rows="8" readonly>{{serviceNote.afterInfo}}</textarea>
 						</div>
 					</div>

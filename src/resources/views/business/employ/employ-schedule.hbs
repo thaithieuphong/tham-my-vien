@@ -67,7 +67,7 @@
                     {{#each newSchedule}}
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 note-wrapper">
                         <div class="card mb-3 bg-glass">
-                            <div class="card-header">
+                            <div class="card-header bg-transparent">
                                 <div class="d-flex justify-content-between">
                                     <div class="text-nowrap">
                                         <strong name="status" class="form-label text-danger">{{this.status}}</strong>
@@ -78,13 +78,13 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Khách hàng:</strong>
                                     </label>
-                                    <label class="text-light form-label text-light text-right">{{this.customerID.nickName}}</label>
+                                    <label class="form-label text-right text-dark">{{this.customerID.nickName}}</label>
                                 </div>
-                                <label for="status" class="text-nowrap text-light">
+                                <label for="status" class="text-nowrap text-dark">
                                     <strong>Dịch vụ:</strong>
                                 </label>
                                 {{#each this.service}}
@@ -92,23 +92,19 @@
                                     <label class="form-label text-right text-dark-yellow mb-0">{{this}}</label>
                                 </div>
                                 {{/each}}
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Phí dịch vụ:</strong>
                                     </label>
                                     <label class="form-label text-right text-danger">{{this.priceBefore}}</label>
                                 </div>
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Đặt cọc:</strong>
                                     </label>
                                     <label class="form-label text-right text-warning">{{this.deposit}}</label>
                                 </div>
                             </div>
-                            {{!-- <div class="card-footer bg-transparent d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
-                                    data-bs-target="#a{{this._id}}">Hình ảnh tư vấn</button>
-                            </div> --}}
                         </div>
                     </div>
                     {{!-- Detail counselor --}}
@@ -150,32 +146,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{!-- <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-counselor-video{{this._id}}">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-counselor-video-{{this._id}}" aria-expanded="false" aria-controls="flush-counselor-video-{{this._id}}">
-                                                    Video tư vấn:
-                                                </button>
-                                            </h2>
-                                            <div id="flush-counselor-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-video{{this._id}}" data-bs-parent="#accordionFlush-counselor{{this._id}}">
-                                                <div class="accordion-body">
-                                                    <div class="row">    
-                                                        {{#if this.counselorVideo}}
-                                                        {{#each this.counselorVideo}}
-                                                        <div class="col-lg-3">
-                                                            <figure class="figure imgbox">
-                                                                <video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-                                                            </figure>
-                                                        </div>
-                                                        {{/each}}
-                                                        {{else}}
-                                                        <p class="text-center">
-                                                            Chưa có video
-                                                        </p>
-                                                        {{/if}}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -195,7 +165,7 @@
                     {{#each handlingSchedule}}
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
                         <div class="card mb-3 bg-glass">
-                            <div class="card-header">
+                            <div class="card-header bg-transparent">
                                 <div class="d-flex justify-content-between">
                                     <div class="text-danger">
                                         {{this.status}}
@@ -204,25 +174,25 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Mã định danh:</strong>
                                     </label>
-                                    <label class="text-light form-label text-right">{{this.customerID.identification}}</label>
+                                    <label class="text-dark form-label text-right">{{this.customerID.identification}}</label>
                                 </div>
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Họ tên khai sinh:</strong>
                                     </label>
-                                    <label class="text-light form-label text-right">{{this.customerID.fullName}}</label>
+                                    <label class="text-dark form-label text-right">{{this.customerID.fullName}}</label>
                                 </div>
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Tên thường gọi:</strong>
                                     </label>
-                                    <label class="text-light form-label text-right">{{this.customerID.nickName}}</label>
+                                    <label class="text-dark form-label text-right">{{this.customerID.nickName}}</label>
                                 </div>
-                                <label for="status" class="text-nowrap text-light">
+                                <label for="status" class="text-nowrap text-dark">
                                     <strong>Dịch vụ:</strong>
                                 </label>
                                 {{#each this.service}}
@@ -230,57 +200,19 @@
                                     <label class="form-label text-right text-dark-yellow mb-0">{{this}}</label>
                                 </div>
                                 {{/each}}
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Phí dịch vụ:</strong>
                                     </label>
                                     <label class="form-label text-right text-danger">{{this.priceBefore}}</label>
                                 </div>
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Đặt cọc:</strong>
                                     </label>
                                     <label class="form-label text-right text-warning">{{this.deposit}}</label>
                                 </div>
-                                {{!-- <div class="d-flex justify-content-between">
-                                    <label for="status">
-                                        <strong>Hồ sơ khách hàng:</strong>&nbsp;
-                                    </label>
-                                    <a class="text-right link-primary" data-bs-toggle="modal" data-bs-target="#customer-information-modal">{{this.serviceNoteID._id}}</a>
-                                </div> --}}
-                                {{!-- <div class="d-flex justify-content-between">
-                                    <label for="status">
-                                        <strong>Bác sĩ:</strong>&nbsp;
-                                    </label>
-                                    {{#each this.performer}}
-                                    <em>
-                                        <label class="text-success form-label text-uppercase text-right">{{this.firstName}}
-                                            {{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <label for="status">
-                                        <strong>Phụ mổ:</strong>&nbsp;
-                                    </label>
-                                    {{#each this.nursing}}
-                                    <em>
-                                        <label class="text-success form-label text-uppercase text-right">{{this.firstName}}
-                                            {{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <label for="status">
-                                        <strong>Dẫn khách:</strong>&nbsp;
-                                    </label>
-                                    <label class="form-label text-uppercase text-right">{{this.recept.firstName}} {{this.recept.lastName}};</label>
-                                </div> --}}
                             </div>
-                            {{!-- <div class="card-footer bg-transparent d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
-                                    data-bs-target="#a{{this._id}}">Hình ảnh tư vấn</button>
-                            </div> --}}
                         </div>
                     </div>
                     {{!-- Detail counselor --}}
@@ -322,32 +254,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{!-- <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-counselor-video{{this._id}}">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-counselor-video-{{this._id}}" aria-expanded="false" aria-controls="flush-counselor-video-{{this._id}}">
-                                                    Video tư vấn:
-                                                </button>
-                                            </h2>
-                                            <div id="flush-counselor-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-video{{this._id}}" data-bs-parent="#accordionFlush-counselor{{this._id}}">
-                                                <div class="accordion-body">
-                                                    <div class="row">    
-                                                        {{#if this.counselorVideo}}
-                                                        {{#each this.counselorVideo}}
-                                                        <div class="col-lg-3">
-                                                            <figure class="figure imgbox">
-                                                                <video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-                                                            </figure>
-                                                        </div>
-                                                        {{/each}}
-                                                        {{else}}
-                                                        <p class="text-center">
-                                                            Chưa có video
-                                                        </p>
-                                                        {{/if}}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -366,7 +272,7 @@
                     {{#each doneSchedule}}
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
                         <div class="card mb-3 bg-glass">
-                            <div class="card-header">
+                            <div class="card-header bg-transparent">
                                 <div class="d-flex justify-content-between">
                                     <div class="text-danger">
                                         {{this.status}}
@@ -375,25 +281,25 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Mã định danh:</strong>
                                     </label>
-                                    <label class="text-primary form-label text-light text-right">{{this.customerID.identification}}</label>
+                                    <label class="form-label text-dark text-right">{{this.customerID.identification}}</label>
                                 </div>
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Họ tên khai sinh:</strong>
                                     </label>
-                                    <label class="text-primary form-label text-light text-right">{{this.customerID.fullName}}</label>
+                                    <label class="form-label text-dark text-right">{{this.customerID.fullName}}</label>
                                 </div>
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Tên thường gọi:</strong>
                                     </label>
-                                    <label class="text-primary form-label text-light text-right">{{this.customerID.nickName}}</label>
+                                    <label class="form-label text-dark text-right">{{this.customerID.nickName}}</label>
                                 </div>
-                                <label for="status" class="text-light">
+                                <label for="status" class="text-dark">
                                     <strong class="text-nowrap">Dịch vụ:</strong>&nbsp;
                                 </label>
                                 {{#each this.service}}
@@ -401,51 +307,19 @@
                                     <label class="form-label text-right mb-0 text-dark-yellow">{{this}}</label>
                                 </div>
                                 {{/each}}
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Phí dịch vụ:</strong>
                                     </label>
                                     <label class="form-label text-right text-danger">{{this.priceBefore}}</label>
                                 </div>
-                                <div class="d-flex justify-content-between border-bottom mb-3">
-                                    <label for="status" class="text-light">
+                                <div class="d-flex justify-content-between">
+                                    <label for="status" class="text-dark">
                                         <strong>Đặt cọc:</strong>
                                     </label>
                                     <label class="form-label text-right text-warning">{{this.deposit}}</label>
                                 </div>
-                                {{!-- <hr>
-                                <div class="d-flex justify-content-between">
-                                    <label for="status">
-                                        <strong>Bác sĩ:</strong>&nbsp;
-                                    </label>
-                                    {{#each this.serviceNoteID.performer}}
-                                    <em>
-                                        <label class="text-success form-label text-uppercase text-right">{{this.firstName}}
-                                            {{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <label for="status">
-                                        <strong>Phụ mổ:</strong>&nbsp;
-                                    </label>
-                                    {{#each this.nursing}}
-                                    <em>
-                                        <label class="text-success form-label text-uppercase text-right">{{this.firstName}} {{this.lastName}};</label>
-                                    </em>
-                                    {{/each}}
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <label for="status">
-                                        <strong>Dẫn khách:</strong>&nbsp;
-                                    </label>
-                                    <label class="form-label text-uppercase text-right">{{this.recept.firstName}} {{this.recept.lastName}};</label>
-                                </div> --}}
                             </div>
-                            {{!-- <div class="card-footer bg-transparent d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary btn-mobile" data-bs-toggle="modal"
-                                    data-bs-target="#a{{this._id}}">Hình ảnh tư vấn</button>
-                            </div> --}}
                         </div>
                     </div>
                     {{!-- Detail counselor --}}
@@ -487,32 +361,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{!-- <div class="accordion-item">
-                                            <h2 class="accordion-header" id="flush-counselor-video{{this._id}}">
-                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-counselor-video-{{this._id}}" aria-expanded="false" aria-controls="flush-counselor-video-{{this._id}}">
-                                                    Video tư vấn:
-                                                </button>
-                                            </h2>
-                                            <div id="flush-counselor-video-{{this._id}}" class="accordion-collapse collapse" aria-labelledby="flush-counselor-video{{this._id}}" data-bs-parent="#accordionFlush-counselor{{this._id}}">
-                                                <div class="accordion-body">
-                                                    <div class="row">    
-                                                        {{#if this.counselorVideo}}
-                                                        {{#each this.counselorVideo}}
-                                                        <div class="col-lg-3">
-                                                            <figure class="figure imgbox">
-                                                                <video src="{{this.url}}" class="figure-img img-fluid rounded upd-ava" alt="..." controls></video>
-                                                            </figure>
-                                                        </div>
-                                                        {{/each}}
-                                                        {{else}}
-                                                        <p class="text-center">
-                                                            Chưa có video
-                                                        </p>
-                                                        {{/if}}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -705,9 +553,6 @@
                     <div class="col-md-6">
                         <div class="row">
                             <label for="" id="video-counselor"></label>
-                            {{!-- <video class="rounded mx-auto d-block upd-ava mt-2" src="/counselor/video/{{this}}"
-                                type="video/mp4" controls>
-                            </video> --}}
                         </div>
                     </div>
                 </div>

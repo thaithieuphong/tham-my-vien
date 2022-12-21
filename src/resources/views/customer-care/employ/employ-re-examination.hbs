@@ -1,0 +1,202 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-blue border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-blue">
+		<div class="sidebar-item">
+            <a href="/customer-care/employ/customers" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i> Danh sách khách hàng xuất viện
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/customer-care/employ/re-exam" class="sidebar-item-title pl-3">
+                <i class="fa-regular fa-calendar mr-3"></i> Danh sách lịch tái khám
+            </a>
+        </div>
+		<div class="sidebar-item">
+            <a href="/customer-care/employ/storage" class="sidebar-item-title pl-3">
+                <i class="fa-sharp fa-solid fa-boxes-packing mr-3"></i>Kho lưu trữ hồ sơ
+            </a>
+        </div>
+    </div>
+	<div class="offcanvas-footer bg-blue border-top">
+        <div class="sidebar-item">
+            <a href="/business/employ/profile" class="sidebar-item-title pl-3">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-blue border-bottom">
+        <div class="img-container"></div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+</div>
+{{#if messages_editReExamination_success}}
+<div class="alert alert-success alert-dismissible fade show mt-2 ms-2 me-2" role="alert">
+	{{messages_editReExamination_success}}
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+<div class="ps-3 pe-3">
+	<div class="d-flex justify-content-between pt-3 mb-3">
+		<div></div>
+		<div>
+			<input id="search-schedule" type="text" class="form-control" placeholder="Tìm kiếm...">
+		</div>
+	</div>
+	<table id="table-schedule" class="table table-hover mb-0 table-sm table-bordered">
+		<thead class="header text-light bg-blue">
+			<tr class="text-center">
+				<th scope="col">#</th>
+				<th scope="col">Mã KH</th>
+				<th scope="col">Họ tên khai sinh</th>
+				<th scope="col">Tên thường gọi</th>
+				<th scope="col">Ngày sinh</th>
+				<th scope="col">Số điện thoại</th>
+				<th scope="col">Trạng thái</th>
+				<th scope="col">Tái khám lần</th>
+				<th scope="col">Ngày hẹn</th>
+				<th scope="col">Hành động</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each reExams}}
+				<tr class="text-value">
+					<th class="text-center" scope="row">{{sum @index 1}}</th>
+					<td class="text-identify">{{this.customerID.identification}}</td>
+					<td class="text-fullName">
+						<a class="fullName-link" href="/customer-care/employ/re-exam/{{this._id}}/detail">
+							{{this.customerID.fullName}}
+						</a>
+					</td>
+					<td class="text-nickName">{{this.customerID.nickName}}</td>
+					<td>{{formatBirth this.customerID.birth}}</td>
+					<td class="text-phone">0{{this.customerID.phone}}</td>
+					<td class="text-status">{{this.status}}</td>
+					<td class="text-times text-center">{{this.times}}</td>
+					<td class="text-schedule">{{formatDate this.schedule}}</td>
+					<td class="text-center">
+						<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa lịch hẹn">
+							<button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#edit-reexam-schedule-modal-customer-care"
+								data-edit-reexam-id-customer-care="{{this._id}}" data-edit-reexam-fullName-customer-care="{{this.customerID.fullName}}" data-edit-reexam-nickName-customer-care="{{this.customerID.nickName}}" data-edit-reexam-gender-customer-care="{{this.customerID.gender}}"
+								data-edit-reexam-phone-customer-care="{{this.customerID.phone}}">
+								<i class="fa-sharp fa-solid fa-calendar"></i>
+							</button>
+						</div>
+						<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Hoàn thành tái khám">
+							<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal-done-customer-care"
+								class="btn btn-success btn-sm" data-id-customer-care="{{this._id}}" data-cusId-customer-care="{{this.customerID._id}}" data-fullName-customer-care="{{this.customerID.fullName}}">
+								<i class="fa-sharp fa-solid fa-circle-check"></i>
+							</button>
+						</div>
+					</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
+</div>
+<div class="modal fade" id="edit-reexam-schedule-modal-customer-care" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+			<div class="modal-header bg-info">
+				<h5 class="modal-title text-light" id="staticBackdropLabel">Sửa lịch hẹn tái khám</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="edit-reexam-schedule-form-customer-care" method="POST">
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Họ và tên:</strong></label>
+						<div id="edit-reexam-schedule-fullname-customer-care" class="m-0 text-wrap"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Tên thường gọi:</strong></label>
+						<div id="edit-reexam-schedule-nickname-customer-care" class="m-0 text-wrap"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label"><strong>Giới tính:</strong></label>
+						<div id="edit-reexam-schedule-gender-customer-care" class="form-label"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Số điện thoại:</strong></label>
+						<div id="edit-reexam-schedule-phone-customer-care" class="form-label"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Ngày hẹn:</strong></label>
+						<div>
+							<input type="datetime-local" id="edit-reexam-schedule-input-customer-care" class="form-control rounded-pill" name="schedule">
+						</div>
+					</div>
+					<label class="form-label text-nowrap" for=""><strong>Lý do thay đổi:</strong></label>
+					<div class="w-100">
+						<textarea class="w-100 p-2" name="reason" id="" rows="6"></textarea>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="edit-reexam-schedule-btn-customer-care" type="button" class="btn btn-info rounded-pill">Cập nhật lịch</button>
+				<button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Hủy bỏ</button>
+			</div>
+        </div>
+    </div>
+</div>
+
+{{!-- Complete re-exam --}}
+<div class="modal fade" id="submit-re-exam-modal-done-customer-care" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-blue">
+				<h5 class="modal-title text-light" id="exampleModalLabel">Hoàn thành</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Đã hoàn thành tái khám cho khách hàng <strong id="submit-re-exam-fullname-customer-care"></strong>
+			</div>
+			<div class="modal-footer d-flex justify-content-between">
+				<button id="submit-re-exam-btn-done-customer-care" type="button" class="btn btn-success rounded-pill">Đã hoàn thành</button>
+				<button type="button" class="btn btn-danger rounded-pill" data-bs-dismiss="modal">Chưa hoàn thành</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<form method="POST" id="submit-re-exam-form-done-customer-care"></form>
+
+{{!-- Delete re-exam --}}
+<div class="modal fade" id="delete-re-exam-modal" tabindex="-1" aria-labelledby="delete-re-exam-label" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title text-light" id="delete-re-exam-label">Xóa lịch tái khám</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="delete-re-exam-form">
+					<input type="text" name="cusID" id="delete-re-exam-input" hidden>
+				</form>
+				Bạn chắc chắn muốn xóa lịch tái khám của khách hàng <strong id="delete-re-exam-fullname-customer-care"></strong>?
+			</div>
+			<div class="modal-footer d-flex justify-content-between">
+				<button id="delete-re-exam-btn" type="button" class="btn btn-success rounded-pill">Chắc chắn</button>
+				<button type="button" class="btn btn-danger rounded-pill" data-bs-dismiss="modal">Không, Hủy bỏ</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/js/operating/nursing-re-exam.js"></script>

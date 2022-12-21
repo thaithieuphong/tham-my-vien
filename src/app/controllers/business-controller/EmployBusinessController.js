@@ -32,8 +32,8 @@ class EmployBusinessController {
 	/** Customer */
 	showCustomer(req, res, next) {
 		Promise.all([Customer.find({}), User.findById({ _id: req.userId }),
-		TypeService.find({})])
-			.then(([customers, user, typeservices]) => {
+		TypeService.find({}), Customer.find({storage: 'No'}), Customer.find({storage: 'Yes'})])
+			.then(([customers, user, typeservices, customerDischargeFromHospital, customerStorage]) => {
 				let cusNew = [];
 				let cusPotential = [];
 				let cusSchedule = [];
@@ -59,6 +59,8 @@ class EmployBusinessController {
 					cusFail: multipleMongooseToObject(cusFail),
 					user: mongooseToObject(user),
 					typeservices: multipleMongooseToObject(typeservices),
+					customerDischargeFromHospital: multipleMongooseToObject(customerDischargeFromHospital),
+					customerStorage: multipleMongooseToObject(customerStorage),
 					title: 'Quản lý khách hàng'
 				});
 			})
@@ -83,6 +85,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'New'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'New'
+							},
+							surgeryDay: null
+						}
+					],
 					image: {
 						name: req.file.filename,
 						url: req.file.path,
@@ -107,6 +118,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Potential'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'Potential'
+							},
+							surgeryDay: null
+						}
+					],
 					image: {
 						name: req.file.filename,
 						url: req.file.path,
@@ -131,6 +151,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Schedule'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'Schedule'
+							},
+							surgeryDay: null
+						}
+					],
 					image: {
 						name: req.file.filename,
 						url: req.file.path,
@@ -155,6 +184,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Fail'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'Fail'
+							},
+							surgeryDay: null
+						}
+					],
 					image: {
 						name: req.file.filename,
 						url: req.file.path,
@@ -179,6 +217,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'New'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'New'
+							},
+							surgeryDay: null
+						}
+					],
 					image: {
 						name: "",
 						url: "",
@@ -203,6 +250,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Potential'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'Potential'
+							},
+							surgeryDay: null
+						}
+					],
 					image: {
 						name: "",
 						url: "",
@@ -227,6 +283,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Schedule'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'Schedule'
+							},
+							surgeryDay: null
+						}
+					],
 					image: {
 						name: "",
 						url: "",
@@ -250,6 +315,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Fail'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'Fail'
+							},
+							surgeryDay: null
+						}
+					],
 					image: {
 						name: "",
 						url: "",
@@ -281,6 +355,15 @@ class EmployBusinessController {
 							statusVi: req.body.statusVi,
 							statusEng: 'New'
 						},
+						logStatus: [
+							{
+								statusCus: {
+									statusVi: req.body.statusVi,
+									statusEng: 'New'
+								},
+								surgeryDay: null
+							}
+						],
 						image: {
 							name: req.file.filename,
 							url: req.file.path,
@@ -321,6 +404,15 @@ class EmployBusinessController {
 							statusVi: req.body.statusVi,
 							statusEng: 'Potential'
 						},
+						logStatus: [
+							{
+								statusCus: {
+									statusVi: req.body.statusVi,
+									statusEng: 'Potential'
+								},
+								surgeryDay: null
+							}
+						],
 						image: {
 							name: req.file.filename,
 							url: req.file.path,
@@ -361,6 +453,15 @@ class EmployBusinessController {
 							statusVi: req.body.statusVi,
 							statusEng: 'Schedule'
 						},
+						logStatus: [
+							{
+								statusCus: {
+									statusVi: req.body.statusVi,
+									statusEng: 'Schedule'
+								},
+								surgeryDay: null
+							}
+						],
 						image: {
 							name: req.file.filename,
 							url: req.file.path,
@@ -401,6 +502,15 @@ class EmployBusinessController {
 							statusVi: req.body.statusVi,
 							statusEng: 'Fail'
 						},
+						logStatus: [
+							{
+								statusCus: {
+									statusVi: req.body.statusVi,
+									statusEng: 'Fail'
+								},
+								surgeryDay: null
+							}
+						],
 						image: {
 							name: req.file.filename,
 							url: req.file.path,
@@ -439,6 +549,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'New'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'New'
+							},
+							surgeryDay: null
+						}
+					],
 				})
 				.then((customer) => {
 					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
@@ -461,6 +580,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Potential'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'Potential'
+							},
+							surgeryDay: null
+						}
+					],
 				})
 				.then((customer) => {
 					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
@@ -483,6 +611,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Schedule'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'Schedule'
+							},
+							surgeryDay: null
+						}
+					],
 				})
 				.then((customer) => {
 					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
@@ -505,6 +642,15 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Fail'
 					},
+					logStatus: [
+						{
+							statusCus: {
+								statusVi: req.body.statusVi,
+								statusEng: 'Fail'
+							},
+							surgeryDay: null
+						}
+					],
 				})
 				.then((customer) => {
 					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
@@ -532,7 +678,6 @@ class EmployBusinessController {
 	}
 
 	createComment(req, res, next) {
-		console.log('user id', req.userId)
 		Customer.findByIdAndUpdate(
 			{ _id: req.params.id },
 			{$push: { comments: { comment: req.body.comments } }, userID: req.userId}
@@ -542,7 +687,12 @@ class EmployBusinessController {
 	}
 
 	moveToPotential(req, res, next) {
-		Customer.findByIdAndUpdate({ _id: req.params.id }, {$set: {statusCus: {statusVi: 'Tiềm năng', statusEng: 'Potential'}}})
+		let updateCus = {
+			$set: { statusCus: { statusVi: 'Tiềm năng', statusEng: 'Potential'}, storage: null },
+			$push: { logStatus: { statusCus: {statusVi: 'Tiềm năng', statusEng: 'Potential'}, surgeryDay: null}}
+
+		}
+		Customer.findByIdAndUpdate({ _id: req.params.id }, updateCus)
 			.then(() => {
 				res.redirect('back');
 			})
@@ -550,7 +700,12 @@ class EmployBusinessController {
 	}
 
 	moveToSchedule(req, res, next) {
-		Customer.findByIdAndUpdate({ _id: req.params.id }, {$set: {statusCus: {statusVi: 'Đặt lịch', statusEng: 'Schedule'}}})
+		let updateCus = {
+			$set: { statusCus: { statusVi: 'Đặt lịch', statusEng: 'Schedule'}, storage: null },
+			$push: { logStatus: { statusCus: {statusVi: 'Đặt lịch', statusEng: 'Schedule'}, surgeryDay: null}}
+
+		}
+		Customer.findByIdAndUpdate({ _id: req.params.id }, updateCus)
 			.then(() => {
 				res.redirect('back');
 			})
@@ -558,7 +713,12 @@ class EmployBusinessController {
 	}
 
 	moveToNotOK(req, res, next) {
-		Customer.findById({ _id: req.params.id }).updateOne({statusCus: {statusVi: 'Không thành công', statusEng: 'Fail'}})
+		let updateCus = {
+			$set: { statusCus: { statusVi: 'Không thành công', statusEng: 'Fail'}, storage: null },
+			$push: { logStatus: { statusCus: {statusVi: 'Không thành công', statusEng: 'Fail'}, surgeryDay: null}}
+
+		}
+		Customer.findByIdAndUpdate({ _id: req.params.id }, updateCus)
 			.then(() => {
 				res.redirect('back');
 			})
@@ -573,7 +733,6 @@ class EmployBusinessController {
 			User.findById({ _id: req.userId })
 		])
 			.then(([newSchedule, handlingSchedule, doneSchedule, user]) => {
-				console.log('handling schedule', doneSchedule)
 				res.render('business/employ/employ-schedule', {
 					newSchedule: multipleMongooseToObject(newSchedule),
 					handlingSchedule: multipleMongooseToObject(handlingSchedule),
@@ -624,6 +783,27 @@ class EmployBusinessController {
 					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
 					res.redirect('back');
 				})
+				.catch(next);
+		} else if (deposit === 'NaN') {
+			const schedule = new Schedule({
+				customerID: cusID,
+				createName: createName,
+				status: "Tạo mới",
+				service: service,
+				comments: { comment: comment },
+				schedule: scheduleBody,
+				priceBefore: priceBefore,
+				deposit: 0,
+				counselorImg: imgArr,
+				counselorVideo: videoArr,
+			});
+			schedule.save();
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { scheduleID: schedule.id }})
+				.then(() => {
+					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
+					res.redirect('back');
+				})
+				.catch(next);
 		} else {
 			const schedule = new Schedule({
 				customerID: cusID,
@@ -643,6 +823,7 @@ class EmployBusinessController {
 					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
 					res.redirect('back');
 				})
+				.catch(next);
 		}
 	}
 
@@ -661,6 +842,44 @@ class EmployBusinessController {
 			.then(() => {
 				res.redirect('back');
 			})
+			.catch(next);
+	}
+
+	// Chi tiết khách hàng xuất viện
+	showCustomerDischargeFromHospitalDetail(req, res, next) {
+		Customer.findById({ _id: req.params.id }).populate({
+			path: 'serviceNoteID',
+			match: {
+				status: 'Xuất viện'
+			},
+			populate: {
+				path: 'performer'
+			}
+		})
+		.then(customer => {
+			res.render('business/employ/employ-customer-discharge-from-hospital-detail', {
+				title: 'Chi tiết khách hàng xuất viện',
+				customer: mongooseToObject(customer)
+			})
+		})
+		.catch(next);
+	}
+
+	// Chi tiết phiếu dịch vụ
+	showServiceNoteDetail(req, res, next) {
+		ServiceNote.findById({ _id: req.params.id }).populate('performer')
+		.populate({
+			path: 'scheduleID',
+			populate: {
+				path: 'customerID'
+			}
+		})
+		.then(serviceNote => {
+			res.render('business/employ/employ-service-note-detail', {
+				title: 'Chi tiết phiếu dịch vụ',
+				serviceNote: mongooseToObject(serviceNote)
+			})
+		})
 	}
 }
 

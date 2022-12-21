@@ -1,8 +1,3 @@
-
-
-//ADD USER to CUSTOMER
-
-
 //Check all customer
 var customerItemCheckbox = document.querySelectorAll('.check-box-customer');
 var checkCusAll = document.getElementById("check-customer-all");
@@ -44,13 +39,6 @@ addUseridToCustomerBtn.addEventListener("click", () => {
 	addUserCusForm.submit();
 })
 
-// checkAllSubmitBtn.addEventListener("click", function(e)  {
-// 	e.preventDefault();
-// 	var isSubmittable = checkAllSubmitBtn.classList.contains('disabled');
-// 	if(!isSubmittable){
-
-// 	}
-// })
 document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {
 		$("#customer_table").DataTable({
@@ -59,7 +47,3 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	});
 });
-
-
-
-//END ADD USER to CUSTOMER
