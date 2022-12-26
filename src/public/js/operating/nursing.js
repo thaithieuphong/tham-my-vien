@@ -105,21 +105,63 @@ document.addEventListener("DOMContentLoaded", function () {
 	if (inputMultiVideoCounselor) {
 		inputMultiVideoCounselor.addEventListener('change', (e) => {
 			let files = e.target;
-			videosPreviewCounselor(files);
+			console.log(files);
+			videosPreviewCounselor(files)
+			// let inputFiles = Array.from(files.files);
+			// if (files) {
+			// 	for (i = 0; i < files.length; i++) {
+			// 		let newVideo = document.createElement('video');
+			// 		let iconClose = document.createElement('i');
+			// 		iconClose.setAttribute('class', 'ti-close');
+			// 		let closeButtonLink = document.createElement('div');
+			// 		closeButtonLink.append(iconClose);
+			// 		let divMain = document.createElement('figure');
+			// 		// let src = event.target.result;
+			// 		let videoBlob = new Blob([new Uint8Array(files[i])], { type: 'video/*' });
+			// 		let url = URL.createObjectURL(videoBlob);
+			// 		divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
+			// 		divMain.id = i;
+			// 		// newVideo.src = url;
+			// 		console.log(url)
+			// 		newVideo.classList = 'img-fluid';
+			// 		newVideo.setAttribute('accept', 'video/*');
+			// 		newVideo.setAttribute('src', url);
+			// 		newVideo.controls = true;
+			// 		newVideo.id = i;
+			// 		closeButtonLink.type = 'button';
+			// 		closeButtonLink.id = i;
+			// 		closeButtonLink.ariaLabel = 'Close';
+			// 		closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
+			// 		let videoc = document.querySelector('.preview-videos-counselor');
+			// 		divMain.append(newVideo, closeButtonLink);
+			// 		videoc.append(divMain);
+			// 		let closeBtn = document.querySelectorAll('.close-video');
+			// 		closeBtn.forEach(btn => {
+			// 			btn.addEventListener('click', (e) => {
+			// 				let parent = btn.parentElement;
+			// 				parent.remove();
+			// 			})
+			// 		})
+			// 		// let reader = new FileReader();
+			// 		// reader.onload = function (event) {
+			// 		// };
+			// 		// reader.readAsDataURL(inputFiles[i]);
+			// 	}
+			// }
 		})
 	
 		let videosPreviewCounselor = function (input) {
 			let inputFiles = Array.from(input.files);
-			if (input.files) {
+			if (inputFiles) {
 				for (i = 0; i < inputFiles.length; i++) {
+					let newVideo = document.createElement('video');
+					let iconClose = document.createElement('i');
+					iconClose.setAttribute('class', 'ti-close');
+					let closeButtonLink = document.createElement('div');
+					closeButtonLink.append(iconClose);
+					let divMain = document.createElement('figure');
 					let reader = new FileReader();
 					reader.onload = function (event) {
-						let newVideo = document.createElement('video');
-						let iconClose = document.createElement('i');
-						iconClose.setAttribute('class', 'ti-close');
-						let closeButtonLink = document.createElement('div');
-						closeButtonLink.append(iconClose);
-						let divMain = document.createElement('figure');
 						let src = event.target.result;
 						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
 						divMain.id = i;
@@ -441,7 +483,7 @@ var createService = function(str) {
 	inputService.setAttribute('type', 'text');
 	let inputPrice = document.createElement('input');
 	inputPrice.setAttribute('class', 'form-control text-right input-price bg-transparent text-light');
-	inputPrice.setAttribute('name', 'price');
+	inputPrice.setAttribute('name', 'price[]');
 	inputPrice.setAttribute('value', 0);
 	divContainer.append(inputService, inputPrice, btnClose);
 	serviceContainer.append(divContainer);
@@ -746,3 +788,25 @@ function showSlidesAfterVideo(n) {
 		}
 	}
 }
+
+// Handle push data to edit modal
+var deleteService = document.getElementById("deleteService");
+deleteService.addEventListener("show.bs.modal", function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget;
+	// Get data from edit button
+	var dataServiceID = button.getAttribute('data-service-id');
+	var dataServiceName = button.getAttribute('data-service-name');
+	// Get element need embeded input
+	var serviceID = document.getElementById("serviceID");
+	var serviceName = document.getElementById("serviceName");
+	serviceID.value = dataServiceID;
+	serviceName.innerText = dataServiceName;
+});
+
+// Handle edit info Customer
+var deleteServiceBtn = document.getElementById("deleteServiceBtn");
+var deleteServiceForm = document.forms["deleteServiceForm"];
+deleteServiceBtn.addEventListener("click", () => {
+	deleteServiceForm.submit();
+});

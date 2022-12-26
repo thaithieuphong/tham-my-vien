@@ -65,6 +65,19 @@ const Schedule = new Schema({
 	priceBefore: String,
 	deposit: String,
 	schedule: String,
+	reason: String,
+	logSchedules: [
+		{
+			type: new mongoose.Schema(
+				{
+					schedule: String,
+					reason: String,
+					userID: String
+				},
+				{ timestamps: true }
+			)
+		}
+	],
 }, {
     timestamps: true
 });

@@ -149,6 +149,17 @@ const ServiceNote = new Schema({
 	reason: String,
 	priceBefore: String,
 	deposit: String,
+	logStatus: [
+		{
+			type: new mongoose.Schema(
+				{
+					statusServiceNote: String,
+					createID: String,
+				},
+				{ timestamps: true }
+			)
+		}
+	],
 }, {
 	timestamps: true
 });

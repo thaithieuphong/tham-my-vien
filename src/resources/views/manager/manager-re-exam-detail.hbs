@@ -1,0 +1,216 @@
+<link rel="stylesheet" href="/css/root.css">
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-blue border-bottom">
+        <div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
+        </div>
+		<div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+		<div>
+			{{!-- <a href="/operating-room/nursing/storage-cus-info-done" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-boxes-packing fs-5 p-2"></i>
+			</a>
+			<a href="/operating-room/nursing/profile" class="text-center link-secondary">
+				<i class="fa-sharp fa-solid fa-user-nurse fs-5 p-2"></i>
+			</a> --}}
+		</div>
+    </nav>
+</div>
+<div class="m-16">
+	{{#if reExam}}
+		<div class="card">
+			<div class="card-body">
+				<div class="d-flex justify-content-between border-bottom mb-3">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Mã khách:</strong>&nbsp;
+					</label>
+					<label class="fs-6 text-dark text-right">
+						{{reExam.customerID.identification}}
+					</label>
+				</div>
+				<div class="d-flex justify-content-between border-bottom mb-3">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Họ tên khai sinh:</strong>&nbsp;
+					</label>
+					<label class="fs-6 text-dark text-right">
+						{{reExam.customerID.fullName}}
+					</label>
+				</div>
+				<div class="d-flex justify-content-between border-bottom mb-3">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Tên thường gọi:</strong>&nbsp;
+					</label>
+					<label class="fs-6 text-dark text-right">
+						{{reExam.customerID.nickName}}
+					</label>
+				</div>
+				<div class="d-flex justify-content-between border-bottom mb-3">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Ngày hẹn:</strong>&nbsp;
+					</label>
+					<label for=""class="fs-6 text-success text-right">
+						<em>{{formatDate reExam.schedule}}</em>
+					</label>
+				</div>
+				<div class="d-flex justify-content-between border-bottom mb-3">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Tái khám lần:</strong>&nbsp;
+					</label>
+					<label for=""class="fs-6 text-primary text-right">
+						<em>0{{reExam.times}}</em>
+					</label>
+				</div>
+				<div class="d-flex justify-content-between border-bottom mb-3">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Trạng thái:</strong>&nbsp;
+					</label>
+					<label class="fs-6 text-danger text-right">
+						<em>{{reExam.status}}</em>
+					</label>
+				</div>
+				<div class="d-flex justify-content-between border-bottom mb-3">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Bác sĩ:</strong>&nbsp;
+					</label>
+					<label class="text-dark">
+						{{#each reExam.performer}}
+						<em>{{this.firstName}} {{this.lastName}}</em>
+						{{/each}}
+					</label>
+				</div>
+				<div class="d-flex justify-content-between border-bottom mb-3">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Ngày phẩu thuật:</strong>&nbsp;
+					</label>
+					<label class="text-dark text-right">
+						{{formatDate reExam.serviceNoteId.surgeryDay}}
+					</label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Dịch vụ đăng ký:</strong>&nbsp;
+					</label>
+				</div>
+				{{#each reExam.serviceNoteId.service}}
+				<div class="d-flex justify-content-between border-bottom mb-3">
+					<label class="text-dark-yellow">
+						<em>{{this.name}}</em>
+					</label>
+					<label class="text-dark text-right">
+						<em>{{this.price}}</em>
+					</label>
+				</div>
+				{{/each}}
+				<div class="d-flex justify-content-between border-bottom mb-3">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Đặt cọc:</strong>&nbsp;
+					</label>
+					<label class="text-warning text-right">
+						{{reExam.serviceNoteId.deposit}}
+					</label>
+				</div>
+				<div class="d-flex justify-content-between border-bottom mb-3">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Tổng chi phí:</strong>&nbsp;
+					</label>
+					<label class="text-danger text-right">
+						{{reExam.serviceNoteId.total}}
+					</label>
+				</div>
+				<div class="accordion accordion-flush" id="accordionFlushExample">
+					<div class="accordion-item bg-transparent text-light">
+						<h2 class="accordion-header" id="flush-headingSix">
+							<button class="accordion-button collapsed bg-transparent text-dark pl-0 pr-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+								<strong>Thông tin tái khám</strong>
+							</button>
+						</h2>
+						<div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+							<div class="accordion-body">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="slideshow-container mt-3 mb-3">
+											<!-- Full-width images with number and caption text -->
+											{{#if reExam.reExamImg}}
+											{{#each reExam.reExamImg}}
+											<div class="slide-re-exam-img fadeOn">
+												<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+												{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/re-examination/img/{{this.name}}"> --}}
+											</div>
+											{{/each}}
+											{{else}}
+											<div class="slide-re-exam-img fadeOn">
+												<div class="text-center text-dark">Chưa có ảnh</div>
+											</div>
+											{{/if}}
+											<!-- Next and previous buttons -->
+											<a class="prev" onclick="plusSlidesReExamImg(-1)">&#10094;</a>
+											<a class="next" onclick="plusSlidesReExamImg(1)">&#10095;</a>
+											<!-- The dots/circles -->
+											<div style="text-align:center">
+											{{#each reExam.reExamImg}}
+												<span class="dot" onclick="currentSlideReExamImg({{@index}})"></span>
+											{{/each}}
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="slideshow-container mt-3 mb-3">
+											<!-- Full-width images with number and caption text -->
+											{{#if reExam.reExamVideo}}
+											{{#each reExam.reExamVideo}}
+											<div class="slide-re-exam-video fadeOn">
+												<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+													<source src="{{this.url}}">
+													{{!-- <source src="/re-examination/video/{{this.name}}"> --}}
+												</video>
+											</div>
+											{{/each}}
+											{{else}}
+											<div class="slide-re-exam-video fadeOn">
+												<div class="text-center text-dark">Chưa có video</div>
+											</div>
+											{{/if}}
+											<!-- Next and previous buttons -->
+											<a class="prev" onclick="plusSlidesReExamVideo(-1)">&#10094;</a>
+											<a class="next" onclick="plusSlidesReExamVideo(1)">&#10095;</a>
+											<!-- The dots/circles -->
+											<div style="text-align:center">
+												{{#each reExam.reExamVideo}}
+												<span class="dot" onclick="currentSlideReExamVideo({{@index}})"></span>
+												{{/each}}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-4">
+										<label for="status" class="text-nowrap text-dark">
+											<strong>Tình trạng khách hàng:</strong>&nbsp;
+										</label>
+										<textarea class="form-control bg-transparent text-dark mb-3" cols="30" rows="8" readonly>{{reExam.statusInfo}}</textarea>
+									</div>
+									<div class="col-md-4">
+										<label for="status" class="text-nowrap text-dark">
+											<strong>Chỉ định của bác sĩ:</strong>&nbsp;
+										</label>
+										<textarea class="form-control bg-transparent text-dark mb-3" cols="30" rows="8" readonly>{{reExam.derectedByDoctor}}</textarea>
+									</div>
+									<div class="col-md-4">
+										<label for="status" class="text-nowrap text-dark">
+											<strong>Các bước thực hiện:</strong>&nbsp;
+										</label>
+										<textarea class="form-control bg-transparent text-dark" cols="30" rows="8" readonly>{{reExam.stepsToTake}}</textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{{/if}}
+</div>
+<script src="/js/operating/nursing-re-exam-detail.js"></script>

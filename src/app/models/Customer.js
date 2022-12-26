@@ -25,6 +25,7 @@ const Customer = new Schema({
 						statusEng: String
 					},
 					surgeryDay: String,
+					userID: String,
 				},
 				{ timestamps: true }
 			)

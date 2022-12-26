@@ -1,0 +1,482 @@
+<link rel="stylesheet" href="/css/root.css">
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-blue border-bottom">
+        <div class="img-container">
+			<a type="button" onclick="history.back()">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			</a>
+        </div>
+		<div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+		<div></div>
+    </nav>
+</div>
+
+{{#if serviceNote}}
+<div class="card">
+	<div class="card-body text-dark">
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Mã khách hàng:</strong>
+			</label>
+			<label class="fs-6 text-right">
+				{{serviceNote.scheduleID.customerID.identification}}
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Họ tên khai sinh:</strong>
+			</label>
+			<label class="fs-6 text-right">
+				{{serviceNote.scheduleID.customerID.fullName}}
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Tên thường gọi:</strong>
+			</label>
+			<label class="fs-6 text-right">
+				{{serviceNote.scheduleID.customerID.nickName}}
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Quê quán:</strong>
+			</label>
+			<label class="fs-6 text-right">
+				{{serviceNote.scheduleID.customerID.homeTown}}
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Trạng thái:</strong>
+			</label>
+			<label class="fs-6 text-danger text-right">
+				<em>{{serviceNote.status}}</em>
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Bác sĩ:</strong>
+			</label>
+			<label class="">
+				{{#each serviceNote.performer}}
+				<em>{{this.firstName}} {{this.lastName}}</em>
+				{{/each}}
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Chiều cao:</strong>
+			</label>
+			<label class="">
+				<em>{{serviceNote.scheduleID.customerID.height}}</em>
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Cân nặng:</strong>
+			</label>
+			<label class="text-right">
+				<em>{{serviceNote.scheduleID.customerID.weight}}</em>
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Ngày phẩu thuật:</strong>
+			</label>
+			<label class="text-right">
+				{{formatDate serviceNote.surgeryDay}}
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Tầng phẩu thuật:</strong>
+			</label>
+			<label class="text-right">
+				{{serviceNote.floor}}
+			</label>
+		</div>
+		<div class="d-flex justify-content-between">
+			<label for="status" class="text-nowrap">
+				<strong>Dịch vụ đăng ký:</strong>
+			</label>
+		</div>
+		{{#each serviceNote.service}}
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label class="text-dark-yellow">
+				<em>{{this.name}}</em>
+			</label>
+			<label class="text-right">
+				<em>{{this.price}}</em>
+			</label>
+		</div>
+		{{/each}}
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Đặt cọc:</strong>
+			</label>
+			<label class="text-warning text-right">
+				{{serviceNote.deposit}}
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Tổng chi phí:</strong>
+			</label>
+			<label class="text-danger text-right">
+				{{serviceNote.total}}
+			</label>
+		</div>
+		<div class="accordion accordion-flush" id="accordionFlushExample">
+			<div class="accordion-item bg-transparent">
+				<h2 class="accordion-header" id="flush-headingOne">
+				<button class="accordion-button collapsed bg-transparent pl-0 pr-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+					<strong>Thông tin tư vấn</strong>
+				</button>
+				</h2>
+				<div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="row">
+							<div class="col-md-6">
+								<!-- Slideshow container -->
+								<div class="slideshow-container mt-3 mb-3">
+									<!-- Full-width images with number and caption text -->
+									{{#if serviceNote.counselorImg}}
+									{{#each serviceNote.counselorImg}}
+									<div class="slide-counselor-img fadeOn">
+										<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+										{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/counselor/img/{{this.name}}"> --}}
+									</div>
+									{{/each}}
+									{{else}}
+									<div class="slide-counselor-img fadeOn text-center">
+										Chưa có hình ảnh
+									</div>
+									{{/if}}
+
+									<!-- Next and previous buttons -->
+									<a class="prev" onclick="plusSlidesCounselorImg(-1)">&#10094;</a>
+									<a class="next" onclick="plusSlidesCounselorImg(1)">&#10095;</a>
+									<div style="text-align:center">
+										{{#each serviceNote.counselorImg}}
+										<span class="dot" onclick="currentSlideCounselorImg({{@index}})"></span>
+										{{/each}}
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="slideshow-container mt-3 mb-3">
+									<!-- Full-width images with number and caption text -->
+									{{#if serviceNote.counselorVideo}}
+									{{#each serviceNote.counselorVideo}}
+									<div class="slide-counselor-video fadeOn">
+										<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+											<source src="{{this.url}}">
+											{{!-- <source src="/counselor/video/{{this.name}}"> --}}
+										</video>
+									</div>
+									{{/each}}
+									{{else}}
+									<div class="slide-counselor-video fadeOn text-center">
+										Chưa có video
+									</div>
+									{{/if}}
+
+									<!-- Next and previous buttons -->
+									<a class="prev" onclick="plusSlidesCounselorVideo(-1)">&#10094;</a>
+									<a class="next" onclick="plusSlidesCounselorVideo(1)">&#10095;</a>
+									<div style="text-align:center">
+										{{#each serviceNote.counselorVideo}}
+										<span class="dot" onclick="currentSlideCounselorVideo({{@index}})"></span>
+										{{/each}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<label for="status" class="text-nowrap">
+							<strong>Thông tin tư vấn:</strong>
+						</label>
+						<textarea class="form-control" cols="30" rows="8" readonly>{{serviceNote.counselorInfo}}</textarea>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item bg-transparent">
+				<h2 class="accordion-header" id="flush-headingTwo">
+					<button class="accordion-button collapsed bg-transparent pl-0 pr-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+						<strong>Thông tin trước phẩu</strong>
+					</button>
+				</h2>
+				<div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="slideshow-container mt-3 mb-3">
+									<!-- Full-width images with number and caption text -->
+									{{#if serviceNote.beforeImg}}
+									{{#each serviceNote.beforeImg}}
+									<div class="slide-before-img fadeOn">
+										<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+										{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/before/img/{{this.name}}"> --}}
+									</div>
+									{{/each}}
+									{{else}}
+									<div class="slide-before-img fadeOn text-center">
+										Chưa có hình ảnh
+									</div>
+									{{/if}}
+									<!-- Next and previous buttons -->
+									<a class="prev" onclick="plusSlidesBeforeImg(-1)">&#10094;</a>
+									<a class="next" onclick="plusSlidesBeforeImg(1)">&#10095;</a>
+									<!-- The dots/circles -->
+									<div style="text-align:center">
+										{{#each serviceNote.beforeImg}}
+										<span class="dot" onclick="currentSlideBeforeImg({{@index}})"></span>
+										{{/each}}
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="slideshow-container mt-3 mb-3">
+									<!-- Full-width images with number and caption text -->
+									{{#if serviceNote.beforeVideo}}
+									{{#each serviceNote.beforeVideo}}
+									<div class="slide-before-video fadeOn">
+										<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+											<source src="{{this.url}}">
+											{{!-- <source src="/before/video/{{this.name}}"> --}}
+										</video>
+									</div>
+									{{/each}}
+									{{else}}
+									<div class="slide-before-video fadeOn text-center">
+										Chưa có video
+									</div>
+									{{/if}}
+									<!-- Next and previous buttons -->
+									<a class="prev" onclick="plusSlidesBeforeVideo(-1)">&#10094;</a>
+									<a class="next" onclick="plusSlidesBeforeVideo(1)">&#10095;</a>
+									<!-- The dots/circles -->
+									<div style="text-align:center">
+										{{#each serviceNote.beforeVideo}}
+										<span class="dot" onclick="currentSlideBeforeVideo({{@index}})"></span>
+										{{/each}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<label for="status" class="text-nowrap">
+							<strong>Thông tin trước phẫu thuật:</strong>
+						</label>
+						<textarea class="form-control" cols="30" rows="8" readonly>{{serviceNote.beforeInfo}}</textarea>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item bg-transparent">
+				<h2 class="accordion-header" id="flush-headingFour">
+					<button class="accordion-button collapsed bg-transparent pl-0 pr-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+						<strong>Thông tin phẩu thuật</strong>
+					</button>
+				</h2>
+				<div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="slideshow-container mt-3 mb-3">
+									<!-- Full-width images with number and caption text -->
+									{{#if serviceNote.inSurgeryImg}}
+									{{#each serviceNote.inSurgeryImg}}
+									<div class="slide-in-img fadeOn">
+										<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+										{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/in-surgery/img/{{this.name}}"> --}}
+									</div>
+									{{/each}}
+									{{else}}
+									<div class="slide-in-img fadeOn text-center">
+										Chưa có hình ảnh
+									</div>
+									{{/if}}
+
+									<!-- Next and previous buttons -->
+									<a class="prev" onclick="plusSlidesInImg(-1)">&#10094;</a>
+									<a class="next" onclick="plusSlidesInImg(1)">&#10095;</a>
+									<!-- The dots/circles -->
+									<div style="text-align:center">
+										{{#each serviceNote.inSurgeryImg}}
+										<span class="dot" onclick="currentSlideInImg({{@index}})"></span>
+										{{/each}}
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="slideshow-container mt-3 mb-3">
+									<!-- Full-width images with number and caption text -->
+									{{#if serviceNote.inSurgeryVideo}}
+									{{#each serviceNote.inSurgeryVideo}}
+									<div class="slide-in-video fadeOn">
+										<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+											<source src="{{this.url}}">
+											{{!-- <source src="/in-surgery/video/{{this.name}}"> --}}
+										</video>
+									</div>
+									{{/each}}
+									{{else}}
+									<div class="slide-in-video fadeOn text-center">
+										Chưa có video
+									</div>
+									{{/if}}
+
+									<!-- Next and previous buttons -->
+									<a class="prev" onclick="plusSlidesInVideo(-1)">&#10094;</a>
+									<a class="next" onclick="plusSlidesInVideo(1)">&#10095;</a>
+									<!-- The dots/circles -->
+									<div style="text-align:center">
+										{{#each serviceNote.inSurgeryVideo}}
+										<span class="dot" onclick="currentSlideInVideo({{@index}})"></span>
+										{{/each}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<label for="status" class="text-nowrap">
+							<strong>Các bước thực hiện:</strong>
+						</label>
+						<textarea class="form-control" cols="30" rows="8" readonly>{{serviceNote.stepsToTake}}</textarea>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item bg-transparent">
+				<h2 class="accordion-header" id="flush-headingFive">
+					<button class="accordion-button collapsed bg-transparent pl-0 pr-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
+						<strong>Thông tin hậu phẩu - hồi sức</strong>
+					</button>
+				</h2>
+				<div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="slideshow-container mt-3 mb-3">
+									<!-- Full-width images with number and caption text -->
+									{{#if serviceNote.afterImg}}
+									{{#each serviceNote.afterImg}}
+									<div class="slide-after-img fadeOn">
+										<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
+										{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="/after/img/{{this.name}}"> --}}
+									</div>
+									{{/each}}
+									{{else}}
+									<div class="slide-after-img fadeOn text-center">
+										Chưa có hình ảnh
+									</div>
+									{{/if}}
+
+									<!-- Next and previous buttons -->
+									<a class="prev" onclick="plusSlidesAfterImg(-1)">&#10094;</a>
+									<a class="next" onclick="plusSlidesAfterImg(1)">&#10095;</a>
+									<!-- The dots/circles -->
+									<div style="text-align:center">
+										{{#each serviceNote.afterImg}}
+										<span class="dot" onclick="currentSlideAfterImg({{@index}})"></span>
+										{{/each}}
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="slideshow-container mt-3 mb-3">
+									<!-- Full-width images with number and caption text -->
+									{{#if serviceNote.afterVideo}}
+									{{#each serviceNote.afterVideo}}
+									<div class="slide-after-video fadeOn">
+										<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+											<source src="{{this.url}}">
+											{{!-- <source src="/after/video/{{this.name}}"> --}}
+										</video>
+									</div>
+									{{/each}}
+									{{else}}
+									<div class="slide-after-video fadeOn text-center">
+										Chưa có video
+									</div>
+									{{/if}}
+
+									<!-- Next and previous buttons -->
+									<a class="prev" onclick="plusSlidesAfterVideo(-1)">&#10094;</a>
+									<a class="next" onclick="plusSlidesAfterVideo(1)">&#10095;</a>
+									<!-- The dots/circles -->
+									<div style="text-align:center">
+										{{#each serviceNote.afterVideo}}
+										<span class="dot" onclick="currentSlideAfterVideo({{@index}})"></span>
+										{{/each}}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="status" class="text-nowrap">
+									<strong>Tình trạng khách hàng:</strong>
+								</label>
+								<textarea class="form-control mb-3" cols="30" rows="8" readonly>{{serviceNote.statusAfterInfo}}</textarea>
+							</div>
+							<div class="col-md-4">
+								<label for="status" class="text-nowrap">
+									<strong>Chỉ định của bác sĩ:</strong>
+								</label>
+								<textarea class="form-control mb-3" cols="30" rows="8" readonly>{{serviceNote.directedByDoctor}}</textarea>
+							</div>
+							<div class="col-md-4">
+								<label for="status" class="text-nowrap">
+									<strong>Các bước thực hiện:</strong>
+								</label>
+								<textarea class="form-control" cols="30" rows="8" readonly>{{serviceNote.afterInfo}}</textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="accordion-item bg-transparent">
+				<h2 class="accordion-header" id="flush-headingSix">
+					<button class="accordion-button collapsed bg-transparent pl-0 pr-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix">
+						<strong>Tổng hợp phiếu tái khám</strong>
+					</button>
+				</h2>
+				<div id="flush-collapseSix" class="accordion-collapse collapse" aria-labelledby="flush-headingSix" data-bs-parent="#accordionFlushExample">
+					<div class="accordion-body">
+						<div class="row overflow-auto">
+							{{#if reExams}}
+							{{#each reExams}}
+								<div class="col-4 mb-3">
+									<a href="/manager/general-manager/re-exam/{{this._id}}/detail">
+										<div class="card p-3">
+											<div class="d-flex justify-content-between">
+												<label class="text-nowrap" for=""><strong>Trạng thái:</strong></label>
+												<div class="text-nowrap">{{this.status}}</div>
+											</div>
+											<div class="d-flex justify-content-between">
+												<label class="text-nowrap" for=""><strong>Ngày hẹn:</strong></label>
+                                                <div class="text-nowrap">{{formatDate this.schedule}}</div>
+											</div>
+                                            <div class="d-flex justify-content-between">
+												<label class="text-nowrap" for=""><strong>Số lần tái khám:</strong></label>
+                                                <div class="text-nowrap">{{this.times}}</div>
+											</div>
+										</div>
+									</a>
+								</div>
+							{{/each}}
+							{{else}}
+								<div class="text-center">
+									<label for="">Chưa có phiếu tái khám</label>
+								</div>
+							{{/if}}
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{{/if}}
+
+<script src="/js/operating/nursing-service-note-detail.js"></script>

@@ -26,6 +26,18 @@
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 	{{/if}}
+	{{#if messages_editSchedule_success}}
+	<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+		{{messages_editSchedule_success}}
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	{{/if}}
+	{{#if messages_deleteSchedule_success}}
+	<div class="alert alert-success alert-dismissible fade show mt-2" role="alert">
+		{{messages_deleteSchedule_success}}
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	{{/if}}
 	<div class="row">
 		{{#each schedules}}
 		<div class="col-xl-6 col-lg-6 col-md-12 col-sm-6 card-col">
@@ -85,7 +97,7 @@
 							</div>
 							<div class="col-lg-4 col-md-12 col-sm-12">
 								<button type="button" class="btn btn-info btn-mobile rounded-pill mb-3 border btn-sm" data-bs-toggle="modal" data-bs-target="#edit-schedule-modal"
-								data-edit-id="{{this._id}}" data-edit-fullName="{{this.customerID.fullName}}" data-edit-nickName="{{this.customerID.nickName}}" data-edit-gender="{{this.customerID.gender}}"
+								data-edit-id="{{this._id}}" data-edit-cusId="{{this.customerID._id}}" data-edit-fullName="{{this.customerID.fullName}}" data-edit-nickName="{{this.customerID.nickName}}" data-edit-gender="{{this.customerID.gender}}"
 								data-edit-phone="{{this.customerID.phone}}">Sửa lịch hẹn tư vấn</button>
 							</div>
 							<div class="col-lg-4 col-md-12 col-sm-12 text-right">
@@ -110,6 +122,7 @@
 			</div>
 			<div class="modal-body">
 				<form id="edit-schedule-form" method="POST">
+					<input type="text" id="customerID" name="customerID" hidden>
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-nowrap"><strong>Họ và tên:</strong></label>
 						<div id="edit-schedule-fullname" class="m-0 text-wrap"></div>
@@ -127,6 +140,10 @@
 						<div>
 							<input type="datetime-local" id="edit-schedule-input" class="form-control rounded-pill" name="schedule">
 						</div>
+					</div>
+					<label class="form-label text-nowrap" for=""><strong>Lý do thay đổi:</strong></label>
+					<div class="w-100">
+						<textarea class="w-100 p-2" name="reason" id="" rows="6"></textarea>
 					</div>
 				</form>
 			</div>

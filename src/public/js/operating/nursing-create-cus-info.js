@@ -45,14 +45,17 @@ window.addEventListener('load',function(){
 			var button = event.relatedTarget;
 			// Get data from delete button
 			var scheduleId = button.getAttribute('data-edit-id');
+			var cusID = button.getAttribute("data-edit-cusID");
 			var fullName = button.getAttribute("data-edit-fullName");
 			var nickName = button.getAttribute("data-edit-nickName");
 			var phone = button.getAttribute("data-edit-phone");
 			// Get element need embeded input
+			var editCustomerID = document.getElementById("customerID");
 			var editFullName = document.getElementById("edit-schedule-fullname");
 			var editNickName = document.getElementById("edit-schedule-nickname");
 			var editPhone = document.getElementById("edit-schedule-phone");
 			editScheduleForm.setAttribute('action', `/operating-room/nursing/schedule/${scheduleId}/edit?_method=PATCH`);
+			editCustomerID.value = cusID;
 			editFullName.innerHTML = fullName;
 			editNickName.innerHTML = nickName;
 			editPhone.innerHTML = phone;

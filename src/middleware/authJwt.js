@@ -152,6 +152,17 @@ class authJwt {
 			}).catch(next);
 	}
 
+	isGeneralManager(req, res, next) {
+		User.findById(req.userId)
+			.then((user) => {
+				if (user.departmentEng === 'manager' && user.positionEng === 'general-manager') {
+					next();
+				} else {
+					res.render('err/403', { layout: false });
+				}
+			}).catch(next);
+	}
+
 	isAdmin(req, res, next) {
 		User.findById(req.userId)
 			.then((user) => {

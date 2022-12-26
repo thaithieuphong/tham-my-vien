@@ -165,10 +165,13 @@ if (submitReExaminationModal) {
 	submitReExaminationModal.addEventListener('show.bs.modal', function (event) {
 		var button = event.relatedTarget;
 		let id = button.getAttribute("data-id");
+		let customerID = button.getAttribute("data-cusId");
 		let fullName = button.getAttribute("data-fullName");
 		submitReExaminationForm.setAttribute('action', `/operating-room/nursing/re-examination/${id}/done?_method=PATCH`);
 
+		let submitCustomerID = document.getElementById('submit-re-exam-done-cusID');
 		let submitFullName = document.getElementById('submit-re-exam-fullname');
+		submitCustomerID.value = customerID;
 		submitFullName.innerHTML = fullName;
 
 	})
@@ -215,16 +218,19 @@ if (editReExaminationModal) {
 	editReExaminationModal.addEventListener('show.bs.modal', function (event) {
 		var button = event.relatedTarget;
 		let id = button.getAttribute("data-edit-reexam-id");
+		let cusId = button.getAttribute("data-edit-reexam-cusId");
 		let fullName = button.getAttribute("data-edit-reexam-fullName");
 		let nickName = button.getAttribute("data-edit-reexam-nickName");
 		let gender = button.getAttribute("data-edit-reexam-gender");
 		let phone = button.getAttribute("data-edit-reexam-phone");
 		editReExaminationForm.setAttribute('action', `/operating-room/nursing/re-examination/${id}/edit?_method=PATCH`);
 
+		let editCusID = document.getElementById('edit-reexam-schedule-cusID');
 		let editFullName = document.getElementById('edit-reexam-schedule-fullname');
 		let editNickName = document.getElementById('edit-reexam-schedule-nickname');
 		let editGender = document.getElementById('edit-reexam-schedule-gender');
 		let editPhone = document.getElementById('edit-reexam-schedule-phone');
+		editCusID.value = cusId;
 		editFullName.innerHTML = fullName;
 		editNickName.innerHTML = nickName;
 		editGender.innerHTML = gender;

@@ -27,6 +27,7 @@ router.post('/discharge-from-hospital/:id/create-re-examination', NursingControl
 router.get('/discharge-from-hospital', NursingController.showStorageCusInfo);
 router.patch('/service-note/:id/done', NursingController.updateServiceNoteDone);
 router.patch('/service-note/:id/discharge-from-hospital', NursingController.updateServiceNoteDischargeFromHospital);
+router.delete('/service-note/service/:id/delete', NursingController.deleteService);
 router.get('/service-note/:id/detail', NursingController.showServiceNoteDetail);
 router.get('/service-note', NursingController.showServiceNote);
 router.post('/customer-information/:id/operating-counselor', validateUpload.counselorUpload, NursingController.uploadCounselor);

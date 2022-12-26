@@ -346,8 +346,10 @@ class HRController {
 				res.render('human-resources/manager/manager-user-detail', {
 					user: mongooseToObject(user),
 					user1: mongooseToObject(user1),
+					title: 'Thông tin chi tiết'
 				});
 			})
+			.catch(next);
 	}
 
 }

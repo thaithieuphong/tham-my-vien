@@ -167,7 +167,7 @@ editUser.addEventListener("show.bs.modal", function (event) {
 					}
 					break;
 				case 'Quản trị':
-					if (element.innerHTML === 'Tổng Giám đốc' || element.innerHTML === 'Trợ lý') {
+					if (element.innerHTML === 'Tổng Giám đốc' || element.innerHTML === 'Trợ lý' || element.innerHTML === 'Chủ tịch') {
 						element.classList.replace('off', 'on');
 					}
 					break;
@@ -225,9 +225,10 @@ deleteUser.addEventListener("show.bs.modal", function (event) {
 
 document.addEventListener("DOMContentLoaded", function () {
 	$(document).ready(function () {
-		$("#user_table").DataTable({
-			paging: true,
+		$("#userTable").bootstrapTable({
+			pagination: true,
 			reponsive: true,
+			search: true
 		});
 	});
 });
@@ -293,7 +294,7 @@ createUser.addEventListener("show.bs.modal", function (event) {
 					}
 					break;
 				case 'Quản trị':
-					if (element.innerHTML === 'Tổng Giám đốc' || element.innerHTML === 'Trợ lý') {
+					if (element.innerHTML === 'Tổng Giám đốc' || element.innerHTML === 'Trợ lý' || element.innerHTML === 'Chủ tịch') {
 						element.classList.replace('off', 'on');
 
 					}

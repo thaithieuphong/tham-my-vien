@@ -8,7 +8,6 @@ createPhone.addEventListener('input', (e) => {
 		document.getElementById('create_phone_error').classList.remove('off');
 	} else {
 		document.getElementById('create_phone_error').classList.add('off');
-			// alert("validation success")
 	}
 });
 
@@ -43,7 +42,6 @@ editPhone.addEventListener('input', (e) => {
 		document.getElementById('edit_phone_error').classList.remove('off');
 	} else {
 		document.getElementById('edit_phone_error').classList.add('off');
-			// alert("validation success")
 	}
 })
 

@@ -2,7 +2,7 @@ const User = require('../../models/User');
 const { multipleMongooseToObject, mongooseToObject } = require('../../../util/mongoose');
 const ServiceNote = require('../../models/ServiceNote');
 const Department = require('../../models/Department');
-const Position = require('../../models/Position');
+const Log = require('../../models/Log');
 const Schedule = require('../../models/Schedule');
 const Reexamination = require('../../models/Reexamination');
 const Customer = require('../../models/Customer');
@@ -39,15 +39,28 @@ class NursingController {
 
 	// Tạo lịch hẹn
 	createSchedule(req, res, next) {
-		if (req.body.deposit === '') {
+		let deposit = req.body.deposit;
+		let cusID = req.params.id;
+		let createID = req.body.createID;
+		let comment = req.body.comment;
+		let scheduleBody = req.body.schedule;
+		let priceBefore = req.body.priceBefore;
+		if (deposit === '') {
 			const schedule = new Schedule({
-				customerID: req.params.id,
-				createName: req.body.createID,
+				customerID: cusID,
+				createName: createID,
 				status: "Tạo mới",
-				comments: { comment: req.body.comment },
-				schedule: req.body.schedule,
-				priceBefore: req.body.priceBefore,
+				comments: { comment: comment },
+				schedule: scheduleBody,
+				priceBefore: priceBefore,
 				deposit: 0,
+				logSchedules: [
+					{	
+						schedule: scheduleBody,
+						reason: 'Lần tạo đầu tiên',
+						userID: req.userId
+					}
+				],
 			});
 			schedule.save()
 				.then(newSchedule => {
@@ -60,13 +73,20 @@ class NursingController {
 				.catch(next);
 		} else if (deposit === 'NaN') {
 			const schedule = new Schedule({
-				customerID: req.params.id,
-				createName: req.body.createID,
+				customerID: cusID,
+				createName: createID,
 				status: "Tạo mới",
-				comments: { comment: req.body.comment },
-				schedule: req.body.schedule,
-				priceBefore: req.body.priceBefore,
+				comments: { comment: comment },
+				schedule: scheduleBody,
+				priceBefore: priceBefore,
 				deposit: 0,
+				logSchedules: [
+					{	
+						schedule: scheduleBody,
+						reason: 'Lần tạo đầu tiên',
+						userID: req.userId
+					}
+				],
 			});
 			schedule.save()
 				.then(newSchedule => {
@@ -79,13 +99,20 @@ class NursingController {
 				.catch(next);
 		} else {
 			const schedule = new Schedule({
-				customerID: req.params.id,
-				createName: req.body.createID,
+				customerID: cusID,
+				createName: createID,
 				status: "Tạo mới",
-				comments: { comment: req.body.comment },
-				schedule: req.body.schedule,
-				priceBefore: req.body.priceBefore,
-				deposit: req.body.deposit,
+				comments: { comment: comment },
+				schedule: scheduleBody,
+				priceBefore: priceBefore,
+				deposit: deposit,
+				logSchedules: [
+					{		
+						schedule: scheduleBody,
+						reason: 'Lần tạo đầu tiên',
+						userID: req.userId
+					}
+				],
 			});
 			schedule.save()
 				.then(newSchedule => {
@@ -131,9 +158,17 @@ class NursingController {
 		})
 		serviceNote.save()
 			.then(newServiceNote => {
+				let updateCus = {
+					$set: { statusCus: { statusVi: 'Tạo hồ sơ', statusEng: 'createAProfile'}, serviceNoteID: newServiceNote._id},
+					$push: { logStatus: { statusCus: {statusVi: 'Tạo hồ sơ', statusEng: 'createAProfile'}, serviceNoteID: newServiceNote._id, userID: req.userId}}
+				}
+				let updateStatusService = {
+					$set: { status: 'Đang xử lý'},
+					$push: { logStatus: { statusServiceNote: 'Đang xử lý', createID: req.userId}}
+				}
 				Promise.all([Schedule.findByIdAndUpdate({ _id: req.params.id }, { status: 'Đang xử lý', serviceNoteID: newServiceNote._id}),
-					Customer.findByIdAndUpdate({ _id: req.body.cusID }, {$push: {serviceNoteID: newServiceNote._id}}),
-					ServiceNote.findByIdAndUpdate({ _id: newServiceNote._id }, { status: 'Đang xử lý'})])
+					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateCus),
+					ServiceNote.findByIdAndUpdate({ _id: newServiceNote._id }, updateStatusService)])
 					.then(() => {
 						res.redirect(`/operating-room/nursing/customer-information/${newServiceNote._id}`)
 					})
@@ -152,9 +187,9 @@ class NursingController {
 		}),
 		User.find({ departmentEng: 'operating-room', positionEng: 'doctor', firstName: 'Nguyễn Tuấn', lastName: 'Anh'}),
 		TypeService.find({})])
-			.then(([schedule, doctor, typeService]) => {
+			.then(([serviceNote, doctor, typeService]) => {
 				res.render('operating/nursing/create-customer-info', {
-					schedule: mongooseToObject(schedule),
+					serviceNote: mongooseToObject(serviceNote),
 					doctor: multipleMongooseToObject(doctor),
 					typeService: multipleMongooseToObject(typeService),
 					title: 'Cập nhật hồ sơ khách hàng'
@@ -169,18 +204,35 @@ class NursingController {
 			performer: req.body.performer,
 			floor: req.body.floor,
 			surgeryDay: req.body.surgeryDay,
+			$set: { status: 'Đang xử lý'},
+			$push: { logStatus: { statusServiceNote: 'Cập nhật thông tin cá nhân', createID: req.userId}}
 		}),
 		Customer.findByIdAndUpdate({ _id: req.body.cusID }, {
 			identification: req.body.identification,
 			fullName: req.body.fullName,
 			birth: req.body.birth,
+			phone: req.body.phone,
 			gender: req.body.gender,
 			height: req.body.height,
 			weight: req.body.weight,
 			homeTown: req.body.homeTown,
+			statusCus: {
+				statusVi: 'Cập nhật thông tin cá nhân',
+				statusEng: 'updateAProfile'
+			},
+			$push: {
+				logStatus: {
+					statusCus: {
+						statusVi: 'Cập nhật thông tin cá nhân',
+						statusEng: 'updateAProfile'
+					},
+					userID: req.userId
+				}
+			}
 		})])
 		.then(() => {
-			res.redirect('/operating-room/nursing/service-note');
+			req.flash('messages_updateCusInfo_success', 'Cập nhật thông tin cá nhân khách hàng thành công');
+			res.redirect('back');
 		})
 		.catch(next);
 	}
@@ -196,16 +248,43 @@ class NursingController {
 				name: serviceName,
 				price: servicePrice
 			})
-		})
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
-			service: serviceArr,
-			deposit: req.body.deposit,
-			total: req.body.total
-		})
-		.then(serviceNote => {
-			res.redirect('/operating-room/nursing/service-note');
+		});
+		let updateCus = {
+			$set: { statusCus: { statusVi: 'Cập nhật dịch vụ', statusEng: 'updateService'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật dịch vụ', statusEng: 'updateService'}, userID: req.userId}}
+		}
+		Promise.all([
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
+				service: serviceArr,
+				deposit: req.body.deposit,
+				total: req.body.total,
+				$set: { status: 'Đang xử lý'},
+				$push: { logStatus: { statusServiceNote: 'Cập nhật dịch vụ', createID: req.userId}}
+			}),
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateCus)
+		])
+		.then(() => {
+			req.flash('messages_updateService_success', 'Cập nhật dịch vụ thành công');
+			res.redirect('back');
 		})
 		.catch(next);
+	}
+
+	deleteService(req, res, next) {
+		let updateCustomerStatus = {
+			$push: { logStatus: { statusCus: {statusVi: 'Xóa dịch vụ', statusEng: 'deleteService'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateCustomerStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id} , { $pull: {service: { _id: req.body.serviceID}},
+				$push: { logStatus: { statusServiceNote: 'Xóa dịch vụ', createID: req.userId}}
+			})
+		])
+		.then(() => {
+			req.flash('messages_deleteService_success', 'Xóa dịch vụ thành công');
+			res.redirect('back');
+		})
+		.catch(next)
 	}
 
 	// Hiển thị danh sách hồ sơ xuất viện
@@ -216,7 +295,7 @@ class NursingController {
 				path: 'customerID',
 				model: 'Customer'
 			}
-		}).sort({updatedAt: 1})
+		}).sort({updatedAt: -1})
 		.then((serviceNote) => {
 			res.render('operating/nursing/discharge-from-hospital', {
 				serviceNote: multipleMongooseToObject(serviceNote),
@@ -234,7 +313,7 @@ class NursingController {
 				path: 'customerID',
 				model: 'Customer'
 			}
-		})
+		}).sort({updatedAt: -1})
 		.then((serviceNoteDone) => {
 			res.render('operating/nursing/storage-done', {
 				serviceNoteDone: multipleMongooseToObject(serviceNoteDone),
@@ -293,7 +372,8 @@ class NursingController {
 							statusVi: 'Đặt lịch',
 							statusEng: 'Schedule'
 						},
-						surgeryDay: null
+						surgeryDay: null,
+						userID: req.userId
 					}
 				],
 				image: {
@@ -326,7 +406,8 @@ class NursingController {
 							statusVi: 'Đặt lịch',
 							statusEng: 'Schedule'
 						},
-						surgeryDay: null
+						surgeryDay: null,
+						userID: req.userId
 					}
 				],
 				image: {
@@ -365,7 +446,8 @@ class NursingController {
 								statusVi: 'Đặt lịch',
 								statusEng: 'Schedule'
 							},
-							surgeryDay: null
+							surgeryDay: null,
+							userID: req.userId
 						}
 					],
 					image: {
@@ -410,7 +492,8 @@ class NursingController {
 							statusVi: 'Đặt lịch',
 							statusEng: 'Schedule'
 						},
-						surgeryDay: null
+						surgeryDay: null,
+						userID: req.userId
 					}
 				],
 				image: {
@@ -457,7 +540,7 @@ class NursingController {
 				path: 'customerID',
 				model: 'Customer'
 			},
-		}).populate('performer').sort({ updatedAt: 1 })
+		}).populate('performer').sort({updatedAt: -1})
 		.then((serviceNote) => {
 				res.render("operating/nursing/operating-service-note", {
 					serviceNote: multipleMongooseToObject(serviceNote),
@@ -489,13 +572,17 @@ class NursingController {
 	updateServiceNoteDischargeFromHospital(req, res, next) {
 		let updateCus = {
 			$set: { statusCus: { statusVi: 'Xuất viện', statusEng: 'dischargeFromHospital'}, storage: 'No' },
-			$push: { logStatus: { statusCus: {statusVi: 'Xuất viện', statusEng: 'dischargeFromHospital'}, surgeryDay: req.body.surgeryDay}}
+			$push: { logStatus: { statusCus: {statusVi: 'Xuất viện', statusEng: 'dischargeFromHospital'}, surgeryDay: req.body.surgeryDay, userID: req.userId}}
 		}
 		Promise.all([
 			Schedule.findOneAndUpdate({ serviceNoteID: req.params.id }, { $set: { status: 'Hoàn thành' }}),
-			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: 'Xuất viện' }}),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { 
+				$set: { status: 'Xuất viện' },
+				$push: { logStatus: { statusServiceNote: 'Xuất viện', createID: req.userId}}
+			}),
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateCus)])
 		.then(() => {
+			req.flash('messages_updateCusDischarge_success', 'Cập nhật khách hàng xuất viện thành công');
 			res.redirect('back');
 		})
 		.catch(next);
@@ -505,32 +592,54 @@ class NursingController {
 	updateServiceNoteDone(req, res, next) {
 		let updateCus = {
 			$set: { statusCus: { statusVi: 'Lưu hồ sơ', statusEng: 'records'}, storage: 'Yes' },
-			$push: { logStatus: { statusCus: {statusVi: 'Lưu hồ sơ', statusEng: 'records'}, surgeryDay: req.body.surgeryDay}}
+			$push: { logStatus: { statusCus: {statusVi: 'Lưu hồ sơ', statusEng: 'records'}, surgeryDay: req.body.surgeryDay, userID: req.userId}}
 
 		}
 		Promise.all([
-			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: "Lưu hồ sơ"} }),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { 
+				$set: { status: "Lưu hồ sơ"},
+				$push: { logStatus: { statusServiceNote: 'Lưu hồ sơ', createID: req.userId}}
+			}),
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateCus)
 		])
 		.then(() => {
+			req.flash('messages_updateServiceNoteDone_success', 'Cập nhật hoàn thành hồ sơ khách hàng thành công');
 			res.redirect('back');
 		})
 		.catch(next);
 	}
 
-	// Sửa lịch hẹn
+	// Sửa lịch hẹn tư vấn
 	editSchedule(req, res, next) {
-		Schedule.findByIdAndUpdate({ _id: req.params.id }, { schedule: req.body.schedule })
-			.then(() => {
-				res.redirect('back');
-			})
-			.catch(next);
+		let updateStatus = {
+			$set: {schedule: req.body.schedule, reason: req.body.reason},
+			$push: { logSchedules: { schedule: req.body.schedule, reason: req.body.reason, userID: req.userId}}
+		}
+		let updateCustomerStatus = {
+			$push: { logStatus: { statusCus: {statusVi: 'Sửa lịch hẹn tư vấn', statusEng: 'editSchedule'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateCustomerStatus),
+			Schedule.findByIdAndUpdate({ _id: req.params.id }, updateStatus)
+		])
+		.then(() => {
+			req.flash('messages_editSchedule_success', 'Sửa lịch hẹn tư vấn thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Xóa lịch hẹn
 	deleteSchedule(req, res, next) {
-		Promise.all([Customer.findByIdAndUpdate({ _id: req.body.cusID}, { $pull: { scheduleID: req.params.id  }}), Schedule.delete({ _id: req.params.id })])
-			.then(() => res.redirect("back"))
+		let updateCustomerStatus = {
+			$pull: { scheduleID: req.params.id  },
+			$push: { logStatus: { statusCus: {statusVi: 'Xóa lịch hẹn tư vấn', statusEng: 'deleteSchedule'}, userID: req.userId}},
+		}
+		Promise.all([Customer.findByIdAndUpdate({ _id: req.body.cusID}, updateCustomerStatus), Schedule.delete({ _id: req.params.id })])
+			.then(() => {
+				req.flash('messages_deleteSchedule_success', 'Xóa lịch hẹn tư vấn thành công');
+				res.redirect("back");
+			})
 			.catch(next);
 	}
 
@@ -544,17 +653,20 @@ class NursingController {
 			stored: 'No',
 			schedule: req.body.schedule,
 			times: req.body.times,
-			logSchedules: [
+			logStatus: [
 				{
-					schedule: req.body.schedule,
-					reason: 'Lịch hẹn tái khám đầu tiên'
+					statusReExam: 'Tạo mới',
+					createID: req.userId
 				}
 			]
 		})
 		reexamination.save();
+		let updateStatus = {
+			$push: { logStatus: { statusCus: {statusVi: 'Tạo phiếu tái khám', statusEng: 'createReexam'}, userID: req.userId}, reexamID: reexamination.id}
+		}
 		Promise.all([
-			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { reexamID: reexamination.id } }),
-			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { reExamID: reexamination.id } })
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { reExamID: reexamination.id } }),
 		])
 			.then(() => {
 				req.flash('messages_createReExamination_success', 'Tạo lịch tái khám thành công');
@@ -590,23 +702,58 @@ class NursingController {
 
 	// Hiển thị trang cập nhật phiếu tái khám
 	showReExaminationUpdate(req, res, next) {
-		Promise.all([Reexamination.findByIdAndUpdate({ _id: req.params.id }, { status: 'Đang xử lý' }).populate('customerID').populate('createName').populate('serviceNoteId'),
+		let updateStatus = {
+			$set: {status: 'Đang xử lý'},
+			$push: {
+				logStatus: [
+					{
+						statusReExam: 'Đang xử lý',
+						createID: req.userId
+					}
+				]
+			}
+		}
+		let updateCustomerStatus = {
+			$push: { logStatus: { statusCus: {statusVi: 'Đang xử lý phiếu tái khám', statusEng: 'handlingReexam'}, userID: req.userId}}
+		}
+		Promise.all([Reexamination.findByIdAndUpdate({ _id: req.params.id }, updateStatus).populate('customerID').populate('createName').populate('serviceNoteId'),
 		User.find({ departmentEng: 'operating-room', positionEng: 'doctor', firstName: 'Nguyễn Tuấn', lastName: 'Anh'}),
 		TypeService.find({})])
-			.then(([reExam, doctors, typeService]) => {
-				res.render('operating/nursing/update-re-exam', {
-					reExam: mongooseToObject(reExam),
-					doctors: multipleMongooseToObject(doctors),
-					typeService: multipleMongooseToObject(typeService),
-					title: 'Cập nhật phiếu tái khám'
-				})
+		.then(([reExam, doctors, typeService]) => {
+				Customer.findByIdAndUpdate({ _id: reExam.customerID._id }, updateCustomerStatus)
+					.then(() => {
+						res.render('operating/nursing/update-re-exam', {
+							reExam: mongooseToObject(reExam),
+							doctors: multipleMongooseToObject(doctors),
+							typeService: multipleMongooseToObject(typeService),
+							title: 'Cập nhật phiếu tái khám'
+						});
+					});
 			})
 			.catch(next);
 	}
 
 	// Cập nhật phiếu tái khám hoàn thành
-	updateReExamDone(req, res, next) {	
-		Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $set: { status: "Hoàn thành"} })
+	updateReExamDone(req, res, next) {
+		let updateCustomerStatus = {
+			$set: { statusCus: { statusVi: 'Hoàn thành phiếu tái khám', statusEng: 'reExamDone'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Hoàn thành phiếu tái khám', statusEng: 'reExamDone'}, userID: req.userId}}
+		}
+		console.log(req.body.customerID)
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateCustomerStatus),
+			Reexamination.findByIdAndUpdate({ _id: req.params.id }, {
+				$set: { status: "Hoàn thành"},
+				$push: {
+					logStatus: [
+						{
+							statusReExam: 'Hoàn thành',
+							createID: req.userId
+						}
+					]
+				}
+			})
+		])	
 		.then(() => {
 			res.redirect('back');
 		})
@@ -616,22 +763,38 @@ class NursingController {
 
 	// Sửa lịch hẹn tái khám
 	editReExam(req, res, next) {
-		Reexamination.findByIdAndUpdate({ _id: req.params.id }, { schedule: req.body.schedule })
-			.then(() => {
-				res.redirect('back');
-			})
-			.catch(next);
+		let updateStatus = {
+			$set: {schedule: req.body.schedule, reason: req.body.reason},
+			$push: { logSchedules: { schedule: req.body.schedule, reason: req.body.reason}}
+
+		}
+		let updateCustomerStatus = {
+			$push: { logStatus: { statusCus: {statusVi: 'Sửa lịch hẹn phiếu tái khám', statusEng: 'editReexam'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateCustomerStatus),
+			Reexamination.findByIdAndUpdate({ _id: req.params.id }, updateStatus)
+		])
+		.then(() => {
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Xóa lịch hẹn tái khám
 	deleteReExam(req, res, next) {
-		Promise.all([Customer.findByIdAndUpdate({ _id: req.body.cusID}, { $pull: { reexamID: req.params.id  }}), Reexamination.delete({ _id: req.params.id })])
+		let updateCustomerStatus = {
+			$pull: { reexamID: req.params.id},
+			$push: { logStatus: { statusCus: {statusVi: 'Xóa lịch hẹn tái khám', statusEng: 'deleteReexam'}, userID: req.userId}}
+		}
+		Promise.all([Customer.findByIdAndUpdate({ _id: req.body.cusID}, updateCustomerStatus), Reexamination.delete({ _id: req.params.id })])
 			.then(() => res.redirect("back"))
 			.catch(next);
 	}
 
 	// Tải ảnh khi tư vấn
 	uploadCounselor(req, res, next) {
+		console.log(req.body.customerID)
 		const file = req.files;
 		const imgArr = [];
 		const videoArr = [];
@@ -644,11 +807,29 @@ class NursingController {
 				return videoArr;
 			}
 		})
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { counselorImg: imgArr, counselorVideo: videoArr }, $set: { counselorInfo: req.body.counselorInfo }})
-			.then(() => {
-				res.redirect('back')
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video tư vấn', statusEng: 'uploadCounselor'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video tư vấn', statusEng: 'uploadCounselor'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { 
+				$push: {
+					counselorImg: imgArr,
+					counselorVideo: videoArr,
+					logStatus: {
+						statusServiceNote: 'Cập nhật hình ảnh và video thông tin tư vấn',
+						createID: req.userId
+					}
+				},
+				$set: {counselorInfo: req.body.counselorInfo}
 			})
-			.catch(next);
+		])
+		.then(() => {
+			req.flash('messages_uploadCounselor_success', 'Cập nhật hình ảnh và video tư vấn thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Tải ảnh trước phẩu thuật
@@ -665,11 +846,29 @@ class NursingController {
 				return videoArr;
 			}
 		})
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { beforeImg: imgArr, beforeVideo: videoArr }, $set: { beforeInfo: req.body.beforeInfo } })
-			.then(() => {
-				res.redirect('back')
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video trước phẫu thuật', statusEng: 'uploadBefore'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video trước phẫu thuật', statusEng: 'uploadBefore'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
+				$push: {
+					beforeImg: imgArr,
+					beforeVideo: videoArr,
+					logStatus: {
+						statusServiceNote: 'Cập nhật hình ảnh và video trước phẫu thuật',
+						createID: req.userId
+					}
+				},
+				$set: { beforeInfo: req.body.beforeInfo }
 			})
-			.catch(next);
+		])
+		.then(() => {
+			req.flash('messages_uploadBefore_success', 'Cập nhật hình ảnh và video trước phẫu thuật thành công');
+			res.redirect('back')
+		})
+		.catch(next);
 	}
 
 	// Tải ảnh trong phẩu thuật
@@ -686,11 +885,29 @@ class NursingController {
 				return videoArr;
 			}
 		})
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { inSurgeryImg: imgArr, inSurgeryVideo: videoArr }, $set: { stepsToTake: req.body.stepsToTake } })
-			.then(() => {
-				res.redirect('back')
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video phẫu thuật', statusEng: 'uploadInsurgery'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video phẫu thuật', statusEng: 'uploadInsurgery'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
+				$push: {
+					inSurgeryImg: imgArr,
+					inSurgeryVideo: videoArr,
+					logStatus: {
+						statusServiceNote: 'Cập nhật hình ảnh và video thông tin phẫu thuật',
+						createID: req.userId
+					}
+				},
+				$set: { stepsToTake: req.body.stepsToTake }
 			})
-			.catch(next);
+		])
+		.then(() => {
+			req.flash('messages_uploadInsurgery_success', 'Cập nhật hình ảnh và video phẫu thuật thành công');
+			res.redirect('back')
+		})
+		.catch(next);
 	}
 
 	// Tải ảnh sau phẩu thuật - hồi sức
@@ -707,11 +924,32 @@ class NursingController {
 				return videoArr;
 			}
 		})
-		ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { afterImg: imgArr, afterVideo: videoArr }, $set: { afterInfo: req.body.afterInfo, directedByDoctor: req.body.directedByDoctor, statusAfterInfo: req.body.statusAfterInfo } })
-			.then(() => {
-				res.redirect('back');
-			})
-			.catch(next);
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video hậu phẫu - hồi sức', statusEng: 'uploadAfter'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video hậu phẫu - hồi sức', statusEng: 'uploadAfter'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
+				$push: {
+					afterImg: imgArr,
+					afterVideo: videoArr,
+					logStatus: {
+						statusServiceNote: 'Cập nhật hình ảnh và video thông tin hậu phẫu - hồi sức',
+						createID: req.userId
+					}
+				},
+				$set: {
+					afterInfo: req.body.afterInfo,
+					directedByDoctor: req.body.directedByDoctor,
+					statusAfterInfo: req.body.statusAfterInfo
+				}})
+		])
+		.then(() => {
+			req.flash('messages_uploadAfter_success', 'Cập nhật hình ảnh và video hậu phẫu - hồi sức thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Tải ảnh tái khám
@@ -728,18 +966,37 @@ class NursingController {
 				return videoArr;
 			}
 		})
-		Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $push: { reExamImg: imgArr, reExamVideo: videoArr, performer: req.body.performer, nursing: req.userId },
-			$set: {
-					status: 'Đã cập nhật',
-					statusInfo: req.body.statusInfo,
-					directedByDoctor: req.body.directedByDoctor,
-					stepsToTake: req.body.stepsToTake,
-					recept: req.body.recept
-			}})
-			.then(() => {
-				res.redirect('/operating-room/nursing/re-examination')
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video phiếu tái khám', statusEng: 'uploadReexamination'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video phiếu tái khám', statusEng: 'uploadReexamination'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			Reexamination.findByIdAndUpdate({ _id: req.params.id }, {
+				$push: {
+					reExamImg: imgArr,
+					reExamVideo: videoArr,
+					performer: req.body.performer,
+					nursing: req.userId,
+					logStatus: [{
+						statusReExam: 'Cập nhật hình ảnh và video thông tin tái khám',
+						createID: req.userId
+					}]
+				},
+				$set: {
+						status: 'Đã cập nhật',
+						statusInfo: req.body.statusInfo,
+						directedByDoctor: req.body.directedByDoctor,
+						stepsToTake: req.body.stepsToTake,
+						recept: req.body.recept
+				}
 			})
-			.catch(next);
+		])
+		.then(() => {
+			req.flash('messages_uploadReexam_success', 'Cập nhật hình ảnh và video tái khám thành công');
+			res.redirect('/operating-room/nursing/re-examination');
+		})
+		.catch(next);
 	}
 
 }

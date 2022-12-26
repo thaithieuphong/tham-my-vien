@@ -2,18 +2,18 @@
 <link rel="stylesheet" href="/css/assistant.css">
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
     aria-labelledby="offcanvasWithBackdropLabel">
-    <div class="offcanvas-header bg-dark border-bottom">
+    <div class="offcanvas-header bg-blue border-bottom">
         <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
         <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body container-sidebar bg-dark">
+    <div class="offcanvas-body container-sidebar bg-blue">
         <div class="sidebar-item">
             <a href="/human-resources/manager/users" class="sidebar-item-title pl-3">
                 <i class="ti-receipt mr-3"></i>Nhân viên
             </a>
         </div>
     </div>
-	<div class="offcanvas-footer bg-dark border-top">
+	<div class="offcanvas-footer bg-blue border-top">
         <div class="sidebar-item">
             <a href="/human-resources/manager/profile" class="sidebar-item-title pl-3">
                 <i class="ti-user mr-3"></i>Thông tin người dùng
@@ -27,7 +27,7 @@
     </div>
 </div>
 <div class="sticky-top">
-    <nav class="navbar navbar-light bg-dark">
+    <nav class="navbar navbar-light bg-blue border-bottom">
         <div class="img-container">
         </div>
         <div class="text-light text-uppercase fw-bold">
@@ -38,15 +38,15 @@
                 class="ti-menu"></i>
         </button>
     </nav>
-	<div class="redirect-bar bg-primary d-flex justify-content-between">
+	<div class="redirect-bar bg-blue d-flex justify-content-between">
 		<div></div>
-		<a data-bs-toggle="modal" data-position="{{filter positions}}" data-bs-target="#create-user-modal" class="text-light mr-3"><i class="ti-plus"></i> Tạo nhân viên</a>
+		<button data-bs-toggle="modal" data-position="{{filter positions}}" data-bs-target="#create-user-modal" class="btn btn-sm btn-primary text-light m-2 rounded-pill">Tạo nhân viên</button>
 	</div>
 </div>
-<div class="container-fluid mt-3">
+<div class="container-fluid">
 	<div class="container-table">
-		<table id="user_table" class="table table-hover table-bordered table-sm">
-			<thead class="table-info">
+		<table id="userTable" class="table table-striped table-hover table-bordered table-sm display">
+			<thead class="table-info text-dark">
 				<tr>
 					<th class="text-center" scope="col">#</th>
 					<th class="text-center" scope="col">Họ tên</th>
@@ -62,9 +62,9 @@
 			</thead>
 			<tbody id="table-content">
 				{{#each users}}
-				<tr class="text-light">
+				<tr class="text-dark">
 					<th class="text-center" scope="row">{{sum @index 1}}</th>
-					<td><a class="link-light" href="/human-resources/manager/user/{{this._id}}/detail">{{this.firstName}}
+					<td><a class="link-primary" href="/human-resources/manager/user/{{this._id}}/detail">{{this.firstName}}
 							{{this.lastName}}</a></td>
 					<td class="text-center">{{this.department}}</td>
 					<td class="text-center">{{this.position}}</td>

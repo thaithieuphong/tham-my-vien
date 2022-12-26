@@ -14,9 +14,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const User = require('./app/models/User');
 const bcrypt = require("bcryptjs");
-require("dotenv").config();
+require("dotenv").config({path:`${__dirname}../.env`});
 const PORT = 3000;
-
 if (`${process.env.NODE_ENV}` !== "production") {
 	require("dotenv").config();
 }
@@ -134,15 +133,12 @@ app.engine(
 				let convertedMoney = formatter.format(convertMoney);
 				return convertedMoney;
 			},
-			getID: (arr) => {
-				let arrServiceNote = arr;
-				let idItem;
-				arrServiceNote.forEach(item => {
-					console.log(item);
-					if (item.status === 'Xuất viện') {
-						return idItem = item._id;
-					}
-				})
+			getGender: (value) => {
+				if (value === 'Nữ' || value === 'Nam') {
+					return value;
+				} else {
+					return value = '-- Chọn giới tính --';
+				}
 			}
 		}
 	})
@@ -163,8 +159,20 @@ app.use(function (req, res, next) {
 	res.locals.messages_editReExamination_success = req.flash('messages_editReExamination_success');
 	res.locals.messages_pushReExamination_error = req.flash('messages_pushReExamination_error');
 	res.locals.messages_createSchedule_success = req.flash('messages_createSchedule_success');
+	res.locals.messages_editSchedule_success = req.flash('messages_editSchedule_success');
+	res.locals.messages_deleteSchedule_success = req.flash('messages_deleteSchedule_success');
 	res.locals.messages_createCustomer_success = req.flash('messages_createCustomer_success');
 	res.locals.messages_editCustomer_success = req.flash('messages_editCustomer_success');
+	res.locals.messages_updateCusInfo_success = req.flash('messages_updateCusInfo_success');
+	res.locals.messages_updateService_success = req.flash('messages_updateService_success');
+	res.locals.messages_deleteService_success = req.flash('messages_deleteService_success');
+	res.locals.messages_updateCusDischarge_success = req.flash('messages_updateCusDischarge_success');
+	res.locals.messages_updateServiceNoteDone_success = req.flash('messages_updateServiceNoteDone_success');
+	res.locals.messages_uploadCounselor_success = req.flash('messages_uploadCounselor_success');
+	res.locals.messages_uploadBefore_success = req.flash('messages_uploadBefore_success');
+	res.locals.messages_uploadInsurgery_success = req.flash('messages_uploadInsurgery_success');
+	res.locals.messages_uploadAfter_success = req.flash('messages_uploadAfter_success');
+	res.locals.messages_uploadReexam_success = req.flash('messages_uploadReexam_success');
 	next();
 });
 

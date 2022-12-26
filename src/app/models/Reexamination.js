@@ -91,6 +91,17 @@ const Reexamination = new Schema({
 			)
 		}
 	],
+	logStatus: [
+		{
+			type: new mongoose.Schema(
+				{
+					statusReExam: String,
+					createID: String,
+				},
+				{ timestamps: true }
+			)
+		}
+	],
 }, {
 	timestamps: true
 });

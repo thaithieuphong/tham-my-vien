@@ -3,7 +3,7 @@ const authJwt = require("../middleware/authJwt");
 const signinRouter = require("./auth-route");
 const managerMarketingRouter = require("./managers/marketing-manager");
 const employMarketingRouter = require("./employes/marketing-employ");
-// const managerReceptionRouter = require("./managers/reception-manager");
+const generalManagerRouter = require("./managers/general-manager");
 const employReceptionRouter = require("./employes/reception-employ");
 const doctorOperatingRouter = require("./managers/operating-doctor");
 const nursingOperatingRouter = require("./employes/operating-nursing");
@@ -29,6 +29,7 @@ function route(app) {
   app.use("/business/employ", [authJwt.verifyToken, authJwt.isBusinessEmploy], employBusinessRouter);
   app.use("/manager/assistant", [authJwt.verifyToken, authJwt.isAssistant], assistantRouter);
   app.use("/customer-care/employ", [authJwt.verifyToken, authJwt.isCustomerCareEmploy], customerCareRouter);
+  app.use("/manager/general-manager", [authJwt.verifyToken, authJwt.isGeneralManager], generalManagerRouter);
   app.use("/god", rootRouter);
   app.use("/admin", adminRouter);
   app.use("/", signinRouter);
