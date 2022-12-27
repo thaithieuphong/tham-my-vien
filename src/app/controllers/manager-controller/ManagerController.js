@@ -37,6 +37,7 @@ class ManagerController {
 					title: 'Danh sách khách hàng'
 				})
 			})
+			.catch(next);
 		// Promise.all([Customer.find({}), User.findById({ _id: req.userId }),
 		// Customer.find({storage: 'No'}), Customer.find({storage: 'Yes'})])
 		// 	.then(([customers, user, customerDischargeFromHospital, customerStorage]) => {
@@ -162,6 +163,24 @@ class ManagerController {
 					title: 'Chi tiết phiếu tái khám'
 				})
 			})
+	}
+
+	// Hiển thị trang thống kê
+	showStatistical(req, res, next) {
+		ServiceNote.find({})
+		.then(serviceNote => {
+			let deposit, total, equal, metaData = [];
+			serviceNote.forEach(element => {
+				deposit = element.deposit;
+				total = element.total;
+				equal = parseFloat(deposit.replace(/\D/g, ''), 10) + parseInt(total.replace(/\D/g, ''));
+				metaData.push(equal)
+			})
+			res.render('manager/manager-statistical', {
+				metaData: metaData,
+				title: 'Bảng thống kê'
+			})
+		})
 	}
 }
 

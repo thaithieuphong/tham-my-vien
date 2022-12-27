@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+    aria-labelledby="offcanvasWithBackdropLabel">
+    <div class="offcanvas-header bg-blue border-bottom">
+        <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
+        <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body container-sidebar bg-blue">
+		<div class="sidebar-item">
+            <a href="/manager/general-manager" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-user mr-3"></i>Khách hàng
+            </a>
+        </div>
+        <div class="sidebar-item">
+            <a href="/manager/general-manager/statistical" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-receipt mr-3"></i>Thống kê
+            </a>
+        </div>
+    </div>
+	<div class="offcanvas-footer border-top">
+        <div class="sidebar-item">
+            <a href="/business/employ/profile" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-user mr-3"></i>Thông tin người dùng
+            </a>
+        </div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
+			</form>
+		</div>
+    </div>
+</div>
+<div class="sticky-top">
+    <nav class="navbar navbar-light bg-blue">
+        <div class="img-container">
+        </div>
+        <div class="text-light text-uppercase fw-bold">
+            {{this.title}}
+        </div>
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button>
+    </nav>
+    {{!-- <!-- Button trigger modal -->
+    <button type="button" class="btn btn-secondary btn-sm float-end m-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <i class="fa-sharp fa-solid fa-filter"></i>
+    </button> --}}
+</div>
+
+{{!-- <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>Chọn loại dữ liệu thống kê</option>
+                    <option value="1">Doanh thu</option>
+                    <option value="2">Dịch vụ</option>
+                    <option value="3">Khách hàng</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+<div class="row">
+    <div class="col-md-6">
+        <canvas id="myChart1" data-metaData="{{metaData}}"></canvas>
+    </div>
+    <div class="col-md-6">
+        <canvas id="myChart2"></canvas>
+    </div>
+</div>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.1.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/manager/manager-statistical-chart.js"></script>

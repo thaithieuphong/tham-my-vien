@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		$("#customerNew").bootstrapTable({
 			pagination: true,
 			search: true,
-			scrollY: 300
+			// scrollY: 300,
 		});
 		$("#customerPotential").bootstrapTable({
 			pagination: true,
@@ -65,13 +65,13 @@ document.addEventListener("DOMContentLoaded", function () {
 			search: true,
 			scrollY: 300
 		});
+		
 	});
 });
 
 // set status color
 var setColors = document.querySelectorAll('.status-color');
 setColors.forEach(element => {
-	console.log(element)
 	let value = element.innerHTML;
 	if(value === 'Tạo mới') {
 		element.classList.add('color-red', 'text-white');

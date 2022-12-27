@@ -528,7 +528,9 @@ if (addServicesBtn) {
 				let totalMoney = serviceArr.reduce(totalMoneyFn, 0);
 				let convertDeposit = parseFloat(depositInput.value.replace(/\D/g,''), 10);
 				let trucoc = totalMoney - convertDeposit;
+				console.log(trucoc.toLocaleString())
 				totalInput.value = trucoc.toLocaleString()
+				console.log(totalInput.value)
 				let convertedMoney = convertMoney.toLocaleString();
 				serviceInput.value = convertedMoney;
 			})

@@ -9,8 +9,8 @@ const cloudinaryStorage = require('../../middleware/cloudinaryStorage');
 /* Business Manager Start*/
 // router.delete('/users/:id/delete', ManagerHRController.deleteUser);
 // router.post('/users', validateUpload.uploadSingleUser, ManagerHRController.createUser);
-// router.post('/change-pass', AuthController.changePassword);
-// router.get('/users', ManagerHRController.showUsers);
+router.post('/change-pass', AuthController.changePassword);
+router.get('/statistical', ManagerController.showStatistical);
 router.get('/re-exam/:id/detail', ManagerController.showReExamDetail);
 router.get('/service-note/:id/detail', ManagerController.showServiceNoteDetail);
 router.get('/customer/:id/detail', ManagerController.showCustomerDetail);

@@ -1,20 +1,20 @@
 <link rel="stylesheet" href="/css/root.css">
 <link rel="stylesheet" href="/css/assistant.css">
-{{!-- <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop"
     aria-labelledby="offcanvasWithBackdropLabel">
     <div class="offcanvas-header bg-blue border-bottom">
         <h5 class="offcanvas-title text-white" id="offcanvasWithBackdropLabel">BẢNG ĐIỀU KHIỂN</h5>
         <button type="button" class="btn-close text-reset btn-light" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body container-sidebar bg-blue">
-        <div class="sidebar-item">
-            <a href="/business/employ/schedule" class="sidebar-item-title pl-3 bg-blue">
-                <i class="ti-receipt mr-3"></i>Lịch hẹn
+		<div class="sidebar-item">
+            <a href="/manager/general-manager" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-user mr-3"></i>Khách hàng
             </a>
         </div>
-		<div class="sidebar-item">
-            <a href="/manager/general-manager/customers" class="sidebar-item-title pl-3 bg-blue">
-                <i class="ti-user mr-3"></i>Khách hàng
+        <div class="sidebar-item">
+            <a href="/manager/general-manager/statistical" class="sidebar-item-title pl-3 bg-blue">
+                <i class="ti-receipt mr-3"></i>Thống kê
             </a>
         </div>
     </div>
@@ -30,7 +30,7 @@
 			</form>
 		</div>
     </div>
-</div> --}}
+</div>
 <div class="sticky-top">
     <nav class="navbar navbar-light bg-blue">
         <div class="img-container">
@@ -38,11 +38,10 @@
         <div class="text-light text-uppercase fw-bold">
             {{this.title}}
         </div>
-		<div></div>
-        {{!-- <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+        <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
                 class="ti-menu"></i>
-        </button> --}}
+        </button>
     </nav>
 </div>
 <div class="ps-3 pe-3 mb-5">
@@ -62,8 +61,8 @@
 			{{#each customers}}
 			<tr class="text-dark">
 				<th class="text-center" scope="row">{{sum @index 1}}</th>
-				<td><a class="link-primary" href="/manager/general-manager/customer/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
-				<td class="text-center">0{{this.phone}}</td>
+				<td  scope="row"><a class="link-primary" href="/manager/general-manager/customer/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
+				<td class="text-center" scope="row">0{{this.phone}}</td>
 				<td class="text-center">{{this.resource}}</td>
 				<td class="text-center">{{formatDate this.createdAt}}</td>
 				<div data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.description}}">
@@ -578,3 +577,20 @@
 </ul> --}}
 
 <script src="/js/manager/manager-customer.js"></script>
+<script>
+	function buttons () {
+		var icons = {
+			paginationSwitchDown: 'fa-caret-square-down',
+			paginationSwitchUp: 'fa-caret-square-up',
+			refresh: 'fa-rotate',
+			toggleOff: 'fa-toggle-off',
+			toggleOn: 'fa-toggle-on',
+			columns: 'fa-th-list',
+			fullscreen: 'fa-arrows-alt',
+			detailOpen: 'fa-plus',
+			detailClose: 'fa-minus'
+		}
+		return {
+		}
+	}
+</script>
