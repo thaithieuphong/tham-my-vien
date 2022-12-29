@@ -169,18 +169,134 @@ class ManagerController {
 	showStatistical(req, res, next) {
 		ServiceNote.find({})
 		.then(serviceNote => {
-			let deposit, total, equal, metaData = [];
-			serviceNote.forEach(element => {
-				deposit = element.deposit;
-				total = element.total;
-				equal = parseFloat(deposit.replace(/\D/g, ''), 10) + parseInt(total.replace(/\D/g, ''));
-				metaData.push(equal)
-			})
+			// let services, deposit, total, equal, metaData = [];
+
+			// serviceNote.forEach(element => {
+			// 	if(element.deposit !== undefined && element.deposit !== NaN || element.total !== undefined && element.total !== NaN ) {
+			// 		console.log(element.deposit)
+			// 		console.log(element.total)
+			// 		// console.log(element.service)
+			// 		deposit = element.deposit;
+			// 		total = element.total;
+			// 		equal = parseFloat(deposit.replace(/\D/g, ''), 10) + parseInt(total.replace(/\D/g, ''));
+			// 		if (equal !== NaN) {
+			// 			metaData.push(equal)
+			// 		}
+			// 	}
+			// })
+			// console.log(metaData)
+			// console.log(typeof(metaData))
 			res.render('manager/manager-statistical', {
-				metaData: metaData,
+				// totalRevenue: metaData,
+				serviceNote: multipleMongooseToObject(serviceNote),
 				title: 'Bảng thống kê'
 			})
 		})
+	}
+
+	showReport(req, res, next) {
+		ServiceNote.find({}).populate({
+			path: 'scheduleID',
+			populate: {
+				path: 'customerID',
+				populate: {
+					path: 'userID',
+				}
+			}
+		})
+		.then(serviceNotes => {
+			let serviceNoteTotalArr = serviceNotes.filter(serviceNote => {
+				let serviceNoteTotal = serviceNote.total;
+				if (serviceNoteTotal === 'NaN' || serviceNoteTotal === undefined) {
+					return false;
+				}
+				return true;
+			}).map(serviceNote => {
+				let isNumberServiceNoteTotal = parseFloat(serviceNote.total.replace(/\D/g, ''), 10);
+				return isNumberServiceNoteTotal;
+			})
+			console.log(serviceNoteTotalArr)
+			function getSum(total, num) {
+				return total + num;
+			}
+			let totalRevenue = serviceNoteTotalArr.reduce(getSum, 0)
+			console.log(totalRevenue)
+			res.render('manager/manager-report', {
+				serviceNotes: multipleMongooseToObject(serviceNotes),
+				totalRevenue: totalRevenue,
+				title: 'Báo cáo doanh thu'
+			});
+		})
+		.catch(next);
+	}
+
+	filterMonthReport(req, res, next) {
+		console.log(req.body);
+		let quarterArr = req.body.quarter.split(',');
+		let isNumberMonth = quarterArr.map(month => {
+			return parseInt(month);
+		})
+		console.log(isNumberMonth)
+		ServiceNote.find({}).populate({
+			path: 'scheduleID',
+			populate: {
+				path: 'customerID'
+			}
+		})
+		.then(serviceNote => {
+			console.log(serviceNote)
+			res.render('manager/manager-report', {
+				serviceNote: multipleMongooseToObject(serviceNote),
+				title: 'Báo cáo doanh thu'
+			});
+		})
+		.catch(next);
+	}
+
+	filterQuarterReport(req, res, next) {
+		console.log(req.body);
+		let quarterArr = req.body.quarter.split(',');
+		let isNumberMonth = quarterArr.map(month => {
+			return parseInt(month);
+		})
+		console.log(isNumberMonth)
+		ServiceNote.find({}).populate({
+			path: 'scheduleID',
+			populate: {
+				path: 'customerID'
+			}
+		})
+		.then(serviceNote => {
+			console.log(serviceNote)
+			res.render('manager/manager-report', {
+				serviceNote: multipleMongooseToObject(serviceNote),
+				title: 'Báo cáo doanh thu'
+			});
+		})
+		.catch(next);
+	}
+
+	filterYearReport(req, res, next) {
+		console.log(req.body);
+		let quarterArr = req.body.quarter.split(',');
+		let isNumberMonth = quarterArr.map(month => {
+			return parseInt(month);
+		})
+		console.log(isNumberMonth)
+		ServiceNote.find({}).populate({
+			path: 'scheduleID',
+			populate: {
+				path: 'customerID'
+			}
+		})
+		.then(serviceNote => {
+			console.log(serviceNote)
+			res.render('manager/manager-report', {
+				serviceNote: multipleMongooseToObject(serviceNote),
+				title: 'Báo cáo doanh thu'
+			});
+		})
+		.catch(next);
 	}
 }
 

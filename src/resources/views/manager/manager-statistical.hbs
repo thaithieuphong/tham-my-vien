@@ -13,8 +13,13 @@
             </a>
         </div>
         <div class="sidebar-item">
+            <a href="/manager/general-manager/report" class="sidebar-item-title pl-3 bg-blue">
+                <i class="fa-sharp fa-solid fa-clipboard mr-3"></i>Báo cáo
+            </a>
+        </div>
+        <div class="sidebar-item">
             <a href="/manager/general-manager/statistical" class="sidebar-item-title pl-3 bg-blue">
-                <i class="ti-receipt mr-3"></i>Thống kê
+                <i class="ti-bar-chart mr-3"></i>Thống kê
             </a>
         </div>
     </div>
@@ -64,13 +69,80 @@
         </div>
     </div>
 </div> --}}
-
-<div class="row">
-    <div class="col-md-6">
-        <canvas id="myChart1" data-metaData="{{metaData}}"></canvas>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 mt-3">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="text-light">3.000.000.000 VND</h5>
+                    <p class="text-light mb-0">Kpis doanh thu</p>
+                    <h5 class="text-light">2.000.000.000 VND</h5>
+                    <p class="text-light mb-0">Tổng doanh thu</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-3">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="text-light">1000</h5>
+                    <p class="text-light mb-0">Kpis khách hàng</p>
+                    <h5 class="text-light">500</h5>
+                    <p class="text-light mb-0">Tổng số khách hàng</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mt-3">
+            <div class="card text-white bg-danger">
+                <div class="card-body">
+                    <h5 class="text-light">100%</h5>
+                    <p class="text-light mb-0">Kpis hoàn thành</p>
+                    <h5 class="text-light">95%</h5>
+                    <p class="text-light mb-0">Tỉ lệ hoàn thành</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
-        <canvas id="myChart2"></canvas>
+    <div class="row mt-3">
+        <label class="mb-0 mt-3" for="">Biểu đồ doanh thu 12 tháng</label>
+        <canvas id="revenueChart" class="" style="height: 350px;"></canvas>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-6">
+            <label class="mb-0 mt-3" for="">Biểu đồ khách hàng 12 tháng</label>
+            <canvas id="customersChart" class=""></canvas>
+        </div>
+        <div class="col-md-6">
+            <label class="mb-0 mt-3" for="">Biểu đồ KPIs 12 tháng</label>
+            <canvas id="kpiChart" class=""></canvas>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label class="mb-0 mt-3" for="">Biểu đồ doanh thu theo quý</label>
+            <canvas id="revenueLineChart" class=""></canvas>
+        </div>
+        <div class="col-md-4">
+            <label class="mb-0 mt-3" for="">Biểu đồ khách hàng 12 tháng</label>
+            <canvas id="customersLineChart" class=""></canvas>
+        </div>
+        <div class="col-md-4">
+            <label class="mb-0 mt-3" for="">Biểu đồ KPI</label>
+            <canvas id="kpiLineChart" class=""></canvas>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label class="mb-0 mt-3" for="">Biểu đồ doanh thu</label>
+            <canvas id="revenuePieChart" class=""></canvas>
+        </div>
+        <div class="col-md-4">
+            <label class="mb-0 mt-3" for="">Biểu đồ khách hàng</label>
+            <canvas id="customersPieChart" class=""></canvas>
+        </div>
+        <div class="col-md-4">
+            <label class="mb-0 mt-3" for="">Biểu đồ KPI</label>
+            <canvas id="kpiPieChart" class=""></canvas>
+        </div>
     </div>
 </div>
 <!-- Chart.js -->

@@ -13,8 +13,13 @@
             </a>
         </div>
         <div class="sidebar-item">
+            <a href="/manager/general-manager/report" class="sidebar-item-title pl-3 bg-blue">
+                <i class="fa-sharp fa-solid fa-clipboard mr-3"></i>Báo cáo
+            </a>
+        </div>
+		<div class="sidebar-item">
             <a href="/manager/general-manager/statistical" class="sidebar-item-title pl-3 bg-blue">
-                <i class="ti-receipt mr-3"></i>Thống kê
+                <i class="ti-bar-chart mr-3"></i>Thống kê
             </a>
         </div>
     </div>
@@ -53,6 +58,7 @@
 				<th class="text-center">Số điện thoại</th>
 				<th class="text-center">Nguồn</th>
 				<th class="text-center">Ngày tạo</th>
+				<th class="text-center">Nhân viên tạo</th>
 				<th class="text-center">Ghi chú</th>
 				<th class="text-center">Trạng thái</th>
 			</tr>
@@ -61,12 +67,13 @@
 			{{#each customers}}
 			<tr class="text-dark">
 				<th class="text-center" scope="row">{{sum @index 1}}</th>
-				<td  scope="row"><a class="link-primary" href="/manager/general-manager/customer/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
+				<td class="text-nowrap"><a class="link-primary" href="/manager/general-manager/customer/{{this._id}}/detail">{{this.fullName}}</a></td>
 				<td class="text-center" scope="row">0{{this.phone}}</td>
-				<td class="text-center">{{this.resource}}</td>
-				<td class="text-center">{{formatDate this.createdAt}}</td>
-				<div data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.description}}">
-					<td class="text-nowrap">
+				<td class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.resource}}">{{cutPassword this.resource 20}}</td>
+				<td class="text-center">{{formatBirth this.createdAt}}</td>
+				<td class="text-center text-nowrap">{{this.userID.firstName}} {{this.userID.lastName}}</td>
+				<div>
+					<td class="text-nowrap" data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.description}}">
 						{{cutPassword this.description 16}}
 					</td>
 				</div>

@@ -77,8 +77,13 @@ app.engine(
 				return newStr.length > num ? "..." + newStr.slice(num, newStr.length) : newStr;
 			},
 			cutPassword: (str, num) => {
-				if (str !== undefined) {
+				if (str !== undefined && str !== null && str !== '') {
 					return str.length > num ? str.slice(0, num) + '...' : str;
+				}
+			},
+			cutStr: (str, num) => {
+				if (str !== undefined && str !== null && str !== '') {
+					console.log(str)
 				}
 			},
 			formatDate: (d) => {
