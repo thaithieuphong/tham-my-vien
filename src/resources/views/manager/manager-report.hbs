@@ -14,14 +14,14 @@
         </div>
         <div class="sidebar-item">
             <a href="/manager/general-manager/report" class="sidebar-item-title pl-3 bg-blue">
-                <i class="fa-sharp fa-solid fa-clipboard mr-3"></i>Báo cáo
+                <i class="ti-clipboard mr-3"></i>Báo cáo
             </a>
         </div>
-		<div class="sidebar-item">
+		{{!-- <div class="sidebar-item">
             <a href="/manager/general-manager/statistical" class="sidebar-item-title pl-3 bg-blue">
                 <i class="ti-bar-chart mr-3"></i>Thống kê
             </a>
-        </div>
+        </div> --}}
     </div>
 	<div class="offcanvas-footer border-top">
         <div class="sidebar-item">
@@ -120,10 +120,14 @@
 	data-show-footer="true"
 	data-footer-style="footerStyle"
 	data-data-field="items"
+	data-icons-prefix="icon"
+	data-icons="icons"
+	{{!-- data-show-button-text="showButtonText" --}}
+	data-buttons-prefix="btn btn-outline-secondary"
 	data-response-handler="responseHandler">
 		<thead class="bg-blue">
 			<tr class="text-light">
-				<th data-footer-formatter="Tổng doanh thu" class="text-center" scope="col">#</th>
+				<th data-field="id" data-footer-formatter="Tổng doanh thu" class="text-center" scope="col">#</th>
 				<th class="text-center" scope="col">Họ tên</th>
 				<th class="text-center" scope="col">Số điện thoại</th>
 				<th class="text-center" scope="col">Nguồn</th>
@@ -160,7 +164,6 @@
 <script>
 	function revenueFormatter(dataRevenue) {
 		var field = this.field;
-		console.log(field)
 		let totalRevenue = dataRevenue.filter(function (row) {
 			let serviceNoteTotal = row.revenue;
 			if (serviceNoteTotal === 'NaN' || serviceNoteTotal === undefined || serviceNoteTotal === '') {
@@ -186,6 +189,16 @@
 				css: {color: 'red'}
 			}
 		}[column.field]
+	}
+
+	function showButtonText() {
+		return {
+			fullscreen: {
+				attributes: {
+					title: 'Search all users which has logged in the last week'
+				}
+			}
+		}
 	}
 	
 </script>

@@ -199,100 +199,17 @@ class ManagerController {
 			path: 'scheduleID',
 			populate: {
 				path: 'customerID',
+				model: 'Customer',
 				populate: {
 					path: 'userID',
+					model: 'User'
 				}
 			}
 		})
+		.lean()
 		.then(serviceNotes => {
 			res.render('manager/manager-report', {
-				serviceNotes: multipleMongooseToObject(serviceNotes),
-				title: 'Báo cáo doanh thu'
-			});
-		})
-		.catch(next);
-	}
-
-	filterReport(req, res, next) {
-		console.log(req.body.from);
-		// let date = new Date(req.body.month);
-		// let month = date.getMonth() + 1;
-		// console.log(month)
-		let month = req.body.month
-		// let from = req.body.from;
-		// let to = req.body.to;
-		// console.log(from)
-		// console.log(to)
-		if (month) {
-			ServiceNote.aggregate([
-				{$project: {  "month" : {$month: '$createdAt'}}},
-				{$match: { month: month}}
-			])
-			.then(month => {
-				console.log(month)
-			})
-		}
-		// let quarterArr = req.body.quarter.split(',');
-		// let isNumberMonth = quarterArr.map(month => {
-		// 	return parseInt(month);
-		// })
-		// console.log(isNumberMonth)
-		// ServiceNote.find({}).populate({
-		// 	path: 'scheduleID',
-		// 	populate: {
-		// 		path: 'customerID'
-		// 	}
-		// })
-		// .then(serviceNote => {
-		// 	console.log(serviceNote)
-		// 	res.render('manager/manager-report', {
-		// 		serviceNote: multipleMongooseToObject(serviceNote),
-		// 		title: 'Báo cáo doanh thu'
-		// 	});
-		// })
-		// .catch(next);
-	}
-
-	filterQuarterReport(req, res, next) {
-		console.log(req.body);
-		let quarterArr = req.body.quarter.split(',');
-		let isNumberMonth = quarterArr.map(month => {
-			return parseInt(month);
-		})
-		console.log(isNumberMonth)
-		ServiceNote.find({}).populate({
-			path: 'scheduleID',
-			populate: {
-				path: 'customerID'
-			}
-		})
-		.then(serviceNote => {
-			console.log(serviceNote)
-			res.render('manager/manager-report', {
-				serviceNote: multipleMongooseToObject(serviceNote),
-				title: 'Báo cáo doanh thu'
-			});
-		})
-		.catch(next);
-	}
-
-	filterYearReport(req, res, next) {
-		console.log(req.body);
-		let quarterArr = req.body.quarter.split(',');
-		let isNumberMonth = quarterArr.map(month => {
-			return parseInt(month);
-		})
-		console.log(isNumberMonth)
-		ServiceNote.find({}).populate({
-			path: 'scheduleID',
-			populate: {
-				path: 'customerID'
-			}
-		})
-		.then(serviceNote => {
-			console.log(serviceNote)
-			res.render('manager/manager-report', {
-				serviceNote: multipleMongooseToObject(serviceNote),
+				serviceNotes: serviceNotes,
 				title: 'Báo cáo doanh thu'
 			});
 		})

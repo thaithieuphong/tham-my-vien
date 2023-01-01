@@ -6,110 +6,110 @@ document.addEventListener("DOMContentLoaded", function () {
 			// scrollY: 300,
 		});
 		
-		function labelTotalRevenue() {
-			return 'Tổng doanh thu'
-		}
-		
 	});
 
+	window.icons = {
+		columns: 'fa-sharp fa-solid fa-toggle-off',
+		fullscreen: 'ti-fullscreen',
+		paginationSwitchDown: 'ti-arrow-circle-down',
+		paginationSwitchUp: 'ti-arrow-circle-up'
+	}
 	
 });
 
 var yearPicker = document.getElementById('yearpicker');
-	var date = new Date;
-	var year = date.getFullYear();
-	var year2020 = year - 2;
-	for (i = 0; i <= 50; i++) {
-		var opt = document.createElement('option');
-		opt.setAttribute('value', year2020 + i);
-		opt.innerText = year2020 + i;
-		yearPicker.append(opt)
-	}
+var date = new Date;
+var year = date.getFullYear();
+var year2020 = year - 2;
+for (i = 0; i <= 50; i++) {
+	var opt = document.createElement('option');
+	opt.setAttribute('value', year2020 + i);
+	opt.innerText = year2020 + i;
+	yearPicker.append(opt)
+}
 
-	// var quarterpicker = document.getElementById('quarterpicker');
-	// quarterpicker.addEventListener('change', (e) => {
-	// 	var dataQuarter = e.target.options[e.target.selectedIndex].dataset.quarter;
-	// 	var opt = e.target.options[e.target.selectedIndex];
-	// 	var d = d || new Date();
-	// 	var q = Math.floor(d.getMonth() / 3) + 1;
-	// 	console.log(q)
-	// 	var m = Math.floor(d.getMonth() / 3);
-	// 	switch (dataQuarter) {
-	// 		case '1':
-	// 			// alert(`Bạn vừa chọn quý 1 từ tháng ${m-2} đến tháng ${m}`);
-				
-	// 			opt.setAttribute('value', [m-2, m-1, m]);
-	// 			console.log(opt)
-	// 			break;
-		
-	// 		case '2':
-	// 			// alert(`Bạn vừa chọn quý 1 từ tháng ${m+1} đến tháng ${m+3}`);
-	// 			opt.setAttribute('value', [m+1, m+2, m+3]);
-	// 			console.log(opt)
-	// 			break;
-				
-	// 		case '3':
-	// 			// alert(`Bạn vừa chọn quý 1 từ tháng ${m+4} đến tháng ${m+6}`);
-	// 			opt.setAttribute('value', [m+4, m+5, m+6]);
-	// 			console.log(opt)
-	// 			break;
-				
-	// 		case '4':
-	// 			// alert(`Bạn vừa chọn quý 1 từ tháng ${m+7} đến tháng ${m+9}`);
-	// 			opt.setAttribute('value', [m+7, m+8, m+9]);
-	// 			console.log(opt)
-	// 			break;
-		
-	// 		default:
-	// 			break;
-	// 	}
-		
-	// })
+var table = document.getElementById('reportTable');
+var filter = document.getElementById('filter');
+var monthPicker = document.getElementById('monthpicker');
+var quarterPicker = document.getElementById('quarterpicker');
+var createdAtField = document.querySelectorAll('.createdAtField');
 
-	var table = document.getElementById('reportTable');
-	var filter = document.getElementById('filter');
-	var monthPicker = document.getElementById('monthpicker');
-	var quarterPicker = document.getElementById('quarterpicker');
-	var createdAtField = document.querySelectorAll('.createdAtField');
-	
-	function getDataByMonth(value) {
-		for (i = 0; i < createdAtField.length; i++) {
-			
-		}
-		let createdAtValue = createdAtField.forEach((createdAt) => {
-			let dateString = createdAt.innerHTML.split('/');
-			let date = dateString[1]
-			let isVisible = date.includes(value);
-			console.log(date)
-			console.log(value)
-			if (!isVisible) {
-				$("#reportTable").bootstrapTable('hideRow', {
-					index: index
-				})
-			}
-		})
-	}
-	function getDataByQuarter(value) {
-
-	}
-	function getDataByYear(value) {
-
-	}
-	filter.addEventListener('click', () => {
-		let monthValue = monthPicker.value;
-		let quarterValue = quarterPicker.value;
-		let yearValue = yearPicker.value;
-		if (monthValue) {
-			getDataByMonth(monthValue)
-		}
-		if (quarterValue) {
-			getDataByQuarter(quarterValue)
-			
-		}
-		if (yearValue) {
-			getDataByYear(yearValue)
+function getDataByMonth(value) {
+	$("#reportTable").bootstrapTable('filterBy', {
+		id: value
+	},
+	{
+		'filterAlgorithm': (row, filters) => {
+			let filterValue = filters.id;
+			let dateString = row[4].split('/');
+			let month = dateString[1];
+			console.log(filterValue)
+			console.log(month)
+			// let isNumRowID = parseInt(row.id);
+			return month === filterValue
 		}
 	})
+}
+
+function getDataByQuarter(value) {
+	let arrMonth;
+	if(value === '1') {
+		arrMonth = [1, 2, 3];
+	}
+
+	if(value === '2') {
+		arrMonth = [4, 5, 6];
+	}
+
+	if(value === '3') {
+		arrMonth = [7, 8, 9];
+	}
+
+	if(value === '4') {
+		arrMonth = [10, 11, 12];
+	}
+
+	$("#reportTable").bootstrapTable('filterBy', {
+		id: arrMonth
+	},
+	{
+		'filterAlgorithm': (row, filters) => {
+			let filterValue = filters.id;
+			let dateString = row[4].split('/');
+			let monthFilter = parseInt(dateString[1]);
+			return filterValue.includes(monthFilter)
+		}
+	})
+}
+
+function getDataByYear(value) {
+	$("#reportTable").bootstrapTable('filterBy', {
+		id: value
+	},
+	{
+		'filterAlgorithm': (row, filters) => {
+			let filterValue = filters.id;
+			let dateString = row[4].split('/');
+			let year = dateString[2];
+			return year === filterValue;
+		}
+	})
+}
+filter.addEventListener('click', () => {
+	let monthValue = monthPicker.value;
+	let quarterValue = quarterPicker.value;
+	let yearValue = yearPicker.value;
+	if (monthValue) {
+		getDataByMonth(monthValue)
+	}
+	if (quarterValue) {
+		getDataByQuarter(quarterValue)
+		
+	}
+	if (yearValue) {
+		getDataByYear(yearValue)
+	}
+})
 
 // set status color
 var setColors = document.querySelectorAll('.status-color');
