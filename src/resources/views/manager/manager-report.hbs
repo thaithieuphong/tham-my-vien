@@ -146,7 +146,7 @@
 				<td class="text-nowrap" scope="row"><a class="link-primary" href="/manager/general-manager/customer/{{#each this.scheduleID}}{{this._id}}{{/each}}/detail">{{#each this.scheduleID}}{{this.fullName}}{{/each}}</a></td>
 				<td class="text-center" scope="row">0{{#each this.scheduleID}}{{this.phone}}{{/each}}</td>
 				<td class="text-center" scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="{{#each this.scheduleID}}{{this.resource}}{{/each}}">{{#each this.scheduleID}}{{cutPassword this.resource 16}}{{/each}}</td>
-				<td class="text-center createdAtField" scope="row">{{formatBirth this.createdAt}}</td>
+				<td class="text-center createdAtField" scope="row">{{formatBirth this.surgeryDay}}</td>
 				<td class="text-center text-nowrap" scope="row">{{#each this.scheduleID}}{{this.userID.firstName}} {{this.userID.lastName}}{{/each}}</td>
 				<td class="text-nowrap" scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="{{#each this.scheduleID}}{{this.description}}{{/each}}">
 					{{#each this.scheduleID}}{{cutPassword this.description 16}}{{/each}}

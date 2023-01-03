@@ -14,7 +14,7 @@
         </div>
         <div class="sidebar-item">
             <a href="/manager/general-manager/report" class="sidebar-item-title pl-3 bg-blue">
-                <i class="fa-sharp fa-solid fa-clipboard mr-3"></i>Báo cáo
+                <i class="ti-clipboard mr-3"></i>Báo cáo
             </a>
         </div>
 		{{!-- <div class="sidebar-item">
@@ -54,6 +54,7 @@
 		<thead class="bg-blue">
 			<tr class="text-light">
 				<th class="text-center">#</th>
+				<th class="text-center">Mã khách hàng</th>
 				<th class="text-center">Họ tên</th>
 				<th class="text-center">Số điện thoại</th>
 				<th class="text-center">Nguồn</th>
@@ -67,6 +68,7 @@
 			{{#each customers}}
 			<tr class="text-dark">
 				<th class="text-center" scope="row">{{sum @index 1}}</th>
+				<td class="text-center" scope="row">{{this.identification}}</td>
 				<td class="text-nowrap"><a class="link-primary" href="/manager/general-manager/customer/{{this._id}}/detail">{{this.fullName}}</a></td>
 				<td class="text-center" scope="row">0{{this.phone}}</td>
 				<td class="text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.resource}}">{{cutPassword this.resource 20}}</td>

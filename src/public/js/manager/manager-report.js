@@ -41,12 +41,11 @@ function getDataByMonth(value) {
 	{
 		'filterAlgorithm': (row, filters) => {
 			let filterValue = filters.id;
-			let dateString = row[4].split('/');
-			let month = dateString[1];
-			console.log(filterValue)
-			console.log(month)
-			// let isNumRowID = parseInt(row.id);
-			return month === filterValue
+			if (row[4] !== 'Invalid Date') {
+				let dateString = row[4].split('/');
+				let month = dateString[1];
+				return month === filterValue;
+			}
 		}
 	})
 }
@@ -77,7 +76,7 @@ function getDataByQuarter(value) {
 			let filterValue = filters.id;
 			let dateString = row[4].split('/');
 			let monthFilter = parseInt(dateString[1]);
-			return filterValue.includes(monthFilter)
+			return filterValue.includes(monthFilter);
 		}
 	})
 }
@@ -95,19 +94,73 @@ function getDataByYear(value) {
 		}
 	})
 }
+
+function getDataByMonthYear(monthValue, yearValue) {
+	let value = `${monthValue}/${yearValue}`
+	$("#reportTable").bootstrapTable('filterBy', {
+		id: value
+	},
+	{
+		'filterAlgorithm': (row, filters) => {
+			let filterValue = filters.id;
+			let dateString = row[4].split('/');
+			let month = dateString[1];
+			let year = dateString[2];
+			let monthAndYear = `${month}/${year}`
+			return monthAndYear === filterValue;
+		}
+	})
+}
+
+function getDataByQuarterYear(quarterValue, yearValue) {
+	let arrMonth;
+	if(quarterValue === '1') {
+		arrMonth = [`1/${yearValue}`, `2/${yearValue}`, `3/${yearValue}`];
+	}
+
+	if(quarterValue === '2') {
+		arrMonth = [`4/${yearValue}`, `5/${yearValue}`, `6/${yearValue}`];
+	}
+
+	if(quarterValue === '3') {
+		arrMonth = [`7/${yearValue}`, `8/${yearValue}`, `9/${yearValue}`];
+	}
+
+	if(quarterValue === '4') {
+		arrMonth = [`10/${yearValue}`, `11/${yearValue}`, `12/${yearValue}`];
+	}
+	$("#reportTable").bootstrapTable('filterBy', {
+		id: arrMonth
+	},
+	{
+		'filterAlgorithm': (row, filters) => {
+			let filterValue = filters.id;
+			let dateString = row[4].split('/');
+			let month = dateString[1];
+			let year = dateString[2];
+			let monthAndYear = `${month}/${year}`
+			return filterValue.includes(monthAndYear);
+		}
+	})
+}
 filter.addEventListener('click', () => {
 	let monthValue = monthPicker.value;
 	let quarterValue = quarterPicker.value;
 	let yearValue = yearPicker.value;
 	if (monthValue) {
-		getDataByMonth(monthValue)
+		getDataByMonth(monthValue);
 	}
 	if (quarterValue) {
-		getDataByQuarter(quarterValue)
-		
+		getDataByQuarter(quarterValue);
 	}
 	if (yearValue) {
-		getDataByYear(yearValue)
+		getDataByYear(yearValue);
+	}
+	if (monthValue && yearValue) {
+		getDataByMonthYear(monthValue, yearValue);
+	}
+	if (quarterValue && yearValue) {
+		getDataByQuarterYear(quarterValue, yearValue);
 	}
 })
 

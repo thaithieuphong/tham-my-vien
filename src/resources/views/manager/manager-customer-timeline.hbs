@@ -52,7 +52,7 @@
 	<div class="card shadow mt-3 mb-3">
 		<div class="card-body">
 			<div class="row">
-				<div class="col-4">
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs">
 					<div class="d-flex justify-content-between">
 						<label for="status" class="text-nowrap text-dark">
 							<strong>Mã khách hàng:</strong>
@@ -78,7 +78,7 @@
 						</label>
 					</div>
 				</div>
-				<div class="col-4">
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs">
 					<div class="d-flex justify-content-between">
 						<label for="status" class="text-nowrap text-dark">
 							<strong>Quê quán:</strong>
@@ -114,7 +114,7 @@
 						</label>
 					</div> --}}
 				</div>
-				<div class="col-4">
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs">
                     <div class="d-flex justify-content-between">
 						<label for="status" class="text-nowrap text-dark">
 							<strong>Trạng thái hiện tại:</strong>
@@ -206,7 +206,7 @@
 							<div class="row overflow-auto">
 							{{#if customer.serviceNoteID}}
 							{{#each customer.serviceNoteID}}
-								<div class="col-4 mb-3">
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm col-xs mb-3 me-2 p-0">
 									<a href="/manager/general-manager/service-note/{{this._id}}/detail">
 										<div class="card p-3">
 											<div class="d-flex justify-content-between">
@@ -220,20 +220,20 @@
                                                 {{/each}}
 											</div>
                                             <div class="d-flex justify-content-between">
-												<label class="text-nowrap" for=""><strong>Phẫu thuật tại tầng:</strong></label>
-                                                <div class="text-nowrap">{{this.floor}}</div>
+												<label class="text-wrap" for=""><strong>Phẫu thuật tại tầng:</strong></label>
+                                                <div class="text-wrap">{{this.floor}}</div>
 											</div>
 											<div class="d-flex justify-content-between">
-												<label class="text-nowrap" for=""><strong>Ngày phẫu thuật:</strong></label>
-												<div class="text-nowrap">{{formatDate this.surgeryDay}}</div>
+												<label class="text-wrap" for=""><strong>Ngày phẫu thuật:</strong></label>
+												<div class="text-wrap text-right">{{formatDate this.surgeryDay}}</div>
 											</div>
                                             <div class="d-flex justify-content-between">
-												<label class="text-nowrap" for=""><strong>Đặt cọc:</strong></label>
-												<div class="text-nowrap">{{this.deposit}}</div>
+												<label class="text-wrap" for=""><strong>Đặt cọc:</strong></label>
+												<div class="text-wrap">{{this.deposit}}</div>
 											</div>
                                             <div class="d-flex justify-content-between">
-												<label class="text-nowrap" for=""><strong>Tổng chi phí:</strong></label>
-												<div class="text-nowrap">{{this.total}}</div>
+												<label class="text-wrap" for=""><strong>Tổng chi phí:</strong></label>
+												<div class="text-wrap">{{this.total}}</div>
 											</div>
 										</div>
 									</a>
