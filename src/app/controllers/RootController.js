@@ -49,7 +49,6 @@ class RootController {
 			Customer.find({}).populate('userID')
 		])
 			.then(([user, customers]) => {
-				console.log(customers)
 				res.render("root/root-customer", {
 					user: mongooseToObject(user),
 					customers: multipleMongooseToObject(customers),
@@ -74,7 +73,6 @@ class RootController {
 			Reexamination.find({}).populate('customerID').populate('serviceNoteId')
 		])
 			.then(([customer, users, schedules, serviceNotes, reExaminations]) => {
-				console.log(schedules)
 				res.render("root/root-customer-detail", {
 					customer: mongooseToObject(customer),
 					users: multipleMongooseToObject(users),

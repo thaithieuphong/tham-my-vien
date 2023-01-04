@@ -207,6 +207,18 @@
 		</li>
 		<li class="list-group-item bg-transparent text-light border">
 			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Trạng thái:</label>&nbsp;
+				<p class="text-right m-0">{{customer.statusCus.statusVi}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
+				<label class="m-0 text-light">Đã xóa:</label>&nbsp;
+				<p class="text-right m-0">{{customer.deleted}}</p>
+			</div>
+		</li>
+		<li class="list-group-item bg-transparent text-light border">
+			<div class="d-flex justify-content-start">
 				<label class="m-0 text-light">Ngày tạo:</label>&nbsp;
 				<p class="text-right m-0">{{formatDate customer.createdAt}}</p>
 			</div>
@@ -231,124 +243,4 @@
 			</div>
 		</li>
 	</ul>
-	<table class="table table-sm container-content-page table-bordered mb-2">
-		<thead class="sticky-top">
-			<tr class="text-light bg-primary">
-				<th scope="col">#</th>
-				<th class="text-nowrap" scope="col">SheduleID</th>
-				<th class="text-nowrap" scope="col">Shedule</th>
-				<th class="text-nowrap" scope="col">Status</th>
-				<th class="text-nowrap" scope="col">CusID</th>
-				<th class="text-nowrap" scope="col">Full Name</th>
-				<th class="text-nowrap" scope="col">Nick Name</th>
-				<th class="text-nowrap" scope="col">User ID</th>
-				<th class="text-nowrap" scope="col">User Full Name</th>
-				<th class="text-nowrap" scope="col">Created At</th>
-				<th class="text-nowrap" scope="col">Updated At</th>
-			</tr>
-		</thead>
-		<tbody>
-			{{#each schedules}}
-			<tr class="text-light">
-				<th scope="row">{{sum @index 1}}</th>
-				<td class="text-nowrap"><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
-				<td class="text-nowrap">{{formatDate this.schedule}}</td>
-				<td class="text-nowrap">{{this.status}}</td>
-				{{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
-				{{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
-				<td class="text-nowrap">{{this.customerID._id}}</td>
-				<td class="text-nowrap">{{this.customerID.fullName}}</td>
-				<td class="text-nowrap">{{this.customerID.nickName}}</td>
-				<td class="text-warning">{{this.customerID.userID._id}}</td>
-				<td class="text-nowrap">{{this.customerID.userID.firstName}} {{this.customerID.userID.lastName}}</td>
-				<td class="text-nowrap">{{formatDate this.customerID.createdAt}}</td>
-				<td class="text-nowrap">{{formatDate this.customerID.updatedAt}}</td>
-			</tr>
-			{{/each}}
-		</tbody>
-	</table>
-    <div class="row">
-        <div class="col-md-6 text-light pr-0">
-			<table class="table table-sm container-content-page table-bordered mb-0">
-				<thead>
-					<tr class="text-light bg-primary">
-						<th scope="col">#</th>
-						<th scope="col">UID</th>
-						<th scope="col">Full Name</th>
-					</tr>
-				</thead>
-				<tbody>
-					{{#each users}}
-					<tr class="text-light">
-						<th scope="row">{{sum @index 1}}</th>
-						<td><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
-						{{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
-						{{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
-						<td>{{this.firstName}} {{this.lastName}}</td>
-					</tr>
-					{{/each}}
-				</tbody>
-			</table>
-        </div>
-        <div class="col-md-6 text-light pl-0">
-			<table class="table table-sm container-content-page table-bordered">
-				<thead class="sticky-top">
-					<tr class="text-light bg-primary">
-						<th scope="col">#</th>
-						<th scope="col">ID</th>
-						<th scope="col">Full Name</th>
-						<th scope="col">Nick Name</th>
-						<th scope="col">User ID</th>
-						<th scope="col">Full Name</th>
-					</tr>
-				</thead>
-				<tbody>
-					{{#each serviceNotes}}
-					<tr class="text-light">
-						<th scope="row">{{sum @index 1}}</th>
-						<td><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
-						{{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
-						{{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
-						<td>{{this.fullName}}</td>
-						<td>{{this.nickName}}</td>
-						<td class="text-warning">{{this.userID._id}}</td>
-						<td>{{this.userID.firstName}} {{this.userID.lastName}}</td>
-					</tr>
-					{{/each}}
-				</tbody>
-			</table>
-		</div>
-    </div>
-	<div class="row">
-        <div class="col-md-6 text-light">
-		</div>
-        <div class="col-md-6 text-light">
-			<table class="table table-sm container-content-page">
-				<thead>
-					<tr class="text-light bg-primary">
-						<th scope="col">#</th>
-						<th scope="col">ID</th>
-						<th scope="col">Full Name</th>
-						<th scope="col">Nick Name</th>
-						<th scope="col">User ID</th>
-						<th scope="col">Full Name</th>
-					</tr>
-				</thead>
-				<tbody>
-					{{#each reExamintions}}
-					<tr class="text-light">
-						<th scope="row">{{sum @index 1}}</th>
-						<td><img class="w-46 h-46 rounded-circle border mr-3" src="/img/uploads/customers/user-ray.png" alt=""><a href="/god/customer/{{this._id}}/detail">{{this._id}}</a></td>
-						{{!-- <td><img src="/img/uploads/customers/{{this.image.name}}" alt="">{{this._id}}</td> --}}
-						{{!-- <td><img src="{{this.image.url}}" alt="">{{this._id}}</td> --}}
-						<td>{{this.fullName}}</td>
-						<td>{{this.nickName}}</td>
-						<td class="text-warning">{{this.userID._id}}</td>
-						<td>{{this.userID.firstName}} {{this.userID.lastName}}</td>
-					</tr>
-					{{/each}}
-				</tbody>
-			</table>
-		</div>
-	</div>
 </div>

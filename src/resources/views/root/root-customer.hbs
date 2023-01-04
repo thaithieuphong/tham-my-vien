@@ -67,8 +67,13 @@
     </nav>
 </div>
 <div class="container-fluid">
-    <table class="table mt-3 container-content-page table-sm table-bordered rounded">
-        <thead class="sticky-top text-nowrap">
+    <nav class="pt-2 float-left">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a id="filter" class="btn btn-danger text-light"><i class="ti-trash me-2"></i>Kho lưu trữ</a>
+        </div>
+	</nav>
+    <table id="customerTable" class="table table-hover table-sm table-bordered table-sm">
+        <thead>
             <tr class="text-light bg-primary">
                 <th scope="col">#</th>
                 <th scope="col">Mã KH</th>
@@ -78,23 +83,7 @@
                 <th scope="col">Ngày sinh</th>
                 <th scope="col">Giới tính</th>
                 <th scope="col">Điện thoại</th>
-                <th scope="col">Quê quán</th>
-                <th scope="col">Chiều cao</th>
-                <th scope="col">Cân nặng</th>
-                <th scope="col">Email</th>
-                <th scope="col">Địa chỉ</th>
-                <th scope="col">Nguồn</th>
-                <th scope="col">Mã người tạo</th>
-                <th scope="col">Họ tên người tạo</th>
-                <th scope="col">Mã lịch hẹn</th>
-                <th scope="col">Mã phiếu dịch vụ</th>
-                <th scope="col">Mã phiếu tái khám</th>
-                <th scope="col">Trạng thái</th>
-                <th scope="col">Đã xóa</th>
-                <th scope="col">Ngày tạo</th>
-                <th scope="col">Ngày cập nhật</th>
-                <th scope="col">Mô tả</th>
-                <th scope="col">Hoạt động</th>
+                <th scope="col">Hành động</th>  
             </tr>
         </thead>
         <tbody>
@@ -107,29 +96,36 @@
                 <td>{{this.identification}}</td>
                 <td>{{this.fullName}}</td>
                 <td>{{this.nickName}}</td>
-                <td>{{this.birth}}</td>
+                <td>{{formatBirth this.birth}}</td>
                 <td>{{this.gender}}</td>
                 <td>{{this.phone}}</td>
-                <td>{{this.homeTown}}</td>
-                <td>{{this.height}}</td>
-                <td>{{this.weight}}</td>
-                <td>{{this.email}}</td>
-                <td>{{this.address}}</td>
-                <td>{{this.resource}}</td>
-                <td class="text-warning">{{this.userID._id}}</td>
-                <td>{{this.userID.firstName}} {{this.userID.lastName}}</td>
-                <td>{{this.scheduleID}}</td>
-                <td>{{this.serviceNoteID}}</td>
-                <td>{{this.reexamID}}</td>
-                <td>{{this.statusCus.statusVi}}</td>
-                <td>{{this.deleted}}</td>
-                <td>{{formatDate this.createdAt}}</td>
-                <td>{{formatDate this.updatedAt}}</td>
-                <td>{{this.description}}</td>
-                <td>{{this.comments}}</td>
-
+                <td class="text-center">
+                    <button type="button" class="btn btn-info btn-sm border" data-bs-toggle="modal"
+                        data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
+                        data-edit-img="{{this.image.name}}" data-edit-nickname="{{this.nickName}}"
+                        data-edit-statusCus="{{this.statusCus.statusVi}}" data-edit-birth="{{this.birth}}"
+                        data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
+                        data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
+                        data-edit-resource="{{this.resource}}"
+                        data-edit-description="{{this.description}}">
+                        <div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa thông tin khách hàng">
+                            <i class="ti-pencil-alt"></i>
+                        </div>
+                    </button>
+                    <button class="btn btn-primary border btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển trạng thái">
+                            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                        </div>
+                    </button>
+                    <button class="btn btn-primary border btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển trạng thái">
+                            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                        </div>
+                    </button>
+                </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 </div>
+<script src="/js/root/root.js"></script>
