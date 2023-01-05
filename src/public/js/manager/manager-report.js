@@ -180,22 +180,22 @@ setColors.forEach(element => {
 	if(value === 'Tạo hồ sơ') {
 		element.classList.add('color-green', 'text-white');
 	}
-	if(value === 'Cập nhật thông tin cá nhân') {
+	if(value === 'Đã cập nhật thông tin cá nhân') {
 		element.classList.add('color-blue', 'text-white');
 	}
-	if(value === 'Cập nhật dịch vụ') {
+	if(value === 'Đã cập nhật dịch vụ') {
 		element.classList.add('color-indigo', 'text-white');
 	}
-	if(value === 'Cập nhật hình ảnh và video tư vấn') {
+	if(value === 'Đã cập nhật hình ảnh và video tư vấn') {
 		element.classList.add('color-violet', 'text-white');
 	}
-	if(value === 'Cập nhật hình ảnh và video trước phẫu thuật') {
+	if(value === 'Đã cập nhật hình ảnh và video trước phẫu thuật') {
 		element.classList.add('bg-info', 'text-white');
 	}
-	if(value === 'Cập nhật hình ảnh và video phẫu thuật') {
+	if(value === 'Đã cập nhật hình ảnh và video phẫu thuật') {
 		element.classList.add('bg-primary', 'text-white');
 	}
-	if(value === 'Cập nhật hình ảnh và video hậu phẫu - hồi sức') {
+	if(value === 'Đã cập nhật hình ảnh và video hậu phẫu - hồi sức') {
 		element.classList.add('bg-success', 'text-white');
 	}
 	if(value === 'Tạo phiếu tái khám') {
@@ -204,10 +204,10 @@ setColors.forEach(element => {
 	if(value === 'Đang xử lý phiếu tái khám') {
 		element.classList.add('color-red', 'text-white');
 	}
-	if(value === 'Cập nhật hình ảnh và video tái khám') {
+	if(value === 'Đã cập nhật hình ảnh và video tái khám') {
 		element.classList.add('color-orange', 'text-white');
 	}
-	if(value === 'Hoàn thành phiếu tái khám') {
+	if(value === 'Đã hoàn thành việc tái khám') {
 		element.classList.add('color-blue', 'text-white');
 	}
 	if(value === 'Xuất viện') {

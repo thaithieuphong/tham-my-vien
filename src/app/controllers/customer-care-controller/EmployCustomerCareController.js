@@ -29,7 +29,7 @@ class EmployCustomerCareController {
 
 	/** Customer */
 	showCustomer(req, res, next) {
-		ServiceNote.find({ status: 'Xuất viện' }).populate({
+		ServiceNote.find({ status: "Xuất viện"}).populate({
 			path: 'scheduleID',
 			populate: {
 				path: 'customerID',
@@ -39,7 +39,7 @@ class EmployCustomerCareController {
 		.then((serviceNote) => {
 			res.render('customer-care/employ/employ-customer', {
 				serviceNote: multipleMongooseToObject(serviceNote),
-				title: 'Hồ sơ xuất viện'
+				title: 'Hồ sơ khách xuất viện - thay băng'
 			})
 		})
 		.catch(next);
@@ -101,7 +101,7 @@ class EmployCustomerCareController {
 		Promise.all([Reexamination.find({ $or: [{ status: "Đang xử lý"}, {status: "Đã cập nhật"}, {status: "Tạo mới" }]}).populate('customerID').populate('createName').populate('serviceNoteId').sort({ schedule: 1 }), User.findById({ _id: req.userId })])
 			.then(([reExams, user]) => {
 				res.render('customer-care/employ/employ-re-examination', {
-					title: 'Danh sách lịch tái khám',
+					title: 'Danh sách lịch thay băng',
 					user: mongooseToObject(user),
 					reExams: multipleMongooseToObject(reExams)
 				})

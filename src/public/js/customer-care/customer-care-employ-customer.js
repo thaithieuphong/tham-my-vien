@@ -367,11 +367,10 @@ if (submitServiceNoteModalCustomerCare) {
 	})
 }
 
-// nhập tìm kiếm
-var inputSearch = document.getElementById('search-customer'); // Lấy thẻ input từ giao diện
-if (inputSearch) {
-	inputSearch.addEventListener('keyup', (e) => {
-		let value = e.target.value.toLowerCase(); // Lấy giá trị được nhập vào từ thẻ input
+var inputSearch = document.getElementById('search-table'); // Lấy thẻ input từ giao diện
+if(inputSearch) {
+	inputSearch.addEventListener('keyup', () => {
+		let value = inputSearch.value; // Lấy giá trị được nhập vào từ thẻ input
 		getDataTable(value);
 	});
 }
@@ -423,3 +422,58 @@ for (i = 0; i < alertElement.length; i++) {
 		}
 	}
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+	$(document).ready(function () {
+		$("#table-customer").bootstrapTable({
+			pagination: true,
+			// search: true,
+			// scrollY: 300,
+		});
+		
+	});
+
+	$(document).ready(function () {
+		$("#table-schedule").bootstrapTable({
+			pagination: true,
+			search: true,
+			// scrollY: 300,
+		});
+		
+	});
+
+	$(document).ready(function () {
+		$("#table-storage").bootstrapTable({
+			pagination: true,
+			search: true,
+			// scrollY: 300,
+		});
+		
+	});
+
+	function searchSurgeryDay(value) {
+		$("#table-customer").bootstrapTable('filterBy', {
+			id: value
+		},
+		{
+			'filterAlgorithm': (row, filters) => {
+				let filterValue = filters.id;
+				let date = new Date(filterValue);
+				let newDate = date.toLocaleString('vi-VI', { day: 'numeric', month: 'numeric', year: 'numeric' });
+				let dateString = row[1];
+				if (dateString !== 'Invalid Date') {
+					return dateString === newDate;
+				}
+			}
+		})
+	}
+
+	// nhập tìm kiếm
+	var inputSearchSurgeryDay = document.getElementById('search-surgeryDay'); // Lấy thẻ input từ giao diện
+	var filter = document.getElementById('filter');
+	filter.addEventListener('click', () => {
+		let value = inputSearchSurgeryDay.value; // Lấy giá trị được nhập vào từ thẻ input
+		searchSurgeryDay(value);
+	});
+	
+});

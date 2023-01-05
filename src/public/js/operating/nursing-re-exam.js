@@ -92,6 +92,15 @@ document.addEventListener('DOMContentLoaded', function () {
 		};
 	}
 
+	$(document).ready(function () {
+		$("#table-schedule").bootstrapTable({
+			pagination: true,
+			search: true,
+			// scrollY: 300,
+		});
+		
+	});
+
 });
 
 
@@ -420,46 +429,46 @@ if (inputSearchSchedule) {
 	});
 }
 
-function getDataTable(value) {
-	// Declare variables
-	var table, tr;
-	let filter = value;
-	table = document.getElementById("table-schedule");
-	tr = table.querySelectorAll(".text-value");
-	tr.forEach(item => {
-		let identifies = item.querySelectorAll(".text-identify");
-		let fullNames = item.querySelectorAll(".text-fullName");
-		let nickNames = item.querySelectorAll(".text-nickName");
-		let phones = item.querySelectorAll(".text-phone");
-		let schedules = item.querySelectorAll(".text-schedule");
-		let statuses = item.querySelectorAll(".text-status");
-		let identifyText, fullNameText, nickNameText, phoneText, scheduleText, statusText;
-		identifies.forEach(identify => {
-			return identifyText = identify.innerHTML.toLowerCase().trim();
-		})
-		fullNames.forEach(fullName => {
-			let fullNameLink = fullName.querySelector(".fullName-link");
-			return fullNameText = fullNameLink.innerHTML.toLowerCase().trim();
-		})
-		nickNames.forEach(nickName => {
-			return nickNameText = nickName.innerHTML.toLowerCase().trim();
-		})
-		phones.forEach(phone => {
-			return phoneText = phone.innerHTML.toLowerCase().trim();
-		})
-		schedules.forEach(schedule => {
-			return scheduleText = schedule.innerHTML.toLowerCase().trim();
-		})
-		statuses.forEach(status => {
-			return statusText = status.innerHTML.toLowerCase().trim();
-		})
-		let obj = { fullName: fullNameText, nickName: nickNameText, identify: identifyText, phone: phoneText, schedule: scheduleText, status: statusText }
-		if (obj.identify || obj.fullName || obj.nickName || obj.phone || obj.schedule || obj.status !== undefined) {
-			const isVisible = obj.identify.includes(filter) || obj.fullName.includes(filter) || obj.nickName.includes(filter) || obj.phone.includes(filter) || obj.schedule.includes(filter) || obj.status.includes(filter);
-			item.classList.toggle('off', !isVisible);
-		}
-	})
-}
+// function getDataTable(value) {
+// 	// Declare variables
+// 	var table, tr;
+// 	let filter = value;
+// 	table = document.getElementById("table-schedule");
+// 	tr = table.querySelectorAll(".text-value");
+// 	tr.forEach(item => {
+// 		let identifies = item.querySelectorAll(".text-identify");
+// 		let fullNames = item.querySelectorAll(".text-fullName");
+// 		let nickNames = item.querySelectorAll(".text-nickName");
+// 		let phones = item.querySelectorAll(".text-phone");
+// 		let schedules = item.querySelectorAll(".text-schedule");
+// 		let statuses = item.querySelectorAll(".text-status");
+// 		let identifyText, fullNameText, nickNameText, phoneText, scheduleText, statusText;
+// 		identifies.forEach(identify => {
+// 			return identifyText = identify.innerHTML.toLowerCase().trim();
+// 		})
+// 		fullNames.forEach(fullName => {
+// 			let fullNameLink = fullName.querySelector(".fullName-link");
+// 			return fullNameText = fullNameLink.innerHTML.toLowerCase().trim();
+// 		})
+// 		nickNames.forEach(nickName => {
+// 			return nickNameText = nickName.innerHTML.toLowerCase().trim();
+// 		})
+// 		phones.forEach(phone => {
+// 			return phoneText = phone.innerHTML.toLowerCase().trim();
+// 		})
+// 		schedules.forEach(schedule => {
+// 			return scheduleText = schedule.innerHTML.toLowerCase().trim();
+// 		})
+// 		statuses.forEach(status => {
+// 			return statusText = status.innerHTML.toLowerCase().trim();
+// 		})
+// 		let obj = { fullName: fullNameText, nickName: nickNameText, identify: identifyText, phone: phoneText, schedule: scheduleText, status: statusText }
+// 		if (obj.identify || obj.fullName || obj.nickName || obj.phone || obj.schedule || obj.status !== undefined) {
+// 			const isVisible = obj.identify.includes(filter) || obj.fullName.includes(filter) || obj.nickName.includes(filter) || obj.phone.includes(filter) || obj.schedule.includes(filter) || obj.status.includes(filter);
+// 			item.classList.toggle('off', !isVisible);
+// 		}
+// 	})
+// }
 
 function getData(value) {
 	const cards = document.querySelectorAll('.card');
