@@ -54,18 +54,21 @@ const Customer = new Schema({
 		type: String,
 		ref: "Schedule"
 	}],
+	hasSchedule: false,
 	serviceNoteID: [
 		{
 			type: String,
 			ref: "ServiceNote"
 		}
 	],
+	hasServiceNote: false,
 	reexamID: [
 		{
 			type: String,
 			ref: "Reexamination"
 		}
 	],
+	hasReExam: false,
 	statusCus: {
 		statusVi: String,
 		statusEng: String	

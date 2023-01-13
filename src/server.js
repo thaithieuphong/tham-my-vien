@@ -178,6 +178,7 @@ app.use(function (req, res, next) {
 	res.locals.messages_uploadInsurgery_success = req.flash('messages_uploadInsurgery_success');
 	res.locals.messages_uploadAfter_success = req.flash('messages_uploadAfter_success');
 	res.locals.messages_uploadReexam_success = req.flash('messages_uploadReexam_success');
+	res.locals.messages_moveCustomer_success = req.flash('messages_moveCustomer_success');
 	next();
 });
 

@@ -1,0 +1,127 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="sticky-top ps-0 pe-0">
+    <div class="text-center bg-blue border-bottom">
+        {{!-- <div class="img-container">
+        </div> --}}
+        <div class="text-light text-uppercase fw-bold pt-2 pb-2">
+            {{this.title}}
+        </div>
+        {{!-- <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button> --}}
+    </div>
+</div>
+<div class="d-flex">
+    {{> page/sidebar/business/employ/sidebar-business-employ}}
+    <div class="container-content-scroll p-2" style="width: 100%;">
+        {{#if customer}}
+        <form id="edit-customer-form" action="/business/employ/customers/{{customer._id}}/edit?_method=PUT" method="POST" enctype="multipart/form-data">
+        <div class="row mt-3">
+            <div class="col-xl-3 text-center">
+                {{#if customer.image.name}}
+                <img src="/img/uploads/customers/{{customer.image.name}}" id="add-avt-customer" class="rounded mx-auto d-block add-avata"
+                    alt="...">
+                {{else}}
+                <img src="/img/user-icon.png" id="add-avt-customer" class="rounded mx-auto d-block add-avata"
+                    alt="...">
+                <label for="input-edit-img" class="label-avt btn btn-sm btn-primary mt-3 rounded-pill">
+                    <h6>Chọn ảnh đại diện</h6>
+                </label>
+                <input hidden id="input-edit-img" type="file" name="image"
+                    accept="image/png, image/gif, image/jpeg">
+                {{/if}}
+            </div>
+            <div class="col-xl-9">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label for="edit-identification" class="mb-0">Mã khách hàng</label>
+                        <input type="text" class="form-control form-control-sm" id="edit-identification" placeholder="BA..." name="identification" value="{{customer.identification}}">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="edit-firstName" class="mb-0">Họ tên khai sinh</label>
+                        <input type="text" class="form-control form-control-sm" id="edit-firstName"
+                        placeholder="Vd: Trần Văn An" name="fullName" value="{{customer.fullName}}">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="edit-birth" class="mb-0">Tên thường gọi</label>
+                        <input type="text" class="form-control form-control-sm" id="edit-nickName"
+                            placeholder="Vd: Mon Nguyễn" name="nickName" rules="required" value="{{customer.nickName}}">
+                        <span class="form-message mt-1"></span>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="edit-gender" class="mb-0">Giới tính</label>
+                        <select id="edit-gender" class="form-select form-control form-control-sm" aria-label=".form-select-sm example"
+                        name="gender" rules="required">
+                            <option class="" value="{{customer.gender}}" selected>{{customer.gender}}</option>
+                            <option class="" value="Nữ">Nữ</option>
+                            <option class="" value="Nam">Nam</option>
+                        </select>
+                        <span class="form-message mt-1"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label for="edit-birth" class="mb-0">Ngày sinh</label>
+                        <input type="date" class="form-control form-control-sm" id="edit-birth"
+                            aria-describedby="birthFeedback" name="birth" rules="required" value="{{customer.birth}}">
+                        <span class="form-message mt-1"></span>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="edit-phone" class="mb-0">Số điện thoại</label>
+                        <input type="text" class="form-control form-control-sm" id="edit-phone"
+                        placeholder="Vd: 0909888888" name="phone" rules="required|isNum|equal:10" value="0{{customer.phone}}">
+                        <span class="form-message mt-1"></span>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="edit-address" class="mb-0">Quê quán</label>
+                        <input type="text" class="form-control form-control-sm" id="edit-address"
+                        placeholder="Vd: TP.Hồ Chí Minh" name="homeTown" value="{{customer.homeTown}}">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="edit-height" class="mb-0">Chiều cao</label>
+                        <input type="text" class="form-control form-control-sm" id="edit-height"
+                        placeholder="Vd: 1.70" name="height" value="{{customer.height}}">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label for="edit-weight" class="mb-0">Cân nặng</label>
+                        <input type="text" class="form-control form-control-sm" id="edit-weight" placeholder="Vd: 48" name="weight" value="{{customer.weight}}">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="edit-status" class="mb-0">Trạng thái</label>
+                        <select id="edit-status" class="form-select form-control form-control-sm" name="statusVi" rules="required">
+                            <option class="" value="{{customer.statusCus.statusVi}}" selected>{{customer.statusCus.statusVi}}</option>
+                            <option class="" value="Tạo mới">Tạo mới</option>
+                            <option class="" value="Tiềm năng">Tiềm năng</option>
+                            <option class="" value="Đặt lịch">Đặt lịch</option>
+                            <option class="" value="Không thành công">Không thành công</option>
+                        </select>
+                        <span class="form-message mt-1"></span>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="edit-resource" class="mb-0">Nguồn khách</label>
+                        <input type="text" class="form-control form-control-sm" id="edit-resource" placeholder="Fanpage" name="resource" rules="required" value="{{customer.resource}}">
+                        <span class="form-message mt-1"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="edit-description" class="mb-0">Mô tả</label>
+                        <textarea class="form-control form-control-sm" id="edit-description" rows="6"
+                        placeholder="Mô tả khách hàng" name="description">{{customer.description}}</textarea>
+                    </div>
+                </div>
+                <button id="edit-customer-btn" class="btn btn-primary float-end rounded-pill">Cập nhật</button>
+            </div>
+        </div>
+        </form>
+        {{/if}}
+    </div>
+</div>
+<script src="/js/business/business-employ-customer-edit.js"></script>
+<script>
+    validate('#edit-customer-form');
+</script>

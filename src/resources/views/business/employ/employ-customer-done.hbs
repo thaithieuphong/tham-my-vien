@@ -1,0 +1,438 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+{{#if messages_createCustomer_success}}
+    <div class="modal fade" id="messageCreateCustomerSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+				<div class="modal-header p-2">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_createCustomer_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageCreateCustomerSuccess = document.querySelector('#messageCreateCustomerSuccess');
+            $(messageCreateCustomerSuccess).modal('show');
+            //const popupTimeout = setTimeout(closePopup, 3000);
+
+            //function closePopup() {
+                //$(messageCreateCustomerSuccess).removeClass('show');
+            //}
+        });
+    </script>
+{{/if}}
+{{#if messages_editCustomer_success}}
+	<div class="modal fade" id="messageEditCustomerSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+				<div class="modal-header p-2">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_createCustomer_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageEditCustomerSuccess = document.querySelector('#messageEditCustomerSuccess');
+            $(messageEditCustomerSuccess).modal('show');
+            //const popupTimeout = setTimeout(closePopup, 3000);
+
+            //function closePopup() {
+                //$(messageCreateCustomerSuccess).removeClass('show');
+            //}
+        });
+    </script>
+{{/if}}
+<div class="sticky-top pe-0 ps-0">
+    <div class="text-center bg-blue border-bottom">
+        <div class="text-light text-uppercase fw-bold pt-2 pb-2">
+            {{this.title}}
+        </div>
+    </div>
+</div>
+<div class="d-flex">
+    {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
+    <div class="container-content-scroll" style="width: 100%; height: 92.6vh">
+		<div class="redirect-bar d-flex justify-content-between" style="height: 48px;">
+			<div></div>
+			{{!-- <button type="button" data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="btn btn-sm text-light btn-primary rounded-pill mt-2 ml-2 mb-2 mr-3 border">Tạo khách hàng</button> --}}
+			<a href="/business/employ/customers/create" type="button" class="btn btn-sm text-light btn-primary rounded-pill mt-2 ml-2 mb-2 mr-3 border">Tạo khách hàng</a>
+		</div>
+        <div class="ps-2 pe-2">
+			<table id="customerStorage" class="table table-striped table-hover table-sm table-bordered display">
+				<thead class="bg-blue">
+					<tr class="text-light">
+						<th class="text-center">#</th>
+						<th class="text-center">Họ tên</th>
+						<th class="text-center">Số điện thoại</th>
+						<th class="text-center">Nguồn</th>
+						<th class="text-center">Ngày tạo</th>
+						<th class="text-center">Trạng thái</th>
+						<th class="text-center">Hành động</th>
+					</tr>
+				</thead>
+				<tbody id="table-content">
+					{{#each customerStorage}}
+					<tr class="text-dark">
+						<th class="text-center" scope="row">{{sum @index 1}}</th>
+						<td><a class="link-primary" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
+						<td class="text-center">0{{this.phone}}</td>
+						<td class="text-center">{{this.resource}}</td>
+						<td class="text-center">{{formatDate this.createdAt}}</td>
+						<td class="text-center">{{this.statusCus.statusVi}}</td>
+						<td class="text-center">
+							<button class="btn btn-primary border btn-sm" data-bs-toggle="dropdown" aria-expanded="false">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển trạng thái">
+									<i class="fa-solid fa-arrow-right-arrow-left"></i>
+								</div>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<form id="customer-schedule-form" method="POST" action="/business/employ/customers/{{this._id}}/schedule?_method=PATCH">
+										<button type="submit" class="dropdown-item" data-notOK="Schedule" data-cusID="{{this._id}}">Đặt lịch</button>
+									</form>
+								</li>
+							</ul>
+						</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+		<ul class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column bg-blue ml-0 sticky-bottom" id="pills-tab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/new" class="nav-link text-white">
+					Khách mới
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/potential" class="nav-link text-white">
+					Khách tiềm năng
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/schedule" class="nav-link text-white">
+					Khách đặt lịch
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/discharge-from-hospital" class="nav-link text-white">
+					Khách xuất viện
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/done" class="nav-link active text-white">
+					Khách hoàn thành
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/notok" class="nav-link text-white">
+					Khách tư vấn không thành công
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+
+<!-- Modal Create Customer -->
+{{!-- <div class="modal fade" id="create-customer-modal" tabindex="-1" aria-labelledby="create-customer-modal"
+	aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header bg-blue">
+				<h5 class="modal-title text-light" id="create-customer-modal">Tạo thông tin khách hàng</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body bg-blue">
+				
+			</div>
+			<div class="modal-footer bg-blue">
+				<button type="button" class="btn btn-secondary rounded-pill border" data-bs-dismiss="modal">Đóng</button>
+				<button id="create-customer-btn" type="submit" class="btn btn-primary rounded-pill border">Tạo mới</button>
+			</div>
+		</div>
+	</div>
+</div> --}}
+
+<!-- Modal Edit Customer -->
+{{!-- <div class="modal fade" id="edit-customer-modal" tabindex="-1" aria-labelledby="edit-customer" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header bg-blue">
+				<h5 class="modal-title text-light" id="edit-customer-title">Cập nhật thông tin người dùng</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body bg-blue">
+				<form method="POST" id="edit-customer-form" class="row" enctype="multipart/form-data">
+					<div class="col-xl-3">
+						<img src="/img/user-icon.png" id="edit-customer-avt" class="rounded mx-auto d-block add-avata"
+							alt="...">
+						<div class="mt-3 mb-3 text-center">
+							<label for="input-edit-img" class="label-avt btn btn-sm btn-primary rounded-pill">
+								<h6>Chọn ảnh đại diện</h6>
+							</label>
+							<input hidden class="form-control" id="input-edit-img" type="file" name="image"
+								accept="image/png, image/gif, image/jpeg">
+						</div>
+					</div>
+					<div class="col-xl-9 mb-3">
+						<ul class="list-group">
+							<li class="list-group-item bg-transparent">
+								<div class="row">
+									<div class="col-md-6 form-floating mb-3">
+										<input type="text" class="form-control bg-transparent text-light"
+											data-bs-focus="focus" id="edit-nickName" name="nickName">
+										<label for="edit-nickName" class="text-light pl-4">Họ tên</label>
+									</div>
+									<div class="col-md-6 form-floating mb-3">
+										<input type="date" class="form-control bg-transparent text-light" id="edit-birth"
+											aria-describedby="birthFeedback" name="birth" required>
+										<label for="edit-birth" class="text-light pl-4">Ngày sinh</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 form-floating mb-3">
+										<select id="edit-gender" class="form-select bg-transparent text-light"
+											aria-label=".form-select-sm example" name="gender">
+											<option class="bg-blue text-light" value="" selected>-- Chọn giới tính --</option>
+											<option class="bg-blue text-light" value="Nữ">Nữ</option>
+											<option class="bg-blue text-light" value="Nam">Nam</option>
+										</select>
+										<label for="edit-gender" class="text-light pl-4">Giới tính</label>
+									</div>
+									<div class="col-md-6 form-floating mb-3">
+										<input type="tel" class="form-control bg-transparent text-light" id="edit-phone" name="phone" required>
+										<label for="edit-phone" class="text-light pl-4">Số điện thoại</label>
+										<div id="edit_phone_error" class="text-danger off mt-1">Vui lòng nhập đúng số điện thoại</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 form-floating mb-3">
+										<input type="email" class="form-control bg-transparent text-light" id="edit-email" name="email" required>
+										<label for="edit-email" class="text-light pl-4">Email</label>
+									</div>
+									<div class="col-md-6 form-floating mb-3">
+										<input type="text" class="form-control bg-transparent text-light" id="edit-address"
+											aria-describedby="addressFeedback" name="address" required>
+										<label for="edit-address" class="text-light pl-4">Địa chỉ</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 form-floating mb-3">
+										<select id="edit-statusCus" class="form-select bg-transparent text-light" aria-label=".form-select-sm example" name="statusVi">
+											<option class="bg-blue text-light" value="" selected>-- Chọn trạng thái --</option>
+											<option class="bg-blue text-light" value="Tạo mới">Tạo mới</option>
+											<option class="bg-blue text-light" value="Tiềm năng">Tiềm năng</option>
+											<option class="bg-blue text-light" value="Đặt lịch">Đặt lịch</option>
+											<option class="bg-blue text-light" value="Không thành công">Không thành công</option>
+										</select>
+										<label for="edit-statusCus" class="text-light pl-4">Trạng thái</label>
+									</div>
+									<div class="col-md-6 form-floating mb-3">
+										<input type="text" class="form-control bg-transparent text-light" id="edit-resource" aria-describedby="resource" name="resource" required>
+										<label for="edit-resource" class="text-light pl-4">Nguồn khách</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 form-floating mb-3">
+										<textarea class="form-control bg-transparent text-light" id="edit-description" rows="6"
+											name="description"></textarea>
+										<label for="edit-description" class="text-light pl-4">Mô tả</label>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer bg-blue">
+				<button type="button" class="btn btn-secondary rounded-pill border" data-bs-dismiss="modal">Đóng lại</button>
+				<button type="button" id="edit-customer-btn" class="btn btn-primary rounded-pill border">Lưu thay đổi</button>
+			</div>
+		</div>
+	</div>
+</div> --}}
+
+<!-- Modal Create Schedule -->
+<div class="modal fade " id="create-schedule-modal" tabindex="-1" aria-labelledby="create-schedule"
+	aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header bg-blue">
+				<h5 class="modal-title text-light" id="create-schedule-title">Đặt lịch hẹn</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body bg-blue">
+				<ul class="nav nav-pills mb-3 bg-blue" id="pills-tab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active text-light rounded-pill" id="pills-profile-customer-tab" data-bs-toggle="pill"
+							data-bs-target="#pills-profile-customer" type="button" role="tab" aria-controls="pills-home"
+							aria-selected="true">Thông tin khách hàng</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link text-light rounded-pill" id="pills-profile-tab" data-bs-toggle="pill"
+							data-bs-target="#pills-service" type="button" role="tab" aria-controls="pills-profile"
+							aria-selected="false">Thông tin dịch vụ</button>
+					</li>
+				</ul>
+				<form method="POST" id="create-schedule-form" class="row" enctype="multipart/form-data">
+					<div class="tab-content" id="pills-tabContent">
+						<div class="tab-pane fade show active" id="pills-profile-customer" role="tabpanel"
+							aria-labelledby="pills-home-tab">
+							<ul class="list-group">
+								<li class="list-group-item bg-blue">
+									<input hidden type="text" class="form-control" id="create-schedule-customerID"
+										name="customerID" readonly>
+									<div class="row">
+										<div class="col-md-4">
+											<img src="/img/user-icon.png" id="create-schedule-img"
+												class="rounded mx-auto d-block add-avata" alt="...">
+											<div class="mt-4">
+												<textarea id="create-schedule-description" class="form-control bg-transparent text-light mb-2"
+													rows="6" style="background-color: white;" name="description"
+													disabled></textarea>
+											</div>
+										</div>
+										<div class="col-md-8">
+											<div class="d-flex justify-content-between">
+												<label for="status" class="text-light">
+													<strong>Họ tên:</strong>&nbsp;
+												</label>
+												<label class="text-uppercase text-light text-end font-italic"
+														id="create-schedule-nickName" name="name"></label>
+											</div>
+											<hr class="text-light">
+											<div class="d-flex justify-content-between">
+												<label for="status" class="text-light">
+													<strong>Ngày sinh:</strong>&nbsp;
+												</label>
+												<label class="text-light" id="create-schedule-birth" name="birth"></label>
+											</div>
+											<div class="d-flex justify-content-between">
+												<label for="status" class="text-light">
+													<strong>Giới tính:</strong>&nbsp;
+												</label>
+												<label class="text-light" id="create-schedule-gender" name="gender"></label>
+											</div>
+											<div class="d-flex justify-content-between">
+												<label for="status" class="text-light">
+													<strong>Email:</strong>&nbsp;
+												</label>
+												<label id="create-schedule-email"
+												class="d-inline-block text-truncate text-light" name="email"></label>
+											</div>
+											<div class="d-flex justify-content-between">
+												<label for="status" class="text-light">
+													<strong>Số điện thoại:</strong>&nbsp;
+												</label>
+												<label class="text-light" id="create-schedule-phone" name="phone"></label>
+											</div>
+											<div class="d-flex justify-content-between">
+												<label for="status" class="text-light">
+													<strong>Địa chỉ:</strong>&nbsp;
+												</label>
+												<label id="create-schedule-address" class="text-right text-light" name="address"></label>
+											</div>
+											<div class="d-flex justify-content-between">
+												<label for="status" class="text-light">
+													<strong>Người tạo:</strong>&nbsp;
+												</label>
+												<input hidden type="text" value="{{user._id}}" name="createName" id="">
+												<label class="text-light" id="create-schedule-createName">{{user.firstName}}{{user.lastName}}</label>
+											</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="tab-pane fade" id="pills-service" role="tabpanel"
+							aria-labelledby="pills-profile-tab">
+							<div class="form-group mb-3">
+								<select id="select-service" class="chosen-select" multiple tabindex="6"
+									name="service[]">
+									{{#each typeservices}}
+									<optgroup label="{{this.name}}">
+										{{#each this.services}}
+										<option value="{{this.service}}">{{this.service}}</option>
+										{{/each}}
+									</optgroup>
+									{{/each}}
+								</select>
+							</div>
+
+								<div id="list1" class="dropdown-check-list container-card" tabindex="100">
+									<label class="anchor ">Chọn dịch vụ</label>
+									<ul class="items">
+										{{#each typeservices}}
+										<li class="ml-3 mb-3">
+											<strong>{{this.name}}</strong> 
+										</li>
+										{{#each this.services}}
+										<li>
+											<label class="form-check " for="{{this.service}}">
+												<input type="checkbox" class="" id="{{this.service}}"
+													value="{{this.service}}" name="service[]" />
+												<label for="{{this.service}}">{{this.service}}</label>
+											</label>
+											<hr>
+										</li>
+										{{/each}}
+										{{/each}}
+									</ul>
+								</div>
+							<div class="form-floating mb-3">
+								<input type="datetime-local" class="form-control bg-transparent text-light text-right" id="create-schedule-schedule" name="schedule">
+								<label for="create-schedule-schedule" class="text-light">Ngày hẹn</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input type="text" class="form-control bg-transparent text-light text-right" id="create-schedule-priceBefore" name="priceBefore">
+								<label for="create-schedule-priceBefore" class="text-light">Phí dịch vụ</label>
+							</div>
+							<div class="form-floating mb-3">
+								<input type="text" class="form-control bg-transparent text-light text-right"
+									id="create-schedule-deposit" name="deposit">
+								<label for="create-schedule-deposit" class="text-light">Đặt cọc</label>
+							</div>
+							<div class="form-floating mb-3">
+								<textarea class="form-control bg-transparent text-light" id="create-schedule-description" rows="6" name="comment"></textarea>
+								<label for="create-schedule-description" class="text-light">Ghi chú</label>
+							</div>
+							<div class="preview-images-counselor row ml-0 text-center"></div>
+							<label for="input-multi-images-counselor" class="label-avt d-flex justify-content-end" data-input-img-id="{{schedule._id}}">
+								<h5 id="text-img-counselor" class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill"><i class="ti-cloud-up fw-bold pr-1"></i>Chọn ảnh trước tư vấn</h5>
+							</label>
+							<input id="input-multi-images-counselor" class="form-control" type="file" name="beforeCounselor" hidden multiple>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer bg-blue">
+				<button type="button" id="create-schedule-btn" class="btn btn-primary rounded-pill border">Đặt lịch</button>
+				<button type="button" class="btn btn-secondary rounded-pill border" data-bs-dismiss="modal">Đóng lại</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/js/business/business-employ-customer-done.js"></script>

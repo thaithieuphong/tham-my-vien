@@ -249,17 +249,18 @@ class NursingController {
 				price: servicePrice
 			})
 		});
+		console.log(serviceNameArr)
+		console.log(servicePriceArr)
 		let updateCus = {
 			$set: { statusCus: { statusVi: 'Cập nhật dịch vụ', statusEng: 'updateService'} },
 			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật dịch vụ', statusEng: 'updateService'}, userID: req.userId}}
 		}
 		Promise.all([
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
-				service: serviceArr,
 				deposit: req.body.deposit,
 				total: req.body.total,
 				$set: { status: 'Đang xử lý'},
-				$push: { logStatus: { statusServiceNote: 'Cập nhật dịch vụ', createID: req.userId}}
+				$push: { logStatus: { statusServiceNote: 'Cập nhật dịch vụ', createID: req.userId}, service: serviceArr}
 			}),
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateCus)
 		])

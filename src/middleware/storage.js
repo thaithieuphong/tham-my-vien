@@ -8,8 +8,8 @@ const appRoot = require('app-root-path');
 // create avatar customer    
 const storageCustomerAvt = multer.diskStorage({
     destination: function(req, file, cb) {
-        // cb(null, appRoot + '/src/public/img/uploads/customers/');
-        cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/customers/');
+        cb(null, appRoot + '/src/public/img/uploads/customers/');
+        // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/customers/');
     },
 
     // By default, multer removes file extensions so let's add them back

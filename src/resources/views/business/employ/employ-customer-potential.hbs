@@ -1,0 +1,219 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+{{#if messages_moveCustomer_success}}
+	<div class="modal fade" id="messageMoveCustomerSuccess" tabindex="-1" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+				<div class="modal-header p-2">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_moveCustomer_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageMoveCustomerSuccess = document.querySelector('#messageMoveCustomerSuccess');
+            $(messageMoveCustomerSuccess).modal('show');
+            //const popupTimeout = setTimeout(closePopup, 3000);
+
+            //function closePopup() {
+                //$(messageCreateCustomerSuccess).removeClass('show');
+            //}
+        });
+    </script>
+{{/if}}
+{{#if messages_createCustomer_success}}
+    <div class="modal fade" id="messageCreateCustomerSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+				<div class="modal-header p-2">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_createCustomer_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageCreateCustomerSuccess = document.querySelector('#messageCreateCustomerSuccess');
+            $(messageCreateCustomerSuccess).modal('show');
+            //const popupTimeout = setTimeout(closePopup, 3000);
+
+            //function closePopup() {
+                //$(messageCreateCustomerSuccess).removeClass('show');
+            //}
+        });
+    </script>
+{{/if}}
+{{#if messages_editCustomer_success}}
+	<div class="modal fade" id="messageEditCustomerSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+				<div class="modal-header p-2">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_editCustomer_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageEditCustomerSuccess = document.querySelector('#messageEditCustomerSuccess');
+            $(messageEditCustomerSuccess).modal('show');
+            //const popupTimeout = setTimeout(closePopup, 3000);
+
+            //function closePopup() {
+                //$(messageCreateCustomerSuccess).removeClass('show');
+            //}
+        });
+    </script>
+{{/if}}
+<div class="sticky-top pe-0 ps-0">
+    <div class="text-center bg-blue border-bottom">
+        {{!-- <div class="img-container">
+        </div> --}}
+        <div class="text-light text-uppercase fw-bold pt-2 pb-2">
+            {{this.title}}
+        </div>
+        {{!-- <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button> --}}
+    </div>
+</div>
+<div class="d-flex">
+    {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
+    <div class="container-content-scroll" style="width: 100%;">
+		<div class="redirect-bar d-flex justify-content-between" style="height: 48px;">
+			<div></div>
+			{{!-- <button type="button" data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="btn btn-sm text-light btn-primary rounded-pill mt-2 ml-2 mb-2 mr-3 border">Tạo khách hàng</button> --}}
+			<a href="/business/employ/customers/create" type="button" class="btn btn-sm text-light btn-primary rounded-pill mt-2 ml-2 mb-2 mr-3 border">Tạo khách hàng</a>
+		</div>
+        <div class="ps-2 pe-2">
+			<table id="customerPotential" class="table table-striped table-hover table-sm table-bordered display">
+				<thead class="bg-blue">
+					<tr class="text-light">
+						<th class="text-center">#</th>
+						<th class="text-center">Họ tên</th>
+						<th class="text-center">Số điện thoại</th>
+						<th class="text-center">Nguồn</th>
+						<th class="text-center">Ngày tạo</th>
+						<th class="text-center">Ghi chú</th>
+						<th class="text-center">Trạng thái</th>
+						<th class="text-center">Hành động</th>
+					</tr>
+				</thead>
+				<tbody id="table-content">
+					{{#each customersPotential}}
+					<tr class="text-dark">
+						<th class="text-center" scope="row">{{sum @index 1}}</th>
+						<td><a class="link-primary" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
+						<td class="text-center">0{{this.phone}}</td>
+						<td class="text-center">{{this.resource}}</td>
+						<td class="text-center">{{formatDate this.createdAt}}</td>
+						<td class="text-nowrap">
+							<div data-bs-toggle="tooltip" data-bs-placement="top" title="{{this.description}}">
+								{{cutPassword this.description 16}}
+							</div>
+						</td>
+						<td class="text-center">{{this.statusCus.statusVi}}</td>
+						<td class="text-center">
+							{{!-- <button type="button" class="btn btn-info border btn-sm" data-bs-toggle="modal"
+								data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
+								data-edit-img="{{this.image.name}}" data-edit-nickname="{{this.nickName}}"
+								data-edit-statusCus="{{this.statusCus.statusVi}}" data-edit-birth="{{this.birth}}"
+								data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
+								data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
+								data-edit-resource="{{this.resource}}"
+								data-edit-description="{{this.description}}">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa thông tin khách hàng">
+									<i class="ti-pencil-alt"></i>
+								</div>
+							</button> --}}
+							<a href="/business/employ/customers/{{this._id}}/edit" type="button" class="btn btn-info btn-sm border">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa thông tin khách hàng">
+									<i class="ti-pencil-alt"></i>
+								</div>
+							</a>
+							<button class="btn btn-primary btn-sm border" data-bs-toggle="dropdown" aria-expanded="false">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển trạng thái">
+									<i class="fa-solid fa-arrow-right-arrow-left"></i>
+								</div>
+							</button>
+							<ul class="dropdown-menu">
+								<li>
+									<form id="customer-schedule-form" method="POST" action="/business/employ/customers/{{this._id}}/schedule?_method=PATCH">
+										<button type="submit" class="dropdown-item" data-potential="Schedule" data-cusID="{{this._id}}">Đặt lịch</button>
+									</form>
+								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li>
+									<form id="customer-notOK-form" method="POST" action="/business/employ/customers/{{this._id}}/notOK?_method=PATCH">
+										<button type="submit" class="dropdown-item" data-notOK="NotOK" data-cusID="{{this._id}}">Không thành công</button>
+									</form>
+								</li>
+							</ul>
+						</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+		<ul class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column bg-blue ml-0 sticky-bottom" id="pills-tab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/new" class="nav-link text-white">
+					Khách mới
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/potential" class="nav-link active text-white">
+					Khách tiềm năng
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/schedule" class="nav-link text-white">
+					Khách đặt lịch
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/discharge-from-hospital" class="nav-link text-white">
+					Khách xuất viện
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/done" class="nav-link text-white">
+					Khách hoàn thành
+				</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a href="/business/employ/customers/notok" class="nav-link text-white">
+					Khách tư vấn không thành công
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<script src="/js/business/business-employ-customer-potential.js"></script>

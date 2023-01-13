@@ -1,40 +1,26 @@
-<div class="nav-mobile sidebar text-light">
-	<ul class="nav-bottom sidebar-list">
-		<li class="list">
-			<a href="/business/employ/service-note">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-receipt"></i></span>
-				<span class="nav-text sidebar-text">Dịch vụ</span>
+<div class="pe-0 bg-blue" style="width: 300px">
+	<div class="container-sidebar" style="height: 73.3vh;">
+		<div class="sidebar-item">
+			<a href="/business/employ/schedule" class="sidebar-item-title pl-3 bg-blue">
+				<i class="ti-receipt mr-3"></i>Lịch hẹn
 			</a>
-		</li>
-		<li class="list">
-			<a href="/business/employ/customers">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-user"></i></span>
-				<span class="nav-text sidebar-text">Khách hàng</span>
+		</div>
+		<div class="sidebar-item">
+			<a href="/business/employ/customers/new" class="sidebar-item-title pl-3 bg-blue">
+				<i class="ti-user mr-3"></i>Khách hàng
 			</a>
-		</li>
-		{{!-- <li class="list active">
-			<a href="/business/employ">
-				<span class="nav-mobile-icon sidebar-icon"><i class="ti-bar-chart"></i></span>
-				<span class="nav-text sidebar-text">Báo cáo</span>
+		</div>
+	</div>
+	<div class="border-top">
+		<div class="sidebar-item">
+			<a href="/business/employ/profile" class="sidebar-item-title pl-3">
+				<i class="ti-user mr-3"></i>Thông tin cá nhân
 			</a>
-		</li> --}}
-		<li class="img-container">
-			{{#if user.image.name}}
-			<a href="/business/employ/profile"><img src="/mnt/vdb/crm.drtuananh.vn/users/{{user.image.name}}" alt=""></a>
-			{{else}}
-			<a href="/business/employ/profile"><img src="/img/user-icon.png" alt=""></a>
-			{{/if}}
-		</li>
-	</ul>
+		</div>
+		<div class="sidebar-item">
+			<form method="POST" action="/logout">
+				<button class="btn btn-danger logout-btn btn-sm" type="submit">Đăng xuất</>
+			</form>
+		</div>
+	</div>
 </div>
-
-<script>
-	const list = document.querySelectorAll('.list');
-	function activeTab(){
-		list.forEach((item) =>
-		item.classList.remove('active'));
-		this.classList.add('active')
-	}
-	list.forEach((item) =>
-	item.addEventListener('click',activeTab))
-</script>

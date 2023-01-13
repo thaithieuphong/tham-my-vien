@@ -1,0 +1,153 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="sticky-top pe-0 ps-0">
+    <div class="text-center bg-blue border-bottom">
+        {{!-- <div class="img-container">
+        </div> --}}
+        <div class="text-light text-uppercase fw-bold pt-2 pb-2">
+            {{this.title}}
+        </div>
+        {{!-- <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
+                class="ti-menu"></i>
+        </button> --}}
+    </div>
+</div>
+{{!-- <div class="row me-0 pe-0" style="height: 100vh;">
+    <div class="col-md-2 col-sm-2 pe-0 bg-blue">
+        <div style="height: 100vh;">
+            <div class="container-sidebar" style="height: 75.8vh">
+                <div class="sidebar-item">
+                    <a href="/business/employ/schedule" class="sidebar-item-title pl-3 bg-blue">
+                        <i class="ti-receipt mr-3"></i>Lịch hẹn
+                    </a>
+                </div>
+                <div class="sidebar-item">
+                    <a href="/business/employ/customers" class="sidebar-item-title pl-3 bg-blue">
+                        <i class="ti-user mr-3"></i>Khách hàng
+                    </a>
+                </div>
+            </div>
+            <div class="border-top">
+                <div class="sidebar-item">
+                    <a href="/business/employ/profile" class="sidebar-item-title pl-3">
+                        <i class="ti-user mr-3"></i>Thông tin cá nhân
+                    </a>
+                </div>
+                <div class="sidebar-item">
+                    <form method="POST" action="/logout">
+                        <button href="/logout" class="btn btn-danger logout-btn btn-sm" type="submit">Đăng xuất</>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div class="col-md-10 col-sm-10 container-content-scroll">
+        
+    </div>
+</div> --}}
+
+<div class="d-flex">
+    {{> page/sidebar/business/employ/sidebar-business-employ}}
+    <div class="container-content-scroll p-2" style="width: 100%;">
+        <form id="create-customer-form" action="/business/employ/customers" method="POST" class="row mt-3" enctype="multipart/form-data">
+            <div class="col-xl-3 text-center">
+                <img src="/img/user-icon.png" id="add-avt-customer" class="rounded mx-auto d-block add-avata"
+                    alt="...">
+                <label for="input-create-img" class="label-avt btn btn-sm btn-primary mt-3 rounded-pill">
+                    <h6>Chọn ảnh đại diện</h6>
+                </label>
+                <input hidden id="input-create-img" type="file" name="image"
+                    accept="image/png, image/gif, image/jpeg">
+            </div>
+            <div class="col-xl-9">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label for="create-identification" class="">Mã khách hàng</label>
+                        <input type="text" class="form-control form-control-sm" id="create-identification" placeholder="BA..." name="identification">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="create-firstName" class="">Họ tên khai sinh</label>
+                        <input type="text" class="form-control form-control-sm" id="create-firstName"
+                            placeholder="Vd: Trần Văn An" name="fullName">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="create-birth" class="">Tên thường gọi</label>
+                        <input type="text" class="form-control form-control-sm" id="create-nickName"
+                            placeholder="Vd: Mon Nguyễn" name="nickName" rules="required">
+                        <span class="form-message mt-1"></span>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="create-gender" class="">Giới tính</label>
+                        <select id="create-gender" class="form-select form-control form-control-sm" aria-label=".form-select-sm example"
+                        name="gender" rules="required">
+                            <option class="" value="" selected>-- Chọn giới tính --</option>
+                            <option class="" value="Nữ">Nữ</option>
+                            <option class="" value="Nam">Nam</option>
+                        </select>
+                        <span class="form-message mt-1"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label for="create-birth" class="">Ngày sinh</label>
+                        <input type="date" class="form-control form-control-sm" id="create-birth"
+                            aria-describedby="birthFeedback" name="birth" rules="required">
+                        <span class="form-message mt-1"></span>
+                    </div>
+                    <div class="col-md-3 form-group mb-3">
+                        <label for="create-phone" class="">Số điện thoại</label>
+                        <input type="text" class="form-control form-control-sm" id="create-phone"
+                        placeholder="Vd: 0909888888" name="phone" rules="required|isNum|equal:10">
+                        <span class="form-message mt-1"></span>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="create-address" class="">Quê quán</label>
+                        <input type="text" class="form-control form-control-sm" id="create-address"
+                            aria-describedby="addressFeedback" placeholder="Vd: TP.Hồ Chí Minh"
+                            name="homeTown">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="create-height" class="">Chiều cao</label>
+                        <input type="text" class="form-control form-control-sm" id="create-height"
+                            placeholder="Vd: 1.70" name="height">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <label for="create-weight" class="">Cân nặng</label>
+                        <input type="text" class="form-control form-control-sm" id="create-weight" placeholder="Vd: 48" name="weight">
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="create-status" class="">Trạng thái</label>
+                        <select id="create-status" class="form-select form-control form-control-sm" aria-label=".form-select-sm example" name="statusVi" rules="required">
+                            <option class="" value="" selected>-- Chọn trạng thái --</option>
+                            <option class="" value="Tạo mới">Tạo mới</option>
+                            <option class="" value="Tiềm năng">Tiềm năng</option>
+                            <option class="" value="Đặt lịch">Đặt lịch</option>
+                            {{!-- <option class="" value="Không thành công">Không thành công</option> --}}
+                        </select>
+                        <span class="form-message mt-1"></span>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="create-resource" class="">Nguồn khách</label>
+                        <input type="text" class="form-control form-control-sm" id="create-resource" placeholder="Fanpage" name="resource" rules="required">
+                        <span class="form-message mt-1"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="create-description" class="">Mô tả</label>
+                        <textarea class="form-control form-control-sm" id="create-description" rows="6"
+                            placeholder="Mô tả khách hàng" name="description"></textarea>
+                    </div>
+                </div>
+                <button id="create-customer-btn" class="btn btn-primary float-end mb-3 rounded-pill">Tạo hồ sơ</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/js/business/business-employ-customer-create.js"></script>
+<script>
+    validate('#create-customer-form');
+</script>

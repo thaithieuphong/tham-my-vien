@@ -528,9 +528,7 @@ if (addServicesBtn) {
 				let totalMoney = serviceArr.reduce(totalMoneyFn, 0);
 				let convertDeposit = parseFloat(depositInput.value.replace(/\D/g,''), 10);
 				let trucoc = totalMoney - convertDeposit;
-				console.log(trucoc.toLocaleString())
-				totalInput.value = trucoc.toLocaleString()
-				console.log(totalInput.value)
+				totalInput.value = trucoc.toLocaleString();
 				let convertedMoney = convertMoney.toLocaleString();
 				serviceInput.value = convertedMoney;
 			})
@@ -556,6 +554,24 @@ if (addServicesBtn) {
 		}
 	});
 }
+
+// Hàm cộng tổng
+function sumTotal(price) {
+	return price += price;
+}
+
+var serviceTable = document.querySelectorAll('.table-row');
+var totalServiceTable = [];
+serviceTable.forEach(serviceRow => {
+	let price = parseFloat(serviceRow.childNodes[5].innerText.replace(/\D/g,''), 10)
+	totalServiceTable.push(price);
+})
+
+var total = totalServiceTable.reduce((price, num) => {
+	return price += num;
+}, 0);
+
+totalInput.value = total.toLocaleString();
 
 let slideIndex = 1;
 showSlidesCounselorImg(slideIndex);
