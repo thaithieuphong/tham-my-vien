@@ -4,9 +4,6 @@
 	<div class="modal fade" id="messageMoveCustomerSuccess" tabindex="-1" aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-center mb-3">
                         <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
@@ -22,11 +19,6 @@
         document.addEventListener("DOMContentLoaded", function () {
             var messageMoveCustomerSuccess = document.querySelector('#messageMoveCustomerSuccess');
             $(messageMoveCustomerSuccess).modal('show');
-            //const popupTimeout = setTimeout(closePopup, 3000);
-
-            //function closePopup() {
-                //$(messageCreateCustomerSuccess).removeClass('show');
-            //}
         });
     </script>
 {{/if}}
@@ -34,9 +26,6 @@
     <div class="modal fade" id="messageCreateCustomerSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-center mb-3">
                         <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
@@ -52,11 +41,6 @@
         document.addEventListener("DOMContentLoaded", function () {
             var messageCreateCustomerSuccess = document.querySelector('#messageCreateCustomerSuccess');
             $(messageCreateCustomerSuccess).modal('show');
-            //const popupTimeout = setTimeout(closePopup, 3000);
-
-            //function closePopup() {
-                //$(messageCreateCustomerSuccess).removeClass('show');
-            //}
         });
     </script>
 {{/if}}
@@ -64,9 +48,6 @@
 	<div class="modal fade" id="messageEditCustomerSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-center mb-3">
                         <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
@@ -82,25 +63,14 @@
         document.addEventListener("DOMContentLoaded", function () {
             var messageEditCustomerSuccess = document.querySelector('#messageEditCustomerSuccess');
             $(messageEditCustomerSuccess).modal('show');
-            //const popupTimeout = setTimeout(closePopup, 3000);
-
-            //function closePopup() {
-                //$(messageCreateCustomerSuccess).removeClass('show');
-            //}
         });
     </script>
 {{/if}}
 <div class="sticky-top pe-0 ps-0">
     <div class="text-center bg-blue border-bottom">
-        {{!-- <div class="img-container">
-        </div> --}}
         <div class="text-light text-uppercase fw-bold pt-2 pb-2">
             {{this.title}}
         </div>
-        {{!-- <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
-                class="ti-menu"></i>
-        </button> --}}
     </div>
 </div>
 <div class="d-flex">
@@ -108,7 +78,6 @@
     <div class="container-content-scroll" style="width: 100%;">
 		<div class="redirect-bar d-flex justify-content-between" style="height: 48px;">
 			<div></div>
-			{{!-- <button type="button" data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="btn btn-sm text-light btn-primary rounded-pill mt-2 ml-2 mb-2 mr-3 border">Tạo khách hàng</button> --}}
 			<a href="/business/employ/customers/create" type="button" class="btn btn-sm text-light btn-primary rounded-pill mt-2 ml-2 mb-2 mr-3 border">Tạo khách hàng</a>
 		</div>
         <div class="ps-2 pe-2">
@@ -140,18 +109,6 @@
 						</td>
 						<td class="text-center">{{this.statusCus.statusVi}}</td>
 						<td class="text-center">
-							{{!-- <button type="button" class="btn btn-info border btn-sm" data-bs-toggle="modal"
-								data-bs-target="#edit-customer-modal" data-id="{{this._id}}"
-								data-edit-img="{{this.image.name}}" data-edit-nickname="{{this.nickName}}"
-								data-edit-statusCus="{{this.statusCus.statusVi}}" data-edit-birth="{{this.birth}}"
-								data-edit-gender="{{this.gender}}" data-edit-phone="{{this.phone}}"
-								data-edit-email="{{this.email}}" data-edit-address="{{this.address}}"
-								data-edit-resource="{{this.resource}}"
-								data-edit-description="{{this.description}}">
-								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa thông tin khách hàng">
-									<i class="ti-pencil-alt"></i>
-								</div>
-							</button> --}}
 							<a href="/business/employ/customers/{{this._id}}/edit" type="button" class="btn btn-info btn-sm border">
 								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa thông tin khách hàng">
 									<i class="ti-pencil-alt"></i>
@@ -181,7 +138,7 @@
 				</tbody>
 			</table>
 		</div>
-		<ul class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column bg-blue ml-0 sticky-bottom" id="pills-tab" role="tablist">
+		<ul class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column bg-blue fixed-bottom" style="margin-left: 260px;" id="pills-tab" role="tablist">
 			<li class="nav-item" role="presentation">
 				<a href="/business/employ/customers/new" class="nav-link text-white">
 					Khách mới

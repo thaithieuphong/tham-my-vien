@@ -25,56 +25,6 @@
         });
     </script>
 {{/if}}
-{{#if messages_deleteSchedule_success}}
-    <div class="modal fade" id="messageDeleteScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center mb-3">
-                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
-                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
-                        </div>
-                    </div>
-                    <p class="text-center mb-0 text-success">{{messages_deleteSchedule_success}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var messageDeleteScheduleSuccess = document.querySelector('#messageDeleteScheduleSuccess');
-            $(messageDeleteScheduleSuccess).modal('show');
-        });
-    </script>
-{{/if}}
-{{#if messages_restoreSchedule_success}}
-    <div class="modal fade" id="messageRestoreScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center mb-3">
-                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
-                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
-                        </div>
-                    </div>
-                    <p class="text-center mb-0 text-success">{{messages_restoreSchedule_success}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var messageRestoreScheduleSuccess = document.querySelector('#messageRestoreScheduleSuccess');
-            $(messageRestoreScheduleSuccess).modal('show');
-        });
-    </script>
-{{/if}}
 <div class="sticky-top ps-0 pe-0">
     <div class="text-center bg-blue border-bottom">
         <div class="text-light text-uppercase fw-bold pt-2 pb-2">
@@ -85,12 +35,12 @@
 <div class="d-flex">
     {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
     <div class="container-content-scroll pb-3 ps-2 pe-2" style="width: 100%;">
-		<div class="bg-blue d-flex justify-content-between rounded">
-			<a class="btn btn-danger text-light ms-2 mt-2 mb-2" href="/business/employ/schedules/trash">
-				Thùng rác <i class="ti-trash"></i>
+		<div class="redirect-bar bg-blue d-flex justify-content-between rounded">
+			<a type="button" onclick="history.back()" class="ml-3">
+				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
 			</a>
 		</div>
-		<table id="table-schedule" class="table table-sm display">
+		<table id="table-schedule-trash" class="table table-sm display">
 			<thead>
 				<tr class="text-center">
 					<th scope="col">#</th>
@@ -120,25 +70,10 @@
 						<td class="text-warning">{{this.deposit}}</td>
 						<td class="text-danger">{{this.priceBefore}}</td>
 						<td class="d-flex justify-content-center">
-							<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa lịch hẹn" class="me-1">
-								<a href="/business/employ/schedule/{{this._id}}/edit" type="button" class="btn btn-info btn-sm">
-									<i class="ti-pencil-alt"></i>
-								</a>
-							</div>
-							<div data-bs-toggle="tooltip" data-bs-placement="top" title="Tạo phiếu dịch vụ" class="me-1">
-								<form method="POST" action="/business/employ/schedule/{{this._id}}/service-note/create">
-									<input type="text" name="customerID" value="{{this.customerID._id}}" hidden>
-									<button type="submit" class="btn btn-primary btn-sm text-light">
-										<i class="ti-clipboard"></i>
-									</button>
-								</form>
-							</div>
-							<div data-bs-toggle="tooltip" data-bs-placement="top" title="Hủy lịch hẹn">
-								<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteScheduleModal" data-schedule-id="{{this._id}}"
-								data-customer="{{this.customerID.nickName}}" data-customer-id="{{this.customerID._id}}">
-									<i class="ti-close"></i>
-								</button>
-							</div>
+							<a type="button" class="btn btn-info btn-sm text-light" data-bs-toggle="modal" data-bs-target="#restoreScheduleModal" data-schedule-id="{{this._id}}" data-customer="{{this.customerID.nickName}}"
+							data-customer-id="{{this.customerID._id}}">
+								Khôi phục lịch hẹn
+							</a>
 						</td>
 					</tr>
 				{{/each}}
@@ -232,25 +167,25 @@
 </div>
 
 <!-- Modal delete schedule -->
-<div class="modal fade" id="deleteScheduleModal" tabindex="-1" aria-labelledby="deleteScheduleLabel" aria-hidden="true">
+<div class="modal fade" id="restoreScheduleModal" tabindex="-1" aria-labelledby="deleteScheduleLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header bg-danger">
-				<h5 class="modal-title text-light" id="deleteScheduleLabel">Hủy lịch hẹn</h5>
+			<div class="modal-header bg-info">
+				<h5 class="modal-title text-light" id="restoreScheduleLabel">Khôi phục lịch hẹn</h5>
 				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form id="deleteScheduleForm" method="POST">
-					<input id="delete-schedule-customer-id" type="text" name="customerID">
-					Bạn chắc chắn muốn hủy lịch hẹn của khách <strong id="delete-schedule-customer"></strong>
+				<form id="restoreScheduleForm" method="POST">
+					<input id="restore-schedule-customer-id" type="text" name="customerID">
+					Bạn muốn khôi phục lịch hẹn của khách <strong id="restore-schedule-customer"></strong>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button id="deleteScheduleBtn" type="button" class="btn btn-danger">Có, chắc chắn</button>
+				<button id="restoreScheduleBtn" type="button" class="btn btn-info">Có, chắc chắn</button>
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-<script src="/js/business/business-employ-calendar.js"></script>
+<script src="/js/business/business-employ-schedule-trash.js"></script>

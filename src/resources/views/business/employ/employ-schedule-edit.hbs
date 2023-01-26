@@ -1,0 +1,152 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+{{#if messages_deleteService_success}}
+    <div class="modal fade" id="messageDeleteServiceScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_deleteService_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageDeleteServiceScheduleSuccess = document.querySelector('#messageDeleteServiceScheduleSuccess');
+            $(messageDeleteServiceScheduleSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+<div class="sticky-top ps-0 pe-0">
+    <div class="text-center bg-blue border-bottom">
+        <div class="text-light text-uppercase fw-bold pt-2 pb-2">
+            {{this.title}}
+        </div>
+    </div>
+</div>
+<div class="d-flex">
+    {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
+	<div class="container-content-scroll ps-3 pe-3">
+		<form  method="POST" action="/business/employ/schedule/{{schedule._id}}/edit?_method=PUT" id="edit-schedule-form" class="row">
+			<input hidden type="text" class="form-control" id="edit-schedule-id" value="{{schedule.customerID._id}}" name="customerID" readonly>
+			{{#if schedule.customerID.image.url}}
+			<img src="{{schedule.customerID.image.url}}" id="add-avt" class="rounded add-avata" alt="...">
+			{{else}}
+			<img src="/img/user-icon.png" id="edit-schedule-img" class="rounded mx-auto d-block add-avata" alt="...">
+			{{/if}}
+			<div class="d-flex justify-content-between">
+				<label for="status">
+					<strong>Họ tên khai sinh:</strong>&nbsp;
+				</label>
+				<label class="text-end font-italic" id="edit-schedule-fullName">{{schedule.customerID.fullName}}</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status">
+					<strong>Tên thường gọi:</strong>&nbsp;
+				</label>
+				<label class="text-end font-italic" id="edit-schedule-nickName">{{schedule.customerID.nickName}}</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status">
+					<strong>Ngày sinh:</strong>&nbsp;
+				</label>
+				<label id="edit-schedule-birth">{{formatBirth schedule.customerID.birth}}</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status">
+					<strong>Giới tính:</strong>&nbsp;
+				</label>
+				<label id="edit-schedule-gender">{{schedule.customerID.gender}}</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status">
+					<strong>Số điện thoại:</strong>&nbsp;
+				</label>
+				<label id="edit-schedule-phone">0{{schedule.customerID.phone}}</label>
+			</div>
+			<label class="" for="edit-schedule-schedule"><strong>Dịch vụ đã chọn:</strong></label>
+			<table class="table table-hover table-sm ms-2 me-2">
+				<tbody>
+					{{#each schedule.service}}
+					<tr>
+						<th scope="row">{{sum @index 1}}</th>
+						<td>{{this}}</td>
+						<td scope="row" class="text-center">
+							<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteServiceModal" data-id="{{schedule._id}}" data-service="{{this}}">
+								<i class="ti-close"></i>
+							</button>
+						</td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+			<label class="" for="edit-schedule-schedule"><strong>Lựa chọn dịch vụ khác:</strong></label>
+			<div class="form-group mb-3">
+				<select id="select-service" class="chosen-select" multiple tabindex="6" name="service[]">
+					{{#each typeservices}}
+					<optgroup label="{{this.name}}">
+						{{#each this.services}}
+						<option value="{{this.service}}">{{this.service}}</option>
+						{{/each}}
+					</optgroup>
+					{{/each}}
+				</select>
+			</div>
+			<div class="form-group mb-3">
+				<label class="" for="edit-schedule-schedule"><strong>Ngày hẹn</strong>&nbsp;<span class="text-danger">*</span></label>
+				<input type="datetime-local" class="form-control bg-transparent text-right" id="edit-schedule-schedule" value="{{schedule.schedule}}" rules="required" name="schedule">
+				<span class="form-message mt-1"></span>
+			</div>
+			<div class="form-group mb-3">
+				<label class="" for="edit-schedule-priceBefore"><strong>Phí dịch vụ</strong>&nbsp;<span class="text-danger">*</span></label>
+				<input type="text" class="form-control bg-transparent text-right" id="edit-schedule-priceBefore" value="{{schedule.priceBefore}}" rules="required|isNumCurrency" name="priceBefore">
+				<span class="form-message mt-1"></span>
+			</div>
+			<div class="form-group mb-3">
+				<label class="" for="edit-schedule-deposit"><strong>Đặt cọc</strong></label>
+				<input type="text" class="form-control bg-transparent text-right" id="edit-schedule-deposit" value="{{schedule.deposit}}" rules="isNumCurrency" name="deposit">
+				<span class="form-message mt-1"></span>
+			</div>
+			<div class="form-group mb-3">
+				<label class="" for="edit-schedule-reason"><strong>Lý do thay đổi</strong>&nbsp;<span class="text-danger">*</span></label>
+				<textarea class="form-control bg-transparent" id="edit-schedule-reason" rows="8" name="reason" rules="required"></textarea>
+				<span class="form-message mt-1"></span>
+			</div>
+			<div class="mb-2">
+				<button id="edit-schedule-btn" type="submit" class="btn btn-primary float-end rounded-pill">Cập nhật</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- Modal delete service schedule -->
+<div class="modal fade" id="deleteServiceModal" tabindex="-1" aria-labelledby="deleteServiceLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title text-light" id="deleteServiceLabel">Hủy lịch hẹn</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="deleteServiceForm" method="POST" action="/business/employ/schedule/{{schedule._id}}/service/delete?_method=DELETE">
+					<input hidden type="text" class="form-control" id="delete-customer-id" value="{{schedule.customerID._id}}" name="customerID">
+					<input hidden type="text" class="form-control" id="delete-service-schedule-name" name="service">
+					Bạn chắc chắn muốn xóa dịch vụ <strong id="delete-service-schedule"></strong> này?
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="deleteServiceBtn" type="button" class="btn btn-danger">Có, chắc chắn</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/js/business/business-employ-schedule-edit.js"></script>
+<script>
+	validate('#edit-schedule-form');
+</script>

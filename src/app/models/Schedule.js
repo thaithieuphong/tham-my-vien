@@ -71,7 +71,7 @@ const Schedule = new Schema({
 			type: new mongoose.Schema(
 				{
 					schedule: String,
-					reason: String,
+					reasons: Object,
 					userID: String
 				},
 				{ timestamps: true }

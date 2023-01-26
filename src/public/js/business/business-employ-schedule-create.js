@@ -1,4 +1,3 @@
-
 function validate(formSelector) {
     function getParent (element, selector) {
         elementParent = element.parentElement;
@@ -12,7 +11,7 @@ function validate(formSelector) {
     var formRules = {};
     var validateRules = {
         required: function (value) {
-            return value ? undefined : 'Vui lòng nhập trường này';
+            return value ? undefined : 'Không được để trống';
         },
 
         email: function (value) {
@@ -20,14 +19,20 @@ function validate(formSelector) {
             return regex.test(value) ? undefined : 'Vui lòng nhập đúng email';
         },
 
+		isNum: function (value) {
+			var regex = /^[0-9]*$/;
+			return regex.test(value) ? undefined : 'Số tiền không được chứa chữ cái';
+		},
+
+        
+        isNumCurrency: function (value) {
+			var regex = /^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$/;
+			return regex.test(value) ? undefined : 'Số tiền không được chứa chữ cái';
+		},
+
         password: function (value) {
             return value ? undefined : 'Mật khẩu chưa đúng';
         },
-
-        isNum: function (value) {
-			var regex = /^[0-9]*$/;
-			return regex.test(value) ? undefined : 'Số điện thoại không được chứa chữ cái';
-		},
 
         min: function (min) {
             return function (value) {
@@ -37,11 +42,11 @@ function validate(formSelector) {
 
         max: function (max) {
             return function (value) {
-                return value.length >= min ? undefined : `Vui lòng nhập nhiều nhất ${min} ký tự`;
+                return value.length <= max ? undefined : `Vui lòng nhập nhiều nhất ${max} ký tự`;
             }
         },
 
-        equal: function (equal) {
+		equal: function (equal) {
             return function (value) {
                 return value.length == equal ? undefined : `Vui lòng nhập đủ ${equal} chữ số`;
             }
@@ -138,5 +143,20 @@ function validate(formSelector) {
             formElement.submit();
         }
     });
-
 }
+
+var inputScheduleID = document.getElementById('create-schedule-id');
+
+var inputDeposit = document.getElementById('create-schedule-deposit');
+inputDeposit.addEventListener('input', (e) => {
+    let inputVal = e.target.value;
+    let parseFloatVal = parseFloat(inputVal.replace(/\D/g,''), 10);
+    inputDeposit.value = parseFloatVal.toLocaleString()
+});
+
+var inputPriceBefore = document.getElementById('create-schedule-priceBefore');
+inputPriceBefore.addEventListener('input', (e) => {
+    let inputVal = e.target.value;
+    let parseFloatVal = parseFloat(inputVal.replace(/\D/g,''), 10);
+    inputPriceBefore.value = parseFloatVal.toLocaleString()
+});

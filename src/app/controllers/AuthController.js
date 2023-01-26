@@ -41,7 +41,7 @@ class AuthController {
                     position: user.position,
                     
                 }, 'khoatruycap', {
-                    expiresIn: 3600, // 10p
+                    expiresIn: 31536000, // 24 giờ
                 });
 
                 const refreshToken = jwt.sign({
@@ -147,7 +147,7 @@ class AuthController {
                     position: user.position,
                     
                 }, 'khoatruycap', {
-                    expiresIn: 3600, // 10p
+                    expiresIn: 57600, // 24 giờ
                 });
 
                 const refreshToken = jwt.sign({

@@ -1,0 +1,141 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+{{#if messages_deleteService_success}}
+    <div class="modal fade" id="messageDeleteServiceScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+				<div class="modal-header p-2">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_deleteService_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageDeleteServiceScheduleSuccess = document.querySelector('#messageDeleteServiceScheduleSuccess');
+            $(messageDeleteServiceScheduleSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+
+{{#if messages_editSchedule_success}}
+    <div class="modal fade" id="messageEditScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+				<div class="modal-header p-2">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_editSchedule_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageEditScheduleSuccess = document.querySelector('#messageEditScheduleSuccess');
+            $(messageEditScheduleSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+<div class="sticky-top ps-0 pe-0">
+    <div class="text-center bg-blue border-bottom">
+        <div class="text-light text-uppercase fw-bold pt-2 pb-2">
+            {{this.title}}
+        </div>
+    </div>
+</div>
+<div class="d-flex">
+    {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
+	<div class="container-content-scroll ps-3 pe-3">
+		<form  method="POST" action="/business/employ/customers/{{customer._id}}/schedule/create" id="create-schedule-form" class="row">
+			{{#if customer.image.url}}
+			<img src="{{customer.image.url}}" id="add-avt" class="rounded add-avata" alt="...">
+			{{else}}
+			<img src="/img/user-icon.png" id="create-schedule-img" class="rounded mx-auto d-block add-avata" alt="...">
+			{{/if}}
+			<div class="d-flex justify-content-between">
+				<label for="status">
+					<strong>Họ tên khai sinh:</strong>&nbsp;
+				</label>
+				<label class="text-end font-italic" id="create-schedule-fullName">{{customer.fullName}}</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status">
+					<strong>Tên thường gọi:</strong>&nbsp;
+				</label>
+				<label class="text-end font-italic" id="create-schedule-nickName">{{customer.nickName}}</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status">
+					<strong>Ngày sinh:</strong>&nbsp;
+				</label>
+				<label id="create-schedule-birth">{{formatBirth customer.birth}}</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status">
+					<strong>Giới tính:</strong>&nbsp;
+				</label>
+				<label id="create-schedule-gender">{{customer.gender}}</label>
+			</div>
+			<div class="d-flex justify-content-between">
+				<label for="status">
+					<strong>Số điện thoại:</strong>&nbsp;
+				</label>
+				<label id="create-schedule-phone">0{{customer.phone}}</label>
+			</div>
+			<label class="" for="create-schedule-schedule"><strong>Chọn dịch vụ:</strong></label>
+			<div class="form-group mb-3">
+				<select id="select-service" class="form-control chosen-select" multiple tabindex="6" name="service[]">
+					{{#each typeservices}}
+					<optgroup label="{{this.name}}">
+						{{#each this.services}}
+						<option value="{{this.service}}">{{this.service}}</option>
+						{{/each}}
+					</optgroup>
+					{{/each}}
+				</select>
+			</div>
+			<div class="form-group mb-3">
+				<label class="" for="create-schedule-schedule"><strong>Ngày hẹn</strong>&nbsp;<span class="text-danger">*</span></label>
+				<input type="datetime-local" class="form-control bg-transparent text-right" id="create-schedule-schedule" rules="required" name="schedule">
+				<span class="form-message mt-1"></span>
+			</div>
+			<div class="form-group mb-3">
+				<label class="" for="create-schedule-priceBefore"><strong>Phí dịch vụ</strong>&nbsp;<span class="text-danger">*</span></label>
+				<input type="text" class="form-control bg-transparent text-right" id="create-schedule-priceBefore" rules="required|isNumCurrency" name="priceBefore">
+				<span class="form-message mt-1"></span>
+			</div>
+			<div class="form-group mb-3">
+				<label class="" for="create-schedule-deposit"><strong>Đặt cọc</strong></label>
+				<input type="text" class="form-control bg-transparent text-right" id="create-schedule-deposit" value="0" rules="isNumCurrency" name="deposit">
+				<span class="form-message mt-1"></span>
+			</div>
+			<div class="form-group mb-3">
+				<label class="" for="edit-schedule-reason"><strong>Ghi chú</strong></label>
+				<textarea class="form-control bg-transparent" id="create-schedule-comment" rows="6" name="comment"></textarea>
+				<span class="form-message mt-1"></span>
+			</div>
+			<div class="mb-2">
+				<button id="create-schedule-btn" type="submit" class="btn btn-primary float-end rounded-pill">Đặt lịch</button>
+			</div>
+		</form>
+	</div>
+</div>
+<script src="/js/business/business-employ-schedule-create.js"></script>
+<script>
+    validate('#create-schedule-form');
+</script>

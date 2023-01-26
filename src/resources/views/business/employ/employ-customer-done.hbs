@@ -4,9 +4,6 @@
     <div class="modal fade" id="messageCreateCustomerSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-center mb-3">
                         <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
@@ -22,11 +19,6 @@
         document.addEventListener("DOMContentLoaded", function () {
             var messageCreateCustomerSuccess = document.querySelector('#messageCreateCustomerSuccess');
             $(messageCreateCustomerSuccess).modal('show');
-            //const popupTimeout = setTimeout(closePopup, 3000);
-
-            //function closePopup() {
-                //$(messageCreateCustomerSuccess).removeClass('show');
-            //}
         });
     </script>
 {{/if}}
@@ -34,9 +26,6 @@
 	<div class="modal fade" id="messageEditCustomerSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-center mb-3">
                         <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
@@ -52,11 +41,6 @@
         document.addEventListener("DOMContentLoaded", function () {
             var messageEditCustomerSuccess = document.querySelector('#messageEditCustomerSuccess');
             $(messageEditCustomerSuccess).modal('show');
-            //const popupTimeout = setTimeout(closePopup, 3000);
-
-            //function closePopup() {
-                //$(messageCreateCustomerSuccess).removeClass('show');
-            //}
         });
     </script>
 {{/if}}
@@ -72,7 +56,6 @@
     <div class="container-content-scroll" style="width: 100%; height: 92.6vh">
 		<div class="redirect-bar d-flex justify-content-between" style="height: 48px;">
 			<div></div>
-			{{!-- <button type="button" data-bs-toggle="modal" data-bs-target="#create-customer-modal" class="btn btn-sm text-light btn-primary rounded-pill mt-2 ml-2 mb-2 mr-3 border">Tạo khách hàng</button> --}}
 			<a href="/business/employ/customers/create" type="button" class="btn btn-sm text-light btn-primary rounded-pill mt-2 ml-2 mb-2 mr-3 border">Tạo khách hàng</a>
 		</div>
         <div class="ps-2 pe-2">
@@ -116,7 +99,7 @@
 				</tbody>
 			</table>
 		</div>
-		<ul class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column bg-blue ml-0 sticky-bottom" id="pills-tab" role="tablist">
+		<ul class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column bg-blue fixed-bottom" style="margin-left: 260px;" id="pills-tab" role="tablist">
 			<li class="nav-item" role="presentation">
 				<a href="/business/employ/customers/new" class="nav-link text-white">
 					Khách mới

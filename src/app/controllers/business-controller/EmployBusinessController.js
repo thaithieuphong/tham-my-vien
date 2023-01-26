@@ -5,8 +5,10 @@ const TypeService = require("../../models/TypeService");
 const Schedule = require("../../models/Schedule");
 const ServiceNote = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
+const Log = require('../../models/Log');
 const fs = require('fs');
 const path = require('path');
+const { mongo } = require("mongoose");
 const rootPath = path.sep;
 require('dotenv').config();
 
@@ -76,7 +78,7 @@ class EmployBusinessController {
 			.then(([customers, user, typeservices]) => {
 				let cusSchedule = [];
 				customers.forEach(customer => {
-					if (customer.statusCus.statusEng === 'Schedule' && customer.hasServiceNote === false) {
+					if (customer.statusCus.statusEng === 'Schedule' && customer.hasServiceNote === false && customer.hasSchedule === false) {
 						cusSchedule.push(customer);
 					}
 				});
@@ -177,6 +179,7 @@ class EmployBusinessController {
 					description: req.body.description,
 					hasServiceNote: false,
 					hasReExam: false,
+					hasSchedule: false,
 					statusCus: {
 						statusVi: req.body.statusVi,
 						statusEng: 'New'
@@ -216,6 +219,7 @@ class EmployBusinessController {
 					description: req.body.description,
 					hasServiceNote: false,
 					hasReExam: false,
+					hasSchedule: false,
 					statusCus: {
 						statusVi: req.body.statusVi,
 						statusEng: 'Potential'
@@ -255,6 +259,7 @@ class EmployBusinessController {
 					description: req.body.description,
 					hasServiceNote: false,
 					hasReExam: false,
+					hasSchedule: false,
 					statusCus: {
 						statusVi: req.body.statusVi,
 						statusEng: 'Schedule'
@@ -277,43 +282,6 @@ class EmployBusinessController {
 				req.flash('messages_createCustomer_success', 'Tạo khách hàng thành công');
 				res.redirect("/business/employ/customers/schedule");
 			}
-
-			// if(req.body.statusVi === 'Không thành công') {
-			// 	const customer = new Customer({
-			// 		userID: req.userId,
-			// 		identification: req.body.identification,
-			// 		nickName: req.body.nickName,
-			// 		fullName: req.body.fullName,
-			// 		birth: req.body.birth,
-			// 		gender: req.body.gender,
-			// 		phone: req.body.phone,
-			// 		height: req.body.height,
-			// 		weight: req.body.weight,
-			// 		homeTown: req.body.homeTown,
-			// 		resource: req.body.resource,
-			// 		description: req.body.description,
-			// 		statusCus: {
-			// 			statusVi: req.body.statusVi,
-			// 			statusEng: 'Fail'
-			// 		},
-			// 		logStatus: [
-			// 			{
-			// 				statusCus: {
-			// 					statusVi: req.body.statusVi,
-			// 					statusEng: 'Fail'
-			// 				},
-			// 				surgeryDay: null
-			// 			}
-			// 		],
-			// 		image: {
-			// 			name: req.file.filename,
-			// 			url: req.file.path,
-			// 		},
-			// 	});
-			// 	customer.save();
-			// 	req.flash('messages_createCustomer_success', 'Tạo khách hàng thành công');
-			// 	res.redirect("/business/employ/customers/notok");
-			// }
 		} else {
 			if(req.body.statusVi === 'Tạo mới') {
 				const customer = new Customer({
@@ -331,6 +299,7 @@ class EmployBusinessController {
 					description: req.body.description,
 					hasServiceNote: false,
 					hasReExam: false,
+					hasSchedule: false,
 					statusCus: {
 						statusVi: req.body.statusVi,
 						statusEng: 'New'
@@ -370,6 +339,7 @@ class EmployBusinessController {
 					description: req.body.description,
 					hasServiceNote: false,
 					hasReExam: false,
+					hasSchedule: false,
 					statusCus: {
 						statusVi: req.body.statusVi,
 						statusEng: 'Potential'
@@ -409,6 +379,7 @@ class EmployBusinessController {
 					description: req.body.description,
 					hasServiceNote: false,
 					hasReExam: false,
+					hasSchedule: false,
 					statusCus: {
 						statusVi: req.body.statusVi,
 						statusEng: 'Schedule'
@@ -431,43 +402,6 @@ class EmployBusinessController {
 				req.flash('messages_createCustomer_success', 'Tạo khách hàng thành công');
 				res.redirect("/business/employ/customers/schedule");
 			}
-
-			// if(req.body.statusVi === 'Không thành công') {
-			// 	const customer = new Customer({
-			// 		userID: req.userId,
-			// 		identification: req.body.identification,
-			// 		nickName: req.body.nickName,
-			// 		fullName: req.body.fullName,
-			// 		birth: req.body.birth,
-			// 		gender: req.body.gender,
-			// 		phone: req.body.phone,
-			// 		height: req.body.height,
-			// 		weight: req.body.weight,
-			// 		homeTown: req.body.homeTown,
-			// 		resource: req.body.resource,
-			// 		description: req.body.description,
-			// 		statusCus: {
-			// 			statusVi: req.body.statusVi,
-			// 			statusEng: 'Fail'
-			// 		},
-			// 		logStatus: [
-			// 			{
-			// 				statusCus: {
-			// 					statusVi: req.body.statusVi,
-			// 					statusEng: 'Fail'
-			// 				},
-			// 				surgeryDay: null
-			// 			}
-			// 		],
-			// 		image: {
-			// 			name: "",
-			// 			url: "",
-			// 		},
-			// 	});
-			// 	customer.save();
-			// 	req.flash('messages_createCustomer_success', 'Tạo khách hàng thành công');
-			// 	res.redirect("/business/employ/customers/notok");
-			// }
 		}
 	}
 
@@ -694,7 +628,6 @@ class EmployBusinessController {
 					.catch(next);
 			}
 		} else {
-			console.log(req.body)
 			if(req.body.statusVi === 'Tạo mới') {
 				Customer.findByIdAndUpdate({ _id: req.params.id },{
 					userID: req.userId,
@@ -830,15 +763,15 @@ class EmployBusinessController {
 			Customer.findById({ _id: req.params.id }).populate('serviceNoteID'),
 			User.findById({ _id: req.userId })
 		])
-			.then(([customer, user]) => {
-				res.render('business/employ/employ-customer-detail', {
-					customer: mongooseToObject(customer),
-					user: mongooseToObject(user),
-					title: "Chi tiết khách hàng"
-				});
+		.then(([customer, user]) => {
+			res.render('business/employ/employ-customer-detail', {
+				customer: mongooseToObject(customer),
+				user: mongooseToObject(user),
+				title: "Chi tiết khách hàng"
+			});
 
-			})
-			.catch(next);
+		})
+		.catch(next);
 	}
 
 	createComment(req, res, next) {
@@ -892,121 +825,202 @@ class EmployBusinessController {
 			.catch(next);
 	}
 
-	// show schedule
-	showSchedule(req, res, next) {
-		// Promise.all([
-		// 	Schedule.find({ createName: req.userId, status: "Tạo mới" }).populate('customerID').populate('createName'),
-		// 	// Schedule.find({ createName: req.userId, status: 'Đang xử lý'}).populate('customerID').populate('createName').populate('serviceNoteID'),
-		// 	// Schedule.find({ createName: req.userId, status: "Hoàn thành" }).populate('customerID').populate('createName').populate('serviceNoteID'),
-		// 	User.findById({ _id: req.userId })
-		// ])
-		// .then(([newSchedule, user]) => {
-		// 	res.render('business/employ/employ-schedule', {
-		// 		newSchedule: multipleMongooseToObject(newSchedule),
-		// 		// handlingSchedule: multipleMongooseToObject(handlingSchedule),
-		// 		// doneSchedule: multipleMongooseToObject(doneSchedule),
-		// 		user: mongooseToObject(user),
-		// 		title: "Quản lý phiếu dịch vụ"
-		// 	});
-		// })
-		// .catch(next);
-		Schedule.find({}).populate({
-			path: 'customerID',
-			// match: {
-			// 	hasSchedule: true
-			// }
-		}).sort({'schedule': 1})
-			.then(schedules => {
-				console.log(schedules)
+	// Hiển thị lịch hẹn tư vấn với điều kiện hasServiceNote: false
+	showSchedules(req, res, next) {
+		// Tìm tất cả lịch hẹn tư vấn của khách hàng có hasServiceNote: false
+		Schedule.find({}).populate('customerID')
+			.then((schedules) => {
+				let scheduleArr = schedules.filter(schedule => !schedule.customerID.hasServiceNote ? schedule : null);
 				res.render('business/employ/employ-schedule', {
 					title: 'Lịch hẹn tư vấn',
-					schedules: multipleMongooseToObject(schedules)
+					schedules: multipleMongooseToObject(scheduleArr),
 				})
 			})
 			.catch(next);
 	}
 
+	// Hiển thị trang thùng rác lịch hẹn tư vấn
+	showScheduleTrash(req, res, next) {
+		Schedule.findDeleted({}).populate('customerID')
+			.then(schedules => {
+				res.render('business/employ/employ-schedule-trash', {
+					title: 'Lịch hẹn tư vấn đã hủy',
+					schedules: multipleMongooseToObject(schedules),
+				})
+			})
+	}
+
+	// Hiển thị trang đặt lịch tư vấn
+	showCreateSchedule(req, res, next) {
+		Promise.all([
+			Customer.findById({ _id: req.params.id }),
+			TypeService.find({})
+		])
+		.then(([customer, typeservices]) => {
+			res.render('business/employ/employ-schedule-create', {
+				title: 'Đặt lịch hẹn tư vấn',
+				customer: mongooseToObject(customer),
+				typeservices: multipleMongooseToObject(typeservices)
+			})
+		})
+		.catch(next);
+	}
+
+	// Tạo lịch hẹn tư vấn
 	createSchedule(req, res, next) {
-		const file = req.files;
-		const imgArr = [];
-		const videoArr = [];
-		const cusID = req.body.customerID;
+		const cusID = req.params.id;
 		const createName = req.body.createName;
 		const service = req.body.service;
 		const scheduleBody = req.body.schedule;
 		const priceBefore = req.body.priceBefore;
 		const deposit = req.body.deposit;
 		const comment = req.body.comment;
-		file.forEach(element => {
-			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
-				imgArr.push({ name: element.filename, url: element.path });
-				return imgArr;
-			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
-				videoArr.push({ name: element.filename, url: element.path });
-				return videoArr;
-			}
+		const schedule = new Schedule({
+			customerID: cusID,
+			createName: createName,
+			status: "Tạo mới",
+			service: service,
+			comments: { comment: comment },
+			schedule: scheduleBody,
+			priceBefore: priceBefore,
+			deposit: deposit,
+		});
+		schedule.save();
+		Customer.findByIdAndUpdate({ _id: req.params.id }, {
+			$push: {
+				scheduleID: schedule.id,
+				loggers: {
+					userID: req.userId,
+					contents: schedule
+				}},
+			$set: { hasSchedule: true }
+			
 		})
-		if (deposit === '') {
-			const schedule = new Schedule({
-				customerID: cusID,
-				createName: createName,
-				status: "Tạo mới",
-				service: service,
-				comments: { comment: comment },
-				schedule: scheduleBody,
-				priceBefore: priceBefore,
-				deposit: 0,
-				counselorImg: imgArr,
-				counselorVideo: videoArr,
-			});
-			schedule.save();
-			Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { scheduleID: schedule.id }, $set: {hasSchedule: true}})
-				.then(() => {
-					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
-					res.redirect('back');
-				})
-				.catch(next);
-		} else if (deposit === 'NaN') {
-			const schedule = new Schedule({
-				customerID: cusID,
-				createName: createName,
-				status: "Tạo mới",
-				service: service,
-				comments: { comment: comment },
-				schedule: scheduleBody,
-				priceBefore: priceBefore,
-				deposit: 0,
-				counselorImg: imgArr,
-				counselorVideo: videoArr,
-			});
-			schedule.save();
-			Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { scheduleID: schedule.id }, $set: {hasSchedule: true}})
-				.then(() => {
-					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
-					res.redirect('back');
-				})
-				.catch(next);
-		} else {
-			const schedule = new Schedule({
-				customerID: cusID,
-				createName: createName,
-				status: "Tạo mới",
-				service: service,
-				comments: { comment: comment },
-				schedule: scheduleBody,
-				priceBefore: priceBefore,
-				deposit: deposit,
-				counselorImg: imgArr,
-				counselorVideo: videoArr,
-			});
-			schedule.save();
-			Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { scheduleID: schedule.id }, $set: {hasSchedule: true}})
-				.then(() => {
-					req.flash('messages_createSchedule_success', 'Tạo lịch hẹn thành công');
-					res.redirect('back');
-				})
-				.catch(next);
+		.then(() => {
+			req.flash('messages_createSchedule_success', 'Đặt lịch hẹn thành công');
+			res.redirect('/business/employ/customers/schedule');
+		})
+		.catch(next);
+	}
+
+	// Show schedule edit
+	showScheduleEdit(req, res, next) {
+		Promise.all([
+			Schedule.findById({ _id: req.params.id }).populate({
+				path: 'customerID'
+			}),
+			TypeService.find({})
+		])
+		.then(([schedule, typeservices]) => {
+			res.render('business/employ/employ-schedule-edit', {
+				title: 'Sửa / cập nhật thông tin lịch hẹn tư vấn',
+				schedule: mongooseToObject(schedule),
+				typeservices: multipleMongooseToObject(typeservices)
+			})
+		})
+		.catch(next);
+	}
+
+	// Sửa lịch hẹn tư vấn
+	editSchedule(req, res, next) {
+		let updateStatus = {
+			$set: {schedule: req.body.schedule, reasons: { reason: req.body.reason }, deposit: req.body.deposit, priceBefore: req.body.priceBefore},
+			$push: { logSchedules: { schedule: req.body.schedule, reason: req.body.reason, reasons: { reason: req.body.reason, service: req.body.service} , userID: req.userId}, service: req.body.service}
 		}
+		let updateCustomerStatus = {
+			$push: {
+				logStatus: {
+					statusCus: {
+						statusVi: 'Sửa lịch hẹn tư vấn', statusEng: 'editSchedule'
+					},
+					userID: req.userId
+				},
+				loggers: {
+					userID: req.userId,
+					contents: {
+						schedule: req.body.schedule,
+						service: req.body.service,
+						reasons: {
+							reason: req.body.reason,
+							service: req.body.service
+						},
+						deposit: req.body.deposit,
+						priceBefore: req.body.priceBefore,
+					}
+				}
+			}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateCustomerStatus),
+			Schedule.findByIdAndUpdate({ _id: req.params.id }, updateStatus)
+		])
+		.then(() => {
+			req.flash('messages_editSchedule_success', 'Sửa lịch hẹn tư vấn thành công');
+			res.redirect('/business/employ/schedules');
+		})
+		.catch(next);
+	}
+
+	// Xóa dịch vụ đã chọn trong lịch hẹn
+	deleteServiceSchedule(req, res, next) {
+		let contentUpdate = {
+			$pull: { service: req.body.service },
+			$push: { logSchedules: { reasons: { content: `Xóa dịch vụ ${req.body.service}` }, userID: req.userId }}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, {loggers: {
+				userID: req.userId,
+				contents: {
+					service: req.body.service,
+					reasons: {
+						reason: `Xóa dịch vụ ${req.body.service}`,
+						service: req.body.service
+					}
+				}
+			}})
+		])
+		Schedule.findByIdAndUpdate({ _id: req.params.id }, contentUpdate)
+			.then(() => {
+				req.flash('messages_deleteService_success', 'Xóa dịch vụ thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+	}
+
+	// Xóa lịch hẹn tư vấn
+	deleteSchedule(req, res, next) {
+		Promise.all([
+			Customer.findByIdAndUpdate( { _id: req.body.customerID }, { 
+				loggers: {
+					userID: req.userId,
+					contents: {
+						reasons: {
+							reason: `Hủy lịch hẹn`,
+						}
+					}
+				},
+				hasSchedule: false
+			}),
+			Schedule.delete({ _id: req.params.id} )
+		])
+		.then(() => {
+			req.flash('messages_deleteSchedule_success', 'Xóa lịch hẹn tư vấn thành công');
+			res.redirect('back');
+		})
+		.catch(next);
+	}
+
+	// Khôi phục lịch hẹn tư vấn
+	restoreSchedule(req, res, next) {
+		Promise.all([
+			Customer.findByIdAndUpdate( { _id: req.body.customerID }, { hasSchedule: true } ),
+			Schedule.restore({ _id: req.params.id} )
+		])
+			.then(() => {
+				req.flash('messages_restoreSchedule_success', 'Khôi phục lịch hẹn tư vấn thành công');
+				res.redirect('/business/employ/schedules');
+			})
+			.catch(next);
 	}
 
 	createReExam(req, res, next) {
@@ -1045,6 +1059,73 @@ class EmployBusinessController {
 			})
 		})
 		.catch(next);
+	}
+
+	// Hiển thị trang tạo phiếu dịch vụ
+	serviceNoteCreate(req, res, next) {
+		console.log(req.params.id)
+		console.log(req.body)
+		const serviceNote = new ServiceNote({
+			scheduleID: req.params.id,
+			logStatus: [{
+				statusServiceNote: 'Tạo mới',
+				createID: req.userId
+			}]
+		});
+		serviceNote.save()
+			.then(serviceNote => {
+				Promise.all([
+					Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $set: { serviceNoteID: serviceNote._id, hasServiceNote: true },
+						$push: {
+							logStatus: {
+								contents: {
+									customerID: req.body.customerID,
+									serviceNoteID: serviceNote._id,
+									scheduleID: req.params.id,
+									title: 'Đã tạo phiếu dịch vụ'
+								},
+								userID: req.userId
+							},
+							loggers: {
+								contents: {
+									customerID: req.body.customerID,
+									serviceNoteID: serviceNote._id,
+									scheduleID: req.params.id,
+									title: 'Đã tạo phiếu dịch vụ'
+								},
+								userID: req.userId
+							}
+						}}).populate({
+							path: 'serviceNoteID'
+						}),
+					Schedule.findByIdAndUpdate({ _id: req.params.id }, { $set: { serviceNoteID: serviceNote._id, status: 'Đang xử lý' },
+						$push: {
+							logSchedules: {
+								reasons: {
+									title: 'Đã tạo phiếu dịch vụ cho lịch hẹn này',
+									serviceNoteID: serviceNote._id
+								}
+							},
+							userID: req.userId
+						}})
+				])
+				.then(() => {
+					res.redirect(`business/employ/service-note/${serviceNote._id}/update`)
+				})
+				.catch(next);
+			})
+			.catch(next);
+	}
+
+	showServiceNoteUpdate(req, res, next) {
+		res.render('business/employ/employ-service-note-update', {
+			title: 'Cập nhật phiếu dịch vụ',
+		})
+	}
+
+	// Cập nhật thông tin khách hàng trên phiếu dịch vụ
+	updateCusInfor(req, res, next) {
+		console.log(req.body)
 	}
 
 	// Chi tiết phiếu dịch vụ
