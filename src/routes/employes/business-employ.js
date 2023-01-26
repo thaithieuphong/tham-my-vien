@@ -54,6 +54,9 @@ router.put('/service-note/:id/cus-info', EmployBusinessController.updateCusInfor
 // Tạo phiếu dịch vụ từ trang lịch hẹn tư vấn
 router.get('/service-note/:id/update', EmployBusinessController.showServiceNoteUpdate);
 
+// Hiển thị trang danh sách phiếu dịch vụ
+router.get('/service-note', EmployBusinessController.showServiceNoteList);
+
 // Tạo phiếu dịch vụ từ trang lịch hẹn tư vấn
 router.post('/schedule/:id/service-note/create', EmployBusinessController.serviceNoteCreate);
 

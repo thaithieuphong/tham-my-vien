@@ -1,0 +1,140 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+{{#if messages_deleteService_success}}
+    <div class="modal fade" id="messageDeleteServiceScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+				<div class="modal-header p-2">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_deleteService_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageDeleteServiceScheduleSuccess = document.querySelector('#messageDeleteServiceScheduleSuccess');
+            $(messageDeleteServiceScheduleSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+
+{{#if messages_editSchedule_success}}
+    <div class="modal fade" id="messageEditScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+				<div class="modal-header p-2">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_editSchedule_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageEditScheduleSuccess = document.querySelector('#messageEditScheduleSuccess');
+            $(messageEditScheduleSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+<div class="sticky-top ps-0 pe-0">
+    <div class="text-center bg-blue border-bottom">
+        <div class="text-light text-uppercase fw-bold pt-2 pb-2">
+            {{this.title}}
+        </div>
+    </div>
+</div>
+<div class="d-flex">
+    {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
+	<div class="w-100">
+		<div class="tab-content container-content-scroll-100 ps-2 pe-2" id="myTabContent">
+			<div class="redirect-bar bg-blue d-flex justify-content-between rounded">
+				<a type="button" onclick="history.back()" class="ml-3">
+					<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+				</a>
+			</div>
+			<table id="table-schedule-trash" class="table table-sm display">
+				<thead>
+					<tr class="text-center">
+						<th scope="col">#</th>
+						<th scope="col">Họ tên khai sinh</th>
+						<th scope="col">Tên thường gọi</th>
+						<th scope="col">Ngày hẹn</th>
+						<th scope="col">Đã cọc</th>
+						<th scope="col">Tổng chi phí khi tư vấn</th>
+						<th scope="col">Tác vụ</th>
+					</tr>
+				</thead>
+				<tbody class="">
+					{{#each serviceNotes}}
+						<tr>
+							<th scope="row" class="text-center"><strong>{{sum @index 1}}</strong></th>
+							<td>{{#each this.scheduleID.customerID}}{{this.fullName}}{{/each}}</td>
+							<td>
+								{{#each this.scheduleID.customerID}}
+								<a id="schedule-detail" type="button" class="link-primary" data-bs-toggle="modal" data-bs-target="#detailScheduleModal"
+								data-customer-fullName="{{this.customerID.fullName}}" data-customer-nickName="{{this.customerID.nickName}}" data-customer-birth="{{this.customerID.birth}}"
+								data-customer-gender="{{this.customerID.gender}}" data-customer-phone="{{this.customerID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
+								data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.customerID.img.url}}"data-customer-resource="{{this.customerID.resource}}"
+								data-customer-user="{{#each this.customerID}}{{this.firstName}} {{this.lastName}}{{/each}}">
+									{{this.nickName}}
+								</a>
+								{{/each}}
+							</td>
+							<td>{{formatDate this.schedule}}</td>
+							<td class="text-warning">{{this.deposit}}</td>
+							<td class="text-danger">{{this.priceBefore}}</td>
+							<td class="d-flex justify-content-center">
+								<a type="button" class="btn btn-info btn-sm text-light" data-bs-toggle="modal" data-bs-target="#restoreScheduleModal" data-schedule-id="{{this._id}}" data-customer="{{this.customerID.nickName}}"
+								data-customer-id="{{this.customerID._id}}">
+									Khôi phục lịch hẹn
+								</a>
+							</td>
+						</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="deleteService" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title text-light" id="exampleModalLabel">Xóa dịch vụ</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="deleteServiceForm" method="POST" action="/operating-room/nursing/service-note/service/{{serviceNote._id}}/delete?_method=DELETE">
+					<input id="serviceID" type="text" name="serviceID" hidden>
+					<input id="customerID" type="text" name="customerID" value="{{serviceNote.scheduleID.customerID._id}}" hidden>
+					Bạn chắc chắn muốn xóa dịch vụ <strong id="serviceName"></strong>?
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="deleteServiceBtn" type="button" class="btn btn-danger">Có, chắc chắn</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không, hủy thao tác</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/js/business/business-employ-service-note-create.js"></script>
+
+<script>
+	validate("#submit-customer-form");
+</script>

@@ -1117,6 +1117,24 @@ class EmployBusinessController {
 			.catch(next);
 	}
 
+	showServiceNoteList(req, res, next) {
+		ServiceNote.find({}).populate({
+			path: 'scheduleID',
+			populate: {
+				path: 'customerID',
+				model: 'Customer'
+			}
+		})
+			.then(serviceNotes => {
+				console.log(serviceNotes)
+				res.render('business/employ/employ-service-note-list', {
+					title: 'Danh sách phiếu dịch vụ',
+					serviceNotes: multipleMongooseToObject(serviceNotes)
+				})
+			})
+			.catch(next);
+	}
+
 	showServiceNoteUpdate(req, res, next) {
 		res.render('business/employ/employ-service-note-update', {
 			title: 'Cập nhật phiếu dịch vụ',
