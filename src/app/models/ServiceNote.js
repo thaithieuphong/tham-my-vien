@@ -138,6 +138,9 @@ const ServiceNote = new Schema({
 		ref: "Reexamination"
 	},
 	total: String,
+	discount: String,
+	amountToBePaid: String,
+	totalServiceCharge: String,
 	counselorInfo: String,
 	beforeInfo: String,
 	stepsToTake: String,

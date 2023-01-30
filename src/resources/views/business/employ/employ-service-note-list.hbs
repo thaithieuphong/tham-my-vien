@@ -62,9 +62,9 @@
     {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
 	<div class="w-100">
 		<div class="tab-content container-content-scroll-100 ps-2 pe-2" id="myTabContent">
-			<div class="redirect-bar bg-blue d-flex justify-content-between rounded">
-				<a type="button" onclick="history.back()" class="ml-3">
-					<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+			<div class="bg-blue d-flex justify-content-between rounded">
+				<a class="btn btn-danger text-light ms-2 mt-2 mb-2" href="/business/employ/schedules/trash">
+					Thùng rác <i class="ti-trash"></i>
 				</a>
 			</div>
 			<table id="table-schedule-trash" class="table table-sm display">
@@ -76,6 +76,7 @@
 						<th scope="col">Ngày hẹn</th>
 						<th scope="col">Đã cọc</th>
 						<th scope="col">Tổng chi phí khi tư vấn</th>
+						<th scope="col">Trạng thái</th>
 						<th scope="col">Tác vụ</th>
 					</tr>
 				</thead>
@@ -83,26 +84,44 @@
 					{{#each serviceNotes}}
 						<tr>
 							<th scope="row" class="text-center"><strong>{{sum @index 1}}</strong></th>
-							<td>{{#each this.scheduleID.customerID}}{{this.fullName}}{{/each}}</td>
-							<td>
-								{{#each this.scheduleID.customerID}}
+							<td class="text-center">{{#each this.scheduleID}}{{this.fullName}}{{/each}}</td>
+							<td class="text-center">
 								<a id="schedule-detail" type="button" class="link-primary" data-bs-toggle="modal" data-bs-target="#detailScheduleModal"
 								data-customer-fullName="{{this.customerID.fullName}}" data-customer-nickName="{{this.customerID.nickName}}" data-customer-birth="{{this.customerID.birth}}"
 								data-customer-gender="{{this.customerID.gender}}" data-customer-phone="{{this.customerID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
 								data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.customerID.img.url}}"data-customer-resource="{{this.customerID.resource}}"
 								data-customer-user="{{#each this.customerID}}{{this.firstName}} {{this.lastName}}{{/each}}">
+								{{#each this.scheduleID}}
 									{{this.nickName}}
-								</a>
 								{{/each}}
-							</td>
-							<td>{{formatDate this.schedule}}</td>
-							<td class="text-warning">{{this.deposit}}</td>
-							<td class="text-danger">{{this.priceBefore}}</td>
-							<td class="d-flex justify-content-center">
-								<a type="button" class="btn btn-info btn-sm text-light" data-bs-toggle="modal" data-bs-target="#restoreScheduleModal" data-schedule-id="{{this._id}}" data-customer="{{this.customerID.nickName}}"
-								data-customer-id="{{this.customerID._id}}">
-									Khôi phục lịch hẹn
 								</a>
+							</td>
+							<td class="text-center">{{formatDate this.scheduleID.schedule}}</td>
+							<td class="text-warning text-center">{{this.scheduleID.deposit}}</td>
+							<td class="text-danger text-center">{{this.scheduleID.priceBefore}}</td>
+							<td class="text-center">
+								{{this.scheduleID.status}}
+							</td>
+							<td class="d-flex justify-content-center">
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Cập nhật thông tin" class="me-1">
+									<a href="/business/employ/service-note/{{this._id}}/update" type="button" class="btn btn-info btn-sm">
+										Cập nhật
+									</a>
+								</div>
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển bộ phận" class="me-1">
+									<form method="POST" action="/business/employ/schedule/{{this._id}}/service-note/create">
+										<input type="text" name="customerID" value="{{this.customerID._id}}" hidden>
+										<button type="submit" class="btn btn-primary btn-sm text-light">
+											Chuyển bộ phận
+										</button>
+									</form>
+								</div>
+								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Hủy lịch hẹn">
+									<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteScheduleModal" data-schedule-id="{{this._id}}"
+									data-customer="{{this.customerID.nickName}}" data-customer-id="{{this.customerID._id}}">
+										Xóa phiếu dịch vụ
+									</button>
+								</div>
 							</td>
 						</tr>
 					{{/each}}
@@ -133,8 +152,8 @@
 		</div>
 	</div>
 </div>
-<script src="/js/business/business-employ-service-note-create.js"></script>
+{{!-- <script src="/js/business/business-employ-service-note-create.js"></script> --}}
 
-<script>
-	validate("#submit-customer-form");
-</script>
+{{!-- <script> --}}
+	//validate("#submit-customer-form");
+{{!-- </script> --}}

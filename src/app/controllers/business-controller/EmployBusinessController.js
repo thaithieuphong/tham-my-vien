@@ -1095,9 +1095,7 @@ class EmployBusinessController {
 								},
 								userID: req.userId
 							}
-						}}).populate({
-							path: 'serviceNoteID'
-						}),
+						}}),
 					Schedule.findByIdAndUpdate({ _id: req.params.id }, { $set: { serviceNoteID: serviceNote._id, status: 'Đang xử lý' },
 						$push: {
 							logSchedules: {
@@ -1110,7 +1108,7 @@ class EmployBusinessController {
 						}})
 				])
 				.then(() => {
-					res.redirect(`business/employ/service-note/${serviceNote._id}/update`)
+					res.redirect(`/business/employ/service-note/${serviceNote._id}/update`)
 				})
 				.catch(next);
 			})
@@ -1136,14 +1134,41 @@ class EmployBusinessController {
 	}
 
 	showServiceNoteUpdate(req, res, next) {
-		res.render('business/employ/employ-service-note-update', {
-			title: 'Cập nhật phiếu dịch vụ',
-		})
+		Promise.all([
+			ServiceNote.findById({ _id: req.params.id }).populate({
+				path: 'scheduleID',
+				populate: {
+					path: 'customerID',
+					model: 'Customer'
+				}
+			}),
+			User.find({ departmentEng: 'operating-room', positionEng: 'doctor', firstName: 'Nguyễn Tuấn', lastName: 'Anh'}),
+		])
+			.then(([serviceNote, doctor]) => {
+				console.log(serviceNote)
+				console.log(doctor)
+				res.render('business/employ/employ-service-note-update', {
+					title: 'Cập nhật phiếu dịch vụ',
+					serviceNote: mongooseToObject(serviceNote),
+					doctor: multipleMongooseToObject(doctor)
+				})
+			})
+			.catch(next);
 	}
 
 	// Cập nhật thông tin khách hàng trên phiếu dịch vụ
 	updateCusInfor(req, res, next) {
 		console.log(req.body)
+		console.log(req.params.id)
+		Promise.all([
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, req.body),
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, req.body)
+		])
+			.then(() => {
+				req.flash('messages_updateCusInfo_success', 'Cập nhật thông tin cá nhân khách hàng thành công');
+				res.redirect('back')
+			})
+			.catch(next);
 	}
 
 	// Chi tiết phiếu dịch vụ

@@ -145,7 +145,14 @@ function validate(formSelector) {
     });
 }
 
-// var inputScheduleID = document.getElementById('create-schedule-id');
+var inputDiscount = document.getElementById('discount');
+if (inputDiscount) {
+	inputDiscount.addEventListener('input', (e) => {
+		let inputDiscountVal = e.target.value;
+		let parseDiscountVal = parseFloat(inputDiscountVal.replace(/\D/g,''), 10);
+		inputDiscount.value = parseDiscountVal.toLocaleString()
+	})
+}
 
 // var inputDeposit = document.getElementById('create-schedule-deposit');
 // inputDeposit.addEventListener('input', (e) => {
@@ -178,13 +185,13 @@ if (createCusInfoBtn) {
 // 	});
 // }
 
-var submitServiceForm = document.forms['submit-service-form'];
-var submitServiceFormBtn = document.getElementById('submit-service-form-btn');
-if (submitServiceFormBtn) {
-	submitServiceFormBtn.addEventListener("click", () => {
-		submitServiceForm.submit();
-	});
-}
+// var submitServiceForm = document.forms['submit-service-form'];
+// var submitServiceFormBtn = document.getElementById('submit-service-form-btn');
+// if (submitServiceFormBtn) {
+// 	submitServiceFormBtn.addEventListener("click", () => {
+// 		submitServiceForm.submit();
+// 	});
+// }
 
 var submitCounselorForm = document.forms['submit-counselor-form'];
 var submitCounselorFormBtn = document.getElementById('submit-counselor-form-btn');
@@ -634,7 +641,7 @@ function totalMoneyFn(before, current) {
 var serviceContainer = document.getElementById('service-container')
 var createService = function(str) {
 	let divContainer = document.createElement('div');
-	divContainer.setAttribute('class', 'input-group input-group-sm mb-2');
+	divContainer.setAttribute('class', 'input-group input-group-sm mb-2 form-group');
 	let btnClose = document.createElement('button');
 	btnClose.setAttribute('class', 'btn btn-danger close-btn ');
 	let iconClose = document.createElement('i');
@@ -648,6 +655,7 @@ var createService = function(str) {
 	inputPrice.setAttribute('class', 'form-control text-right input-price');
 	inputPrice.setAttribute('name', 'price[]');
 	inputPrice.setAttribute('value', 0);
+	inputPrice.setAttribute('rules', 'isNum');
 	divContainer.append(inputService, inputPrice, btnClose);
 	serviceContainer.append(divContainer);
 }
@@ -655,6 +663,7 @@ var createService = function(str) {
 var addServicesBtn = document.getElementById('add-services');
 var selectServices = document.getElementById('select-service');
 var totalInput = document.getElementById('total');
+var totalServiceCharge = document.getElementById('totalServiceCharge');
 var depositInput = document.getElementById('deposit');
 var priceBefore = document.getElementById('price-before');
 
@@ -690,7 +699,9 @@ if (addServicesBtn) {
 				})
 				let totalMoney = serviceArr.reduce(totalMoneyFn, 0);
 				let convertDeposit = parseFloat(depositInput.value.replace(/\D/g,''), 10);
-				let trucoc = totalMoney - convertDeposit;
+				totalServiceCharge.value = totalMoney.toLocaleString();
+				let convertTotalServiceCharge = parseFloat(totalServiceCharge.value.replace(/\D/g,''), 10);
+				let trucoc = convertTotalServiceCharge - convertDeposit;
 				totalInput.value = trucoc.toLocaleString();
 				let convertedMoney = convertMoney.toLocaleString();
 				serviceInput.value = convertedMoney;

@@ -39,7 +39,7 @@
 
 .container-content-page {
     overflow: scroll;
-    height: 84vh;
+    height: 30vh;
     width: inherit;
     display: inline-block;
 }

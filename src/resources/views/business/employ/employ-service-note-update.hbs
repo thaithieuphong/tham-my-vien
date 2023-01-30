@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/root.css">
 <link rel="stylesheet" href="/css/assistant.css">
-{{#if messages_deleteService_success}}
-    <div class="modal fade" id="messageDeleteServiceScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+{{#if messages_updateCusInfo_success}}
+    <div class="modal fade" id="messageUpdateCusInfoSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered modal-sm">
             <div class="modal-content">
 				<div class="modal-header p-2">
@@ -13,15 +13,15 @@
                             <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
                         </div>
                     </div>
-                    <p class="text-center mb-0 text-success">{{messages_deleteService_success}}</p>
+                    <p class="text-center mb-0 text-success">{{messages_updateCusInfo_success}}</p>
                 </div>
             </div>
         </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            var messageDeleteServiceScheduleSuccess = document.querySelector('#messageDeleteServiceScheduleSuccess');
-            $(messageDeleteServiceScheduleSuccess).modal('show');
+            var messageUpdateCusInfoSuccess = document.querySelector('#messageUpdateCusInfoSuccess');
+            $(messageUpdateCusInfoSuccess).modal('show');
         });
     </script>
 {{/if}}
@@ -121,7 +121,7 @@
 						</div>
 						<div class="col-md-3 form-group">
 							<label for="input-phone" class="mb-0">Số điện thoại</label>
-							<input id="input-phone" class="form-control rounded form-control-sm" type="text" value="{{serviceNote.scheduleID.customerID.phone}}" name="phone">
+							<input id="input-phone" class="form-control rounded form-control-sm" type="text" value="0{{serviceNote.scheduleID.customerID.phone}}" name="phone">
 						</div>
 						<div class="col-md-3 form-group">
 							<label for="input-home-town" class="mb-0">Quê quán</label>
@@ -167,74 +167,78 @@
 				</form>
 			</div>
 			<div class="tab-pane fade pe-3 ps-3 mt-2" id="service" role="tabpanel" aria-labelledby="profile-tab">
-				<form method="POST" id="submit-service-form" action="/operating-room/nursing/customer-information/{{serviceNote._id}}/service-info?_method=PUT">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="text-right">
-								<button id="add-services" class="btn btn-primary border-light mb-2 btn-mobile rounded-pill">
-									<i class="ti-plus mr-2"></i>Thêm dịch vụ
-								</button>
-							</div>
+				<div class="row">
+					<div class="col-md-6">
+						<table class="table table-sm" style="height: 500px;">
+							<thead class="">
+								<tr class="">
+									<th scope="col">#</th>
+									<th scope="col">Dịch vụ</th>
+									<th scope="col">Chi phí</th>
+									<th scope="col" class="text-center">Hành động</th>
+								</tr>
+							</thead>
+							<tbody>
+								{{#each serviceNote.service}}
+								<tr class=" table-row">
+									<th scope="row">{{sum @index 1}}</th>
+									<td>{{this.name}}</td>
+									<td>{{this.price}}</td>
+									<td class="text-center">
+										<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+											data-bs-target="#deleteService" data-service-note-id="{{serviceNote._id}}" data-service-id="{{this._id}}" data-service-name="{{this.name}}">
+											<i class="fa-sharp fa-solid fa-xmark"></i>
+										</button>
+									</td>
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+					</div>
+					<div class="col-md-6">
+						<div class="text-right">
+							<button id="add-services" class="btn btn-primary border-light mb-2 btn-mobile rounded-pill">
+								<i class="ti-plus mr-2"></i>Thêm dịch vụ
+							</button>
+						</div>
+						<form method="POST" id="submit-service-form" action="/business/employ/service-note/{{serviceNote._id}}/service-info?_method=PUT">
 							<input type="text" value="{{serviceNote.scheduleID.customerID._id}}" name="cusID" hidden>
-							<div class="list-group height-800 mb-3 p-0">
+							<div class="list-group mb-3 p-0">
 								<div id="service-container" class="list-group-item container-content-page p-2 ml-0">
 								</div>
 							</div>
-						</div>
-						<div class="col-md-6">
-							<table class="table table-sm" style="height: 500px;">
-								<thead class="">
-									<tr class="">
-										<th scope="col">#</th>
-										<th scope="col">Dịch vụ</th>
-										<th scope="col">Chi phí</th>
-										<th scope="col" class="text-center">Hành động</th>
-									</tr>
-								</thead>
-								<tbody>
-									{{#each serviceNote.service}}
-									<tr class=" table-row">
-										<th scope="row">{{sum @index 1}}</th>
-										<td>{{this.name}}</td>
-										<td>{{this.price}}</td>
-										<td class="text-center">
-											<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-												data-bs-target="#deleteService" data-service-note-id="{{serviceNote._id}}" data-service-id="{{this._id}}" data-service-name="{{this.name}}">
-												<i class="fa-sharp fa-solid fa-xmark"></i>
-											</button>
-										</td>
-									</tr>
-									{{/each}}
-								</tbody>
-							</table>
-							<div class="">
-								<div class="form-group mb-3">
-									<label for="deposit" class="mb-0">Đặt cọc</label>
-									<input id="deposit"class="form-control text-right text-warning fw-bold bg-white"
-										type="text" value="{{serviceNote.scheduleID.deposit}}" name="deposit" readonly>
-								</div>
-								<div class="form-group mb-3">
-									<label for="deposit" class="mb-0">Giảm giá</label>
-									<input id="deposit"class="form-control text-right text-warning fw-bold bg-white"
-										type="text" value="{{serviceNote.scheduleID.deposit}}" name="deposit">
-								</div>
-								<div class="form-group mb-3">
-									<label for="total" class="mb-0">Số tiền cần thanh toán</label>
-									<input id="total" class="form-control text-right text-danger fw-bold bg-white"
-										type="text" readonly name="total">
-								</div>
-								<div class="form-group mb-3">
-									<label for="total" class="mb-0">Tổng hóa đơn</label>
-									<input id="total" class="form-control text-right text-danger fw-bold bg-white"
-										type="text" readonly name="total">
-								</div>
-								<div class="text-right mb-3">
-									<button id="submit-service-form-btn" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
-								</div>
+							<div class="form-group mb-3">
+								<label for="totalServiceCharge" class="mb-0">Tổng phí dịch vụ</label>
+								<input id="totalServiceCharge" class="form-control text-right text-danger fw-bold bg-white"
+									type="text" readonly name="totalServiceCharge">
 							</div>
-						</div>
+							<div class="form-group mb-3">
+								<label for="deposit" class="mb-0">Đặt cọc</label>
+								<input id="deposit"class="form-control text-right text-warning fw-bold bg-white"
+									type="text" value="{{serviceNote.scheduleID.deposit}}" name="deposit" readonly>
+							</div>
+							<div class="form-group mb-3">
+								<label for="discount" class="mb-0">Giảm giá</label>
+								<input id="discount"class="form-control text-right text-info fw-bold bg-white"
+								rules="required|isNumCurrency" type="text" name="discount" value="0">
+								<span class="form-message mt-1"></span>
+							</div>
+							<div class="form-group mb-3">
+								<label for="amount-to-be-paid" class="mb-0">Số tiền cần thanh toán</label>
+								<input id="amount-to-be-paid" class="form-control text-right text-danger fw-bold bg-white"
+									type="text" readonly name="amountToBePaid" value="0">
+							</div>
+							<div class="form-group mb-3">
+								<label for="total" class="mb-0">Thành tiền</label>
+								<input id="total" class="form-control text-right text-danger fw-bold bg-white"
+									type="text" readonly name="total">
+							</div>
+							<div class="text-right mb-3">
+								<button id="submit-service-form-btn"  type="submit" class="btn btn-primary btn-mobile rounded-pill border">Cập nhật</button>
+							</div>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
 			<div class="tab-pane fade pe-3 ps-3 mt-2" id="operating-room" role="tabpanel" aria-labelledby="contact-tab">
 				<div class="accordion accordion-flush mb-4" id="accordionFlush-{{serviceNote._id}}">
@@ -789,4 +793,5 @@
 
 <script>
 	validate("#submit-customer-form");
+	validate("#submit-service-form");
 </script>
