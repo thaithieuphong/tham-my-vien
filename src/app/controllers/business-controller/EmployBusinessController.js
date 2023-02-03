@@ -1116,21 +1116,26 @@ class EmployBusinessController {
 	}
 
 	showServiceNoteList(req, res, next) {
-		ServiceNote.find({}).populate({
-			path: 'scheduleID',
-			populate: {
-				path: 'customerID',
-				model: 'Customer'
-			}
-		})
-			.then(serviceNotes => {
-				console.log(serviceNotes)
-				res.render('business/employ/employ-service-note-list', {
-					title: 'Danh sách phiếu dịch vụ',
-					serviceNotes: multipleMongooseToObject(serviceNotes)
-				})
+		Promise.all([
+			ServiceNote.find({}).populate({
+				path: 'scheduleID',
+				populate: {
+					path: 'customerID',
+					model: 'Customer'
+				}
+			}),
+			User.findById({ _id: req.userId }),
+		])
+		.then(([serviceNotes, user]) => {
+			console.log(serviceNotes)
+			console.log(user)
+			res.render('business/employ/employ-service-note-list', {
+				title: 'Danh sách phiếu dịch vụ',
+				serviceNotes: multipleMongooseToObject(serviceNotes),
+				user: mongooseToObject(user)
 			})
-			.catch(next);
+		})
+		.catch(next);
 	}
 
 	showServiceNoteUpdate(req, res, next) {
@@ -1166,9 +1171,14 @@ class EmployBusinessController {
 		])
 			.then(() => {
 				req.flash('messages_updateCusInfo_success', 'Cập nhật thông tin cá nhân khách hàng thành công');
-				res.redirect('back')
+				res.redirect('back');
 			})
 			.catch(next);
+	}
+
+	// Cập nhật thông tin dịch vụ trên phiếu dịch vụ
+	updateServiceInfor(req, res, next) {
+		console.log(req.body)
 	}
 
 	// Chi tiết phiếu dịch vụ

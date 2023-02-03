@@ -64,33 +64,7 @@
 			<div></div>
 			<a href="/business/employ/customers/create" type="button" class="btn btn-sm text-light btn-primary rounded-pill mt-2 ml-2 mb-2 mr-3 border">Tạo khách hàng</a>
 		</div>
-        <div class="ps-2 pe-2">
-            <table id="customerDischargeFromHospital" class="table table-striped table-hover table-sm table-bordered display">
-                <thead class="bg-blue">
-                    <tr class="text-light">
-                        <th class="text-center">#</th>
-                        <th class="text-center">Họ tên</th>
-                        <th class="text-center">Số điện thoại</th>
-                        <th class="text-center">Nguồn</th>
-                        <th class="text-center">Ngày tạo</th>
-                        <th class="text-center">Trạng thái</th>
-                    </tr>
-                </thead>
-                <tbody id="table-content">
-                    {{#each customersDischargeFromHospital}}
-                    <tr class="text-dark">
-                        <th class="text-center" scope="row">{{sum @index 1}}</th>
-                        <td><a class="link-primary" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
-                        <td class="text-center">0{{this.phone}}</td>
-                        <td class="text-center">{{this.resource}}</td>
-                        <td class="text-center">{{formatDate this.createdAt}}</td>
-                        <td class="text-center">{{this.statusCus.statusVi}}</td>
-                    </tr>
-                    {{/each}}
-                </tbody>
-            </table>
-        </div>
-        <ul class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column bg-blue fixed-bottom" style="margin-left: 260px;" id="pills-tab" role="tablist">
+        <ul class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column bg-blue" id="pills-tab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a href="/business/employ/customers/new" class="nav-link text-white">
                     Khách mới
@@ -122,6 +96,33 @@
                 </a>
             </li>
         </ul>
+        <div class="ps-2 pe-2">
+            <table id="customerDischargeFromHospital" class="table table-striped table-hover table-sm table-bordered display">
+                <thead class="bg-blue">
+                    <tr class="text-light">
+                        <th class="text-center">#</th>
+                        <th class="text-center">Họ tên</th>
+                        <th class="text-center">Số điện thoại</th>
+                        <th class="text-center">Nguồn</th>
+                        <th class="text-center">Ngày tạo</th>
+                        <th class="text-center">Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody id="table-content">
+                    {{#each customersDischargeFromHospital}}
+                    <tr class="text-dark">
+                        <th class="text-center" scope="row">{{sum @index 1}}</th>
+                        <td><a class="link-primary" href="/business/employ/customers/{{this._id}}/detail">{{this.nickName}} - {{this.fullName}}</a></td>
+                        <td class="text-center">0{{this.phone}}</td>
+                        <td class="text-center">{{this.resource}}</td>
+                        <td class="text-center">{{formatDate this.createdAt}}</td>
+                        <td class="text-center">{{this.statusCus.statusVi}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        
     </div>
 </div>
 

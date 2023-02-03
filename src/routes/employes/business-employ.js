@@ -49,6 +49,9 @@ router.post('/change-pass', AuthController.changePassword);
 router.get('/service-note/:id/detail', EmployBusinessController.showServiceNoteDetail);
 
 // Cập nhật thông tin khách hàng trên phiếu dịch vụ
+router.put('/service-note/:id/service-info', EmployBusinessController.updateServiceInfor);
+
+// Cập nhật thông tin khách hàng trên phiếu dịch vụ
 router.put('/service-note/:id/cus-info', EmployBusinessController.updateCusInfor);
 
 // Tạo phiếu dịch vụ từ trang lịch hẹn tư vấn

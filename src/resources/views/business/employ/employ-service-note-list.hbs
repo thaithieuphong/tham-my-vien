@@ -51,85 +51,139 @@
         });
     </script>
 {{/if}}
-<div class="sticky-top ps-0 pe-0">
-    <div class="text-center bg-blue border-bottom">
-        <div class="text-light text-uppercase fw-bold pt-2 pb-2">
-            {{this.title}}
+
+<div class="container-fluid overflow-hidden">
+    <div class="row vh-100 overflow-auto">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark d-flex sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
+                <a href="/" class="d-flex align-items-center pb-sm-3 mb-md-0 text-white text-decoration-none">
+					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
+                    <span class="fs-6 text-uppercase">Bảng điều khiển</span>
+                </a>
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2 link-light">
+                            <i class="ti-receipt mr-3"></i><span class="ms-1 d-none d-sm-inline">Lịch hẹn tư vấn</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2 link-light">
+                            <i class="ti-user mr-3"></i><span class="ms-1 d-none d-sm-inline">Khách hàng</span></a>
+                    </li>
+					<li>
+                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2 link-light">
+                            <i class="ti-clipboard mr-3"></i><span class="ms-1 d-none d-sm-inline">Phiếu dịch vụ</span></a>
+                    </li>
+                </ul>
+                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{#if user.image.name}}
+						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
+                        {{else}}
+						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
+						{{/if}}
+						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+							<form method="POST" action="/logout">
+								<button class="dropdown-item" type="submit">Đăng xuất</>
+							</form>
+						</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex flex-column h-sm-100 ps-0 pe-0">
+			<div class="ps-0 pe-0">
+				<div class="text-center bg-blue">
+					<div class="text-light text-uppercase fw-bold pt-2 pb-2">
+						{{this.title}}
+					</div>
+				</div>
+				<div class="bg-blue d-flex justify-content-between">
+					<a class="btn btn-danger text-light ms-2 mt-2 mb-2" href="/business/employ/schedules/trash">
+						Thùng rác <i class="ti-trash"></i>
+					</a>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<table id="table-schedule-trash" class="table table-sm display">
+					<thead>
+						<tr class="text-center">
+							<th scope="col">#</th>
+							<th scope="col">Họ tên khai sinh</th>
+							<th scope="col">Tên thường gọi</th>
+							<th scope="col">Ngày hẹn</th>
+							<th scope="col">Đã cọc</th>
+							<th scope="col">Tổng chi phí khi tư vấn</th>
+							<th scope="col">Trạng thái</th>
+							<th scope="col">Tác vụ</th>
+						</tr>
+					</thead>
+					<tbody class="">
+						{{#each serviceNotes}}
+							<tr>
+								<th scope="row" class="text-center"><strong>{{sum @index 1}}</strong></th>
+								<td class="text-center">{{#each this.scheduleID}}{{this.fullName}}{{/each}}</td>
+								<td class="text-center">
+									<a id="schedule-detail" type="button" class="link-primary" data-bs-toggle="modal" data-bs-target="#detailScheduleModal"
+									data-customer-fullName="{{this.customerID.fullName}}" data-customer-nickName="{{this.customerID.nickName}}" data-customer-birth="{{this.customerID.birth}}"
+									data-customer-gender="{{this.customerID.gender}}" data-customer-phone="{{this.customerID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
+									data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.customerID.img.url}}"data-customer-resource="{{this.customerID.resource}}"
+									data-customer-user="{{#each this.customerID}}{{this.firstName}} {{this.lastName}}{{/each}}">
+									{{#each this.scheduleID}}
+										{{this.nickName}}
+									{{/each}}
+									</a>
+								</td>
+								<td class="text-center">{{formatDate this.scheduleID.schedule}}</td>
+								<td class="text-warning text-center">{{this.scheduleID.deposit}}</td>
+								<td class="text-danger text-center">{{this.scheduleID.priceBefore}}</td>
+								<td class="text-center">
+									{{this.scheduleID.status}}
+								</td>
+								<td class="d-flex justify-content-center">
+									<div data-bs-toggle="tooltip" data-bs-placement="top" title="Cập nhật thông tin" class="me-1">
+										<a href="/business/employ/service-note/{{this._id}}/update" type="button" class="btn btn-info btn-sm">
+											Cập nhật
+										</a>
+									</div>
+									<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển bộ phận" class="me-1">
+										<form method="POST" action="/business/employ/schedule/{{this._id}}/service-note/create">
+											<input type="text" name="customerID" value="{{this.customerID._id}}" hidden>
+											<button type="submit" class="btn btn-primary btn-sm text-light">
+												Chuyển bộ phận
+											</button>
+										</form>
+									</div>
+									<div data-bs-toggle="tooltip" data-bs-placement="top" title="Hủy lịch hẹn">
+										<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteScheduleModal" data-schedule-id="{{this._id}}"
+										data-customer="{{this.customerID.nickName}}" data-customer-id="{{this.customerID._id}}">
+											Xóa phiếu dịch vụ
+										</button>
+									</div>
+								</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
         </div>
     </div>
 </div>
-<div class="d-flex">
+{{!-- <div class="d-flex">
     {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
 	<div class="w-100">
 		<div class="tab-content container-content-scroll-100 ps-2 pe-2" id="myTabContent">
-			<div class="bg-blue d-flex justify-content-between rounded">
-				<a class="btn btn-danger text-light ms-2 mt-2 mb-2" href="/business/employ/schedules/trash">
-					Thùng rác <i class="ti-trash"></i>
-				</a>
-			</div>
-			<table id="table-schedule-trash" class="table table-sm display">
-				<thead>
-					<tr class="text-center">
-						<th scope="col">#</th>
-						<th scope="col">Họ tên khai sinh</th>
-						<th scope="col">Tên thường gọi</th>
-						<th scope="col">Ngày hẹn</th>
-						<th scope="col">Đã cọc</th>
-						<th scope="col">Tổng chi phí khi tư vấn</th>
-						<th scope="col">Trạng thái</th>
-						<th scope="col">Tác vụ</th>
-					</tr>
-				</thead>
-				<tbody class="">
-					{{#each serviceNotes}}
-						<tr>
-							<th scope="row" class="text-center"><strong>{{sum @index 1}}</strong></th>
-							<td class="text-center">{{#each this.scheduleID}}{{this.fullName}}{{/each}}</td>
-							<td class="text-center">
-								<a id="schedule-detail" type="button" class="link-primary" data-bs-toggle="modal" data-bs-target="#detailScheduleModal"
-								data-customer-fullName="{{this.customerID.fullName}}" data-customer-nickName="{{this.customerID.nickName}}" data-customer-birth="{{this.customerID.birth}}"
-								data-customer-gender="{{this.customerID.gender}}" data-customer-phone="{{this.customerID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
-								data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.customerID.img.url}}"data-customer-resource="{{this.customerID.resource}}"
-								data-customer-user="{{#each this.customerID}}{{this.firstName}} {{this.lastName}}{{/each}}">
-								{{#each this.scheduleID}}
-									{{this.nickName}}
-								{{/each}}
-								</a>
-							</td>
-							<td class="text-center">{{formatDate this.scheduleID.schedule}}</td>
-							<td class="text-warning text-center">{{this.scheduleID.deposit}}</td>
-							<td class="text-danger text-center">{{this.scheduleID.priceBefore}}</td>
-							<td class="text-center">
-								{{this.scheduleID.status}}
-							</td>
-							<td class="d-flex justify-content-center">
-								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Cập nhật thông tin" class="me-1">
-									<a href="/business/employ/service-note/{{this._id}}/update" type="button" class="btn btn-info btn-sm">
-										Cập nhật
-									</a>
-								</div>
-								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển bộ phận" class="me-1">
-									<form method="POST" action="/business/employ/schedule/{{this._id}}/service-note/create">
-										<input type="text" name="customerID" value="{{this.customerID._id}}" hidden>
-										<button type="submit" class="btn btn-primary btn-sm text-light">
-											Chuyển bộ phận
-										</button>
-									</form>
-								</div>
-								<div data-bs-toggle="tooltip" data-bs-placement="top" title="Hủy lịch hẹn">
-									<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteScheduleModal" data-schedule-id="{{this._id}}"
-									data-customer="{{this.customerID.nickName}}" data-customer-id="{{this.customerID._id}}">
-										Xóa phiếu dịch vụ
-									</button>
-								</div>
-							</td>
-						</tr>
-					{{/each}}
-				</tbody>
-			</table>
+			
 		</div>
 	</div>
-</div>
+</div> --}}
 
 <div class="modal fade" id="deleteService" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -154,6 +208,6 @@
 </div>
 {{!-- <script src="/js/business/business-employ-service-note-create.js"></script> --}}
 
-{{!-- <script> --}}
+<script>
 	//validate("#submit-customer-form");
-{{!-- </script> --}}
+</script>

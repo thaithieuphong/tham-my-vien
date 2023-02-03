@@ -24,6 +24,9 @@ function validate(formSelector) {
 			return regex.test(value) ? undefined : 'Số tiền không được chứa chữ cái';
 		},
 
+		requiredService: function(value) {
+            return value ? undefined : 'Vui lòng nhập dịch vụ và phí dịch vụ';
+		},
         
         isNumCurrency: function (value) {
 			let convertValue = parseFloat(value.replace(/\D/g,''), 10);
@@ -88,17 +91,19 @@ function validate(formSelector) {
             // Listen event (blur, change, input)
             input.addEventListener('blur', handleEmptyInput);
             input.addEventListener('input', handleClearError);
+			input.addEventListener('add', handleClearError)
         }
 
         // ham thuc hien validate
         var errorMessage;
         function handleEmptyInput (event) {
             var rules = formRules[event.target.name];
-			console.log('rules', rules)
-            rules.some(rule => {
-                errorMessage = rule(event.target.value);
-                return errorMessage;
-            })
+			if(rules) {
+				rules.some(rule => {
+					errorMessage = rule(event.target.value);
+					return errorMessage;
+				})
+			}
 
             // Neu co loi thi hien thi message loi ra UI
             if (errorMessage) {
@@ -147,15 +152,6 @@ function validate(formSelector) {
     });
 }
 
-// var inputDiscount = document.getElementById('discount');
-// if (inputDiscount) {
-// 	inputDiscount.addEventListener('input', (e) => {
-// 		let inputDiscountVal = e.target.value;
-// 		let parseDiscountVal = parseFloat(inputDiscountVal.replace(/\D/g,''), 10);
-// 		inputDiscount.value = parseDiscountVal.toLocaleString();
-// 	})
-// }
-
 // var inputDeposit = document.getElementById('create-schedule-deposit');
 // inputDeposit.addEventListener('input', (e) => {
 //     let inputVal = e.target.value;
@@ -170,14 +166,14 @@ function validate(formSelector) {
 //     inputPriceBefore.value = parseFloatVal.toLocaleString()
 // });
 
-var createCusInfoForm = document.forms['create-customer-information-form'];
-var createCusInfoBtn = document.getElementById('create-customer-information-btn');
+// var createCusInfoForm = document.forms['create-customer-information-form'];
+// var createCusInfoBtn = document.getElementById('create-customer-information-btn');
 
-if (createCusInfoBtn) {
-	createCusInfoBtn.addEventListener("click", () => {
-		createCusInfoForm.submit();
-	});
-}
+// if (createCusInfoBtn) {
+// 	createCusInfoBtn.addEventListener("click", () => {
+// 		createCusInfoForm.submit();
+// 	});
+// }
 
 // var submitCustomerForm = document.forms['submit-customer-form'];
 // var submitCusFormBtn = document.getElementById('submit-customer-form-btn');
@@ -670,6 +666,7 @@ var depositInput = document.getElementById('deposit');
 var priceBefore = document.getElementById('price-before');
 var discount = document.getElementById('discount');
 var amountToBePaid = document.getElementById('amount-to-be-paid');
+var messageTotalServiceCharge = document.getElementById('messageTotalServiceCharge');
 
 // Thêm dịch vụ
 var addServices = function() {
@@ -699,6 +696,12 @@ var addServices = function() {
 
 			// Hiển thị tổng phí dịch vụ trên giao diện
 			totalServiceCharge.value = totalServiceMoney.toLocaleString();
+			if (totalServiceCharge.classList.contains('invalid') || messageTotalServiceCharge.classList.contains('text-danger')) {
+                totalServiceCharge.classList.remove('invalid');
+                if (messageTotalServiceCharge) {
+                    messageTotalServiceCharge.innerText = '';
+                }
+            }
 
 			let convertTotalServiceCharge = parseFloat(totalServiceCharge.value.replace(/\D/g,''), 10);
 
@@ -726,12 +729,14 @@ var addServices = function() {
 					serviceArr.splice(index, 1);
 				}
 				let totalServiceMoney = serviceArr.reduce(totalMoneyFn, 0);
+
 				// Hiển thị tổng phí dịch vụ trên giao diện
 				totalServiceCharge.value = totalServiceMoney.toLocaleString();
+
 				let convertTotalServiceCharge = parseFloat(totalServiceCharge.value.replace(/\D/g,''), 10);
 				let convertDeposit = parseFloat(depositInput.value.replace(/\D/g,''), 10);
 				// Chuyển đổi tiền giảm giá
-			let convertDiscount = parseFloat(discount.value.replace(/\D/g,''), 10);
+				let convertDiscount = parseFloat(discount.value.replace(/\D/g,''), 10);
 				let trucoc = convertTotalServiceCharge - convertDeposit - convertDiscount;
 				amountToBePaid.value = trucoc.toLocaleString();
 				totalInput.value = convertTotalServiceCharge.toLocaleString();

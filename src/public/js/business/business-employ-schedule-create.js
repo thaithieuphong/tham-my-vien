@@ -26,8 +26,9 @@ function validate(formSelector) {
 
         
         isNumCurrency: function (value) {
-			var regex = /^(?!0\.00)\d{1,3}(,\d{3})*(\.\d\d)?$/;
-			return regex.test(value) ? undefined : 'Số tiền không được chứa chữ cái';
+			let convertValue = parseFloat(value.replace(/\D/g,''), 10);
+			var regex = /^[0-9]*$/;
+			return regex.test(convertValue) ? undefined : 'Số tiền không được chứa chữ cái';
 		},
 
         password: function (value) {
