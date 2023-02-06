@@ -48,7 +48,22 @@ router.post('/change-pass', AuthController.changePassword);
 // Hiển thị trang chi tiết phiếu dịch vụ
 router.get('/service-note/:id/detail', EmployBusinessController.showServiceNoteDetail);
 
-// Cập nhật thông tin khách hàng trên phiếu dịch vụ
+// Cập nhật hình ảnh, video tư vấn
+router.post('/service-note/:id/operating-counselor', validateUploadImage.counselorUpload, EmployBusinessController.uploadCounselor);
+
+// Cập nhật hình ảnh, video trước phẫu
+router.post('/service-note/:id/operating-before', validateUploadImage.beforeUpload, EmployBusinessController.uploadBefore);
+
+// Cập nhật hình ảnh, video trong phẫu
+router.post('/service-note/:id/operating-in-surgery', validateUploadImage.inSurgeryUpload, EmployBusinessController.uploadInSurgery);
+
+// Cập nhật hình ảnh, video sau phẫu
+router.post('/service-note/:id/operating-after', validateUploadImage.afterUpload, EmployBusinessController.uploadAfter);
+
+// Xóa dịch vụ trên phiếu dịch vụ
+router.delete('/service-note/service/:id/delete', EmployBusinessController.deleteService);
+
+// Cập nhật dịch vụ trên phiếu dịch vụ
 router.put('/service-note/:id/service-info', EmployBusinessController.updateServiceInfor);
 
 // Cập nhật thông tin khách hàng trên phiếu dịch vụ

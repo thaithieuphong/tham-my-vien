@@ -51,90 +51,142 @@
         });
     </script>
 {{/if}}
-<div class="sticky-top ps-0 pe-0">
-    <div class="text-center bg-blue border-bottom">
-        <div class="text-light text-uppercase fw-bold pt-2 pb-2">
-            {{this.title}}
+
+<div class="container-fluid overflow-hidden">
+    <div class="row vh-100 overflow-auto">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark d-flex sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
+                <a href="/" class="d-flex align-items-center pb-sm-3 mb-md-0 text-white text-decoration-none">
+					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
+					<span class="fs-6 text-uppercase">
+						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
+						<span class="d-none d-sm-inline">Bảng điều khiển</span>
+					</span>
+                </a>
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2 link-light">
+                            <i class="ti-receipt mr-3"></i><span class="ms-1 d-none d-sm-inline">Lịch hẹn tư vấn</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2 link-light">
+                            <i class="ti-user mr-3"></i><span class="ms-1 d-none d-sm-inline">Khách hàng</span></a>
+                    </li>
+					<li>
+                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2 link-light">
+                            <i class="ti-clipboard mr-3"></i><span class="ms-1 d-none d-sm-inline">Phiếu dịch vụ</span></a>
+                    </li>
+                </ul>
+                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{#if user.image.name}}
+						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
+                        {{else}}
+						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
+						{{/if}}
+						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+							<form method="POST" action="/logout">
+								<button class="dropdown-item" type="submit">Đăng xuất</>
+							</form>
+						</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div class="d-flex">
-    {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
-	<div class="container-content-scroll ps-3 pe-3">
-		<form  method="POST" action="/business/employ/customers/{{customer._id}}/schedule/create" id="create-schedule-form" class="row">
-			{{#if customer.image.url}}
-			<img src="{{customer.image.url}}" id="add-avt" class="rounded add-avata" alt="...">
-			{{else}}
-			<img src="/img/user-icon.png" id="create-schedule-img" class="rounded mx-auto d-block add-avata" alt="...">
-			{{/if}}
-			<div class="d-flex justify-content-between">
-				<label for="status">
-					<strong>Họ tên khai sinh:</strong>&nbsp;
-				</label>
-				<label class="text-end font-italic" id="create-schedule-fullName">{{customer.fullName}}</label>
+        <div class="col d-flex flex-column h-sm-100 ps-0 pe-0">
+			<div class="sticky-top ps-0 pe-0">
+				<div class="text-center bg-blue border-bottom">
+					<div class="text-light text-uppercase fw-bold pt-2 pb-2">
+						{{this.title}}
+					</div>
+				</div>
 			</div>
-			<div class="d-flex justify-content-between">
-				<label for="status">
-					<strong>Tên thường gọi:</strong>&nbsp;
-				</label>
-				<label class="text-end font-italic" id="create-schedule-nickName">{{customer.nickName}}</label>
+			<div class="ps-3 pe-3">
+				<form  method="POST" action="/business/employ/customers/{{customer._id}}/schedule/create" id="create-schedule-form" class="row">
+					{{#if customer.image.url}}
+					<img src="{{customer.image.url}}" id="add-avt" class="rounded add-avata" alt="...">
+					{{else}}
+					<img src="/img/user-icon.png" id="create-schedule-img" class="rounded mx-auto d-block add-avata" alt="...">
+					{{/if}}
+					<div class="d-flex justify-content-between">
+						<label for="status">
+							<strong>Họ tên khai sinh:</strong>&nbsp;
+						</label>
+						<label class="text-end font-italic" id="create-schedule-fullName">{{customer.fullName}}</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status">
+							<strong>Tên thường gọi:</strong>&nbsp;
+						</label>
+						<label class="text-end font-italic" id="create-schedule-nickName">{{customer.nickName}}</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status">
+							<strong>Ngày sinh:</strong>&nbsp;
+						</label>
+						<label id="create-schedule-birth">{{formatBirth customer.birth}}</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status">
+							<strong>Giới tính:</strong>&nbsp;
+						</label>
+						<label id="create-schedule-gender">{{customer.gender}}</label>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label for="status">
+							<strong>Số điện thoại:</strong>&nbsp;
+						</label>
+						<label id="create-schedule-phone">0{{customer.phone}}</label>
+					</div>
+					<label class="" for="create-schedule-schedule"><strong>Chọn dịch vụ:</strong></label>
+					<div class="form-group mb-3">
+						<select id="select-service" class="form-control chosen-select" multiple tabindex="6" name="service[]">
+							{{#each typeservices}}
+							<optgroup label="{{this.name}}">
+								{{#each this.services}}
+								<option value="{{this.service}}">{{this.service}}</option>
+								{{/each}}
+							</optgroup>
+							{{/each}}
+						</select>
+					</div>
+					<div class="form-group mb-3">
+						<label class="" for="create-schedule-schedule"><strong>Ngày hẹn</strong>&nbsp;<span class="text-danger">*</span></label>
+						<input type="datetime-local" class="form-control bg-transparent text-right" id="create-schedule-schedule" rules="required" name="schedule">
+						<span class="form-message mt-1"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label class="" for="create-schedule-priceBefore"><strong>Phí dịch vụ</strong>&nbsp;<span class="text-danger">*</span></label>
+						<input type="text" class="form-control bg-transparent text-right" id="create-schedule-priceBefore" rules="required|isNumCurrency" name="priceBefore">
+						<span class="form-message mt-1"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label class="" for="create-schedule-deposit"><strong>Đặt cọc</strong></label>
+						<input type="text" class="form-control bg-transparent text-right" id="create-schedule-deposit" value="0" rules="isNumCurrency" name="deposit">
+						<span class="form-message mt-1"></span>
+					</div>
+					<div class="form-group mb-3">
+						<label class="" for="edit-schedule-reason"><strong>Ghi chú</strong></label>
+						<textarea class="form-control bg-transparent" id="create-schedule-comment" rows="6" name="comment"></textarea>
+						<span class="form-message mt-1"></span>
+					</div>
+					<div class="mb-2">
+						<button id="create-schedule-btn" type="submit" class="btn btn-primary float-end rounded-pill">Đặt lịch</button>
+					</div>
+				</form>
 			</div>
-			<div class="d-flex justify-content-between">
-				<label for="status">
-					<strong>Ngày sinh:</strong>&nbsp;
-				</label>
-				<label id="create-schedule-birth">{{formatBirth customer.birth}}</label>
-			</div>
-			<div class="d-flex justify-content-between">
-				<label for="status">
-					<strong>Giới tính:</strong>&nbsp;
-				</label>
-				<label id="create-schedule-gender">{{customer.gender}}</label>
-			</div>
-			<div class="d-flex justify-content-between">
-				<label for="status">
-					<strong>Số điện thoại:</strong>&nbsp;
-				</label>
-				<label id="create-schedule-phone">0{{customer.phone}}</label>
-			</div>
-			<label class="" for="create-schedule-schedule"><strong>Chọn dịch vụ:</strong></label>
-			<div class="form-group mb-3">
-				<select id="select-service" class="form-control chosen-select" multiple tabindex="6" name="service[]">
-					{{#each typeservices}}
-					<optgroup label="{{this.name}}">
-						{{#each this.services}}
-						<option value="{{this.service}}">{{this.service}}</option>
-						{{/each}}
-					</optgroup>
-					{{/each}}
-				</select>
-			</div>
-			<div class="form-group mb-3">
-				<label class="" for="create-schedule-schedule"><strong>Ngày hẹn</strong>&nbsp;<span class="text-danger">*</span></label>
-				<input type="datetime-local" class="form-control bg-transparent text-right" id="create-schedule-schedule" rules="required" name="schedule">
-				<span class="form-message mt-1"></span>
-			</div>
-			<div class="form-group mb-3">
-				<label class="" for="create-schedule-priceBefore"><strong>Phí dịch vụ</strong>&nbsp;<span class="text-danger">*</span></label>
-				<input type="text" class="form-control bg-transparent text-right" id="create-schedule-priceBefore" rules="required|isNumCurrency" name="priceBefore">
-				<span class="form-message mt-1"></span>
-			</div>
-			<div class="form-group mb-3">
-				<label class="" for="create-schedule-deposit"><strong>Đặt cọc</strong></label>
-				<input type="text" class="form-control bg-transparent text-right" id="create-schedule-deposit" value="0" rules="isNumCurrency" name="deposit">
-				<span class="form-message mt-1"></span>
-			</div>
-			<div class="form-group mb-3">
-				<label class="" for="edit-schedule-reason"><strong>Ghi chú</strong></label>
-				<textarea class="form-control bg-transparent" id="create-schedule-comment" rows="6" name="comment"></textarea>
-				<span class="form-message mt-1"></span>
-			</div>
-			<div class="mb-2">
-				<button id="create-schedule-btn" type="submit" class="btn btn-primary float-end rounded-pill">Đặt lịch</button>
-			</div>
-		</form>
+		</div>
 	</div>
 </div>
+
 <script src="/js/business/business-employ-schedule-create.js"></script>
 <script>
     validate('#create-schedule-form');

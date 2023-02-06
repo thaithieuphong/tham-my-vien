@@ -144,6 +144,9 @@ app.engine(
 				} else {
 					return value = '-- Chọn giới tính --';
 				}
+			},
+			show: (value) => {
+				return value;
 			}
 		}
 	})

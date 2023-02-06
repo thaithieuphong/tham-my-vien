@@ -1,306 +1,378 @@
 <link rel="stylesheet" href="/css/root.css">
 <link rel="stylesheet" href="/css/assistant.css">
 {{#if messages_updateCusInfo_success}}
-    <div class="modal fade" id="messageUpdateCusInfoSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="messageUpdateCusInfoSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
 				</div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center mb-3">
-                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
-                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
-                        </div>
-                    </div>
-                    <p class="text-center mb-0 text-success">{{messages_updateCusInfo_success}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var messageUpdateCusInfoSuccess = document.querySelector('#messageUpdateCusInfoSuccess');
-            $(messageUpdateCusInfoSuccess).modal('show');
-        });
-    </script>
+				<p class="text-center mb-0 text-success">{{messages_updateCusInfo_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageUpdateCusInfoSuccess = document.querySelector('#messageUpdateCusInfoSuccess');
+		$(messageUpdateCusInfoSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_updateService_success}}
+<div class="modal fade" id="messageUpdateServiceSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_updateService_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageUpdateServiceSuccess = document.querySelector('#messageUpdateServiceSuccess');
+		$(messageUpdateServiceSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_deleteService_success}}
+<div class="modal fade" id="messageDeleteServiceSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_deleteService_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageDeleteServiceSuccess = document.querySelector('#messageDeleteServiceSuccess');
+		$(messageDeleteServiceSuccess).modal('show');
+	});
+</script>
 {{/if}}
 
 {{#if messages_editSchedule_success}}
-    <div class="modal fade" id="messageEditScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="messageEditScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
 				</div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center mb-3">
-                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
-                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
-                        </div>
-                    </div>
-                    <p class="text-center mb-0 text-success">{{messages_editSchedule_success}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var messageEditScheduleSuccess = document.querySelector('#messageEditScheduleSuccess');
-            $(messageEditScheduleSuccess).modal('show');
-        });
-    </script>
+				<p class="text-center mb-0 text-success">{{messages_editSchedule_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageEditScheduleSuccess = document.querySelector('#messageEditScheduleSuccess');
+		$(messageEditScheduleSuccess).modal('show');
+	});
+</script>
 {{/if}}
 
 <div class="container-fluid overflow-hidden">
-    <div class="row vh-100 overflow-auto">
-        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark d-flex sticky-top">
-            <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
-                <a href="/" class="d-flex align-items-center pb-sm-3 mb-md-0 text-white text-decoration-none">
+	<div class="row vh-100 overflow-auto">
+		<div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark d-flex sticky-top">
+			<div
+				class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
+				<a href="/" class="d-flex align-items-center pb-sm-3 mb-md-0 text-white text-decoration-none">
 					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
 					<span class="fs-6 text-uppercase">
 						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
 						<span class="d-none d-sm-inline">Bảng điều khiển</span>
 					</span>
-                </a>
-                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2 link-light">
-                            <i class="ti-receipt mr-3"></i><span class="ms-1 d-none d-sm-inline">Lịch hẹn tư vấn</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2 link-light">
-                            <i class="ti-user mr-3"></i><span class="ms-1 d-none d-sm-inline">Khách hàng</span></a>
-                    </li>
+				</a>
+				<ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start"
+					id="menu">
+					<li class="nav-item">
+						<a href="/business/employ/schedules" class="nav-link px-sm-0 px-2 link-light">
+							<i class="ti-receipt mr-3"></i><span class="ms-1 d-none d-sm-inline">Lịch hẹn tư vấn</span>
+						</a>
+					</li>
 					<li>
-                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2 link-light">
-                            <i class="ti-clipboard mr-3"></i><span class="ms-1 d-none d-sm-inline">Phiếu dịch vụ</span></a>
-                    </li>
-                </ul>
-                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{#if user.image.name}}
+						<a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2 link-light">
+							<i class="ti-user mr-3"></i><span class="ms-1 d-none d-sm-inline">Khách hàng</span></a>
+					</li>
+					<li>
+						<a href="/business/employ/service-note" class="nav-link px-sm-0 px-2 link-light">
+							<i class="ti-clipboard mr-3"></i><span class="ms-1 d-none d-sm-inline">Phiếu dịch
+								vụ</span></a>
+					</li>
+				</ul>
+				<div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
+					<a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+						id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+						{{#if user.image.name}}
 						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
-                        {{else}}
+						{{else}}
 						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
 						{{/if}}
 						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+						<li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li>
 							<form method="POST" action="/logout">
 								<button class="dropdown-item" type="submit">Đăng xuất</>
 							</form>
 						</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col d-flex flex-column h-sm-100 ps-0 pe-0">
-			<div class="text-center bg-blue">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col d-flex flex-column h-sm-100 ps-0 pe-0">
+			<div class="text-center bg-dark">
 				<div class="text-light text-uppercase fw-bold pt-2 pb-2">
 					{{this.title}}
 				</div>
 			</div>
-			{{!-- <div class="container-fluid">
-			</div> --}}
-			{{!-- <ul class="nav nav-tabs mb-3" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="flex-sm-fill text-sm-center nav-link active" data-bs-toggle="tab"
-						data-bs-target="#customer" type="button" role="tab" aria-controls="customer" aria-selected="true">
-						Cập nhật thông tin khách hàng
-					</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="flex-sm-fill text-sm-center nav-link" data-bs-toggle="tab"
-						data-bs-target="#service" type="button" role="tab" aria-controls="service" aria-selected="true">
-						Cập nhật dịch vụ
-					</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="flex-sm-fill text-sm-center nav-link" data-bs-toggle="tab"
-						data-bs-target="#operating-room" type="button" role="tab" aria-controls="operating-room"
-						aria-selected="true">
-						Cập nhật thông tin thực hiện phẩu thuật
-					</button>
-				</li>
-			</ul> --}}
-			<form method="POST" id="submit-customer-form" action="/business/employ/service-note/{{serviceNote._id}}/cus-info?_method=PUT">
-				<ul class="list-group mb-3 ms-2 me-2">
-					<label for="" class="ms-3"><strong>Cập nhật thông tin khách hàng</strong></label>
+			<form method="POST" id="submit-customer-form"
+				action="/business/employ/service-note/{{serviceNote._id}}/cus-info?_method=PUT">
+				<ul class="list-group mb-3 ms-2 me-2 mt-2 border-black">
+					<li class="list-group-item active text-center">
+						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin khách
+								hàng</strong></label>
+					</li>
 					<li class="list-group-item">
 						<input class="form-control bg-light" type="text"
 							value="{{serviceNote.scheduleID.customerID._id}}" hidden name="cusID">
 						<div class="row">
 							<div class="col-md-3 form-group">
 								<label for="input-identification" class="mb-0">Mã định danh</label>
-								<input id="input-identification" class="form-control rounded form-control-sm" value="{{serviceNote.scheduleID.customerID.identification}}"
-								rules="required" type="text" name="identification" placeholder="VD: BA...">
+								<input id="input-identification" class="form-control rounded form-control-sm"
+									value="{{serviceNote.scheduleID.customerID.identification}}" rules="required"
+									type="text" name="identification" placeholder="VD: BA...">
 								<span class="form-message mt-1"></span>
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input-fullname" class="mb-0">Họ tên khai sinh</label>
-								<input id="input-fullname" class="form-control rounded form-control-sm" value="{{serviceNote.scheduleID.customerID.fullName}}"
-								rules="required" type="text" name="fullName" placeholder="VD: Nguyễn Thị Tuyết Như">
+								<input id="input-fullname" class="form-control rounded form-control-sm"
+									value="{{serviceNote.scheduleID.customerID.fullName}}" rules="required" type="text"
+									name="fullName" placeholder="VD: Nguyễn Thị Tuyết Như">
 								<span class="form-message mt-1"></span>
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input-nickname" class="mb-0">Tên thường gọi</label>
-								<input id="input-nickname" class="form-control rounded form-control-sm" value="{{serviceNote.scheduleID.customerID.nickName}}" type="text" name="nickName">
+								<input id="input-nickname" class="form-control rounded form-control-sm"
+									value="{{serviceNote.scheduleID.customerID.nickName}}" type="text" name="nickName">
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input-gender" class="mb-0">Ngày sinh</label>
-								<input id="input-gender" class="form-control rounded form-control-sm" value="{{serviceNote.scheduleID.customerID.birth}}" type="date" name="birth">
+								<input id="input-gender" class="form-control rounded form-control-sm"
+									value="{{serviceNote.scheduleID.customerID.birth}}" type="date" name="birth">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-3 form-group">
 								<label for="select-gender" class="mb-0">Giới tính</label>
 								<select class="form-select rounded form-control-sm" id="select-gender" name="gender">
-									<option class="" selected>{{getGender serviceNote.scheduleID.customerID.gender}}</option>
+									<option class="" selected>{{getGender serviceNote.scheduleID.customerID.gender}}
+									</option>
 									<option class="" value="Nam">Nam</option>
 									<option class="" value="Nữ">Nữ</option>
 								</select>
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input-phone" class="mb-0">Số điện thoại</label>
-								<input id="input-phone" class="form-control rounded form-control-sm" type="text" value="0{{serviceNote.scheduleID.customerID.phone}}" name="phone">
+								<input id="input-phone" class="form-control rounded form-control-sm" type="text"
+									value="0{{serviceNote.scheduleID.customerID.phone}}" name="phone">
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input-home-town" class="mb-0">Quê quán</label>
-								<input id="input-home-town" class="form-control rounded form-control-sm" value="{{serviceNote.scheduleID.customerID.homeTown}}"
-								rules="required" type="text" name="homeTown" placeholder="VD: TP Hồ Chí Minh">
+								<input id="input-home-town" class="form-control rounded form-control-sm"
+									value="{{serviceNote.scheduleID.customerID.homeTown}}" rules="required" type="text"
+									name="homeTown" placeholder="VD: TP Hồ Chí Minh">
 								<span class="form-message mt-1"></span>
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input-height" class="mb-0">Chiều cao</label>
-								<input id="input-height" class="form-control rounded form-control-sm" value="{{serviceNote.scheduleID.customerID.height}}"
-								rules="required" type="text" name="height" placeholder="VD: 1.70">
+								<input id="input-height" class="form-control rounded form-control-sm"
+									value="{{serviceNote.scheduleID.customerID.height}}" rules="required" type="text"
+									name="height" placeholder="VD: 1.70">
 								<span class="form-message mt-1"></span>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-3 form-group">
 								<label for="input-weight" class="mb-0">Cân nặng</label>
-								<input id="input-weight" class="form-control rounded form-control-sm" value="{{serviceNote.scheduleID.customerID.weight}}"
-								rules="required" type="text" name="weight" placeholder="VD: 52kg">
+								<input id="input-weight" class="form-control rounded form-control-sm"
+									value="{{serviceNote.scheduleID.customerID.weight}}" rules="required" type="text"
+									name="weight" placeholder="VD: 52kg">
 								<span class="form-message mt-1"></span>
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input-surgeryDay" class="mb-0">Ngày phẩu thuật</label>
-								<input id="input-surgeryDay" class="form-control rounded form-control-sm" value="{{serviceNote.surgeryDay}}"
-								rules="required" type="datetime-local" name="surgeryDay">
+								<input id="input-surgeryDay" class="form-control rounded form-control-sm"
+									value="{{serviceNote.surgeryDay}}" rules="required" type="datetime-local"
+									name="surgeryDay">
 								<span class="form-message mt-1"></span>
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input-floor" class="mb-0">Khu vực phẩu thuật</label>
-								<input id="input-floor" class="form-control rounded form-control-sm" value="{{serviceNote.floor}}"
-								rules="required" type="text" name="floor" placeholder="VD: Phòng 3 tầng 8">
+								<input id="input-floor" class="form-control rounded form-control-sm"
+									value="{{serviceNote.floor}}" rules="required" type="text" name="floor"
+									placeholder="VD: Phòng 3 tầng 8">
 								<span class="form-message mt-1"></span>
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input-doctor" class="mb-0">Bác sĩ</label>
-								<input id="input-doctor" class="form-control rounded form-control-sm" value="{{#each doctor}}{{this.firstName}} {{this.lastName}}{{/each}}" type="text">
-								<input type="text" value="{{#each doctor}}{{this._id}}{{/each}}" name="performer" hidden>
+								<input id="input-doctor" class="form-control rounded form-control-sm"
+									value="{{#each doctor}}{{this.firstName}} {{this.lastName}}{{/each}}" type="text">
+								<input type="text" value="{{#each doctor}}{{this._id}}{{/each}}" name="performer"
+									hidden>
 							</div>
 						</div>
 						<div class="text-right">
-							<button id="submit-customer-form-btn" type="submit" class="btn btn-primary rounded-pill border">Cập nhật</button>
+							<button id="submit-customer-form-btn" type="submit"
+								class="btn btn-primary rounded-pill border">Cập nhật</button>
 						</div>
 					</li>
 				</ul>
 			</form>
 			<ul class="list-group mb-3 ms-2 me-2">
-				<label for="" class="ms-3"><strong>Cập nhật thông tin dịch vụ</strong></label>
+				<li class="list-group-item active text-center">
+					<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin dịch vụ</strong></label>
+				</li>
 				<li class="list-group-item">
 					<div class="row">
-						<div class="col-md-6">
-							<table class="table table-sm" style="height: 500px;">
-								<thead class="">
-									<tr class="">
-										<th scope="col">#</th>
-										<th scope="col">Dịch vụ</th>
-										<th scope="col">Chi phí</th>
-										<th scope="col" class="text-center">Hành động</th>
-									</tr>
-								</thead>
-								<tbody>
-									{{#each serviceNote.service}}
-									<tr class="table-row">
-										<th scope="row">{{sum @index 1}}</th>
-										<td>{{this.name}}</td>
-										<td>{{this.price}}</td>
-										<td class="text-center">
-											<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-												data-bs-target="#deleteService" data-service-note-id="{{serviceNote._id}}" data-service-id="{{this._id}}" data-service-name="{{this.name}}">
-												<i class="fa-sharp fa-solid fa-xmark"></i>
-											</button>
-										</td>
-									</tr>
-									{{/each}}
-								</tbody>
-							</table>
+						<div class="text-right">
+							<button id="add-services" class="btn btn-primary border-light mb-2 btn-mobile rounded-pill">
+								<i class="ti-plus mr-2"></i>Thêm dịch vụ
+							</button>
 						</div>
 						<div class="col-md-6">
-							<div class="text-right">
-								<button id="add-services" class="btn btn-primary border-light mb-2 btn-mobile rounded-pill">
-									<i class="ti-plus mr-2"></i>Thêm dịch vụ
-								</button>
-							</div>
-							<form method="POST" id="submit-service-form" action="/business/employ/service-note/{{serviceNote._id}}/service-info?_method=PUT">
-								<input type="text" value="{{serviceNote.scheduleID.customerID._id}}" name="cusID" hidden>
+							<ul class="list-group">
+								<li class="list-group-item container-content-page">
+									<table class="table table-sm">
+										<thead class="">
+											<tr class="">
+												<th scope="col">#</th>
+												<th scope="col">Dịch vụ</th>
+												<th scope="col">Chi phí</th>
+												<th scope="col" class="text-center">Xóa dịch vụ</th>
+											</tr>
+										</thead>
+										<tbody>
+											{{#each serviceNote.service}}
+											<tr class="table-row">
+												<th scope="row">{{sum @index 1}}</th>
+												<td>{{this.name}}</td>
+												<td>{{this.price}}</td>
+												<td class="text-center">
+													<button type="button" class="btn btn-danger btn-sm"
+														data-bs-toggle="modal" data-bs-target="#deleteService"
+														data-service-note-id="{{serviceNote._id}}"
+														data-service-id="{{this._id}}"
+														data-service-name="{{this.name}}">
+														<i class="fa-sharp fa-solid fa-xmark"></i>
+													</button>
+												</td>
+											</tr>
+											{{/each}}
+										</tbody>
+									</table>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<form method="POST" id="submit-service-form"
+								action="/business/employ/service-note/{{serviceNote._id}}/service-info?_method=PUT">
+								<input type="text" value="{{serviceNote.scheduleID.customerID._id}}" name="cusID"
+									hidden>
 								<div class="list-group p-0 mb-3">
 									<div id="service-container" class="list-group-item container-content-page p-2 ml-0">
 									</div>
 								</div>
 								<div class="form-group">
 									<label for="totalServiceCharge" class="mb-0">Tổng phí dịch vụ</label>
-									<input id="totalServiceCharge" class="form-control text-right text-danger fw-bold bg-white"
-									rules="requiredService" type="text" readonly name="totalServiceCharge">
+									<input id="totalServiceCharge"
+										class="form-control text-right text-danger fw-bold bg-white"
+										rules="requiredService" type="text" readonly name="totalServiceCharge">
 									<span id="messageTotalServiceCharge" class="form-message mt-1"></span>
 								</div>
 								<div class="mb-2">
 									<label for="deposit" class="mb-0">Đặt cọc</label>
-									<input id="deposit"class="form-control text-right text-warning fw-bold bg-white"
+									<input id="deposit" class="form-control text-right text-warning fw-bold bg-white"
 										type="text" value="{{serviceNote.scheduleID.deposit}}" name="deposit" readonly>
 								</div>
 								<div class="form-group">
 									<label for="discount" class="mb-0">Giảm giá</label>
-									<input id="discount" class="form-control text-right text-info fw-bold bg-white" value="0"
-									rules="isNumCurrency" name="discount" type="text">
+									<input id="discount" class="form-control text-right text-info fw-bold bg-white"
+										value="0" rules="isNumCurrency" name="discount" type="text">
 									<span class="form-message mt-1"></span>
 								</div>
-								<div class="mb-2">
-									<label for="amount-to-be-paid" class="mb-0">Số tiền khách thanh toán</label>
-									<input id="amount-to-be-paid" class="form-control text-right text-danger fw-bold bg-white"
-										type="text" readonly name="amountToBePaid" value="0">
-								</div>
 								<div class="mb-3">
-									{{!-- <label for="total" class="mb-0">Thành tiền</label> --}}
-									<input id="total" class="form-control text-right text-danger fw-bold bg-white"
-										type="text" readonly name="total" hidden>
+									<label for="amount-to-be-paid" class="mb-0">Số tiền khách thanh toán</label>
+									<input id="amount-to-be-paid"
+										class="form-control text-right text-danger fw-bold bg-white" type="text"
+										readonly name="amountToBePaid" value="0">
 								</div>
+								<input id="total" class="form-control text-right text-danger fw-bold bg-white"
+									type="text" readonly name="total" hidden>
 								<div class="text-right mb-3">
-									<button id="submit-service-form-btn" type="submit" class="btn btn-primary btn-mobile rounded-pill">Cập nhật</button>
+									<button id="submit-service-form-btn" type="submit"
+										class="btn btn-primary btn-mobile rounded-pill">Cập nhật</button>
 								</div>
 							</form>
 						</div>
 					</div>
 				</li>
 			</ul>
-			<ul class="list-group mb-3 ms-2 me-2">
-				<label for="" class="ms-3"><strong>Cập nhật thông tin thực hiện phẫu thuật</strong></label>
+			<ul class="list-group mb-2 ms-2 me-2">
+				<li class="list-group-item active text-center">
+					<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin thực hiện phẫu
+							thuật</strong></label>
+				</li>
 				<li class="list-group-item mb-3">
 					<div class="accordion accordion-flush" id="accordionFlush-{{serviceNote._id}}">
-						<div class="accordion-item bg-transparent">
-							<h2 class="accordion-header bg-transparent" id="flush-counselor-{{serviceNote._id}}">
-								<button class="accordion-button collapsed bg-transparent text-light" type="button"
-									data-bs-toggle="collapse"
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-counselor-{{serviceNote._id}}">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 									data-bs-target="#flush-collapse-counselor-{{serviceNote._id}}" aria-expanded="false"
 									aria-controls="flush-collapse-counselor-{{serviceNote._id}}">
 									Thông tin tư vấn
@@ -310,26 +382,103 @@
 								aria-labelledby="flush-counselor-{{serviceNote._id}}"
 								data-bs-parent="#accordionFlush-{{serviceNote._id}}">
 								<div class="accordion-body">
+									<form method="POST" name="deleteImgCounselorForm">
+										<div class="row mb-2">
+											<div class="col-md-6 rounded-pill-left">
+												<div class="mb-2 d-flex justify-content-between">
+													<div class="d-flex align-items-center">
+														<div class="form-check mr-3">
+															<input class="form-check-input" type="checkbox" value="" id="checkboxAllImgCounselor">
+															<label class="form-check-label" for="checkboxAllImgCounselor">
+																Chọn tất cả
+															</label>
+														</div>
+														<button id="deleteImgCounselorBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
+													</div>
+													<span class="badge bg-primary fs-6">
+														{{#if serviceNote.counselorImg}}
+														Tất cả hình ảnh <span class="badge bg-danger">{{serviceNote.counselorImg.length}}</span>
+														{{/if}}
+													</span>
+												</div>
+												<div class="row border overflow-auto rounded-start" style="height: 350px;">
+													{{#each serviceNote.counselorImg}}
+													<div class="col-md-4 mt-2 mb-2">
+														
+														<div class="float-right">
+															<input class="form-check-input" type="checkbox" value="" name="imgIDs[]">
+														</div>
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModal" data-img="{{this.name}}">
+															<img class="img-fluid"
+																src="/counselor/img/{{this.name}}">
+														</a>
+													</div>
+													{{/each}}
+												</div>
+											</div>
+											<div class="col-md-6 rounded-pill-right">
+												<div class="mb-2 d-flex align-items-center">
+													<div class="form-check mr-3">
+														<input class="form-check-input" type="checkbox" value="" id="checkboxAllVideoCounselor">
+														<label class="form-check-label" for="checkboxAllVideoCounselor">
+															Chọn tất cả
+														</label>
+													</div>
+													<button  id="deleteVideoCounselorBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
+												</div>
+												<div class="row border overflow-auto rounded-end" style="height: 350px;">
+													{{#each serviceNote.counselorVideo}}
+													<div class="col-md-4 mt-2 mb-2">
+														<span class="badge rounded-pill bg-primary fs-6">
+															{{sum @index 1}} /
+															{{../serviceNote.counselorVideo.length}}
+														</span>
+														<div class="float-right">
+															<input class="form-check-input" type="checkbox" value="" name="videoIDs[]">
+														</div>
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="{{this.name}}">
+															<video class="img-fluid"
+																src="/counselor/video/{{this.name}}" controls>
+														</a>
+													</div>
+													{{/each}}
+												</div>
+											</div>
+										</div>
+									</form>
 									<form method="POST" id="submit-counselor-form"
-										action="/operating-room/nursing/customer-information/{{serviceNote._id}}/operating-counselor"
+										action="/business/employ/service-note/{{serviceNote._id}}/operating-counselor"
 										enctype="multipart/form-data">
 										<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
 											name="customerID">
-										<div class="row">
-											<div class="col-md-6">
-												<div class="slideshow-container mt-3 mb-3">
+										{{!-- <div class="row mb-2">
+											<div class="col-md-6 rounded-pill-left">
+												<button class="btn btn-primary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+													Xóa ảnh
+												</button>
+												
+												<div class="collapse" id="collapseExample">
+												</div>
+												<div class="slideshow-container mt-3 mb-3 bg-secondary">
 													<!-- Full-width images with number and caption text -->
 													{{#if serviceNote.counselorImg}}
 													{{#each serviceNote.counselorImg}}
 													<div class="slide-counselor-img fadeOn">
-														<img class="figure-img img-fluid rounded img-cover img-center"
+														<div class="numbertext">
+															<span class="badge rounded-pill bg-primary fs-6">
+																{{sum @index 1}} /
+																{{../serviceNote.counselorImg.length}}
+															</span>
+														</div>
+														<img
+															class="figure-img img-fluid rounded img-cover img-center"
 															src="{{this.url}}">
-														{{!-- <img class="figure-img img-fluid rounded img-cover img-center"
-															src="/counselor/img/{{this.name}}"> --}}
+														<img class="figure-img img-fluid rounded img-cover img-center mb-0"
+															src="/counselor/img/{{this.name}}">
 													</div>
 													{{/each}}
 													{{else}}
-													<div class="slide-counselor-img fadeOn text-center text-light">
+													<div class="slide-counselor-img fadeOn text-center">
 														Chưa có hình ảnh
 													</div>
 													{{/if}}
@@ -339,25 +488,41 @@
 													<a class="next" onclick="plusSlidesCounselorImg(1)">&#10095;</a>
 													<div style="text-align:center">
 														{{#each serviceNote.counselorImg}}
-														<span class="dot" onclick="currentSlideCounselorImg({{@index}})"></span>
+														<span class="dot"
+															onclick="currentSlideCounselorImg({{@index}})"></span>
 														{{/each}}
 													</div>
 												</div>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-6 rounded-pill-right">
+												<button class="btn btn-primary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVideo" aria-expanded="false" aria-controls="collapseExample">
+													Xóa ảnh
+												</button>
+												
+												<div class="collapse" id="collapseVideo">
+												</div>
 												<div class="slideshow-container mt-3 mb-3">
 													<!-- Full-width images with number and caption text -->
 													{{#if serviceNote.counselorVideo}}
 													{{#each serviceNote.counselorVideo}}
 													<div class="slide-counselor-video fadeOn">
-														<video class="figure-img img-fluid rounded video-cover-slide img-center" controls>
+														<div class="numbertext">
+															<span class="badge rounded-pill bg-primary fs-6">
+																{{sum @index 1}} /
+																{{../serviceNote.counselorVideo.length}}
+															</span>
+														</div>
+														<video
+															class="figure-img img-fluid rounded video-cover-slide img-center mb-0"
+															controls>
+															
 															<source src="{{this.url}}">
-															{{!-- <source src="/counselor/video/{{this.name}}" type="video/quicktime"> --}}
+															<source src="/counselor/video/{{this.name}}">
 														</video>
 													</div>
 													{{/each}}
 													{{else}}
-													<div class="slide-counselor-video fadeOn text-center text-light">
+													<div class="slide-counselor-video fadeOn text-center">
 														Chưa có video
 													</div>
 													{{/if}}
@@ -373,40 +538,43 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> --}}
 										<!-- Slideshow container -->
-										<div class="row">
-											<div class="col-md-6 mb-4">
-												<div class="preview-images-counselor row ml-0 text-center"></div>
+										<div class="row ps-0 pe-0">
+											<div class="col-md-6 mb-3 ps-3 pe-4">
+												<div class="preview-images-counselor row ml-0 text-center border rounded"
+													style="height: 300px; width: auto;"></div>
 												<label for="input-multi-images-counselor"
-													class="label-avt d-flex justify-content-center"
+													class="label-avt d-flex justify-content-center mt-3"
 													data-input-img-id="{{serviceNote._id}}">
 													<h5 id="text-img-counselor"
-														class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn</h5>
+														class="btn bg-secondary text-light text-uppercase btn-mobile rounded-pill border">
+														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn
+													</h5>
 												</label>
 												<input id="input-multi-images-counselor" class="form-control"
 													type="file" name="counselor" hidden multiple>
 											</div>
-											<div class="col-md-6">
-												<div class="preview-videos-counselor row ml-0 text-center"></div>
+											<div class="col-md-6 mb-3 ps-3 pe-4">
+												<div class="preview-videos-counselor row ml-0 text-center border rounded"
+													style="height: 300px; width: auto;"></div>
 												<label for="input-multi-videos-counselor"
-													class="label-avt d-flex justify-content-center"
+													class="label-avt d-flex justify-content-center mt-3"
 													data-input-img-id="{{serviceNote._id}}">
 													<h5 id="text-img-counselor"
 														class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn</h5>
+														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn
+													</h5>
 												</label>
 												<input id="input-multi-videos-counselor" class="form-control"
 													type="file" name="counselor" hidden multiple>
 											</div>
-											<div class="text-light">
+											<div class="">
 												<label for="steps-to-take-area"><strong>Thông tin tư
 														vấn:</strong></label>
 											</div>
 											<div class="mb-4">
-												<textarea class="form-control mr-3 pl-3 bg-transparent text-light"
-													name="counselorInfo" cols="30"
+												<textarea class="form-control mr-3 pl-3 " name="counselorInfo" cols="30"
 													rows="8">{{serviceNote.counselorInfo}}</textarea>
 											</div>
 											<div class="text-right">
@@ -419,10 +587,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item bg-transparent">
-							<h2 class="accordion-header bg-transparent" id="flush-before-{{serviceNote._id}}">
-								<button class="accordion-button collapsed bg-transparent text-light" type="button"
-									data-bs-toggle="collapse"
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-before-{{serviceNote._id}}">
+								<button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
 									data-bs-target="#flush-collapse-before-{{serviceNote._id}}" aria-expanded="false"
 									aria-controls="flush-collapse-before-{{serviceNote._id}}">
 									Thông tin trước phẩu
@@ -433,25 +600,31 @@
 								data-bs-parent="#accordionFlush-{{serviceNote._id}}">
 								<div class="accordion-body">
 									<form method="POST" id="submit-before-form"
-										action="/operating-room/nursing/customer-information/{{serviceNote._id}}/operating-before"
+										action="/business/employ/service-note/{{serviceNote._id}}/operating-before"
 										enctype="multipart/form-data">
 										<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
 											name="customerID">
 										<div class="row">
 											<div class="col-md-6">
-												<div class="slideshow-container mt-3 mb-3">
+												<div class="slideshow-container mt-3 mb-3 border rounded">
 													<!-- Full-width images with number and caption text -->
 													{{#if serviceNote.beforeImg}}
 													{{#each serviceNote.beforeImg}}
 													<div class="slide-before-img fadeOn">
-														<img class="figure-img img-fluid rounded img-cover img-center"
-															src="{{this.url}}">
-														{{!-- <img class="figure-img img-fluid rounded img-cover img-center"
-															src="/before/img/{{this.name}}"> --}}
+														<div class="numbertext">
+															<span class="badge rounded-pill bg-primary fs-6">
+																{{sum @index 1}} / {{../serviceNote.beforeImg.length}}
+															</span>
+														</div>
+														{{!-- <img
+															class="figure-img img-fluid rounded img-cover img-center"
+															src="{{this.url}}"> --}}
+														<img class="figure-img img-fluid rounded img-cover img-center mb-0"
+															src="/before/img/{{this.name}}">
 													</div>
 													{{/each}}
 													{{else}}
-													<div class="slide-before-img fadeOn text-center text-light">
+													<div class="slide-before-img fadeOn text-center ">
 														Chưa có hình ảnh
 													</div>
 													{{/if}}
@@ -459,28 +632,36 @@
 													<a class="prev" onclick="plusSlidesBeforeImg(-1)">&#10094;</a>
 													<a class="next" onclick="plusSlidesBeforeImg(1)">&#10095;</a>
 													<!-- The dots/circles -->
-													<div style="text-align:center">
+													{{!-- <div style="text-align:center">
 														{{#each serviceNote.beforeImg}}
-														<span class="dot" onclick="currentSlideBeforeImg({{@index}})"></span>
+														<span class="dot"
+															onclick="currentSlideBeforeImg({{@index}})"></span>
 														{{/each}}
-													</div>
+													</div> --}}
 												</div>
 											</div>
 											<div class="col-md-6">
-												<div class="slideshow-container mt-3 mb-3">
+												<div class="slideshow-container mt-3 mb-3 border rounded">
 													<!-- Full-width images with number and caption text -->
 													{{#if serviceNote.beforeVideo}}
 													{{#each serviceNote.beforeVideo}}
 													<div class="slide-before-video fadeOn">
-														<video class="figure-img img-fluid rounded video-cover-slide img-center"
+														<div class="numbertext">
+															<span class="badge rounded-pill bg-primary fs-6">
+																{{sum @index 1}} / {{../serviceNote.beforeVideo.length}}
+															</span>
+														</div>
+														<video
+															class="figure-img img-fluid rounded video-cover-slide img-center mb-0"
 															controls>
-															<source src="{{this.url}}">
-															{{!--<source src="/before/video/{{this.name}}"> --}}
+															{{!--
+															<source src="{{this.url}}"> --}}
+															<source src="/before/video/{{this.name}}">
 														</video>
 													</div>
 													{{/each}}
 													{{else}}
-													<div class="slide-before-video fadeOn text-center text-light">
+													<div class="slide-before-video fadeOn text-center ">
 														Chưa có video
 													</div>
 													{{/if}}
@@ -488,48 +669,52 @@
 													<a class="prev" onclick="plusSlidesBeforeVideo(-1)">&#10094;</a>
 													<a class="next" onclick="plusSlidesBeforeVideo(1)">&#10095;</a>
 													<!-- The dots/circles -->
-													<div style="text-align:center">
+													{{!-- <div style="text-align:center">
 														{{#each serviceNote.beforeVideo}}
-														<span class="dot" onclick="currentSlideBeforeVideo({{@index}})"></span>
+														<span class="dot"
+															onclick="currentSlideBeforeVideo({{@index}})"></span>
 														{{/each}}
-													</div>
+													</div> --}}
 												</div>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-md-6 mb-4">
-												<div class="preview-images-before row ml-0 text-center"></div>
+											<div class="col-md-6 mb-3 ps-3 pe-4">
+												<div class="preview-images-before row ml-0 text-center border rounded"
+													style="height: 300px; width: auto;"></div>
 												<label for="input-multi-images-before"
-													class="label-avt d-flex justify-content-center"
+													class="label-avt d-flex justify-content-center mt-3"
 													data-input-img-id="{{serviceNote._id}}">
 													<h5 id="text-img-before"
 														class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
 														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh trước phẩu
-														thuật</h5>
+														thuật
+													</h5>
 												</label>
 												<input id="input-multi-images-before" class="form-control" type="file"
 													name="before" hidden multiple>
 											</div>
-											<div class="col-md-6">
-												<div class="preview-videos-before row ml-0 text-center"></div>
+											<div class="col-md-6 mb-3 ps-3 pe-4">
+												<div class="preview-videos-before row ml-0 text-center border rounded"
+													style="height: 300px; width: auto;"></div>
 												<label for="input-multi-videos-before"
-													class="label-avt d-flex justify-content-center"
+													class="label-avt d-flex justify-content-center mt-3"
 													data-input-img-id="{{serviceNote._id}}">
 													<h5 id="text-img-before"
 														class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
 														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video trước phẩu
-														thuật</h5>
+														thuật
+													</h5>
 												</label>
 												<input id="input-multi-videos-before" class="form-control" type="file"
 													name="before" hidden multiple>
 											</div>
-											<div class="text-light">
+											<div class="">
 												<label for="steps-to-take-area"><strong>Thông tin trước phẩu
 														thuật:</strong></label>
 											</div>
 											<div class="mb-4">
-												<textarea style="width: inherit;"
-													class="form-control mr-3 pl-3 bg-transparent text-light"
+												<textarea style="width: inherit;" class="form-control mr-3 pl-3 "
 													name="beforeInfo" cols="30"
 													rows="8">{{serviceNote.beforeInfo}}</textarea>
 											</div>
@@ -543,11 +728,11 @@
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item bg-transparent">
-							<h2 class="accordion-header bg-transparent" id="flush-in-{{serviceNote._id}}">
-								<button class="accordion-button collapsed bg-transparent text-light" type="button"
-									data-bs-toggle="collapse" data-bs-target="#flush-collapse-in-{{serviceNote._id}}"
-									aria-expanded="false" aria-controls="flush-collapse-in-{{serviceNote._id}}">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-in-{{serviceNote._id}}">
+								<button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
+									data-bs-target="#flush-collapse-in-{{serviceNote._id}}" aria-expanded="false"
+									aria-controls="flush-collapse-in-{{serviceNote._id}}">
 									Thông tin phẩu thuật
 								</button>
 							</h2>
@@ -556,25 +741,32 @@
 								data-bs-parent="#accordionFlush-{{serviceNote._id}}">
 								<div class="accordion-body">
 									<form method="POST" id="submit-inSurgery-form"
-										action="/operating-room/nursing/customer-information/{{serviceNote._id}}/operating-in-surgery"
+										action="/business/employ/service-note/{{serviceNote._id}}/operating-in-surgery"
 										enctype="multipart/form-data">
 										<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
 											name="customerID">
 										<div class="row">
 											<div class="col-md-6">
-												<div class="slideshow-container mt-3 mb-3">
+												<div class="slideshow-container mt-3 mb-3 border rounded">
 													<!-- Full-width images with number and caption text -->
 													{{#if serviceNote.inSurgeryImg}}
 													{{#each serviceNote.inSurgeryImg}}
 													<div class="slide-in-img fadeOn">
-														<img class="figure-img img-fluid rounded img-cover img-center"
-															src="{{this.url}}">
-														{{!-- <img class="figure-img img-fluid rounded img-cover img-center"
-															src="/in-surgery/img/{{this.name}}"> --}}
+														<div class="numbertext">
+															<span class="badge rounded-pill bg-primary fs-6">
+																{{sum @index 1}} /
+																{{../serviceNote.inSurgeryImg.length}}
+															</span>
+														</div>
+														{{!-- <img
+															class="figure-img img-fluid rounded img-cover img-center"
+															src="{{this.url}}"> --}}
+														<img class="figure-img img-fluid rounded img-cover img-center mb-0"
+															src="/in-surgery/img/{{this.name}}">
 													</div>
 													{{/each}}
 													{{else}}
-													<div class="slide-in-img fadeOn text-center text-light">
+													<div class="slide-in-img fadeOn text-center">
 														Chưa có hình ảnh
 													</div>
 													{{/if}}
@@ -583,28 +775,37 @@
 													<a class="prev" onclick="plusSlidesInImg(-1)">&#10094;</a>
 													<a class="next" onclick="plusSlidesInImg(1)">&#10095;</a>
 													<!-- The dots/circles -->
-													<div style="text-align:center">
+													{{!-- <div style="text-align:center">
 														{{#each serviceNote.inSurgeryImg}}
-														<span class="dot" onclick="currentSlideInImg({{@index}})"></span>
+														<span class="dot"
+															onclick="currentSlideInImg({{@index}})"></span>
 														{{/each}}
-													</div>
+													</div> --}}
 												</div>
 											</div>
 											<div class="col-md-6">
-												<div class="slideshow-container mt-3 mb-3">
+												<div class="slideshow-container mt-3 mb-3 border rounded">
 													<!-- Full-width images with number and caption text -->
 													{{#if serviceNote.inSurgeryVideo}}
 													{{#each serviceNote.inSurgeryVideo}}
 													<div class="slide-in-video fadeOn">
-														<video class="figure-img img-fluid rounded video-cover-slide img-center"
+														<div class="numbertext">
+															<span class="badge rounded-pill bg-primary fs-6">
+																{{sum @index 1}} /
+																{{../serviceNote.inSurgeryVideo.length}}
+															</span>
+														</div>
+														<video
+															class="figure-img img-fluid rounded video-cover-slide img-center mb-0"
 															controls>
-															<source src="{{this.url}}">
-															{{!--<source src="/in-surgery/video/{{this.name}}"> --}}
+															{{!--
+															<source src="{{this.url}}"> --}}
+															<source src="/in-surgery/video/{{this.name}}">
 														</video>
 													</div>
 													{{/each}}
 													{{else}}
-													<div class="slide-in-video fadeOn text-center text-light">
+													<div class="slide-in-video fadeOn text-center ">
 														Chưa có video
 													</div>
 													{{/if}}
@@ -613,31 +814,35 @@
 													<a class="prev" onclick="plusSlidesInVideo(-1)">&#10094;</a>
 													<a class="next" onclick="plusSlidesInVideo(1)">&#10095;</a>
 													<!-- The dots/circles -->
-													<div style="text-align:center">
+													{{!-- <div style="text-align:center">
 														{{#each serviceNote.inSurgeryVideo}}
-														<span class="dot" onclick="currentSlideInVideo({{@index}})"></span>
+														<span class="dot"
+															onclick="currentSlideInVideo({{@index}})"></span>
 														{{/each}}
-													</div>
+													</div> --}}
 												</div>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-md-6 mb-4">
-												<div class="preview-images-in-surgery row ml-0 text-center"></div>
+											<div class="col-md-6 mb-3 ps-3 pe-4">
+												<div class="preview-images-in-surgery row ml-0 text-center border rounded"
+													style="height: 300px; width: auto;"></div>
 												<label for="input-multi-images-in-surgery"
-													class="label-avt d-flex justify-content-center"
+													class="label-avt d-flex justify-content-center mt-3"
 													data-input-img-id="{{serviceNote._id}}">
 													<h5 id="text-img-in-surgery"
 														class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh phẩu thuật</h5>
+														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh phẩu thuật
+													</h5>
 												</label>
 												<input id="input-multi-images-in-surgery" class="form-control"
 													type="file" name="inSurgery" hidden multiple>
 											</div>
-											<div class="col-md-6">
-												<div class="preview-videos-in-surgery row ml-0 text-center"></div>
+											<div class="col-md-6 mb-3 ps-3 pe-4">
+												<div class="preview-videos-in-surgery row ml-0 text-center border rounded"
+													style="height: 300px; width: auto;"></div>
 												<label for="input-multi-videos-in-surgery"
-													class="label-avt d-flex justify-content-center"
+													class="label-avt d-flex justify-content-center mt-3"
 													data-input-img-id="{{serviceNote._id}}">
 													<h5 id="text-img-in-surgery"
 														class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
@@ -647,13 +852,12 @@
 												<input id="input-multi-videos-in-surgery" class="form-control"
 													type="file" name="inSurgery" hidden multiple>
 											</div>
-											<div class="text-light">
+											<div class="">
 												<label for="steps-to-take-area"><strong>Các bước thực
 														hiện:</strong></label>
 											</div>
 											<div class="mb-4">
-												<textarea class="form-control mr-3 pl-3 bg-transparent text-light"
-													name="stepsToTake" cols="30"
+												<textarea class="form-control mr-3 pl-3 " name="stepsToTake" cols="30"
 													rows="8">{{serviceNote.stepsToTake}}</textarea>
 											</div>
 											<div class="text-right">
@@ -666,12 +870,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="accordion-item bg-transparent">
-							<h2 class="accordion-header bg-transparent" id="flush-after-{{serviceNote._id}}">
-								<button class="accordion-button collapsed bg-transparent text-light" type="button"
-									data-bs-toggle="collapse" data-bs-target="#flush-collapse-after-{{serviceNote._id}}"
-									aria-expanded="false" aria-controls="flush-collapse-after-{{serviceNote._id}}">
-									Thông tin hậu phẩu - hồi sức
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="flush-after-{{serviceNote._id}}">
+								<button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
+									data-bs-target="#flush-collapse-after-{{serviceNote._id}}" aria-expanded="false"
+									aria-controls="flush-collapse-after-{{serviceNote._id}}">
+									Thông tin thay băng cắt chỉ
 								</button>
 							</h2>
 							<div id="flush-collapse-after-{{serviceNote._id}}" class="accordion-collapse collapse"
@@ -679,25 +883,31 @@
 								data-bs-parent="#accordionFlush-{{serviceNote._id}}">
 								<div class="accordion-body">
 									<form method="POST" id="submit-after-form"
-										action="/operating-room/nursing/customer-information/{{serviceNote._id}}/operating-after"
+										action="/business/employ/service-note/{{serviceNote._id}}/operating-after"
 										enctype="multipart/form-data">
 										<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
 											name="customerID">
 										<div class="row">
 											<div class="col-md-6">
-												<div class="slideshow-container mt-3 mb-3">
+												<div class="slideshow-container mt-3 mb-3 border rounded">
 													<!-- Full-width images with number and caption text -->
 													{{#if serviceNote.afterImg}}
 													{{#each serviceNote.afterImg}}
 													<div class="slide-after-img fadeOn">
-														<img class="figure-img img-fluid rounded img-cover img-center"
-															src="{{this.url}}">
-														{{!-- <img class="figure-img img-fluid rounded img-cover img-center"
-															src="/after/img/{{this.name}}"> --}}
+														<div class="numbertext">
+															<span class="badge rounded-pill bg-primary fs-6">
+																{{sum @index 1}} / {{../serviceNote.afterImg.length}}
+															</span>
+														</div>
+														{{!-- <img
+															class="figure-img img-fluid rounded img-cover img-center"
+															src="{{this.url}}"> --}}
+														<img class="figure-img img-fluid rounded img-cover img-center mb-0"
+															src="/after/img/{{this.name}}">
 													</div>
 													{{/each}}
 													{{else}}
-													<div class="slide-after-img fadeOn text-center text-light">
+													<div class="slide-after-img fadeOn text-center ">
 														Chưa có hình ảnh
 													</div>
 													{{/if}}
@@ -706,28 +916,36 @@
 													<a class="prev" onclick="plusSlidesAfterImg(-1)">&#10094;</a>
 													<a class="next" onclick="plusSlidesAfterImg(1)">&#10095;</a>
 													<!-- The dots/circles -->
-													<div style="text-align:center">
+													{{!-- <div style="text-align:center">
 														{{#each serviceNote.afterImg}}
-														<span class="dot" onclick="currentSlideAfterImg({{@index}})"></span>
+														<span class="dot"
+															onclick="currentSlideAfterImg({{@index}})"></span>
 														{{/each}}
-													</div>
+													</div> --}}
 												</div>
 											</div>
 											<div class="col-md-6">
-												<div class="slideshow-container mt-3 mb-3">
+												<div class="slideshow-container mt-3 mb-3 border rounded">
 													<!-- Full-width images with number and caption text -->
 													{{#if serviceNote.afterVideo}}
 													{{#each serviceNote.afterVideo}}
 													<div class="slide-after-video fadeOn">
-														<video class="figure-img img-fluid rounded video-cover-slide img-center"
+														<div class="numbertext">
+															<span class="badge rounded-pill bg-primary fs-6">
+																{{sum @index 1}} / {{../serviceNote.afterVideo.length}}
+															</span>
+														</div>
+														<video
+															class="figure-img img-fluid rounded video-cover-slide img-center mb-0"
 															controls>
-															<source src="{{this.url}}">
-															{{!--<source src="/after/video/{{this.name}}"> --}}
+															{{!--
+															<source src="{{this.url}}"> --}}
+															<source src="/after/video/{{this.name}}">
 														</video>
 													</div>
 													{{/each}}
 													{{else}}
-													<div class="slide-after-video fadeOn text-center text-light">
+													<div class="slide-after-video fadeOn text-center ">
 														Chưa có video
 													</div>
 													{{/if}}
@@ -736,82 +954,84 @@
 													<a class="prev" onclick="plusSlidesAfterVideo(-1)">&#10094;</a>
 													<a class="next" onclick="plusSlidesAfterVideo(1)">&#10095;</a>
 													<!-- The dots/circles -->
-													<div style="text-align:center">
+													{{!-- <div style="text-align:center">
 														{{#each serviceNote.afterVideo}}
-														<span class="dot" onclick="currentSlideAfterVideo({{@index}})"></span>
+														<span class="dot"
+															onclick="currentSlideAfterVideo({{@index}})"></span>
 														{{/each}}
-													</div>
+													</div> --}}
 												</div>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col-md-6 mb-4">
-												<div class="preview-images-after row ml-0 text-center"></div>
+											<div class="col-md-6 mb-3 ps-3 pe-4">
+												<div class="preview-images-after row ml-0 text-center border rounded"
+													style="height: 300px; width: auto;"></div>
 												<label for="input-multi-images-after"
-													class="label-avt d-flex justify-content-center"
+													class="label-avt d-flex justify-content-center mt-3"
 													data-input-img-id="{{serviceNote._id}}">
 													<h5 id="text-img-after"
 														class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill">
-														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh hậu phẩu</h5>
+														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh hậu phẩu
+													</h5>
 												</label>
 												<input id="input-multi-images-after" class="form-control" type="file"
 													name="after" hidden multiple>
 											</div>
-											<div class="col-md-6">
-												<div class="preview-videos-after row ml-0 text-center"></div>
+											<div class="col-md-6 mb-3 ps-3 pe-4">
+												<div class="preview-videos-after row ml-0 text-center border rounded"
+													style="height: 300px; width: auto;"></div>
 												<label for="input-multi-videos-after"
-													class="label-avt d-flex justify-content-center"
+													class="label-avt d-flex justify-content-center mt-3"
 													data-input-img-id="{{serviceNote._id}}">
 													<h5 id="text-img-after"
 														class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill">
-														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video hậu phẩu</h5>
+														<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video hậu phẩu
+													</h5>
 												</label>
 												<input id="input-multi-videos-after" class="form-control" type="file"
 													name="after" hidden multiple>
 											</div>
-											<div class="row">
-												<div class="col-md-4">
-													<div class="text-light">
-														<label for="steps-to-take-area"><strong>Tình trạng khách
-																hàng:</strong></label>
-													</div>
-													<div class="mb-4">
-														<textarea style="width: 100%;"
-															class="form-control pl-3 bg-transparent text-light"
-															name="statusAfterInfo" cols="30"
-															rows="8">{{serviceNote.statusAfterInfo}}</textarea>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="text-light">
-														<label for="steps-to-take-area"><strong>Chỉ định bác
-																sĩ:</strong></label>
-													</div>
-													<div class="mb-4">
-														<textarea style="width: 100%;"
-															class="form-control pl-3 bg-transparent text-light"
-															name="directedByDoctor" cols="30"
-															rows="8">{{serviceNote.directedByDoctor}}</textarea>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="text-light">
-														<label for="steps-to-take-area"><strong>Các bước thực
-																hiện:</strong></label>
-													</div>
-													<div class="mb-4">
-														<textarea style="width: 100%;"
-															class="form-control bg-transparent text-light"
-															name="afterInfo" cols="30"
-															rows="8">{{serviceNote.afterInfo}}</textarea>
-													</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4">
+												{{!-- <div class="">
+												</div> --}}
+												<label for="steps-to-take-area"><strong>Tình trạng khách
+														hàng:</strong></label>
+												<div class="mb-4">
+													<textarea style="width: 100%;" class="form-control pl-3 "
+														name="statusAfterInfo" cols="30"
+														rows="8">{{serviceNote.statusAfterInfo}}</textarea>
 												</div>
 											</div>
-											<div class="text-right">
-												<button id="submit-after-form-btn"
-													class="btn btn-primary btn-mobile rounded-pill border">Cập
-													nhật</button>
+											<div class="col-md-4">
+												{{!-- <div class="">
+												</div> --}}
+												<label for="steps-to-take-area"><strong>Chỉ định bác
+														sĩ:</strong></label>
+												<div class="mb-4">
+													<textarea style="width: 100%;" class="form-control pl-3 "
+														name="directedByDoctor" cols="30"
+														rows="8">{{serviceNote.directedByDoctor}}</textarea>
+												</div>
 											</div>
+											<div class="col-md-4">
+												<div class="">
+													<label for="steps-to-take-area"><strong>Các bước thực
+															hiện:</strong></label>
+												</div>
+												<div class="mb-4">
+													<textarea style="width: 100%;" class="form-control "
+														name="afterInfo" cols="30"
+														rows="8">{{serviceNote.afterInfo}}</textarea>
+												</div>
+											</div>
+										</div>
+										<div class="text-right">
+											<button id="submit-after-form-btn"
+												class="btn btn-primary btn-mobile rounded-pill border">Cập
+												nhật</button>
 										</div>
 									</form>
 								</div>
@@ -820,35 +1040,24 @@
 					</div>
 				</li>
 			</ul>
-			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active ps-3 pe-3" id="customer" role="tabpanel" aria-labelledby="home-tab">
-				</div>
-				{{!-- <div class="tab-pane fade pe-3 ps-3 mt-2" id="service" role="tabpanel" aria-labelledby="profile-tab">
-				</div>
-				<div class="tab-pane fade pe-3 ps-3 mt-2" id="operating-room" role="tabpanel" aria-labelledby="contact-tab">
-				</div> --}}
-			</div>
-        </div>
-    </div>
-</div>
-{{!-- <div class="d-flex">
-    {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
-	<div class="w-100">
-		
+		</div>
 	</div>
-</div> --}}
+</div>
 
 <div class="modal fade" id="deleteService" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header bg-danger">
-				<h5 class="modal-title text-light" id="exampleModalLabel">Xóa dịch vụ</h5>
-				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+				<h5 class="modal-title " id="exampleModalLabel">Xóa dịch vụ</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form id="deleteServiceForm" method="POST" action="/operating-room/nursing/service-note/service/{{serviceNote._id}}/delete?_method=DELETE">
+				<form id="deleteServiceForm" method="POST"
+					action="/business/employ/service-note/service/{{serviceNote._id}}/delete?_method=DELETE">
 					<input id="serviceID" type="text" name="serviceID" hidden>
-					<input id="customerID" type="text" name="customerID" value="{{serviceNote.scheduleID.customerID._id}}" hidden>
+					<input id="customerID" type="text" name="customerID"
+						value="{{serviceNote.scheduleID.customerID._id}}" hidden>
 					Bạn chắc chắn muốn xóa dịch vụ <strong id="serviceName"></strong>?
 				</form>
 			</div>
@@ -859,6 +1068,37 @@
 		</div>
 	</div>
 </div>
+
+<!-- Button trigger modal -->
+{{!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+	Launch demo modal
+</button> --}}
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<img id="modal-img" class="img-thumbnail" alt="...">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<video id="modal-video" class="img-thumbnail" alt="..." controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 <script src="/js/business/business-employ-service-note-update.js"></script>
 
 <script>

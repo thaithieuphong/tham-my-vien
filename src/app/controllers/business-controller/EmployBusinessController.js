@@ -1127,8 +1127,6 @@ class EmployBusinessController {
 			User.findById({ _id: req.userId }),
 		])
 		.then(([serviceNotes, user]) => {
-			console.log(serviceNotes)
-			console.log(user)
 			res.render('business/employ/employ-service-note-list', {
 				title: 'Danh sách phiếu dịch vụ',
 				serviceNotes: multipleMongooseToObject(serviceNotes),
@@ -1148,14 +1146,14 @@ class EmployBusinessController {
 				}
 			}),
 			User.find({ departmentEng: 'operating-room', positionEng: 'doctor', firstName: 'Nguyễn Tuấn', lastName: 'Anh'}),
+			User.findById({ _id: req.userId }),
 		])
-			.then(([serviceNote, doctor]) => {
-				console.log(serviceNote)
-				console.log(doctor)
+			.then(([serviceNote, doctor, user]) => {
 				res.render('business/employ/employ-service-note-update', {
 					title: 'Cập nhật phiếu dịch vụ',
 					serviceNote: mongooseToObject(serviceNote),
-					doctor: multipleMongooseToObject(doctor)
+					doctor: multipleMongooseToObject(doctor),
+					user: mongooseToObject(user)
 				})
 			})
 			.catch(next);
@@ -1163,8 +1161,6 @@ class EmployBusinessController {
 
 	// Cập nhật thông tin khách hàng trên phiếu dịch vụ
 	updateCusInfor(req, res, next) {
-		console.log(req.body)
-		console.log(req.params.id)
 		Promise.all([
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, req.body),
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, req.body)
@@ -1179,6 +1175,211 @@ class EmployBusinessController {
 	// Cập nhật thông tin dịch vụ trên phiếu dịch vụ
 	updateServiceInfor(req, res, next) {
 		console.log(req.body)
+		let serviceArr = [];
+		let serviceNameArr = req.body.service;
+		let servicePriceArr = req.body.price;
+		serviceNameArr.forEach((serviceName, index) => {
+			let servicePrice = servicePriceArr[index]
+			serviceArr.push({
+				name: serviceName,
+				price: servicePrice
+			})
+		});
+		let updateCus = {
+			$set: { statusCus: { statusVi: 'Cập nhật dịch vụ', statusEng: 'updateService'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật dịch vụ', statusEng: 'updateService'}, userID: req.userId}}
+		}
+		Promise.all([
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
+				deposit: req.body.deposit,
+				total: req.body.total,
+				$set: { status: 'Đang xử lý'},
+				$push: { logStatus: { statusServiceNote: 'Cập nhật dịch vụ', createID: req.userId}, service: serviceArr}
+			}),
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateCus)
+		])
+		.then(() => {
+			req.flash('messages_updateService_success', 'Cập nhật dịch vụ thành công');
+			res.redirect('back');
+		})
+		.catch(next);
+	}
+
+	// Xóa dịch vụ trên phiếu dịch vụ
+	deleteService(req, res, next) {
+		let updateCustomerStatus = {
+			$push: { logStatus: { statusCus: {statusVi: 'Xóa dịch vụ', statusEng: 'deleteService'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateCustomerStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id} , { $pull: {service: { _id: req.body.serviceID}},
+				$push: { logStatus: { statusServiceNote: 'Xóa dịch vụ', createID: req.userId}}
+			})
+		])
+		.then(() => {
+			req.flash('messages_deleteService_success', 'Xóa dịch vụ thành công');
+			res.redirect('back');
+		})
+		.catch(next)
+	}
+
+	// Tải ảnh khi tư vấn
+	uploadCounselor(req, res, next) {
+		const file = req.files;
+		const imgArr = [];
+		const videoArr = [];
+		file.forEach(element => {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+				imgArr.push({ name: element.filename, url: element.path });
+				return imgArr;
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+				videoArr.push({ name: element.filename, url: element.path });
+				return videoArr;
+			}
+		})
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video tư vấn', statusEng: 'uploadCounselor'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video tư vấn', statusEng: 'uploadCounselor'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { 
+				$push: {
+					counselorImg: imgArr,
+					counselorVideo: videoArr,
+					logStatus: {
+						statusServiceNote: 'Cập nhật hình ảnh và video thông tin tư vấn',
+						createID: req.userId
+					}
+				},
+				$set: {counselorInfo: req.body.counselorInfo}
+			})
+		])
+		.then(() => {
+			req.flash('messages_uploadCounselor_success', 'Cập nhật hình ảnh và video tư vấn thành công');
+			res.redirect('back');
+		})
+		.catch(next);
+	}
+
+	// Tải ảnh trước phẩu thuật
+	uploadBefore(req, res, next) {
+		const file = req.files;
+		const imgArr = [];
+		const videoArr = [];
+		file.forEach(element => {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+				imgArr.push({ name: element.filename, url: element.path });
+				return imgArr;
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+				videoArr.push({ name: element.filename, url: element.path });
+				return videoArr;
+			}
+		})
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video trước phẫu thuật', statusEng: 'uploadBefore'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video trước phẫu thuật', statusEng: 'uploadBefore'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
+				$push: {
+					beforeImg: imgArr,
+					beforeVideo: videoArr,
+					logStatus: {
+						statusServiceNote: 'Cập nhật hình ảnh và video trước phẫu thuật',
+						createID: req.userId
+					}
+				},
+				$set: { beforeInfo: req.body.beforeInfo }
+			})
+		])
+		.then(() => {
+			req.flash('messages_uploadBefore_success', 'Cập nhật hình ảnh và video trước phẫu thuật thành công');
+			res.redirect('back')
+		})
+		.catch(next);
+	}
+
+	// Tải ảnh trong phẩu thuật
+	uploadInSurgery(req, res, next) {
+		const file = req.files;
+		const imgArr = [];
+		const videoArr = [];
+		file.forEach(element => {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+				imgArr.push({ name: element.filename, url: element.path });
+				return imgArr;
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+				videoArr.push({ name: element.filename, url: element.path });
+				return videoArr;
+			}
+		})
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video phẫu thuật', statusEng: 'uploadInsurgery'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video phẫu thuật', statusEng: 'uploadInsurgery'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
+				$push: {
+					inSurgeryImg: imgArr,
+					inSurgeryVideo: videoArr,
+					logStatus: {
+						statusServiceNote: 'Cập nhật hình ảnh và video thông tin phẫu thuật',
+						createID: req.userId
+					}
+				},
+				$set: { stepsToTake: req.body.stepsToTake }
+			})
+		])
+		.then(() => {
+			req.flash('messages_uploadInsurgery_success', 'Cập nhật hình ảnh và video phẫu thuật thành công');
+			res.redirect('back')
+		})
+		.catch(next);
+	}
+
+	// Tải ảnh sau phẩu thuật - hồi sức
+	uploadAfter(req, res, next) {
+		const file = req.files;
+		const imgArr = [];
+		const videoArr = []
+		file.forEach(element => {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+				imgArr.push({ name: element.filename, url: element.path });
+				return imgArr;
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+				videoArr.push({ name: element.filename, url: element.path });
+				return videoArr;
+			}
+		})
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video hậu phẫu - hồi sức', statusEng: 'uploadAfter'} },
+			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video hậu phẫu - hồi sức', statusEng: 'uploadAfter'}, userID: req.userId}}
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
+				$push: {
+					afterImg: imgArr,
+					afterVideo: videoArr,
+					logStatus: {
+						statusServiceNote: 'Cập nhật hình ảnh và video thông tin hậu phẫu - hồi sức',
+						createID: req.userId
+					}
+				},
+				$set: {
+					afterInfo: req.body.afterInfo,
+					directedByDoctor: req.body.directedByDoctor,
+					statusAfterInfo: req.body.statusAfterInfo
+				}})
+		])
+		.then(() => {
+			req.flash('messages_uploadAfter_success', 'Cập nhật hình ảnh và video hậu phẫu - hồi sức thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Chi tiết phiếu dịch vụ

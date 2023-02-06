@@ -25,7 +25,7 @@ function validate(formSelector) {
 		},
 
 		requiredService: function(value) {
-            return value ? undefined : 'Vui lòng nhập dịch vụ và phí dịch vụ';
+            return value ? undefined : 'Vui lòng thêm dịch vụ và phí dịch vụ';
 		},
         
         isNumCurrency: function (value) {
@@ -248,10 +248,9 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
-						newImage.setAttribute('accept', 'image/*');
 						newImage.id = i;
 						closeButtonLink.id = i;
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
 						let imgc = document.querySelector('.preview-images-counselor');
 						divMain.append(newImage, closeButtonLink);
 						imgc.append(divMain);
@@ -335,13 +334,12 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
-						newVideo.setAttribute('accept', 'video/*');
 						newVideo.controls = true;
 						newVideo.id = i;
 						closeButtonLink.type = 'button';
 						closeButtonLink.id = i;
 						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
 						let videoc = document.querySelector('.preview-videos-counselor');
 						divMain.append(newVideo, closeButtonLink);
 						videoc.append(divMain);
@@ -383,10 +381,9 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
-						newImage.setAttribute('accept', 'image/*');
 						newImage.id = i;
 						closeButtonLink.id = i;
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
 						let imgc = document.querySelector('.preview-images-before');
 						divMain.append(newImage, closeButtonLink);
 						imgc.append(divMain);
@@ -425,13 +422,12 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
-						newVideo.setAttribute('accept', 'video/*');
 						newVideo.controls = true;
 						newVideo.id = i;
 						closeButtonLink.type = 'button';
 						closeButtonLink.id = i;
 						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-video';
+						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-5 mt-2 close-video';
 						let videoc = document.querySelector('.preview-videos-before');
 						divMain.append(newVideo, closeButtonLink);
 						videoc.append(divMain);
@@ -473,10 +469,9 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
-						newImage.setAttribute('accept', 'image/*');
 						newImage.id = i;
 						closeButtonLink.id = i;
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
 						let imgc = document.querySelector('.preview-images-in-surgery');
 						divMain.append(newImage, closeButtonLink);
 						imgc.append(divMain);
@@ -515,13 +510,12 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
-						newVideo.setAttribute('accept', 'video/*');
 						newVideo.controls = true;
 						newVideo.id = i;
 						closeButtonLink.type = 'button';
 						closeButtonLink.id = i;
 						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-video';
+						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-5 mt-2 close-video';
 						let videoc = document.querySelector('.preview-videos-in-surgery');
 						divMain.append(newVideo, closeButtonLink);
 						videoc.append(divMain);
@@ -563,10 +557,9 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newImage.src = src;
 						newImage.classList = 'figure-img img-fluid rounded img-cover';
-						newImage.setAttribute('accept', 'image/*');
 						newImage.id = i;
 						closeButtonLink.id = i;
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
 						let imgc = document.querySelector('.preview-images-after');
 						divMain.append(newImage, closeButtonLink);
 						imgc.append(divMain);
@@ -605,13 +598,12 @@ document.addEventListener("DOMContentLoaded", function () {
 						divMain.id = i;
 						newVideo.src = src;
 						newVideo.classList = 'img-fluid';
-						newVideo.setAttribute('accept', 'video/*');
 						newVideo.controls = true;
 						newVideo.id = i;
 						closeButtonLink.type = 'button';
 						closeButtonLink.id = i;
 						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-4 mt-2 close-video';
+						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-5 mt-2 close-video';
 						let videoc = document.querySelector('.preview-videos-after');
 						divMain.append(newVideo, closeButtonLink);
 						videoc.append(divMain);
@@ -628,8 +620,37 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 		};
 	}
+
+	
 });
 
+var imageModal = document.getElementById('imageModal')
+
+imageModal.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataImg = button.getAttribute('data-img');
+
+	var modalImage = document.getElementById('modal-img');
+
+	modalImage.setAttribute('src', `/counselor/img/${dataImg}`)
+})
+
+var videoModal = document.getElementById('videoModal')
+
+videoModal.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataVideo = button.getAttribute('data-video');
+
+	var modalVideo = document.getElementById('modal-video');
+
+	modalVideo.setAttribute('src', `/counselor/video/${dataVideo}`)
+})
 
 function totalMoneyFn(before, current) {
 	return before + current.price;
@@ -731,7 +752,8 @@ var addServices = function() {
 				let totalServiceMoney = serviceArr.reduce(totalMoneyFn, 0);
 
 				// Hiển thị tổng phí dịch vụ trên giao diện
-				totalServiceCharge.value = totalServiceMoney.toLocaleString();
+				// totalServiceCharge.value = totalServiceMoney.toLocaleString();
+				totalServiceCharge.value = '';
 
 				let convertTotalServiceCharge = parseFloat(totalServiceCharge.value.replace(/\D/g,''), 10);
 				let convertDeposit = parseFloat(depositInput.value.replace(/\D/g,''), 10);
@@ -1047,3 +1069,47 @@ var deleteServiceForm = document.forms["deleteServiceForm"];
 deleteServiceBtn.addEventListener("click", () => {
 	deleteServiceForm.submit();
 });
+
+/* Counselor Img*/
+// Checkbox all change
+var checkboxAllImgCounselor = $('#checkboxAllImgCounselor');
+var imgCounselorCheckbox = $('input[name="imgIDs[]"]');
+checkboxAllImgCounselor.change(function () {
+	var isCheckedAll = $(this).prop('checked');
+	imgCounselorCheckbox.prop('checked', isCheckedAll);
+	renderDeleteImgCounselorBtn();
+})
+
+// Img checkbox change
+imgCounselorCheckbox.change(function () {
+	var isCheckedAllLength = imgCounselorCheckbox.length === $('input[name="imgIDs[]"]:checked').length;
+	checkboxAllImgCounselor.prop('checked', isCheckedAllLength);
+	renderDeleteImgCounselorBtn();
+})
+
+function renderDeleteImgCounselorBtn() {
+	var checkedCount = $('input[name="imgIDs[]"]:checked').length;
+	checkedCount ? $('#deleteImgCounselorBtn').removeClass('disabled') : $('#deleteImgCounselorBtn').addClass('disabled');
+}
+
+/* Counselor Video*/
+// Checkbox all change
+var checkboxAllVideoCounselor = $('#checkboxAllVideoCounselor');
+var videoCounselorCheckbox = $('input[name="videoIDs[]"]');
+checkboxAllVideoCounselor.change(function () {
+	var isCheckedAll = $(this).prop('checked');
+	videoCounselorCheckbox.prop('checked', isCheckedAll);
+	renderDeleteVideoCounselorBtn();
+})
+
+// Img checkbox change
+videoCounselorCheckbox.change(function () {
+	var isCheckedAllLength = videoCounselorCheckbox.length === $('input[name="videoIDs[]"]:checked').length;
+	checkboxAllVideoCounselor.prop('checked', isCheckedAllLength);
+	renderDeleteVideoCounselorBtn();
+})
+
+function renderDeleteVideoCounselorBtn() {
+	var checkedCount = $('input[name="videoIDs[]"]:checked').length;
+	checkedCount ? $('#deleteVideoCounselorBtn').removeClass('disabled') : $('#deleteVideoCounselorBtn').addClass('disabled');
+}

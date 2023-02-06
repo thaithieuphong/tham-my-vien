@@ -25,60 +25,111 @@
         });
     </script>
 {{/if}}
-<div class="sticky-top ps-0 pe-0">
-    <div class="text-center bg-blue border-bottom">
-        <div class="text-light text-uppercase fw-bold pt-2 pb-2">
-            {{this.title}}
+
+<div class="container-fluid overflow-hidden">
+    <div class="row vh-100 overflow-auto">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark d-flex sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
+                <a href="/" class="d-flex align-items-center pb-sm-3 mb-md-0 text-white text-decoration-none">
+					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
+					<span class="fs-6 text-uppercase">
+						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
+						<span class="d-none d-sm-inline">Bảng điều khiển</span>
+					</span>
+                </a>
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2 link-light">
+                            <i class="ti-receipt mr-3"></i><span class="ms-1 d-none d-sm-inline">Lịch hẹn tư vấn</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2 link-light">
+                            <i class="ti-user mr-3"></i><span class="ms-1 d-none d-sm-inline">Khách hàng</span></a>
+                    </li>
+					<li>
+                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2 link-light">
+                            <i class="ti-clipboard mr-3"></i><span class="ms-1 d-none d-sm-inline">Phiếu dịch vụ</span></a>
+                    </li>
+                </ul>
+                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{#if user.image.name}}
+						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
+                        {{else}}
+						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
+						{{/if}}
+						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+							<form method="POST" action="/logout">
+								<button class="dropdown-item" type="submit">Đăng xuất</>
+							</form>
+						</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div class="d-flex">
-    {{> page/sidebar/business/employ/sidebar-business-employ-customers}}
-    <div class="container-content-scroll pb-3 ps-2 pe-2" style="width: 100%;">
-		<div class="redirect-bar bg-blue d-flex justify-content-between rounded">
-			<a type="button" onclick="history.back()" class="ml-3">
-				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
-			</a>
+        <div class="col d-flex flex-column h-sm-100 ps-0 pe-0">
+			<div class="sticky-top ps-0 pe-0">
+				<div class="text-center bg-blue border-bottom">
+					<div class="text-light text-uppercase fw-bold pt-2 pb-2">
+						{{this.title}}
+					</div>
+				</div>
+			</div>
+			<div class="redirect-bar bg-blue d-flex justify-content-between">
+				<a type="button" onclick="history.back()" class="ml-3">
+					<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+				</a>
+			</div>
+			<div class="pb-3 ps-2 pe-2" style="width: 100%;">
+				<table id="table-schedule-trash" class="table table-sm display">
+					<thead>
+						<tr class="text-center">
+							<th scope="col">#</th>
+							<th scope="col">Họ tên khai sinh</th>
+							<th scope="col">Tên thường gọi</th>
+							<th scope="col">Ngày hẹn</th>
+							<th scope="col">Đã cọc</th>
+							<th scope="col">Tổng chi phí khi tư vấn</th>
+							<th scope="col">Tác vụ</th>
+						</tr>
+					</thead>
+					<tbody class="">
+						{{#each schedules}}
+							<tr>
+								<th scope="row" class="text-center"><strong>{{sum @index 1}}</strong></th>
+								<td>{{this.customerID.fullName}}</td>
+								<td>
+									<a id="schedule-detail" type="button" class="link-primary" data-bs-toggle="modal" data-bs-target="#detailScheduleModal"
+									data-customer-fullName="{{this.customerID.fullName}}" data-customer-nickName="{{this.customerID.nickName}}" data-customer-birth="{{this.customerID.birth}}"
+									data-customer-gender="{{this.customerID.gender}}" data-customer-phone="{{this.customerID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
+									data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.customerID.img.url}}"data-customer-resource="{{this.customerID.resource}}"
+									data-customer-user="{{#each this.customerID}}{{this.firstName}} {{this.lastName}}{{/each}}">
+										{{this.customerID.nickName}}
+									</a>
+								</td>
+								<td>{{formatDate this.schedule}}</td>
+								<td class="text-warning">{{this.deposit}}</td>
+								<td class="text-danger">{{this.priceBefore}}</td>
+								<td class="d-flex justify-content-center">
+									<a type="button" class="btn btn-info btn-sm text-light" data-bs-toggle="modal" data-bs-target="#restoreScheduleModal" data-schedule-id="{{this._id}}" data-customer="{{this.customerID.nickName}}"
+									data-customer-id="{{this.customerID._id}}">
+										Khôi phục lịch hẹn
+									</a>
+								</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
 		</div>
-		<table id="table-schedule-trash" class="table table-sm display">
-			<thead>
-				<tr class="text-center">
-					<th scope="col">#</th>
-					<th scope="col">Họ tên khai sinh</th>
-					<th scope="col">Tên thường gọi</th>
-					<th scope="col">Ngày hẹn</th>
-					<th scope="col">Đã cọc</th>
-					<th scope="col">Tổng chi phí khi tư vấn</th>
-					<th scope="col">Tác vụ</th>
-				</tr>
-			</thead>
-			<tbody class="">
-				{{#each schedules}}
-					<tr>
-						<th scope="row" class="text-center"><strong>{{sum @index 1}}</strong></th>
-						<td>{{this.customerID.fullName}}</td>
-						<td>
-							<a id="schedule-detail" type="button" class="link-primary" data-bs-toggle="modal" data-bs-target="#detailScheduleModal"
-							data-customer-fullName="{{this.customerID.fullName}}" data-customer-nickName="{{this.customerID.nickName}}" data-customer-birth="{{this.customerID.birth}}"
-							data-customer-gender="{{this.customerID.gender}}" data-customer-phone="{{this.customerID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
-							data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.customerID.img.url}}"data-customer-resource="{{this.customerID.resource}}"
-							data-customer-user="{{#each this.customerID}}{{this.firstName}} {{this.lastName}}{{/each}}">
-								{{this.customerID.nickName}}
-							</a>
-						</td>
-						<td>{{formatDate this.schedule}}</td>
-						<td class="text-warning">{{this.deposit}}</td>
-						<td class="text-danger">{{this.priceBefore}}</td>
-						<td class="d-flex justify-content-center">
-							<a type="button" class="btn btn-info btn-sm text-light" data-bs-toggle="modal" data-bs-target="#restoreScheduleModal" data-schedule-id="{{this._id}}" data-customer="{{this.customerID.nickName}}"
-							data-customer-id="{{this.customerID._id}}">
-								Khôi phục lịch hẹn
-							</a>
-						</td>
-					</tr>
-				{{/each}}
-			</tbody>
-		</table>
 	</div>
 </div>
 
