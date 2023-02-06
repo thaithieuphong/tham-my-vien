@@ -382,70 +382,72 @@
 								aria-labelledby="flush-counselor-{{serviceNote._id}}"
 								data-bs-parent="#accordionFlush-{{serviceNote._id}}">
 								<div class="accordion-body">
-									<form method="POST" name="deleteImgCounselorForm">
 										<div class="row mb-2">
 											<div class="col-md-6 rounded-pill-left">
-												<div class="mb-2 d-flex justify-content-between">
-													<div class="d-flex align-items-center">
+												<form method="POST" name="deleteImgCounselorForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-img">
+													<div class="mb-2 d-flex justify-content-between">
+														<div class="d-flex align-items-center">
+															<div class="form-check mr-3">
+																<input class="form-check-input" type="checkbox" value="" id="checkboxAllImgCounselor">
+																<label class="form-check-label" for="checkboxAllImgCounselor">
+																	Chọn tất cả
+																</label>
+															</div>
+															<button id="deleteImgCounselorBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
+														</div>
+														<span class="badge bg-primary fs-6">
+															{{#if serviceNote.counselorImg}}
+															Tất cả hình ảnh <span class="badge bg-danger">{{serviceNote.counselorImg.length}}</span>
+															{{/if}}
+														</span>
+													</div>
+													<div class="row border overflow-auto rounded-start" style="height: 350px;">
+														{{#each serviceNote.counselorImg}}
+														<div class="col-md-4 mt-2 mb-2">
+															
+															<div class="float-right">
+																<input class="form-check-input" type="checkbox" value="" name="imgIDs[]">
+															</div>
+															<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModal" data-img="{{this.name}}">
+																<img class="img-fluid"
+																	src="/counselor/img/{{this.name}}">
+															</a>
+														</div>
+														{{/each}}
+													</div>
+												</form>
+											</div>
+											<div class="col-md-6 rounded-pill-right">
+												<form method="POST" name="deleteImgCounselorForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-video">
+													<div class="mb-2 d-flex align-items-center">
 														<div class="form-check mr-3">
-															<input class="form-check-input" type="checkbox" value="" id="checkboxAllImgCounselor">
-															<label class="form-check-label" for="checkboxAllImgCounselor">
+															<input class="form-check-input" type="checkbox" value="" id="checkboxAllVideoCounselor">
+															<label class="form-check-label" for="checkboxAllVideoCounselor">
 																Chọn tất cả
 															</label>
 														</div>
-														<button id="deleteImgCounselorBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
+														<button  id="deleteVideoCounselorBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
 													</div>
-													<span class="badge bg-primary fs-6">
-														{{#if serviceNote.counselorImg}}
-														Tất cả hình ảnh <span class="badge bg-danger">{{serviceNote.counselorImg.length}}</span>
-														{{/if}}
-													</span>
-												</div>
-												<div class="row border overflow-auto rounded-start" style="height: 350px;">
-													{{#each serviceNote.counselorImg}}
-													<div class="col-md-4 mt-2 mb-2">
-														
-														<div class="float-right">
-															<input class="form-check-input" type="checkbox" value="" name="imgIDs[]">
+													<div class="row border overflow-auto rounded-end" style="height: 350px;">
+														{{#each serviceNote.counselorVideo}}
+														<div class="col-md-4 mt-2 mb-2">
+															<span class="badge rounded-pill bg-primary fs-6">
+																{{sum @index 1}} /
+																{{../serviceNote.counselorVideo.length}}
+															</span>
+															<div class="float-right">
+																<input class="form-check-input" type="checkbox" value="" name="videoIDs[]">
+															</div>
+															<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="{{this.name}}">
+																<video class="img-fluid"
+																	src="/counselor/video/{{this.name}}" controls>
+															</a>
 														</div>
-														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModal" data-img="{{this.name}}">
-															<img class="img-fluid"
-																src="/counselor/img/{{this.name}}">
-														</a>
+														{{/each}}
 													</div>
-													{{/each}}
-												</div>
-											</div>
-											<div class="col-md-6 rounded-pill-right">
-												<div class="mb-2 d-flex align-items-center">
-													<div class="form-check mr-3">
-														<input class="form-check-input" type="checkbox" value="" id="checkboxAllVideoCounselor">
-														<label class="form-check-label" for="checkboxAllVideoCounselor">
-															Chọn tất cả
-														</label>
-													</div>
-													<button  id="deleteVideoCounselorBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
-												</div>
-												<div class="row border overflow-auto rounded-end" style="height: 350px;">
-													{{#each serviceNote.counselorVideo}}
-													<div class="col-md-4 mt-2 mb-2">
-														<span class="badge rounded-pill bg-primary fs-6">
-															{{sum @index 1}} /
-															{{../serviceNote.counselorVideo.length}}
-														</span>
-														<div class="float-right">
-															<input class="form-check-input" type="checkbox" value="" name="videoIDs[]">
-														</div>
-														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="{{this.name}}">
-															<video class="img-fluid"
-																src="/counselor/video/{{this.name}}" controls>
-														</a>
-													</div>
-													{{/each}}
-												</div>
+												</form>
 											</div>
 										</div>
-									</form>
 									<form method="POST" id="submit-counselor-form"
 										action="/business/employ/service-note/{{serviceNote._id}}/operating-counselor"
 										enctype="multipart/form-data">
