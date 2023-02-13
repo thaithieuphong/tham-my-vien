@@ -1449,6 +1449,86 @@ class EmployBusinessController {
 		.catch(next);
 	}
 
+	// Xóa ảnh trước phẫu thuật
+	deleteBeforeImg(req, res, next) {
+		console.log(req.body.imgName)
+		let imgName = req.body.imgName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  imgName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "beforeImg.$.notDeletedYet": false },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['beforeImg.name']: req.body.imgName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_deletedBeforeImg_success', 'Xóa hình ảnh trước phẫu thuật thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
+	// Khôi phục ảnh trước phẫu thuật
+	restoreBeforeImg(req, res, next) {
+		console.log(req.body.imgName)
+		let imgName = req.body.imgName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  imgName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "beforeImg.$.notDeletedYet": true },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['beforeImg.name']: req.body.imgName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_restoreBeforeImg_success', 'Khôi phục hình ảnh trước phẫu thuật thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
+	// Xóa video trước phẫu thuật
+	deleteBeforeVideo(req, res, next) {
+		console.log(req.body.videoName)
+		let videoName = req.body.videoName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  videoName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "beforeVideo.$.notDeletedYet": false },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['beforeVideo.name']: req.body.videoName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_deletedBeforeVideo_success', 'Xóa video trước phẫu thuật thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
+	// Khôi phục video trước phẫu thuật
+	restoreBeforeVideo(req, res, next) {
+		console.log(req.body.videoName)
+		let videoName = req.body.videoName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  videoName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "beforeVideo.$.notDeletedYet": true },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['beforeVideo.name']: req.body.videoName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_restoreBeforeVideo_success', 'Khôi phục video trước phẫu thuật thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
 	// Tải ảnh trong phẩu thuật
 	uploadInSurgery(req, res, next) {
 		const file = req.files;
@@ -1508,6 +1588,26 @@ class EmployBusinessController {
 					.catch(next);
 	}
 
+	// Khôi phục ảnh khi phẫu thuật
+	restoreInSurgeryImg(req, res, next) {
+		console.log(req.body.imgName)
+		let imgName = req.body.imgName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  imgName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "inSurgeryImg.$.notDeletedYet": true },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['inSurgeryImg.name']: req.body.imgName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_restoreInSurgeryImg_success', 'Khôi phục hình ảnh phẫu thuật thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
 	// Xóa video khi phẫu thuật
 	deleteInSurgeryVideo(req, res, next) {
 		console.log(req.body.videoName)
@@ -1523,6 +1623,26 @@ class EmployBusinessController {
 					.updateMany({ ['inSurgeryVideo.name']: req.body.videoName }, updateDocument, options)
 					.then(() => {
 						req.flash('messages_deletedInSurgeryVideo_success', 'Xóa video phẫu thuật thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
+	// Khôi phục video phẫu thuật
+	restoreInSurgeryVideo(req, res, next) {
+		console.log(req.body.videoName)
+		let videoName = req.body.videoName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  videoName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "inSurgeryVideo.$.notDeletedYet": true },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['inSurgeryVideo.name']: req.body.videoName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_restoreInSurgeryVideo_success', 'Khôi phục video phẫu thuật thành công');
 						res.redirect('back');
 					})
 					.catch(next);
@@ -1590,6 +1710,26 @@ class EmployBusinessController {
 					.catch(next);
 	}
 
+	// Khôi phục ảnh thay băng cắt chỉ
+	restoreAfterImg(req, res, next) {
+		console.log(req.body.imgName)
+		let imgName = req.body.imgName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  imgName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "afterImg.$.notDeletedYet": true },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['afterImg.name']: req.body.imgName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_restoreAfterImg_success', 'Khôi phục hình ảnh thay băng thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
 	// Xóa video thay băng cắt chỉ
 	deleteAfterVideo(req, res, next) {
 		console.log(req.body.videoName)
@@ -1605,6 +1745,26 @@ class EmployBusinessController {
 					.updateMany({ ['afterVideo.name']: req.body.videoName }, updateDocument, options)
 					.then(() => {
 						req.flash('messages_deletedAfterVideo_success', 'Xóa video thay băng thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
+	// Khôi phục video phẫu thuật
+	restoreAfterVideo(req, res, next) {
+		console.log(req.body.videoName)
+		let videoName = req.body.videoName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  videoName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "afterVideo.$.notDeletedYet": true },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['afterVideo.name']: req.body.videoName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_restoreAfterVideo_success', 'Khôi phục video thay băng thành công');
 						res.redirect('back');
 					})
 					.catch(next);

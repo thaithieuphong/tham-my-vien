@@ -182,22 +182,36 @@ app.use(function (req, res, next) {
 	res.locals.messages_updateCusInfo_success = req.flash('messages_updateCusInfo_success');
 	res.locals.messages_updateService_success = req.flash('messages_updateService_success');
 	res.locals.messages_deleteService_success = req.flash('messages_deleteService_success');
-	res.locals.messages_restoreServiceNote_success = req.flash('messages_restoreServiceNote_success');
 	res.locals.messages_deleteServiceNote_success = req.flash('messages_deleteServiceNote_success');
+	res.locals.messages_restoreServiceNote_success = req.flash('messages_restoreServiceNote_success');
+
+	res.locals.messages_uploadCounselor_success = req.flash('messages_uploadCounselor_success');
 	res.locals.messages_deletedCounselorImg_success = req.flash('messages_deletedCounselorImg_success');
 	res.locals.messages_restoreCounselorImg_success = req.flash('messages_restoreCounselorImg_success');
 	res.locals.messages_deletedCounselorVideo_success = req.flash('messages_deletedCounselorVideo_success');
 	res.locals.messages_restoreCounselorVideo_success = req.flash('messages_restoreCounselorVideo_success');
+
+	res.locals.messages_uploadBefore_success = req.flash('messages_uploadBefore_success');
+	res.locals.messages_deletedBeforeImg_success = req.flash('messages_deletedBeforeImg_success');
+	res.locals.messages_restoreBeforeImg_success = req.flash('messages_restoreBeforeImg_success');
+	res.locals.messages_deletedBeforeVideo_success = req.flash('messages_deletedBeforeVideo_success');
+	res.locals.messages_restoreBeforeVideo_success = req.flash('messages_restoreBeforeVideo_success');
+
+
+	res.locals.messages_uploadInsurgery_success = req.flash('messages_uploadInsurgery_success');
 	res.locals.messages_deletedInSurgeryImg_success = req.flash('messages_deletedInSurgeryImg_success');
+	res.locals.messages_restoreInSurgeryImg_success = req.flash('messages_restoreInSurgeryImg_success');
 	res.locals.messages_deletedInSurgeryVideo_success = req.flash('messages_deletedInSurgeryVideo_success');
+	res.locals.messages_restoreInSurgeryVideo_success = req.flash('messages_restoreInSurgeryVideo_success');
+
+	res.locals.messages_uploadAfter_success = req.flash('messages_uploadAfter_success');
 	res.locals.messages_deletedAfterImg_success = req.flash('messages_deletedAfterImg_success');
+	res.locals.messages_restoreAfterImg_success = req.flash('messages_restoreAfterImg_success');
 	res.locals.messages_deletedAfterVideo_success = req.flash('messages_deletedAfterVideo_success');
+	res.locals.messages_restoreAfterVideo_success = req.flash('messages_restoreAfterVideo_success');
+
 	res.locals.messages_updateCusDischarge_success = req.flash('messages_updateCusDischarge_success');
 	res.locals.messages_updateServiceNoteDone_success = req.flash('messages_updateServiceNoteDone_success');
-	res.locals.messages_uploadCounselor_success = req.flash('messages_uploadCounselor_success');
-	res.locals.messages_uploadBefore_success = req.flash('messages_uploadBefore_success');
-	res.locals.messages_uploadInsurgery_success = req.flash('messages_uploadInsurgery_success');
-	res.locals.messages_uploadAfter_success = req.flash('messages_uploadAfter_success');
 	res.locals.messages_uploadReexam_success = req.flash('messages_uploadReexam_success');
 	res.locals.messages_moveCustomer_success = req.flash('messages_moveCustomer_success');
 	next();

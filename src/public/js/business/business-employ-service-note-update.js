@@ -684,9 +684,12 @@ videoModalBefore.addEventListener('show.bs.modal', function (event) {
 	var dataVideo = button.getAttribute('data-video');
 
 	var modalVideoBefore = document.getElementById('modal-video-before');
+	var inputDeleteVideoBefore = document.getElementById('inputDeleteVideoBefore');
 
 	// modalVideoBefore.setAttribute('src', `${dataVideo}`);
 	modalVideoBefore.setAttribute('src', `/before/video/${dataVideo}`);
+	inputDeleteVideoBefore.value = dataVideo;
+
 })
 
 var imageModalInSurgery = document.getElementById('imageModalInSurgery');

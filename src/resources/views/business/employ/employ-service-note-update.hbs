@@ -28,34 +28,6 @@
 </script>
 {{/if}}
 
-{{#if messages_uploadCounselor_success}}
-<div class="modal fade" id="messageUploadCounselorSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
-	aria-hidden="false">
-	<div class="modal-dialog modal-dialog-centered modal-sm">
-		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div class="d-flex justify-content-center mb-3">
-					<div class="border border-success border-5 rounded-circle position-relative"
-						style="width: 64px; height: 64px;">
-						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
-					</div>
-				</div>
-				<p class="text-center mb-0 text-success">{{messages_uploadCounselor_success}}</p>
-			</div>
-		</div>
-	</div>
-</div>
-<script>
-	document.addEventListener("DOMContentLoaded", function () {
-		var messageUploadCounselorSuccess = document.querySelector('#messageUploadCounselorSuccess');
-		$(messageUploadCounselorSuccess).modal('show');
-	});
-</script>
-{{/if}}
-
 {{#if messages_updateService_success}}
 <div class="modal fade" id="messageUpdateServiceSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
 	aria-hidden="false">
@@ -108,6 +80,34 @@
 	document.addEventListener("DOMContentLoaded", function () {
 		var messageDeleteServiceSuccess = document.querySelector('#messageDeleteServiceSuccess');
 		$(messageDeleteServiceSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_uploadCounselor_success}}
+<div class="modal fade" id="messageUploadCounselorSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_uploadCounselor_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageUploadCounselorSuccess = document.querySelector('#messageUploadCounselorSuccess');
+		$(messageUploadCounselorSuccess).modal('show');
 	});
 </script>
 {{/if}}
@@ -224,6 +224,176 @@
 </script>
 {{/if}}
 
+{{!-- upload, delete, restore before --}}
+{{#if messages_uploadBefore_success}}
+<div class="modal fade" id="messageUploadBeforeSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_uploadBefore_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageUploadBeforeSuccess = document.querySelector('#messageUploadBeforeSuccess');
+		$(messageUploadBeforeSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_deletedBeforeImg_success}}
+<div class="modal fade" id="messageDeletedBeforeImgSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_deletedBeforeImg_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageDeletedBeforeImgSuccess = document.querySelector('#messageDeletedBeforeImgSuccess');
+		$(messageDeletedBeforeImgSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_restoreBeforeImg_success}}
+<div class="modal fade" id="messageRestoreBeforeImgSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_restoreBeforeImg_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageRestoreBeforeImgSuccess = document.querySelector('#messageRestoreBeforeImgSuccess');
+		$(messageRestoreBeforeImgSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_deletedBeforeVideo_success}}
+<div class="modal fade" id="messageDeletedBeforeVideoSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_deletedBeforeVideo_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageDeletedBeforeVideoSuccess = document.querySelector('#messageDeletedBeforeVideoSuccess');
+		$(messageDeletedBeforeVideoSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_restoreBeforeVideo_success}}
+<div class="modal fade" id="messageRestoreBeforeVideoSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_restoreBeforeVideo_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageRestoreBeforeVideoSuccess = document.querySelector('#messageRestoreBeforeVideoSuccess');
+		$(messageRestoreBeforeVideoSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{!-- upload, delete, restore in-surgery --}}
+{{#if messages_uploadInsurgery_success}}
+<div class="modal fade" id="messageUploadInSurgerySuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_uploadInsurgery_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageUploadInSurgerySuccess = document.querySelector('#messageUploadInSurgerySuccess');
+		$(messageUploadInSurgerySuccess).modal('show');
+	});
+</script>
+{{/if}}
+
 {{#if messages_deletedInSurgeryImg_success}}
 <div class="modal fade" id="messageDeletedInSurgeryImgSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
 	aria-hidden="false">
@@ -248,6 +418,34 @@
 	document.addEventListener("DOMContentLoaded", function () {
 		var messageDeletedInSurgeryImgSuccess = document.querySelector('#messageDeletedInSurgeryImgSuccess');
 		$(messageDeletedInSurgeryImgSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_restoreInSurgeryImg_success}}
+<div class="modal fade" id="messageRestoreInSurgeryImgSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_restoreInSurgeryImg_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageRestoreInSurgeryImgSuccess = document.querySelector('#messageRestoreInSurgeryImgSuccess');
+		$(messageRestoreInSurgeryImgSuccess).modal('show');
 	});
 </script>
 {{/if}}
@@ -280,6 +478,63 @@
 </script>
 {{/if}}
 
+{{#if messages_restoreInSurgeryVideo_success}}
+<div class="modal fade" id="messageRestoreInSurgeryVideoSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_restoreInSurgeryVideo_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageRestoreInSurgeryVideoSuccess = document.querySelector('#messageRestoreInSurgeryVideoSuccess');
+		$(messageRestoreInSurgeryVideoSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{!-- upload, delete, restore after --}}
+{{#if messages_uploadAfter_success}}
+<div class="modal fade" id="messageUploadAfterSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_uploadAfter_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageUploadAfterSuccess = document.querySelector('#messageUploadAfterSuccess');
+		$(messageUploadAfterSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
 {{#if messages_deletedAfterImg_success}}
 <div class="modal fade" id="messageDeletedAfterImgSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
 	aria-hidden="false">
@@ -308,6 +563,34 @@
 </script>
 {{/if}}
 
+{{#if messages_restoreAfterImg_success}}
+<div class="modal fade" id="messageRestoreAfterImgSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_restoreAfterImg_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageRestoreAfterImgSuccess = document.querySelector('#messageRestoreAfterImgSuccess');
+		$(messageRestoreAfterImgSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
 {{#if messages_deletedAfterVideo_success}}
 <div class="modal fade" id="messageDeletedAfterVideoSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
 	aria-hidden="false">
@@ -332,6 +615,34 @@
 	document.addEventListener("DOMContentLoaded", function () {
 		var messageDeletedAfterVideoSuccess = document.querySelector('#messageDeletedAfterVideoSuccess');
 		$(messageDeletedAfterVideoSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_restoreAfterVideo_success}}
+<div class="modal fade" id="messageRestoreAfterVideoSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-header p-2">
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_restoreAfterVideo_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageRestoreAfterVideoSuccess = document.querySelector('#messageRestoreAfterVideoSuccess');
+		$(messageRestoreAfterVideoSuccess).modal('show');
 	});
 </script>
 {{/if}}
@@ -620,123 +931,92 @@
 					<li class="list-group-item active text-center">
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin tư vấn trực tiếp</strong></label>
 					</li>
-					<li class="list-group-item ps-2 pe-2">
-						<div class="row mb-2">
-							<div class="col-md-6 rounded-pill-left ps-0 pe-0">
-								{{!-- <form method="POST" name="deleteImgCounselorForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-img-counselor?_method=DELETE"> --}}
-									{{!-- <div class="mb-2 d-flex justify-content-between">
-										<div class="d-flex align-items-center">
-											<div class="form-check mr-3">
-												<input class="form-check-input" type="checkbox" value="" id="checkboxAllImgCounselor">
-												<label class="form-check-label" for="checkboxAllImgCounselor">
-													Chọn tất cả
-												</label>
-											</div>
-											<button id="deleteImgCounselorBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
-										</div>
-									</div> --}}
-									<button class="btn btn-danger mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgCounselor" aria-expanded="false" aria-controls="restoreImgCounselor">
-										<i class="ti-trash"></i> Thùng rác
-									</button>
-									<div class="collapse mb-2" id="restoreImgCounselor">
-										<div class="card card-body">
-											<div class="row">
-												{{#each serviceNote.counselorImg}}
-												{{#if notDeletedYet}}
-												{{else}}
-												<div class="col-md-4">
-													<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-img-counselor?_method=PATCH">
-													<img class="img-fluid"
-														src="/counselor/img/{{this.name}}">
-													{{!-- <img class="img-fluid"
-														src="{{this.url}}"> --}}
-													<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
-													<input type="text" value="{{this.name}}" name="imgName" hidden>
-													</form>
-												</div>
-												{{/if}}
-												{{/each}}
-											</div>
-										</div>
-									</div>
-									<div class="row border overflow-auto rounded-start" style="height: 350px;">
-										{{#each serviceNote.counselorImg}}
-										{{#if notDeletedYet}}
-										<div class="col-md-4 mt-2 mb-2">
-											<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-img="{{this.name}}">
+					<li class="list-group-item">
+						<button class="btn btn-danger mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgCounselor" aria-expanded="false" aria-controls="restoreImgCounselor">
+							<i class="ti-trash"></i> Thùng rác
+						</button>
+						<div class="collapse" id="restoreImgCounselor">
+							<div class="card card-body">
+								<div class="row">
+									<div class="col-md-6 border-right">
+										<div class="row">
+											{{#each serviceNote.counselorImg}}
+											{{#if notDeletedYet}}
+											{{else}}
+											<div class="col-md-4">
+												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-img-counselor?_method=PATCH">
 												<img class="img-fluid"
 													src="/counselor/img/{{this.name}}">
-											</a>
-											{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-img="{{this.url}}">
-												<img class="img-fluid"
-													src="{{this.url}}">
-											</a> --}}
+												{{!-- <img class="img-fluid"
+													src="{{this.url}}"> --}}
+												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
+												<input type="text" value="{{this.name}}" name="imgName" hidden>
+												</form>
+											</div>
+											{{/if}}
+											{{/each}}
 										</div>
-										{{/if}}
-										{{/each}}
 									</div>
-								{{!-- </form> --}}
+									<div class="col-md-6">
+										<div class="row">
+											{{#each serviceNote.counselorVideo}}
+											{{#if notDeletedYet}}
+											{{else}}
+											<div class="col-md-4">
+												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-video-counselor?_method=PATCH">
+												<video class="img-fluid"
+													src="/counselor/video/{{this.name}}"></video>
+												{{!-- <video class="img-fluid"
+													src="{{this.url}}"></video> --}}
+												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
+												<input type="text" value="{{this.name}}" name="videoName" hidden>
+												</form>
+											</div>
+											{{/if}}
+											{{/each}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item">
+						<div class="row mb-2">
+							<div class="col-md-6 rounded-pill-left">
+								<div class="row border overflow-auto rounded-start" style="height: 350px;">
+									{{#each serviceNote.counselorImg}}
+									{{#if notDeletedYet}}
+									<div class="col-md-4 mt-2 mb-2">
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-img="{{this.name}}">
+											<img class="img-fluid"
+												src="/counselor/img/{{this.name}}">
+										</a>
+										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-img="{{this.url}}">
+											<img class="img-fluid"
+												src="{{this.url}}">
+										</a> --}}
+									</div>
+									{{/if}}
+									{{/each}}
+								</div>
 							</div>
 							<div class="col-md-6 rounded-pill-right">
-								{{!-- <form method="POST" name="deleteImgCounselorForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-video"> --}}
-									{{!-- <div class="mb-2 d-flex align-items-center">
-										<div class="form-check mr-3">
-											<input class="form-check-input" type="checkbox" value="" id="checkboxAllVideoCounselor">
-											<label class="form-check-label" for="checkboxAllVideoCounselor">
-												Chọn tất cả
-											</label>
-										</div>
-										<button  id="deleteVideoCounselorBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
-									</div> --}}
-									<button class="btn btn-danger mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreVideoCounselor" aria-expanded="false" aria-controls="restoreVideoCounselor">
-										<i class="ti-trash"></i> Thùng rác
-									</button>
-									<div class="collapse mb-2" id="restoreVideoCounselor">
-										<div class="card card-body">
-											<div class="row">
-												{{#each serviceNote.counselorVideo}}
-												{{#if notDeletedYet}}
-												{{else}}
-												<div class="col-md-4">
-													<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-video-counselor?_method=PATCH">
-													<video class="img-fluid"
-														src="/counselor/video/{{this.name}}">
-													{{!-- <img class="img-fluid"
-														src="{{this.url}}"> --}}
-													<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
-													<input type="text" value="{{this.name}}" name="videoName" hidden>
-													</form>
-												</div>
-												{{/if}}
-												{{/each}}
-											</div>
-										</div>
+								<div class="row border overflow-auto rounded-end" style="height: 350px;">
+									{{#each serviceNote.counselorVideo}}
+									{{#if notDeletedYet}}
+									<div class="col-md-4 mt-2 mb-2">
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-video="{{this.name}}">
+											<video class="img-fluid"
+												src="/counselor/video/{{this.name}}"></video>
+										</a>
+										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-video="{{this.url}}">
+											<video class="img-fluid"
+												src="{{this.url}}"></video>
+										</a> --}}
 									</div>
-									<div class="row border overflow-auto rounded-end" style="height: 350px;">
-										{{#each serviceNote.counselorVideo}}
-										{{#if notDeletedYet}}
-										<div class="col-md-4 mt-2 mb-2">
-											{{!-- <div class="d-flex justify-content-between">
-												<div>
-													<span class="badge bg-danger">{{sum @index 1}} / {{../serviceNote.counselorVideo.length}}</span>
-												</div>
-												<div>
-													<input class="form-check-input inputCheckVideoCounselor" type="checkbox" value="" name="videoIDs[]">
-												</div>
-											</div> --}}
-											<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-video="{{this.name}}">
-												<video class="img-fluid"
-													src="/counselor/video/{{this.name}}">
-											</a>
-											{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-video="{{this.url}}">
-												<video class="img-fluid"
-													src="{{this.url}}" controls>
-											</a> --}}
-										</div>
-										{{/if}}
-										{{/each}}
-									</div>
-								{{!-- </form> --}}
+									{{/if}}
+									{{/each}}
+								</div>
 							</div>
 						</div>
 						<form method="POST" id="submit-counselor-form"
@@ -774,7 +1054,7 @@
 										type="file" name="counselor" hidden multiple>
 								</div>
 								<div class="">
-									<label for="steps-to-take-area"><strong>Thông tin tư
+									<label for="steps-to-take-area"><strong>Ghi chú tư
 											vấn trực tiếp:</strong></label>
 								</div>
 								<div class="mb-4">
@@ -788,462 +1068,446 @@
 								</div>
 							</div>
 						</form>
-
-						<div class="accordion accordion-flush" id="accordionFlush-{{serviceNote._id}}">
-							<div class="accordion-item">
-								<h2 class="accordion-header" id="flush-counselor-{{serviceNote._id}}">
-									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-										data-bs-target="#flush-collapse-counselor-{{serviceNote._id}}" aria-expanded="false"
-										aria-controls="flush-collapse-counselor-{{serviceNote._id}}">
-										Thông tin tư vấn trực tiếp
-									</button>
-								</h2>
-								<div id="flush-collapse-counselor-{{serviceNote._id}}" class="accordion-collapse collapse"
-									aria-labelledby="flush-counselor-{{serviceNote._id}}"
-									data-bs-parent="#accordionFlush-{{serviceNote._id}}">
-									<div class="accordion-body">
-										
-									</div>
-								</div>
-							</div>
-							{{!-- <div class="accordion-item">
-								<h2 class="accordion-header" id="flush-before-{{serviceNote._id}}">
-									<button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
-										data-bs-target="#flush-collapse-before-{{serviceNote._id}}" aria-expanded="false"
-										aria-controls="flush-collapse-before-{{serviceNote._id}}">
-										Thông tin tư vấn trực tiếp
-									</button>
-								</h2>
-								<div id="flush-collapse-before-{{serviceNote._id}}" class="accordion-collapse collapse"
-									aria-labelledby="flush-before-{{serviceNote._id}}"
-									data-bs-parent="#accordionFlush-{{serviceNote._id}}">
-									<div class="accordion-body">
-										<div class="row mb-2">
-											<div class="col-md-6 rounded-pill-left">
-												<form method="POST" name="deleteImgBeforeForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-img-before?_method=DELETE">
-													<div class="mb-2 d-flex justify-content-between">
-														<div class="d-flex align-items-center">
-															<div class="form-check mr-3">
-																<input class="form-check-input" type="checkbox" value="" id="checkboxAllImgBefore">
-																<label class="form-check-label" for="checkboxAllImgBefore">
-																	Chọn tất cả
-																</label>
-															</div>
-															<button id="deleteImgBeforeBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
-														</div>
-													</div>
-													<div class="row border overflow-auto rounded-start" style="height: 350px;">
-														{{#each serviceNote.beforeImg}}
-														{{#if notDeletedYet}}
-														<div class="col-md-4 mt-2 mb-2">
-															<div class="d-flex justify-content-between">
-																<div>
-																	<span class="badge bg-danger">{{sum @index 1}} / {{../serviceNote.beforeImg.length}}</span>
-																</div>
-																<div>
-																	<input class="form-check-input inputCheckImgBefore" type="checkbox" value="{{this._id}}" name="imgIDs[]">
-																</div>
-															</div>
-															<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-img="{{this.url}}">
-																<img class="img-fluid" src="{{this.url}}">
-															</a>
-															<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-img="{{this.name}}">
-																<img class="img-fluid" src="/before/img/{{this.name}}">
-															</a>
-														</div>
-														{{/if}}
-														{{/each}}
-													</div>
+					</li>
+				</ul>
+				<ul class="list-group mb-2 ms-2 me-2">
+					<li class="list-group-item active text-center">
+						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin trước phẫu</strong></label>
+					</li>
+					<li class="list-group-item">
+						<button class="btn btn-danger mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgBefore" aria-expanded="false" aria-controls="restoreImgBefore">
+							<i class="ti-trash"></i> Thùng rác
+						</button>
+						<div class="collapse" id="restoreImgBefore">
+							<div class="card card-body">
+								<div class="row">
+									<div class="col-md-6 border-right">
+										<div class="row">
+											{{#each serviceNote.beforeImg}}
+											{{#if notDeletedYet}}
+											{{else}}
+											<div class="col-md-4">
+												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-img-before?_method=PATCH">
+												<img class="img-fluid"
+													src="/before/img/{{this.name}}">
+												{{!-- <img class="img-fluid"
+													src="{{this.url}}"> --}}
+												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
+												<input type="text" value="{{this.name}}" name="imgName" hidden>
 												</form>
 											</div>
-											<div class="col-md-6 rounded-pill-right">
-												<form method="POST" name="deleteImgBeforeForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-video">
-													<div class="mb-2 d-flex align-items-center">
-														<div class="form-check mr-3">
-															<input class="form-check-input" type="checkbox" value="" id="checkboxAllVideoBefore">
-															<label class="form-check-label" for="checkboxAllVideoBefore">
-																Chọn tất cả
-															</label>
-														</div>
-														<button  id="deleteVideoBeforeBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
-													</div>
-													<div class="row border overflow-auto rounded-end" style="height: 350px;">
-														{{#each serviceNote.beforeVideo}}
-														{{#if notDeletedYet}}
-														<div class="col-md-4 mt-2 mb-2">
-															<div class="d-flex justify-content-between">
-																<div>
-																	<span class="badge bg-danger">{{sum @index 1}} / {{../serviceNote.beforeVideo.length}}</span>
-																</div>
-																<div>
-																	<input class="form-check-input inputCheckVideoBefore" type="checkbox" value="" name="videoIDs[]">
-																</div>
-															</div>
-															<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-video="{{this.url}}">
-																<video class="img-fluid" src="{{this.url}}" controls>
-															</a>
-															<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-video="{{this.name}}">
-																<video class="img-fluid" src="/before/video/{{this.name}}" controls>
-															</a>
-														</div>
-														{{/if}}
-														{{/each}}
-													</div>
+											{{/if}}
+											{{/each}}
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											{{#each serviceNote.beforeVideo}}
+											{{#if notDeletedYet}}
+											{{else}}
+											<div class="col-md-4">
+												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-video-before?_method=PATCH">
+												<video class="img-fluid"
+													src="/before/video/{{this.name}}"></video>
+												{{!-- <video class="img-fluid"
+													src="{{this.url}}"></video> --}}
+												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
+												<input type="text" value="{{this.name}}" name="videoName" hidden>
 												</form>
 											</div>
+											{{/if}}
+											{{/each}}
 										</div>
-										<form method="POST" id="submit-before-form"
-											action="/business/employ/service-note/{{serviceNote._id}}/operating-before"
-											enctype="multipart/form-data">
-											<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
-												name="customerID">
-											<div class="row">
-												<div class="col-md-6 mb-3 ps-3 pe-4">
-													<div class="preview-images-before row ml-0 text-center border rounded"
-														style="height: 300px; width: auto;"></div>
-													<label for="input-multi-images-before"
-														class="label-avt d-flex justify-content-center mt-3"
-														data-input-img-id="{{serviceNote._id}}">
-														<h5 id="text-img-before"
-															class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn trực tiếp
-														</h5>
-													</label>
-													<input id="input-multi-images-before" class="form-control" type="file"
-														name="before" hidden multiple>
-												</div>
-												<div class="col-md-6 mb-3 ps-3 pe-4">
-													<div class="preview-videos-before row ml-0 text-center border rounded"
-														style="height: 300px; width: auto;"></div>
-													<label for="input-multi-videos-before"
-														class="label-avt d-flex justify-content-center mt-3"
-														data-input-img-id="{{serviceNote._id}}">
-														<h5 id="text-img-before"
-															class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn trực tiếp
-														</h5>
-													</label>
-													<input id="input-multi-videos-before" class="form-control" type="file"
-														name="before" hidden multiple>
-												</div>
-												<div class="">
-													<label for="steps-to-take-area"><strong>Ghi chú tư vấn trực tiếp:</strong></label>
-												</div>
-												<div class="mb-4">
-													<textarea style="width: inherit;" class="form-control mr-3 pl-3 "
-														name="beforeInfo" cols="30"
-														rows="8">{{serviceNote.beforeInfo}}</textarea>
-												</div>
-												<div class="text-right">
-													<button id="submit-before-form-btn"
-														class="btn btn-primary btn-mobile rounded-pill border">Cập
-														nhật</button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div> --}}
-							<div class="accordion-item">
-								<h2 class="accordion-header" id="flush-in-{{serviceNote._id}}">
-									<button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
-										data-bs-target="#flush-collapse-in-{{serviceNote._id}}" aria-expanded="false"
-										aria-controls="flush-collapse-in-{{serviceNote._id}}">
-										Thông tin phẫu thuật
-									</button>
-								</h2>
-								<div id="flush-collapse-in-{{serviceNote._id}}" class="accordion-collapse collapse"
-									aria-labelledby="flush-in-{{serviceNote._id}}"
-									data-bs-parent="#accordionFlush-{{serviceNote._id}}">
-									<div class="accordion-body">
-										<div class="row mb-2">
-											<div class="col-md-6 rounded-pill-left">
-												{{!-- <form method="POST" name="deleteImgInSurgeryForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-img-in-surgery?_method=DELETE"> --}}
-													{{!-- <div class="mb-2 d-flex justify-content-between">
-														<div class="d-flex align-items-center">
-															<div class="form-check mr-3">
-																<input class="form-check-input" type="checkbox" value="" id="checkboxAllImgInSurgery">
-																<label class="form-check-label" for="checkboxAllImgInSurgery">
-																	Chọn tất cả
-																</label>
-															</div>
-															<button id="deleteImgInSurgeryBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
-														</div>
-													</div> --}}
-													<div class="row border overflow-auto rounded-start" style="height: 350px;">
-														{{#each serviceNote.inSurgeryImg}}
-														{{#if notDeletedYet}}
-														<div class="col-md-4 mt-2 mb-2">
-															{{!-- <div class="d-flex justify-content-between">
-																<div>
-																	<span class="badge bg-danger">{{sum @index 1}} / {{../serviceNote.inSurgeryImg.length}}</span>
-																</div>
-																<div>
-																	<input class="form-check-input inputCheckImgInSurgery" type="checkbox" value="{{this._id}}" name="imgIDs[]">
-																</div>
-															</div> --}}
-															{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-img="{{this.url}}">
-																<img class="img-fluid" src="{{this.url}}">
-															</a> --}}
-															<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-img="{{this.name}}">
-																<img class="img-fluid" src="/in-surgery/img/{{this.name}}">
-															</a>
-														</div>
-														{{/if}}
-														{{/each}}
-													</div>
-												{{!-- </form> --}}
-											</div>
-											<div class="col-md-6 rounded-pill-right">
-												{{!-- <form method="POST" name="deleteVideoInSurgeryForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-video"> --}}
-													{{!-- <div class="mb-2 d-flex align-items-center">
-														<div class="form-check mr-3">
-															<input class="form-check-input" type="checkbox" value="" id="checkboxAllVideoInSurgery">
-															<label class="form-check-label" for="checkboxAllVideoInSurgery">
-																Chọn tất cả
-															</label>
-														</div>
-														<button  id="deleteVideoInSurgeryBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
-													</div> --}}
-													<div class="row border overflow-auto rounded-end" style="height: 350px;">
-														{{#each serviceNote.inSurgeryVideo}}
-														{{#if notDeletedYet}}
-														<div class="col-md-4 mt-2 mb-2">
-															{{!-- <div class="d-flex justify-content-between">
-																<div>
-																	<span class="badge bg-danger">{{sum @index 1}} / {{../serviceNote.inSurgeryVideo.length}}</span>
-																</div>
-																<div>
-																	<input class="form-check-input inputCheckVideoInSurgery" type="checkbox" value="" name="videoIDs[]">
-																</div>
-															</div> --}}
-															{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-video="{{this.url}}">
-																<video class="img-fluid" src="{{this.url}}" controls>
-															</a> --}}
-															<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-video="{{this.name}}">
-																<video class="img-fluid" src="/in-surgery/video/{{this.name}}">
-															</a>
-														</div>
-														{{/if}}
-														{{/each}}
-													</div>
-												{{!-- </form> --}}
-											</div>
-										</div>
-										<form method="POST" id="submit-inSurgery-form"
-											action="/business/employ/service-note/{{serviceNote._id}}/operating-in-surgery"
-											enctype="multipart/form-data">
-											<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
-												name="customerID">
-											<div class="row">
-												<div class="col-md-6 mb-3 ps-3 pe-4">
-													<div class="preview-images-in-surgery row ml-0 text-center border rounded"
-														style="height: 300px; width: auto;"></div>
-													<label for="input-multi-images-in-surgery"
-														class="label-avt d-flex justify-content-center mt-3"
-														data-input-img-id="{{serviceNote._id}}">
-														<h5 id="text-img-in-surgery"
-															class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh phẩu thuật
-														</h5>
-													</label>
-													<input id="input-multi-images-in-surgery" class="form-control"
-														type="file" name="inSurgery" hidden multiple>
-												</div>
-												<div class="col-md-6 mb-3 ps-3 pe-4">
-													<div class="preview-videos-in-surgery row ml-0 text-center border rounded"
-														style="height: 300px; width: auto;"></div>
-													<label for="input-multi-videos-in-surgery"
-														class="label-avt d-flex justify-content-center mt-3"
-														data-input-img-id="{{serviceNote._id}}">
-														<h5 id="text-img-in-surgery"
-															class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video phẩu thuật
-														</h5>
-													</label>
-													<input id="input-multi-videos-in-surgery" class="form-control"
-														type="file" name="inSurgery" hidden multiple>
-												</div>
-												<div class="">
-													<label for="steps-to-take-area"><strong>Các bước thực
-															hiện:</strong></label>
-												</div>
-												<div class="mb-4">
-													<textarea class="form-control mr-3 pl-3 " name="stepsToTake" cols="30"
-														rows="8">{{serviceNote.stepsToTake}}</textarea>
-												</div>
-												<div class="text-right">
-													<button id="submit-in-surgery-form-btn"
-														class="btn btn-primary btn-mobile rounded-pill border">Cập
-														nhật</button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-							<div class="accordion-item">
-								<h2 class="accordion-header" id="flush-after-{{serviceNote._id}}">
-									<button class="accordion-button collapsed " type="button" data-bs-toggle="collapse"
-										data-bs-target="#flush-collapse-after-{{serviceNote._id}}" aria-expanded="false"
-										aria-controls="flush-collapse-after-{{serviceNote._id}}">
-										Thông tin thay băng cắt chỉ
-									</button>
-								</h2>
-								<div id="flush-collapse-after-{{serviceNote._id}}" class="accordion-collapse collapse"
-									aria-labelledby="flush-after-{{serviceNote._id}}"
-									data-bs-parent="#accordionFlush-{{serviceNote._id}}">
-									<div class="accordion-body">
-										<div class="row mb-2">
-											<div class="col-md-6 rounded-pill-left">
-												{{!-- <form method="POST" name="deleteImgAfterForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-img-after?_method=DELETE"> --}}
-													{{!-- <div class="mb-2 d-flex justify-content-between">
-														<div class="d-flex align-items-center">
-															<div class="form-check mr-3">
-																<input class="form-check-input" type="checkbox" value="" id="checkboxAllImgAfter">
-																<label class="form-check-label" for="checkboxAllImgAfter">
-																	Chọn tất cả
-																</label>
-															</div>
-															<button id="deleteImgAfterBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
-														</div>
-													</div> --}}
-													<div class="row border overflow-auto rounded-start" style="height: 350px;">
-														{{#each serviceNote.afterImg}}
-														{{#if notDeletedYet}}
-														<div class="col-md-4 mt-2 mb-2">
-															{{!-- <div class="d-flex justify-content-between">
-																<div>
-																	<span class="badge bg-danger">{{sum @index 1}} / {{../serviceNote.afterImg.length}}</span>
-																</div>
-																<div>
-																	<input class="form-check-input inputCheckImgAfter" type="checkbox" value="{{this._id}}" name="imgIDs[]">
-																</div>
-															</div> --}}
-															{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-img="{{this.url}}">
-																<img class="img-fluid" src="{{this.url}}">
-															</a> --}}
-															<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-img="{{this.name}}">
-																<img class="img-fluid" src="/after/img/{{this.name}}">
-															</a>
-														</div>
-														{{/if}}
-														{{/each}}
-													</div>
-												{{!-- </form> --}}
-											</div>
-											<div class="col-md-6 rounded-pill-right">
-												<form method="POST" name="deleteVideoAfterForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-video">
-													{{!-- <div class="mb-2 d-flex align-items-center">
-														<div class="form-check mr-3">
-															<input class="form-check-input" type="checkbox" value="" id="checkboxAllVideoAfter">
-															<label class="form-check-label" for="checkboxAllVideoAfter">
-																Chọn tất cả
-															</label>
-														</div>
-														<button  id="deleteVideoAfterBtn" class="btn btn-danger btn-sm disabled">Xóa</button>
-													</div> --}}
-													<div class="row border overflow-auto rounded-end" style="height: 350px;">
-														{{#each serviceNote.afterVideo}}
-														{{#if notDeletedYet}}
-														<div class="col-md-4 mt-2 mb-2">
-															{{!-- <div class="d-flex justify-content-between">
-																<div>
-																	<span class="badge bg-danger">{{sum @index 1}} / {{../serviceNote.afterVideo.length}}</span>
-																</div>
-																<div>
-																	<input class="form-check-input inputCheckVideoAfter" type="checkbox" value="" name="videoIDs[]">
-																</div>
-															</div> --}}
-															{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-video="{{this.url}}">
-																<video class="img-fluid" src="{{this.url}}">
-															</a> --}}
-															<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-video="{{this.name}}">
-																<video class="img-fluid" src="/after/video/{{this.name}}">
-															</a>
-														</div>
-														{{/if}}
-														{{/each}}
-													</div>
-												</form>
-											</div>
-										</div>
-										<form method="POST" id="submit-after-form"
-											action="/business/employ/service-note/{{serviceNote._id}}/operating-after"
-											enctype="multipart/form-data">
-											<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
-												name="customerID">
-											<div class="row">
-												<div class="col-md-6 mb-3 ps-3 pe-4">
-													<div class="preview-images-after row ml-0 text-center border rounded"
-														style="height: 300px; width: auto;"></div>
-													<label for="input-multi-images-after"
-														class="label-avt d-flex justify-content-center mt-3"
-														data-input-img-id="{{serviceNote._id}}">
-														<h5 id="text-img-after"
-															class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill">
-															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh thay băng cắt chỉ
-														</h5>
-													</label>
-													<input id="input-multi-images-after" class="form-control" type="file"
-														name="after" hidden multiple>
-												</div>
-												<div class="col-md-6 mb-3 ps-3 pe-4">
-													<div class="preview-videos-after row ml-0 text-center border rounded"
-														style="height: 300px; width: auto;"></div>
-													<label for="input-multi-videos-after"
-														class="label-avt d-flex justify-content-center mt-3"
-														data-input-img-id="{{serviceNote._id}}">
-														<h5 id="text-img-after"
-															class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill">
-															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video thay băng cắt chỉ
-														</h5>
-													</label>
-													<input id="input-multi-videos-after" class="form-control" type="file"
-														name="after" hidden multiple>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-4">
-													<label for="steps-to-take-area"><strong>Tình trạng khách
-															hàng:</strong></label>
-													<div class="mb-4">
-														<textarea style="width: 100%;" class="form-control pl-3 "
-															name="statusAfterInfo" cols="30"
-															rows="8">{{serviceNote.statusAfterInfo}}</textarea>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<label for="steps-to-take-area"><strong>Chỉ định bác
-															sĩ:</strong></label>
-													<div class="mb-4">
-														<textarea style="width: 100%;" class="form-control pl-3 "
-															name="directedByDoctor" cols="30"
-															rows="8">{{serviceNote.directedByDoctor}}</textarea>
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="">
-														<label for="steps-to-take-area"><strong>Các bước thực
-																hiện:</strong></label>
-													</div>
-													<div class="mb-4">
-														<textarea style="width: 100%;" class="form-control "
-															name="afterInfo" cols="30"
-															rows="8">{{serviceNote.afterInfo}}</textarea>
-													</div>
-												</div>
-											</div>
-											<div class="text-right">
-												<button id="submit-after-form-btn"
-													class="btn btn-primary btn-mobile rounded-pill border">Cập
-													nhật</button>
-											</div>
-										</form>
 									</div>
 								</div>
 							</div>
 						</div>
+					</li>
+					<li class="list-group-item">
+						<div class="row mb-2">
+							<div class="col-md-6 rounded-pill-left">
+								<div class="row border overflow-auto rounded-start" style="height: 350px;">
+									{{#each serviceNote.beforeImg}}
+									{{#if notDeletedYet}}
+									<div class="col-md-4 mt-2 mb-2">
+										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-img="{{this.url}}">
+											<img class="img-fluid" src="{{this.url}}">
+										</a> --}}
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-img="{{this.name}}">
+											<img class="img-fluid" src="/before/img/{{this.name}}">
+										</a>
+									</div>
+									{{/if}}
+									{{/each}}
+								</div>
+							</div>
+							<div class="col-md-6 rounded-pill-right">
+								<div class="row border overflow-auto rounded-end" style="height: 350px;">
+									{{#each serviceNote.beforeVideo}}
+									{{#if notDeletedYet}}
+									<div class="col-md-4 mt-2 mb-2">
+										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-video="{{this.url}}">
+											<video class="img-fluid" src="{{this.url}}"></video>
+										</a> --}}
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-video="{{this.name}}">
+											<video class="img-fluid" src="/before/video/{{this.name}}"></video>
+										</a>
+									</div>
+									{{/if}}
+									{{/each}}
+								</div>
+							</div>
+						</div>
+						<form method="POST" id="submit-before-form"
+							action="/business/employ/service-note/{{serviceNote._id}}/operating-before"
+							enctype="multipart/form-data">
+							<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
+								name="customerID">
+							<div class="row">
+								<div class="col-md-6 mb-3 ps-3 pe-4">
+									<div class="preview-images-before row ml-0 text-center border rounded"
+										style="height: 300px; width: auto;"></div>
+									<label for="input-multi-images-before"
+										class="label-avt d-flex justify-content-center mt-3"
+										data-input-img-id="{{serviceNote._id}}">
+										<h5 id="text-img-before"
+											class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
+											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh trước phẫu thuật
+										</h5>
+									</label>
+									<input id="input-multi-images-before" class="form-control" type="file"
+										name="before" hidden multiple>
+								</div>
+								<div class="col-md-6 mb-3 ps-3 pe-4">
+									<div class="preview-videos-before row ml-0 text-center border rounded"
+										style="height: 300px; width: auto;"></div>
+									<label for="input-multi-videos-before"
+										class="label-avt d-flex justify-content-center mt-3"
+										data-input-img-id="{{serviceNote._id}}">
+										<h5 id="text-img-before"
+											class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
+											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video trước phẫu thuật
+										</h5>
+									</label>
+									<input id="input-multi-videos-before" class="form-control" type="file"
+										name="before" hidden multiple>
+								</div>
+								<div class="">
+									<label for="steps-to-take-area"><strong>Ghi chú trước phẫu thuật:</strong></label>
+								</div>
+								<div class="mb-4">
+									<textarea style="width: inherit;" class="form-control mr-3 pl-3 "
+										name="beforeInfo" cols="30"
+										rows="8">{{serviceNote.beforeInfo}}</textarea>
+								</div>
+								<div class="text-right">
+									<button id="submit-before-form-btn"
+										class="btn btn-primary btn-mobile rounded-pill border">Cập
+										nhật</button>
+								</div>
+							</div>
+						</form>
+					</li>
+				</ul>
+				<ul class="list-group mb-2 ms-2 me-2">
+					<li class="list-group-item active text-center">
+						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin phẫu thuật</strong></label>
+					</li>
+					<li class="list-group-item">
+						<button class="btn btn-danger mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgInSurgery" aria-expanded="false" aria-controls="restoreImgInSurgery">
+							<i class="ti-trash"></i> Thùng rác
+						</button>
+						<div class="collapse" id="restoreImgInSurgery">
+							<div class="card card-body">
+								<div class="row">
+									<div class="col-md-6 border-right">
+										<div class="row">
+											{{#each serviceNote.inSurgeryImg}}
+											{{#if notDeletedYet}}
+											{{else}}
+											<div class="col-md-4">
+												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-img-in-surgery?_method=PATCH">
+												<img class="img-fluid"
+													src="/in-surgery/img/{{this.name}}">
+												{{!-- <img class="img-fluid"
+													src="{{this.url}}"> --}}
+												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
+												<input type="text" value="{{this.name}}" name="imgName" hidden>
+												</form>
+											</div>
+											{{/if}}
+											{{/each}}
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											{{#each serviceNote.inSurgeryVideo}}
+											{{#if notDeletedYet}}
+											{{else}}
+											<div class="col-md-4">
+												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-video-in-surgery?_method=PATCH">
+												<video class="img-fluid"
+													src="/in-surgery/video/{{this.name}}"></video>
+												{{!-- <video class="img-fluid"
+													src="{{this.url}}"></video> --}}
+												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
+												<input type="text" value="{{this.name}}" name="videoName" hidden>
+												</form>
+											</div>
+											{{/if}}
+											{{/each}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item">
+						<div class="row mb-2">
+							<div class="col-md-6 rounded-pill-left">
+								<div class="row border overflow-auto rounded-start" style="height: 350px;">
+									{{#each serviceNote.inSurgeryImg}}
+									{{#if notDeletedYet}}
+									<div class="col-md-4 mt-2 mb-2">
+										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-img="{{this.url}}">
+											<img class="img-fluid" src="{{this.url}}">
+										</a> --}}
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-img="{{this.name}}">
+											<img class="img-fluid" src="/in-surgery/img/{{this.name}}">
+										</a>
+									</div>
+									{{/if}}
+									{{/each}}
+								</div>
+							</div>
+							<div class="col-md-6 rounded-pill-right">
+								<div class="row border overflow-auto rounded-end" style="height: 350px;">
+									{{#each serviceNote.inSurgeryVideo}}
+									{{#if notDeletedYet}}
+									<div class="col-md-4 mt-2 mb-2">
+										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-video="{{this.url}}">
+											<video class="img-fluid" src="{{this.url}}"></video>
+										</a> --}}
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-video="{{this.name}}">
+											<video class="img-fluid" src="/in-surgery/video/{{this.name}}"></video>
+										</a>
+									</div>
+									{{/if}}
+									{{/each}}
+								</div>
+							</div>
+						</div>
+						<form method="POST" id="submit-inSurgery-form"
+							action="/business/employ/service-note/{{serviceNote._id}}/operating-in-surgery"
+							enctype="multipart/form-data">
+							<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
+								name="customerID">
+							<div class="row">
+								<div class="col-md-6 mb-3 ps-3 pe-4">
+									<div class="preview-images-in-surgery row ml-0 text-center border rounded"
+										style="height: 300px; width: auto;"></div>
+									<label for="input-multi-images-in-surgery"
+										class="label-avt d-flex justify-content-center mt-3"
+										data-input-img-id="{{serviceNote._id}}">
+										<h5 id="text-img-in-surgery"
+											class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
+											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh phẩu thuật
+										</h5>
+									</label>
+									<input id="input-multi-images-in-surgery" class="form-control"
+										type="file" name="inSurgery" hidden multiple>
+								</div>
+								<div class="col-md-6 mb-3 ps-3 pe-4">
+									<div class="preview-videos-in-surgery row ml-0 text-center border rounded"
+										style="height: 300px; width: auto;"></div>
+									<label for="input-multi-videos-in-surgery"
+										class="label-avt d-flex justify-content-center mt-3"
+										data-input-img-id="{{serviceNote._id}}">
+										<h5 id="text-img-in-surgery"
+											class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
+											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video phẩu thuật
+										</h5>
+									</label>
+									<input id="input-multi-videos-in-surgery" class="form-control"
+										type="file" name="inSurgery" hidden multiple>
+								</div>
+								<div class="">
+									<label for="steps-to-take-area"><strong>Các bước thực
+											hiện:</strong></label>
+								</div>
+								<div class="mb-4">
+									<textarea class="form-control mr-3 pl-3 " name="stepsToTake" cols="30"
+										rows="8">{{serviceNote.stepsToTake}}</textarea>
+								</div>
+								<div class="text-right">
+									<button id="submit-in-surgery-form-btn"
+										class="btn btn-primary btn-mobile rounded-pill border">Cập
+										nhật</button>
+								</div>
+							</div>
+						</form>
+					</li>
+				</ul>
+				<ul class="list-group mb-2 ms-2 me-2">
+					<li class="list-group-item active text-center">
+						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin thay băng cắt chỉ</strong></label>
+					</li>
+					<li class="list-group-item">
+						<button class="btn btn-danger mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgAfter" aria-expanded="false" aria-controls="restoreImgAfter">
+							<i class="ti-trash"></i> Thùng rác
+						</button>
+						<div class="collapse" id="restoreImgAfter">
+							<div class="card card-body">
+								<div class="row">
+									<div class="col-md-6 border-right">
+										<div class="row">
+											{{#each serviceNote.afterImg}}
+											{{#if notDeletedYet}}
+											{{else}}
+											<div class="col-md-4">
+												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-img-after?_method=PATCH">
+												<img class="img-fluid"
+													src="/after/img/{{this.name}}">
+												{{!-- <img class="img-fluid"
+													src="{{this.url}}"> --}}
+												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
+												<input type="text" value="{{this.name}}" name="imgName" hidden>
+												</form>
+											</div>
+											{{/if}}
+											{{/each}}
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											{{#each serviceNote.afterVideo}}
+											{{#if notDeletedYet}}
+											{{else}}
+											<div class="col-md-4">
+												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-video-after?_method=PATCH">
+												<video class="img-fluid"
+													src="/after/video/{{this.name}}"></video>
+												{{!-- <video class="img-fluid"
+													src="{{this.url}}"></video> --}}
+												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
+												<input type="text" value="{{this.name}}" name="videoName" hidden>
+												</form>
+											</div>
+											{{/if}}
+											{{/each}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item">
+						<div class="row mb-2">
+							<div class="col-md-6 rounded-pill-left">
+								<div class="row border overflow-auto rounded-start" style="height: 350px;">
+									{{#each serviceNote.afterImg}}
+									{{#if notDeletedYet}}
+									<div class="col-md-4 mt-2 mb-2">
+										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-img="{{this.url}}">
+											<img class="img-fluid" src="{{this.url}}">
+										</a> --}}
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-img="{{this.name}}">
+											<img class="img-fluid" src="/after/img/{{this.name}}">
+										</a>
+									</div>
+									{{/if}}
+									{{/each}}
+								</div>
+							</div>
+							<div class="col-md-6 rounded-pill-right">
+								<div class="row border overflow-auto rounded-end" style="height: 350px;">
+									{{#each serviceNote.afterVideo}}
+									{{#if notDeletedYet}}
+									<div class="col-md-4 mt-2 mb-2">
+										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-video="{{this.url}}">
+											<video class="img-fluid" src="{{this.url}}"></video>
+										</a> --}}
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-video="{{this.name}}">
+											<video class="img-fluid" src="/after/video/{{this.name}}"></video>
+										</a>
+									</div>
+									{{/if}}
+									{{/each}}
+								</div>
+							</div>
+						</div>
+						<form method="POST" id="submit-after-form"
+							action="/business/employ/service-note/{{serviceNote._id}}/operating-after"
+							enctype="multipart/form-data">
+							<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
+								name="customerID">
+							<div class="row">
+								<div class="col-md-6 mb-3 ps-3 pe-4">
+									<div class="preview-images-after row ml-0 text-center border rounded"
+										style="height: 300px; width: auto;"></div>
+									<label for="input-multi-images-after"
+										class="label-avt d-flex justify-content-center mt-3"
+										data-input-img-id="{{serviceNote._id}}">
+										<h5 id="text-img-after"
+											class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill">
+											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh thay băng cắt chỉ
+										</h5>
+									</label>
+									<input id="input-multi-images-after" class="form-control" type="file"
+										name="after" hidden multiple>
+								</div>
+								<div class="col-md-6 mb-3 ps-3 pe-4">
+									<div class="preview-videos-after row ml-0 text-center border rounded"
+										style="height: 300px; width: auto;"></div>
+									<label for="input-multi-videos-after"
+										class="label-avt d-flex justify-content-center mt-3"
+										data-input-img-id="{{serviceNote._id}}">
+										<h5 id="text-img-after"
+											class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill">
+											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video thay băng cắt chỉ
+										</h5>
+									</label>
+									<input id="input-multi-videos-after" class="form-control" type="file"
+										name="after" hidden multiple>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<label for="steps-to-take-area"><strong>Tình trạng khách
+											hàng:</strong></label>
+									<div class="mb-4">
+										<textarea style="width: 100%;" class="form-control pl-3 "
+											name="statusAfterInfo" cols="30"
+											rows="8">{{serviceNote.statusAfterInfo}}</textarea>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<label for="steps-to-take-area"><strong>Chỉ định bác
+											sĩ:</strong></label>
+									<div class="mb-4">
+										<textarea style="width: 100%;" class="form-control pl-3 "
+											name="directedByDoctor" cols="30"
+											rows="8">{{serviceNote.directedByDoctor}}</textarea>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="">
+										<label for="steps-to-take-area"><strong>Các bước thực
+												hiện:</strong></label>
+									</div>
+									<div class="mb-4">
+										<textarea style="width: 100%;" class="form-control "
+											name="afterInfo" cols="30"
+											rows="8">{{serviceNote.afterInfo}}</textarea>
+									</div>
+								</div>
+							</div>
+							<div class="text-right">
+								<button id="submit-after-form-btn"
+									class="btn btn-primary btn-mobile rounded-pill border">Cập
+									nhật</button>
+							</div>
+						</form>
 					</li>
 				</ul>
 			</div>
@@ -1334,15 +1598,22 @@
 	</div>
 </div>
 
-<div class="modal fade" id="videoModalBefore" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+<div class="modal fade" id="videoModalBefore" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
-		<div class="modal-content">
-			<div class="modal-body">
-				<div class="text-center">
-					<video id="modal-video-before" class="img-thumbnail" alt="..." controls>
+		<form method="POST" name="deleteVideoBeforeForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-video-before?_method=DELETE">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="text-center">
+						<video id="modal-video-before" class="img-thumbnail" alt="..." controls>
+						<input id="inputDeleteVideoBefore" type="text" name="videoName" hidden>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-danger">Xóa video</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
 				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
 
