@@ -624,32 +624,140 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 });
 
-var imageModal = document.getElementById('imageModal')
+var imageModalCounselor = document.getElementById('imageModalCounselor');
 
-imageModal.addEventListener('show.bs.modal', function (event) {
+imageModalCounselor.addEventListener('show.bs.modal', function (event) {
 	// Button that triggered the modal
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
 	var dataImg = button.getAttribute('data-img');
 
-	var modalImage = document.getElementById('modal-img');
+	var modalImageCounselor = document.getElementById('modal-img-counselor');
+	var inputDeleteImageCounselor = document.getElementById('inputDeleteImageCounselor');
 
-	modalImage.setAttribute('src', `/counselor/img/${dataImg}`)
+	// modalImageCounselor.setAttribute('src', `${dataImg}`);
+	modalImageCounselor.setAttribute('src', `/counselor/img/${dataImg}`);
+	inputDeleteImageCounselor.value = dataImg;
+
+});
+
+var videoModalCounselor = document.getElementById('videoModalCounselor');
+
+videoModalCounselor.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataVideo = button.getAttribute('data-video');
+	var modalVideoCounselor = document.getElementById('modal-video-counselor');
+	var inputDeleteVideoCounselor = document.getElementById('inputDeleteVideoCounselor');
+
+	// modalVideoCounselor.setAttribute('src', `${dataVideo}`);
+	modalVideoCounselor.setAttribute('src', `/counselor/video/${dataVideo}`);
+	inputDeleteVideoCounselor.value = dataVideo;
+});
+
+var imageModalBefore = document.getElementById('imageModalBefore');
+
+imageModalBefore.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+	
+	// Extract info from data-bs-* attributes
+	var dataImg = button.getAttribute('data-img');
+	
+	var modalImageBefore = document.getElementById('modal-img-before');
+	var inputDeleteImageBefore = document.getElementById('inputDeleteImageBefore');
+	// modalImageBefore.setAttribute('src', `${dataImg}`);
+	modalImageBefore.setAttribute('src', `/before/img/${dataImg}`);
+	inputDeleteImageBefore.value = dataImg;
 })
 
-var videoModal = document.getElementById('videoModal')
+var videoModalBefore = document.getElementById('videoModalBefore');
 
-videoModal.addEventListener('show.bs.modal', function (event) {
+videoModalBefore.addEventListener('show.bs.modal', function (event) {
 	// Button that triggered the modal
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
 	var dataVideo = button.getAttribute('data-video');
 
-	var modalVideo = document.getElementById('modal-video');
+	var modalVideoBefore = document.getElementById('modal-video-before');
 
-	modalVideo.setAttribute('src', `/counselor/video/${dataVideo}`)
+	// modalVideoBefore.setAttribute('src', `${dataVideo}`);
+	modalVideoBefore.setAttribute('src', `/before/video/${dataVideo}`);
+})
+
+var imageModalInSurgery = document.getElementById('imageModalInSurgery');
+
+imageModalInSurgery.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataImg = button.getAttribute('data-img');
+
+	var modalImageInSurgery = document.getElementById('modal-img-inSurgery');
+	var inputDeleteImageInSurgery = document.getElementById('inputDeleteImageInSurgery');
+
+
+	// modalImageInSurgery.setAttribute('src', `${dataImg}`);
+	modalImageInSurgery.setAttribute('src', `/in-surgery/img/${dataImg}`);
+	inputDeleteImageInSurgery.value = dataImg;
+});
+
+var videoModalInSurgery = document.getElementById('videoModalInSurgery');
+
+videoModalInSurgery.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataVideo = button.getAttribute('data-video');
+
+	var modalVideoInSurgery = document.getElementById('modal-video-inSurgery');
+	var inputDeleteVideoInSurgery = document.getElementById('inputDeleteVideoInSurgery');
+
+	// modalVideoInSurgery.setAttribute('src', `${dataVideo}`);
+	modalVideoInSurgery.setAttribute('src', `/in-surgery/video/${dataVideo}`);
+	inputDeleteVideoInSurgery.value = dataVideo;
+});
+
+var imageModalAfter = document.getElementById('imageModalAfter')
+
+imageModalAfter.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataImg = button.getAttribute('data-img');
+
+	var modalImageAfter = document.getElementById('modal-img-after');
+	var inputDeleteImgAfter = document.getElementById('inputDeleteImgAfter');
+
+	// modalImageAfter.setAttribute('src', `${dataImg}`);
+	modalImageAfter.setAttribute('src', `/after/img/${dataImg}`);
+	inputDeleteImgAfter.value = dataImg;
+
+})
+
+var videoModalAfter = document.getElementById('videoModalAfter')
+
+videoModalAfter.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataVideo = button.getAttribute('data-video');
+
+	var modalVideoAfter = document.getElementById('modal-video-after');
+	var inputDeleteVideoAfter = document.getElementById('inputDeleteVideoAfter');
+
+	// modalVideoAfter.setAttribute('src', `${dataVideo}`);
+	modalVideoAfter.setAttribute('src', `/after/video/${dataVideo}`);
+	inputDeleteVideoAfter.value = dataVideo;
+
 })
 
 function totalMoneyFn(before, current) {
@@ -1073,7 +1181,7 @@ deleteServiceBtn.addEventListener("click", () => {
 /* Counselor Img*/
 // Checkbox all change
 var checkboxAllImgCounselor = $('#checkboxAllImgCounselor');
-var imgCounselorCheckbox = $('input[name="imgIDs[]"]');
+var imgCounselorCheckbox = $('.inputCheckImgCounselor');
 checkboxAllImgCounselor.change(function () {
 	var isCheckedAll = $(this).prop('checked');
 	imgCounselorCheckbox.prop('checked', isCheckedAll);
@@ -1082,20 +1190,20 @@ checkboxAllImgCounselor.change(function () {
 
 // Img checkbox change
 imgCounselorCheckbox.change(function () {
-	var isCheckedAllLength = imgCounselorCheckbox.length === $('input[name="imgIDs[]"]:checked').length;
+	var isCheckedAllLength = imgCounselorCheckbox.length === $('.inputCheckImgCounselor:checked').length;
 	checkboxAllImgCounselor.prop('checked', isCheckedAllLength);
 	renderDeleteImgCounselorBtn();
 })
 
 function renderDeleteImgCounselorBtn() {
-	var checkedCount = $('input[name="imgIDs[]"]:checked').length;
+	var checkedCount = $('.inputCheckImgCounselor:checked').length;
 	checkedCount ? $('#deleteImgCounselorBtn').removeClass('disabled') : $('#deleteImgCounselorBtn').addClass('disabled');
 }
 
 /* Counselor Video*/
 // Checkbox all change
 var checkboxAllVideoCounselor = $('#checkboxAllVideoCounselor');
-var videoCounselorCheckbox = $('input[name="videoIDs[]"]');
+var videoCounselorCheckbox = $('.inputCheckVideoCounselor');
 checkboxAllVideoCounselor.change(function () {
 	var isCheckedAll = $(this).prop('checked');
 	videoCounselorCheckbox.prop('checked', isCheckedAll);
@@ -1104,12 +1212,147 @@ checkboxAllVideoCounselor.change(function () {
 
 // Img checkbox change
 videoCounselorCheckbox.change(function () {
-	var isCheckedAllLength = videoCounselorCheckbox.length === $('input[name="videoIDs[]"]:checked').length;
+	var isCheckedAllLength = videoCounselorCheckbox.length === $('.inputCheckVideoCounselor:checked').length;
 	checkboxAllVideoCounselor.prop('checked', isCheckedAllLength);
 	renderDeleteVideoCounselorBtn();
 })
 
 function renderDeleteVideoCounselorBtn() {
-	var checkedCount = $('input[name="videoIDs[]"]:checked').length;
+	var checkedCount = $('.inputCheckVideoCounselor:checked').length;
 	checkedCount ? $('#deleteVideoCounselorBtn').removeClass('disabled') : $('#deleteVideoCounselorBtn').addClass('disabled');
+}
+
+
+/* Before Img*/
+// Checkbox all change
+var checkboxAllImgBefore = $('#checkboxAllImgBefore');
+var imgBeforeCheckbox = $('.inputCheckImgBefore');
+checkboxAllImgBefore.change(function () {
+	var isCheckedAll = $(this).prop('checked');
+	imgBeforeCheckbox.prop('checked', isCheckedAll);
+	renderDeleteImgBeforeBtn();
+})
+
+// Img checkbox change
+imgBeforeCheckbox.change(function () {
+	var isCheckedAllLength = imgBeforeCheckbox.length === $('.inputCheckImgBefore:checked').length;
+	checkboxAllImgBefore.prop('checked', isCheckedAllLength);
+	renderDeleteImgBeforeBtn();
+})
+
+function renderDeleteImgBeforeBtn() {
+	var checkedCount = $('.inputCheckImgBefore:checked').length;
+	checkedCount ? $('#deleteImgBeforeBtn').removeClass('disabled') : $('#deleteImgBeforeBtn').addClass('disabled');
+}
+
+/* Before Video*/
+// Checkbox all change
+var checkboxAllVideoBefore = $('#checkboxAllVideoBefore');
+var videoBeforeCheckbox = $('.inputCheckVideoBefore');
+checkboxAllVideoBefore.change(function () {
+	var isCheckedAll = $(this).prop('checked');
+	videoBeforeCheckbox.prop('checked', isCheckedAll);
+	renderDeleteVideoBeforeBtn();
+})
+
+// Img checkbox change
+videoBeforeCheckbox.change(function () {
+	var isCheckedAllLength = videoBeforeCheckbox.length === $('.inputCheckVideoBefore:checked').length;
+	checkboxAllVideoBefore.prop('checked', isCheckedAllLength);
+	renderDeleteVideoBeforeBtn();
+})
+
+function renderDeleteVideoBeforeBtn() {
+	var checkedCount = $('.inputCheckVideoBefore:checked').length;
+	checkedCount ? $('#deleteVideoBeforeBtn').removeClass('disabled') : $('#deleteVideoBeforeBtn').addClass('disabled');
+}
+
+
+/* Insurgery Img*/
+// Checkbox all change
+var checkboxAllImgInSurgery = $('#checkboxAllImgInSurgery');
+var imgInSurgeryCheckbox = $('.inputCheckImgInSurgery');
+checkboxAllImgInSurgery.change(function () {
+	var isCheckedAll = $(this).prop('checked');
+	imgInSurgeryCheckbox.prop('checked', isCheckedAll);
+	renderDeleteImgInSurgeryBtn();
+})
+
+// Img checkbox change
+imgInSurgeryCheckbox.change(function () {
+	var isCheckedAllLength = imgInSurgeryCheckbox.length === $('.inputCheckImgInSurgery:checked').length;
+	checkboxAllImgInSurgery.prop('checked', isCheckedAllLength);
+	renderDeleteImgInSurgeryBtn();
+})
+
+function renderDeleteImgInSurgeryBtn() {
+	var checkedCount = $('.inputCheckImgInSurgery:checked').length;
+	checkedCount ? $('#deleteImgInSurgeryBtn').removeClass('disabled') : $('#deleteImgInSurgeryBtn').addClass('disabled');
+}
+
+/* Insurgery Video*/
+// Checkbox all change
+var checkboxAllVideoInSurgery = $('#checkboxAllVideoInSurgery');
+var videoInSurgeryCheckbox = $('.inputCheckVideoInSurgery');
+checkboxAllVideoInSurgery.change(function () {
+	var isCheckedAll = $(this).prop('checked');
+	videoInSurgeryCheckbox.prop('checked', isCheckedAll);
+	renderDeleteVideoInSurgeryBtn();
+})
+
+// Img checkbox change
+videoInSurgeryCheckbox.change(function () {
+	var isCheckedAllLength = videoInSurgeryCheckbox.length === $('.inputCheckVideoInSurgery:checked').length;
+	checkboxAllVideoInSurgery.prop('checked', isCheckedAllLength);
+	renderDeleteVideoInSurgeryBtn();
+})
+
+function renderDeleteVideoInSurgeryBtn() {
+	var checkedCount = $('.inputCheckVideoInSurgery:checked').length;
+	checkedCount ? $('#deleteVideoInSurgeryBtn').removeClass('disabled') : $('#deleteVideoInSurgeryBtn').addClass('disabled');
+}
+
+
+/* After Img*/
+// Checkbox all change
+var checkboxAllImgAfter = $('#checkboxAllImgAfter');
+var imgAfterCheckbox = $('.inputCheckImgAfter');
+checkboxAllImgAfter.change(function () {
+	var isCheckedAll = $(this).prop('checked');
+	imgAfterCheckbox.prop('checked', isCheckedAll);
+	renderDeleteImgAfterBtn();
+})
+
+// Img checkbox change
+imgAfterCheckbox.change(function () {
+	var isCheckedAllLength = imgAfterCheckbox.length === $('.inputCheckImgAfter:checked').length;
+	checkboxAllImgAfter.prop('checked', isCheckedAllLength);
+	renderDeleteImgAfterBtn();
+})
+
+function renderDeleteImgAfterBtn() {
+	var checkedCount = $('.inputCheckImgAfter:checked').length;
+	checkedCount ? $('#deleteImgAfterBtn').removeClass('disabled') : $('#deleteImgAfterBtn').addClass('disabled');
+}
+
+/* After Video*/
+// Checkbox all change
+var checkboxAllVideoAfter = $('#checkboxAllVideoAfter');
+var videoAfterCheckbox = $('.inputCheckVideoAfter');
+checkboxAllVideoAfter.change(function () {
+	var isCheckedAll = $(this).prop('checked');
+	videoAfterCheckbox.prop('checked', isCheckedAll);
+	renderDeleteVideoAfterBtn();
+})
+
+// Img checkbox change
+videoAfterCheckbox.change(function () {
+	var isCheckedAllLength = videoAfterCheckbox.length === $('.inputCheckVideoAfter:checked').length;
+	checkboxAllVideoAfter.prop('checked', isCheckedAllLength);
+	renderDeleteVideoAfterBtn();
+})
+
+function renderDeleteVideoAfterBtn() {
+	var checkedCount = $('.inputCheckVideoAfter:checked').length;
+	checkedCount ? $('#deleteVideoAfterBtn').removeClass('disabled') : $('#deleteVideoAfterBtn').addClass('disabled');
 }

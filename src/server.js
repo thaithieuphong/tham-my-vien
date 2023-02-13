@@ -145,9 +145,16 @@ app.engine(
 					return value = '-- Chọn giới tính --';
 				}
 			},
-			show: (value) => {
-				return value;
-			}
+			arrService: (arr) => {
+				let newArr = [];
+				arr.map(item => {
+					console.log(item.name)
+					console.log(item.price)
+					newArr.push({ name: item.name, price: item.price});
+				});
+				console.log(newArr)
+				return newArr;
+			},
 		}
 	})
 );
@@ -175,6 +182,16 @@ app.use(function (req, res, next) {
 	res.locals.messages_updateCusInfo_success = req.flash('messages_updateCusInfo_success');
 	res.locals.messages_updateService_success = req.flash('messages_updateService_success');
 	res.locals.messages_deleteService_success = req.flash('messages_deleteService_success');
+	res.locals.messages_restoreServiceNote_success = req.flash('messages_restoreServiceNote_success');
+	res.locals.messages_deleteServiceNote_success = req.flash('messages_deleteServiceNote_success');
+	res.locals.messages_deletedCounselorImg_success = req.flash('messages_deletedCounselorImg_success');
+	res.locals.messages_restoreCounselorImg_success = req.flash('messages_restoreCounselorImg_success');
+	res.locals.messages_deletedCounselorVideo_success = req.flash('messages_deletedCounselorVideo_success');
+	res.locals.messages_restoreCounselorVideo_success = req.flash('messages_restoreCounselorVideo_success');
+	res.locals.messages_deletedInSurgeryImg_success = req.flash('messages_deletedInSurgeryImg_success');
+	res.locals.messages_deletedInSurgeryVideo_success = req.flash('messages_deletedInSurgeryVideo_success');
+	res.locals.messages_deletedAfterImg_success = req.flash('messages_deletedAfterImg_success');
+	res.locals.messages_deletedAfterVideo_success = req.flash('messages_deletedAfterVideo_success');
 	res.locals.messages_updateCusDischarge_success = req.flash('messages_updateCusDischarge_success');
 	res.locals.messages_updateServiceNoteDone_success = req.flash('messages_updateServiceNoteDone_success');
 	res.locals.messages_uploadCounselor_success = req.flash('messages_uploadCounselor_success');

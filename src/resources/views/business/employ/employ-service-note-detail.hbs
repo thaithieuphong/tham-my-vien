@@ -51,21 +51,22 @@
             </div>
         </div>
         <div class="col d-flex flex-column h-sm-100 ps-0 pe-0">
-			<div class="sticky-top">
-				<nav class="navbar navbar-light bg-blue">
+			<div class="ps-0 pe-0 sticky-top">
+				<div class="d-flex justify-content-between bg-dark">
 					<div class="img-container">
 						<a type="button" onclick="history.back()">
-							<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+							<i class="fa-solid fa-circle-arrow-left text-light ms-1 fs-3 mt-1"></i>
 						</a>
 					</div>
-					<div class="text-light text-uppercase fw-bold">
+					<div class="text-light text-uppercase fw-bold mt-1">
 						{{this.title}}
 					</div>
-					<button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
+					<div></div>
+					{{!-- <button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas"
 						data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop"><i
 							class="ti-menu"></i>
-					</button>
-				</nav>
+					</button> --}}
+				</div>
 			</div>
 			<div class="container-fluid">
 				{{#if serviceNote}}
@@ -97,6 +98,30 @@
 										{{serviceNote.scheduleID.customerID.nickName}}
 									</label>
 								</div>
+								<div class="d-flex justify-content-between">
+									<label for="status" class="text-nowrap text-dark">
+										<strong>Giới tính:</strong>
+									</label>
+									<label class="fs-6 text-right">
+										{{serviceNote.scheduleID.customerID.gender}}
+									</label>
+								</div>
+								<div class="d-flex justify-content-between">
+									<label for="status" class="text-nowrap text-dark">
+										<strong>Ngày sinh:</strong>
+									</label>
+									<label class="fs-6 text-right">
+										{{formatBirth serviceNote.scheduleID.customerID.birth}}
+									</label>
+								</div>
+								<div class="d-flex justify-content-between">
+									<label for="status" class="text-nowrap text-dark">
+										<strong>Số điện thoại:</strong>
+									</label>
+									<label class="fs-6 text-right text-danger">
+										0{{serviceNote.scheduleID.customerID.phone}}
+									</label>
+								</div>
 							</div>
 							<div class="col-4">
 								<div class="d-flex justify-content-between">
@@ -107,26 +132,6 @@
 										{{serviceNote.scheduleID.customerID.homeTown}}
 									</label>
 								</div>
-								<div class="d-flex justify-content-between">
-									<label for="status" class="text-nowrap text-dark">
-										<strong>Trạng thái:</strong>
-									</label>
-									<label class="fs-6 text-danger text-right">
-										<em>{{serviceNote.status}}</em>
-									</label>
-								</div>
-								<div class="d-flex justify-content-between">
-									<label for="status" class="text-nowrap text-dark">
-										<strong>Bác sĩ thực hiện:</strong>
-									</label>
-									<label class="">
-										{{#each serviceNote.performer}}
-										<em>{{this.firstName}} {{this.lastName}}</em>
-										{{/each}}
-									</label>
-								</div>
-							</div>
-							<div class="col-4">
 								<div class="d-flex justify-content-between">
 									<label for="status" class="text-nowrap text-dark">
 										<strong>Chiều cao:</strong>
@@ -145,18 +150,62 @@
 								</div>
 								<div class="d-flex justify-content-between">
 									<label for="status" class="text-nowrap text-dark">
-										<strong>Ngày phẩu thuật:</strong>
+										<strong>Nguồn:</strong>
+									</label>
+									<label class="text-right">
+										<em>{{serviceNote.scheduleID.customerID.resource}}</em>
+									</label>
+								</div>
+								<div class="d-flex justify-content-between">
+									<label for="status" class="text-nowrap text-dark">
+										<strong>Trạng thái:</strong>
+									</label>
+									<label class="fs-6 text-danger text-right">
+										<em>{{serviceNote.status}}</em>
+									</label>
+								</div>
+								<div class="d-flex justify-content-between">
+									<label for="status" class="text-nowrap text-dark">
+										<strong>Nhân viên sale:</strong>
+									</label>
+									<label class="fs-6 text-danger text-right">
+										<em>{{serviceNote.scheduleID.customerID.userID.firstName}} {{serviceNote.scheduleID.customerID.userID.lastName}}</em>
+									</label>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="d-flex justify-content-between">
+									<label for="status" class="text-nowrap text-dark">
+										<strong>Ngày hẹn tư vấn:</strong>
 									</label>
 									<label class="text-right text-success">
+										{{formatDate serviceNote.scheduleID.schedule}}
+									</label>
+								</div>
+								<div class="d-flex justify-content-between">
+									<label for="status" class="text-nowrap text-dark">
+										<strong>Ngày phẩu thuật:</strong>
+									</label>
+									<label class="text-right text-primary">
 										{{formatDate serviceNote.surgeryDay}}
 									</label>
 								</div>
 								<div class="d-flex justify-content-between">
 									<label for="status" class="text-nowrap text-dark">
-										<strong>Tầng phẩu thuật:</strong>
+										<strong>Khu vực phẫu thuật:</strong>
 									</label>
 									<label class="text-right">
 										{{serviceNote.floor}}
+									</label>
+								</div>
+								<div class="d-flex justify-content-between">
+									<label for="status" class="text-nowrap text-dark">
+										<strong>Bác sĩ thực hiện:</strong>
+									</label>
+									<label class="">
+										{{#each serviceNote.performer}}
+										<em>{{this.firstName}} {{this.lastName}}</em>
+										{{/each}}
 									</label>
 								</div>
 							</div>
@@ -178,10 +227,34 @@
 						{{/each}}
 						<div class="d-flex justify-content-between">
 							<label for="status" class="text-nowrap text-dark">
+								<strong>Phí dịch vụ tư vấn trực tiếp:</strong>
+							</label>
+							<label class="text-warning text-right">
+								{{serviceNote.totalServiceCharge}}
+							</label>
+						</div>
+						<div class="d-flex justify-content-between">
+							<label for="status" class="text-nowrap text-dark">
 								<strong>Đặt cọc:</strong>
 							</label>
 							<label class="text-warning text-right">
 								{{serviceNote.deposit}}
+							</label>
+						</div>
+						<div class="d-flex justify-content-between">
+							<label for="status" class="text-nowrap text-dark">
+								<strong>Giảm giá:</strong>
+							</label>
+							<label class="text-warning text-right">
+								{{serviceNote.discount}}
+							</label>
+						</div>
+						<div class="d-flex justify-content-between">
+							<label for="status" class="text-nowrap text-dark">
+								<strong>Chi phí khách cần thanh toán:</strong>
+							</label>
+							<label class="text-warning text-right">
+								{{serviceNote.amountToBePaid}}
 							</label>
 						</div>
 						<div class="d-flex justify-content-between">
@@ -192,6 +265,226 @@
 								{{serviceNote.total}}
 							</label>
 						</div>
+						<div class="accordion" id="accordionExample">
+							{{!-- <div class="accordion-item">
+								<h2 class="accordion-header" id="heading1">
+									<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+										Thông tin tư vấn online
+									</button>
+								</h2>
+								<div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										<div class="row">
+											<div class="col-md-6 rounded-pill-left">
+												<div class="row border overflow-auto rounded-start" style="height: 350px;">
+													{{#each serviceNote.counselorImg}}
+													{{#if notDeletedYet}}
+													<div class="col-md-4 mt-2 mb-2">
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-img="{{this.url}}">
+															<img class="img-fluid"
+																src="{{this.url}}">
+														</a>
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-img="{{this.name}}">
+															<img class="img-fluid"
+																src="/counselor/img/{{this.name}}">
+														</a>
+													</div>
+													{{/if}}
+													{{/each}}
+												</div>
+											</div>
+											<div class="col-md-6 rounded-pill-right">
+												<div class="row border overflow-auto rounded-end" style="height: 350px;">
+													{{#each serviceNote.counselorVideo}}
+													<div class="col-md-4 mt-2 mb-2">
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-video="{{this.url}}">
+															<video class="img-fluid"
+																src="{{this.url}}" controls>
+														</a>
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-video="{{this.name}}">
+															<video class="img-fluid"
+																src="/counselor/video/{{this.name}}" controls>
+														</a>
+													</div>
+													{{/each}}
+												</div>
+											</div>
+											<label for="steps-to-take-area"><strong>Ghi chú tư vấn online:</strong></label>
+											<textarea class="form-control mr-3 pl-3 bg-transparent" rows="8" disabled>{{serviceNote.counselorInfo}}</textarea>
+										</div>
+									</div>
+								</div>
+							</div> --}}
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="heading2">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+										Thông tin tư vấn trực tiếp
+									</button>
+								</h2>
+								<div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										<div class="row">
+											<div class="col-md-6 rounded-pill-left">
+												<div class="row border overflow-auto rounded-start" style="height: 350px;">
+													{{#each serviceNote.beforeImg}}
+													{{#if notDeletedYet}}
+													<div class="col-md-4 mt-2 mb-2">
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-img="{{this.url}}">
+															<img class="img-fluid"
+																src="{{this.url}}">
+														</a> --}}
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-img="{{this.name}}">
+															<img class="img-fluid"
+																src="/before/img/{{this.name}}">
+														</a>
+													</div>
+													{{/if}}
+													{{/each}}
+												</div>
+											</div>
+											<div class="col-md-6 rounded-pill-right">
+												<div class="row border overflow-auto rounded-end" style="height: 350px;">
+													{{#each serviceNote.beforeVideo}}
+													<div class="col-md-4 mt-2 mb-2">
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-video="{{this.url}}">
+															<video class="img-fluid"
+																src="{{this.url}}" controls>
+														</a> --}}
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-video="{{this.name}}">
+															<video class="img-fluid"
+																src="/before/video/{{this.name}}" controls>
+														</a>
+													</div>
+													{{/each}}
+												</div>
+											</div>
+											<label for="steps-to-take-area"><strong>Ghi chú tư vấn trực tiếp:</strong></label>
+											<textarea class="form-control bg-transparent" rows="8" disabled>{{serviceNote.beforeInfo}}</textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="heading3">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+										Thông tin phẫu thuật
+									</button>
+								</h2>
+								<div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										<div class="row">
+											<div class="col-md-6 rounded-pill-left">
+												<div class="row border overflow-auto rounded-start" style="height: 350px;">
+													{{#each serviceNote.inSurgeryImg}}
+													{{#if notDeletedYet}}
+													<div class="col-md-4 mt-2 mb-2">
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-img="{{this.url}}">
+															<img class="img-fluid"
+																src="{{this.url}}">
+														</a> --}}
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-img="{{this.name}}">
+															<img class="img-fluid"
+																src="/in-surgery/img/{{this.name}}">
+														</a>
+													</div>
+													{{/if}}
+													{{/each}}
+												</div>
+											</div>
+											<div class="col-md-6 rounded-pill-right">
+												<div class="row border overflow-auto rounded-end" style="height: 350px;">
+													{{#each serviceNote.inSurgeryVideo}}
+													<div class="col-md-4 mt-2 mb-2">
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-video="{{this.url}}">
+															<video class="img-fluid"
+																src="{{this.url}}" controls>
+														</a> --}}
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-video="{{this.name}}">
+															<video class="img-fluid"
+																src="/in-surgery/video/{{this.name}}" controls>
+														</a>
+													</div>
+													{{/each}}
+												</div>
+											</div>
+											<label for="steps-to-take-area"><strong>Các bước thực
+													hiện phẫu thuật:</strong></label>
+											<textarea class="form-control bg-transparent" rows="8">{{serviceNote.stepsToTake}}</textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="heading4">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+										Thông tin thay băng cắt chỉ
+									</button>
+								</h2>
+								<div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										<div class="row">
+											<div class="col-md-6 rounded-pill-left">
+												<div class="row border overflow-auto rounded-start" style="height: 350px;">
+													{{#each serviceNote.afterImg}}
+													{{#if notDeletedYet}}
+													<div class="col-md-4 mt-2 mb-2">
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-img="{{this.url}}">
+															<img class="img-fluid"
+																src="{{this.url}}">
+														</a> --}}
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-img="{{this.name}}">
+															<img class="img-fluid"
+																src="/after/img/{{this.name}}">
+														</a>
+													</div>
+													{{/if}}
+													{{/each}}
+												</div>
+											</div>
+											<div class="col-md-6 rounded-pill-right">
+												<div class="row border overflow-auto rounded-end" style="height: 350px;">
+													{{#each serviceNote.afterVideo}}
+													<div class="col-md-4 mt-2 mb-2">
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-video="{{this.url}}">
+															<video class="img-fluid"
+																src="{{this.url}}" controls>
+														</a> --}}
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-video="{{this.name}}">
+															<video class="img-fluid"
+																src="/after/video/{{this.name}}" controls>
+														</a>
+													</div>
+													{{/each}}
+												</div>
+											</div>
+											<div class="">
+												<label for="steps-to-take-area"><strong>Tình trạng khách
+														hàng:</strong></label>
+												<div class="">
+													<textarea class="form-control bg-transparent" rows="8" disabled>{{serviceNote.statusAfterInfo}}</textarea>
+												</div>
+											</div>
+											<div class="">
+												<label for="steps-to-take-area"><strong>Chỉ định bác
+														sĩ:</strong></label>
+												<div class="">
+													<textarea class="form-control bg-transparent" rows="8" disabled>{{serviceNote.directedByDoctor}}</textarea>
+												</div>
+											</div>
+											<div class="">
+												<div class="">
+													<label for="steps-to-take-area"><strong>Các bước thực
+															hiện:</strong></label>
+												</div>
+												<div class="">
+													<textarea class="form-control bg-transparent" rows="8" disabled>{{serviceNote.afterInfo}}</textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				{{/if}}
@@ -200,4 +493,101 @@
 	</div>
 </div>
 
-<script src="/js/customer-care/customer-care-employ-customer.js"></script>
+<!-- Modal -->
+<div class="modal fade" id="imageModalCounselor" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<img id="modal-img-counselor" class="img-thumbnail" alt="...">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="videoModalCounselor" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<video id="modal-video-counselor" class="img-thumbnail" alt="..." controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="imageModalBefore" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<img id="modal-img-before" class="img-thumbnail" alt="...">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="videoModalBefore" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<video id="modal-video-before" class="img-thumbnail" alt="..." controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="imageModalInSurgery" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<img id="modal-img-inSurgery" class="img-thumbnail" alt="...">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="videoModalInSurgery" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<video id="modal-video-inSurgery" class="img-thumbnail" alt="..." controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="imageModalAfter" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<img id="modal-img-after" class="img-thumbnail" alt="...">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="videoModalAfter" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<video id="modal-video-after" class="img-thumbnail" alt="..." controls>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/js/business/business-employ-service-note-detail.js"></script>

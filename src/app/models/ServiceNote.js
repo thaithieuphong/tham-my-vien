@@ -10,6 +10,12 @@ const ServiceNote = new Schema({
 	},
 
 	fullName: String,
+	isCustomerInfo: false,
+	isServiceInfo: false,
+	isCounselorInfo: false,
+	isBeforeInfo: false,
+	isInSurgeryInfo: false,
+	isAfterInfo: false,
 	
 	createName:
 	{
@@ -34,6 +40,7 @@ const ServiceNote = new Schema({
 			url: {
 				type: String,
 			},
+			notDeletedYet: Boolean
 		}
 	],
 
@@ -44,7 +51,8 @@ const ServiceNote = new Schema({
 			},
 			url: {
 				type: String,
-			}
+			},
+			notDeletedYet: Boolean
 		}
 	],
 
@@ -69,9 +77,11 @@ const ServiceNote = new Schema({
 			},
 			url: {
 				type: String,
-			}
+			},
+			notDeletedYet: Boolean
 		}
 	],
+
 	beforeVideo: [
 		{
 			name: {
@@ -79,7 +89,8 @@ const ServiceNote = new Schema({
 			},
 			url: {
 				type: String,
-			}
+			},
+			notDeletedYet: Boolean
 		}
 	],
 
@@ -90,7 +101,8 @@ const ServiceNote = new Schema({
 			},
 			url: {
 				type: String,
-			}
+			},
+			notDeletedYet: Boolean
 		}
 	],
 	
@@ -101,7 +113,8 @@ const ServiceNote = new Schema({
 			},
 			url: {
 				type: String,
-			}
+			},
+			notDeletedYet: Boolean
 		}
 	],
 	
@@ -112,7 +125,8 @@ const ServiceNote = new Schema({
 			},
 			url: {
 				type: String,
-			}
+			},
+			notDeletedYet: Boolean
 		}
 	],
 
@@ -123,7 +137,8 @@ const ServiceNote = new Schema({
 			},
 			url: {
 				type: String,
-			}
+			},
+			notDeletedYet: Boolean
 		}
 	],
 	

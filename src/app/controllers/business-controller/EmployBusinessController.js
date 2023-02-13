@@ -830,7 +830,7 @@ class EmployBusinessController {
 		// Tìm tất cả lịch hẹn tư vấn của khách hàng có hasServiceNote: false
 		Schedule.find({}).populate('customerID')
 			.then((schedules) => {
-				let scheduleArr = schedules.filter(schedule => !schedule.customerID.hasServiceNote ? schedule : null);
+				let scheduleArr = schedules.filter(schedule => !schedule.customerID.hasServiceNote && schedule.customerID.hasSchedule ? schedule : null);
 				res.render('business/employ/employ-schedule', {
 					title: 'Lịch hẹn tư vấn',
 					schedules: multipleMongooseToObject(scheduleArr),
@@ -1117,16 +1117,19 @@ class EmployBusinessController {
 
 	showServiceNoteList(req, res, next) {
 		Promise.all([
-			ServiceNote.find({}).populate({
-				path: 'scheduleID',
-				populate: {
-					path: 'customerID',
-					model: 'Customer'
-				}
-			}),
+			ServiceNote.find({})
+				.populate({
+					path: 'scheduleID',
+					populate: {
+						path: 'customerID',
+						model: 'Customer',
+						
+					}
+				}),
 			User.findById({ _id: req.userId }),
 		])
 		.then(([serviceNotes, user]) => {
+			console.log(serviceNotes)
 			res.render('business/employ/employ-service-note-list', {
 				title: 'Danh sách phiếu dịch vụ',
 				serviceNotes: multipleMongooseToObject(serviceNotes),
@@ -1148,15 +1151,15 @@ class EmployBusinessController {
 			User.find({ departmentEng: 'operating-room', positionEng: 'doctor', firstName: 'Nguyễn Tuấn', lastName: 'Anh'}),
 			User.findById({ _id: req.userId }),
 		])
-			.then(([serviceNote, doctor, user]) => {
-				res.render('business/employ/employ-service-note-update', {
-					title: 'Cập nhật phiếu dịch vụ',
-					serviceNote: mongooseToObject(serviceNote),
-					doctor: multipleMongooseToObject(doctor),
-					user: mongooseToObject(user)
-				})
+		.then(([serviceNote, doctor, user]) => {
+			res.render('business/employ/employ-service-note-update', {
+				title: 'Cập nhật phiếu dịch vụ',
+				serviceNote: mongooseToObject(serviceNote),
+				doctor: multipleMongooseToObject(doctor),
+				user: mongooseToObject(user)
 			})
-			.catch(next);
+		})
+		.catch(next);
 	}
 
 	// Cập nhật thông tin khách hàng trên phiếu dịch vụ
@@ -1192,6 +1195,9 @@ class EmployBusinessController {
 		Promise.all([
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
 				deposit: req.body.deposit,
+				discount: req.body.discount,
+				totalServiceCharge: req.body.totalServiceCharge,
+				amountToBePaid: req.body.amountToBePaid,
 				total: req.body.total,
 				$set: { status: 'Đang xử lý'},
 				$push: { logStatus: { statusServiceNote: 'Cập nhật dịch vụ', createID: req.userId}, service: serviceArr}
@@ -1223,17 +1229,79 @@ class EmployBusinessController {
 		.catch(next)
 	}
 
+	// Hiển thị trang thùng rác phiếu dịch vụ
+	showServiceNoteTrash(req, res, next) {
+		Promise.all([
+			ServiceNote.findDeleted({}).populate({
+				path: 'scheduleID',
+				populate: {
+					path: 'customerID',
+					model: 'Customer'
+				}
+			}),
+			User.findById({ _id: req.userId }),
+		])
+		.then(([serviceNotes, user]) => {
+			console.log(serviceNotes)
+			res.render('business/employ/employ-service-note-trash', {
+				title: 'Phiếu dịch vụ đã hủy',
+				serviceNotes: multipleMongooseToObject(serviceNotes),
+				user: mongooseToObject(user)
+			})
+		})
+		.catch(next);
+	}
+
+	// Xóa phiếu dịch vụ
+	deleteServiceNote(req, res, next) {
+		Promise.all([
+			Customer.findByIdAndUpdate( { _id: req.body.customerID }, { 
+				loggers: {
+					userID: req.userId,
+					contents: {
+						reasons: {
+							reason: `Hủy phiếu dịch vụ`,
+						}
+					}
+				},
+				hasSchedule: false,
+				hasServiceNote: false
+			}),
+			Schedule.findByIdAndUpdate({ _id: req.body.scheduleID }, { status: 'Đã xóa phiếu dịch vụ' }),
+			ServiceNote.delete({ _id: req.params.id })
+		])
+		.then(() => {
+			req.flash('messages_deleteServiceNote_success', 'Xóa phiếu dịch vụ thành công');
+			res.redirect('back');
+		})
+		.catch(next);
+	}
+
+	// Khôi phục phiếu dịch vụ
+	restoreServiceNote(req, res, next) {
+		Promise.all([
+			Customer.findByIdAndUpdate( { _id: req.body.customerID }, { hasSchedule: true, hasServiceNote: true } ),
+			Schedule.findByIdAndUpdate( { _id: req.body.scheduleID }, { status: 'Đang xử lý' } ),
+			ServiceNote.restore({ _id: req.params.id} )
+		])
+			.then(() => {
+				req.flash('messages_restoreServiceNote_success', 'Khôi phục phiếu dịch vụ thành công');
+				res.redirect('/business/employ/service-note');
+			})
+			.catch(next);
+	}
+
 	// Tải ảnh khi tư vấn
 	uploadCounselor(req, res, next) {
 		const file = req.files;
 		const imgArr = [];
 		const videoArr = [];
-		file.forEach(element => {
+		file.forEach((element, index) => {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
-				imgArr.push({ name: element.filename, url: element.path });
+				imgArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return imgArr;
 			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
-				videoArr.push({ name: element.filename, url: element.path });
+				videoArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return videoArr;
 			}
 		})
@@ -1260,6 +1328,86 @@ class EmployBusinessController {
 			res.redirect('back');
 		})
 		.catch(next);
+	}
+
+	// Xóa ảnh khi tư vấn
+	deleteCounselorImg(req, res, next) {
+		console.log(req.body.imgName)
+		let imgName = req.body.imgName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  imgName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "counselorImg.$.notDeletedYet": false },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['counselorImg.name']: req.body.imgName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_deletedCounselorImg_success', 'Xóa hình ảnh tư vấn thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
+	// Khôi phục ảnh khi tư vấn
+	restoreCounselorImg(req, res, next) {
+		console.log(req.body.imgName)
+		let imgName = req.body.imgName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  imgName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "counselorImg.$.notDeletedYet": true },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['counselorImg.name']: req.body.imgName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_restoreCounselorImg_success', 'Khôi phục hình ảnh tư vấn thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
+	// Xóa video khi tư vấn
+	deleteCounselorVideo(req, res, next) {
+		console.log(req.body.videoName)
+		let videoName = req.body.videoName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  videoName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "counselorVideo.$.notDeletedYet": false },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['counselorVideo.name']: req.body.videoName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_deletedCounselorVideo_success', 'Xóa video tư vấn thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
+	// Khôi phục video khi tư vấn
+	restoreCounselorVideo(req, res, next) {
+		console.log(req.body.videoName)
+		let videoName = req.body.videoName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  videoName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "counselorVideo.$.notDeletedYet": true },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['counselorVideo.name']: req.body.videoName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_restoreCounselorImg_success', 'Khôi phục video tư vấn thành công');
+						res.redirect('back');
+					})
+					.catch(next);
 	}
 
 	// Tải ảnh trước phẩu thuật
@@ -1340,6 +1488,46 @@ class EmployBusinessController {
 		.catch(next);
 	}
 
+	// Xóa ảnh khi phẫu thuật
+	deleteInSurgeryImg(req, res, next) {
+		console.log(req.body.imgName)
+		let imgName = req.body.imgName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  imgName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "inSurgeryImg.$.notDeletedYet": false },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['inSurgeryImg.name']: req.body.imgName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_deletedInSurgeryImg_success', 'Xóa hình ảnh phẫu thuật thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
+	// Xóa video khi phẫu thuật
+	deleteInSurgeryVideo(req, res, next) {
+		console.log(req.body.videoName)
+		let videoName = req.body.videoName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  videoName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "inSurgeryVideo.$.notDeletedYet": false },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['inSurgeryVideo.name']: req.body.videoName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_deletedInSurgeryVideo_success', 'Xóa video phẫu thuật thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
 	// Tải ảnh sau phẩu thuật - hồi sức
 	uploadAfter(req, res, next) {
 		const file = req.files;
@@ -1382,14 +1570,61 @@ class EmployBusinessController {
 		.catch(next);
 	}
 
+	// Xóa ảnh thay băng cắt chỉ
+	deleteAfterImg(req, res, next) {
+		console.log(req.body.imgName)
+		let imgName = req.body.imgName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  imgName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "afterImg.$.notDeletedYet": false },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['afterImg.name']: req.body.imgName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_deletedAfterImg_success', 'Xóa hình ảnh thay băng thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
+	// Xóa video thay băng cắt chỉ
+	deleteAfterVideo(req, res, next) {
+		console.log(req.body.videoName)
+		let videoName = req.body.videoName;
+		const arrayFilters = [];
+		arrayFilters.push({ name:  videoName });
+		console.log(arrayFilters)
+		const options = {"arrayFilters": arrayFilters}
+		const updateDocument = {
+			$set: { "afterVideo.$.notDeletedYet": false },
+		}
+		ServiceNote.findById({ _id: req.params.id })
+					.updateMany({ ['afterVideo.name']: req.body.videoName }, updateDocument, options)
+					.then(() => {
+						req.flash('messages_deletedAfterVideo_success', 'Xóa video thay băng thành công');
+						res.redirect('back');
+					})
+					.catch(next);
+	}
+
 	// Chi tiết phiếu dịch vụ
 	showServiceNoteDetail(req, res, next) {
 		ServiceNote.findById({ _id: req.params.id }).populate('performer')
 		.populate({
 			path: 'scheduleID',
 			populate: {
-				path: 'customerID'
+				path: 'customerID',
+				populate: {
+					path: 'userID',
+					model: 'User'
+				}
 			}
+		}).populate({
+			path: 'performer',
+			model: 'User'
 		})
 		.then(serviceNote => {
 			res.render('business/employ/employ-service-note-detail', {

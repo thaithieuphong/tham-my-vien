@@ -25,56 +25,6 @@
         });
     </script>
 {{/if}}
-{{#if messages_deleteSchedule_success}}
-    <div class="modal fade" id="messageDeleteScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center mb-3">
-                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
-                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
-                        </div>
-                    </div>
-                    <p class="text-center mb-0 text-success">{{messages_deleteSchedule_success}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var messageDeleteScheduleSuccess = document.querySelector('#messageDeleteScheduleSuccess');
-            $(messageDeleteScheduleSuccess).modal('show');
-        });
-    </script>
-{{/if}}
-{{#if messages_restoreSchedule_success}}
-    <div class="modal fade" id="messageRestoreScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center mb-3">
-                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
-                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
-                        </div>
-                    </div>
-                    <p class="text-center mb-0 text-success">{{messages_restoreSchedule_success}}</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var messageRestoreScheduleSuccess = document.querySelector('#messageRestoreScheduleSuccess');
-            $(messageRestoreScheduleSuccess).modal('show');
-        });
-    </script>
-{{/if}}
 
 <div class="container-fluid overflow-hidden">
     <div class="row vh-100 overflow-auto">
@@ -127,19 +77,19 @@
         </div>
         <div class="col d-flex flex-column h-sm-100 ps-0 pe-0">
 			<div class="sticky-top ps-0 pe-0">
-				<div class="text-center bg-dark border-bottom">
+				<div class="text-center bg-blue border-bottom">
 					<div class="text-light text-uppercase fw-bold pt-2 pb-2">
 						{{this.title}}
 					</div>
 				</div>
 			</div>
-			<div class="bg-dark d-flex justify-content-between">
-				<a class="btn btn-danger text-light ms-2 mt-2 mb-2" href="/business/employ/schedules/trash">
-					Thùng rác <i class="ti-trash"></i>
+			<div class="redirect-bar bg-blue d-flex justify-content-between">
+				<a type="button" href="/business/employ/service-note" class="ml-3">
+					<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
 				</a>
 			</div>
 			<div class="pb-3 ps-2 pe-2" style="width: 100%;">
-				<table id="table-schedule" class="table table-sm display">
+				<table id="table-service-note-trash" class="table table-sm display">
 					<thead>
 						<tr class="text-center">
 							<th scope="col">#</th>
@@ -152,42 +102,28 @@
 						</tr>
 					</thead>
 					<tbody class="">
-						{{#each schedules}}
+						{{#each serviceNotes}}
 							<tr>
 								<th scope="row" class="text-center"><strong>{{sum @index 1}}</strong></th>
-								<td>{{this.customerID.fullName}}</td>
+								<td>{{this.scheduleID.customerID.fullName}}</td>
 								<td>
 									<a id="schedule-detail" type="button" class="link-primary" data-bs-toggle="modal" data-bs-target="#detailScheduleModal"
-									data-customer-fullName="{{this.customerID.fullName}}" data-customer-nickName="{{this.customerID.nickName}}" data-customer-birth="{{this.customerID.birth}}"
-									data-customer-gender="{{this.customerID.gender}}" data-customer-phone="{{this.customerID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
-									data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.customerID.img.url}}"data-customer-resource="{{this.customerID.resource}}"
-									data-customer-user="{{#each this.customerID}}{{this.firstName}} {{this.lastName}}{{/each}}">
-										{{this.customerID.nickName}}
+									data-customer-fullName="{{this.scheduleID.customerID.fullName}}" data-customer-nickName="{{this.scheduleID.customerID.nickName}}" data-customer-birth="{{this.scheduleID.customerID.birth}}"
+									data-customer-gender="{{this.scheduleID.customerID.gender}}" data-customer-phone="{{this.scheduleID.customerID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
+									data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.scheduleID.customerID.img.url}}" data-customer-resource="{{this.scheduleID.customerID.resource}}"
+									data-customer-user="{{#each this.scheduleID.customerID}}{{this.firstName}} {{this.lastName}}{{/each}}">
+										{{this.scheduleID.customerID.nickName}}
 									</a>
 								</td>
-								<td>{{formatDate this.schedule}}</td>
-								<td class="text-warning">{{this.deposit}}</td>
-								<td class="text-danger">{{this.priceBefore}}</td>
+								<td>{{formatDate this.scheduleID.schedule}}</td>
+								<td class="text-warning">{{this.scheduleID.deposit}}</td>
+								<td class="text-danger">{{this.scheduleID.priceBefore}}</td>
 								<td class="d-flex justify-content-center">
-									<div data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa lịch hẹn" class="me-1">
-										<a href="/business/employ/schedule/{{this._id}}/edit" type="button" class="btn btn-info btn-sm">
-											<i class="ti-pencil-alt"></i>
-										</a>
-									</div>
-									<div data-bs-toggle="tooltip" data-bs-placement="top" title="Tạo phiếu dịch vụ" class="me-1">
-										<form method="POST" action="/business/employ/schedule/{{this._id}}/service-note/create">
-											<input type="text" name="customerID" value="{{this.customerID._id}}" hidden>
-											<button type="submit" class="btn btn-primary btn-sm text-light">
-												<i class="ti-clipboard"></i>
-											</button>
-										</form>
-									</div>
-									<div data-bs-toggle="tooltip" data-bs-placement="top" title="Hủy lịch hẹn">
-										<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteScheduleModal" data-schedule-id="{{this._id}}"
-										data-customer="{{this.customerID.nickName}}" data-customer-id="{{this.customerID._id}}">
-											<i class="ti-close"></i>
-										</button>
-									</div>
+									<a type="button" class="btn btn-info btn-sm text-light" data-bs-toggle="modal" data-bs-target="#restoreServiceNoteModal" data-service-note-id="{{this._id}}"
+									data-customer-fullName="{{this.scheduleID.customerID.fullName}}" data-customer-nickName="{{this.scheduleID.customerID.nickName}}" data-schedule-id="{{this.scheduleID._id}}"
+									data-customer-id="{{this.scheduleID.customerID._id}}">
+										Khôi phục lịch hẹn
+									</a>
 								</td>
 							</tr>
 						{{/each}}
@@ -282,26 +218,27 @@
 	</div>
 </div>
 
-<!-- Modal delete schedule -->
-<div class="modal fade" id="deleteScheduleModal" tabindex="-1" aria-labelledby="deleteScheduleLabel" aria-hidden="true">
+<!-- Modal restore service note -->
+<div class="modal fade" id="restoreServiceNoteModal" tabindex="-1" aria-labelledby="deleteServiceNoteLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header bg-danger">
-				<h5 class="modal-title text-light" id="deleteScheduleLabel">Hủy lịch hẹn</h5>
+			<div class="modal-header bg-info">
+				<h5 class="modal-title text-light" id="restoreServiceNoteLabel">Khôi phục phiếu dịch vụ</h5>
 				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form id="deleteScheduleForm" method="POST">
-					<input id="delete-schedule-customer-id" type="text" name="customerID" hidden>
-					Bạn chắc chắn muốn hủy lịch hẹn của khách <strong id="delete-schedule-customer"></strong>
+				<form id="restoreServiceNoteForm" method="POST">
+					<input id="restore-schedule-id" type="text" name="scheduleID" hidden>
+					<input id="restore-customer-id" type="text" name="customerID" hidden>
+					Bạn muốn khôi phục phiếu dịch vụ của khách <strong id="restore-customer-name"></strong>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button id="deleteScheduleBtn" type="button" class="btn btn-danger">Có, chắc chắn</button>
+				<button id="restoreServiceNoteBtn" type="button" class="btn btn-info">Có, chắc chắn</button>
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-<script src="/js/business/business-employ-calendar.js"></script>
+<script src="/js/business/business-employ-service-note-trash.js"></script>
