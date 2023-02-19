@@ -1979,7 +1979,7 @@ class EmployBusinessController {
 		});
 		logs.save();
 		Promise.all([
-			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $set: { statusCus: { statusVi: 'Chăm sóc hậu phẫu', statusEng: '' }},$push: { logIDs: logs._id }}),
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $set: { statusCus: { statusVi: 'Chăm sóc hậu phẫu', statusEng: '' }}, $push: { logIDs: logs._id }}),
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { status: 'Chăm sóc hậu phẫu'})
 		])
 	}
