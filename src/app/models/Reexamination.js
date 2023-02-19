@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const mongooseDelete = require("mongoose-delete");
 
 const Reexamination = new Schema({
-	customerID:
+	cusID:
 	{
 		type: String,
 		ref: "Customer"

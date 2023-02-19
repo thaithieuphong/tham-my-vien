@@ -143,11 +143,13 @@ const ServiceNote = new Schema({
 			comment: String
 		}
 	],
+
 	reExamID:
 	{
 		type: String,
 		ref: "Reexamination"
 	},
+	
 	total: String,
 	discount: String,
 	amountToBePaid: String,

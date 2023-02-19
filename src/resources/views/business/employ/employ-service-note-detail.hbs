@@ -73,7 +73,7 @@
 										<strong>Mã khách hàng:</strong>
 									</label>
 									<label class="fs-6 text-right text-danger">
-										{{serviceNote.scheduleID.customerID.identification}}
+										{{serviceNote.scheduleID.cusID.identification}}
 									</label>
 								</div>
 								<div class="d-flex justify-content-between">
@@ -81,7 +81,7 @@
 										<strong>Họ tên khai sinh:</strong>
 									</label>
 									<label class="fs-6 text-right text-primary">
-										{{serviceNote.scheduleID.customerID.fullName}}
+										{{serviceNote.scheduleID.cusID.fullName}}
 									</label>
 								</div>
 								<div class="d-flex justify-content-between">
@@ -89,7 +89,7 @@
 										<strong>Tên thường gọi:</strong>
 									</label>
 									<label class="fs-6 text-right">
-										{{serviceNote.scheduleID.customerID.nickName}}
+										{{serviceNote.scheduleID.cusID.nickName}}
 									</label>
 								</div>
 								<div class="d-flex justify-content-between">
@@ -97,7 +97,7 @@
 										<strong>Giới tính:</strong>
 									</label>
 									<label class="fs-6 text-right">
-										{{serviceNote.scheduleID.customerID.gender}}
+										{{serviceNote.scheduleID.cusID.gender}}
 									</label>
 								</div>
 								<div class="d-flex justify-content-between">
@@ -105,7 +105,7 @@
 										<strong>Ngày sinh:</strong>
 									</label>
 									<label class="fs-6 text-right">
-										{{formatBirth serviceNote.scheduleID.customerID.birth}}
+										{{formatBirth serviceNote.scheduleID.cusID.birth}}
 									</label>
 								</div>
 								<div class="d-flex justify-content-between">
@@ -113,7 +113,7 @@
 										<strong>Số điện thoại:</strong>
 									</label>
 									<label class="fs-6 text-right text-danger">
-										0{{serviceNote.scheduleID.customerID.phone}}
+										0{{serviceNote.scheduleID.cusID.phone}}
 									</label>
 								</div>
 							</div>
@@ -123,7 +123,7 @@
 										<strong>Quê quán:</strong>
 									</label>
 									<label class="fs-6 text-right">
-										{{serviceNote.scheduleID.customerID.homeTown}}
+										{{serviceNote.scheduleID.cusID.homeTown}}
 									</label>
 								</div>
 								<div class="d-flex justify-content-between">
@@ -131,7 +131,7 @@
 										<strong>Chiều cao:</strong>
 									</label>
 									<label class="">
-										<em>{{serviceNote.scheduleID.customerID.height}}</em>
+										<em>{{serviceNote.scheduleID.cusID.height}}</em>
 									</label>
 								</div>
 								<div class="d-flex justify-content-between">
@@ -139,7 +139,7 @@
 										<strong>Cân nặng:</strong>
 									</label>
 									<label class="text-right">
-										<em>{{serviceNote.scheduleID.customerID.weight}}</em>
+										<em>{{serviceNote.scheduleID.cusID.weight}}</em>
 									</label>
 								</div>
 								<div class="d-flex justify-content-between">
@@ -147,7 +147,7 @@
 										<strong>Nguồn:</strong>
 									</label>
 									<label class="text-right">
-										<em>{{serviceNote.scheduleID.customerID.resource}}</em>
+										<em>{{serviceNote.scheduleID.cusID.resource}}</em>
 									</label>
 								</div>
 								<div class="d-flex justify-content-between">
@@ -163,7 +163,7 @@
 										<strong>Nhân viên sale:</strong>
 									</label>
 									<label class="fs-6 text-danger text-right">
-										<em>{{serviceNote.scheduleID.customerID.userID.firstName}} {{serviceNote.scheduleID.customerID.userID.lastName}}</em>
+										<em>{{serviceNote.scheduleID.cusID.userID.firstName}} {{serviceNote.scheduleID.cusID.userID.lastName}}</em>
 									</label>
 								</div>
 							</div>
@@ -221,10 +221,10 @@
 						{{/each}}
 						<div class="d-flex justify-content-between">
 							<label for="status" class="text-nowrap text-dark">
-								<strong>Phí dịch vụ tư vấn trực tiếp:</strong>
+								<strong>Tổng phí dịch vụ:</strong>
 							</label>
 							<label class="text-warning text-right">
-								{{serviceNote.totalServiceCharge}}
+								{{reduceMoney serviceNote.service}}
 							</label>
 						</div>
 						<div class="d-flex justify-content-between">
@@ -248,15 +248,15 @@
 								<strong>Chi phí khách cần thanh toán:</strong>
 							</label>
 							<label class="text-warning text-right">
-								{{serviceNote.amountToBePaid}}
+								{{reduceAmountToBePaid serviceNote.service serviceNote.deposit serviceNote.discount}}
 							</label>
 						</div>
 						<div class="d-flex justify-content-between">
 							<label for="status" class="text-nowrap text-dark">
-								<strong>Tổng chi phí:</strong>
+								<strong>Tổng chi phí thực tế &#40;Đã trừ giảm giá&#41;:</strong>
 							</label>
 							<label class="text-danger text-right">
-								{{serviceNote.total}}
+								{{reduceTotal serviceNote.service serviceNote.discount}}
 							</label>
 						</div>
 						<div class="accordion" id="accordionExample">

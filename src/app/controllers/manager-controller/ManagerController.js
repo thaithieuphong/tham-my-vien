@@ -115,9 +115,14 @@ class ManagerController {
 				path: 'performer',
 				model: 'User'
 			}
-		}).populate({
+		})
+		.populate({
 			path: 'logIDs',
-			model: 'Log'
+			model: 'Log',
+			populate: {
+				path: 'userID',
+				model: 'User'
+			}
 		})
 		.then((customer) => {
 			console.log(customer)
@@ -143,7 +148,7 @@ class ManagerController {
 			ServiceNote.findById({ _id: req.params.id }).populate({
 				path: 'scheduleID',
 				populate: {
-					path: 'customerID',
+					path: 'cusID',
 					model: 'Customer'
 				}
 			}).populate('performer'),
@@ -203,7 +208,7 @@ class ManagerController {
 		ServiceNote.find({}).populate({
 			path: 'scheduleID',
 			populate: {
-				path: 'customerID',
+				path: 'cusID',
 				model: 'Customer',
 				populate: {
 					path: 'userID',

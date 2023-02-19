@@ -124,7 +124,6 @@ app.engine(
 			getDoctor: (arr) => {
 				let newArr = [];
 				arr.forEach(item => {
-					console.log(newArr);
 					newArr.push({ id: item._id, fullName: `${item.firstName} ${item.lastName}`})
 				})
 				return newArr;
@@ -149,11 +148,8 @@ app.engine(
 			arrService: (arr) => {
 				let newArr = [];
 				arr.map(item => {
-					console.log(item.name)
-					console.log(item.price)
 					newArr.push({ name: item.name, price: item.price});
 				});
-				console.log(newArr)
 				return newArr;
 			},
 			reduceMoney: (arr) => {
@@ -166,9 +162,6 @@ app.engine(
 				return total;
 			},
 			reduceAmountToBePaid: (arrService, deposit, discount) => {
-				console.log(arrService)
-				console.log(deposit)
-				console.log(discount)
 				let convertDeposit = parseFloat(deposit.replace(/\D/g,''), 10);
 				let convertDiscount = parseFloat(discount.replace(/\D/g,''), 10);
 				let total = 0;
@@ -177,6 +170,16 @@ app.engine(
 					total += price;	
 				});
 				total = total - convertDeposit - convertDiscount;
+				return total.toLocaleString();
+			},
+			reduceTotal: (arrService, discount) => {
+				let convertDiscount = parseFloat(discount.replace(/\D/g,''), 10);
+				let total = 0;
+				arrService.forEach(element => {
+					let price = parseFloat(element.price.replace(/\D/g,''), 10);
+					total += price;	
+				});
+				total = total - convertDiscount;
 				return total.toLocaleString();
 			}
 		}

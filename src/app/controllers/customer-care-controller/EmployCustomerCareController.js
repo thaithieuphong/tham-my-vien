@@ -32,7 +32,7 @@ class EmployCustomerCareController {
 		ServiceNote.find({ status: "Xuất viện"}).populate({
 			path: 'scheduleID',
 			populate: {
-				path: 'customerID',
+				path: 'cusID',
 				model: 'Customer'
 			}
 		}).sort({updatedAt: 1})
@@ -50,7 +50,7 @@ class EmployCustomerCareController {
 		ServiceNote.findById({ _id: req.params.id}).populate({
 			path: 'scheduleID',
 			populate: {
-				path: 'customerID',
+				path: 'cusID',
 				model: 'Customer',
 				populate: {
 					path: 'reexamID',
@@ -72,7 +72,7 @@ class EmployCustomerCareController {
 	createReExam(req, res, next) {
 		const reexamination = new Reexamination({ 
 			createName: req.userId,
-			customerID: req.body.cusID,
+			cusID: req.body.cusID,
 			serviceNoteId: req.params.id,
 			status: 'Tạo mới',
 			stored: 'No',
@@ -110,7 +110,7 @@ class EmployCustomerCareController {
 	}
 
 	showReExaminationDetail(req, res, next) {
-		Reexamination.findById({ _id: req.params.id }).populate('customerID').populate('serviceNoteId').populate('createName')
+		Reexamination.findById({ _id: req.params.id }).populate('cusID').populate('serviceNoteId').populate('createName')
 			.then(reExam => {
 				res.render('customer-care/employ/employ-re-exam-detail', {
 					reExam: mongooseToObject(reExam),

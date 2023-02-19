@@ -922,9 +922,14 @@
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin tư vấn trực tiếp</strong></label>
 					</li>
 					<li class="list-group-item">
-						<button class="btn btn-danger btn-sm mb-2 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgCounselor" aria-expanded="false" aria-controls="restoreImgCounselor">
-							<i class="ti-trash"></i> Thùng rác
-						</button>
+						<div class="d-flex justify-content-between mb-2">
+							<button class="btn btn-danger btn-sm rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgCounselor" aria-expanded="false" aria-controls="restoreImgCounselor">
+								<i class="ti-trash"></i> Thùng rác
+							</button>
+							<button type="button" class="btn btn-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#uploadCounselorModal">
+								Tải ảnh và video tư vấn
+							</button>
+						</div>
 						<div class="collapse" id="restoreImgCounselor">
 							<div class="card card-body">
 								<div class="row">
@@ -972,7 +977,7 @@
 					</li>
 					<li class="list-group-item">
 						<div class="row mb-2">
-							<div class="col-md-6 rounded-pill-left">
+							<div class="col-md-6">
 								<div class="row border overflow-auto rounded-start" style="height: 350px;">
 									{{#each serviceNote.counselorImg}}
 									{{#if notDeletedYet}}
@@ -990,7 +995,7 @@
 									{{/each}}
 								</div>
 							</div>
-							<div class="col-md-6 rounded-pill-right">
+							<div class="col-md-6">
 								<div class="row border overflow-auto rounded-end" style="height: 350px;">
 									{{#each serviceNote.counselorVideo}}
 									{{#if notDeletedYet}}
@@ -1009,55 +1014,65 @@
 								</div>
 							</div>
 						</div>
-						<form method="POST" id="submit-counselor-form"
-							action="/business/employ/service-note/{{serviceNote._id}}/operating-counselor"
-							enctype="multipart/form-data">
-							<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
-								name="cusID">
-							<div class="row ps-0 pe-0">
-								<div class="col-md-6 mb-3 ps-3 pe-4">
-									<div class="preview-images-counselor row ml-0 text-center border rounded"
-										style="height: 300px; width: auto;"></div>
-									<label for="input-multi-images-counselor"
-										class="label-avt d-flex justify-content-center mt-3"
-										data-input-img-id="{{serviceNote._id}}">
-										<h5 id="text-img-counselor"
-											class="btn bg-secondary text-light text-uppercase btn-mobile rounded-pill border">
-											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn trực tiếp
-										</h5>
-									</label>
-									<input id="input-multi-images-counselor" class="form-control"
-										type="file" name="counselor" hidden multiple>
-								</div>
-								<div class="col-md-6 mb-3 ps-3 pe-4">
-									<div class="preview-videos-counselor row ml-0 text-center border rounded"
-										style="height: 300px; width: auto;"></div>
-									<label for="input-multi-videos-counselor"
-										class="label-avt d-flex justify-content-center mt-3"
-										data-input-img-id="{{serviceNote._id}}">
-										<h5 id="text-img-counselor"
-											class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn trực tiếp
-										</h5>
-									</label>
-									<input id="input-multi-videos-counselor" class="form-control"
-										type="file" name="counselor" hidden multiple>
-								</div>
-								<div class="">
-									<label for="steps-to-take-area"><strong>Ghi chú tư
-											vấn trực tiếp:</strong></label>
-								</div>
-								<div class="mb-4">
-									<textarea class="form-control mr-3 pl-3 " name="counselorInfo" cols="30"
-										rows="8">{{serviceNote.counselorInfo}}</textarea>
-								</div>
-								<div class="text-right">
-									<button id="submit-counselor-form-btn"
-										class="btn btn-primary btn-mobile rounded-pill border">Cập
-										nhật</button>
+						<div class="modal fade" id="uploadCounselorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-xl">
+								<div class="modal-content">
+									<div class="modal-header bg-primary">
+										<h5 class="modal-title text-light" id="exampleModalLabel">Tải hình ảnh và video tư vấn</h5>
+										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form method="POST" id="submit-counselor-form"
+											action="/business/employ/service-note/{{serviceNote._id}}/operating-counselor"
+											enctype="multipart/form-data">
+											<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
+												name="cusID">
+											<div class="row ps-0 pe-0">
+												<div class="col-md-6 mb-3 ps-3 pe-4">
+													<div class="preview-images-counselor row ml-0 text-center border rounded"
+														style="height: 300px; width: auto;"></div>
+													<label for="input-multi-images-counselor"
+														class="label-avt d-flex justify-content-center mt-3">
+														<h5 id="text-img-counselor"
+															class="btn btn-sm btn-outline-secondary text-uppercase rounded-pill">
+															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh tư vấn trực tiếp
+														</h5>
+													</label>
+													<input id="input-multi-images-counselor" class="form-control"
+														type="file" name="counselor" hidden multiple>
+												</div>
+												<div class="col-md-6 mb-3 ps-3 pe-4">
+													<div class="preview-videos-counselor row ml-0 text-center border rounded"
+														style="height: 300px; width: auto;"></div>
+													<label for="input-multi-videos-counselor"
+														class="label-avt d-flex justify-content-center mt-3">
+														<h5 id="text-video-counselor"
+															class="btn btn-sm btn-outline-secondary text-uppercase rounded-pill">
+															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video tư vấn trực tiếp
+														</h5>
+													</label>
+													<input id="input-multi-videos-counselor" class="form-control"
+														type="file" name="counselor" hidden multiple>
+												</div>
+												<div class="">
+													<label for="steps-to-take-area"><strong>Ghi chú tư
+															vấn trực tiếp:</strong></label>
+												</div>
+												<div class="mb-4">
+													<textarea class="form-control mr-3 pl-3 " name="counselorInfo" cols="30"
+														rows="8">{{serviceNote.counselorInfo}}</textarea>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+										<button id="submit-counselor-form-btn"
+											class="btn btn-primary btn-sm rounded-pill">Cập nhật</button>
+									</div>
 								</div>
 							</div>
-						</form>
+						</div>
 					</li>
 				</ul>
 				<ul class="list-group mb-2 ms-2 me-2">
@@ -1065,9 +1080,14 @@
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin trước phẫu thuật</strong></label>
 					</li>
 					<li class="list-group-item">
-						<button class="btn btn-danger btn-sm mb-2 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgBefore" aria-expanded="false" aria-controls="restoreImgBefore">
-							<i class="ti-trash"></i> Thùng rác
-						</button>
+						<div class="d-flex justify-content-between mb-2">
+							<button class="btn btn-danger btn-sm rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgBefore" aria-expanded="false" aria-controls="restoreImgBefore">
+								<i class="ti-trash"></i> Thùng rác
+							</button>
+							<button type="button" class="btn btn-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#uploadBeforeModal">
+								Tải ảnh và video trước phẫu thuật
+							</button>
+						</div>
 						<div class="collapse" id="restoreImgBefore">
 							<div class="card card-body">
 								<div class="row">
@@ -1148,55 +1168,70 @@
 								</div>
 							</div>
 						</div>
-						<form method="POST" id="submit-before-form"
-							action="/business/employ/service-note/{{serviceNote._id}}/operating-before"
-							enctype="multipart/form-data">
-							<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
-								name="cusID">
-							<div class="row">
-								<div class="col-md-6 mb-3 ps-3 pe-4">
-									<div class="preview-images-before row ml-0 text-center border rounded"
-										style="height: 300px; width: auto;"></div>
-									<label for="input-multi-images-before"
-										class="label-avt d-flex justify-content-center mt-3"
-										data-input-img-id="{{serviceNote._id}}">
-										<h5 id="text-img-before"
-											class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh trước phẫu thuật
-										</h5>
-									</label>
-									<input id="input-multi-images-before" class="form-control" type="file"
-										name="before" hidden multiple>
-								</div>
-								<div class="col-md-6 mb-3 ps-3 pe-4">
-									<div class="preview-videos-before row ml-0 text-center border rounded"
-										style="height: 300px; width: auto;"></div>
-									<label for="input-multi-videos-before"
-										class="label-avt d-flex justify-content-center mt-3"
-										data-input-img-id="{{serviceNote._id}}">
-										<h5 id="text-img-before"
-											class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video trước phẫu thuật
-										</h5>
-									</label>
-									<input id="input-multi-videos-before" class="form-control" type="file"
-										name="before" hidden multiple>
-								</div>
-								<div class="">
-									<label for="steps-to-take-area"><strong>Ghi chú trước phẫu thuật:</strong></label>
-								</div>
-								<div class="mb-4">
-									<textarea style="width: inherit;" class="form-control mr-3 pl-3 "
-										name="beforeInfo" cols="30"
-										rows="8">{{serviceNote.beforeInfo}}</textarea>
-								</div>
-								<div class="text-right">
-									<button id="submit-before-form-btn"
-										class="btn btn-primary btn-mobile rounded-pill border">Cập
-										nhật</button>
+						<div class="modal fade" id="uploadBeforeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-xl">
+								<div class="modal-content">
+									<div class="modal-header bg-primary">
+										<h5 class="modal-title text-light" id="exampleModalLabel">Tải hình ảnh và video trước phẫu thuật</h5>
+										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form method="POST" id="submit-before-form"
+											action="/business/employ/service-note/{{serviceNote._id}}/operating-before"
+											enctype="multipart/form-data">
+											<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
+												name="cusID">
+											<div class="row">
+												<div class="col-md-6 mb-3 ps-3 pe-4">
+													<div class="preview-images-before row ml-0 text-center border rounded"
+														style="height: 300px; width: auto;"></div>
+													<label for="input-multi-images-before"
+														class="label-avt d-flex justify-content-center mt-3"
+														data-input-img-id="{{serviceNote._id}}">
+														<h5 id="text-img-before"
+															class="btn btn-outline-secondary btn-sm text-uppercase rounded-pill">
+															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh trước phẫu thuật
+														</h5>
+													</label>
+													<input id="input-multi-images-before" class="form-control" type="file"
+														name="before" hidden multiple>
+												</div>
+												<div class="col-md-6 mb-3 ps-3 pe-4">
+													<div class="preview-videos-before row ml-0 text-center border rounded"
+														style="height: 300px; width: auto;"></div>
+													<label for="input-multi-videos-before"
+														class="label-avt d-flex justify-content-center mt-3"
+														data-input-img-id="{{serviceNote._id}}">
+														<h5 id="text-img-before"
+															class="btn btn-outline-secondary btn-sm text-uppercase rounded-pill">
+															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video trước phẫu thuật
+														</h5>
+													</label>
+													<input id="input-multi-videos-before" class="form-control" type="file"
+														name="before" hidden multiple>
+												</div>
+												<div class="">
+													<label for="steps-to-take-area"><strong>Ghi chú trước phẫu thuật:</strong></label>
+												</div>
+												<div class="mb-4">
+													<textarea style="width: inherit;" class="form-control mr-3 pl-3 "
+														name="beforeInfo" cols="30"
+														rows="8">{{serviceNote.beforeInfo}}</textarea>
+												</div>
+												<div class="text-right">
+													
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+										<button id="submit-before-form-btn"
+											class="btn btn-primary btn-sm rounded-pill">Cập nhật</button>
+									</div>
 								</div>
 							</div>
-						</form>
+						</div>
 					</li>
 				</ul>
 				<ul class="list-group mb-2 ms-2 me-2">
@@ -1204,9 +1239,14 @@
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin phẫu thuật</strong></label>
 					</li>
 					<li class="list-group-item">
-						<button class="btn btn-danger btn-sm mb-2 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgInSurgery" aria-expanded="false" aria-controls="restoreImgInSurgery">
-							<i class="ti-trash"></i> Thùng rác
-						</button>
+						<div class="d-flex justify-content-between mb-2">
+							<button class="btn btn-danger btn-sm rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgInSurgery" aria-expanded="false" aria-controls="restoreImgInSurgery">
+								<i class="ti-trash"></i> Thùng rác
+							</button>
+							<button type="button" class="btn btn-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#uploadInSurgeryModal">
+							Tải ảnh và video phẫu thuật
+							</button>
+						</div>
 						<div class="collapse" id="restoreImgInSurgery">
 							<div class="card card-body">
 								<div class="row">
@@ -1283,65 +1323,85 @@
 								</div>
 							</div>
 						</div>
-						<form method="POST" id="submit-inSurgery-form"
-							action="/business/employ/service-note/{{serviceNote._id}}/operating-in-surgery"
-							enctype="multipart/form-data">
-							<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
-								name="cusID">
-							<div class="row">
-								<div class="col-md-6 mb-3 ps-3 pe-4">
-									<div class="preview-images-in-surgery row ml-0 text-center border rounded"
-										style="height: 300px; width: auto;"></div>
-									<label for="input-multi-images-in-surgery"
-										class="label-avt d-flex justify-content-center mt-3"
-										data-input-img-id="{{serviceNote._id}}">
-										<h5 id="text-img-in-surgery"
-											class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh phẩu thuật
-										</h5>
-									</label>
-									<input id="input-multi-images-in-surgery" class="form-control"
-										type="file" name="inSurgery" hidden multiple>
-								</div>
-								<div class="col-md-6 mb-3 ps-3 pe-4">
-									<div class="preview-videos-in-surgery row ml-0 text-center border rounded"
-										style="height: 300px; width: auto;"></div>
-									<label for="input-multi-videos-in-surgery"
-										class="label-avt d-flex justify-content-center mt-3"
-										data-input-img-id="{{serviceNote._id}}">
-										<h5 id="text-img-in-surgery"
-											class="btn bg-secondary text-uppercase text-light btn-mobile rounded-pill border">
-											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video phẩu thuật
-										</h5>
-									</label>
-									<input id="input-multi-videos-in-surgery" class="form-control"
-										type="file" name="inSurgery" hidden multiple>
-								</div>
-								<div class="">
-									<label for="steps-to-take-area"><strong>Các bước thực
-										hiện:</strong></label>
-								</div>
-								<div class="mb-4">
-									<textarea class="form-control mr-3 pl-3 " name="stepsToTake" cols="30"
-										rows="8">{{serviceNote.stepsToTake}}</textarea>
-								</div>
-								<div class="text-right">
-									<button id="submit-in-surgery-form-btn"
-										class="btn btn-primary btn-mobile rounded-pill border">Cập
-										nhật</button>
+						<div class="modal fade" id="uploadInSurgeryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-xl">
+								<div class="modal-content">
+									<div class="modal-header bg-primary">
+										<h5 class="modal-title text-light" id="exampleModalLabel">Tải hình ảnh và video phẫu thuật</h5>
+										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form method="POST" id="submit-inSurgery-form"
+											action="/business/employ/service-note/{{serviceNote._id}}/operating-in-surgery"
+											enctype="multipart/form-data">
+											<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
+												name="cusID">
+											<div class="row">
+												<div class="col-md-6 mb-3 ps-3 pe-4">
+													<div class="preview-images-in-surgery row ml-0 text-center border rounded"
+														style="height: 300px; width: auto;"></div>
+													<label for="input-multi-images-in-surgery"
+														class="label-avt d-flex justify-content-center mt-3"
+														data-input-img-id="{{serviceNote._id}}">
+														<h5 id="text-img-in-surgery"
+															class="btn btn-outline-secondary btn-sm text-uppercase rounded-pill">
+															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh phẩu thuật
+														</h5>
+													</label>
+													<input id="input-multi-images-in-surgery" class="form-control"
+														type="file" name="inSurgery" hidden multiple>
+												</div>
+												<div class="col-md-6 mb-3 ps-3 pe-4">
+													<div class="preview-videos-in-surgery row ml-0 text-center border rounded"
+														style="height: 300px; width: auto;"></div>
+													<label for="input-multi-videos-in-surgery"
+														class="label-avt d-flex justify-content-center mt-3"
+														data-input-img-id="{{serviceNote._id}}">
+														<h5 id="text-img-in-surgery"
+															class="btn btn-outline-secondary btn-sm text-uppercase rounded-pill">
+															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video phẩu thuật
+														</h5>
+													</label>
+													<input id="input-multi-videos-in-surgery" class="form-control"
+														type="file" name="inSurgery" hidden multiple>
+												</div>
+												<div class="">
+													<label for="steps-to-take-area"><strong>Các bước thực
+														hiện:</strong></label>
+												</div>
+												<div class="mb-4">
+													<textarea class="form-control mr-3 pl-3 " name="stepsToTake" cols="30"
+														rows="8">{{serviceNote.stepsToTake}}</textarea>
+												</div>
+												<div class="text-right">
+													
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+										<button id="submit-in-surgery-form-btn"
+											class="btn btn-primary btn-sm rounded-pill">Cập nhật</button>
+									</div>
 								</div>
 							</div>
-						</form>
+						</div>
 					</li>
 				</ul>
 				<ul class="list-group mb-2 ms-2 me-2">
 					<li class="list-group-item active text-center">
-						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin thay băng cắt chỉ</strong></label>
+						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin thay băng cắt chỉ tại bệnh viện</strong></label>
 					</li>
 					<li class="list-group-item">
-						<button class="btn btn-danger mb-2 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgAfter" aria-expanded="false" aria-controls="restoreImgAfter">
-							<i class="ti-trash"></i> Thùng rác
-						</button>
+						<div class="d-flex justify-content-between mb-2">
+							<button class="btn btn-danger btn-sm rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgAfter" aria-expanded="false" aria-controls="restoreImgAfter">
+								<i class="ti-trash"></i> Thùng rác
+							</button>
+							<button type="button" class="btn btn-primary btn-sm rounded-pill" data-bs-toggle="modal" data-bs-target="#uploadAfterModal">
+							Tải ảnh và video thay băng cắt chỉ
+							</button>
+						</div>
 						<div class="collapse" id="restoreImgAfter">
 							<div class="card card-body">
 								<div class="row">
@@ -1351,14 +1411,14 @@
 											{{#if notDeletedYet}}
 											{{else}}
 											<div class="col-md-4">
-												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-img-after?_method=PATCH">
-												<img class="img-fluid"
-													src="/after/img/{{this.name}}">
-												{{!-- <img class="img-fluid"
-													src="{{this.url}}"> --}}
-												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
-												<input type="text" value="{{this.name}}" name="imgName" hidden>
-												</form>
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalAfter" data-img="{{this.name}}">
+													<img class="img-fluid"
+														src="/after/img/{{this.name}}">
+												</a>
+												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalAfter" data-img="{{this.url}}">
+													<img class="img-fluid"
+														src="{{this.url}}">
+												</a> --}}
 											</div>
 											{{/if}}
 											{{/each}}
@@ -1370,14 +1430,14 @@
 											{{#if notDeletedYet}}
 											{{else}}
 											<div class="col-md-4">
-												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-video-after?_method=PATCH">
-												<video class="img-fluid"
-													src="/after/video/{{this.name}}"></video>
-												{{!-- <video class="img-fluid"
-													src="{{this.url}}"></video> --}}
-												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
-												<input type="text" value="{{this.name}}" name="videoName" hidden>
-												</form>
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalAfter" data-video="{{this.name}}">
+													<video class="img-fluid"
+														src="/after/video/{{this.name}}"></video>
+												</a>
+												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalAfter" data-video="{{this.url}}">
+													<video class="img-fluid"
+														src="{{this.url}}"></video>
+												</a> --}}
 											</div>
 											{{/if}}
 											{{/each}}
@@ -1422,78 +1482,90 @@
 								</div>
 							</div>
 						</div>
-						<form method="POST" id="submit-after-form"
-							action="/business/employ/service-note/{{serviceNote._id}}/operating-after"
-							enctype="multipart/form-data">
-							<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
-								name="cusID">
-							<div class="row">
-								<div class="col-md-6 mb-3 ps-3 pe-4">
-									<div class="preview-images-after row ml-0 text-center border rounded"
-										style="height: 300px; width: auto;"></div>
-									<label for="input-multi-images-after"
-										class="label-avt d-flex justify-content-center mt-3"
-										data-input-img-id="{{serviceNote._id}}">
-										<h5 id="text-img-after"
-											class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill">
-											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh thay băng cắt chỉ
-										</h5>
-									</label>
-									<input id="input-multi-images-after" class="form-control" type="file"
-										name="after" hidden multiple>
-								</div>
-								<div class="col-md-6 mb-3 ps-3 pe-4">
-									<div class="preview-videos-after row ml-0 text-center border rounded"
-										style="height: 300px; width: auto;"></div>
-									<label for="input-multi-videos-after"
-										class="label-avt d-flex justify-content-center mt-3"
-										data-input-img-id="{{serviceNote._id}}">
-										<h5 id="text-img-after"
-											class="btn bg-secondary text-uppercase text-light btn-mobile border rounded-pill">
-											<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video thay băng cắt chỉ
-										</h5>
-									</label>
-									<input id="input-multi-videos-after" class="form-control" type="file"
-										name="after" hidden multiple>
+						<div class="modal fade" id="uploadAfterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-xl">
+								<div class="modal-content">
+									<div class="modal-header bg-primary">
+										<h5 class="modal-title text-light" id="exampleModalLabel">Tải hình ảnh và video thay băng cắt chỉ tại bệnh viện</h5>
+										<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<form method="POST" id="submit-after-form"
+											action="/business/employ/service-note/{{serviceNote._id}}/operating-after"
+											enctype="multipart/form-data">
+											<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
+												name="cusID">
+											<div class="row">
+												<div class="col-md-6 mb-3 ps-3 pe-4">
+													<div class="preview-images-after row ml-0 text-center border rounded"
+														style="height: 300px; width: auto;"></div>
+													<label for="input-multi-images-after"
+														class="label-avt d-flex justify-content-center mt-3"
+														data-input-img-id="{{serviceNote._id}}">
+														<h5 id="text-img-after"
+															class="btn btn-outline-secondary btn-sm text-uppercase rounded-pill">
+															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh thay băng cắt chỉ
+														</h5>
+													</label>
+													<input id="input-multi-images-after" class="form-control" type="file"
+														name="after" hidden multiple>
+												</div>
+												<div class="col-md-6 mb-3 ps-3 pe-4">
+													<div class="preview-videos-after row ml-0 text-center border rounded"
+														style="height: 300px; width: auto;"></div>
+													<label for="input-multi-videos-after"
+														class="label-avt d-flex justify-content-center mt-3"
+														data-input-img-id="{{serviceNote._id}}">
+														<h5 id="text-img-after"
+															class="btn btn-outline-secondary btn-sm text-uppercase rounded-pill">
+															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video thay băng cắt chỉ
+														</h5>
+													</label>
+													<input id="input-multi-videos-after" class="form-control" type="file"
+														name="after" hidden multiple>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-4">
+													<label for="steps-to-take-area"><strong>Tình trạng khách
+															hàng:</strong></label>
+													<div class="mb-4">
+														<textarea style="width: 100%;" class="form-control pl-3 "
+															name="statusAfterInfo" cols="30"
+															rows="8">{{serviceNote.statusAfterInfo}}</textarea>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<label for="steps-to-take-area"><strong>Chỉ định bác
+															sĩ:</strong></label>
+													<div class="mb-4">
+														<textarea style="width: 100%;" class="form-control pl-3 "
+															name="directedByDoctor" cols="30"
+															rows="8">{{serviceNote.directedByDoctor}}</textarea>
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="">
+														<label for="steps-to-take-area"><strong>Các bước thực
+																hiện:</strong></label>
+													</div>
+													<div class="mb-4">
+														<textarea style="width: 100%;" class="form-control "
+															name="afterInfo" cols="30"
+															rows="8">{{serviceNote.afterInfo}}</textarea>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+										<button id="submit-after-form-btn"
+										class="btn btn-primary btn-sm rounded-pill">Cập nhật</button>
+									</div>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-4">
-									<label for="steps-to-take-area"><strong>Tình trạng khách
-											hàng:</strong></label>
-									<div class="mb-4">
-										<textarea style="width: 100%;" class="form-control pl-3 "
-											name="statusAfterInfo" cols="30"
-											rows="8">{{serviceNote.statusAfterInfo}}</textarea>
-									</div>
-								</div>
-								<div class="col-md-4">
-									<label for="steps-to-take-area"><strong>Chỉ định bác
-											sĩ:</strong></label>
-									<div class="mb-4">
-										<textarea style="width: 100%;" class="form-control pl-3 "
-											name="directedByDoctor" cols="30"
-											rows="8">{{serviceNote.directedByDoctor}}</textarea>
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="">
-										<label for="steps-to-take-area"><strong>Các bước thực
-												hiện:</strong></label>
-									</div>
-									<div class="mb-4">
-										<textarea style="width: 100%;" class="form-control "
-											name="afterInfo" cols="30"
-											rows="8">{{serviceNote.afterInfo}}</textarea>
-									</div>
-								</div>
-							</div>
-							<div class="text-right">
-								<button id="submit-after-form-btn"
-									class="btn btn-primary btn-mobile rounded-pill border">Cập
-									nhật</button>
-							</div>
-						</form>
+						</div>
 					</li>
 				</ul>
 			</div>
@@ -1519,8 +1591,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button id="deleteServiceBtn" type="button" class="btn btn-danger">Có, chắc chắn</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không, hủy thao tác</button>
+				<button id="deleteServiceBtn" type="button" class="btn btn-danger btn-sm rounded-pill">Có, chắc chắn</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Không, hủy thao tác</button>
 			</div>
 		</div>
 	</div>
@@ -1540,8 +1612,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-danger">Xóa ảnh</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-danger btn-sm rounded-pill">Xóa ảnh</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
 			</div>
 		</div>
 		</form>
@@ -1562,8 +1634,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-				<button class="btn btn-primary">Khôi phục</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary btn-sm rounded-pill">Khôi phục</button>
 			</div>
 		</div>
 		</form>
@@ -1584,8 +1656,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-danger">Xóa video</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-danger btn-sm rounded-pill">Xóa video</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
 			</div>
 		</div>
 		</form>
@@ -1606,8 +1678,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-				<button class="btn btn-primary">Khôi phục</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary btn-sm rounded-pill">Khôi phục</button>
 			</div>
 		</div>
 		</form>
@@ -1628,8 +1700,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-danger">Xóa ảnh</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+					<button class="btn btn-danger btn-sm rounded-pill">Xóa ảnh</button>
+					<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
 				</div>
 			</div>
 		</form>
@@ -1650,8 +1722,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-				<button class="btn btn-primary">Khôi phục</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary btn-sm rounded-pill">Khôi phục</button>
 			</div>
 		</div>
 		</form>
@@ -1672,8 +1744,8 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-danger">Xóa video</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+					<button class="btn btn-danger btn-sm rounded-pill">Xóa video</button>
+					<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
 				</div>
 			</div>
 		</form>
@@ -1694,8 +1766,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-				<button class="btn btn-primary">Khôi phục</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary btn-sm rounded-pill">Khôi phục</button>
 			</div>
 		</div>
 		</form>
@@ -1716,8 +1788,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-danger">Xóa ảnh</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-danger btn-sm rounded-pill">Xóa ảnh</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
 			</div>
 		</div>
 		</form>
@@ -1727,7 +1799,7 @@
 <!-- Restore In Surgery Image Modal -->
 <div class="modal fade" id="restoreImageModalInSurgery" tabindex="-1" aria-labelledby="restoreImageModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
-		<form method="POST" name="restoreImgInSurgertForm" action="/business/employ/service-note/{{serviceNote._id}}/restore-img-in-surgery?_method=PATCH">
+		<form method="POST" name="restoreImgInSurgeryForm" action="/business/employ/service-note/{{serviceNote._id}}/restore-img-in-surgery?_method=PATCH">
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="text-center">
@@ -1738,8 +1810,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-				<button class="btn btn-primary">Khôi phục</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary btn-sm rounded-pill">Khôi phục</button>
 			</div>
 		</div>
 		</form>
@@ -1760,8 +1832,8 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-danger">Xóa video</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-danger btn-sm rounded-pill">Xóa video</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
 			</div>
 		</div>
 		</form>
@@ -1782,15 +1854,15 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-				<button class="btn btn-primary">Khôi phục</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary btn-sm rounded-pill">Khôi phục</button>
 			</div>
 		</div>
 		</form>
 	</div>
 </div>
 
-
+<!-- Delete After Image Modal -->
 <div class="modal fade" id="imageModalAfter" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
@@ -1804,14 +1876,38 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-danger">Xóa ảnh</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-danger btn-sm rounded-pill">Xóa ảnh</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
 			</div>
 			</form>
 		</div>
 	</div>
 </div>
 
+
+<!-- Restore After Image Modal -->
+<div class="modal fade" id="restoreImageModalAfter" tabindex="-1" aria-labelledby="restoreImageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form method="POST" name="restoreImgAfterForm" action="/business/employ/service-note/{{serviceNote._id}}/restore-img-after?_method=PATCH">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<img id="restore-img-after" class="img-thumbnail" alt="...">
+					<input id="inputRestoreImageAfter" type="text" name="imgName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary btn-sm rounded-pill">Khôi phục</button>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+<!-- Delete After Video Modal -->
 <div class="modal fade" id="videoModalAfter" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
@@ -1825,11 +1921,33 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-danger">Xóa video</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-danger btn-sm rounded-pill">Xóa video</button>
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
 			</div>
 			</form>
 		</div>
+	</div>
+</div>
+
+<!-- Restore After Video Modal -->
+<div class="modal fade" id="restoreVideoModalAfter" tabindex="-1" aria-labelledby="restoreVideoModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form method="POST" name="restoreImgAfterForm" action="/business/employ/service-note/{{serviceNote._id}}/restore-video-after?_method=PATCH">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<video id="restore-video-after" class="img-thumbnail" alt="..." controls></video>
+					<input id="inputRestoreVideoAfter" type="text" name="videoName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary btn-sm rounded-pill">Khôi phục</button>
+			</div>
+		</div>
+		</form>
 	</div>
 </div>
 

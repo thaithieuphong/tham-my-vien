@@ -809,7 +809,7 @@ restoreImageModalInSurgery.addEventListener('show.bs.modal', function (event) {
 
 });
 
-// Delete Insurgery Video
+// Delete In Surgery Video
 var videoModalInSurgery = document.getElementById('videoModalInSurgery');
 
 videoModalInSurgery.addEventListener('show.bs.modal', function (event) {
@@ -827,7 +827,7 @@ videoModalInSurgery.addEventListener('show.bs.modal', function (event) {
 	inputDeleteVideoInSurgery.value = dataVideo;
 });
 
-// Restore Before Video
+// Restore In Surgery Video
 var restoreVideoModalInSurgery = document.getElementById('restoreVideoModalInSurgery');
 
 restoreVideoModalInSurgery.addEventListener('show.bs.modal', function (event) {
@@ -863,6 +863,25 @@ imageModalAfter.addEventListener('show.bs.modal', function (event) {
 
 })
 
+// Restore After Image
+var restoreImageModalAfter = document.getElementById('restoreImageModalAfter');
+
+restoreImageModalAfter.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataImg = button.getAttribute('data-img');
+
+	var restoreImageAfter = document.getElementById('restore-img-after');
+	var inputRestoreImageAfter = document.getElementById('inputRestoreImageAfter');
+
+	// restoreImageAfter.setAttribute('src', `${dataImg}`);
+	restoreImageAfter.setAttribute('src', `/after/img/${dataImg}`);
+	inputRestoreImageAfter.value = dataImg;
+
+});
+
 // Delete After Video
 var videoModalAfter = document.getElementById('videoModalAfter')
 
@@ -881,6 +900,23 @@ videoModalAfter.addEventListener('show.bs.modal', function (event) {
 	inputDeleteVideoAfter.value = dataVideo;
 
 })
+
+// Restore In Surgery Video
+var restoreVideoModalAfter = document.getElementById('restoreVideoModalAfter');
+
+restoreVideoModalAfter.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataVideo = button.getAttribute('data-video');
+	var restoreVideoAfter = document.getElementById('restore-video-after');
+	var inputRestoreVideoAfter = document.getElementById('inputRestoreVideoAfter');
+
+	// restoreVideoAfter.setAttribute('src', `${dataVideo}`);
+	restoreVideoAfter.setAttribute('src', `/after/video/${dataVideo}`);
+	inputRestoreVideoAfter.value = dataVideo;
+});
 
 function totalMoneyFn(before, current) {
 	return before + current.price;

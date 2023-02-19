@@ -197,7 +197,7 @@
 												{{@key}}: {{this}}
 											</p>
 											{{/each}}
-                                            <p class="p-timeline"><strong>Nhân viên thực hiện:</strong> <a href="/manager/general-manager/user/{{this.userID}}">{{this.userID}}</a></p>
+                                            <p class="p-timeline"><strong>Nhân viên thực hiện:</strong> <a href="/manager/general-manager/user/{{this.userID._id}}">{{this.userID.firstName}} {{this.userID.lastName}}</a></p>
                                         </li>
                                     {{/each}}
                                 </ul>
@@ -237,13 +237,21 @@
 												<label class="text-wrap" for=""><strong>Ngày phẫu thuật:</strong></label>
 												<div class="text-wrap text-right">{{formatDate this.surgeryDay}}</div>
 											</div>
+											<div class="d-flex justify-content-between">
+												<label class="text-wrap" for=""><strong>Tổng phí dịch vụ:</strong></label>
+												<div class="text-wrap">{{reduceMoney this.service}}</div>
+											</div>
                                             <div class="d-flex justify-content-between">
 												<label class="text-wrap" for=""><strong>Đặt cọc:</strong></label>
 												<div class="text-wrap">{{this.deposit}}</div>
 											</div>
+											<div class="d-flex justify-content-between">
+												<label class="text-wrap" for=""><strong>Giảm giá:</strong></label>
+												<div class="text-wrap">{{this.discount}}</div>
+											</div>
                                             <div class="d-flex justify-content-between">
-												<label class="text-wrap" for=""><strong>Tổng chi phí:</strong></label>
-												<div class="text-wrap">{{this.total}}</div>
+												<label class="text-wrap" for=""><strong>Tổng chi phí thực tế &#40;Đã trừ giảm giá&#41;:</strong></label>
+												<div class="text-wrap">{{reduceTotal this.service this.discount}}</div>
 											</div>
 										</div>
 									</a>

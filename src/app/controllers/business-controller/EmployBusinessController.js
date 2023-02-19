@@ -1785,43 +1785,49 @@ class EmployBusinessController {
 		.catch(next);
 	}
 
-	// Tải ảnh sau phẩu thuật - hồi sức
+	// Tải hình ảnh và video thay băng cắt chỉ
 	uploadAfter(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật hình ảnh và video thay băng cắt chỉ',
+			contents: req.body
+		});
+		logs.save();
 		const file = req.files;
 		const imgArr = [];
 		const videoArr = []
 		file.forEach(element => {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
-				imgArr.push({ name: element.filename, url: element.path });
+				imgArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return imgArr;
 			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
-				videoArr.push({ name: element.filename, url: element.path });
+				videoArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return videoArr;
 			}
 		})
 		let updateStatus = {
-			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video hậu phẫu - hồi sức', statusEng: 'uploadAfter'} },
-			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video hậu phẫu - hồi sức', statusEng: 'uploadAfter'}, userID: req.userId}}
+			$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh và video thay băng cắt chỉ', statusEng: 'uploadedAfter'} },
+			$push: { logIDs: logs._id }
 		}
 		Promise.all([
-			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
 				$push: {
 					afterImg: imgArr,
-					afterVideo: videoArr,
-					logStatus: {
-						statusServiceNote: 'Cập nhật hình ảnh và video thông tin hậu phẫu - hồi sức',
-						createID: req.userId
-					}
+					afterVideo: videoArr
 				},
 				$set: {
 					afterInfo: req.body.afterInfo,
 					directedByDoctor: req.body.directedByDoctor,
-					statusAfterInfo: req.body.statusAfterInfo
+					statusAfterInfo: req.body.statusAfterInfo,
+					isAfterInfo: true
 				}})
 		])
 		.then(() => {
-			req.flash('messages_uploadAfter_success', 'Cập nhật hình ảnh và video hậu phẫu - hồi sức thành công');
+			req.flash('messages_uploadAfter_success', 'Cập nhật hình ảnh và video thay băng cắt chỉ thành công');
 			res.redirect('back');
 		})
 		.catch(next);
@@ -1829,74 +1835,110 @@ class EmployBusinessController {
 
 	// Xóa ảnh thay băng cắt chỉ
 	deleteAfterImg(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa hình ảnh thay băng cắt chỉ',
+			contents: req.body
+		});
+		logs.save();
 		let imgName = req.body.imgName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  imgName });
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "afterImg.$.notDeletedYet": false },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['afterImg.name']: req.body.imgName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_deletedAfterImg_success', 'Xóa hình ảnh thay băng thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "afterImg.$.notDeletedYet": false } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['afterImg.name']: req.body.imgName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_deletedAfterImg_success', 'Xóa hình ảnh thay băng thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Khôi phục ảnh thay băng cắt chỉ
 	restoreAfterImg(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục hình ảnh thay băng cắt chỉ',
+			contents: req.body
+		});
+		logs.save();
 		let imgName = req.body.imgName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  imgName });
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "afterImg.$.notDeletedYet": true },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['afterImg.name']: req.body.imgName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_restoreAfterImg_success', 'Khôi phục hình ảnh thay băng thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "afterImg.$.notDeletedYet": true } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['afterImg.name']: req.body.imgName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_restoreAfterImg_success', 'Khôi phục hình ảnh thay băng thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Xóa video thay băng cắt chỉ
 	deleteAfterVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa video thay băng cắt chỉ',
+			contents: req.body
+		});
+		logs.save();
 		let videoName = req.body.videoName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  videoName });
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "afterVideo.$.notDeletedYet": false },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['afterVideo.name']: req.body.videoName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_deletedAfterVideo_success', 'Xóa video thay băng thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "afterVideo.$.notDeletedYet": false } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['afterVideo.name']: req.body.videoName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_deletedAfterVideo_success', 'Xóa video thay băng thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Khôi phục video phẫu thuật
 	restoreAfterVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục video thay băng cắt chỉ',
+			contents: req.body
+		});
+		logs.save();
 		let videoName = req.body.videoName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  videoName });
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "afterVideo.$.notDeletedYet": true },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['afterVideo.name']: req.body.videoName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_restoreAfterVideo_success', 'Khôi phục video thay băng thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "afterVideo.$.notDeletedYet": true } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['afterVideo.name']: req.body.videoName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_restoreAfterVideo_success', 'Khôi phục video thay băng thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Chi tiết phiếu dịch vụ
@@ -1905,7 +1947,7 @@ class EmployBusinessController {
 		.populate({
 			path: 'scheduleID',
 			populate: {
-				path: 'customerID',
+				path: 'cusID',
 				populate: {
 					path: 'userID',
 					model: 'User'
@@ -1921,6 +1963,25 @@ class EmployBusinessController {
 				serviceNote: mongooseToObject(serviceNote)
 			})
 		})
+	}
+
+	// Cập nhật phiếu dịch vụ sang hoàn thành
+	serviceNoteDone(req, res, next) {
+		console.log(req.body)
+		console.log(req.params.id)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Chuyển thông tin khách hàng sang bộ phận hậu phẫu',
+			contents: req.body
+		});
+		logs.save();
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $set: { statusCus: { statusVi: 'Chăm sóc hậu phẫu', statusEng: '' }},$push: { logIDs: logs._id }}),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { status: 'Chăm sóc hậu phẫu'})
+		])
 	}
 }
 

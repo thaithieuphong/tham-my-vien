@@ -136,6 +136,7 @@
 				<th class="text-center" scope="col">Ghi chú</th>
 				<th class="text-center" scope="col">Trạng thái</th>
 				<th class="text-center" scope="col">Đặt cọc</th>
+				<th class="text-center" scope="col">Giảm giá</th>
 				<th data-field="revenue" data-footer-formatter="revenueFormatter" class="text-center">Tổng chi phí</th>
 			</tr>
 		</thead>
@@ -153,7 +154,8 @@
 				</td>
 				<td class="text-center status-color" scope="row">{{this.status}}</td>
 				<td class="text-center" scope="row">{{this.deposit}}</td>
-				<td class="text-center" scope="row">{{this.total}}</td>
+				<td class="text-center" scope="row">{{this.discount}}</td>
+				<td class="text-center" scope="row">{{reduceTotal this.service this.discount}}</td>
 			</tr>
 			{{/each}}
 		</tbody>

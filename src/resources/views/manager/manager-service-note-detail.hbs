@@ -21,7 +21,7 @@
 				<strong>Mã khách hàng:</strong>
 			</label>
 			<label class="fs-6 text-right">
-				{{serviceNote.scheduleID.customerID.identification}}
+				{{serviceNote.scheduleID.cusID.identification}}
 			</label>
 		</div>
 		<div class="d-flex justify-content-between border-bottom mb-3">
@@ -29,7 +29,7 @@
 				<strong>Họ tên khai sinh:</strong>
 			</label>
 			<label class="fs-6 text-right">
-				{{serviceNote.scheduleID.customerID.fullName}}
+				{{serviceNote.scheduleID.cusID.fullName}}
 			</label>
 		</div>
 		<div class="d-flex justify-content-between border-bottom mb-3">
@@ -37,7 +37,7 @@
 				<strong>Tên thường gọi:</strong>
 			</label>
 			<label class="fs-6 text-right">
-				{{serviceNote.scheduleID.customerID.nickName}}
+				{{serviceNote.scheduleID.cusID.nickName}}
 			</label>
 		</div>
 		<div class="d-flex justify-content-between border-bottom mb-3">
@@ -45,7 +45,7 @@
 				<strong>Quê quán:</strong>
 			</label>
 			<label class="fs-6 text-right">
-				{{serviceNote.scheduleID.customerID.homeTown}}
+				{{serviceNote.scheduleID.cusID.homeTown}}
 			</label>
 		</div>
 		<div class="d-flex justify-content-between border-bottom mb-3">
@@ -71,7 +71,7 @@
 				<strong>Chiều cao:</strong>
 			</label>
 			<label class="">
-				<em>{{serviceNote.scheduleID.customerID.height}}</em>
+				<em>{{serviceNote.scheduleID.cusID.height}}</em>
 			</label>
 		</div>
 		<div class="d-flex justify-content-between border-bottom mb-3">
@@ -79,7 +79,7 @@
 				<strong>Cân nặng:</strong>
 			</label>
 			<label class="text-right">
-				<em>{{serviceNote.scheduleID.customerID.weight}}</em>
+				<em>{{serviceNote.scheduleID.cusID.weight}}</em>
 			</label>
 		</div>
 		<div class="d-flex justify-content-between border-bottom mb-3">
@@ -92,7 +92,7 @@
 		</div>
 		<div class="d-flex justify-content-between border-bottom mb-3">
 			<label for="status" class="text-nowrap">
-				<strong>Tầng phẩu thuật:</strong>
+				<strong>Khu vực phẩu thuật:</strong>
 			</label>
 			<label class="text-right">
 				{{serviceNote.floor}}
@@ -115,6 +115,14 @@
 		{{/each}}
 		<div class="d-flex justify-content-between border-bottom mb-3">
 			<label for="status" class="text-nowrap">
+				<strong>Tổng phí dịch vụ:</strong>
+			</label>
+			<label class="text-danger text-right">
+				{{reduceMoney serviceNote.service}}
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
 				<strong>Đặt cọc:</strong>
 			</label>
 			<label class="text-warning text-right">
@@ -123,10 +131,18 @@
 		</div>
 		<div class="d-flex justify-content-between border-bottom mb-3">
 			<label for="status" class="text-nowrap">
-				<strong>Tổng chi phí:</strong>
+				<strong>Giảm giá:</strong>
+			</label>
+			<label class="text-info text-right">
+				{{serviceNote.discount}}
+			</label>
+		</div>
+		<div class="d-flex justify-content-between border-bottom mb-3">
+			<label for="status" class="text-nowrap">
+				<strong>Tổng chi phí thực tế &#40;Đã trừ giảm giá&#41;:</strong>
 			</label>
 			<label class="text-danger text-right">
-				{{serviceNote.total}}
+				{{reduceTotal serviceNote.service serviceNote.discount}}
 			</label>
 		</div>
 		<div class="accordion accordion-flush" id="accordionFlushExample">
@@ -349,7 +365,7 @@
 			<div class="accordion-item bg-transparent">
 				<h2 class="accordion-header" id="flush-headingFive">
 					<button class="accordion-button collapsed bg-transparent pl-0 pr-0" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFive" aria-expanded="false" aria-controls="flush-collapseFive">
-						<strong>Thông tin hậu phẩu - hồi sức</strong>
+						<strong>Thông tin thay băng cắt chỉ</strong>
 					</button>
 				</h2>
 				<div id="flush-collapseFive" class="accordion-collapse collapse" aria-labelledby="flush-headingFive" data-bs-parent="#accordionFlushExample">

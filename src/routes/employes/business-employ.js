@@ -153,6 +153,9 @@ router.get('/schedules', EmployBusinessController.showSchedules);
 // Hiển thị trang chi tiết khách hàng ở trạng thái xuất viện
 router.get('/customer/:id/discharge-from-hospital-detail', EmployBusinessController.showCustomerDischargeFromHospitalDetail);
 
+// Cập nhật phiếu dịch vụ sang hoàn thành
+router.patch('/service-note/:id/done', EmployBusinessController.serviceNoteDone);
+
 // Hiển thị trang sửa thông tin khách hàng
 router.get('/customers/:id/edit', EmployBusinessController.showCustomerEdit);
 
