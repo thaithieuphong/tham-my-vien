@@ -16,15 +16,10 @@ const Customer = new Schema({
 	address: String,
 	description: String,
 	resource: String,
-	logStatus: [
+	logIDs: [
 		{
-			type: new mongoose.Schema(
-				{
-					contents: Object,
-					userID: String,
-				},
-				{ timestamps: true }
-			)
+			type: String,
+			ref: "Log"
 		}
 	],
 	storage: String,
@@ -51,17 +46,6 @@ const Customer = new Schema({
 		ref: "Schedule"
 	}],
 	hasSchedule: false,
-	loggers: [
-		{
-			type: new mongoose.Schema(
-				{
-					userID: String,
-					contents: Object,
-				},
-				{ timestamps: true }
-			)
-		}
-	],
 	serviceNoteID: [
 		{
 			type: String,

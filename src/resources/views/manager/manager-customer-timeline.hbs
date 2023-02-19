@@ -34,7 +34,7 @@
 <div class="sticky-top">
     <nav class="navbar navbar-light bg-blue">
         <div class="img-container">
-            <a type="button" onclick="history.back()">
+            <a type="button" href="/manager/general-manager">
 				<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
 			</a>
         </div>
@@ -183,10 +183,20 @@
 						<div class="accordion-body">
                             <div class="wrapper-timeline">
                                 <ul class="sessions-timeline">
-                                    {{#each customer.logStatus}}
+                                    {{#each customer.logIDs}}
                                         <li class="li-timeline">
                                             <div class="time"><strong>Thời gian thực hiện:</strong> {{formatDate this.createdAt}}</div>
-                                            <p class="p-timeline mb-0"><strong>Trạng thái xử lý:</strong> {{this.statusCus.statusVi}}</p>
+											<p class="p-timeline mb-0">
+												<strong>Trạng thái:</strong> {{this.status}}
+											</p>
+											<p class="p-timeline mb-0">
+												<strong>Nội dung:</strong>
+											</p>
+											{{#each this.contents}}
+											<p class="mb-0">
+												{{@key}}: {{this}}
+											</p>
+											{{/each}}
                                             <p class="p-timeline"><strong>Nhân viên thực hiện:</strong> <a href="/manager/general-manager/user/{{this.userID}}">{{this.userID}}</a></p>
                                         </li>
                                     {{/each}}

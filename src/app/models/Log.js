@@ -5,7 +5,9 @@ const Log = new Schema({
     customerID: String,
     scheduleID: String,
     serviceNoteID: String,
-    contents: Object,
+    userID: String,
+    status: String,
+    contents: Object
 }, {
     timestamps: true
 });

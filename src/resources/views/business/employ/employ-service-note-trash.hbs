@@ -33,7 +33,7 @@
                 <a href="/" class="d-flex align-items-center pb-sm-3 mb-md-0 text-white text-decoration-none">
 					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
 					<span class="fs-6 text-uppercase">
-						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
+						{{!-- <img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp; --}}
 						<span class="d-none d-sm-inline">Bảng điều khiển</span>
 					</span>
                 </a>
@@ -59,7 +59,7 @@
                         {{else}}
 						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
 						{{/if}}
-						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
+						<span class="d-none d-sm-inline mx-1">{{user.lastName}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
@@ -76,18 +76,20 @@
             </div>
         </div>
         <div class="col d-flex flex-column h-sm-100 ps-0 pe-0">
-			<div class="sticky-top ps-0 pe-0">
-				<div class="text-center bg-blue border-bottom">
-					<div class="text-light text-uppercase fw-bold pt-2 pb-2">
-						{{this.title}}
-					</div>
-				</div>
-			</div>
-			<div class="redirect-bar bg-blue d-flex justify-content-between">
+			<div class="sticky-top ps-0 pe-0 d-flex justify-content-between bg-dark">
 				<a type="button" href="/business/employ/service-note" class="ml-3">
 					<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
 				</a>
+				<div class="text-light text-uppercase fw-bold pt-2 pb-2">
+					{{this.title}}
+				</div>
+				<div></div>
 			</div>
+				{{!-- <div class="text-center bg-blue border-bottom">
+				</div> --}}
+			{{!-- <div class="redirect-bar bg-blue d-flex justify-content-between">
+				
+			</div> --}}
 			<div class="pb-3 ps-2 pe-2" style="width: 100%;">
 				<table id="table-service-note-trash" class="table table-sm display">
 					<thead>
@@ -105,14 +107,14 @@
 						{{#each serviceNotes}}
 							<tr>
 								<th scope="row" class="text-center"><strong>{{sum @index 1}}</strong></th>
-								<td>{{this.scheduleID.customerID.fullName}}</td>
+								<td>{{this.scheduleID.cusID.fullName}}</td>
 								<td>
 									<a id="schedule-detail" type="button" class="link-primary" data-bs-toggle="modal" data-bs-target="#detailScheduleModal"
-									data-customer-fullName="{{this.scheduleID.customerID.fullName}}" data-customer-nickName="{{this.scheduleID.customerID.nickName}}" data-customer-birth="{{this.scheduleID.customerID.birth}}"
-									data-customer-gender="{{this.scheduleID.customerID.gender}}" data-customer-phone="{{this.scheduleID.customerID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
-									data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.scheduleID.customerID.img.url}}" data-customer-resource="{{this.scheduleID.customerID.resource}}"
-									data-customer-user="{{#each this.scheduleID.customerID}}{{this.firstName}} {{this.lastName}}{{/each}}">
-										{{this.scheduleID.customerID.nickName}}
+									data-customer-fullName="{{this.scheduleID.cusID.fullName}}" data-customer-nickName="{{this.scheduleID.cusID.nickName}}" data-customer-birth="{{this.scheduleID.cusID.birth}}"
+									data-customer-gender="{{this.scheduleID.cusID.gender}}" data-customer-phone="{{this.scheduleID.cusID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
+									data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.scheduleID.cusID.img.url}}" data-customer-resource="{{this.scheduleID.cusID.resource}}"
+									data-customer-user="{{#each this.scheduleID.cusID}}{{this.firstName}} {{this.lastName}}{{/each}}">
+										{{this.scheduleID.cusID.nickName}}
 									</a>
 								</td>
 								<td>{{formatDate this.scheduleID.schedule}}</td>
@@ -120,8 +122,8 @@
 								<td class="text-danger">{{this.scheduleID.priceBefore}}</td>
 								<td class="d-flex justify-content-center">
 									<a type="button" class="btn btn-info btn-sm text-light" data-bs-toggle="modal" data-bs-target="#restoreServiceNoteModal" data-service-note-id="{{this._id}}"
-									data-customer-fullName="{{this.scheduleID.customerID.fullName}}" data-customer-nickName="{{this.scheduleID.customerID.nickName}}" data-schedule-id="{{this.scheduleID._id}}"
-									data-customer-id="{{this.scheduleID.customerID._id}}">
+									data-customer-fullName="{{this.scheduleID.cusID.fullName}}" data-customer-nickName="{{this.scheduleID.cusID.nickName}}" data-schedule-id="{{this.scheduleID._id}}"
+									data-customer-id="{{this.scheduleID.cusID._id}}">
 										Khôi phục lịch hẹn
 									</a>
 								</td>
@@ -229,7 +231,7 @@
 			<div class="modal-body">
 				<form id="restoreServiceNoteForm" method="POST">
 					<input id="restore-schedule-id" type="text" name="scheduleID" hidden>
-					<input id="restore-customer-id" type="text" name="customerID" hidden>
+					<input id="restore-customer-id" type="text" name="cusID" hidden>
 					Bạn muốn khôi phục phiếu dịch vụ của khách <strong id="restore-customer-name"></strong>
 				</form>
 			</div>

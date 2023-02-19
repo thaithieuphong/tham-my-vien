@@ -17,7 +17,7 @@ const ServiceNote = new Schema({
 	isInSurgeryInfo: false,
 	isAfterInfo: false,
 	
-	createName:
+	userID:
 	{
 		type: String,
 		ref: "User"
@@ -57,11 +57,7 @@ const ServiceNote = new Schema({
 	],
 
 
-	status:
-	{
-		type: String,
-		ref: "Status"
-	},
+	status: String,
 
 	service: [
 		{
@@ -167,17 +163,12 @@ const ServiceNote = new Schema({
 	reason: String,
 	priceBefore: String,
 	deposit: String,
-	logStatus: [
+	logIDs: [
 		{
-			type: new mongoose.Schema(
-				{
-					statusServiceNote: String,
-					createID: String,
-				},
-				{ timestamps: true }
-			)
+			type: String,
+			ref: "Log"
 		}
-	],
+	]
 }, {
 	timestamps: true
 });

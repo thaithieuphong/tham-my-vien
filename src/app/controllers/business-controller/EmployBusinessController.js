@@ -164,7 +164,17 @@ class EmployBusinessController {
 	createCustomer(req, res, next) {
 		if (req.file) {
 			if(req.body.statusVi === 'Tạo mới') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Khách hàng mới',
+					contents: req.body
+				});
+				logs.save();
 				const customer = new Customer({
+					image: {
+						name: req.file.filename,
+						url: req.file.path,
+					},
 					userID: req.userId,
 					identification: req.body.identification,
 					nickName: req.body.nickName,
@@ -184,19 +194,7 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'New'
 					},
-					logStatus: [
-						{
-							statusCus: {
-								statusVi: req.body.statusVi,
-								statusEng: 'New'
-							},
-							surgeryDay: null
-						}
-					],
-					image: {
-						name: req.file.filename,
-						url: req.file.path,
-					},
+					logIDs: logs._id
 				});
 				customer.save();
 				req.flash('messages_createCustomer_success', 'Tạo khách hàng thành công');
@@ -204,7 +202,17 @@ class EmployBusinessController {
 			}
 
 			if(req.body.statusVi === 'Tiềm năng') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Khách hàng tiềm năng',
+					contents: req.body
+				});
+				logs.save();
 				const customer = new Customer({
+					image: {
+						name: req.file.filename,
+						url: req.file.path,
+					},
 					userID: req.userId,
 					identification: req.body.identification,
 					nickName: req.body.nickName,
@@ -224,19 +232,7 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Potential'
 					},
-					logStatus: [
-						{
-							statusCus: {
-								statusVi: req.body.statusVi,
-								statusEng: 'Potential'
-							},
-							surgeryDay: null
-						}
-					],
-					image: {
-						name: req.file.filename,
-						url: req.file.path,
-					},
+					logIDs: logs._id
 				});
 				customer.save();
 				req.flash('messages_createCustomer_success', 'Tạo khách hàng thành công');
@@ -244,7 +240,17 @@ class EmployBusinessController {
 			}
 
 			if(req.body.statusVi === 'Đặt lịch') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Khách hàng tiềm năng',
+					contents: req.body
+				});
+				logs.save();
 				const customer = new Customer({
+					image: {
+						name: req.file.filename,
+						url: req.file.path,
+					},
 					userID: req.userId,
 					identification: req.body.identification,
 					nickName: req.body.nickName,
@@ -264,19 +270,7 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Schedule'
 					},
-					logStatus: [
-						{
-							statusCus: {
-								statusVi: req.body.statusVi,
-								statusEng: 'Schedule'
-							},
-							surgeryDay: null
-						}
-					],
-					image: {
-						name: req.file.filename,
-						url: req.file.path,
-					},
+					logIDs: logs._id
 				});
 				customer.save();
 				req.flash('messages_createCustomer_success', 'Tạo khách hàng thành công');
@@ -284,7 +278,17 @@ class EmployBusinessController {
 			}
 		} else {
 			if(req.body.statusVi === 'Tạo mới') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Khách hàng mới',
+					contents: req.body
+				});
+				logs.save();
 				const customer = new Customer({
+					image: {
+						name: "",
+						url: "",
+					},
 					userID: req.userId,
 					identification: req.body.identification,
 					nickName: req.body.nickName,
@@ -304,19 +308,7 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'New'
 					},
-					logStatus: [
-						{
-							statusCus: {
-								statusVi: req.body.statusVi,
-								statusEng: 'New'
-							},
-							surgeryDay: null
-						}
-					],
-					image: {
-						name: "",
-						url: "",
-					},
+					logIDs: logs._id
 				});
 				customer.save();
 				req.flash('messages_createCustomer_success', 'Tạo khách hàng thành công');
@@ -324,7 +316,17 @@ class EmployBusinessController {
 			}
 
 			if(req.body.statusVi === 'Tiềm năng') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Khách hàng tiềm năng',
+					contents: req.body
+				});
+				logs.save();
 				const customer = new Customer({
+					image: {
+						name: "",
+						url: "",
+					},
 					userID: req.userId,
 					identification: req.body.identification,
 					nickName: req.body.nickName,
@@ -344,19 +346,7 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Potential'
 					},
-					logStatus: [
-						{
-							statusCus: {
-								statusVi: req.body.statusVi,
-								statusEng: 'Potential'
-							},
-							surgeryDay: null
-						}
-					],
-					image: {
-						name: "",
-						url: "",
-					},
+					logIDs: logs._id
 				});
 				customer.save();
 				req.flash('messages_createCustomer_success', 'Tạo khách hàng thành công');
@@ -364,7 +354,17 @@ class EmployBusinessController {
 			}
 
 			if(req.body.statusVi === 'Đặt lịch') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Khách hàng đặt lịch',
+					contents: req.body
+				});
+				logs.save();
 				const customer = new Customer({
+					image: {
+						name: "",
+						url: "",
+					},
 					userID: req.userId,
 					identification: req.body.identification,
 					nickName: req.body.nickName,
@@ -384,19 +384,7 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Schedule'
 					},
-					logStatus: [
-						{
-							statusCus: {
-								statusVi: req.body.statusVi,
-								statusEng: 'Schedule'
-							},
-							surgeryDay: null
-						}
-					],
-					image: {
-						name: "",
-						url: "",
-					},
+					logIDs: logs._id
 				});
 				customer.save();
 				req.flash('messages_createCustomer_success', 'Tạo khách hàng thành công');
@@ -421,13 +409,23 @@ class EmployBusinessController {
 	editCustomer(req, res, next) {
 		if (req.file) {
 			if(req.body.statusVi === 'Tạo mới') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Sửa/cập nhật thông tin khách hàng mới',
+					contents: req.body
+				});
+				logs.save();
 				Customer.findByIdAndUpdate(
 					{ _id: req.params.id },
 					{
+						image: {
+							name: req.file.filename,
+							url: req.file.path,
+						},
 						userID: req.userId,
 						identification: req.body.identification,
-						firstName: req.body.firstName,
-						lastName: req.body.lastName,
+						fullName: req.body.fullName,
+						nickName: req.body.nickName,
 						birth: req.body.birth,
 						gender: req.body.gender,
 						phone: req.body.phone,
@@ -440,19 +438,7 @@ class EmployBusinessController {
 							statusVi: req.body.statusVi,
 							statusEng: 'New'
 						},
-						logStatus: [
-							{
-								statusCus: {
-									statusVi: req.body.statusVi,
-									statusEng: 'New'
-								},
-								surgeryDay: null
-							}
-						],
-						image: {
-							name: req.file.filename,
-							url: req.file.path,
-						},
+						$push: {logIDs: logs._id}
 					}
 				)
 					.then((customer) => {
@@ -473,13 +459,23 @@ class EmployBusinessController {
 			}
 
 			if(req.body.statusVi === 'Tiềm năng') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Sửa/cập nhật thông tin khách hàng tiềm năng',
+					contents: req.body
+				});
+				logs.save();
 				Customer.findByIdAndUpdate(
 					{ _id: req.params.id },
 					{
+						image: {
+							name: req.file.filename,
+							url: req.file.path,
+						},
 						userID: req.userId,
 						identification: req.body.identification,
-						firstName: req.body.firstName,
-						lastName: req.body.lastName,
+						fullName: req.body.fullName,
+						nickName: req.body.nickName,
 						birth: req.body.birth,
 						gender: req.body.gender,
 						phone: req.body.phone,
@@ -492,19 +488,7 @@ class EmployBusinessController {
 							statusVi: req.body.statusVi,
 							statusEng: 'Potential'
 						},
-						logStatus: [
-							{
-								statusCus: {
-									statusVi: req.body.statusVi,
-									statusEng: 'Potential'
-								},
-								surgeryDay: null
-							}
-						],
-						image: {
-							name: req.file.filename,
-							url: req.file.path,
-						},
+						$push: {logIDs: logs._id}
 					}
 				)
 					.then((customer) => {
@@ -525,13 +509,23 @@ class EmployBusinessController {
 			}
 
 			if(req.body.statusVi === 'Đặt lịch') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Sửa/cập nhật thông tin khách hàng đặt lịch',
+					contents: req.body
+				});
+				logs.save();
 				Customer.findByIdAndUpdate(
 					{ _id: req.params.id },
 					{
+						image: {
+							name: req.file.filename,
+							url: req.file.path,
+						},
 						userID: req.userId,
 						identification: req.body.identification,
-						firstName: req.body.firstName,
-						lastName: req.body.lastName,
+						fullName: req.body.fullName,
+						nickName: req.body.nickName,
 						birth: req.body.birth,
 						gender: req.body.gender,
 						phone: req.body.phone,
@@ -544,19 +538,7 @@ class EmployBusinessController {
 							statusVi: req.body.statusVi,
 							statusEng: 'Schedule'
 						},
-						logStatus: [
-							{
-								statusCus: {
-									statusVi: req.body.statusVi,
-									statusEng: 'Schedule'
-								},
-								surgeryDay: null
-							}
-						],
-						image: {
-							name: req.file.filename,
-							url: req.file.path,
-						},
+						$push: {logIDs: logs._id}
 					}
 				)
 					.then((customer) => {
@@ -577,13 +559,23 @@ class EmployBusinessController {
 			}
 
 			if(req.body.statusVi === 'Không thành công') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Sửa/cập nhật thông tin khách hàng không thành công',
+					contents: req.body
+				});
+				logs.save();
 				Customer.findByIdAndUpdate(
 					{ _id: req.params.id },
 					{
+						image: {
+							name: req.file.filename,
+							url: req.file.path,
+						},
 						userID: req.userId,
 						identification: req.body.identification,
-						firstName: req.body.firstName,
-						lastName: req.body.lastName,
+						fullName: req.body.fullName,
+						nickName: req.body.nickName,
 						birth: req.body.birth,
 						gender: req.body.gender,
 						phone: req.body.phone,
@@ -596,19 +588,7 @@ class EmployBusinessController {
 							statusVi: req.body.statusVi,
 							statusEng: 'Fail'
 						},
-						logStatus: [
-							{
-								statusCus: {
-									statusVi: req.body.statusVi,
-									statusEng: 'Fail'
-								},
-								surgeryDay: null
-							}
-						],
-						image: {
-							name: req.file.filename,
-							url: req.file.path,
-						},
+						$push: {logIDs: logs._id}
 					}
 				)
 					.then((customer) => {
@@ -629,11 +609,17 @@ class EmployBusinessController {
 			}
 		} else {
 			if(req.body.statusVi === 'Tạo mới') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Sửa/cập nhật thông tin khách hàng mới',
+					contents: req.body
+				});
+				logs.save();
 				Customer.findByIdAndUpdate({ _id: req.params.id },{
 					userID: req.userId,
 					identification: req.body.identification,
-					firstName: req.body.firstName,
-					lastName: req.body.lastName,
+					fullName: req.body.fullName,
+					nickName: req.body.nickName,
 					birth: req.body.birth,
 					gender: req.body.gender,
 					phone: req.body.phone,
@@ -642,7 +628,11 @@ class EmployBusinessController {
 					homeTown: req.body.homeTown,
 					resource: req.body.resource,
 					description: req.body.description,
-					
+					statusCus: {
+						statusVi: req.body.statusVi,
+						statusEng: 'New'
+					},
+					$push: {logIDs: logs._id}
 				})
 				.then((customer) => {
 					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
@@ -652,11 +642,17 @@ class EmployBusinessController {
 			}
 
 			if(req.body.statusVi === 'Tiềm năng') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Sửa/cập nhật thông tin khách hàng tiềm năng',
+					contents: req.body
+				});
+				logs.save();
 				Customer.findByIdAndUpdate({ _id: req.params.id },{
 					userID: req.userId,
 					identification: req.body.identification,
-					firstName: req.body.firstName,
-					lastName: req.body.lastName,
+					fullName: req.body.fullName,
+					nickName: req.body.nickName,
 					birth: req.body.birth,
 					gender: req.body.gender,
 					phone: req.body.phone,
@@ -669,15 +665,7 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Potential'
 					},
-					logStatus: [
-						{
-							statusCus: {
-								statusVi: req.body.statusVi,
-								statusEng: 'Potential'
-							},
-							surgeryDay: null
-						}
-					],
+					$push: {logIDs: logs._id}
 				})
 				.then((customer) => {
 					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
@@ -687,11 +675,17 @@ class EmployBusinessController {
 			}
 
 			if(req.body.statusVi === 'Đặt lịch') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Sửa/cập nhật thông tin khách hàng đặt lịch',
+					contents: req.body
+				});
+				logs.save();
 				Customer.findByIdAndUpdate({ _id: req.params.id },{
 					userID: req.userId,
 					identification: req.body.identification,
-					firstName: req.body.firstName,
-					lastName: req.body.lastName,
+					fullName: req.body.fullName,
+					nickName: req.body.nickName,
 					birth: req.body.birth,
 					gender: req.body.gender,
 					phone: req.body.phone,
@@ -704,15 +698,7 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Schedule'
 					},
-					logStatus: [
-						{
-							statusCus: {
-								statusVi: req.body.statusVi,
-								statusEng: 'Schedule'
-							},
-							surgeryDay: null
-						}
-					],
+					$push: {logIDs: logs._id}
 				})
 				.then((customer) => {
 					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
@@ -722,11 +708,17 @@ class EmployBusinessController {
 			}
 
 			if(req.body.statusVi === 'Không thành công') {
+				const logs = new Log({
+					userID: req.userId,
+					status: 'Sửa/cập nhật thông tin khách hàng không thành công',
+					contents: req.body
+				});
+				logs.save();
 				Customer.findByIdAndUpdate({ _id: req.params.id },{
 					userID: req.userId,
 					identification: req.body.identification,
-					firstName: req.body.firstName,
-					lastName: req.body.lastName,
+					fullName: req.body.fullName,
+					nickName: req.body.nickName,
 					birth: req.body.birth,
 					gender: req.body.gender,
 					phone: req.body.phone,
@@ -739,15 +731,7 @@ class EmployBusinessController {
 						statusVi: req.body.statusVi,
 						statusEng: 'Fail'
 					},
-					logStatus: [
-						{
-							statusCus: {
-								statusVi: req.body.statusVi,
-								statusEng: 'Fail'
-							},
-							surgeryDay: null
-						}
-					],
+					$push: {logIDs: logs._id}
 				})
 				.then((customer) => {
 					req.flash('messages_editCustomer_success', 'Chỉnh sửa thông tin khách hàng thành công');
@@ -775,18 +759,30 @@ class EmployBusinessController {
 	}
 
 	createComment(req, res, next) {
+		const logs = new Log({
+			userID: req.userId,
+			status: 'Cập nhật thông tin tư vấn khách online',
+			contents: req.body
+		});
+		logs.save();
 		Customer.findByIdAndUpdate(
 			{ _id: req.params.id },
-			{$push: { comments: { comment: req.body.comments } }, userID: req.userId}
+			{$push: { comments: { comment: req.body.comments } }, userID: req.userId, logIDs: logs._id }
 		)
 			.then(() => res.redirect("back"))
 			.catch(next);
 	}
 
 	moveToPotential(req, res, next) {
+		const logs = new Log({
+			userID: req.userId,
+			status: 'Chuyển trạng thái khách hàng sang tiềm năng',
+			contents: req.body
+		});
+		logs.save();
 		let updateCus = {
 			$set: { statusCus: { statusVi: 'Tiềm năng', statusEng: 'Potential'}, storage: null },
-			$push: { logStatus: { statusCus: {statusVi: 'Tiềm năng', statusEng: 'Potential'}, surgeryDay: null}}
+			$push: { logIDs: logs._id }
 
 		}
 		Customer.findByIdAndUpdate({ _id: req.params.id }, updateCus)
@@ -798,9 +794,15 @@ class EmployBusinessController {
 	}
 
 	moveToSchedule(req, res, next) {
+		const logs = new Log({
+			userID: req.userId,
+			status: 'Chuyển trạng thái khách hàng sang đặt lịch',
+			contents: req.body
+		});
+		logs.save();
 		let updateCus = {
 			$set: { statusCus: { statusVi: 'Đặt lịch', statusEng: 'Schedule'}, storage: null },
-			$push: { logStatus: { statusCus: {statusVi: 'Đặt lịch', statusEng: 'Schedule'}, surgeryDay: null}}
+			$push: { logIDs: logs._id }
 
 		}
 		Customer.findByIdAndUpdate({ _id: req.params.id }, updateCus)
@@ -812,10 +814,15 @@ class EmployBusinessController {
 	}
 
 	moveToNotOK(req, res, next) {
+		const logs = new Log({
+			userID: req.userId,
+			status: 'Chuyển trạng thái khách hàng sang tư vấn không thành công',
+			contents: req.body
+		});
+		logs.save();
 		let updateCus = {
 			$set: { statusCus: { statusVi: 'Không thành công', statusEng: 'Fail'}, storage: null },
-			$push: { logStatus: { statusCus: {statusVi: 'Không thành công', statusEng: 'Fail'}, surgeryDay: null}}
-
+			$push: { logIDs: logs._id }
 		}
 		Customer.findByIdAndUpdate({ _id: req.params.id }, updateCus)
 			.then(() => {
@@ -828,39 +835,50 @@ class EmployBusinessController {
 	// Hiển thị lịch hẹn tư vấn với điều kiện hasServiceNote: false
 	showSchedules(req, res, next) {
 		// Tìm tất cả lịch hẹn tư vấn của khách hàng có hasServiceNote: false
-		Schedule.find({}).populate('customerID')
-			.then((schedules) => {
-				let scheduleArr = schedules.filter(schedule => !schedule.customerID.hasServiceNote && schedule.customerID.hasSchedule ? schedule : null);
-				res.render('business/employ/employ-schedule', {
-					title: 'Lịch hẹn tư vấn',
-					schedules: multipleMongooseToObject(scheduleArr),
-				})
+		Promise.all([
+			Schedule.find({}).populate('cusID'),
+			User.findById({ _id: req.userId })
+		])
+		.then(([schedules, user]) => {
+			let scheduleArr = schedules.filter(schedule => !schedule.cusID.hasServiceNote && schedule.cusID.hasSchedule ? schedule : null);
+			res.render('business/employ/employ-schedule', {
+				title: 'Lịch hẹn tư vấn',
+				schedules: multipleMongooseToObject(scheduleArr),
+				user: mongooseToObject(user),
 			})
-			.catch(next);
+		})
+		.catch(next);
 	}
 
 	// Hiển thị trang thùng rác lịch hẹn tư vấn
 	showScheduleTrash(req, res, next) {
-		Schedule.findDeleted({}).populate('customerID')
-			.then(schedules => {
-				res.render('business/employ/employ-schedule-trash', {
-					title: 'Lịch hẹn tư vấn đã hủy',
-					schedules: multipleMongooseToObject(schedules),
-				})
+		Promise.all([
+			Schedule.findDeleted({}).populate('cusID'),
+			User.findById({ _id: req.userId })
+		])
+		.then(([schedules, user]) => {
+			res.render('business/employ/employ-schedule-trash', {
+				title: 'Lịch hẹn tư vấn đã hủy',
+				schedules: multipleMongooseToObject(schedules),
+				user: mongooseToObject(user),
 			})
+		})
+		.catch(next);
 	}
 
 	// Hiển thị trang đặt lịch tư vấn
 	showCreateSchedule(req, res, next) {
 		Promise.all([
 			Customer.findById({ _id: req.params.id }),
-			TypeService.find({})
+			TypeService.find({}),
+			User.findById({ _id: req.userId }),
 		])
-		.then(([customer, typeservices]) => {
+		.then(([customer, typeservices, user]) => {
 			res.render('business/employ/employ-schedule-create', {
 				title: 'Đặt lịch hẹn tư vấn',
 				customer: mongooseToObject(customer),
-				typeservices: multipleMongooseToObject(typeservices)
+				typeservices: multipleMongooseToObject(typeservices),
+				user: mongooseToObject(user)
 			})
 		})
 		.catch(next);
@@ -868,31 +886,30 @@ class EmployBusinessController {
 
 	// Tạo lịch hẹn tư vấn
 	createSchedule(req, res, next) {
-		const cusID = req.params.id;
-		const createName = req.body.createName;
-		const service = req.body.service;
-		const scheduleBody = req.body.schedule;
-		const priceBefore = req.body.priceBefore;
-		const deposit = req.body.deposit;
-		const comment = req.body.comment;
-		const schedule = new Schedule({
-			customerID: cusID,
-			createName: createName,
+		const data = {
+			cusID: req.params.id,
+			userID: req.userId,
 			status: "Tạo mới",
-			service: service,
-			comments: { comment: comment },
-			schedule: scheduleBody,
-			priceBefore: priceBefore,
-			deposit: deposit,
-		});
+			service: req.body.service,
+			schedule: req.body.schedule,
+			priceBefore: req.body.priceBefore,
+			deposit: req.body.deposit,
+			comment: req.body.comment,
+		}
+		const schedule = new Schedule(data);
 		schedule.save();
+		const logs = new Log({
+			userID: req.userId,
+			scheduleID: schedule._id,
+			status: 'Tạo lịch hẹn tư vấn',
+			contents: data
+		});
+		logs.save();
 		Customer.findByIdAndUpdate({ _id: req.params.id }, {
 			$push: {
 				scheduleID: schedule.id,
-				loggers: {
-					userID: req.userId,
-					contents: schedule
-				}},
+				logIDs: logs._id
+			},
 			$set: { hasSchedule: true }
 			
 		})
@@ -907,13 +924,13 @@ class EmployBusinessController {
 	showScheduleEdit(req, res, next) {
 		Promise.all([
 			Schedule.findById({ _id: req.params.id }).populate({
-				path: 'customerID'
+				path: 'cusID'
 			}),
 			TypeService.find({})
 		])
 		.then(([schedule, typeservices]) => {
 			res.render('business/employ/employ-schedule-edit', {
-				title: 'Sửa / cập nhật thông tin lịch hẹn tư vấn',
+				title: 'Sửa/Cập nhật thông tin lịch hẹn tư vấn',
 				schedule: mongooseToObject(schedule),
 				typeservices: multipleMongooseToObject(typeservices)
 			})
@@ -923,35 +940,19 @@ class EmployBusinessController {
 
 	// Sửa lịch hẹn tư vấn
 	editSchedule(req, res, next) {
+		const logs = new Log({
+			userID: req.userId,
+			scheduleID: req.params.id,
+			status: 'Sửa lịch hẹn tư vấn',
+			contents: req.body
+		});
+		logs.save();
 		let updateStatus = {
-			$set: {schedule: req.body.schedule, reasons: { reason: req.body.reason }, deposit: req.body.deposit, priceBefore: req.body.priceBefore},
-			$push: { logSchedules: { schedule: req.body.schedule, reason: req.body.reason, reasons: { reason: req.body.reason, service: req.body.service} , userID: req.userId}, service: req.body.service}
-		}
-		let updateCustomerStatus = {
-			$push: {
-				logStatus: {
-					statusCus: {
-						statusVi: 'Sửa lịch hẹn tư vấn', statusEng: 'editSchedule'
-					},
-					userID: req.userId
-				},
-				loggers: {
-					userID: req.userId,
-					contents: {
-						schedule: req.body.schedule,
-						service: req.body.service,
-						reasons: {
-							reason: req.body.reason,
-							service: req.body.service
-						},
-						deposit: req.body.deposit,
-						priceBefore: req.body.priceBefore,
-					}
-				}
-			}
+			$set: {schedule: req.body.schedule, reason: req.body.reason, deposit: req.body.deposit, priceBefore: req.body.priceBefore},
+			$push: { service: req.body.service}
 		}
 		Promise.all([
-			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateCustomerStatus),
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, {$push: { logIDs: logs._id }}),
 			Schedule.findByIdAndUpdate({ _id: req.params.id }, updateStatus)
 		])
 		.then(() => {
@@ -963,23 +964,17 @@ class EmployBusinessController {
 
 	// Xóa dịch vụ đã chọn trong lịch hẹn
 	deleteServiceSchedule(req, res, next) {
-		let contentUpdate = {
-			$pull: { service: req.body.service },
-			$push: { logSchedules: { reasons: { content: `Xóa dịch vụ ${req.body.service}` }, userID: req.userId }}
-		}
+		const logs = new Log({
+			userID: req.userId,
+			scheduleID: req.params.id,
+			status: 'Xóa dịch vụ trên lịch hẹn tư vấn',
+			contents: req.body
+		});
+		logs.save();
 		Promise.all([
-			Customer.findByIdAndUpdate({ _id: req.body.customerID }, {loggers: {
-				userID: req.userId,
-				contents: {
-					service: req.body.service,
-					reasons: {
-						reason: `Xóa dịch vụ ${req.body.service}`,
-						service: req.body.service
-					}
-				}
-			}})
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: {logIDs: logs._id }}),
+			Schedule.findByIdAndUpdate({ _id: req.params.id }, { $pull: { service: req.body.service }})
 		])
-		Schedule.findByIdAndUpdate({ _id: req.params.id }, contentUpdate)
 			.then(() => {
 				req.flash('messages_deleteService_success', 'Xóa dịch vụ thành công');
 				res.redirect('back');
@@ -989,19 +984,16 @@ class EmployBusinessController {
 
 	// Xóa lịch hẹn tư vấn
 	deleteSchedule(req, res, next) {
+		const logs = new Log({
+			userID: req.userId,
+			scheduleID: req.params.id,
+			status: 'Xóa lịch hẹn tư vấn',
+			contents: req.body
+		});
+		logs.save();
 		Promise.all([
-			Customer.findByIdAndUpdate( { _id: req.body.customerID }, { 
-				loggers: {
-					userID: req.userId,
-					contents: {
-						reasons: {
-							reason: `Hủy lịch hẹn`,
-						}
-					}
-				},
-				hasSchedule: false
-			}),
-			Schedule.delete({ _id: req.params.id} )
+			Customer.findByIdAndUpdate( { _id: req.body.cusID }, { hasSchedule: false, $push: { logIDs: logs._id } }),
+			Schedule.delete({ _id: req.params.id })
 		])
 		.then(() => {
 			req.flash('messages_deleteSchedule_success', 'Xóa lịch hẹn tư vấn thành công');
@@ -1012,8 +1004,15 @@ class EmployBusinessController {
 
 	// Khôi phục lịch hẹn tư vấn
 	restoreSchedule(req, res, next) {
+		const logs = new Log({
+			userID: req.userId,
+			scheduleID: req.params.id,
+			status: 'Khôi phục lịch hẹn tư vấn',
+			contents: req.body
+		});
+		logs.save();
 		Promise.all([
-			Customer.findByIdAndUpdate( { _id: req.body.customerID }, { hasSchedule: true } ),
+			Customer.findByIdAndUpdate( { _id: req.body.cusID }, { hasSchedule: true, $push: { logIDs: logs._id } } ),
 			Schedule.restore({ _id: req.params.id} )
 		])
 			.then(() => {
@@ -1063,56 +1062,31 @@ class EmployBusinessController {
 
 	// Hiển thị trang tạo phiếu dịch vụ
 	serviceNoteCreate(req, res, next) {
-		console.log(req.params.id)
-		console.log(req.body)
-		const serviceNote = new ServiceNote({
+		const serviceNote = new ServiceNote({ scheduleID: req.params.id });
+		serviceNote.save();
+		const serviceNoteID = serviceNote._id;
+		const logs = new Log({
+			userID: req.userId,
 			scheduleID: req.params.id,
-			logStatus: [{
-				statusServiceNote: 'Tạo mới',
-				createID: req.userId
-			}]
+			serviceNoteID: serviceNoteID,
+			status: 'Tạo phiếu dịch vụ',
+			contents: req.body
 		});
-		serviceNote.save()
-			.then(serviceNote => {
-				Promise.all([
-					Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $set: { serviceNoteID: serviceNote._id, hasServiceNote: true },
-						$push: {
-							logStatus: {
-								contents: {
-									customerID: req.body.customerID,
-									serviceNoteID: serviceNote._id,
-									scheduleID: req.params.id,
-									title: 'Đã tạo phiếu dịch vụ'
-								},
-								userID: req.userId
-							},
-							loggers: {
-								contents: {
-									customerID: req.body.customerID,
-									serviceNoteID: serviceNote._id,
-									scheduleID: req.params.id,
-									title: 'Đã tạo phiếu dịch vụ'
-								},
-								userID: req.userId
-							}
-						}}),
-					Schedule.findByIdAndUpdate({ _id: req.params.id }, { $set: { serviceNoteID: serviceNote._id, status: 'Đang xử lý' },
-						$push: {
-							logSchedules: {
-								reasons: {
-									title: 'Đã tạo phiếu dịch vụ cho lịch hẹn này',
-									serviceNoteID: serviceNote._id
-								}
-							},
-							userID: req.userId
-						}})
-				])
-				.then(() => {
-					res.redirect(`/business/employ/service-note/${serviceNote._id}/update`)
-				})
-				.catch(next);
+		logs.save();
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, {
+				$set: { serviceNoteID: serviceNoteID, hasServiceNote: true },
+				$push: { logIDs: logs._id }
+			}),
+			Schedule.findByIdAndUpdate({ _id: req.params.id }, {
+				$set: { serviceNoteID: serviceNoteID, status: 'Đang xử lý' },
+				$push: { userID: req.userId }
 			})
-			.catch(next);
+		])
+		.then(() => {
+			res.redirect(`/business/employ/service-note/${serviceNoteID}/update`);
+		})
+		.catch(next);
 	}
 
 	showServiceNoteList(req, res, next) {
@@ -1121,7 +1095,7 @@ class EmployBusinessController {
 				.populate({
 					path: 'scheduleID',
 					populate: {
-						path: 'customerID',
+						path: 'cusID',
 						model: 'Customer',
 						
 					}
@@ -1129,7 +1103,6 @@ class EmployBusinessController {
 			User.findById({ _id: req.userId }),
 		])
 		.then(([serviceNotes, user]) => {
-			console.log(serviceNotes)
 			res.render('business/employ/employ-service-note-list', {
 				title: 'Danh sách phiếu dịch vụ',
 				serviceNotes: multipleMongooseToObject(serviceNotes),
@@ -1144,7 +1117,7 @@ class EmployBusinessController {
 			ServiceNote.findById({ _id: req.params.id }).populate({
 				path: 'scheduleID',
 				populate: {
-					path: 'customerID',
+					path: 'cusID',
 					model: 'Customer'
 				}
 			}),
@@ -1164,10 +1137,36 @@ class EmployBusinessController {
 
 	// Cập nhật thông tin khách hàng trên phiếu dịch vụ
 	updateCusInfor(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật thông tin khách hàng trên phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
+		const updateContentCustomer = {
+			identification: req.body.identification,
+			fullName: req.body.fullName,
+			nickName: req.body.nickName,
+			birth: req.body.birth,
+			gender: req.body.gender,
+			phone: req.body.phone,
+			homeTown: req.body.homeTown,
+			height: req.body.height,
+			weight: req.body.weight,
+			$push: { logIDs: logs._id },
+			$set: { statusCus: { statusVi: 'Cập nhật thông tin cá nhân khách hàng', statusEng: 'updateService'} },
+		}
+		const updateContentServiceNote = {
+			surgeryDay: req.body.surgeryDay,
+			floor: req.body.floor,
+			performer: req.body.performer,
+			$set: { isCustomerInfo: true }
+		}
 		Promise.all([
-			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, req.body),
-			Customer.findByIdAndUpdate({ _id: req.body.cusID }, req.body)
-		])
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, updateContentServiceNote),
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateContentCustomer)])
 			.then(() => {
 				req.flash('messages_updateCusInfo_success', 'Cập nhật thông tin cá nhân khách hàng thành công');
 				res.redirect('back');
@@ -1177,10 +1176,18 @@ class EmployBusinessController {
 
 	// Cập nhật thông tin dịch vụ trên phiếu dịch vụ
 	updateServiceInfor(req, res, next) {
-		console.log(req.body)
+		if (req.body.totalServiceCharge === '0' && req.body.deposit === '0' && req.body.discount === '0' && req.body.amountToBePaid === '0' && req.body.total === '0') {
+			req.flash('messages_updateService_warning', 'Chưa cập nhật dịch vụ');
+			res.redirect('back');
+		}
 		let serviceArr = [];
 		let serviceNameArr = req.body.service;
 		let servicePriceArr = req.body.price;
+		if (!serviceNameArr) {
+			
+			req.flash('messages_updateService_warning', 'Chưa cập nhật dịch vụ');
+			res.redirect('back');
+		}
 		serviceNameArr.forEach((serviceName, index) => {
 			let servicePrice = servicePriceArr[index]
 			serviceArr.push({
@@ -1188,19 +1195,27 @@ class EmployBusinessController {
 				price: servicePrice
 			})
 		});
+		const logs = new Log({
+			customerID: req.body.cusID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật thông tin dịch vụ trên phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
 		let updateCus = {
 			$set: { statusCus: { statusVi: 'Cập nhật dịch vụ', statusEng: 'updateService'} },
-			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật dịch vụ', statusEng: 'updateService'}, userID: req.userId}}
+			$push: { logIDs: logs._id }
 		}
 		Promise.all([
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
 				deposit: req.body.deposit,
 				discount: req.body.discount,
-				totalServiceCharge: req.body.totalServiceCharge,
-				amountToBePaid: req.body.amountToBePaid,
-				total: req.body.total,
-				$set: { status: 'Đang xử lý'},
-				$push: { logStatus: { statusServiceNote: 'Cập nhật dịch vụ', createID: req.userId}, service: serviceArr}
+				// totalServiceCharge: req.body.totalServiceCharge,
+				// amountToBePaid: req.body.amountToBePaid,
+				// total: req.body.total,
+				$set: { status: 'Đã cập nhật dịch vụ trên phiếu dịch vụ', isServiceInfo: true},
+				$push: { service: serviceArr}
 			}),
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateCus)
 		])
@@ -1213,14 +1228,17 @@ class EmployBusinessController {
 
 	// Xóa dịch vụ trên phiếu dịch vụ
 	deleteService(req, res, next) {
-		let updateCustomerStatus = {
-			$push: { logStatus: { statusCus: {statusVi: 'Xóa dịch vụ', statusEng: 'deleteService'}, userID: req.userId}}
-		}
+		const logs = new Log({
+			customerID: req.body.cusID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa dịch vụ trên phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
 		Promise.all([
-			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateCustomerStatus),
-			ServiceNote.findByIdAndUpdate({ _id: req.params.id} , { $pull: {service: { _id: req.body.serviceID}},
-				$push: { logStatus: { statusServiceNote: 'Xóa dịch vụ', createID: req.userId}}
-			})
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id} , { $pull: {service: { _id: req.body.serviceID}} })
 		])
 		.then(() => {
 			req.flash('messages_deleteService_success', 'Xóa dịch vụ thành công');
@@ -1235,14 +1253,13 @@ class EmployBusinessController {
 			ServiceNote.findDeleted({}).populate({
 				path: 'scheduleID',
 				populate: {
-					path: 'customerID',
+					path: 'cusID',
 					model: 'Customer'
 				}
 			}),
 			User.findById({ _id: req.userId }),
 		])
 		.then(([serviceNotes, user]) => {
-			console.log(serviceNotes)
 			res.render('business/employ/employ-service-note-trash', {
 				title: 'Phiếu dịch vụ đã hủy',
 				serviceNotes: multipleMongooseToObject(serviceNotes),
@@ -1254,20 +1271,25 @@ class EmployBusinessController {
 
 	// Xóa phiếu dịch vụ
 	deleteServiceNote(req, res, next) {
+		console.log(req.body)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
 		Promise.all([
-			Customer.findByIdAndUpdate( { _id: req.body.customerID }, { 
-				loggers: {
-					userID: req.userId,
-					contents: {
-						reasons: {
-							reason: `Hủy phiếu dịch vụ`,
-						}
-					}
-				},
+			Customer.findByIdAndUpdate( { _id: req.body.cusID }, { 
 				hasSchedule: false,
-				hasServiceNote: false
+				hasServiceNote: false,
+				statusCus: { statusVi: 'Tư vấn không thành công', statusEng: 'Fail'},
+				$push: { logIDs: logs._id }
 			}),
 			Schedule.findByIdAndUpdate({ _id: req.body.scheduleID }, { status: 'Đã xóa phiếu dịch vụ' }),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { status: 'Đã xóa phiếu dịch vụ'}),
 			ServiceNote.delete({ _id: req.params.id })
 		])
 		.then(() => {
@@ -1279,9 +1301,23 @@ class EmployBusinessController {
 
 	// Khôi phục phiếu dịch vụ
 	restoreServiceNote(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
 		Promise.all([
-			Customer.findByIdAndUpdate( { _id: req.body.customerID }, { hasSchedule: true, hasServiceNote: true } ),
+			Customer.findByIdAndUpdate( { _id: req.body.cusID }, {
+				hasSchedule: true,
+				hasServiceNote: true,
+				statusCus: { statusVi: 'Đã khôi phục và đang cập nhật thông tin phiếu dịch vụ', statusEng: 'restoredAndUpdatingServiceNoteInfomation'},
+				$push: { logIDs: logs._id } } ),
 			Schedule.findByIdAndUpdate( { _id: req.body.scheduleID }, { status: 'Đang xử lý' } ),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { status: 'Đã khôi phục phiếu dịch vụ và đang xử lý'}),
 			ServiceNote.restore({ _id: req.params.id} )
 		])
 			.then(() => {
@@ -1300,27 +1336,32 @@ class EmployBusinessController {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
 				imgArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return imgArr;
-			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/MOV' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
 				videoArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return videoArr;
 			}
 		})
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật hình ảnh vả video tư vấn',
+			contents: req.body
+		});
+		logs.save();
 		let updateStatus = {
-			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video tư vấn', statusEng: 'uploadCounselor'} },
-			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video tư vấn', statusEng: 'uploadCounselor'}, userID: req.userId}}
+			$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh và video tư vấn', statusEng: 'uploadedCounselor'} },
+			$push: { logIDs: logs._id }
 		}
 		Promise.all([
-			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { 
 				$push: {
 					counselorImg: imgArr,
-					counselorVideo: videoArr,
-					logStatus: {
-						statusServiceNote: 'Cập nhật hình ảnh và video thông tin tư vấn',
-						createID: req.userId
-					}
+					counselorVideo: videoArr
 				},
-				$set: {counselorInfo: req.body.counselorInfo}
+				$set: {counselorInfo: req.body.counselorInfo, isCounselorInfo: true}
 			})
 		])
 		.then(() => {
@@ -1332,114 +1373,149 @@ class EmployBusinessController {
 
 	// Xóa ảnh khi tư vấn
 	deleteCounselorImg(req, res, next) {
-		console.log(req.body.imgName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa hình ảnh tư vấn',
+			contents: req.body
+		});
+		logs.save();
 		let imgName = req.body.imgName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  imgName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = {
 			$set: { "counselorImg.$.notDeletedYet": false },
 		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['counselorImg.name']: req.body.imgName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_deletedCounselorImg_success', 'Xóa hình ảnh tư vấn thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorImg.name']: req.body.imgName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_deletedCounselorImg_success', 'Xóa hình ảnh tư vấn thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Khôi phục ảnh khi tư vấn
 	restoreCounselorImg(req, res, next) {
-		console.log(req.body.imgName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục hình ảnh tư vấn',
+			contents: req.body
+		});
+		logs.save();
 		let imgName = req.body.imgName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  imgName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "counselorImg.$.notDeletedYet": true },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['counselorImg.name']: req.body.imgName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_restoreCounselorImg_success', 'Khôi phục hình ảnh tư vấn thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "counselorImg.$.notDeletedYet": true } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorImg.name']: req.body.imgName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_restoreCounselorImg_success', 'Khôi phục hình ảnh tư vấn thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Xóa video khi tư vấn
 	deleteCounselorVideo(req, res, next) {
-		console.log(req.body.videoName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa video tư vấn',
+			contents: req.body
+		});
+		logs.save();
 		let videoName = req.body.videoName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  videoName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "counselorVideo.$.notDeletedYet": false },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['counselorVideo.name']: req.body.videoName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_deletedCounselorVideo_success', 'Xóa video tư vấn thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "counselorVideo.$.notDeletedYet": false }}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorVideo.name']: req.body.videoName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_deletedCounselorVideo_success', 'Xóa video tư vấn thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Khôi phục video khi tư vấn
 	restoreCounselorVideo(req, res, next) {
-		console.log(req.body.videoName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục video tư vấn',
+			contents: req.body
+		});
+		logs.save();
 		let videoName = req.body.videoName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  videoName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "counselorVideo.$.notDeletedYet": true },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['counselorVideo.name']: req.body.videoName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_restoreCounselorImg_success', 'Khôi phục video tư vấn thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = {$set: { "counselorVideo.$.notDeletedYet": true }}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorVideo.name']: req.body.videoName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_restoreCounselorImg_success', 'Khôi phục video tư vấn thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Tải ảnh trước phẩu thuật
 	uploadBefore(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật hình ảnh và video trước phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
 		const file = req.files;
 		const imgArr = [];
 		const videoArr = [];
 		file.forEach(element => {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
-				imgArr.push({ name: element.filename, url: element.path });
+				imgArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return imgArr;
 			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
-				videoArr.push({ name: element.filename, url: element.path });
+				videoArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return videoArr;
 			}
 		})
 		let updateStatus = {
-			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video trước phẫu thuật', statusEng: 'uploadBefore'} },
-			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video trước phẫu thuật', statusEng: 'uploadBefore'}, userID: req.userId}}
+			$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh và video trước phẫu thuật', statusEng: 'uploadedBefore'} },
+			$push: { logIDs: logs._id }
 		}
 		Promise.all([
-			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
 				$push: {
 					beforeImg: imgArr,
-					beforeVideo: videoArr,
-					logStatus: {
-						statusServiceNote: 'Cập nhật hình ảnh và video trước phẫu thuật',
-						createID: req.userId
-					}
+					beforeVideo: videoArr
 				},
-				$set: { beforeInfo: req.body.beforeInfo }
+				$set: { beforeInfo: req.body.beforeInfo, isBeforeInfo: true}
 			})
 		])
 		.then(() => {
@@ -1451,114 +1527,147 @@ class EmployBusinessController {
 
 	// Xóa ảnh trước phẫu thuật
 	deleteBeforeImg(req, res, next) {
-		console.log(req.body.imgName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa hình ảnh trước phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
 		let imgName = req.body.imgName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  imgName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "beforeImg.$.notDeletedYet": false },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['beforeImg.name']: req.body.imgName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_deletedBeforeImg_success', 'Xóa hình ảnh trước phẫu thuật thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "beforeImg.$.notDeletedYet": false } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeImg.name']: req.body.imgName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_deletedBeforeImg_success', 'Xóa hình ảnh trước phẫu thuật thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Khôi phục ảnh trước phẫu thuật
 	restoreBeforeImg(req, res, next) {
-		console.log(req.body.imgName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục hình ảnh trước phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
 		let imgName = req.body.imgName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  imgName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "beforeImg.$.notDeletedYet": true },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['beforeImg.name']: req.body.imgName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_restoreBeforeImg_success', 'Khôi phục hình ảnh trước phẫu thuật thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "beforeImg.$.notDeletedYet": true } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeImg.name']: req.body.imgName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_restoreBeforeImg_success', 'Khôi phục hình ảnh trước phẫu thuật thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Xóa video trước phẫu thuật
 	deleteBeforeVideo(req, res, next) {
-		console.log(req.body.videoName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa video trước phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
 		let videoName = req.body.videoName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  videoName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "beforeVideo.$.notDeletedYet": false },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['beforeVideo.name']: req.body.videoName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_deletedBeforeVideo_success', 'Xóa video trước phẫu thuật thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "beforeVideo.$.notDeletedYet": false } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeVideo.name']: req.body.videoName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_deletedBeforeVideo_success', 'Xóa video trước phẫu thuật thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Khôi phục video trước phẫu thuật
 	restoreBeforeVideo(req, res, next) {
-		console.log(req.body.videoName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục video trước phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
 		let videoName = req.body.videoName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  videoName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "beforeVideo.$.notDeletedYet": true },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['beforeVideo.name']: req.body.videoName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_restoreBeforeVideo_success', 'Khôi phục video trước phẫu thuật thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "beforeVideo.$.notDeletedYet": true } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id}}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeVideo.name']: req.body.videoName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_restoreBeforeVideo_success', 'Khôi phục video trước phẫu thuật thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Tải ảnh trong phẩu thuật
 	uploadInSurgery(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật hình ảnh và video phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
 		const file = req.files;
 		const imgArr = [];
 		const videoArr = [];
 		file.forEach(element => {
 			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
-				imgArr.push({ name: element.filename, url: element.path });
+				imgArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return imgArr;
 			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
-				videoArr.push({ name: element.filename, url: element.path });
+				videoArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return videoArr;
 			}
 		})
 		let updateStatus = {
-			$set: { statusCus: { statusVi: 'Cập nhật hình ảnh và video phẫu thuật', statusEng: 'uploadInsurgery'} },
-			$push: { logStatus: { statusCus: {statusVi: 'Cập nhật hình ảnh và video phẫu thuật', statusEng: 'uploadInsurgery'}, userID: req.userId}}
+			$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh và video phẫu thuật', statusEng: 'uploadedInsurgery'} },
+			$push: { logIDs: logs._id }
 		}
 		Promise.all([
-			Customer.findByIdAndUpdate({ _id: req.body.customerID }, updateStatus),
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, {
 				$push: {
 					inSurgeryImg: imgArr,
-					inSurgeryVideo: videoArr,
-					logStatus: {
-						statusServiceNote: 'Cập nhật hình ảnh và video thông tin phẫu thuật',
-						createID: req.userId
-					}
+					inSurgeryVideo: videoArr
 				},
-				$set: { stepsToTake: req.body.stepsToTake }
+				$set: { stepsToTake: req.body.stepsToTake, isInSurgeryInfo: true }
 			})
 		])
 		.then(() => {
@@ -1570,82 +1679,110 @@ class EmployBusinessController {
 
 	// Xóa ảnh khi phẫu thuật
 	deleteInSurgeryImg(req, res, next) {
-		console.log(req.body.imgName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa hình ảnh phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
 		let imgName = req.body.imgName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  imgName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "inSurgeryImg.$.notDeletedYet": false },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['inSurgeryImg.name']: req.body.imgName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_deletedInSurgeryImg_success', 'Xóa hình ảnh phẫu thuật thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "inSurgeryImg.$.notDeletedYet": false } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryImg.name']: req.body.imgName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_deletedInSurgeryImg_success', 'Xóa hình ảnh phẫu thuật thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Khôi phục ảnh khi phẫu thuật
 	restoreInSurgeryImg(req, res, next) {
-		console.log(req.body.imgName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục hình ảnh phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
 		let imgName = req.body.imgName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  imgName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "inSurgeryImg.$.notDeletedYet": true },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['inSurgeryImg.name']: req.body.imgName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_restoreInSurgeryImg_success', 'Khôi phục hình ảnh phẫu thuật thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "inSurgeryImg.$.notDeletedYet": true }}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryImg.name']: req.body.imgName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_restoreInSurgeryImg_success', 'Khôi phục hình ảnh phẫu thuật thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Xóa video khi phẫu thuật
 	deleteInSurgeryVideo(req, res, next) {
-		console.log(req.body.videoName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa video phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
 		let videoName = req.body.videoName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  videoName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "inSurgeryVideo.$.notDeletedYet": false },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['inSurgeryVideo.name']: req.body.videoName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_deletedInSurgeryVideo_success', 'Xóa video phẫu thuật thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "inSurgeryVideo.$.notDeletedYet": false } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryVideo.name']: req.body.videoName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_deletedInSurgeryVideo_success', 'Xóa video phẫu thuật thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Khôi phục video phẫu thuật
 	restoreInSurgeryVideo(req, res, next) {
-		console.log(req.body.videoName)
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục video phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
 		let videoName = req.body.videoName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  videoName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {
-			$set: { "inSurgeryVideo.$.notDeletedYet": true },
-		}
-		ServiceNote.findById({ _id: req.params.id })
-					.updateMany({ ['inSurgeryVideo.name']: req.body.videoName }, updateDocument, options)
-					.then(() => {
-						req.flash('messages_restoreInSurgeryVideo_success', 'Khôi phục video phẫu thuật thành công');
-						res.redirect('back');
-					})
-					.catch(next);
+		const updateDocument = { $set: { "inSurgeryVideo.$.notDeletedYet": true } }
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryVideo.name']: req.body.videoName }, updateDocument, options)
+		])
+		.then(() => {
+			req.flash('messages_restoreInSurgeryVideo_success', 'Khôi phục video phẫu thuật thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Tải ảnh sau phẩu thuật - hồi sức
@@ -1692,11 +1829,9 @@ class EmployBusinessController {
 
 	// Xóa ảnh thay băng cắt chỉ
 	deleteAfterImg(req, res, next) {
-		console.log(req.body.imgName)
 		let imgName = req.body.imgName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  imgName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = {
 			$set: { "afterImg.$.notDeletedYet": false },
@@ -1712,11 +1847,9 @@ class EmployBusinessController {
 
 	// Khôi phục ảnh thay băng cắt chỉ
 	restoreAfterImg(req, res, next) {
-		console.log(req.body.imgName)
 		let imgName = req.body.imgName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  imgName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = {
 			$set: { "afterImg.$.notDeletedYet": true },
@@ -1732,11 +1865,9 @@ class EmployBusinessController {
 
 	// Xóa video thay băng cắt chỉ
 	deleteAfterVideo(req, res, next) {
-		console.log(req.body.videoName)
 		let videoName = req.body.videoName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  videoName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = {
 			$set: { "afterVideo.$.notDeletedYet": false },
@@ -1752,11 +1883,9 @@ class EmployBusinessController {
 
 	// Khôi phục video phẫu thuật
 	restoreAfterVideo(req, res, next) {
-		console.log(req.body.videoName)
 		let videoName = req.body.videoName;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  videoName });
-		console.log(arrayFilters)
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = {
 			$set: { "afterVideo.$.notDeletedYet": true },

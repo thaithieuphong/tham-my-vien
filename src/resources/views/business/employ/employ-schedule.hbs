@@ -155,14 +155,14 @@
 						{{#each schedules}}
 							<tr>
 								<th scope="row" class="text-center"><strong>{{sum @index 1}}</strong></th>
-								<td>{{this.customerID.fullName}}</td>
+								<td>{{this.cusID.fullName}}</td>
 								<td>
 									<a id="schedule-detail" type="button" class="link-primary" data-bs-toggle="modal" data-bs-target="#detailScheduleModal"
-									data-customer-fullName="{{this.customerID.fullName}}" data-customer-nickName="{{this.customerID.nickName}}" data-customer-birth="{{this.customerID.birth}}"
-									data-customer-gender="{{this.customerID.gender}}" data-customer-phone="{{this.customerID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
-									data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.customerID.img.url}}"data-customer-resource="{{this.customerID.resource}}"
-									data-customer-user="{{#each this.customerID}}{{this.firstName}} {{this.lastName}}{{/each}}">
-										{{this.customerID.nickName}}
+									data-customer-fullName="{{this.cusID.fullName}}" data-customer-nickName="{{this.cusID.nickName}}" data-customer-birth="{{this.cusID.birth}}"
+									data-customer-gender="{{this.cusID.gender}}" data-customer-phone="{{this.cusID.phone}}" data-schedule="{{this.schedule}}" data-service="{{this.service}}"
+									data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.cusID.img.url}}"data-customer-resource="{{this.cusID.resource}}"
+									data-customer-user="{{#each this.cusID}}{{this.firstName}} {{this.lastName}}{{/each}}">
+										{{this.cusID.nickName}}
 									</a>
 								</td>
 								<td>{{formatDate this.schedule}}</td>
@@ -176,7 +176,7 @@
 									</div>
 									<div data-bs-toggle="tooltip" data-bs-placement="top" title="Tạo phiếu dịch vụ" class="me-1">
 										<form method="POST" action="/business/employ/schedule/{{this._id}}/service-note/create">
-											<input type="text" name="customerID" value="{{this.customerID._id}}" hidden>
+											<input type="text" name="cusID" value="{{this.cusID._id}}" hidden>
 											<button type="submit" class="btn btn-primary btn-sm text-light">
 												<i class="ti-clipboard"></i>
 											</button>
@@ -184,7 +184,7 @@
 									</div>
 									<div data-bs-toggle="tooltip" data-bs-placement="top" title="Hủy lịch hẹn">
 										<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteScheduleModal" data-schedule-id="{{this._id}}"
-										data-customer="{{this.customerID.nickName}}" data-customer-id="{{this.customerID._id}}">
+										data-customer="{{this.cusID.nickName}}" data-customer-id="{{this.cusID._id}}">
 											<i class="ti-close"></i>
 										</button>
 									</div>
@@ -292,7 +292,7 @@
 			</div>
 			<div class="modal-body">
 				<form id="deleteScheduleForm" method="POST">
-					<input id="delete-schedule-customer-id" type="text" name="customerID" hidden>
+					<input id="delete-schedule-customer-id" type="text" name="cusID" hidden>
 					Bạn chắc chắn muốn hủy lịch hẹn của khách <strong id="delete-schedule-customer"></strong>
 				</form>
 			</div>

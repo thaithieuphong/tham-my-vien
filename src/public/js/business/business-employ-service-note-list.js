@@ -25,9 +25,15 @@ deleteServiceNoteModal.addEventListener("show.bs.modal", function (event) {
     scheduleID.value = dataScheduleID;
     customerID.value = dataCustomerID;
     serviceNoteCustomerNickName.innerHTML = `${dataCustomerFullName} - ${dataCustomerNickName}`;
-
-   
 })
 
 // END Delete Service Note
 
+var taskArr = document.querySelectorAll('.task');
+taskArr.forEach(task => {
+    console.log(task.getAttribute('data-isVisible'));
+    taskData = task.getAttribute('data-isVisible');
+    if (taskData) {
+        task.classList.replace('bg-danger', 'bg-success');
+    }
+})

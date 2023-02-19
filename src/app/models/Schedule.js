@@ -4,13 +4,13 @@ const mongooseDelete = require("mongoose-delete");
 
 
 const Schedule = new Schema({
-    customerID:
+    cusID:
 	{
 		type: String,
 		ref: "Customer"
 	},
 
-	createName:
+	userID:
 	{
 		type: String,
 		ref: "User"
@@ -44,11 +44,7 @@ const Schedule = new Schema({
 		}
 	],
 
-	status:
-	{
-		type: String,
-		ref: "Status"
-	},
+	status: String,
 
 	service: [
 		{
@@ -66,18 +62,12 @@ const Schedule = new Schema({
 	deposit: String,
 	schedule: String,
 	reason: String,
-	logSchedules: [
+	logIDs: [
 		{
-			type: new mongoose.Schema(
-				{
-					schedule: String,
-					reasons: Object,
-					userID: String
-				},
-				{ timestamps: true }
-			)
+			type: String,
+			ref: "Log"
 		}
-	],
+	]
 }, {
     timestamps: true
 });

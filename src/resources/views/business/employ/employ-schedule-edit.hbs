@@ -82,9 +82,9 @@
 			</div>
 			<div class="ps-3 pe-3">
 				<form  method="POST" action="/business/employ/schedule/{{schedule._id}}/edit?_method=PUT" id="edit-schedule-form" class="row">
-					<input hidden type="text" class="form-control" id="edit-schedule-id" value="{{schedule.customerID._id}}" name="customerID" readonly>
-					{{#if schedule.customerID.image.url}}
-					<img src="{{schedule.customerID.image.url}}" id="add-avt" class="rounded add-avata" alt="...">
+					<input hidden type="text" class="form-control" id="edit-schedule-id" value="{{schedule.cusID._id}}" name="cusID" readonly>
+					{{#if schedule.cusID.image.url}}
+					<img src="{{schedule.cusID.image.url}}" id="add-avt" class="rounded add-avata" alt="...">
 					{{else}}
 					<img src="/img/user-icon.png" id="edit-schedule-img" class="rounded mx-auto d-block add-avata" alt="...">
 					{{/if}}
@@ -92,31 +92,31 @@
 						<label for="status">
 							<strong>Họ tên khai sinh:</strong>&nbsp;
 						</label>
-						<label class="text-end font-italic" id="edit-schedule-fullName">{{schedule.customerID.fullName}}</label>
+						<label class="text-end font-italic" id="edit-schedule-fullName">{{schedule.cusID.fullName}}</label>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label for="status">
 							<strong>Tên thường gọi:</strong>&nbsp;
 						</label>
-						<label class="text-end font-italic" id="edit-schedule-nickName">{{schedule.customerID.nickName}}</label>
+						<label class="text-end font-italic" id="edit-schedule-nickName">{{schedule.cusID.nickName}}</label>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label for="status">
 							<strong>Ngày sinh:</strong>&nbsp;
 						</label>
-						<label id="edit-schedule-birth">{{formatBirth schedule.customerID.birth}}</label>
+						<label id="edit-schedule-birth">{{formatBirth schedule.cusID.birth}}</label>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label for="status">
 							<strong>Giới tính:</strong>&nbsp;
 						</label>
-						<label id="edit-schedule-gender">{{schedule.customerID.gender}}</label>
+						<label id="edit-schedule-gender">{{schedule.cusID.gender}}</label>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label for="status">
 							<strong>Số điện thoại:</strong>&nbsp;
 						</label>
-						<label id="edit-schedule-phone">0{{schedule.customerID.phone}}</label>
+						<label id="edit-schedule-phone">0{{schedule.cusID.phone}}</label>
 					</div>
 					<label class="" for="edit-schedule-schedule"><strong>Dịch vụ đã chọn:</strong></label>
 					<table class="table table-hover table-sm ms-2 me-2">
@@ -185,7 +185,7 @@
 			</div>
 			<div class="modal-body">
 				<form id="deleteServiceForm" method="POST" action="/business/employ/schedule/{{schedule._id}}/service/delete?_method=DELETE">
-					<input hidden type="text" class="form-control" id="delete-customer-id" value="{{schedule.customerID._id}}" name="customerID">
+					<input hidden type="text" class="form-control" id="delete-customer-id" value="{{schedule.cusID._id}}" name="cusID">
 					<input hidden type="text" class="form-control" id="delete-service-schedule-name" name="service">
 					Bạn chắc chắn muốn xóa dịch vụ <strong id="delete-service-schedule"></strong> này?
 				</form>

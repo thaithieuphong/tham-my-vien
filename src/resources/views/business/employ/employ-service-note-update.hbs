@@ -5,9 +5,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -33,9 +30,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -56,16 +50,38 @@
 </script>
 {{/if}}
 
+{{#if messages_updateService_warning}}
+<div class="modal fade" id="messageUpdateServiceWarning" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="d-flex justify-content-center">
+					<div class="rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-alert text-warning position-absolute top-50 start-50 translate-middle fs-1 text-center"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-warning">{{messages_updateService_warning}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageUpdateServiceWarning = document.querySelector('#messageUpdateServiceWarning');
+		$(messageUpdateServiceWarning).modal('show');
+	});
+</script>
+{{/if}}
+
 {{#if messages_deleteService_success}}
 <div class="modal fade" id="messageDeleteServiceSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
-				<div class="d-flex justify-content-center mb-3">
+				<div class="d-flex justify-content-center">
 					<div class="border border-success border-5 rounded-circle position-relative"
 						style="width: 64px; height: 64px;">
 						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
@@ -89,9 +105,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -117,9 +130,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -145,9 +155,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -173,9 +180,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -201,9 +205,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -230,9 +231,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -258,9 +256,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -286,9 +281,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -314,9 +306,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -342,9 +331,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -371,9 +357,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -399,9 +382,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -427,9 +407,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -455,9 +432,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -483,9 +457,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -512,9 +483,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -540,9 +508,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -568,9 +533,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -596,9 +558,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -624,9 +583,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -652,9 +608,6 @@
 	aria-hidden="false">
 	<div class="modal-dialog modal-dialog-centered modal-sm">
 		<div class="modal-content">
-			<div class="modal-header p-2">
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
 			<div class="modal-body">
 				<div class="d-flex justify-content-center mb-3">
 					<div class="border border-success border-5 rounded-circle position-relative"
@@ -744,38 +697,38 @@
 						<form method="POST" id="submit-customer-form"
 							action="/business/employ/service-note/{{serviceNote._id}}/cus-info?_method=PUT">
 							<input class="form-control bg-light" type="text"
-								value="{{serviceNote.scheduleID.customerID._id}}" hidden name="cusID">
+								value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 							<div class="row">
 								<div class="col-md-3 form-group">
 									<label for="input-identification" class="mb-0">Mã định danh</label>
 									<input id="input-identification" class="form-control rounded form-control-sm"
-										value="{{serviceNote.scheduleID.customerID.identification}}" rules="required"
+										value="{{serviceNote.scheduleID.cusID.identification}}" rules="required"
 										type="text" name="identification" placeholder="VD: BA...">
 									<span class="form-message mt-1"></span>
 								</div>
 								<div class="col-md-3 form-group">
 									<label for="input-fullname" class="mb-0">Họ tên khai sinh</label>
 									<input id="input-fullname" class="form-control rounded form-control-sm"
-										value="{{serviceNote.scheduleID.customerID.fullName}}" rules="required" type="text"
+										value="{{serviceNote.scheduleID.cusID.fullName}}" rules="required" type="text"
 										name="fullName" placeholder="VD: Nguyễn Thị Tuyết Như">
 									<span class="form-message mt-1"></span>
 								</div>
 								<div class="col-md-3 form-group">
 									<label for="input-nickname" class="mb-0">Tên thường gọi</label>
 									<input id="input-nickname" class="form-control rounded form-control-sm"
-										value="{{serviceNote.scheduleID.customerID.nickName}}" type="text" name="nickName">
+										value="{{serviceNote.scheduleID.cusID.nickName}}" type="text" name="nickName">
 								</div>
 								<div class="col-md-3 form-group">
 									<label for="input-gender" class="mb-0">Ngày sinh</label>
 									<input id="input-gender" class="form-control rounded form-control-sm"
-										value="{{serviceNote.scheduleID.customerID.birth}}" type="date" name="birth">
+										value="{{serviceNote.scheduleID.cusID.birth}}" type="date" name="birth">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-3 form-group">
 									<label for="select-gender" class="mb-0">Giới tính</label>
 									<select class="form-select rounded form-control-sm" id="select-gender" name="gender">
-										<option class="" selected>{{getGender serviceNote.scheduleID.customerID.gender}}
+										<option class="" selected>{{getGender serviceNote.scheduleID.cusID.gender}}
 										</option>
 										<option class="" value="Nam">Nam</option>
 										<option class="" value="Nữ">Nữ</option>
@@ -784,19 +737,19 @@
 								<div class="col-md-3 form-group">
 									<label for="input-phone" class="mb-0">Số điện thoại</label>
 									<input id="input-phone" class="form-control rounded form-control-sm" type="text"
-										value="0{{serviceNote.scheduleID.customerID.phone}}" name="phone">
+										value="0{{serviceNote.scheduleID.cusID.phone}}" name="phone">
 								</div>
 								<div class="col-md-3 form-group">
 									<label for="input-home-town" class="mb-0">Quê quán</label>
 									<input id="input-home-town" class="form-control rounded form-control-sm"
-										value="{{serviceNote.scheduleID.customerID.homeTown}}" rules="required" type="text"
+										value="{{serviceNote.scheduleID.cusID.homeTown}}" rules="required" type="text"
 										name="homeTown" placeholder="VD: TP Hồ Chí Minh">
 									<span class="form-message mt-1"></span>
 								</div>
 								<div class="col-md-3 form-group">
 									<label for="input-height" class="mb-0">Chiều cao</label>
 									<input id="input-height" class="form-control rounded form-control-sm"
-										value="{{serviceNote.scheduleID.customerID.height}}" rules="required" type="text"
+										value="{{serviceNote.scheduleID.cusID.height}}" rules="required" type="text"
 										name="height" placeholder="VD: 1.70">
 									<span class="form-message mt-1"></span>
 								</div>
@@ -805,7 +758,7 @@
 								<div class="col-md-3 form-group">
 									<label for="input-weight" class="mb-0">Cân nặng</label>
 									<input id="input-weight" class="form-control rounded form-control-sm"
-										value="{{serviceNote.scheduleID.customerID.weight}}" rules="required" type="text"
+										value="{{serviceNote.scheduleID.cusID.weight}}" rules="required" type="text"
 										name="weight" placeholder="VD: 52kg">
 									<span class="form-message mt-1"></span>
 								</div>
@@ -833,7 +786,7 @@
 							</div>
 							<div class="text-right">
 								<button id="submit-customer-form-btn" type="submit"
-									class="btn btn-primary rounded-pill border">Cập nhật</button>
+									class="btn btn-primary btn-sm rounded-pill border">Cập nhật</button>
 							</div>
 						</form>
 					</li>
@@ -842,97 +795,134 @@
 					<li class="list-group-item active text-center">
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin dịch vụ</strong></label>
 					</li>
-					<li class="list-group-item">
-						<div class="row">
-							<div class="text-right">
-								<button id="add-services" class="btn btn-primary border-light mb-2 btn-mobile rounded-pill">
-									<i class="ti-plus mr-2"></i>Thêm dịch vụ
-								</button>
-							</div>
-							<div class="col-md-6">
-								<ul class="list-group">
-									<li class="list-group-item container-content-page">
-										<table class="table table-sm">
-											<thead class="">
-												<tr class="">
-													<th scope="col">#</th>
-													<th scope="col">Dịch vụ</th>
-													<th scope="col">Chi phí</th>
-													<th scope="col" class="text-center">Xóa dịch vụ</th>
-												</tr>
-											</thead>
-											<tbody>
-												{{#each serviceNote.service}}
-												<tr class="table-row">
-													<th scope="row">{{sum @index 1}}</th>
-													<td>{{this.name}}</td>
-													<td>{{this.price}}</td>
-													<td class="text-center">
-														<button type="button" class="btn btn-danger btn-sm"
-															data-bs-toggle="modal" data-bs-target="#deleteService"
-															data-service-note-id="{{serviceNote._id}}"
-															data-service-id="{{this._id}}"
-															data-service-name="{{this.name}}">
-															<i class="fa-sharp fa-solid fa-xmark"></i>
-														</button>
-													</td>
-												</tr>
-												{{/each}}
-											</tbody>
-										</table>
-									</li>
-								</ul>
-							</div>
-							<div class="col-md-6">
-								<form method="POST" id="submit-service-form"
-									action="/business/employ/service-note/{{serviceNote._id}}/service-info?_method=PUT">
-									<input type="text" value="{{serviceNote.scheduleID.customerID._id}}" name="cusID"
-										hidden>
-									<div class="list-group p-0 mb-3">
-										<div id="service-container" class="list-group-item container-content-page p-2 ml-0">
-										</div>
-									</div>
-									<div class="form-group">
-										<label for="totalServiceCharge" class="mb-0">Tổng phí dịch vụ</label>
-										<input id="totalServiceCharge"
-											class="form-control text-right text-danger fw-bold bg-white"
-											rules="requiredService" type="text" readonly name="totalServiceCharge">
-										<span id="messageTotalServiceCharge" class="form-message mt-1"></span>
-									</div>
-									<div class="mb-2">
-										<label for="deposit" class="mb-0">Đặt cọc</label>
-										<input id="deposit" class="form-control text-right text-warning fw-bold bg-white"
-											type="text" value="{{serviceNote.scheduleID.deposit}}" name="deposit" readonly>
-									</div>
-									<div class="form-group">
-										<label for="discount" class="mb-0">Giảm giá</label>
-										<input id="discount" class="form-control text-right text-info fw-bold bg-white"
-											value="0" rules="isNumCurrency" name="discount" type="text">
-										<span class="form-message mt-1"></span>
-									</div>
-									<div class="mb-3">
-										<label for="amount-to-be-paid" class="mb-0">Số tiền khách thanh toán</label>
-										<input id="amount-to-be-paid"
-											class="form-control text-right text-danger fw-bold bg-white" type="text"
-											readonly name="amountToBePaid" value="0">
-									</div>
-									<input id="total" class="form-control text-right text-danger fw-bold bg-white"
-										type="text" readonly name="total" hidden>
-									<div class="text-right mb-3">
-										<button id="submit-service-form-btn" type="submit"
-											class="btn btn-primary btn-mobile rounded-pill">Cập nhật</button>
-									</div>
-								</form>
-							</div>
+					<li class="list-group-item ps-2 pr-2">
+						<div class="d-flex justify-content-end">
+							<div class="btn btn-primary btn-sm mb-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#addServiceModal">Thêm dịch vụ</div>
 						</div>
+						<ul class="list-group">
+							<li class="list-group-item overr">
+								<table class="table table-sm table-borderless">
+									<thead class="">
+										<tr class="">
+											<th scope="col">#</th>
+											<th scope="col">Tên dịch vụ</th>
+											<th scope="col">Phí dịch vụ</th>
+											<th scope="col" class="text-center">Thao tác</th>
+										</tr>
+									</thead>
+									<tbody>
+										{{#each serviceNote.service}}
+										<tr class="table-row">
+											<th scope="row">{{sum @index 1}}</th>
+											<td>{{this.name}}</td>
+											<td>{{this.price}}</td>
+											<td class="text-center">
+												<button type="button" class="btn btn-danger btn-sm"
+													data-bs-toggle="modal" data-bs-target="#deleteService"
+													data-service-note-id="{{serviceNote._id}}"
+													data-service-id="{{this._id}}"
+													data-service-name="{{this.name}}">
+													<i class="fa-sharp fa-solid fa-xmark"></i>
+												</button>
+											</td>
+										</tr>
+										{{/each}}
+									</tbody>
+								</table>
+							</li>
+							<li class="list-group-item">
+								<div class="d-flex justify-content-between" for="">
+									<label>Tổng phí dịch vụ:</label>
+									<div class="text-danger">{{reduceMoney serviceNote.service}}</div>
+								</div>
+								<div class="d-flex justify-content-between" for="">
+									<label for="">Đặt cọc:</label>
+									<div class="text-warning">{{serviceNote.deposit}}</div>
+								</div>
+								<div class="d-flex justify-content-between" for="">
+									<label for="">Giảm giá:</label>
+									<div class="text-info">{{serviceNote.discount}}</div>
+								</div>
+								<div class="d-flex justify-content-between" for="">
+									<label for="">Số tiền khách thanh toán:</label>
+									<div class="text-danger">{{reduceAmountToBePaid serviceNote.service serviceNote.deposit serviceNote.discount}}</div>
+								</div>
+							</li>
+						</ul>
 					</li>
 				</ul>
+				<div class="modal fade" id="addServiceModal" tabindex="-1" aria-labelledby="addServiceModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-xl">
+						<div class="modal-content">
+							<div class="modal-header bg-primary">
+								<h5 class="modal-title text-light" id="addServiceModalLabel">Thêm dịch vụ</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="row">
+									<form method="POST" id="submit-service-form"
+										action="/business/employ/service-note/{{serviceNote._id}}/service-info?_method=PUT">
+										<div class="row">
+											<div class="col-md-6">
+												<input type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID"
+													hidden>
+												<div class="text-right">
+													<button id="add-services" class="btn btn-primary btn-sm mb-2 btn-mobile">
+														<i class="ti-plus"></i>
+													</button>
+												</div>
+												<div class="list-group p-0 mb-3">
+													<div id="service-container" class="list-group-item container-content-page-60 p-2 ml-0">
+													</div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="totalServiceCharge" class="mb-0">Tổng phí dịch vụ</label>
+													<input id="totalServiceCharge"
+														class="form-control text-right text-danger fw-bold bg-white"
+														type="text" readonly name="totalServiceCharge" value="0">
+													<span id="messageTotalServiceCharge" class="form-message mt-1"></span>
+												</div>
+												<div class="mb-2">
+													<label for="deposit" class="mb-0">Đặt cọc</label>
+													<input id="deposit" class="form-control text-right text-warning fw-bold bg-white"
+														type="text" value="{{serviceNote.scheduleID.deposit}}" name="deposit" readonly>
+												</div>
+												<div class="form-group">
+													<label for="discount" class="mb-0">Giảm giá</label>
+													<input id="discount" class="form-control text-right text-info fw-bold bg-white"
+													rules="isNumCurrency" name="discount" type="text" value="{{#if serviceNote.discount}}{{serviceNote.discount}}{{else}}0{{/if}}">
+													<span class="form-message mt-1"></span>
+												</div>
+												<div class="mb-3">
+													<label for="amount-to-be-paid" class="mb-0">Số tiền khách thanh toán</label>
+													<input id="amount-to-be-paid"
+														class="form-control text-right text-danger fw-bold bg-white" type="text"
+														readonly name="amountToBePaid" value="0">
+												</div>
+												<input id="total" class="form-control text-right text-danger fw-bold bg-white"
+													type="text" readonly name="total" hidden>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary btn-sm rounded-pill" data-bs-dismiss="modal">Đóng</button>
+								<button id="submit-service-form-btn" class="btn btn-primary btn-sm rounded-pill">
+									Cập nhật
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 				<ul class="list-group mb-2 ms-2 me-2">
 					<li class="list-group-item active text-center">
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin tư vấn trực tiếp</strong></label>
 					</li>
 					<li class="list-group-item">
-						<button class="btn btn-danger mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgCounselor" aria-expanded="false" aria-controls="restoreImgCounselor">
+						<button class="btn btn-danger btn-sm mb-2 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgCounselor" aria-expanded="false" aria-controls="restoreImgCounselor">
 							<i class="ti-trash"></i> Thùng rác
 						</button>
 						<div class="collapse" id="restoreImgCounselor">
@@ -943,15 +933,15 @@
 											{{#each serviceNote.counselorImg}}
 											{{#if notDeletedYet}}
 											{{else}}
-											<div class="col-md-4">
-												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-img-counselor?_method=PATCH">
-												<img class="img-fluid"
-													src="/counselor/img/{{this.name}}">
-												{{!-- <img class="img-fluid"
-													src="{{this.url}}"> --}}
-												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
-												<input type="text" value="{{this.name}}" name="imgName" hidden>
-												</form>
+											<div class="col-md-4 mb-2">
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalCounselor" data-img="{{this.name}}">
+													<img class="img-fluid"
+														src="/counselor/img/{{this.name}}">
+												</a>
+												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalCounselor" data-img="{{this.name}}">
+													<img class="img-fluid"
+														src="{{this.url}}">
+												</a> --}}
 											</div>
 											{{/if}}
 											{{/each}}
@@ -962,15 +952,15 @@
 											{{#each serviceNote.counselorVideo}}
 											{{#if notDeletedYet}}
 											{{else}}
-											<div class="col-md-4">
-												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-video-counselor?_method=PATCH">
-												<video class="img-fluid"
-													src="/counselor/video/{{this.name}}"></video>
-												{{!-- <video class="img-fluid"
-													src="{{this.url}}"></video> --}}
-												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
-												<input type="text" value="{{this.name}}" name="videoName" hidden>
-												</form>
+											<div class="col-md-4 mb-2">
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalCounselor" data-video="{{this.name}}">
+													<video class="img-fluid"
+														src="/counselor/video/{{this.name}}"></video>
+												</a>
+												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalCounselor" data-video="{{this.name}}">
+													<video class="img-fluid"
+														src="{{this.url}}"></video>
+												</a> --}}
 											</div>
 											{{/if}}
 											{{/each}}
@@ -1022,8 +1012,8 @@
 						<form method="POST" id="submit-counselor-form"
 							action="/business/employ/service-note/{{serviceNote._id}}/operating-counselor"
 							enctype="multipart/form-data">
-							<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
-								name="customerID">
+							<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
+								name="cusID">
 							<div class="row ps-0 pe-0">
 								<div class="col-md-6 mb-3 ps-3 pe-4">
 									<div class="preview-images-counselor row ml-0 text-center border rounded"
@@ -1072,10 +1062,10 @@
 				</ul>
 				<ul class="list-group mb-2 ms-2 me-2">
 					<li class="list-group-item active text-center">
-						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin trước phẫu</strong></label>
+						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin trước phẫu thuật</strong></label>
 					</li>
 					<li class="list-group-item">
-						<button class="btn btn-danger mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgBefore" aria-expanded="false" aria-controls="restoreImgBefore">
+						<button class="btn btn-danger btn-sm mb-2 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgBefore" aria-expanded="false" aria-controls="restoreImgBefore">
 							<i class="ti-trash"></i> Thùng rác
 						</button>
 						<div class="collapse" id="restoreImgBefore">
@@ -1086,15 +1076,15 @@
 											{{#each serviceNote.beforeImg}}
 											{{#if notDeletedYet}}
 											{{else}}
-											<div class="col-md-4">
-												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-img-before?_method=PATCH">
-												<img class="img-fluid"
-													src="/before/img/{{this.name}}">
-												{{!-- <img class="img-fluid"
-													src="{{this.url}}"> --}}
-												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
-												<input type="text" value="{{this.name}}" name="imgName" hidden>
-												</form>
+											<div class="col-md-4 mb-2">
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalBefore" data-img="{{this.name}}">
+													<img class="img-fluid"
+														src="/before/img/{{this.name}}">
+												</a>
+												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalBefore" data-img="{{this.name}}">
+													<img class="img-fluid"
+														src="{{this.url}}">
+												</a> --}}
 											</div>
 											{{/if}}
 											{{/each}}
@@ -1105,15 +1095,15 @@
 											{{#each serviceNote.beforeVideo}}
 											{{#if notDeletedYet}}
 											{{else}}
-											<div class="col-md-4">
-												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-video-before?_method=PATCH">
-												<video class="img-fluid"
-													src="/before/video/{{this.name}}"></video>
-												{{!-- <video class="img-fluid"
-													src="{{this.url}}"></video> --}}
-												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
-												<input type="text" value="{{this.name}}" name="videoName" hidden>
-												</form>
+											<div class="col-md-4 mb-2">
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalBefore" data-video="{{this.name}}">
+													<video class="img-fluid"
+														src="/before/video/{{this.name}}"></video>
+												</a>
+												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalBefore" data-video="{{this.name}}">
+													<video class="img-fluid"
+														src="{{this.url}}"></video>
+												</a> --}}
 											</div>
 											{{/if}}
 											{{/each}}
@@ -1161,8 +1151,8 @@
 						<form method="POST" id="submit-before-form"
 							action="/business/employ/service-note/{{serviceNote._id}}/operating-before"
 							enctype="multipart/form-data">
-							<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
-								name="customerID">
+							<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
+								name="cusID">
 							<div class="row">
 								<div class="col-md-6 mb-3 ps-3 pe-4">
 									<div class="preview-images-before row ml-0 text-center border rounded"
@@ -1214,7 +1204,7 @@
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin phẫu thuật</strong></label>
 					</li>
 					<li class="list-group-item">
-						<button class="btn btn-danger mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgInSurgery" aria-expanded="false" aria-controls="restoreImgInSurgery">
+						<button class="btn btn-danger btn-sm mb-2 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgInSurgery" aria-expanded="false" aria-controls="restoreImgInSurgery">
 							<i class="ti-trash"></i> Thùng rác
 						</button>
 						<div class="collapse" id="restoreImgInSurgery">
@@ -1225,15 +1215,13 @@
 											{{#each serviceNote.inSurgeryImg}}
 											{{#if notDeletedYet}}
 											{{else}}
-											<div class="col-md-4">
-												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-img-in-surgery?_method=PATCH">
-												<img class="img-fluid"
-													src="/in-surgery/img/{{this.name}}">
-												{{!-- <img class="img-fluid"
-													src="{{this.url}}"> --}}
-												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
-												<input type="text" value="{{this.name}}" name="imgName" hidden>
-												</form>
+											<div class="col-md-4 mb-2">
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalInSurgery" data-img="{{this.name}}">
+													<img class="img-fluid" src="/in-surgery/img/{{this.name}}">
+												</a>
+												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalInSurgery" data-img="{{this.name}}">
+													<img class="img-fluid" src="{{this.url}}">
+												</a> --}}
 											</div>
 											{{/if}}
 											{{/each}}
@@ -1244,15 +1232,13 @@
 											{{#each serviceNote.inSurgeryVideo}}
 											{{#if notDeletedYet}}
 											{{else}}
-											<div class="col-md-4">
-												<form method="POST" action="/business/employ/service-note/{{../serviceNote._id}}/restore-video-in-surgery?_method=PATCH">
-												<video class="img-fluid"
-													src="/in-surgery/video/{{this.name}}"></video>
-												{{!-- <video class="img-fluid"
-													src="{{this.url}}"></video> --}}
-												<button class="btn btn-primary btn-sm w-100 rounded-0">Khôi phục</button>
-												<input type="text" value="{{this.name}}" name="videoName" hidden>
-												</form>
+											<div class="col-md-4 mb-2">
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalInSurgery" data-video="{{this.name}}">
+													<video class="img-fluid" src="/in-surgery/video/{{this.name}}"></video>
+												</a>
+												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalInSurgery" data-video="{{this.name}}">
+													<video class="img-fluid" src="{{this.url}}"></video>
+												</a> --}}
 											</div>
 											{{/if}}
 											{{/each}}
@@ -1300,8 +1286,8 @@
 						<form method="POST" id="submit-inSurgery-form"
 							action="/business/employ/service-note/{{serviceNote._id}}/operating-in-surgery"
 							enctype="multipart/form-data">
-							<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
-								name="customerID">
+							<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
+								name="cusID">
 							<div class="row">
 								<div class="col-md-6 mb-3 ps-3 pe-4">
 									<div class="preview-images-in-surgery row ml-0 text-center border rounded"
@@ -1333,7 +1319,7 @@
 								</div>
 								<div class="">
 									<label for="steps-to-take-area"><strong>Các bước thực
-											hiện:</strong></label>
+										hiện:</strong></label>
 								</div>
 								<div class="mb-4">
 									<textarea class="form-control mr-3 pl-3 " name="stepsToTake" cols="30"
@@ -1353,7 +1339,7 @@
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin thay băng cắt chỉ</strong></label>
 					</li>
 					<li class="list-group-item">
-						<button class="btn btn-danger mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgAfter" aria-expanded="false" aria-controls="restoreImgAfter">
+						<button class="btn btn-danger mb-2 rounded-pill" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgAfter" aria-expanded="false" aria-controls="restoreImgAfter">
 							<i class="ti-trash"></i> Thùng rác
 						</button>
 						<div class="collapse" id="restoreImgAfter">
@@ -1439,8 +1425,8 @@
 						<form method="POST" id="submit-after-form"
 							action="/business/employ/service-note/{{serviceNote._id}}/operating-after"
 							enctype="multipart/form-data">
-							<input hidden type="text" value="{{serviceNote.scheduleID.customerID._id}}"
-								name="customerID">
+							<input hidden type="text" value="{{serviceNote.scheduleID.cusID._id}}"
+								name="cusID">
 							<div class="row">
 								<div class="col-md-6 mb-3 ps-3 pe-4">
 									<div class="preview-images-after row ml-0 text-center border rounded"
@@ -1527,8 +1513,8 @@
 				<form id="deleteServiceForm" method="POST"
 					action="/business/employ/service-note/service/{{serviceNote._id}}/delete?_method=DELETE">
 					<input id="serviceID" type="text" name="serviceID" hidden>
-					<input id="customerID" type="text" name="customerID"
-						value="{{serviceNote.scheduleID.customerID._id}}" hidden>
+					<input id="cusID" type="text" name="cusID"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden>
 					Bạn chắc chắn muốn xóa dịch vụ <strong id="serviceName"></strong>?
 				</form>
 			</div>
@@ -1540,15 +1526,17 @@
 	</div>
 </div>
 
-<!-- Modal -->
+<!-- Delete Counselor Image Modal -->
 <div class="modal fade" id="imageModalCounselor" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" name="deleteImgCounselorForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-img-counselor?_method=DELETE">
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="text-center">
-						<img id="modal-img-counselor" class="img-thumbnail" alt="...">
-						<input id="inputDeleteImageCounselor" type="text" name="imgName" hidden>
+					<img id="modal-img-counselor" class="img-thumbnail" alt="...">
+					<input id="inputDeleteImageCounselor" type="text" name="imgName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -1560,6 +1548,29 @@
 	</div>
 </div>
 
+<!-- Restore Counselor Image Modal -->
+<div class="modal fade" id="restoreImageModalCounselor" tabindex="-1" aria-labelledby="restoreImageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form method="POST" name="restoreImgCounselorForm" action="/business/employ/service-note/{{serviceNote._id}}/restore-img-counselor?_method=PATCH">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<img id="restore-img-counselor" class="img-thumbnail" alt="...">
+					<input id="inputRestoreImageCounselor" type="text" name="imgName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary">Khôi phục</button>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+<!-- Delete Counselor Video Modal -->
 <div class="modal fade" id="videoModalCounselor" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" name="deleteVideoCounselorForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-video-counselor?_method=DELETE">
@@ -1568,6 +1579,8 @@
 				<div class="text-center">
 					<video id="modal-video-counselor" class="img-thumbnail" alt="..." controls>
 					<input id="inputDeleteVideoCounselor" type="text" name="videoName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -1579,6 +1592,29 @@
 	</div>
 </div>
 
+<!-- Restore Counselor Video Modal -->
+<div class="modal fade" id="restoreVideoModalCounselor" tabindex="-1" aria-labelledby="restoreVideoModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form method="POST" name="restoreVideoCounselorForm" action="/business/employ/service-note/{{serviceNote._id}}/restore-video-counselor?_method=PATCH">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<video id="restore-video-counselor" class="img-thumbnail" alt="..." controls></video>
+					<input id="inputRestoreVideoCounselor" type="text" name="videoName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary">Khôi phục</button>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+<!-- Delete Before Image Modal -->
 <div class="modal fade" id="imageModalBefore" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" name="deleteImgBeforeForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-img-before?_method=DELETE">
@@ -1587,6 +1623,8 @@
 					<div class="text-center">
 						<img id="modal-img-before" class="img-thumbnail" alt="...">
 						<input id="inputDeleteImageBefore" type="text" name="imgName" hidden>
+						<input class="form-control bg-light" type="text"
+							value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -1598,6 +1636,29 @@
 	</div>
 </div>
 
+<!-- Restore Before Image Modal -->
+<div class="modal fade" id="restoreImageModalBefore" tabindex="-1" aria-labelledby="restoreImageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form method="POST" name="restoreImgBeforeForm" action="/business/employ/service-note/{{serviceNote._id}}/restore-img-before?_method=PATCH">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<img id="restore-img-before" class="img-thumbnail" alt="...">
+					<input id="inputRestoreImageBefore" type="text" name="imgName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary">Khôi phục</button>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+<!-- Delete Before Video Modal -->
 <div class="modal fade" id="videoModalBefore" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" name="deleteVideoBeforeForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-video-before?_method=DELETE">
@@ -1606,6 +1667,8 @@
 					<div class="text-center">
 						<video id="modal-video-before" class="img-thumbnail" alt="..." controls>
 						<input id="inputDeleteVideoBefore" type="text" name="videoName" hidden>
+						<input class="form-control bg-light" type="text"
+							value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -1617,6 +1680,29 @@
 	</div>
 </div>
 
+<!-- Restore Before Video Modal -->
+<div class="modal fade" id="restoreVideoModalBefore" tabindex="-1" aria-labelledby="restoreVideoModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form method="POST" name="restoreImgBeforeForm" action="/business/employ/service-note/{{serviceNote._id}}/restore-video-before?_method=PATCH">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<video id="restore-video-before" class="img-thumbnail" alt="..." controls></video>
+					<input id="inputRestoreVideoBefore" type="text" name="videoName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary">Khôi phục</button>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+<!-- Delete In Surgery Image Modal -->
 <div class="modal fade" id="imageModalInSurgery" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" name="deleteImgInSurgeryForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-img-in-surgery?_method=DELETE">
@@ -1625,6 +1711,8 @@
 				<div class="text-center">
 					<img id="modal-img-inSurgery" class="img-thumbnail" alt="...">
 					<input id="inputDeleteImageInSurgery" type="text" name="imgName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -1636,6 +1724,29 @@
 	</div>
 </div>
 
+<!-- Restore In Surgery Image Modal -->
+<div class="modal fade" id="restoreImageModalInSurgery" tabindex="-1" aria-labelledby="restoreImageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form method="POST" name="restoreImgInSurgertForm" action="/business/employ/service-note/{{serviceNote._id}}/restore-img-in-surgery?_method=PATCH">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<img id="restore-img-in-surgery" class="img-thumbnail" alt="...">
+					<input id="inputRestoreImageInSurgery" type="text" name="imgName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary">Khôi phục</button>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+<!-- Delete In Surgery Video Modal -->
 <div class="modal fade" id="videoModalInSurgery" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<form method="POST" name="deleteVideoInSurgeryForm" action="/business/employ/service-note/{{serviceNote._id}}/delete-video-in-surgery?_method=DELETE">
@@ -1644,6 +1755,8 @@
 				<div class="text-center">
 					<video id="modal-video-inSurgery" class="img-thumbnail" alt="..." controls>
 					<input id="inputDeleteVideoInSurgery" type="text" name="videoName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -1655,6 +1768,29 @@
 	</div>
 </div>
 
+<!-- Restore In Surgery Video Modal -->
+<div class="modal fade" id="restoreVideoModalInSurgery" tabindex="-1" aria-labelledby="restoreVideoModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form method="POST" name="restoreImgInSurgeryForm" action="/business/employ/service-note/{{serviceNote._id}}/restore-video-in-surgery?_method=PATCH">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="text-center">
+					<video id="restore-video-in-surgery" class="img-thumbnail" alt="..." controls></video>
+					<input id="inputRestoreVideoInSurgery" type="text" name="videoName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+				<button class="btn btn-primary">Khôi phục</button>
+			</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+
 <div class="modal fade" id="imageModalAfter" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
@@ -1663,6 +1799,8 @@
 				<div class="text-center">
 					<img id="modal-img-after" class="img-thumbnail" alt="...">
 					<input id="inputDeleteImgAfter" type="text" name="imgName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -1682,6 +1820,8 @@
 				<div class="text-center">
 					<video id="modal-video-after" class="img-thumbnail" alt="..." controls>
 					<input id="inputDeleteVideoAfter" type="text" name="videoName" hidden>
+					<input class="form-control bg-light" type="text"
+						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -1693,11 +1833,8 @@
 	</div>
 </div>
 
-
-
 <script src="/js/business/business-employ-service-note-update.js"></script>
 
 <script>
 	validate("#submit-customer-form");
-	validate("#submit-service-form");
 </script>

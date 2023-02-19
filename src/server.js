@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const express = require("express");
 const morgan = require("morgan");
 const methodOverride = require("method-override");
@@ -155,6 +156,29 @@ app.engine(
 				console.log(newArr)
 				return newArr;
 			},
+			reduceMoney: (arr) => {
+				let total = 0;
+				arr.forEach(element => {
+					let price = parseFloat(element.price.replace(/\D/g,''), 10);
+					total += price;	
+				});
+				total = total.toLocaleString();
+				return total;
+			},
+			reduceAmountToBePaid: (arrService, deposit, discount) => {
+				console.log(arrService)
+				console.log(deposit)
+				console.log(discount)
+				let convertDeposit = parseFloat(deposit.replace(/\D/g,''), 10);
+				let convertDiscount = parseFloat(discount.replace(/\D/g,''), 10);
+				let total = 0;
+				arrService.forEach(element => {
+					let price = parseFloat(element.price.replace(/\D/g,''), 10);
+					total += price;	
+				});
+				total = total - convertDeposit - convertDiscount;
+				return total.toLocaleString();
+			}
 		}
 	})
 );
@@ -181,6 +205,7 @@ app.use(function (req, res, next) {
 	res.locals.messages_editCustomer_success = req.flash('messages_editCustomer_success');
 	res.locals.messages_updateCusInfo_success = req.flash('messages_updateCusInfo_success');
 	res.locals.messages_updateService_success = req.flash('messages_updateService_success');
+	res.locals.messages_updateService_warning = req.flash('messages_updateService_warning');
 	res.locals.messages_deleteService_success = req.flash('messages_deleteService_success');
 	res.locals.messages_deleteServiceNote_success = req.flash('messages_deleteServiceNote_success');
 	res.locals.messages_restoreServiceNote_success = req.flash('messages_restoreServiceNote_success');

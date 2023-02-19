@@ -183,13 +183,13 @@ function validate(formSelector) {
 // 	});
 // }
 
-// var submitServiceForm = document.forms['submit-service-form'];
-// var submitServiceFormBtn = document.getElementById('submit-service-form-btn');
-// if (submitServiceFormBtn) {
-// 	submitServiceFormBtn.addEventListener("click", () => {
-// 		submitServiceForm.submit();
-// 	});
-// }
+var submitServiceForm = document.forms['submit-service-form'];
+var submitServiceFormBtn = document.getElementById('submit-service-form-btn');
+if (submitServiceFormBtn) {
+	submitServiceFormBtn.addEventListener("click", () => {
+		submitServiceForm.submit();
+	});
+}
 
 var submitCounselorForm = document.forms['submit-counselor-form'];
 var submitCounselorFormBtn = document.getElementById('submit-counselor-form-btn');
@@ -624,6 +624,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 });
 
+// Delete Counselor Image
 var imageModalCounselor = document.getElementById('imageModalCounselor');
 
 imageModalCounselor.addEventListener('show.bs.modal', function (event) {
@@ -642,6 +643,27 @@ imageModalCounselor.addEventListener('show.bs.modal', function (event) {
 
 });
 
+// Restore Counselor Image
+var restoreImageModalCounselor = document.getElementById('restoreImageModalCounselor');
+
+restoreImageModalCounselor.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataImg = button.getAttribute('data-img');
+
+	var restoreImageCounselor = document.getElementById('restore-img-counselor');
+	var inputRestoreImageCounselor = document.getElementById('inputRestoreImageCounselor');
+
+	// restoreImageCounselor.setAttribute('src', `${dataImg}`);
+	restoreImageCounselor.setAttribute('src', `/counselor/img/${dataImg}`);
+	inputRestoreImageCounselor.value = dataImg;
+
+});
+
+
+// Delete Counselor Video
 var videoModalCounselor = document.getElementById('videoModalCounselor');
 
 videoModalCounselor.addEventListener('show.bs.modal', function (event) {
@@ -658,6 +680,25 @@ videoModalCounselor.addEventListener('show.bs.modal', function (event) {
 	inputDeleteVideoCounselor.value = dataVideo;
 });
 
+// Restore Counselor Video
+var restoreVideoModalCounselor = document.getElementById('restoreVideoModalCounselor');
+
+restoreVideoModalCounselor.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataVideo = button.getAttribute('data-video');
+	var restoreVideoCounselor = document.getElementById('restore-video-counselor');
+	var inputRestoreVideoCounselor = document.getElementById('inputRestoreVideoCounselor');
+
+	// restoreVideoCounselor.setAttribute('src', `${dataVideo}`);
+	restoreVideoCounselor.setAttribute('src', `/counselor/video/${dataVideo}`);
+	inputRestoreVideoCounselor.value = dataVideo;
+
+});
+
+// Delete Before Image
 var imageModalBefore = document.getElementById('imageModalBefore');
 
 imageModalBefore.addEventListener('show.bs.modal', function (event) {
@@ -674,6 +715,26 @@ imageModalBefore.addEventListener('show.bs.modal', function (event) {
 	inputDeleteImageBefore.value = dataImg;
 })
 
+// Restore Before Image
+var restoreImageModalBefore = document.getElementById('restoreImageModalBefore');
+
+restoreImageModalBefore.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataImg = button.getAttribute('data-img');
+
+	var restoreImageBefore = document.getElementById('restore-img-before');
+	var inputRestoreImageBefore = document.getElementById('inputRestoreImageBefore');
+
+	// restoreImageBefore.setAttribute('src', `${dataImg}`);
+	restoreImageBefore.setAttribute('src', `/before/img/${dataImg}`);
+	inputRestoreImageBefore.value = dataImg;
+
+});
+
+// Delete Before Video
 var videoModalBefore = document.getElementById('videoModalBefore');
 
 videoModalBefore.addEventListener('show.bs.modal', function (event) {
@@ -692,6 +753,25 @@ videoModalBefore.addEventListener('show.bs.modal', function (event) {
 
 })
 
+// Restore Before Video
+var restoreVideoModalBefore = document.getElementById('restoreVideoModalBefore');
+
+restoreVideoModalBefore.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataVideo = button.getAttribute('data-video');
+	var restoreVideoBefore = document.getElementById('restore-video-before');
+	var inputRestoreVideoBefore = document.getElementById('inputRestoreVideoBefore');
+
+	// restoreVideoBefore.setAttribute('src', `${dataVideo}`);
+	restoreVideoBefore.setAttribute('src', `/before/video/${dataVideo}`);
+	inputRestoreVideoBefore.value = dataVideo;
+
+});
+
+// Delete Insurgery Image
 var imageModalInSurgery = document.getElementById('imageModalInSurgery');
 
 imageModalInSurgery.addEventListener('show.bs.modal', function (event) {
@@ -710,6 +790,26 @@ imageModalInSurgery.addEventListener('show.bs.modal', function (event) {
 	inputDeleteImageInSurgery.value = dataImg;
 });
 
+// Restore In Surgery Image
+var restoreImageModalInSurgery = document.getElementById('restoreImageModalInSurgery');
+
+restoreImageModalInSurgery.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataImg = button.getAttribute('data-img');
+
+	var restoreImageInSurgery = document.getElementById('restore-img-in-surgery');
+	var inputRestoreImageInSurgery = document.getElementById('inputRestoreImageInSurgery');
+
+	// restoreImageInSurgery.setAttribute('src', `${dataImg}`);
+	restoreImageInSurgery.setAttribute('src', `/in-surgery/img/${dataImg}`);
+	inputRestoreImageInSurgery.value = dataImg;
+
+});
+
+// Delete Insurgery Video
 var videoModalInSurgery = document.getElementById('videoModalInSurgery');
 
 videoModalInSurgery.addEventListener('show.bs.modal', function (event) {
@@ -727,6 +827,24 @@ videoModalInSurgery.addEventListener('show.bs.modal', function (event) {
 	inputDeleteVideoInSurgery.value = dataVideo;
 });
 
+// Restore Before Video
+var restoreVideoModalInSurgery = document.getElementById('restoreVideoModalInSurgery');
+
+restoreVideoModalInSurgery.addEventListener('show.bs.modal', function (event) {
+	// Button that triggered the modal
+	var button = event.relatedTarget
+
+	// Extract info from data-bs-* attributes
+	var dataVideo = button.getAttribute('data-video');
+	var restoreVideoInSurgery = document.getElementById('restore-video-in-surgery');
+	var inputRestoreVideoInSurgery = document.getElementById('inputRestoreVideoInSurgery');
+
+	// restoreVideoInSurgery.setAttribute('src', `${dataVideo}`);
+	restoreVideoInSurgery.setAttribute('src', `/in-surgery/video/${dataVideo}`);
+	inputRestoreVideoInSurgery.value = dataVideo;
+});
+
+// Delete After Image
 var imageModalAfter = document.getElementById('imageModalAfter')
 
 imageModalAfter.addEventListener('show.bs.modal', function (event) {
@@ -745,6 +863,7 @@ imageModalAfter.addEventListener('show.bs.modal', function (event) {
 
 })
 
+// Delete After Video
 var videoModalAfter = document.getElementById('videoModalAfter')
 
 videoModalAfter.addEventListener('show.bs.modal', function (event) {
@@ -811,7 +930,6 @@ var addServices = function() {
 		serviceInput.addEventListener('focus', (e) => {
 			serviceInput.value = null;
 		});
-		
 		serviceInput.addEventListener('input', (e) => {
 			let valueMoney = e.target.value;
 			let id = serviceInput.getAttribute('id');
@@ -822,7 +940,6 @@ var addServices = function() {
 					service.price = convertMoney;
 				}
 			})
-
 			// Cộng tổng phí dịch vụ
 			let totalServiceMoney = serviceArr.reduce(totalMoneyFn, 0);
 
@@ -861,10 +978,11 @@ var addServices = function() {
 					serviceArr.splice(index, 1);
 				}
 				let totalServiceMoney = serviceArr.reduce(totalMoneyFn, 0);
+				console.log(totalServiceMoney)
 
 				// Hiển thị tổng phí dịch vụ trên giao diện
-				// totalServiceCharge.value = totalServiceMoney.toLocaleString();
-				totalServiceCharge.value = '';
+				totalServiceCharge.value = totalServiceMoney.toLocaleString();
+				// totalServiceCharge.value = '';
 
 				let convertTotalServiceCharge = parseFloat(totalServiceCharge.value.replace(/\D/g,''), 10);
 				let convertDeposit = parseFloat(depositInput.value.replace(/\D/g,''), 10);

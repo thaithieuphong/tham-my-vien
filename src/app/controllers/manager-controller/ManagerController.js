@@ -112,10 +112,15 @@ class ManagerController {
 		Customer.findById({ _id: req.params.id }).populate({
 			path: 'serviceNoteID',
 			populate: {
-				path: 'performer'
+				path: 'performer',
+				model: 'User'
 			}
+		}).populate({
+			path: 'logIDs',
+			model: 'Log'
 		})
 		.then((customer) => {
+			console.log(customer)
 			res.render('manager/manager-customer-timeline', {
 				customer: mongooseToObject(customer),
 				title: 'Chi tiết khách hàng'

@@ -39,9 +39,9 @@ const beforeCounselorUpload = multer.diskStorage({
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, `${file.fieldname}_img_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            cb(null, `${file.fieldname}_video_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
 });
@@ -66,9 +66,9 @@ const counselorUpload = multer.diskStorage({
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, `${file.fieldname}_img_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            cb(null, `${file.fieldname}_video_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
 });
@@ -93,9 +93,9 @@ const beforeUpload = multer.diskStorage({
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, `${file.fieldname}_img_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            cb(null, `${file.fieldname}_video_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
 });
@@ -120,9 +120,9 @@ const inSurgeryUpload = multer.diskStorage({
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, `${file.fieldname}_img_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            cb(null, `${file.fieldname}_video_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
 });
@@ -146,9 +146,9 @@ const afterUpload = multer.diskStorage({
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, `${file.fieldname}_img_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            cb(null, `${file.fieldname}_video_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
 });
@@ -172,9 +172,9 @@ const reExaminationUpload = multer.diskStorage({
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
         if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, `${file.fieldname}_img_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            cb(null, `${file.fieldname}_video_${req.body.customerID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+            cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
 });

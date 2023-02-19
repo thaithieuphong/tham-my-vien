@@ -82,7 +82,7 @@
                         {{else}}
 						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
 						{{/if}}
-						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
+						<span class="d-none d-sm-inline mx-1">{{user.lastName}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
@@ -109,6 +109,20 @@
 					<a class="btn btn-danger text-light ms-2 mt-2 mb-2" href="/business/employ/service-note/trash">
 						Thùng rác <i class="ti-trash"></i>
 					</a>
+				</div>
+			</div>
+			<div class="d-flex justify-content-around ms-2">
+				<div>
+					<label class="fw-bold" for="">1. Đã cập nhật thông tin khách hàng</label>
+					<label class="fw-bold" for="">2. Đã cập nhật dịch vụ</label>
+				</div>
+				<div>
+					<label class="fw-bold" for="">3. Đã cập nhật hình ảnh và video tư vấn trực tiếp</label>
+					<label class="fw-bold" for="">4. Đã cập nhật hình ảnh và video trước phẫu thuật</label>
+				</div>
+				<div>
+					<label class="fw-bold" for="">5. Đã cập nhật hình ảnh và video phẫu thuật</label>
+					<label class="fw-bold" for="">6. Đã cập nhật hình ảnh và video thay băng cắt chỉ</label>
 				</div>
 			</div>
 			<div class="container-fluid">
@@ -142,12 +156,12 @@
 								</td>
 								<td class="text-center">
 									<div class="inline">
-										<div id="task-1" class="bg-danger text-light mr-1 w-15 rounded">1</div>
-										<div id="task-2" class="bg-danger text-light mr-1 w-15 rounded">2</div>
-										<div id="task-3" class="bg-danger text-light mr-1 w-15 rounded">3</div>
-										<div id="task-4" class="bg-danger text-light mr-1 w-15 rounded">4</div>
-										<div id="task-5" class="bg-danger text-light mr-1 w-15 rounded">5</div>
-										<div id="task-6" class="bg-danger text-light mr-1 w-15 rounded">6</div>
+										<div data-isVisible="{{this.isCustomerInfo}}" class="bg-danger text-light mr-1 w-15 rounded task">1</div>
+										<div data-isVisible="{{this.isServiceInfo}}" class="bg-danger text-light mr-1 w-15 rounded task">2</div>
+										<div data-isVisible="{{this.isCounselorInfo}}" class="bg-danger text-light mr-1 w-15 rounded task">3</div>
+										<div data-isVisible="{{this.isBeforeInfo}}" class="bg-danger text-light mr-1 w-15 rounded task">4</div>
+										<div data-isVisible="{{this.isInSurgeryInfo}}" class="bg-danger text-light mr-1 w-15 rounded task">5</div>
+										<div data-isVisible="{{this.isAfterInfo}}" class="bg-danger text-light mr-1 w-15 rounded task">6</div>
 									</div>
 								</td>
 								<td>
@@ -159,7 +173,7 @@
 										</div>
 										<div data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển bộ phận" class="me-1">
 											<form method="POST" action="/business/employ/service-note/{{this._id}}/done">
-												<input type="text" name="customerID" value="{{this.scheduleID.customerID._id}}" hidden>
+												<input type="text" name="cusID" value="{{this.scheduleID.cusID._id}}" hidden>
 												<a type="submit" class="btn btn-primary btn-sm text-light">
 													<i class="ti-direction-alt"></i>
 												</a>
@@ -167,7 +181,7 @@
 										</div>
 										<div data-bs-toggle="tooltip" data-bs-placement="top" title="Hủy phiếu dịch vụ">
 											<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteServiceNoteModal" data-service-note-id="{{this._id}}"
-											data-customer-fullName="{{this.scheduleID.customerID.fullName}}" data-customer-nickName="{{this.scheduleID.customerID.nickName}}" data-customer-id="{{this.scheduleID.customerID._id}}"
+											data-customer-fullName="{{this.scheduleID.cusID.fullName}}" data-customer-nickName="{{this.scheduleID.cusID.nickName}}" data-customer-id="{{this.scheduleID.cusID._id}}"
 											data-schedule-id="{{this.scheduleID._id}}">
 												<i class="ti-close"></i>
 											</button>
@@ -193,7 +207,7 @@
 			<div class="modal-body">
 				<form id="deleteServiceNoteForm" method="POST">
 					<input id="scheduleID" type="text" name="scheduleID" hidden>
-					<input id="customerID" type="text" name="customerID" hidden>
+					<input id="customerID" type="text" name="cusID" hidden>
 					Bạn chắc chắn muốn hủy phiếu dịch vụ của khách <strong id="service-note-customer"></strong>?
 				</form>
 			</div>
