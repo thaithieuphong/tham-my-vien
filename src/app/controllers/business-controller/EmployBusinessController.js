@@ -154,9 +154,14 @@ class EmployBusinessController {
 
 	// Show create customer page
 	showCustomerCreate(req, res, next) {
-		res.render('business/employ/employ-customer-create', {
-			title: 'Tạo thông tin khách hàng'
-		});
+		User.findById({ _id: req.userId })
+			.then(user => {
+				res.render('business/employ/employ-customer-create', {
+					title: 'Tạo thông tin khách hàng',
+					user: mongooseToObject(user)
+				});
+			})
+			.catch(next);
 	}
 
 
