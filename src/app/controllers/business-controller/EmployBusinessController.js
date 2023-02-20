@@ -1091,7 +1091,7 @@ class EmployBusinessController {
 
 	showServiceNoteList(req, res, next) {
 		Promise.all([
-			ServiceNote.find({})
+			ServiceNote.find({ isPostSurgeryCare: false })
 				.populate({
 					path: 'scheduleID',
 					populate: {
@@ -1943,26 +1943,31 @@ class EmployBusinessController {
 
 	// Chi tiết phiếu dịch vụ
 	showServiceNoteDetail(req, res, next) {
-		ServiceNote.findById({ _id: req.params.id }).populate('performer')
-		.populate({
-			path: 'scheduleID',
-			populate: {
-				path: 'cusID',
+		Promise.all([
+			User.findById({ _id: req.userId }),
+			ServiceNote.findById({ _id: req.params.id }).populate('performer')
+			.populate({
+				path: 'scheduleID',
 				populate: {
-					path: 'userID',
-					model: 'User'
+					path: 'cusID',
+					populate: {
+						path: 'userID',
+						model: 'User'
+					}
 				}
-			}
-		}).populate({
-			path: 'performer',
-			model: 'User'
-		})
-		.then(serviceNote => {
+			}).populate({
+				path: 'performer',
+				model: 'User'
+			})
+		])
+		.then(([user, serviceNote]) => {
 			res.render('business/employ/employ-service-note-detail', {
 				title: 'Chi tiết phiếu dịch vụ',
-				serviceNote: mongooseToObject(serviceNote)
+				serviceNote: mongooseToObject(serviceNote),
+				user: mongooseToObject(user)
 			})
 		})
+		.catch(next);
 	}
 
 	// Cập nhật phiếu dịch vụ sang hoàn thành
@@ -1979,9 +1984,13 @@ class EmployBusinessController {
 		});
 		logs.save();
 		Promise.all([
-			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $set: { statusCus: { statusVi: 'Chăm sóc hậu phẫu', statusEng: '' }}, $push: { logIDs: logs._id }}),
-			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { status: 'Chăm sóc hậu phẫu'})
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $set: { statusCus: { statusVi: 'Chăm sóc hậu phẫu', statusEng: 'postSurgeryCare' }}, $push: { logIDs: logs._id }}),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { status: 'Chăm sóc hậu phẫu', isPostSurgeryCare: true })
 		])
+		.then(() => {
+			req.flash('messages_movingCustomerCare_success', 'Chuyển hồ sơ khách hàng sang chăm sóc hậu phẫu thành công');
+			res.redirect('back');
+		})
 	}
 }
 

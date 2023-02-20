@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/css/assistant.css">
 {{#if messages_deleteServiceNote_success}}
     <div class="modal fade" id="messageDeleteServiceNoteSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
 				<div class="modal-header p-2">
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -28,11 +28,8 @@
 
 {{#if messages_restoreServiceNote_success}}
     <div class="modal fade" id="messageRestoreServiceNoteSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
-				<div class="modal-header p-2">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-center mb-3">
                         <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
@@ -48,6 +45,29 @@
         document.addEventListener("DOMContentLoaded", function () {
             var messageRestoreServiceNoteSuccess = document.querySelector('#messageRestoreServiceNoteSuccess');
             $(messageRestoreServiceNoteSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+
+{{#if messages_movingCustomerCare_success}}
+    <div class="modal fade" id="messageMoveCustomerCareSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-md">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_movingCustomerCare_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageMoveCustomerCareSuccess = document.querySelector('#messageMoveCustomerCareSuccess');
+            $(messageMoveCustomerCareSuccess).modal('show');
         });
     </script>
 {{/if}}

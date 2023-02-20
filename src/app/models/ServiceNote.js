@@ -16,6 +16,7 @@ const ServiceNote = new Schema({
 	isBeforeInfo: false,
 	isInSurgeryInfo: false,
 	isAfterInfo: false,
+	isPostSurgeryCare: false,
 	
 	userID:
 	{

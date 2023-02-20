@@ -238,6 +238,8 @@ app.use(function (req, res, next) {
 	res.locals.messages_deletedAfterVideo_success = req.flash('messages_deletedAfterVideo_success');
 	res.locals.messages_restoreAfterVideo_success = req.flash('messages_restoreAfterVideo_success');
 
+	res.locals.messages_movingCustomerCare_success = req.flash('messages_movingCustomerCare_success');
+
 	res.locals.messages_updateCusDischarge_success = req.flash('messages_updateCusDischarge_success');
 	res.locals.messages_updateServiceNoteDone_success = req.flash('messages_updateServiceNoteDone_success');
 	res.locals.messages_uploadReexam_success = req.flash('messages_uploadReexam_success');
