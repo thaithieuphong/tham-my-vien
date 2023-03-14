@@ -69,38 +69,38 @@
 
 <div class="container-fluid overflow-hidden">
     <div class="row vh-100 overflow-auto">
-        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 d-flex sticky-top border-right">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 d-flex sticky-top bg-blue-logo">
             <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2">
-                <a href="/" class="d-flex justify-content-center align-items-center pb-sm-3 mb-md-0 text-decoration-none w-100 text-dark border-bottom">
+                <a href="/" class="d-flex justify-content-center align-items-center pb-sm-3 mb-md-0 text-decoration-none w-100 text-light border-bottom">
 					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
 					<span class="d-none d-sm-inline fs-6 text-uppercase">Bảng điều khiển</span>
 					{{!-- <span class="fs-6 text-uppercase">
 						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
 					</span> --}}
                 </a>
-                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start w-100" id="menu">
-                    <li class="nav-item hover w-100">
-                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2 text-dark">
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start w-100 mt-2" id="menu">
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2 text-light rounded-pill active">
+                            <i class="ti-user ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Khách hàng</span></a>
+                    </li>
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2 text-light rounded-pill">
                             <i class="ti-receipt ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Lịch hẹn tư vấn</span>
                         </a>
                     </li>
-                    <li class="nav-item hover w-100">
-                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2 text-dark">
-                            <i class="ti-user ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Khách hàng</span></a>
-                    </li>
-					<li class="nav-item hover w-100">
-                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2 text-dark">
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2 text-light rounded-pill">
                             <i class="ti-clipboard ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Phiếu dịch vụ</span></a>
                     </li>
                 </ul>
                 <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1 w-100 hover">
-                    <a href="#" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle w-100 rounded p-2" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 rounded-pill p-2 border" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{#if user.image.name}}
-						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle border">
+						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
                         {{else}}
-						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle border">
+						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
 						{{/if}}
-						<span class="d-none d-sm-inline mx-1">{{user.lastName}}</span>
+						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light text-small shadow w-100" aria-labelledby="dropdownUser1">
                         <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
@@ -118,9 +118,9 @@
         </div>
         <div class="col d-flex flex-column h-sm-100 ps-0 pe-0">
 			<div class="" style="width: 100%;">
-				<div class="sticky-top pe-0 ps-0">
+				<div class="sticky-top pe-0 ps-0 bg-blue-logo">
 					<div class="text-center border-bottom">
-						<div class="text-uppercase fw-bold pt-2 pb-2">
+						<div class="text-light text-uppercase fw-bold pt-2 pb-2">
 							{{this.title}}
 						</div>
 					</div>

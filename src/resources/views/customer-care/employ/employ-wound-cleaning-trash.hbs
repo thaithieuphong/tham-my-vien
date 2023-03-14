@@ -1,0 +1,234 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+<div class="container-fluid overflow-hidden">
+    <div class="row vh-100 overflow-auto">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-blue-logo d-flex sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2">
+                <a href="/" class="d-flex justify-content-center align-items-center pb-sm-3 mb-md-0 text-light text-decoration-none w-100 border-bottom">
+					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
+					<span class="d-none d-sm-inline fs-6 text-uppercase">Bảng điều khiển</span>
+					{{!-- <span class="fs-6 text-uppercase">
+						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
+					</span> --}}
+                </a>
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start w-100 mt-2" id="menu">
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/customers-wound-cleaning" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-wheelchair ms-3 mr-3"></i><span class="d-none d-sm-inline">Khách thay băng cắt chỉ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/wound-cleaning-schedule" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch hẹn thay băng - cắt chỉ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/wound-cleaning" class="nav-link px-sm-0 px-2 text-light active">
+                            <i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span class="d-none d-sm-inline">Phiếu thay băng - cắt chỉ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/customer-re-exam" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="ti-shield ms-3 mr-3"></i><span class="d-none d-sm-inline">Khách tái khám định kỳ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/re-exam-schedule" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch hẹn tái khám định kỳ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/re-exam" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span class="d-none d-sm-inline">Phiếu tái khám định kỳ</span></a>
+                    </li>
+                </ul>
+                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1 w-100 hover">
+                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 p-2 border rounded" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{#if user.image.name}}
+						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
+                        {{else}}
+						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
+						{{/if}}
+						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+							<form method="POST" action="/logout">
+								<button class="dropdown-item" type="submit">Đăng xuất</>
+							</form>
+						</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex flex-column h-sm-100 ps-0 pe-0">
+			<div class="sticky-top ps-0 pe-0 d-flex justify-content-between bg-blue-logo">
+				<a type="button" onclick="history.back()" class="ml-3">
+					<i class="fa-solid fa-circle-arrow-left text-light fs-2 pt-2"></i>
+				</a>
+				<div class="text-light text-uppercase fw-bold pt-2 pb-2">
+					{{this.title}}
+				</div>
+				<div></div>
+			</div>
+				{{!-- <div class="text-center bg-blue border-bottom">
+				</div> --}}
+			{{!-- <div class="redirect-bar bg-blue d-flex justify-content-between">
+				
+			</div> --}}
+			<div class="pb-3 ps-2 pe-2" style="width: 100%;">
+				<table id="table-wound-cleaning-trash" class="table table-sm display">
+					<thead>
+						<tr class="text-center">
+							<th scope="col">#</th>
+							<th scope="col">Họ tên khai sinh</th>
+							<th scope="col">Tên thường gọi</th>
+							<th scope="col">Ngày hẹn</th>
+							<th scope="col">Số lần thay băng</th>
+							<th scope="col">Trạng thái</th>
+							<th scope="col">Tác vụ</th>
+						</tr>
+					</thead>
+					<tbody class="">
+						{{#each woundCleaning}}
+							<tr class="text-center">
+								<th scope="row" class="text-center"><strong>{{sum @index 1}}</strong></th>
+								<td>{{this.cusID.fullName}}</td>
+								<td>
+									<a id="schedule-detail" type="button" class="link-primary" data-bs-toggle="modal" data-bs-target="#detailWoundCleaningScheduleModal"
+									data-customer-fullName="{{this.cusID.fullName}}" data-customer-nickName="{{this.cusID.nickName}}" data-customer-birth="{{this.cusID.birth}}"
+									data-customer-gender="{{this.cusID.gender}}" data-customer-phone="{{this.cusID.phone}}" data="{{this.schedule}}" data-service="{{this.service}}"
+									data-deposit="{{this.deposit}}" data-priceBefore="{{this.priceBefore}}" data-img="{{this.scheduleID.cusID.img.url}}" data-customer-resource="{{this.cusID.resource}}"
+									data-customer-user="{{#each this.cusID}}{{this.firstName}} {{this.lastName}}{{/each}}">
+										{{this.cusID.nickName}}
+									</a>
+								</td>
+								<td>{{formatDate this.woundCleaningScheduleID.schedule}}</td>
+								<td class="text-primary">{{this.woundCleaningScheduleID.times}}</td>
+								<td class="text-danger">{{this.status}}</td>
+								<td class="d-flex justify-content-center">
+									<a type="button" class="btn btn-info btn-sm text-light" data-bs-toggle="modal" data-bs-target="#restoreWoundCleaningModal" data-wound-cleaning-id="{{this._id}}"
+									data-wound-cleaning-customer-fullName="{{this.cusID.fullName}}" data-wound-cleaning-customer-id="{{this.cusID._id}}" data-wound-cleaning-serviceNoteID="{{this.serviceNoteID._id}}"
+									data-wound-cleaning-woundCleaningScheduleID="{{this.woundCleaningScheduleID._id}}">
+										Khôi phục phiếu thay băng
+									</a>
+								</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="detailWoundCleaningModal" tabindex="-1" aria-labelledby="detailWoundCleaningScheduleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="detailWoundCleaningScheduleModalLabel">Chi tiết lịch hẹn tư vấn</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="text-center mb-3">
+					<img src="" id="add-avt" class="rounded add-avata" alt="...">
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="fullName">
+						<strong>Họ tên khai sinh:</strong>&nbsp;
+					</label>
+					<label class="text-end font-italic" id="schedule-fullName"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="nickName">
+						<strong>Tên thường gọi:</strong>&nbsp;
+					</label>
+					<label class="text-end font-italic" id="schedule-nickName"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="birth">
+						<strong>Ngày sinh:</strong>&nbsp;
+					</label>
+					<label id="schedule-birth"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="gender">
+						<strong>Giới tính:</strong>&nbsp;
+					</label>
+					<label id="schedule-gender"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="phone">
+						<strong>Số điện thoại:</strong>&nbsp;
+					</label>
+					<label id="schedule-phone"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status">
+						<strong>Nguồn:</strong>&nbsp;
+					</label>
+					<label id="schedule-resource"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status">
+						<strong>Người tạo:</strong>&nbsp;
+					</label>
+					<label id="schedule-user"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status">
+						<strong>Thời gian hẹn:</strong>&nbsp;
+					</label>
+					<label id="schedule"></label>
+				</div>
+				<label class="" for="schedule"><strong>Dịch vụ đã chọn:</strong></label>
+				<div id="wrapper" class="mb-3">
+					
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status">
+						<strong>Đặt cọc:</strong>&nbsp;
+					</label>
+					<label id="schedule-deposit" class="text-info"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status">
+						<strong>Tổng chi phí khi tư vấn:</strong>&nbsp;
+					</label>
+					<label id="schedule-priceBefore" class="text-danger"></label>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal restore service note -->
+<div class="modal fade" id="restoreWoundCleaningModal" tabindex="-1" aria-labelledby="restoreWoundCleaningLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-info">
+				<h5 class="modal-title text-light" id="restoreWoundCleaningLabel">Khôi phục phiếu thay băng</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="restoreWoundCleaningForm" method="POST">
+					<input id="restore-wound-cleaning-customer-fullName" type="text" name="fullName" hidden>
+					<input id="restore-wound-cleaning-customer-id" type="text" name="cusID" hidden>
+					<input id="restore-wound-cleaning-serviceNoteID" type="text" name="serviceNoteID" hidden>
+					<input id="restore-wound-cleaning-woundCleaningScheduleID" type="text" name="woundCleaningScheduleID" hidden>
+					Bạn muốn khôi phục phiếu thay băng của khách <strong id="restore-wound-cleaning-customer-fullname"></strong>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="restoreWoundCleaningBtn" type="button" class="btn btn-info btn-sm">Có, chắc chắn</button>
+				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/js/customer-care/customer-care-employ-wound-cleaning-trash.js"></script>

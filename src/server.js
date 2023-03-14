@@ -15,6 +15,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const User = require('./app/models/User');
 const bcrypt = require("bcryptjs");
+// var io = require('socket.io')(http);
 require("dotenv").config({path:`${__dirname}../.env`});
 const PORT = 3000;
 if (`${process.env.NODE_ENV}` !== "production") {
@@ -92,6 +93,11 @@ app.engine(
 				let newDate = date.toLocaleString('vi-VI', { weekday: "long", day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
 				return newDate;
 			},
+			formatShortDate: (d) => {
+				let date = new Date(d);
+				let newDate = date.toLocaleString('vi-VI', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' });
+				return newDate;
+			},
 			formatBirth: (d) => {
 				let date = new Date(d);
 				let newDate = date.toLocaleString('vi-VI', { day: 'numeric', month: 'numeric', year: 'numeric' });
@@ -162,25 +168,34 @@ app.engine(
 				return total;
 			},
 			reduceAmountToBePaid: (arrService, deposit, discount) => {
-				let convertDeposit = parseFloat(deposit.replace(/\D/g,''), 10);
-				let convertDiscount = parseFloat(discount.replace(/\D/g,''), 10);
-				let total = 0;
-				arrService.forEach(element => {
-					let price = parseFloat(element.price.replace(/\D/g,''), 10);
-					total += price;	
-				});
-				total = total - convertDeposit - convertDiscount;
-				return total.toLocaleString();
+				if (arrService && deposit && discount) {
+					let convertDeposit = parseFloat(deposit.replace(/\D/g,''), 10);
+					let convertDiscount = parseFloat(discount.replace(/\D/g,''), 10);
+					let total = 0;
+					arrService.forEach(element => {
+						let price = parseFloat(element.price.replace(/\D/g,''), 10);
+						total += price;	
+					});
+					total = total - convertDeposit - convertDiscount;
+					return total.toLocaleString();
+				} else {
+					return total = 0;
+				}
 			},
 			reduceTotal: (arrService, discount) => {
-				let convertDiscount = parseFloat(discount.replace(/\D/g,''), 10);
-				let total = 0;
-				arrService.forEach(element => {
-					let price = parseFloat(element.price.replace(/\D/g,''), 10);
-					total += price;	
-				});
-				total = total - convertDiscount;
-				return total.toLocaleString();
+				if (discount) {
+					let convertDiscount = parseFloat(discount.replace(/\D/g,''), 10);
+					let total = 0;
+					arrService.forEach(element => {
+						let price = parseFloat(element.price.replace(/\D/g,''), 10);
+						total += price;	
+					});
+					total = total - convertDiscount;
+					return total.toLocaleString();
+				} else {
+					total = 0;
+					return total.toLocaleString();
+				}
 			}
 		}
 	})
@@ -197,19 +212,34 @@ app.use(function (req, res, next) {
 	res.locals.messages_server_failure = req.flash('messages_server_failure');
 	res.locals.messages_token_failure = req.flash('messages_token_failure');
 	res.locals.messages_token_wrong = req.flash('messages_token_wrong');
+	res.locals.messages_validationImg_Error = req.flash('messages_validationImg_Error');
+	res.locals.messages_validationVideo_Error = req.flash('messages_validationVideo_Error');
+
 	res.locals.messages_createReExamination_success = req.flash('messages_createReExamination_success');
+	res.locals.messages_createReExaminationSchedule_success = req.flash('messages_createReExaminationSchedule_success');
 	res.locals.messages_editReExamination_success = req.flash('messages_editReExamination_success');
+	res.locals.messages_editReExamSchedule_success = req.flash('messages_editReExamSchedule_success');
+	res.locals.messages_deleteReExamSchedule_success = req.flash('messages_deleteReExamSchedule_success');
+	res.locals.messages_restoreReExamSchedule_success = req.flash('messages_restoreReExamSchedule_success');
+	res.locals.messages_deleteReExam_success = req.flash('messages_deleteReExam_success');
+	res.locals.messages_restoreReExam_success = req.flash('messages_restoreReExam_success');
+
+
 	res.locals.messages_pushReExamination_error = req.flash('messages_pushReExamination_error');
+
 	res.locals.messages_createSchedule_success = req.flash('messages_createSchedule_success');
 	res.locals.messages_editSchedule_success = req.flash('messages_editSchedule_success');
 	res.locals.messages_deleteSchedule_success = req.flash('messages_deleteSchedule_success');
 	res.locals.messages_restoreSchedule_success = req.flash('messages_restoreSchedule_success');
+
 	res.locals.messages_createCustomer_success = req.flash('messages_createCustomer_success');
 	res.locals.messages_editCustomer_success = req.flash('messages_editCustomer_success');
+
 	res.locals.messages_updateCusInfo_success = req.flash('messages_updateCusInfo_success');
 	res.locals.messages_updateService_success = req.flash('messages_updateService_success');
 	res.locals.messages_updateService_warning = req.flash('messages_updateService_warning');
 	res.locals.messages_deleteService_success = req.flash('messages_deleteService_success');
+
 	res.locals.messages_deleteServiceNote_success = req.flash('messages_deleteServiceNote_success');
 	res.locals.messages_restoreServiceNote_success = req.flash('messages_restoreServiceNote_success');
 
@@ -240,9 +270,31 @@ app.use(function (req, res, next) {
 
 	res.locals.messages_movingCustomerCare_success = req.flash('messages_movingCustomerCare_success');
 
+	res.locals.messages_createWoundCleaningSchedule_success = req.flash('messages_createWoundCleaningSchedule_success');
+	res.locals.messages_editWoundCleaningSchedule_success = req.flash('messages_editWoundCleaningSchedule_success');
+	res.locals.messages_deleteWoundCleaningSchedule_success = req.flash('messages_deleteWoundCleaningSchedule_success');
+	res.locals.messages_restoreWoundCleaningSchedule_success = req.flash('messages_restoreWoundCleaningSchedule_success');
+
+	res.locals.messages_createWoundCleaning_success = req.flash('messages_createWoundCleaning_success');
+	res.locals.messages_editWoundCleaning_success = req.flash('messages_editWoundCleaning_success');
+	res.locals.messages_deleteWoundCleaning_success = req.flash('messages_deleteWoundCleaning_success');
+	res.locals.messages_restoreWoundCleaning_success = req.flash('messages_restoreWoundCleaning_success');
+	res.locals.messages_moveServiceNoteToReExam_success = req.flash('messages_moveServiceNoteToReExam_success');
+
+	res.locals.messages_uploadWoundCleaning_success = req.flash('messages_uploadWoundCleaning_success');
+	res.locals.messages_deletedWoundCleaningImg_success = req.flash('messages_deletedWoundCleaningImg_success');
+	res.locals.messages_restoreWoundCleaningImg_success = req.flash('messages_restoreWoundCleaningImg_success');
+	res.locals.messages_deletedWoundCleaningVideo_success = req.flash('messages_deletedWoundCleaningVideo_success');
+	res.locals.messages_restoreWoundCleaningVideo_success = req.flash('messages_restoreWoundCleaningVideo_success');
+
+	res.locals.messages_uploadReExam_success = req.flash('messages_uploadReExam_success');
+	res.locals.messages_deletedReExamImg_success = req.flash('messages_deletedReExamImg_success');
+	res.locals.messages_restoreReExamImg_success = req.flash('messages_restoreReExamImg_success');
+	res.locals.messages_deletedReExamVideo_success = req.flash('messages_deletedReExamVideo_success');
+	res.locals.messages_restoreReExamVideo_success = req.flash('messages_restoreReExamVideo_success');
+
+	res.locals.messages_updateReExamDone_success = req.flash('messages_updateReExamDone_success');
 	res.locals.messages_updateCusDischarge_success = req.flash('messages_updateCusDischarge_success');
-	res.locals.messages_updateServiceNoteDone_success = req.flash('messages_updateServiceNoteDone_success');
-	res.locals.messages_uploadReexam_success = req.flash('messages_uploadReexam_success');
 	res.locals.messages_moveCustomer_success = req.flash('messages_moveCustomer_success');
 	next();
 });
@@ -300,6 +352,15 @@ initAdmin();
 
 // Khởi tạo các tuyến đường
 route(app);
+
+// io.on('connection', function(socket){
+// 	console.log('A user connected');
+	
+// 	//Whenever someone disconnects this piece of code executed
+// 	socket.on('disconnect', function () {
+// 	   console.log('A user disconnected');
+// 	});
+// });
 
 app.listen(`${process.env.PORT}`, () => {
 	console.log(`Ứng dụng đang chạy trên port ${process.env.PORT}`);

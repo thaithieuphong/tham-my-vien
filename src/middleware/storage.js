@@ -4,6 +4,8 @@ const rootPath = path.sep;
 const User = require('../app/models/User');
 const Customer = require('../app/models/Customer');
 const appRoot = require('app-root-path');
+const fs = require('fs');
+
 
 // create avatar customer    
 const storageCustomerAvt = multer.diskStorage({
@@ -20,12 +22,12 @@ const storageCustomerAvt = multer.diskStorage({
 
 const beforeCounselorUpload = multer.diskStorage({
     destination: function(req, file, cb) {
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
             // cb(null, appRoot + '/src/public/beforeCounselor/img');
             cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/beforeCounselor/img');
 
         }
-        else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             // cb(null, appRoot + '/src/public/beforeCounselor/video');
             cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/beforeCounselor/video');
         }
@@ -38,9 +40,9 @@ const beforeCounselorUpload = multer.diskStorage({
         const getMonth = date.getMonth();
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
             cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
-        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/mov' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
@@ -48,11 +50,11 @@ const beforeCounselorUpload = multer.diskStorage({
 
 const counselorUpload = multer.diskStorage({
     destination: function(req, file, cb) {
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
             cb(null, appRoot + '/src/public/counselor/img');
             // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/counselor/img');
         } 
-        else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, appRoot + '/src/public/counselor/video');
             // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/counselor/video');
         }
@@ -65,9 +67,9 @@ const counselorUpload = multer.diskStorage({
         const getMonth = date.getMonth();
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
             cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
-        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
@@ -75,11 +77,11 @@ const counselorUpload = multer.diskStorage({
 
 const beforeUpload = multer.diskStorage({
     destination: function(req, file, cb) {
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
             cb(null, appRoot + '/src/public/before/img');
             // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/before/img');
         } 
-        else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, appRoot + '/src/public/before/video');
             // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/before/video');
         } 
@@ -92,9 +94,9 @@ const beforeUpload = multer.diskStorage({
         const getMonth = date.getMonth();
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
             cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
-        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
@@ -102,11 +104,11 @@ const beforeUpload = multer.diskStorage({
 
 const inSurgeryUpload = multer.diskStorage({
     destination: function(req, file, cb) {
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
             cb(null, appRoot + '/src/public/in-surgery/img');
             // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/in-surgery/img');
         } 
-        else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, appRoot + '/src/public/in-surgery/video');
             // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/in-surgery/video');
         } 
@@ -119,9 +121,9 @@ const inSurgeryUpload = multer.diskStorage({
         const getMonth = date.getMonth();
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
             cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
-        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
@@ -129,10 +131,10 @@ const inSurgeryUpload = multer.diskStorage({
 
 const afterUpload = multer.diskStorage({
     destination: function(req, file, cb) {
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
             cb(null, appRoot + '/src/public/after/img');
             // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/after/img');
-        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, appRoot + '/src/public/after/video');
             // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/after/video');
         }
@@ -145,22 +147,23 @@ const afterUpload = multer.diskStorage({
         const getMonth = date.getMonth();
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
             cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
-        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
 });
 
-const reExaminationUpload = multer.diskStorage({
+const woundCleaningUpload = multer.diskStorage({
     destination: function(req, file, cb) {
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-            cb(null, appRoot + '/src/public/re-examination/img');
-            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/img');
-        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-            cb(null, appRoot + '/src/public/re-examination/video');
-            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/video');
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
+            cb(null, appRoot + '/src/public/wound-cleaning/img');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/wound-cleaning/img');
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/quicktime' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+            console.log('destination', file);
+            cb(null, appRoot + '/src/public/wound-cleaning/video');
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/wound-cleaning/video');
         }
     },
 
@@ -171,9 +174,45 @@ const reExaminationUpload = multer.diskStorage({
         const getMonth = date.getMonth();
         const getYear = date.getFullYear();
         const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
-        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
             cb(null, `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
-        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/quicktime' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+            console.log('file name', file);
+            cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+        }
+    }
+});
+
+const reExaminationUpload = multer.diskStorage({
+    destination: function(req, file, cb) {
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
+            fs.access(`${appRoot}/src/public/uploads`, (error) => {
+            // fs.access(`${appRoot}/src/public/reExamination/img`, (error) => {
+                if (error) {
+                  fs.mkdirSync(`${appRoot}/src/public/uploads`);
+                //   fs.mkdirSync(`${appRoot}/src/public/reExamination/img`);
+                }
+                cb(null, `${appRoot}/src/public/uploads`);
+                // cb(null, `${appRoot}/src/public/reExamination/img`);
+            });
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/img');
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv'|| file.mimetype === 'video/quicktime' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+            fs.access(`${appRoot}/src/public/uploads`, (error) => {
+                if (error) {
+                  fs.mkdirSync(`${appRoot}/src/public/uploads`);
+                }
+                cb(null, `${appRoot}/src/public/uploads`);
+            });
+            // cb(null, rootPath + 'mnt/vdb/crm.drtuananh.vn/re-examination/video');
+        }
+    },
+
+    // By default, multer removes file extensions so let's add them back
+    filename: function(req, file, cb) {
+        const dateNow = new Date().toISOString();
+        if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
+            cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
+        } else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv'|| file.mimetype === 'video/quicktime' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
             cb(null, `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`);
         }
     }
@@ -276,4 +315,5 @@ exports.inSurgeryUpload = inSurgeryUpload;
 exports.counselorUpload = counselorUpload;
 exports.beforeUpload = beforeUpload;
 exports.afterUpload = afterUpload;
+exports.woundCleaningUpload = woundCleaningUpload;
 exports.reExaminationUpload = reExaminationUpload;

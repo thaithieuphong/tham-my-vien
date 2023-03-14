@@ -14,6 +14,7 @@ class validateUpload {
     beforeUpload = multer({ fileFilter: helpers.filter, storage: storage.beforeUpload }).any('before');
     inSurgeryUpload = multer({ fileFilter: helpers.filter, storage: storage.inSurgeryUpload }).any('inSurgery');
     afterUpload = multer({ fileFilter: helpers.filter, storage: storage.afterUpload }).any('after');
+    woundCleaningUpload = multer({ fileFilter: helpers.filter, storage: storage.woundCleaningUpload }).any('woundCleaning');
     reExaminationUpload = multer({ fileFilter: helpers.filter, storage: storage.reExaminationUpload }).any('reExamination');
 }
 

@@ -3,32 +3,32 @@
 
 <div class="container-fluid overflow-hidden">
     <div class="row vh-100 overflow-auto">
-        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark d-flex sticky-top">
-            <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
-                <a href="/" class="d-flex align-items-center pb-sm-3 mb-md-0 text-white text-decoration-none">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-blue-logo d-flex sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2">
+                <a href="/" class="d-flex justify-content-center align-items-center pb-sm-3 mb-md-0 text-light text-decoration-none w-100 border-bottom">
 					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
-					<span class="fs-6 text-uppercase">
-						{{!-- <img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp; --}}
-						<span class="d-none d-sm-inline">Bảng điều khiển</span>
-					</span>
+					<span class="d-none d-sm-inline fs-6 text-uppercase">Bảng điều khiển</span>
+					{{!-- <span class="fs-6 text-uppercase">
+						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
+					</span> --}}
                 </a>
-                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2 link-light">
-                            <i class="ti-receipt mr-3"></i><span class="ms-1 d-none d-sm-inline">Lịch hẹn tư vấn</span>
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start w-100 mt-2" id="menu">
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2 rounded-pill text-light">
+                            <i class="ti-user ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Khách hàng</span></a>
+                    </li>
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2 rounded-pill text-light">
+                            <i class="ti-receipt ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Lịch hẹn tư vấn</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2 link-light">
-                            <i class="ti-user mr-3"></i><span class="ms-1 d-none d-sm-inline">Khách hàng</span></a>
-                    </li>
-					<li>
-                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2 link-light">
-                            <i class="ti-clipboard mr-3"></i><span class="ms-1 d-none d-sm-inline">Phiếu dịch vụ</span></a>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2 rounded-pill text-light active">
+                            <i class="ti-clipboard ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Phiếu dịch vụ</span></a>
                     </li>
                 </ul>
-                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
-                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1 w-100 hover">
+                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 rounded-pill p-2 border" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{#if user.image.name}}
 						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
                         {{else}}
@@ -51,10 +51,10 @@
             </div>
         </div>
         <div class="col d-flex flex-column h-sm-100 ps-0 pe-0 overflow-auto">
-			<div class="text-center bg-dark sticky-top d-flex justify-content-between">
-				<div class="img-container">
+			<div class="text-center bg-blue-logo sticky-top d-flex justify-content-between">
+				<div class="img-container p-2">
 					<a type="button" onclick="history.back()">
-						<i class="fa-solid fa-circle-arrow-left text-light ms-1 fs-3 mt-1"></i>
+						<i class="fa-solid fa-circle-arrow-left text-light ms-1 fs-3"></i>
 					</a>
 				</div>
 				<div class="text-light text-uppercase fw-bold pt-2 pb-2">

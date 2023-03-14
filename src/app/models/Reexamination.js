@@ -9,24 +9,29 @@ const Reexamination = new Schema({
 		ref: "Customer"
 	},
 
-	serviceNoteId:
+	serviceNoteID:
 	{
 		type: String,
 		ref: "ServiceNote"
 	},
 
-	createName:
+	reExamScheduleID:
+	{
+		type: String,
+		ref: "ReExaminationSchedule"
+	},
+
+	userID:
 	{
 		type: String,
 		ref: "User"
 	},
 
-	performer: [
-		{
-			type: String,
-			ref: "User"
-		}
-	],
+	performer:
+	{
+		type: String,
+		ref: "User"
+	},
 
 	nursing: [
 		{
@@ -34,12 +39,6 @@ const Reexamination = new Schema({
 			ref: "User"
 		}
 	],
-
-	recept:
-	{
-		type: String,
-		ref: "User"
-	},
 
 	status:
 	{
@@ -54,7 +53,8 @@ const Reexamination = new Schema({
 			},
 			url: {
 				type: String,
-			}
+			},
+			notDeletedYet: Boolean
 		}
 	],
 
@@ -65,7 +65,8 @@ const Reexamination = new Schema({
 			},
 			url: {
 				type: String
-			}
+			},
+			notDeletedYet: Boolean
 		}
 	],
 
@@ -77,31 +78,10 @@ const Reexamination = new Schema({
 	statusInfo: String,
 	directedByDoctor: String,
 	stepsToTake: String,
-	stored: String,
-	schedule: String,
+	isDone: false,
+	reExaminationDate: String,
 	times: String,
-	logSchedules: [
-		{
-			type: new mongoose.Schema(
-				{
-					schedule: String,
-					reason: String,
-				},
-				{ timestamps: true }
-			)
-		}
-	],
-	logStatus: [
-		{
-			type: new mongoose.Schema(
-				{
-					statusReExam: String,
-					createID: String,
-				},
-				{ timestamps: true }
-			)
-		}
-	],
+	reExaminationArea: String,
 }, {
 	timestamps: true
 });

@@ -1,0 +1,280 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+{{#if messages_createWoundCleaning_success}}
+    <div class="modal fade" id="messageCreateWoundCleaningSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_createWoundCleaning_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageCreateWoundCleaningSuccess = document.querySelector('#messageCreateWoundCleaningSuccess');
+            $(messageCreateWoundCleaningSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+{{#if messages_deleteWoundCleaning_success}}
+    <div class="modal fade" id="messageDeleteWoundCleaningSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_deleteWoundCleaning_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageDeleteWoundCleaningSuccess = document.querySelector('#messageDeleteWoundCleaningSuccess');
+            $(messageDeleteWoundCleaningSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+{{#if messages_restoreWoundCleaning_success}}
+    <div class="modal fade" id="messageRestoreWoundCleaningSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_restoreWoundCleaning_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageRestoreWoundCleaningSuccess = document.querySelector('#messageRestoreWoundCleaningSuccess');
+            $(messageRestoreWoundCleaningSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+
+{{#if messages_updateWoundCleaningDone_success}}
+<div class="modal fade" id="messageUpDateWoundCleaningDoneSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_updateWoundCleaningDone_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageUpDateWoundCleaningDoneSuccess = document.querySelector('#messageUpDateWoundCleaningDoneSuccess');
+		$(messageUpDateWoundCleaningDoneSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+<div class="container-fluid overflow-hidden">
+    <div class="row vh-100 overflow-auto">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-blue-logo d-flex sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2">
+                <a href="/" class="d-flex justify-content-center align-items-center pb-sm-3 mb-md-0 text-light text-decoration-none w-100 border-bottom">
+					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
+					<span class="d-none d-sm-inline fs-6 text-uppercase">Bảng điều khiển</span>
+					{{!-- <span class="fs-6 text-uppercase">
+						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
+					</span> --}}
+                </a>
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start w-100 mt-2" id="menu">
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/customers-wound-cleaning" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-wheelchair ms-3 mr-3"></i><span class="d-none d-sm-inline">Khách thay băng cắt chỉ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/wound-cleaning-schedule" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch hẹn thay băng - cắt chỉ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/wound-cleaning" class="nav-link px-sm-0 px-2 text-light active">
+                            <i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span class="d-none d-sm-inline">Phiếu thay băng - cắt chỉ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/customer-re-exam" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="ti-shield ms-3 mr-3"></i><span class="d-none d-sm-inline">Khách tái khám định kỳ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/re-exam-schedule" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch hẹn tái khám định kỳ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/re-exam" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span class="d-none d-sm-inline">Phiếu tái khám định kỳ</span></a>
+                    </li>
+                </ul>
+                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1 w-100 hover">
+                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 p-2 border rounded" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{#if user.image.name}}
+						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
+                        {{else}}
+						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
+						{{/if}}
+						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+							<form method="POST" action="/logout">
+								<button class="dropdown-item" type="submit">Đăng xuất</>
+							</form>
+						</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex flex-column h-sm-100 ps-0 pe-0 overflow-auto">
+			<div class="text-center bg-blue-logo sticky-top d-flex justify-content-between">
+				<div class="img-container p-2">
+					<a type="button" onclick="history.back()">
+						<i class="fa-solid fa-circle-arrow-left text-light ms-1 fs-3"></i>
+					</a>
+				</div>
+				<div class="text-light text-uppercase fw-bold pt-2 pb-2">
+					{{this.title}}
+				</div>
+				<div></div>
+			</div>
+			<div class="d-flex justify-content-between">
+				<a class="btn btn-danger btn-sm ms-2 mt-2 mb-2" href="/customer-care/employ/wound-cleaning/trash">
+					Thùng rác <i class="ti-trash"></i>
+				</a>
+			</div>
+			<div class="container-fluid">
+				<table id="table-wound-cleaning" class="table table-hover mb-0 table-sm table-bordered">
+					<thead>
+						<tr class="text-center">
+							<th scope="col">#</th>
+							<th scope="col">Mã KH</th>
+							<th scope="col">Họ tên khai sinh</th>
+							<th scope="col">Tên thường gọi</th>
+							<th scope="col">Ngày sinh</th>
+							<th scope="col">Số điện thoại</th>
+							<th scope="col">Trạng thái</th>
+							<th scope="col">Hành động</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each woundCleaning}}
+							<tr class="text-value">
+								<th class="text-center" scope="row">{{sum @index 1}}</th>
+								<td class="text-identify">{{this.cusID.identification}}</td>
+								<td class="text-fullName">
+									<a class="fullName-link" href="/customer-care/employ/wound-cleaning/{{this._id}}/detail">
+										{{this.cusID.fullName}}
+									</a>
+								</td>
+								<td class="text-nickName">{{this.cusID.nickName}}</td>
+								<td>{{formatBirth this.cusID.birth}}</td>
+								<td class="text-phone">0{{this.cusID.phone}}</td>
+								<td class="text-status">{{this.status}}</td>
+								<td class="text-center">
+									<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Cập nhật phiếu thay băng">
+										<a type="button" class="btn btn-info btn-sm" href="/customer-care/employ/wound-cleaning/{{this._id}}/update">
+											<i class="fa-sharp fa-solid fa-square-pen"></i> Cập nhật phiếu thay băng
+										</a>
+									</div>
+									<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Hoàn thành thay băng">
+										<button type="button" data-bs-toggle="modal" data-bs-target="#submit-wound-cleaning-modal-done"
+											class="btn btn-success btn-sm" data-wound-cleaning-id="{{this._id}}" data-wound-cleaning-customer-id="{{this.cusID._id}}" data-wound-cleaning-cutomer-fullName="{{this.cusID.fullName}}"
+											data-wound-cleaning-serviceNoteID="{{this.serviceNoteID}}" data-wound-cleaning-woundCleaningScheduleID="{{this.woundCleaningScheduleID}}">
+											<i class="fa-sharp fa-solid fa-circle-check"></i> Hoàn thành thay băng
+										</button>
+									</div>
+									<div  class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Xóa phiếu thay băng">
+										<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-wound-cleaning-modal" data-wound-cleaning-id="{{this._id}}"
+										data-wound-cleaning-customer-fullname="{{this.cusID.fullName}}" data-wound-cleaning-customer-id="{{this.cusID._id}}" data-wound-cleaning-serviceNoteID="{{this.serviceNoteID}}"
+										data-wound-cleaning-woundCleaningScheduleID="{{this.woundCleaningScheduleID}}">
+											<i class="ti-close"></i>
+										</button>
+									</div>
+								</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+{{!-- Delete wound-cleaning --}}
+<div class="modal fade" id="delete-wound-cleaning-modal" tabindex="-1" aria-labelledby="delete-wound-cleaning-label" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title text-light" id="delete-wound-cleaning-label">Xóa phiếu thay băng</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="delete-wound-cleaning-form">
+					<input type="text" name="cusID" id="delete-wound-cleaning-cusID" hidden>
+					<input type="text" name="fullName" id="delete-wound-cleaning-fullName" hidden>
+					<input type="text" name="serviceNoteID" id="delete-wound-cleaning-serviceNoteID" hidden>
+					<input type="text" name="woundCleaningScheduleID" id="delete-wound-cleaning-woundCleaningScheduleID" hidden>
+				</form>
+				Bạn chắc chắn muốn xóa phiếu thay băng của khách hàng <strong id="delete-wound-cleaning-fullname"></strong>?
+			</div>
+			<div class="modal-footer d-flex justify-content-between">
+				<button id="delete-wound-cleaning-btn" type="button" class="btn btn-success btn-sm">Có, chắc chắn</button>
+				<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Không, hủy bỏ</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{{!-- Move to Re-examination --}}
+<div class="modal fade" id="submit-wound-cleaning-modal-done" tabindex="-1" aria-labelledby="move-to-re-exam-label" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-success">
+				<h5 class="modal-title text-light" id="move-to-re-exam-label">Xác nhận hoàn thành thay băng</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="submit-wound-cleaning-form">
+					<input type="text" name="cusID" id="submit-wound-cleaning-cusID" hidden>
+					<input type="text" name="fullName" id="submit-wound-cleaning-fullName" hidden>
+					<input type="text" name="serviceNoteID" id="submit-wound-cleaning-serviceNoteID" hidden>
+					<input type="text" name="woundCleaningScheduleID" id="submit-wound-cleaning-woundCleaningScheduleID" hidden>
+				</form>
+				Bạn chắc chắn đã nhập đầy đủ thông tin và xác nhận hoàn thành thay băng cho khách hàng <strong id="submit-wound-cleaning-fullname"></strong>?
+			</div>
+			<div class="modal-footer d-flex justify-content-between">
+				<button id="submit-wound-cleaning-btn" type="button" class="btn btn-success btn-sm">Có, chắc chắn và hoàn thành</button>
+				<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Không. Cần kiểm tra lại</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/js/customer-care/customer-care-employ-wound-cleaning.js"></script>

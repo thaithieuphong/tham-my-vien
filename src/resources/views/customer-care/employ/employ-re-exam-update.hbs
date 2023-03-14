@@ -1,0 +1,831 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+{{!-- upload, delete, restore after --}}
+{{#if messages_uploadReExam_success}}
+<div class="modal fade" id="messageUploadReExamSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_uploadReExam_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageUploadReExamSuccess = document.querySelector('#messageUploadReExamSuccess');
+		$(messageUploadReExamSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_deletedReExamImg_success}}
+<div class="modal fade" id="messageDeletedReExamImgSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_deletedReExamImg_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageDeletedReExamImgSuccess = document.querySelector('#messageDeletedReExamImgSuccess');
+		$(messageDeletedReExamImgSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_restoreReExamImg_success}}
+<div class="modal fade" id="messageRestoreReExamImgSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_restoreReExamImg_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageRestoreReExamImgSuccess = document.querySelector('#messageRestoreReExamImgSuccess');
+		$(messageRestoreReExamImgSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_deletedReExamVideo_success}}
+<div class="modal fade" id="messageDeletedReExamVideoSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_deletedReExamVideo_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageDeletedReExamVideoSuccess = document.querySelector('#messageDeletedReExamVideoSuccess');
+		$(messageDeletedReExamVideoSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+{{#if messages_restoreReExamVideo_success}}
+<div class="modal fade" id="messageRestoreReExamVideoSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_restoreReExamVideo_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageRestoreReExamVideoSuccess = document.querySelector('#messageRestoreReExamVideoSuccess');
+		$(messageRestoreReExamVideoSuccess).modal('show');
+	});
+</script>
+{{/if}}
+
+<div class="container-fluid overflow-hidden">
+	<div class="row vh-100">
+		<div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-blue-logo d-flex sticky-top">
+			<div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2">
+				<a href="/"
+					class="d-flex justify-content-center align-items-center pb-sm-3 mb-md-0 text-light text-decoration-none w-100 border-bottom">
+					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
+					<span class="d-none d-sm-inline fs-6 text-uppercase">Bảng điều khiển</span>
+					{{!-- <span class="fs-6 text-uppercase">
+						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
+					</span> --}}
+				</a>
+				<ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start w-100 mt-2"
+					id="menu">
+					<li class="nav-item hover w-100 mb-2">
+						<a href="/customer-care/employ/customers-wound-cleaning"
+							class="nav-link px-sm-0 px-2 text-light">
+							<i class="fa-sharp fa-solid fa-wheelchair ms-3 mr-3"></i><span
+								class="d-none d-sm-inline">Khách thay băng cắt chỉ</span>
+						</a>
+					</li>
+					<li class="nav-item hover w-100 mb-2">
+						<a href="/customer-care/employ/wound-cleaning-schedule"
+							class="nav-link px-sm-0 px-2 text-light">
+							<i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch
+								hẹn thay băng - cắt chỉ</span></a>
+					</li>
+					<li class="nav-item hover w-100 mb-2">
+						<a href="/customer-care/employ/wound-cleaning" class="nav-link px-sm-0 px-2 text-light">
+							<i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span
+								class="d-none d-sm-inline">Phiếu thay băng - cắt chỉ</span></a>
+					</li>
+					<li class="nav-item hover w-100 mb-2">
+						<a href="/customer-care/employ/customer-re-exam" class="nav-link px-sm-0 px-2 text-light">
+							<i class="ti-shield ms-3 mr-3"></i><span class="d-none d-sm-inline">Khách tái khám định
+								kỳ</span></a>
+					</li>
+					<li class="nav-item hover w-100 mb-2">
+						<a href="/customer-care/employ/re-exam-schedule" class="nav-link px-sm-0 px-2 text-light">
+							<i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch
+								hẹn tái khám định kỳ</span></a>
+					</li>
+					<li class="nav-item hover w-100 mb-2">
+						<a href="/customer-care/employ/re-exam" class="nav-link px-sm-0 px-2 text-light active">
+							<i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span
+								class="d-none d-sm-inline">Phiếu tái khám định kỳ</span></a>
+					</li>
+				</ul>
+				<div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1 w-100 hover">
+					<a href="#"
+						class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 p-2 border rounded"
+						id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+						{{#if user.image.name}}
+						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
+						{{else}}
+						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
+						{{/if}}
+						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+						<li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+						<li>
+							<form method="POST" action="/logout">
+								<button class="dropdown-item" type="submit">Đăng xuất</>
+							</form>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col d-flex flex-column h-sm-100 ps-0 pe-0 overflow-auto">
+			<div class="text-center bg-blue-logo sticky-top d-flex justify-content-between">
+				<div class="img-container pt-2 pb-2 ps-3">
+					<a type="button" href="/customer-care/employ/re-exam">
+						<i class="fa-solid fa-circle-arrow-left text-light ms-1 fs-3"></i>
+					</a>
+				</div>
+				<div class="text-light text-uppercase fw-bold pt-2 pb-2">
+					{{this.title}}
+				</div>
+				<div class="pt-2 pb-2 pe-3" data-bs-toggle="tooltip" data-bs-placement="top"
+					title="Hoàn thành tái khám">
+					<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal-done"
+						class="btn btn-success btn-sm" data-id="{{reExam._id}}" data-cusId="{{reExam.cusID._id}}"
+						data-fullName="{{reExam.cusID.fullName}}" data-service-note-id="{{reExam.serviceNoteID._id}}"
+						data-re-exam-schedule-id="{{reExam.reExamScheduleID._id}}">
+						<i class="fa-sharp fa-solid fa-circle-check"></i> Hoàn thành tái khám
+					</button>
+				</div>
+			</div>
+			<div>
+				<ul class="list-group mb-3 ms-3 me-3 mt-3 border-black">
+					<li class="list-group-item active text-center">
+						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Thông tin khách
+								hàng</strong></label>
+					</li>
+					<li class="list-group-item">
+						<div class="row">
+							<div class="col-4">
+								<div class="d-flex justify-content-start">
+									<label class="text-dark"><b>Mã khách hàng:</b></label>&nbsp;
+									<div class="text-danger">{{reExam.cusID.identification}}</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark"><b>Họ tên khai sinh:</b></label>&nbsp;
+									<div class="text-primary">{{reExam.cusID.fullName}}</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark"><b>Tên thường gọi:</b></label>&nbsp;
+									<div class="text-primary">{{reExam.cusID.nickName}}</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark"><b>Ngày sinh:</b></label>&nbsp;
+									<div class="text-dark">{{formatBirth reExam.cusID.birth}}</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark"><b>Giới tính:</b></label>&nbsp;
+									<div class="text-dark">{{reExam.cusID.gender}}</div>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="d-flex justify-content-start">
+									<label class="text-dark"><b>Số điện thoại:</b></label>&nbsp;
+									<div class="text-dark">
+										0{{reExam.cusID.phone}}
+									</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark"><b>Địa chỉ:</b></label>&nbsp;
+									<div class="text-dark">
+										{{reExam.cusID.homeTown}}
+									</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark"><b>Chiều cao:</b></label>&nbsp;
+									<div class="text-dark">{{reExam.cusID.height}}</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark"><b>Cân nặng:</b></label>&nbsp;
+									<div class="text-dark">{{reExam.cusID.weight}}</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark text-nowrap"><b>Ngày phẩu thuật:</b></label>&nbsp;
+									<div class="text-success">{{formatShortDate reExam.serviceNoteID.surgeryDay}}</div>
+								</div>
+							</div>
+							<div class="col-4">
+								<div class="d-flex justify-content-start">
+									<label class="text-dark text-nowrap"><b>Khu vực phẫu thuật:</b></label>&nbsp;
+									<div class="text-primary">{{reExam.serviceNoteID.floor}}</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark text-nowrap"><b>Bác sĩ thực hiện phẫu
+											thuật:</b></label>&nbsp;
+									<div class="text-primary">{{#each reExam.serviceNoteID.performer}}{{this.firstName}}
+										{{this.lastName}}{{/each}}</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark"><b>Trạng thái:</b></label>&nbsp;
+									<div class="text-danger">{{reExam.status}}</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark text-nowrap"><b>Số lần thay băng:</b></label>&nbsp;
+									<div class="text-success">0{{reExam.reExamScheduleID.times}}</div>
+								</div>
+								<div class="d-flex justify-content-start">
+									<label class="text-dark text-nowrap"><b>Ngày hẹn thay băng:</b></label>&nbsp;
+									<div class="text-primary">{{formatShortDate reExam.reExamScheduleID.schedule}}</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="ms-3 me-3 d-flex justify-content-end">
+					<button class="btn btn-primary btn-sm mb-3" type="button" data-bs-toggle="collapse"
+						data-bs-target="#collapseWoundCleaning" aria-expanded="false" aria-controls="collapseExample">
+						Thông tin các lần thay băng <i class="fa-sharp fa-solid fa-caret-down"></i>
+					</button>
+				</div>
+				<div class="ms-3 me-3">
+					<div class="collapse" id="collapseWoundCleaning">
+						<div class="card card-body mb-3 overflow-auto">
+							<div class="row">
+								{{#each reExam.serviceNoteID.woundCleaningScheduleID}}
+								<div class="col-md-3">
+									<a href="/customer-care/employ/wound-cleaning/{{this.woundCleaningID._id}}/detail">
+										<div class="card">
+											<div class="card-body">
+												<label for="status" class="text-nowrap">
+													<strong>Thay băng lần:</strong>&nbsp;
+													<p class="d-inline text-wrap">{{this.times}}</p>
+												</label>
+												<label for="status" class="text-nowrap">
+													<strong>Ngày hẹn thay băng:</strong>&nbsp;
+													<p class="d-inline text-wrap">{{formatShortDate this.schedule}}</p>
+												</label>
+												<label for="status" class="text-nowrap">
+													<strong>Ngày thay băng:</strong>&nbsp;
+													<p class="d-inline text-wrap">{{formatShortDate
+														this.woundCleaningID.woundCleaningDay}}</p>
+												</label>
+											</div>
+										</div>
+									</a>
+								</div>
+								{{/each}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<ul class="list-group mb-3 ms-3 me-3">
+					<li class="list-group-item active text-center">
+						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin tái
+								khám</strong></label>
+					</li>
+					<li class="list-group-item">
+						<div class="d-flex justify-content-end mb-3">
+							<button class="btn btn-danger btn-sm mr-3" type="button" data-bs-toggle="collapse"
+								data-bs-target="#restoreImgReExam" aria-expanded="false"
+								aria-controls="restoreImgReExam">
+								<i class="fa-sharp fa-solid fa-trash"></i> Thùng rác
+							</button>
+							<button class="btn btn-primary btn-sm mr-3" type="button" data-bs-toggle="modal"
+								data-bs-target="#uploadImgModal">
+								<i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Tải ảnh lên máy chủ
+							</button>
+							<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
+								data-bs-target="#uploadVideoModal">
+								<i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Tải video lên máy chủ
+							</button>
+						</div>
+						<div class="collapse" id="restoreImgReExam">
+							<div class="card card-body">
+								<div class="row">
+									<div class="col-md-6 border-right">
+										<div class="row overflow-auto" style="height: 350px;">
+											{{#each reExam.reExamImg}}
+											{{#if notDeletedYet}}
+											{{else}}
+											<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+												<a type="button" class="" data-bs-toggle="modal"
+													data-bs-target="#restoreImageModalReExam" data-img="{{this.name}}">
+													<img class="img-fluid img-150"
+														src="/re-examination/img/{{this.name}}">
+												</a>
+												{{!-- <a type="button" class="" data-bs-toggle="modal"
+													data-bs-target="#restoreImageModalReExam" data-img="{{this.url}}">
+													<img class="img-fluid img-150" src="{{this.url}}">
+												</a> --}}
+											</div>
+											{{/if}}
+											{{/each}}
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row overflow-auto" style="height: 350px;">
+											{{#each reExam.reExamVideo}}
+											{{#if notDeletedYet}}
+											{{else}}
+											<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+												<a type="button" class="" data-bs-toggle="modal"
+													data-bs-target="#restoreVideoModalReExam"
+													data-video="{{this.name}}">
+													<video class="img-fluid video-150"
+														src="/re-examination/video/{{this.name}}"></video>
+												</a>
+												{{!-- <a type="button" class="" data-bs-toggle="modal"
+													data-bs-target="#restoreVideoModalReExam" data-video="{{this.url}}">
+													<video class="img-fluid video-150" src="{{this.url}}"></video>
+												</a> --}}
+											</div>
+											{{/if}}
+											{{/each}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li class="list-group-item">
+
+						<form method="POST" action="/customer-care/employ/re-exam/{{reExam._id}}/upload"
+							id="submit-re-exam-form" enctype="multipart/form-data">
+							<input hidden type="text" value="{{reExam.cusID._id}}" name="cusID">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-group-text" for="inputGroupSelect"><strong>Bác sĩ tái
+												khám:</strong>&nbsp;<span class="text-danger">*</span></label>
+										{{#if reExam.performer}}
+										<select class="form-select form-control" id="inputGroupSelect" name="performer"
+											rules="required">
+											<option value="{{reExam.performer._id}}" selected>
+												{{reExam.performer.firstName}}
+												{{reExam.performer.lastName}}</option>
+											{{#each users}}
+											<option value="{{this._id}}">{{this.firstName}}
+												{{this.lastName}}</option>
+											{{/each}}
+										</select>
+										{{else}}
+										<select class="form-select form-control" id="inputGroupSelect" name="performer"
+											rules="required">
+											<option value=""></option>
+											{{#each users}}
+											<option value="{{this._id}}">{{this.firstName}}
+												{{this.lastName}}</option>
+											{{/each}}
+										</select>
+										{{/if}}
+										<span class="form-message mt-1"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-group-text" for="inputGroupDateTimePicker"><strong>Ngày tái
+												khám:</strong>&nbsp;<span class="text-danger">*</span></label>
+										{{#if reExam.reExaminationDate}}
+										<input class="form-control" type="datetime-local" name="reExaminationDate"
+											id="inputGroupDateTimePicker" rules="required"
+											value="{{reExam.reExaminationDate}}">
+										{{else}}
+										<input class="form-control" type="datetime-local" name="reExaminationDate"
+											id="inputGroupDateTimePicker" rules="required">
+										{{/if}}
+										<span class="form-message mt-1"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-group-text" for="inputGroupReExaminationArea"><strong>Khu vực
+												tái
+												khám:</strong>&nbsp;<span class="text-danger">*</span></label>
+										{{#if reExam.reExaminationArea}}
+										<input class="form-control" type="text" name="reExaminationArea"
+											id="inputGroupReExaminationArea" placeholder="VD: Tầng 3 phòng 3.6"
+											rules="required" value="{{reExam.reExaminationArea}}">
+										{{else}}
+										<input class="form-control" type="text" name="reExaminationArea"
+											id="inputGroupReExaminationArea" placeholder="VD: Tầng 3 phòng 3.6"
+											rules="required">
+										{{/if}}
+										<span class="form-message mt-1"></span>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="steps-to-take-area"><strong>Tình trạng khách
+												hàng:</strong>&nbsp;<span class="text-danger">*</span></label>
+										{{#if reExam.statusInfo}}
+										<textarea class="form-control pl-3" name="statusInfo" rows="8"
+											rules="required">{{reExam.statusInfo}}</textarea>
+										{{else}}
+										<textarea class="form-control pl-3" name="statusInfo" rules="required"
+											rows="8"></textarea>
+										{{/if}}
+										<span class="form-message mt-1"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="steps-to-take-area"><strong>Chỉ định bác
+												sĩ:</strong>&nbsp;<span class="text-danger">*</span></label>
+										{{#if reExam.directedByDoctor}}
+										<textarea class="form-control pl-3" name="directedByDoctor" rows="8"
+											rules="required">{{reExam.directedByDoctor}}</textarea>
+										{{else}}
+										<textarea class="form-control pl-3" name="directedByDoctor" rows="8"
+											rules="required"></textarea>
+										{{/if}}
+										<span class="form-message mt-1"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label for="steps-to-take-area"><strong>Các bước thực
+												hiện:</strong>&nbsp;<span class="text-danger">*</span></label>
+										{{#if reExam.stepsToTake}}
+										<textarea class="form-control" name="stepsToTake" rows="8"
+											rules="required">{{reExam.stepsToTake}}</textarea>
+										{{else}}
+										<textarea class="form-control" name="stepsToTake" rows="8"
+											rules="required"></textarea>
+										{{/if}}
+										<span class="form-message mt-1"></span>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button id="submit-re-exam-form-btn" class="btn btn-primary btn-sm" type="submit">Cập
+									nhật</button>
+							</div>
+						</form>
+						<div class="row mb-2">
+							<div class="col-md-6">
+								<div class="row border overflow-auto rounded m-0" style="height: 350px;">
+									{{#each reExam.reExamImg}}
+									{{#if notDeletedYet}}
+									<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+										{{!-- <a type="button" class="" data-bs-toggle="modal"
+											data-bs-target="#imageModalReExam" data-img="{{this.url}}">
+											<img class="img-fluid img-150" src="{{this.url}}">
+										</a> --}}
+										<a type="button" class="" data-bs-toggle="modal"
+											data-bs-target="#imageModalReExam" data-img="{{this.name}}">
+											<img class="img-fluid img-150" src="/re-examination/img/{{this.name}}">
+										</a>
+									</div>
+									{{/if}}
+									{{/each}}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row border overflow-auto rounded m-0" style="height: 350px;">
+									{{#each reExam.reExamVideo}}
+									{{#if notDeletedYet}}
+									<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+										{{!-- <a type="button" class="" data-bs-toggle="modal"
+											data-bs-target="#videoModalReExam" data-video="{{this.url}}">
+											<video class="img-fluid video-150" src="{{this.url}}"></video>
+										</a> --}}
+										<a type="button" class="" data-bs-toggle="modal"
+											data-bs-target="#videoModalReExam" data-video="{{this.name}}">
+											<video class="img-fluid video-150"
+												src="/re-examination/video/{{this.name}}"></video>
+										</a>
+									</div>
+									{{/if}}
+									{{/each}}
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="steps-to-take-area"><strong>Bác sĩ tái khám:</strong></label>
+								{{#if reExam.performer}}
+								<p class="text-break inline">{{reExam.performer.firstName}}
+									{{reExam.performer.lastName}}</p>
+								{{else}}
+								<p class="text-break inline">Chưa có thông tin</p>
+								{{/if}}
+							</div>
+							<div class="col-md-4">
+								<label for="steps-to-take-area"><strong>Ngày tái khám:</strong></label>
+								{{#if reExam.reExaminationDate}}
+								<p class="text-break inline">{{formatShortDate reExam.reExaminationDate}}</p>
+								{{else}}
+								<p class="text-break inline">Chưa có thông tin</p>
+								{{/if}}
+							</div>
+							<div class="col-md-4">
+								<label for="steps-to-take-area"><strong>Khu vực tái khám:</strong></label>
+								{{#if reExam.reExaminationArea}}
+								<p class="text-break inline">{{reExam.reExaminationArea}}</p>
+								{{else}}
+								<p class="text-break inline">Chưa có thông tin</p>
+								{{/if}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<label for="steps-to-take-area"><strong>Tình trạng khách
+										hàng:</strong></label>
+								{{#if reExam.statusInfo}}
+								<p class="text-break">{{reExam.statusInfo}}</p>
+								{{else}}
+								<p class="text-break">Chưa có thông tin</p>
+								{{/if}}
+							</div>
+							<div class="col-md-4">
+								<label for="steps-to-take-area"><strong>Chỉ định bác
+										sĩ:</strong></label>
+								{{#if reExam.directedByDoctor}}
+								<p class="text-break">{{reExam.directedByDoctor}}</p>
+								{{else}}
+								<p class="text-break">Chưa có thông tin</p>
+								{{/if}}
+							</div>
+							<div class="col-md-4">
+								<label for="steps-to-take-area"><strong>Các bước thực
+										hiện:</strong></label>
+								{{#if reExam.stepsToTake}}
+								<p class="text-break">{{reExam.stepsToTake}}</p>
+								{{else}}
+								<p class="text-break">Chưa có thông tin</p>
+								{{/if}}
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal upload image-->
+<div class="modal fade" id="uploadImgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Tải hình ảnh lên máy chủ</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="submit-re-exam-form-upload-img" enctype="multipart/form-data" data-re-exam-id="{{reExam._id}}">
+				{{!-- <form id="submit-re-exam-form-upload-img" method="POST" action="/customer-care/employ/re-exam/{{reExam._id}}/uploadImages" enctype="multipart/form-data" data-re-exam-id="{{reExam._id}}"> --}}
+					<input type="text" class="visually-hidden" name="cusID" id="cusID" value="{{reExam.cusID._id}}">
+					<div id="preview-images-re-exam"
+						class="preview-images-re-exam text-center border rounded overflow-auto ms-0 me-0 p-3"
+						style="height: 600px;"></div>
+					<input id="input-multi-images-re-exam" class="form-control visually-hidden" type="file"
+						name="reExamination" accept="image/*" multiple data-re-exam-id="{{reExam._id}}">
+					<div id="message" class="alert-light" role="alert"></div>
+				</form>
+				<div class="input-group">
+					<label for="input-multi-images-re-exam"
+						class="label-avt m-0 btn btn-outline-secondary btn-sm rounded-start">
+						<i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Chọn ảnh thay băng cắt chỉ
+					</label>
+					<button id="upload-img-btn" class="btn btn-primary btn-sm rounded-end" type="submit">Tải
+						lên máy chủ</button>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal upload video-->
+<div class="modal fade" id="uploadVideoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Tải video lên máy chủ</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="submit-re-exam-form-upload-video" enctype="multipart/form-data"
+					data-re-exam-id="{{reExam._id}}">
+					<div id="preview-videos-re-exam"
+						class="preview-videos-re-exam text-center border rounded overflow-auto ms-0 me-0 p-3"
+						style="height: 600px;"></div>
+					<div id="progressBarVideo" class="mb-3"></div>
+					<div class="input-group inherit">
+						<label for="input-multi-videos-re-exam"
+							class="label-avt m-0 btn btn-outline-secondary btn-sm rounded-start">
+							<i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Chọn video thay băng cắt chỉ
+						</label>
+						<button class="btn btn-primary btn-sm rounded-end" type="submit">Tải
+							lên máy chủ</button>
+						<input id="input-multi-videos-re-exam" class="form-control visually-hidden" type="file"
+							accept="video/*" name="reExamination" multiple>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Delete Re-Examination Image Modal -->
+<div class="modal fade" id="imageModalReExam" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form method="POST" name="deleteImgReExamForm"
+				action="/customer-care/employ/re-exam/{{reExam._id}}/delete-img?_method=DELETE">
+				<div class="modal-body">
+					<div class="text-center">
+						<img id="modal-img-re-exam" class="img-thumbnail" alt="...">
+						<input id="inputDeleteImgReExam" type="text" name="imgName" hidden>
+						<input class="form-control bg-light" type="text" value="{{reExam.cusID._id}}" hidden
+							name="cusID">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-danger btn-sm">Xóa ảnh</button>
+					<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Restore Re-Examination Image Modal -->
+<div class="modal fade" id="restoreImageModalReExam" tabindex="-1" aria-labelledby="restoreImageModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form method="POST" name="restoreImgReExamForm"
+			action="/customer-care/employ/re-exam/{{reExam._id}}/restore-img?_method=PATCH">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="text-center">
+						<img id="restore-img-re-exam" class="img-thumbnail" alt="...">
+						<input id="inputRestoreImageReExam" type="text" name="imgName" hidden>
+						<input class="form-control bg-light" type="text" value="{{reExam.cusID._id}}" hidden
+							name="cusID">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
+					<button class="btn btn-primary btn-sm">Khôi phục</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- Delete Re-Examination Video Modal -->
+<div class="modal fade" id="videoModalReExam" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form method="POST" name="deleteVideoReExamForm"
+				action="/customer-care/employ/re-exam/{{reExam._id}}/delete-video?_method=DELETE">
+				<div class="modal-body">
+					<div class="text-center">
+						<video id="modal-video-re-exam" class="img-thumbnail" alt="..." controls>
+							<input id="inputDeleteVideoReExam" type="text" name="videoName" hidden>
+							<input class="form-control bg-light" type="text" value="{{reExam.cusID._id}}" hidden
+								name="cusID">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-danger btn-sm">Xóa video</button>
+					<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Restore Re-Examination Video Modal -->
+<div class="modal fade" id="restoreVideoModalReExam" tabindex="-1" aria-labelledby="restoreVideoModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<form method="POST" name="restoreImgReExamForm"
+			action="/customer-care/employ/re-exam/{{reExam._id}}/restore-video?_method=PATCH">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="text-center">
+						<video id="restore-video-re-exam" class="img-thumbnail" alt="..." controls></video>
+						<input id="inputRestoreVideoReExam" type="text" name="videoName" hidden>
+						<input class="form-control bg-light" type="text" value="{{reExam.cusID._id}}" hidden
+							name="cusID">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
+					<button class="btn btn-primary btn-sm">Khôi phục</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+{{!-- Complete re-exam --}}
+<div class="modal fade" id="submit-re-exam-modal-done" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-success">
+				<h5 class="modal-title text-light" id="exampleModalLabel">Xác nhận hoàn thành tái khám</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+					aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="submit-re-exam-form-done">
+					<input type="text" name="cusID" id="submit-re-exam-done-cusID" hidden>
+					<input type="text" name="serviceNoteID" id="submit-re-exam-done-serviceNoteID" hidden>
+					<input type="text" name="reExamScheduleID" id="submit-re-exam-done-reExaminationScheduleID" hidden>
+				</form>
+				Bạn chắc chắn đã nhập đầy đủ thông tin và xác nhận hoàn thành tái khám cho khách hàng <strong
+					id="submit-re-exam-fullname"></strong>?
+			</div>
+			<div class="modal-footer d-flex justify-content-between">
+				<button id="submit-re-exam-btn-done" type="button" class="btn btn-success btn-sm">Có, chắc chắn và hoàn
+					thành</button>
+				<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Không. Cần kiểm tra
+					lại</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/progressbar.js@1.0.0/dist/progressbar.min.js"></script>
+<script src="/js/customer-care/customer-care-employ-re-exam-update.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+<script src="/js/upload.js"></script>
+<script>
+	validate('#submit-re-exam-form');
+</script>

@@ -245,7 +245,7 @@ function currentSlidesReExamVideo(n) {
 
 function showSlidesReExamImg(n) {
 	let i;
-	let slides = document.getElementsByClassName("slide-re-exam-img");
+	let slides = document.getElementsByClassName("slide-wound-cleaning-schedule-img");
 	if (slides) {
 		let dots = document.getElementsByClassName("dot");
 		if (n > slides.length) { slideIndex = 1 }
@@ -267,7 +267,7 @@ function showSlidesReExamImg(n) {
 
 function showSlidesReExamVideo(n) {
 	let i;
-	let slides = document.getElementsByClassName("slide-re-exam-video");
+	let slides = document.getElementsByClassName("slide-wound-cleaning-schedule-video");
 	if (slides) {
 		let dots = document.getElementsByClassName("dot");
 		if (n > slides.length) { slideIndex = 1 }
@@ -301,19 +301,19 @@ for(i=0; i < setColors.length; i++) {
 	}
 }
 
-// Tạo lịch tái khám của customer care
-var createReExaminationFormCustomerCare = document.forms['create-re-exam-form-customer-care'];
-var createReExaminationModalCustomerCare = document.getElementById('create-re-exam-modal-customer-care');
-var createReExaminationBtnCustomerCare = document.getElementById('create-re-exam-btn-customer-care');
+// Tạo lịch thay băng của customer care
+var createWoundCleaningScheduleFormCustomerCare = document.forms['create-wound-cleaning-schedule-form-customer-care'];
+var createWoundCleaningScheduleModalCustomerCare = document.getElementById('create-wound-cleaning-schedule-modal-customer-care');
+var createWoundCleaningScheduleBtnCustomerCare = document.getElementById('create-wound-cleaning-schedule-btn-customer-care');
 
-if (createReExaminationBtnCustomerCare) {
-	createReExaminationBtnCustomerCare.addEventListener("click", () => {
-		createReExaminationFormCustomerCare.submit();
+if (createWoundCleaningScheduleBtnCustomerCare) {
+	createWoundCleaningScheduleBtnCustomerCare.addEventListener("click", () => {
+		createWoundCleaningScheduleFormCustomerCare.submit();
 	});
 }
 
-if (createReExaminationModalCustomerCare) {
-	createReExaminationModalCustomerCare.addEventListener('show.bs.modal', function (event) {
+if (createWoundCleaningScheduleModalCustomerCare) {
+	createWoundCleaningScheduleModalCustomerCare.addEventListener('show.bs.modal', function (event) {
 		var button = event.relatedTarget;
 		let id = button.getAttribute("data-id");
 		let cusId = button.getAttribute("data-cusId");
@@ -322,14 +322,14 @@ if (createReExaminationModalCustomerCare) {
 		let nickName = button.getAttribute("data-nickName");
 		let gender = button.getAttribute("data-gender");
 		let phone = button.getAttribute("data-phone");
-		createReExaminationFormCustomerCare.setAttribute('action', `/customer-care/employ/customers/${id}/create-re-examination`);
+		createWoundCleaningScheduleFormCustomerCare.setAttribute('action', `/customer-care/employ/customers/${id}/create-wound-cleaning-schedule`);
 
-		let createIdCustomerCare = document.getElementById('create-re-exam-cusId-customer-care');
-		let createIdentificationCustomerCare = document.getElementById('create-re-exam-identification-customer-care');
-		let createFullNameCustomerCare = document.getElementById('create-re-exam-fullname-customer-care');
-		let createNickNameCustomerCare = document.getElementById('create-re-exam-nickname-customer-care');
-		let createGenderCustomerCare = document.getElementById('create-re-exam-gender-customer-care');
-		let createPhoneCustomerCare = document.getElementById('create-re-exam-phone-customer-care');
+		let createIdCustomerCare = document.getElementById('create-wound-cleaning-schedule-cusId-customer-care');
+		let createIdentificationCustomerCare = document.getElementById('create-wound-cleaning-schedule-identification-customer-care');
+		let createFullNameCustomerCare = document.getElementById('create-wound-cleaning-schedule-fullname-customer-care');
+		let createNickNameCustomerCare = document.getElementById('create-wound-cleaning-schedule-nickname-customer-care');
+		let createGenderCustomerCare = document.getElementById('create-wound-cleaning-schedule-gender-customer-care');
+		let createPhoneCustomerCare = document.getElementById('create-wound-cleaning-schedule-phone-customer-care');
 		createIdCustomerCare.value = cusId;
 		createIdentificationCustomerCare.innerHTML = identification;
 		createFullNameCustomerCare.innerHTML = fullName;
@@ -477,3 +477,33 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 	
 });
+
+// Modal move to re-examination
+var moveToReExamForm = document.forms['move-to-re-exam-form'];
+var moveToReExamModal = document.getElementById('move-to-re-exam-modal');
+var moveToReExamBtn = document.getElementById('move-to-re-exam-btn');
+
+if (moveToReExamBtn) {
+	moveToReExamBtn.addEventListener("click", () => {
+		moveToReExamForm.submit();
+	});
+}
+
+if (moveToReExamModal) {
+	moveToReExamModal.addEventListener('show.bs.modal', function (event) {
+		var button = event.relatedTarget;
+
+		let serviceNoteID = button.getAttribute("data-service-note-id");
+		let cusID = button.getAttribute("data-customer-id");
+		let fullName = button.getAttribute("data-cutomer-fullName");
+
+		moveToReExamForm.setAttribute('action', `/customer-care/employ/customer/${serviceNoteID}/move-to-re-exam?_method=PATCH`);
+		var moveToReExamCusID = document.getElementById('move-to-re-exam-cusID');
+		var moveToReExamFullNameInput = document.getElementById('move-to-re-exam-fullName');
+		var moveToReExamFullName = document.getElementById('move-to-re-exam-fullname');
+		moveToReExamFullName.innerHTML = fullName;
+		moveToReExamCusID.value = cusID;
+		moveToReExamFullNameInput.value = fullName;
+
+	})
+}

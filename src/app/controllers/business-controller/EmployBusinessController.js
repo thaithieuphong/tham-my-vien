@@ -114,14 +114,22 @@ class EmployBusinessController {
 
 	// Show customer discharge from hospital
 	showCustomerDischargeFromHospital(req, res, next) {
-		Promise.all([Customer.find({}).sort({'updatedAt': -1}), User.findById({ _id: req.userId }), TypeService.find({})])
+		Promise.all([
+			Customer.find({}).sort({'updatedAt': -1}).populate({
+				path: 'serviceNoteID',
+				model: 'ServiceNote',
+			}),
+			User.findById({ _id: req.userId }), TypeService.find({})])
 			.then(([customers, user, typeservices]) => {
 				let cusDisChargerFromHospital = [];
 				customers.forEach(customer => {
-					if (customer.statusCus.statusEng === 'dischargeFromHospital') {
+					console.log(customer.hasServiceNote);
+					if (customer.hasServiceNote && customer.serviceNoteID.isPostSurgeryCare) {
 						cusDisChargerFromHospital.push(customer);
 					}
 				});
+				// console.log(customers);
+				// console.log(cusDisChargerFromHospital);
 				res.render("business/employ/employ-customer-discharge-from-hospital", {
 					customersDischargeFromHospital: multipleMongooseToObject(cusDisChargerFromHospital),
 					user: mongooseToObject(user),
@@ -400,14 +408,19 @@ class EmployBusinessController {
 
 	// Show edit customer page
 	showCustomerEdit(req, res, next) {
-		Customer.findById({ _id: req.params.id })
-			.then(customer => {
-				res.render('business/employ/employ-customer-edit', {
-					customer: mongooseToObject(customer),
-					title: 'Sửa / cập nhật thông tin khách hàng'
-				});
-			})
-			.catch(next);
+		Promise.all([
+
+			Customer.findById({ _id: req.params.id }),
+			User.findById({ _id: req.userId })
+		])
+		.then(([customer, user]) => {
+			res.render('business/employ/employ-customer-edit', {
+				customer: mongooseToObject(customer),
+				title: 'Sửa / cập nhật thông tin khách hàng',
+				user: mongooseToObject(user)
+			});
+		})
+		.catch(next);
 	}
 
 	// edit customer
@@ -841,7 +854,7 @@ class EmployBusinessController {
 	showSchedules(req, res, next) {
 		// Tìm tất cả lịch hẹn tư vấn của khách hàng có hasServiceNote: false
 		Promise.all([
-			Schedule.find({}).populate('cusID'),
+			Schedule.find({ hasServiceNote: false }).populate('cusID'),
 			User.findById({ _id: req.userId })
 		])
 		.then(([schedules, user]) => {
@@ -900,6 +913,7 @@ class EmployBusinessController {
 			priceBefore: req.body.priceBefore,
 			deposit: req.body.deposit,
 			comment: req.body.comment,
+			hasServiceNote: false
 		}
 		const schedule = new Schedule(data);
 		schedule.save();
@@ -931,13 +945,15 @@ class EmployBusinessController {
 			Schedule.findById({ _id: req.params.id }).populate({
 				path: 'cusID'
 			}),
-			TypeService.find({})
+			TypeService.find({}),
+			User.findById({ _id: req.userId })
 		])
-		.then(([schedule, typeservices]) => {
+		.then(([schedule, typeservices, user]) => {
 			res.render('business/employ/employ-schedule-edit', {
 				title: 'Sửa/Cập nhật thông tin lịch hẹn tư vấn',
 				schedule: mongooseToObject(schedule),
-				typeservices: multipleMongooseToObject(typeservices)
+				typeservices: multipleMongooseToObject(typeservices),
+				user: mongooseToObject(user)
 			})
 		})
 		.catch(next);
@@ -1027,47 +1043,12 @@ class EmployBusinessController {
 			.catch(next);
 	}
 
-	createReExam(req, res, next) {
-		const reexamination = new Reexamination({
-			customerID: req.body.customerID,
-			createName: req.body.createName,
-			serviceNoteId: req.body.serviceNoteID,
-			status: "Tạo mới",
-			schedule: req.body.schedule,
-			comments: { comment: req.body.comment },
-
-		})
-		reexamination.save();
-		Customer.findByIdAndUpdate({ _id: req.body.customerID }, { $push: { reexamID: reexamination.id } })
-			.then(() => {
-				res.redirect('back');
-			})
-			.catch(next);
-	}
-
-	// Chi tiết khách hàng xuất viện
-	showCustomerDischargeFromHospitalDetail(req, res, next) {
-		Customer.findById({ _id: req.params.id }).populate({
-			path: 'serviceNoteID',
-			match: {
-				status: 'Xuất viện'
-			},
-			populate: {
-				path: 'performer'
-			}
-		})
-		.then(customer => {
-			res.render('business/employ/employ-customer-discharge-from-hospital-detail', {
-				title: 'Chi tiết khách hàng xuất viện',
-				customer: mongooseToObject(customer)
-			})
-		})
-		.catch(next);
-	}
-
 	// Hiển thị trang tạo phiếu dịch vụ
 	serviceNoteCreate(req, res, next) {
-		const serviceNote = new ServiceNote({ scheduleID: req.params.id });
+		const serviceNote = new ServiceNote({
+			scheduleID: req.params.id,
+			isPostSurgeryCare: false
+		});
 		serviceNote.save();
 		const serviceNoteID = serviceNote._id;
 		const logs = new Log({
@@ -1084,12 +1065,11 @@ class EmployBusinessController {
 				$push: { logIDs: logs._id }
 			}),
 			Schedule.findByIdAndUpdate({ _id: req.params.id }, {
-				$set: { serviceNoteID: serviceNoteID, status: 'Đang xử lý' },
-				$push: { userID: req.userId }
+				$set: { serviceNoteID: serviceNoteID, status: 'Đang xử lý', userID: req.userId },
 			})
 		])
 		.then(() => {
-			res.redirect(`/business/employ/service-note/${serviceNoteID}/update`);
+			res.redirect(`/business/employ/service-note`);
 		})
 		.catch(next);
 	}
@@ -1117,6 +1097,7 @@ class EmployBusinessController {
 		.catch(next);
 	}
 
+	// Hiển thị trang cập nhật phiếu dịch vụ
 	showServiceNoteUpdate(req, res, next) {
 		Promise.all([
 			ServiceNote.findById({ _id: req.params.id }).populate({
@@ -1224,7 +1205,7 @@ class EmployBusinessController {
 			}),
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateCus)
 		])
-		.then(() => {
+		.then(([serviceNote, customer]) => {
 			req.flash('messages_updateService_success', 'Cập nhật dịch vụ thành công');
 			res.redirect('back');
 		})
@@ -1293,7 +1274,7 @@ class EmployBusinessController {
 				statusCus: { statusVi: 'Tư vấn không thành công', statusEng: 'Fail'},
 				$push: { logIDs: logs._id }
 			}),
-			Schedule.findByIdAndUpdate({ _id: req.body.scheduleID }, { status: 'Đã xóa phiếu dịch vụ' }),
+			Schedule.findByIdAndUpdate({ _id: req.body.scheduleID }, { $set: {status: 'Chờ xử lý', hasServiceNote: false } }),
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { status: 'Đã xóa phiếu dịch vụ'}),
 			ServiceNote.delete({ _id: req.params.id })
 		])
@@ -1321,8 +1302,8 @@ class EmployBusinessController {
 				hasServiceNote: true,
 				statusCus: { statusVi: 'Đã khôi phục và đang cập nhật thông tin phiếu dịch vụ', statusEng: 'restoredAndUpdatingServiceNoteInfomation'},
 				$push: { logIDs: logs._id } } ),
-			Schedule.findByIdAndUpdate( { _id: req.body.scheduleID }, { status: 'Đang xử lý' } ),
-			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { status: 'Đã khôi phục phiếu dịch vụ và đang xử lý'}),
+			Schedule.findByIdAndUpdate( { _id: req.body.scheduleID }, { $set: { status: 'Đang xử lý', hasServiceNote: true } } ),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { status: 'Khôi phục'}),
 			ServiceNote.restore({ _id: req.params.id} )
 		])
 			.then(() => {
@@ -1338,10 +1319,10 @@ class EmployBusinessController {
 		const imgArr = [];
 		const videoArr = [];
 		file.forEach((element, index) => {
-			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png' || element.mimetype === 'image/avif' || element.mimetype === 'image/webp') {
 				imgArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return imgArr;
-			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/MOV' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/quicktime' || element.mimetype === 'video/mov' || element.mimetype === 'video/MOV' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
 				videoArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return videoArr;
 			}
@@ -1501,10 +1482,10 @@ class EmployBusinessController {
 		const imgArr = [];
 		const videoArr = [];
 		file.forEach(element => {
-			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png' || element.mimetype === 'image/avif' || element.mimetype === 'image/webp') {
 				imgArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return imgArr;
-			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/quicktime' || element.mimetype === 'video/mov'|| element.mimetype === 'video/MOV' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
 				videoArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return videoArr;
 			}
@@ -1653,10 +1634,10 @@ class EmployBusinessController {
 		const imgArr = [];
 		const videoArr = [];
 		file.forEach(element => {
-			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png' || element.mimetype === 'image/avif' || element.mimetype === 'image/webp') {
 				imgArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return imgArr;
-			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/quicktime' || element.mimetype === 'video/mov'|| element.mimetype === 'video/MOV' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
 				videoArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return videoArr;
 			}
@@ -1805,10 +1786,10 @@ class EmployBusinessController {
 		const imgArr = [];
 		const videoArr = []
 		file.forEach(element => {
-			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png') {
+			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png' || element.mimetype === 'image/avif' || element.mimetype === 'image/webp') {
 				imgArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return imgArr;
-			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/mov' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
+			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/quicktime' || element.mimetype === 'video/mov'|| element.mimetype === 'video/MOV' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
 				videoArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
 				return videoArr;
 			}
@@ -1975,7 +1956,7 @@ class EmployBusinessController {
 		.catch(next);
 	}
 
-	// Cập nhật phiếu dịch vụ sang hoàn thành
+	// Cập nhật phiếu dịch vụ sang chăm sóc hậu phẫu
 	serviceNoteDone(req, res, next) {
 		console.log(req.body)
 		console.log(req.params.id)
@@ -1989,8 +1970,8 @@ class EmployBusinessController {
 		});
 		logs.save();
 		Promise.all([
-			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $set: { statusCus: { statusVi: 'Chăm sóc hậu phẫu', statusEng: 'postSurgeryCare' }}, $push: { logIDs: logs._id }}),
-			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { status: 'Chăm sóc hậu phẫu', isPostSurgeryCare: true })
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $set: { statusCus: { statusVi: 'Chăm sóc hậu phẫu', statusEng: 'postSurgeryCare' }, isPostSurgeryCare: true, hasWoundCleaningSchedule: false }, $push: { logIDs: logs._id }}),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { status: 'Chăm sóc hậu phẫu', isPostSurgeryCare: true, hasWoundCleaningSchedule: false })
 		])
 		.then(() => {
 			req.flash('messages_movingCustomerCare_success', 'Chuyển hồ sơ khách hàng sang chăm sóc hậu phẫu thành công');

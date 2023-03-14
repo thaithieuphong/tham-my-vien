@@ -42,6 +42,7 @@ body {
 .hover:hover > a {
     background-color: #0094ff;
     color: #ffffff !important;
+    border: #ffffff 1px solid;
 }
 
 #search-schedule {
@@ -62,6 +63,10 @@ body {
 
 .bg-dark-yellow {
    background-color: #ff8d3f !important;
+}
+
+.bg-dark-violet {
+    background-color: #6f42c1;
 }
 
 .text-dark-violet {
@@ -86,6 +91,10 @@ body {
 
 .bg-blue {
     background-color: #002357;
+}
+
+.bg-blue-logo {
+    background-image: linear-gradient(to bottom right, #26a0da, #003973);
 }
 
 .bg-glass {
@@ -132,6 +141,12 @@ body {
     height: 46px;
 }
 
+.img-250wh {
+    width: 250px;
+    height: 250px;
+    object-fit: cover !important;
+}
+
 .height-300 {
     max-height: 250px;
 }
@@ -153,6 +168,18 @@ body {
     object-fit: cover;
 }
 
+.video-150 {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.video-241wh {
+    width: auto;
+    height: 240px;
+    object-fit: cover !important;
+}
+
 .mt-6 {
     margin-top: 5rem !important;
 }
@@ -165,8 +192,20 @@ body {
     margin-bottom: 5rem;
 }
 
+.pt-1-25rem {
+    padding-top: 1.25rem !important;
+}
+
+.pb-1-25rem {
+    padding-bottom: 1.25rem !important;
+}
+
 .invalid {
     border: 0.5px crimson solid !important;
+}
+
+.filepond--item {
+    width: calc(25% - 0.5em);
 }
 
 .verticalLine {

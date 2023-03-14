@@ -1,187 +1,232 @@
 <link rel="stylesheet" href="/css/root.css">
 <link rel="stylesheet" href="/css/assistant.css">
-<div class="row me-0 pe-0">
-	<div class="col-md-2 pe-0 bg-blue position-relative">
-		<div class="nav navbar border-bottom">
-			<div></div>
-			<h6 class="text-light">BẢNG ĐIỀU KHIỂN</h6>
-			<div></div>
-		</div>
-		<div class="nav flex-column container-sidebar" style="height: 82.3vh;">
-			<div class="sidebar-item">
-				<a href="/customer-care/employ/customers" class="sidebar-item-title ps-3 pe-3">
-					<i class="ti-user mr-3"></i>Hồ sơ khách xuất viện
-				</a>
-			</div>
-			<div class="sidebar-item">
-				<a href="/customer-care/employ/re-exam" class="sidebar-item-title ps-3 pe-3">
-					<i class="fa-regular fa-calendar mr-3"></i> Danh sách lịch thay băng
-				</a>
-			</div>
-			<div class="sidebar-item">
-				<a href="/customer-care/employ/storage" class="sidebar-item-title ps-3 pe-3">
-					<i class="fa-sharp fa-solid fa-boxes-packing mr-3"></i>Kho lưu trữ hồ sơ
-				</a>
-			</div>
-		</div>
-		<div class="border-top">
-			<div class="sidebar-item">
-				<a href="/customer-care/employ/profile" class="sidebar-item-title pl-3">
-					<i class="ti-user mr-3"></i>Thông tin cá nhân
-				</a>
-			</div>
-			<div class="sidebar-item">
-				<form method="POST" action="/logout">
-					<button href="/logout" class="btn btn-danger logout-btn" type="submit">Đăng xuất</>
-				</form>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-10 ps-0 pe-0">
-		<nav class="navbar navbar-light bg-blue">
-			<div class="img-container">
-			</div>
-			<div class="text-light text-uppercase fw-bold">
-				{{this.title}}
-			</div>
-			<div></div>
-		</nav>
-		<div class="ps-3 pe-3">
-			<nav class="p-2 float-right">
-				<div class="btn-group" role="group" aria-label="Basic example">
-					<input id="search-surgeryDay" type="date" class="form-control">
-					<button id="filter" class="btn btn-outline-secondary"><i class="ti-filter"></i></button>
-				</div>
-				<div class="btn-group" role="group" aria-label="Basic example">
-					<input id="search-table" class="form-control" type="text" placeholder="Tìm kiếm...">
-				</div>
-			</nav>
-			<table id="table-customer" class="table table-hover table-bordered table-sm">
-				<thead class="bg-blue text-light">
-					<tr class="text-nowrap">
-						<th class="text-center" scope="col">#</th>
-						<th class="text-center" scope="col">Ngày phẫu thuật</th>
-						<th class="text-center" scope="col">Mã khách hàng</th>
-						<th class="text-center" scope="col">Họ tên khai sinh</th>
-						<th class="text-center" scope="col">Tên thường gọi</th>
-						<th class="text-center" scope="col">Giới tính</th>
-						<th class="text-center" scope="col">Số điện thoại</th>
-						<th class="text-center" scope="col">Trạng thái</th>
-						<th class="text-center" scope="col">Tác vụ</th>
-					</tr>
-				</thead>
-				<tbody id="table-content">
-					{{#each serviceNote}}
-					<tr class="text-nowrap text-value">
-						<th class="text-center">{{sum @index 1}}</th>
-						<td class="text-identify">{{formatBirth this.surgeryDay}}</td>
-						<td class="text-identify">{{this.scheduleID.customerID.identification}}</td>
-						<td class="text-fullName"><a class="fullName-link" href="/customer-care/employ/customers/{{this._id}}/detail">{{this.scheduleID.customerID.fullName}}</a></td>
-						<td class="text-nickName">{{this.scheduleID.customerID.nickName}}</td>
-						<td class="">{{this.scheduleID.customerID.gender}}</td>
-						<td class="text-phone">0{{this.scheduleID.customerID.phone}}</td>
-						<td class="text-status">{{this.status}}</td>
-						<td class="text-center">
-							<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Tạo lịch thay băng">
-								<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#create-re-exam-modal-customer-care"
-								data-id="{{this._id}}" data-cusId="{{this.scheduleID.customerID._id}}" data-identification="{{this.scheduleID.customerID.identification}}"
-								data-fullName="{{this.scheduleID.customerID.fullName}}" data-nickName="{{this.scheduleID.customerID.nickName}}" data-gender="{{this.scheduleID.customerID.gender}}"
-								data-phone="{{this.scheduleID.customerID.phone}}">
-									<i class="fa-sharp fa-solid fa-calendar-plus"></i> Tạo lịch thay băng
-								</button>
-							</div>
-							<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Lưu hồ sơ">
-								<button class="btn btn-success btn-sm" data-fullName-customer-care="{{this.scheduleID.customerID.fullName}}" data-cusID="{{this.scheduleID.customerID._id}}"
-								data-bs-toggle="modal" data-bs-target="#submit-service-note-done-modal-customer-care" data-id-customer-care="{{this._id}}">
-									<i class="fa-sharp fa-solid fa-boxes-packing"></i> Lưu hồ sơ
-								</button>
-							</div>
-						</td>
-					</tr>
-					{{/each}}
-				</tbody>
-			</table>
-		</div>
-	</div>
-</div>
-{{#if messages_createReExamination_success}}
-<div class="alert alert-success alert-dismissible fade show mt-2 ms-2 me-2" role="alert">
-	{{messages_createReExamination_success}}
-	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
+{{#if messages_moveServiceNoteToReExam_success}}
+    <div class="modal fade" id="messageMoveServiceNoteToReExamSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_moveServiceNoteToReExam_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageMoveServiceNoteToReExamSuccess = document.querySelector('#messageMoveServiceNoteToReExamSuccess');
+            $(messageMoveServiceNoteToReExamSuccess).modal('show');
+        });
+    </script>
 {{/if}}
+<div class="container-fluid overflow-hidden">
+    <div class="row vh-100 overflow-auto">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-blue-logo d-flex sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2">
+                <a href="/" class="d-flex justify-content-center align-items-center pb-sm-3 mb-md-0 text-light text-decoration-none w-100 border-bottom">
+					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
+					<span class="d-none d-sm-inline fs-6 text-uppercase">Bảng điều khiển</span>
+					{{!-- <span class="fs-6 text-uppercase">
+						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
+					</span> --}}
+                </a>
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start w-100 mt-2" id="menu">
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/customers-wound-cleaning" class="nav-link px-sm-0 px-2 text-light active">
+                            <i class="fa-sharp fa-solid fa-wheelchair ms-3 mr-3"></i><span class="d-none d-sm-inline">Khách thay băng cắt chỉ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/wound-cleaning-schedule" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch hẹn thay băng - cắt chỉ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/wound-cleaning" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span class="d-none d-sm-inline">Phiếu thay băng - cắt chỉ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/customer-re-exam" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="ti-shield ms-3 mr-3"></i><span class="d-none d-sm-inline">Khách tái khám định kỳ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/re-exam-schedule" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch hẹn tái khám định kỳ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/re-exam" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span class="d-none d-sm-inline">Phiếu tái khám định kỳ</span></a>
+                    </li>
+                </ul>
+                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1 w-100 hover">
+                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 rounded p-2 border" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{#if user.image.name}}
+						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
+                        {{else}}
+						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
+						{{/if}}
+						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+							<form method="POST" action="/logout">
+								<button class="dropdown-item" type="submit">Đăng xuất</>
+							</form>
+						</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex flex-column h-sm-100 ps-0 pe-0 overflow-auto">
+			<div class="text-center bg-blue-logo sticky-top d-flex justify-content-between">
+				<div class="img-container p-2">
+					<a type="button" onclick="history.back()">
+						<i class="fa-solid fa-circle-arrow-left text-light ms-1 fs-3"></i>
+					</a>
+				</div>
+				<div class="text-light text-uppercase fw-bold pt-2 pb-2">
+					{{this.title}}
+				</div>
+				<div></div>
+			</div>
+			<div class="container-fluid">
+				<nav class="p-2 float-right">
+					<div class="btn-group" role="group" aria-label="Basic example">
+						<input id="search-surgeryDay" type="date" class="form-control">
+						<button id="filter" class="btn btn-outline-secondary"><i class="ti-filter"></i></button>
+					</div>
+					<div class="btn-group" role="group" aria-label="Basic example">
+						<input id="search-table" class="form-control" type="text" placeholder="Tìm kiếm...">
+					</div>
+				</nav>
+				<table id="table-customer" class="table table-hover table-bordered table-sm">
+					<thead>
+						<tr class="text-nowrap">
+							<th class="text-center" scope="col">#</th>
+							<th class="text-center" scope="col">Ngày phẫu thuật</th>
+							<th class="text-center" scope="col">Mã khách hàng</th>
+							<th class="text-center" scope="col">Họ tên khai sinh</th>
+							<th class="text-center" scope="col">Tên thường gọi</th>
+							<th class="text-center" scope="col">Giới tính</th>
+							<th class="text-center" scope="col">Số điện thoại</th>
+							<th class="text-center" scope="col">Trạng thái</th>
+							<th class="text-center" scope="col">Tác vụ</th>
+						</tr>
+					</thead>
+					<tbody id="table-content">
+						{{#each serviceNotes}}
+						<tr class="text-nowrap text-value">
+							<th class="text-center">{{sum @index 1}}</th>
+							<td class="text-identify">{{formatBirth this.surgeryDay}}</td>
+							<td class="text-identify">{{this.scheduleID.cusID.identification}}</td>
+							<td class="text-fullName"><a class="fullName-link" href="/customer-care/employ/customers/{{this._id}}/detail">{{this.scheduleID.cusID.fullName}}</a></td>
+							<td class="text-nickName">{{this.scheduleID.cusID.nickName}}</td>
+							<td class="">{{this.scheduleID.cusID.gender}}</td>
+							<td class="text-phone">0{{this.scheduleID.cusID.phone}}</td>
+							<td class="text-status">{{this.status}}</td>
+							<td class="text-center">
+								<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Tạo lịch thay băng">
+									<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#create-wound-cleaning-schedule-modal-customer-care"
+									data-id="{{this._id}}" data-cusId="{{this.scheduleID.cusID._id}}" data-identification="{{this.scheduleID.cusID.identification}}"
+									data-fullName="{{this.scheduleID.cusID.fullName}}" data-nickName="{{this.scheduleID.cusID.nickName}}" data-gender="{{this.scheduleID.cusID.gender}}"
+									data-phone="{{this.scheduleID.cusID.phone}}">
+										<i class="fa-sharp fa-solid fa-calendar-plus"></i> Tạo lịch thay băng
+									</button>
+								</div>
+								<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Chuyển sang tái khám định kỳ">
+									<button type="button" data-bs-toggle="modal" data-bs-target="#move-to-re-exam-modal"
+										class="btn btn-success btn-sm moveToReExamBtn" data-customer-id="{{this.scheduleID.cusID._id}}" data-cutomer-fullName="{{this.scheduleID.cusID.fullName}}"
+										data-service-note-id="{{this._id}}">
+										<i class="fa-sharp fa-solid fa-circle-check"></i> Chuyển sang tái khám định kỳ
+									</button>
+								</div>
+							</td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
 
 <!-- Modal -->
-<div class="modal fade" id="create-re-exam-modal-customer-care" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="create-wound-cleaning-schedule-modal-customer-care" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header bg-blue">
-				<h5 class="modal-title text-light" id="exampleModalLabel">Tạo lịch tái khám</h5>
+			<div class="modal-header bg-blue-logo">
+				<h5 class="modal-title text-light" id="exampleModalLabel">Tạo lịch thay băng</h5>
 				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form id="create-re-exam-form-customer-care" method="POST">
-					<input id="create-re-exam-cusId-customer-care" type="text" name="cusID" hidden>
+				<form id="create-wound-cleaning-schedule-form-customer-care" method="POST">
+					<input id="create-wound-cleaning-schedule-cusId-customer-care" type="text" name="cusID" hidden>
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-nowrap"><strong>Mã khách hàng:</strong></label>
-						<div id="create-re-exam-identification-customer-care" class="m-0 text-wrap" ></div>
+						<div id="create-wound-cleaning-schedule-identification-customer-care" class="m-0 text-wrap" ></div>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-nowrap"><strong>Họ tên khai sinh:</strong></label>
-						<div id="create-re-exam-fullname-customer-care" class="m-0 text-wrap" ></div>
+						<div id="create-wound-cleaning-schedule-fullname-customer-care" class="m-0 text-wrap" ></div>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-nowrap"><strong>Tên thường gọi:</strong></label>
-						<div id="create-re-exam-nickname-customer-care" class="m-0 text-wrap" ></div>
+						<div id="create-wound-cleaning-schedule-nickname-customer-care" class="m-0 text-wrap" ></div>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label class="form-label"><strong>Giới tính:</strong></label>
-						<div id="create-re-exam-gender-customer-care" class="form-label"></div>
+						<div id="create-wound-cleaning-schedule-gender-customer-care" class="form-label"></div>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-nowrap" for=""><strong>Số điện thoại:</strong></label>
-						<div id="create-re-exam-phone-customer-care" class="form-label"></div>
+						<div id="create-wound-cleaning-schedule-phone-customer-care" class="form-label"></div>
 					</div>
 					<div class="d-flex justify-content-between">
-						<label class="form-label text-nowrap" for=""><strong>Tái khám lần:</strong></label>
+						<label class="form-label text-nowrap" for=""><strong>Số lần tái khám:</strong></label>
 						<div>
-							<input type="text" name="times" id="" class="form-control form-control-sm rounded-pill text-right" placeholder="Vd: 1">
+							<input type="text" name="times" id="" class="form-control form-control-sm text-right" placeholder="Vd: 1">
 						</div>
 					</div>
 					<div class="d-flex justify-content-between">
 						<label class="form-label text-nowrap" for=""><strong>Ngày hẹn:</strong></label>
 						<div>
-							<input type="datetime-local" id="create-re-exam-schedule-customer-care" class="form-control rounded-pill" name="schedule">
+							<input type="datetime-local" id="create-wound-cleaning-schedule-schedule-customer-care" class="form-control" name="schedule">
 						</div>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button id="create-re-exam-btn-customer-care" type="button" class="btn btn-primary rounded-pill">Tạo lịch</button>
-				<button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Đóng</button>
+				<button id="create-wound-cleaning-schedule-btn-customer-care" type="button" class="btn btn-primary btn-sm">Tạo lịch</button>
+				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
 			</div>
 		</div>
 	</div>
 </div>
 
-
-<!-- Hoàn thành chăm sóc khách hàng modal -->
-<div class="modal fade" id="submit-service-note-done-modal-customer-care" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+{{!-- Move to Re-examination --}}
+<div class="modal fade" id="move-to-re-exam-modal" tabindex="-1" aria-labelledby="move-to-re-exam-label" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
-			<div class="modal-header bg-blue">
-				<h5 class="modal-title text-light" id="exampleModalLabel">Hoàn thành chăm sóc khách hàng</h5>
+			<div class="modal-header bg-success">
+				<h5 class="modal-title text-light" id="move-to-re-exam-label">Chuyển khách hàng sang tái khám định kỳ</h5>
 				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form id="submit-service-note-done-form-customer-care" method="POST">
-					<input id="submit-service-note-done-cusId-customer-care" type="text" name="cusID" hidden>
-					Bạn chắc chắn đã hoàn thành chăm sóc khách hàng <strong class="text-danger" id="fullName-modal-customer-care"></strong>
+				<form method="POST" id="move-to-re-exam-form">
+					<input type="text" name="cusID" id="move-to-re-exam-cusID" hidden>
+					<input type="text" name="fullName" id="move-to-re-exam-fullName" hidden>
 				</form>
+				Bạn chắc chắn muốn khách hàng <strong id="move-to-re-exam-fullname"></strong> sang tái khám định kỳ?
 			</div>
 			<div class="modal-footer d-flex justify-content-between">
-				<button id="submit-service-note-done-btn-customer-care" type="button" class="btn btn-primary rounded-pill">Có, chắc chắn</button>
-				<button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Đóng</button>
+				<button id="move-to-re-exam-btn" type="button" class="btn btn-success btn-sm">Chắc chắn</button>
+				<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Không, Hủy bỏ</button>
 			</div>
 		</div>
 	</div>

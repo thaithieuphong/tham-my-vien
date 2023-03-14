@@ -1,0 +1,238 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+{{#if messages_createReExaminationSchedule_success}}
+<div class="modal fade" id="messageCreateReExamScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_createReExaminationSchedule_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageCreateReExamScheduleSuccess = document.querySelector('#messageCreateReExamScheduleSuccess');
+		$(messageCreateReExamScheduleSuccess).modal('show');
+	});
+</script>
+{{/if}}
+<div class="container-fluid overflow-hidden">
+    <div class="row vh-100 overflow-auto">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-blue-logo d-flex sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2">
+                <a href="/" class="d-flex justify-content-center align-items-center pb-sm-3 mb-md-0 text-light text-decoration-none w-100 border-bottom">
+					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
+					<span class="d-none d-sm-inline fs-6 text-uppercase">Bảng điều khiển</span>
+					{{!-- <span class="fs-6 text-uppercase">
+						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
+					</span> --}}
+                </a>
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start w-100 mt-2" id="menu">
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/customers-wound-cleaning" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-wheelchair ms-3 mr-3"></i><span class="d-none d-sm-inline">Khách thay băng cắt chỉ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/wound-cleaning-schedule" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch hẹn thay băng - cắt chỉ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/wound-cleaning" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span class="d-none d-sm-inline">Phiếu thay băng - cắt chỉ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/customer-re-exam" class="nav-link px-sm-0 px-2 text-light active">
+                            <i class="ti-shield ms-3 mr-3"></i><span class="d-none d-sm-inline">Khách tái khám định kỳ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/re-exam-schedule" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch hẹn tái khám định kỳ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/re-exam" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span class="d-none d-sm-inline">Phiếu tái khám định kỳ</span></a>
+                    </li>
+                </ul>
+                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1 w-100 hover">
+                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 rounded p-2 border" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{#if user.image.name}}
+						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
+                        {{else}}
+						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
+						{{/if}}
+						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+							<form method="POST" action="/logout">
+								<button class="dropdown-item" type="submit">Đăng xuất</>
+							</form>
+						</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex flex-column h-sm-100 ps-0 pe-0 overflow-auto">
+			<div class="text-center bg-blue-logo sticky-top d-flex justify-content-between">
+				<div class="img-container p-2">
+					<a type="button" onclick="history.back()">
+						<i class="fa-solid fa-circle-arrow-left text-light ms-1 fs-3"></i>
+					</a>
+				</div>
+				<div class="text-light text-uppercase fw-bold pt-2 pb-2">
+					{{this.title}}
+				</div>
+				<div></div>
+			</div>
+			<div class="container-fluid">
+				<nav class="p-2 float-right">
+					<div class="btn-group" role="group" aria-label="Basic example">
+						<input id="search-surgeryDay" type="date" class="form-control">
+						<button id="filter" class="btn btn-outline-secondary"><i class="ti-filter"></i></button>
+					</div>
+					<div class="btn-group" role="group" aria-label="Basic example">
+						<input id="search-table" class="form-control" type="text" placeholder="Tìm kiếm...">
+					</div>
+				</nav>
+				<table id="table-customer-re-exam" class="table table-hover table-bordered table-sm">
+					<thead>
+						<tr class="text-nowrap">
+							<th class="text-center" scope="col">#</th>
+							<th class="text-center" scope="col">Ngày phẫu thuật</th>
+							<th class="text-center" scope="col">Mã khách hàng</th>
+							<th class="text-center" scope="col">Họ tên khai sinh</th>
+							<th class="text-center" scope="col">Tên thường gọi</th>
+							<th class="text-center" scope="col">Giới tính</th>
+							<th class="text-center" scope="col">Số điện thoại</th>
+							<th class="text-center" scope="col">Trạng thái</th>
+							<th class="text-center" scope="col">Tác vụ</th>
+						</tr>
+					</thead>
+					<tbody id="table-content">
+						{{#each serviceNotes}}
+						<tr class="text-nowrap text-value">
+							<th class="text-center">{{sum @index 1}}</th>
+							<td class="text-identify">{{formatBirth this.surgeryDay}}</td>
+							<td class="text-identify">{{this.scheduleID.cusID.identification}}</td>
+							<td class="text-fullName"><a class="fullName-link" href="/customer-care/employ/customers/{{this._id}}/detail">{{this.scheduleID.cusID.fullName}}</a></td>
+							<td class="text-nickName">{{this.scheduleID.cusID.nickName}}</td>
+							<td class="">{{this.scheduleID.cusID.gender}}</td>
+							<td class="text-phone">0{{this.scheduleID.cusID.phone}}</td>
+							<td class="text-status">{{this.status}}</td>
+							<td class="text-center">
+								<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Tạo lịch thay băng">
+									<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#create-re-exam-schedule-modal"
+									data-id="{{this._id}}" data-cusId="{{this.scheduleID.cusID._id}}" data-identification="{{this.scheduleID.cusID.identification}}"
+									data-fullName="{{this.scheduleID.cusID.fullName}}" data-nickName="{{this.scheduleID.cusID.nickName}}" data-gender="{{this.scheduleID.cusID.gender}}"
+									data-phone="{{this.scheduleID.cusID.phone}}">
+										<i class="fa-sharp fa-solid fa-calendar-plus"></i> Tạo lịch tái khám
+									</button>
+								</div>
+								<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Lưu hồ sơ khách hàng">
+									<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal-storage"
+										class="btn btn-success btn-sm" data-id="{{this._id}}" data-cusId="{{this.cusID._id}}" data-fullName="{{this.cusID.fullName}}"
+										data-service-note-id="{{this.serviceNoteID._id}}" data-re-exam-schedule-id="{{this.reExamScheduleID._id}}">
+										<i class="fa-sharp fa-solid fa-circle-check"></i> Lưu hồ sơ khách hàng
+									</button>
+								</div>
+							</td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+{{!-- Complete re-exam --}}
+<div class="modal fade" id="submit-re-exam-modal-storage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-success">
+				<h5 class="modal-title text-light" id="exampleModalLabel">Xác nhận lưu hồ sơ khách hàng vào kho lưu trữ</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="submit-re-exam-form-done">
+					<input type="text" name="cusID" id="submit-re-exam-done-cusID" hidden>
+					<input type="text" name="serviceNoteID" id="submit-re-exam-done-serviceNoteID" hidden>
+					<input type="text" name="reExamScheduleID" id="submit-re-exam-done-reExaminationScheduleID" hidden>
+				</form>
+				Bạn chắc chắn đã nhập đầy đủ thông tin và xác nhận hoàn thành tái khám cho khách hàng <strong id="submit-re-exam-fullname"></strong>?
+			</div>
+			<div class="modal-footer d-flex justify-content-between">
+				<button id="submit-re-exam-btn-done" type="button" class="btn btn-success btn-sm">Có, chắc chắn và hoàn thành</button>
+				<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Không. Cần kiểm tra lại</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="create-re-exam-schedule-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-blue-logo">
+				<h5 class="modal-title text-light" id="exampleModalLabel">Tạo lịch tái khám</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="create-re-exam-schedule-form" method="POST">
+					<input id="create-re-exam-schedule-cusId" type="text" name="cusID" hidden>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Mã khách hàng:</strong></label>
+						<div id="create-re-exam-schedule-identification" class="m-0 text-wrap" ></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Họ tên khai sinh:</strong></label>
+						<div id="create-re-exam-schedule-fullname" class="m-0 text-wrap" ></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Tên thường gọi:</strong></label>
+						<div id="create-re-exam-schedule-nickname" class="m-0 text-wrap" ></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label"><strong>Giới tính:</strong></label>
+						<div id="create-re-exam-schedule-gender" class="form-label"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Số điện thoại:</strong></label>
+						<div id="create-re-exam-schedule-phone" class="form-label"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Số lần tái khám:</strong></label>
+						<div>
+							<input type="text" name="times" id="" class="form-control form-control-sm text-right" placeholder="Vd: 1">
+						</div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Ngày hẹn:</strong></label>
+						<div>
+							<input type="datetime-local" id="create-re-exam-schedule-schedule" class="form-control" name="schedule">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="create-re-exam-schedule-btn" type="button" class="btn btn-primary btn-sm">Tạo lịch</button>
+				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/js/customer-care/customer-care-employ-customer-re-exam.js"></script>

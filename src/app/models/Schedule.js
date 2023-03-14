@@ -22,6 +22,8 @@ const Schedule = new Schema({
 		ref: "ServiceNote"
 	},
 
+	hasServiceNote: false,
+
 	beforeCounselorImg: [
 		{
 			name: {

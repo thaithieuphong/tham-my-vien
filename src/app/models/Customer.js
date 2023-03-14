@@ -16,13 +16,17 @@ const Customer = new Schema({
 	address: String,
 	description: String,
 	resource: String,
+	isPostSurgeryCare: false,
+	isPeriodicReExamination: false,
+	isDone: false,
+	storage: false,
 	logIDs: [
 		{
 			type: String,
 			ref: "Log"
 		}
 	],
-	storage: String,
+	
 	image: {
 		name: String,
 		url: String,
@@ -41,11 +45,13 @@ const Customer = new Schema({
 		type: String,
 		ref: "User"
 	},
+
 	scheduleID: [{
 		type: String,
 		ref: "Schedule"
 	}],
 	hasSchedule: false,
+
 	serviceNoteID: [
 		{
 			type: String,
@@ -53,6 +59,31 @@ const Customer = new Schema({
 		}
 	],
 	hasServiceNote: false,
+
+	woundCleaningScheduleID: [
+		{
+			type: String,
+			ref: "WoundCleaningSchedule"
+		}
+	],
+	hasWoundCleaningSchedule: false,
+
+	woundCleaningID: [
+		{
+			type: String,
+			ref: "WoundCleaning"
+		}
+	],
+	hasWoundCleaning: false,
+
+	reExamScheduleID: [
+		{
+			type: String,
+			ref: "ScheduleReexamination"
+		}
+	],
+	hasReExamSchedule: false,
+
 	reexamID: [
 		{
 			type: String,

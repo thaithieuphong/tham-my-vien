@@ -1,0 +1,405 @@
+<link rel="stylesheet" href="/css/root.css">
+<link rel="stylesheet" href="/css/assistant.css">
+{{#if messages_editReExamSchedule_success}}
+    <div class="modal fade" id="messageEditReExamScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_editReExamSchedule_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageEditReExamScheduleSuccess = document.querySelector('#messageEditReExamScheduleSuccess');
+            $(messageEditReExamScheduleSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+{{#if messages_deleteReExamSchedule_success}}
+    <div class="modal fade" id="messageDeleteReExamScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_deleteReExamSchedule_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageDeleteReExamScheduleSuccess = document.querySelector('#messageDeleteReExamScheduleSuccess');
+            $(messageDeleteReExamScheduleSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+{{#if messages_restoreReExamSchedule_success}}
+    <div class="modal fade" id="messageRestoreReExamScheduleSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_restoreReExamSchedule_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageRestoreReExamScheduleSuccess = document.querySelector('#messageRestoreReExamScheduleSuccess');
+            $(messageRestoreReExamScheduleSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+{{#if messages_createReExamination_success}}
+    <div class="modal fade" id="messageCreateReExamSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_createReExamination_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageCreateReExamSuccess = document.querySelector('#messageCreateReExamSuccess');
+            $(messageCreateReExamSuccess).modal('show');
+        });
+    </script>
+{{/if}}
+<div class="container-fluid overflow-hidden">
+    <div class="row vh-100 overflow-auto">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-blue-logo d-flex sticky-top">
+            <div class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2">
+                <a href="/" class="d-flex justify-content-center align-items-center pb-sm-3 mb-md-0 text-light text-decoration-none w-100 border-bottom">
+					{{!-- <img src="/img/96x96.png" alt="" width="40px;" height="40px;">&nbsp; --}}
+					<span class="d-none d-sm-inline fs-6 text-uppercase">Bảng điều khiển</span>
+					{{!-- <span class="fs-6 text-uppercase">
+						<img src="/img/96x96.png" alt="" width="28px;" height="28px;">&nbsp;
+					</span> --}}
+                </a>
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start w-100 mt-2" id="menu">
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/customers-wound-cleaning" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-wheelchair ms-3 mr-3"></i><span class="d-none d-sm-inline">Khách thay băng cắt chỉ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/wound-cleaning-schedule" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch hẹn thay băng - cắt chỉ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/wound-cleaning" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span class="d-none d-sm-inline">Phiếu thay băng - cắt chỉ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/customer-re-exam" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="ti-shield ms-3 mr-3"></i><span class="d-none d-sm-inline">Khách tái khám định kỳ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/re-exam-schedule" class="nav-link px-sm-0 px-2 text-light active">
+                            <i class="fa-sharp fa-solid fa-calendar ms-3 mr-3"></i><span class="d-none d-sm-inline">Lịch hẹn tái khám định kỳ</span></a>
+                    </li>
+					<li class="nav-item hover w-100 mb-2">
+                        <a href="/customer-care/employ/re-exam" class="nav-link px-sm-0 px-2 text-light">
+                            <i class="fa-sharp fa-solid fa-notes-medical ms-3 mr-3"></i><span class="d-none d-sm-inline">Phiếu tái khám định kỳ</span></a>
+                    </li>
+                </ul>
+                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1 w-100 hover">
+                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 p-2 border rounded" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{#if user.image.name}}
+						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
+                        {{else}}
+						<img src="/img/user-ray.png" alt="hugenerd" width="28" height="28" class="rounded-circle">
+						{{/if}}
+						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+							<form method="POST" action="/logout">
+								<button class="dropdown-item" type="submit">Đăng xuất</>
+							</form>
+						</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex flex-column h-sm-100 ps-0 pe-0 overflow-auto">
+			<div class="text-center bg-blue-logo sticky-top d-flex justify-content-between">
+				<div class="img-container p-2">
+					<a type="button" onclick="history.back()">
+						<i class="fa-solid fa-circle-arrow-left text-light ms-1 fs-3"></i>
+					</a>
+				</div>
+				<div class="text-light text-uppercase fw-bold pt-2 pb-2">
+					{{this.title}}
+				</div>
+				<div></div>
+			</div>
+			<div class="d-flex justify-content-between">
+				<a class="btn btn-danger btn-sm ms-2 mt-2 mb-2" href="/customer-care/employ/re-exam-schedule/trash">
+					Thùng rác <i class="ti-trash"></i>
+				</a>
+			</div>
+			<div class="container-fluid">
+				<table id="table-re-exam-schedule" class="table table-hover mb-0 table-sm table-bordered">
+					<thead>
+						<tr class="text-center">
+							<th scope="col">#</th>
+							<th scope="col">Mã KH</th>
+							<th scope="col">Họ tên khai sinh</th>
+							<th scope="col">Tên thường gọi</th>
+							<th scope="col">Ngày sinh</th>
+							<th scope="col">Số điện thoại</th>
+							<th scope="col">Trạng thái</th>
+							<th scope="col">Số lần tái khám</th>
+							<th scope="col">Ngày hẹn</th>
+							<th scope="col">Hành động</th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each reExamSchedule}}
+							<tr class="text-value">
+								<th class="text-center" scope="row">{{sum @index 1}}</th>
+								<td class="text-identify">{{this.cusID.identification}}</td>
+								<td class="text-fullName">
+									<a class="fullName-link text-primary" data-bs-toggle="modal" data-bs-target="#detail-re-exam-schedule-modal"
+									data-identification="{{this.cusID.identification}}" data-fullName="{{this.cusID.fullName}}" data-nickName="{{this.cusID.nickName}}"
+									data-gender="{{this.cusID.gender}}" data-birth="{{this.cusID.birth}}" data-phone="{{this.cusID.phone}}" data-times="{{this.times}}"
+									data-schedule="{{this.schedule}}" data-surgeryDay="{{this.serviceNoteID.surgeryDay}}">
+										{{this.cusID.fullName}}
+									</a>
+								</td>
+								<td class="text-nickName">{{this.cusID.nickName}}</td>
+								<td>{{formatBirth this.cusID.birth}}</td>
+								<td class="text-phone">0{{this.cusID.phone}}</td>
+								<td class="text-status">{{this.status}}</td>
+								<td class="text-times text-center">{{this.times}}</td>
+								<td class="text-schedule">{{formatDate this.schedule}}</td>
+								<td class="text-center">
+									<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Sửa lịch hẹn tái khám">
+										<button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#edit-re-exam-schedule-modal"
+											data-edit-re-exam-schedule-id="{{this._id}}" data-edit-re-exam-schedule-cusID="{{this.cusID._id}}"
+											data-edit-re-exam-schedule-fullName="{{this.cusID.fullName}}"
+											data-edit-re-exam-schedule-nickName="{{this.cusID.nickName}}"
+											data-edit-re-exam-schedule-gender="{{this.cusID.gender}}"
+											data-edit-re-exam-schedule-phone="{{this.cusID.phone}}">
+											<i class="fa-sharp fa-solid fa-square-pen"></i> Sửa lịch hẹn tái khám
+										</button>
+									</div>
+									<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Tạo phiếu tái khám">
+										<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#create-re-exam-modal"
+											data-create-re-exam-schedule-id="{{this._id}}" data-create-re-exam-cusID="{{this.cusID._id}}"
+											data-create-re-exam-fullName="{{this.cusID.fullName}}" data-create-re-exam-serviceNoteID="{{this.serviceNoteID._id}}">
+											<i class="fa-sharp fa-solid fa-plus"></i> Tạo phiếu tái khám
+										</button>
+									</div>
+									<div  class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Hủy lịch hẹn">
+										<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-re-exam-schedule-modal" data-re-exam-schedule-id="{{this._id}}"
+										data-re-exam-schedule-customer-fullname="{{this.cusID.fullName}}" data-re-exam-schedule-customer-id="{{this.cusID._id}}" data-re-exam-schedule-serviceNoteID="{{this.serviceNoteID._id}}">
+											<i class="ti-close"></i>
+										</button>
+									</div>
+								</td>
+							</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="detail-re-exam-schedule-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+			<div class="modal-header bg-info">
+				<h5 class="modal-title text-light" id="staticBackdropLabel">Chi tiết lịch hẹn tái khám</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="d-flex justify-content-between">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Mã khách hàng:</strong>
+					</label>
+					<label id="identification" class="fs-6 text-right text-danger"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Họ tên khai sinh:</strong>
+					</label>
+					<label id="fullName" class="fs-6 text-right text-primary">
+						{{reExamSchedule.cusID.fullName}}
+					</label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Tên thường gọi:</strong>
+					</label>
+					<label id="nickName" class="fs-6 text-right">
+						{{reExamSchedule.cusID.nickName}}
+					</label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Giới tính:</strong>
+					</label>
+					<label id="gender" class="fs-6 text-right"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Ngày sinh:</strong>
+					</label>
+					<label id="birth" class=""></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Số điện thoại:</strong>
+					</label>
+					<label id="phone" class="text-right"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Số lần tái khám:</strong>
+					</label>
+					<label id="times" class="fs-6 text-danger text-right"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Ngày phẩu thuật:</strong>
+					</label>
+					<label id="surgeryDay" class="text-right text-success"></label>
+				</div>
+				<div class="d-flex justify-content-between">
+					<label for="status" class="text-nowrap text-dark">
+						<strong>Ngày hẹn tái khám:</strong>
+					</label>
+					<label id="schedule" class="text-right text-danger"></label>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
+			</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="edit-re-exam-schedule-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+			<div class="modal-header bg-info">
+				<h5 class="modal-title text-light" id="staticBackdropLabel">Sửa lịch hẹn tái khám</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="edit-re-exam-schedule-form" method="POST">
+					<input type="text" id="edit-re-exam-schedule-input-cusID" class="form-control" name="cusID" hidden>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Họ và tên:</strong></label>
+						<div id="edit-re-exam-schedule-fullname" class="m-0 text-wrap"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap"><strong>Tên thường gọi:</strong></label>
+						<div id="edit-re-exam-schedule-nickname" class="m-0 text-wrap"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label"><strong>Giới tính:</strong></label>
+						<div id="edit-re-exam-schedule-gender" class="form-label"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Số điện thoại:</strong></label>
+						<div id="edit-re-exam-schedule-phone" class="form-label"></div>
+					</div>
+					<div class="d-flex justify-content-between">
+						<label class="form-label text-nowrap" for=""><strong>Ngày hẹn:</strong></label>
+						<div>
+							<input type="datetime-local" id="edit-re-exam-schedule-input" class="form-control" name="schedule">
+						</div>
+					</div>
+					<label class="form-label text-nowrap" for=""><strong>Lý do thay đổi:</strong></label>
+					<div class="w-100">
+						<textarea class="w-100 p-2" name="reason" id="" rows="6"></textarea>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="edit-re-exam-schedule-btn" type="button" class="btn btn-info btn-sm">Cập nhật lịch</button>
+				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Hủy bỏ</button>
+			</div>
+        </div>
+    </div>
+</div>
+
+{{!-- Create Re-Examination --}} 
+<div class="modal fade" id="create-re-exam-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-blue-logo">
+				<h5 class="modal-title text-light" id="exampleModalLabel">Tạo phiếu tái khám</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="create-re-exam-form" action="/customer-care/employ/create-re-exam">
+					<input id="create-re-exam-cusID" type="text" name="cusID" hidden>
+					<input id="create-re-exam-schedule-id" type="text" name="reExamScheduleID" hidden>
+					<input id="create-re-exam-serviceNote-id" type="text" name="serviceNoteID" hidden>
+					Bạn muốn tạo phiếu tái khám cho khách hàng <strong id="create-re-exam-fullname" class="text-danger"></strong> ?
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button id="create-re-exam-btn" type="button" class="btn btn-success btn-sm">Đồng ý</button>
+				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Hủy bỏ</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{{!-- Delete re-exam schedule--}}
+<div class="modal fade" id="delete-re-exam-schedule-modal" tabindex="-1" aria-labelledby="delete-re-exam-schedule-label" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title text-light" id="delete-re-exam-schedule-label">Xóa lịch hẹn tái khám</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="delete-re-exam-schedule-form">
+					<input type="text" name="cusID" id="delete-re-exam-schedule-cusID" hidden>
+					<input type="text" name="serviceNoteID" id="delete-re-exam-schedule-serviceNoteID" hidden>
+					<input type="text" name="fullName" id="delete-re-exam-schedule-fullName" hidden>
+				</form>
+				Bạn chắc chắn muốn xóa lịch hẹn tái khám của khách hàng <strong id="delete-re-exam-schedule-fullname"></strong>?
+			</div>
+			<div class="modal-footer d-flex justify-content-between">
+				<button id="delete-re-exam-schedule-btn" type="button" class="btn btn-success btn-sm">Chắc chắn</button>
+				<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Không, Hủy bỏ</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/js/customer-care/customer-care-employ-re-exam-schedule.js"></script>

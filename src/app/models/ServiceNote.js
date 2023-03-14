@@ -3,8 +3,7 @@ const Schema = mongoose.Schema;
 const mongooseDelete = require("mongoose-delete");
 
 const ServiceNote = new Schema({
-	scheduleID:
-	{
+	scheduleID: {
 		type: String,
 		ref: "Schedule"
 	},
@@ -17,9 +16,10 @@ const ServiceNote = new Schema({
 	isInSurgeryInfo: false,
 	isAfterInfo: false,
 	isPostSurgeryCare: false,
-	
-	userID:
-	{
+	isPeriodicReExamination: false,
+	isDone: false,
+
+	userID: {
 		type: String,
 		ref: "User"
 	},
@@ -145,11 +145,33 @@ const ServiceNote = new Schema({
 		}
 	],
 
-	reExamID:
-	{
+	reExamScheduleID: {
+		type: String,
+		ref: "ReexaminationSchedule"
+	},
+	hasReExamSchedule: false,
+
+	reExamID: {
 		type: String,
 		ref: "Reexamination"
 	},
+	hasReExam: false,
+
+	woundCleaningScheduleID: [
+		{
+			type: String,
+			ref: "WoundCleaningSchedule"
+		}
+	],
+	hasWoundCleaningSchedule: false,
+
+	woundCleaningID: [
+		{
+			type: String,
+			ref: "WoundCleaning"
+		}
+	],
+	hasWoundCleaning: false,
 	
 	total: String,
 	discount: String,
@@ -165,13 +187,7 @@ const ServiceNote = new Schema({
 	surgeryDay: String,
 	reason: String,
 	priceBefore: String,
-	deposit: String,
-	logIDs: [
-		{
-			type: String,
-			ref: "Log"
-		}
-	]
+	deposit: String
 }, {
 	timestamps: true
 });

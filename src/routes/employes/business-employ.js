@@ -39,8 +39,8 @@ router.post('/customers/:id/schedule/create', EmployBusinessController.createSch
 // Yêu cầu tạo thông tin khách hàng
 router.post('/customers', validateUploadImage.uploadSingleCustomer, EmployBusinessController.createCustomer);
 
-// Yêu cầu tạo phiếu tái khám
-router.post('/schedule/exam', EmployBusinessController.createReExam);
+// // Yêu cầu tạo phiếu tái khám
+// router.post('/schedule/exam', EmployBusinessController.createReExam);
 
 // Yêu cầu thay đổi mật khẩu
 router.post('/change-pass', AuthController.changePassword);
@@ -151,7 +151,7 @@ router.get('/schedules/trash', EmployBusinessController.showScheduleTrash);
 router.get('/schedules', EmployBusinessController.showSchedules);
 
 // Hiển thị trang chi tiết khách hàng ở trạng thái xuất viện
-router.get('/customer/:id/discharge-from-hospital-detail', EmployBusinessController.showCustomerDischargeFromHospitalDetail);
+// router.get('/customer/:id/discharge-from-hospital-detail', EmployBusinessController.showCustomerDischargeFromHospitalDetail);
 
 // Cập nhật phiếu dịch vụ sang hoàn thành
 router.patch('/service-note/:id/done', EmployBusinessController.serviceNoteDone);
@@ -166,7 +166,7 @@ router.get('/customers/create', EmployBusinessController.showCustomerCreate);
 router.get('/customers/done', EmployBusinessController.showCustomerDone);
 
 // Hiển thị trang danh sách khách hàng trạng thái xuất viện (Cần chỉnh sửa)
-router.get('/customers/discharge-from-hospital', EmployBusinessController.showCustomerDischargeFromHospital);
+// router.get('/customers/discharge-from-hospital', EmployBusinessController.showCustomerDischargeFromHospital);
 
 // Hiển thị trang danh sách khách hàng trạng thái tư vấn không thành công
 router.get('/customers/notok', EmployBusinessController.showCustomerNotOK);

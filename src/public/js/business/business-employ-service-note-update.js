@@ -339,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
 						closeButtonLink.type = 'button';
 						closeButtonLink.id = i;
 						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
+						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-video';
 						let videoc = document.querySelector('.preview-videos-counselor');
 						divMain.append(newVideo, closeButtonLink);
 						videoc.append(divMain);
@@ -543,7 +543,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		let imagesPreviewAfter = function (input) {
 			let inputFiles = Array.from(input.files);
 			if (input.files) {
-				for (let i = 0; i < inputFiles.length; i++) {
+				for (let i = 0; i < input.files.length; i++) {
 					let reader = new FileReader();
 					let newImage = document.createElement('img');
 					let iconClose = document.createElement('i');
@@ -571,7 +571,7 @@ document.addEventListener("DOMContentLoaded", function () {
 							})
 						})
 					});
-					reader.readAsDataURL(inputFiles[i]);
+					reader.readAsDataURL(input.files[i]);
 				}
 			}
 		};
