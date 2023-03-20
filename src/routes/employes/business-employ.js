@@ -48,8 +48,14 @@ router.post('/change-pass', AuthController.changePassword);
 // Hiển thị trang chi tiết phiếu dịch vụ
 router.get('/service-note/:id/detail', EmployBusinessController.showServiceNoteDetail);
 
-// Cập nhật hình ảnh, video tư vấn trực tiếp
-router.post('/service-note/:id/operating-counselor', validateUploadImage.counselorUpload, EmployBusinessController.uploadCounselor);
+// Upload hình tư vấn trực tiếp
+router.post('/service-note/:id/uploadCounselorImages',  validateUploadImage.counselorUpload,  EmployBusinessController.uploadCounselorImg);
+
+// Upload video tư vấn trực tiếp
+router.post('/service-note/:id/uploadCounselorVideos',  validateUploadImage.counselorUpload,  EmployBusinessController.uploadCounselorVideo);
+
+// Cập nhật thông tin tư vấn trực tiếp
+router.post('/service-note/:id/operating-counselor', EmployBusinessController.updateCounselor);
 
 // Xóa hình ảnh tư vấn trực tiếp trên phiếu dịch vụ
 router.delete('/service-note/:id/delete-img-counselor', EmployBusinessController.deleteCounselorImg);
@@ -63,8 +69,14 @@ router.delete('/service-note/:id/delete-video-counselor', EmployBusinessControll
 // Khôi phục video tư vấn trực tiếp trên phiếu dịch vụ
 router.patch('/service-note/:id/restore-video-counselor', EmployBusinessController.restoreCounselorVideo);
 
-// Cập nhật hình ảnh, video trước phẫu thuật
-router.post('/service-note/:id/operating-before', validateUploadImage.beforeUpload, EmployBusinessController.uploadBefore);
+// Upload hình trước phẫu thuật
+router.post('/service-note/:id/uploadBeforeImages',  validateUploadImage.beforeUpload,  EmployBusinessController.uploadBeforeImg);
+
+// Upload video trước phẫu thuật
+router.post('/service-note/:id/uploadBeforeVideos',  validateUploadImage.beforeUpload,  EmployBusinessController.uploadBeforeVideo);
+
+// Cập nhật thông tin trước phẫu thuật
+router.post('/service-note/:id/operating-before', EmployBusinessController.updateBefore);
 
 // Xóa hình ảnh trước phẫu thuật trên phiếu dịch vụ
 router.delete('/service-note/:id/delete-img-before', EmployBusinessController.deleteBeforeImg);
@@ -78,8 +90,14 @@ router.delete('/service-note/:id/delete-video-before', EmployBusinessController.
 // Khôi phục video trước phẫu thuật trên phiếu dịch vụ
 router.patch('/service-note/:id/restore-video-before', EmployBusinessController.restoreBeforeVideo);
 
-// Cập nhật hình ảnh, video trong phẫu thuật
-router.post('/service-note/:id/operating-in-surgery', validateUploadImage.inSurgeryUpload, EmployBusinessController.uploadInSurgery);
+// Upload hình phẫu thuật
+router.post('/service-note/:id/uploadInSurgeryImages',  validateUploadImage.inSurgeryUpload,  EmployBusinessController.uploadInSurgeryImg);
+
+// Upload video phẫu thuật
+router.post('/service-note/:id/uploadInSurgeryVideos',  validateUploadImage.inSurgeryUpload,  EmployBusinessController.uploadInSurgeryVideo);
+
+// Cập nhật thông tin phẫu thuật
+router.post('/service-note/:id/operating-in-surgery', EmployBusinessController.updateInSurgery);
 
 // Xóa hình phẫu thuật trên phiếu dịch vụ
 router.delete('/service-note/:id/delete-img-in-surgery', EmployBusinessController.deleteInSurgeryImg);
@@ -93,8 +111,14 @@ router.delete('/service-note/:id/delete-video-in-surgery', EmployBusinessControl
 // Khôi phục video phẫu thuật trên phiếu dịch vụ
 router.patch('/service-note/:id/restore-video-in-surgery', EmployBusinessController.restoreInSurgeryVideo);
 
-// Cập nhật hình ảnh, video sau phẫu
-router.post('/service-note/:id/operating-after', validateUploadImage.afterUpload, EmployBusinessController.uploadAfter);
+// Upload hình sau phẫu thuật - thay băng lần đầu
+router.post('/service-note/:id/uploadAfterImages',  validateUploadImage.afterUpload,  EmployBusinessController.uploadAfterImg);
+
+// Upload video sau phẫu thuật - thay băng lần đầu
+router.post('/service-note/:id/uploadAfterVideos',  validateUploadImage.afterUpload,  EmployBusinessController.uploadAfterVideo);
+
+// Cập nhật thông tin sau phãu thuật - thay băng lần đầu
+router.post('/service-note/:id/operating-after', EmployBusinessController.updateAfter);
 
 // Xóa hình ảnh thay băng cắt chỉ trên phiếu dịch vụ
 router.delete('/service-note/:id/delete-img-after', EmployBusinessController.deleteAfterImg);
@@ -150,8 +174,8 @@ router.get('/schedules/trash', EmployBusinessController.showScheduleTrash);
 // Hiển thị trang danh sách lịch hẹn tư vấn
 router.get('/schedules', EmployBusinessController.showSchedules);
 
-// Hiển thị trang chi tiết khách hàng ở trạng thái xuất viện
-// router.get('/customer/:id/discharge-from-hospital-detail', EmployBusinessController.showCustomerDischargeFromHospitalDetail);
+// Hiển thị trang chi tiết khách hàng ở trạng thái chăm sóc hậu phẫu
+router.get('/customer/:id/discharge-from-hospital-detail', EmployBusinessController.showCustomerDischargeFromHospitalDetail);
 
 // Cập nhật phiếu dịch vụ sang hoàn thành
 router.patch('/service-note/:id/done', EmployBusinessController.serviceNoteDone);
@@ -165,8 +189,8 @@ router.get('/customers/create', EmployBusinessController.showCustomerCreate);
 // Hiển thị trang danh sách khách hàng trạng thái hoàn thành phẫu thuật (Cần chỉnh sửa)
 router.get('/customers/done', EmployBusinessController.showCustomerDone);
 
-// Hiển thị trang danh sách khách hàng trạng thái xuất viện (Cần chỉnh sửa)
-// router.get('/customers/discharge-from-hospital', EmployBusinessController.showCustomerDischargeFromHospital);
+// Hiển thị trang danh sách khách hàng trạng thái chăm sóc hậu phẫu
+router.get('/customers/discharge-from-hospital', EmployBusinessController.showCustomerDischargeFromHospital);
 
 // Hiển thị trang danh sách khách hàng trạng thái tư vấn không thành công
 router.get('/customers/notok', EmployBusinessController.showCustomerNotOK);

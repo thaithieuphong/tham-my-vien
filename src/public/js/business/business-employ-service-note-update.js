@@ -224,402 +224,402 @@ if (submitAfterFormBtn) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-	let inputMultiImageCounselor = document.getElementById('input-multi-images-counselor');
-	if(inputMultiImageCounselor) {
-		inputMultiImageCounselor.addEventListener('change', (e) => {
-			let files = e.target;//event.target.files;
-			imagesPreviewCounselor(files);
-		})
+	// let inputMultiImageCounselor = document.getElementById('input-multi-images-counselor');
+	// if(inputMultiImageCounselor) {
+	// 	inputMultiImageCounselor.addEventListener('change', (e) => {
+	// 		let files = e.target;//event.target.files;
+	// 		imagesPreviewCounselor(files);
+	// 	})
 	
-		let imagesPreviewCounselor = function (input) {
-			let inputFiles = Array.from(input.files);
-			if (input.files) {
-				for (let i = 0; i < inputFiles.length; i++) {
-					let reader = new FileReader();
-					let newImage = document.createElement('img');
-					let iconClose = document.createElement('i');
-					iconClose.setAttribute('class', 'ti-close');
-					let closeButtonLink = document.createElement('div');
-					closeButtonLink.append(iconClose);
-					let divMain = document.createElement('figure');
-					reader.addEventListener('load', (event) => {
-						let src = event.target.result;
-						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
-						divMain.id = i;
-						newImage.src = src;
-						newImage.classList = 'figure-img img-fluid rounded img-cover';
-						newImage.id = i;
-						closeButtonLink.id = i;
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
-						let imgc = document.querySelector('.preview-images-counselor');
-						divMain.append(newImage, closeButtonLink);
-						imgc.append(divMain);
-						let closeBtns = document.querySelectorAll('.close-img');
-						closeBtns.forEach(btn => {
-							btn.addEventListener('click', () => {
-								let parent = btn.parentElement;
-								parent.remove();
-							})
-						})
-					});
-					reader.readAsDataURL(inputFiles[i]);
-				}
-			}
-		};
-	}
+	// 	let imagesPreviewCounselor = function (input) {
+	// 		let inputFiles = Array.from(input.files);
+	// 		if (input.files) {
+	// 			for (let i = 0; i < inputFiles.length; i++) {
+	// 				let reader = new FileReader();
+	// 				let newImage = document.createElement('img');
+	// 				let iconClose = document.createElement('i');
+	// 				iconClose.setAttribute('class', 'ti-close');
+	// 				let closeButtonLink = document.createElement('div');
+	// 				closeButtonLink.append(iconClose);
+	// 				let divMain = document.createElement('figure');
+	// 				reader.addEventListener('load', (event) => {
+	// 					let src = event.target.result;
+	// 					divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
+	// 					divMain.id = i;
+	// 					newImage.src = src;
+	// 					newImage.classList = 'figure-img img-fluid rounded img-cover';
+	// 					newImage.id = i;
+	// 					closeButtonLink.id = i;
+	// 					closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
+	// 					let imgc = document.querySelector('.preview-images-counselor');
+	// 					divMain.append(newImage, closeButtonLink);
+	// 					imgc.append(divMain);
+	// 					let closeBtns = document.querySelectorAll('.close-img');
+	// 					closeBtns.forEach(btn => {
+	// 						btn.addEventListener('click', () => {
+	// 							let parent = btn.parentElement;
+	// 							parent.remove();
+	// 						})
+	// 					})
+	// 				});
+	// 				reader.readAsDataURL(inputFiles[i]);
+	// 			}
+	// 		}
+	// 	};
+	// }
 
-	let inputMultiVideoCounselor = document.getElementById('input-multi-videos-counselor');
-	if (inputMultiVideoCounselor) {
-		inputMultiVideoCounselor.addEventListener('change', (e) => {
-			let files = e.target;
-			console.log(files);
-			videosPreviewCounselor(files)
-			// let inputFiles = Array.from(files.files);
-			// if (files) {
-			// 	for (i = 0; i < files.length; i++) {
-			// 		let newVideo = document.createElement('video');
-			// 		let iconClose = document.createElement('i');
-			// 		iconClose.setAttribute('class', 'ti-close');
-			// 		let closeButtonLink = document.createElement('div');
-			// 		closeButtonLink.append(iconClose);
-			// 		let divMain = document.createElement('figure');
-			// 		// let src = event.target.result;
-			// 		let videoBlob = new Blob([new Uint8Array(files[i])], { type: 'video/*' });
-			// 		let url = URL.createObjectURL(videoBlob);
-			// 		divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
-			// 		divMain.id = i;
-			// 		// newVideo.src = url;
-			// 		console.log(url)
-			// 		newVideo.classList = 'img-fluid';
-			// 		newVideo.setAttribute('accept', 'video/*');
-			// 		newVideo.setAttribute('src', url);
-			// 		newVideo.controls = true;
-			// 		newVideo.id = i;
-			// 		closeButtonLink.type = 'button';
-			// 		closeButtonLink.id = i;
-			// 		closeButtonLink.ariaLabel = 'Close';
-			// 		closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
-			// 		let videoc = document.querySelector('.preview-videos-counselor');
-			// 		divMain.append(newVideo, closeButtonLink);
-			// 		videoc.append(divMain);
-			// 		let closeBtn = document.querySelectorAll('.close-video');
-			// 		closeBtn.forEach(btn => {
-			// 			btn.addEventListener('click', (e) => {
-			// 				let parent = btn.parentElement;
-			// 				parent.remove();
-			// 			})
-			// 		})
-			// 		// let reader = new FileReader();
-			// 		// reader.onload = function (event) {
-			// 		// };
-			// 		// reader.readAsDataURL(inputFiles[i]);
-			// 	}
-			// }
-		})
+	// let inputMultiVideoCounselor = document.getElementById('input-multi-videos-counselor');
+	// if (inputMultiVideoCounselor) {
+	// 	inputMultiVideoCounselor.addEventListener('change', (e) => {
+	// 		let files = e.target;
+	// 		console.log(files);
+	// 		videosPreviewCounselor(files)
+	// 		// let inputFiles = Array.from(files.files);
+	// 		// if (files) {
+	// 		// 	for (i = 0; i < files.length; i++) {
+	// 		// 		let newVideo = document.createElement('video');
+	// 		// 		let iconClose = document.createElement('i');
+	// 		// 		iconClose.setAttribute('class', 'ti-close');
+	// 		// 		let closeButtonLink = document.createElement('div');
+	// 		// 		closeButtonLink.append(iconClose);
+	// 		// 		let divMain = document.createElement('figure');
+	// 		// 		// let src = event.target.result;
+	// 		// 		let videoBlob = new Blob([new Uint8Array(files[i])], { type: 'video/*' });
+	// 		// 		let url = URL.createObjectURL(videoBlob);
+	// 		// 		divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
+	// 		// 		divMain.id = i;
+	// 		// 		// newVideo.src = url;
+	// 		// 		console.log(url)
+	// 		// 		newVideo.classList = 'img-fluid';
+	// 		// 		newVideo.setAttribute('accept', 'video/*');
+	// 		// 		newVideo.setAttribute('src', url);
+	// 		// 		newVideo.controls = true;
+	// 		// 		newVideo.id = i;
+	// 		// 		closeButtonLink.type = 'button';
+	// 		// 		closeButtonLink.id = i;
+	// 		// 		closeButtonLink.ariaLabel = 'Close';
+	// 		// 		closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-4 mt-2 close-img';
+	// 		// 		let videoc = document.querySelector('.preview-videos-counselor');
+	// 		// 		divMain.append(newVideo, closeButtonLink);
+	// 		// 		videoc.append(divMain);
+	// 		// 		let closeBtn = document.querySelectorAll('.close-video');
+	// 		// 		closeBtn.forEach(btn => {
+	// 		// 			btn.addEventListener('click', (e) => {
+	// 		// 				let parent = btn.parentElement;
+	// 		// 				parent.remove();
+	// 		// 			})
+	// 		// 		})
+	// 		// 		// let reader = new FileReader();
+	// 		// 		// reader.onload = function (event) {
+	// 		// 		// };
+	// 		// 		// reader.readAsDataURL(inputFiles[i]);
+	// 		// 	}
+	// 		// }
+	// 	})
 	
-		let videosPreviewCounselor = function (input) {
-			let inputFiles = Array.from(input.files);
-			if (inputFiles) {
-				for (i = 0; i < inputFiles.length; i++) {
-					let newVideo = document.createElement('video');
-					let iconClose = document.createElement('i');
-					iconClose.setAttribute('class', 'ti-close');
-					let closeButtonLink = document.createElement('div');
-					closeButtonLink.append(iconClose);
-					let divMain = document.createElement('figure');
-					let reader = new FileReader();
-					reader.onload = function (event) {
-						let src = event.target.result;
-						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
-						divMain.id = i;
-						newVideo.src = src;
-						newVideo.classList = 'img-fluid';
-						newVideo.controls = true;
-						newVideo.id = i;
-						closeButtonLink.type = 'button';
-						closeButtonLink.id = i;
-						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-video';
-						let videoc = document.querySelector('.preview-videos-counselor');
-						divMain.append(newVideo, closeButtonLink);
-						videoc.append(divMain);
-						let closeBtn = document.querySelectorAll('.close-video');
-						closeBtn.forEach(btn => {
-							btn.addEventListener('click', (e) => {
-								let parent = btn.parentElement;
-								parent.remove();
-							})
-						})
-					};
-					reader.readAsDataURL(inputFiles[i]);
-				}
-			}
-		};
-	}
+	// 	let videosPreviewCounselor = function (input) {
+	// 		let inputFiles = Array.from(input.files);
+	// 		if (inputFiles) {
+	// 			for (i = 0; i < inputFiles.length; i++) {
+	// 				let newVideo = document.createElement('video');
+	// 				let iconClose = document.createElement('i');
+	// 				iconClose.setAttribute('class', 'ti-close');
+	// 				let closeButtonLink = document.createElement('div');
+	// 				closeButtonLink.append(iconClose);
+	// 				let divMain = document.createElement('figure');
+	// 				let reader = new FileReader();
+	// 				reader.onload = function (event) {
+	// 					let src = event.target.result;
+	// 					divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
+	// 					divMain.id = i;
+	// 					newVideo.src = src;
+	// 					newVideo.classList = 'img-fluid';
+	// 					newVideo.controls = true;
+	// 					newVideo.id = i;
+	// 					closeButtonLink.type = 'button';
+	// 					closeButtonLink.id = i;
+	// 					closeButtonLink.ariaLabel = 'Close';
+	// 					closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-video';
+	// 					let videoc = document.querySelector('.preview-videos-counselor');
+	// 					divMain.append(newVideo, closeButtonLink);
+	// 					videoc.append(divMain);
+	// 					let closeBtn = document.querySelectorAll('.close-video');
+	// 					closeBtn.forEach(btn => {
+	// 						btn.addEventListener('click', (e) => {
+	// 							let parent = btn.parentElement;
+	// 							parent.remove();
+	// 						})
+	// 					})
+	// 				};
+	// 				reader.readAsDataURL(inputFiles[i]);
+	// 			}
+	// 		}
+	// 	};
+	// }
 
-	let inputMultiImageBefore = document.getElementById('input-multi-images-before');
-	if(inputMultiImageBefore) {
-		inputMultiImageBefore.addEventListener('change', (e) => {
-			let files = e.target;//event.target.files;
-			imagesPreviewBefore(files);
-		})
+	// let inputMultiImageBefore = document.getElementById('input-multi-images-before');
+	// if(inputMultiImageBefore) {
+	// 	inputMultiImageBefore.addEventListener('change', (e) => {
+	// 		let files = e.target;//event.target.files;
+	// 		imagesPreviewBefore(files);
+	// 	})
 	
-		let imagesPreviewBefore = function (input) {
-			let inputFiles = Array.from(input.files);
-			if (input.files) {
-				for (let i = 0; i < inputFiles.length; i++) {
-					let reader = new FileReader();
-					let newImage = document.createElement('img');
-					let iconClose = document.createElement('i');
-					iconClose.setAttribute('class', 'ti-close');
-					let closeButtonLink = document.createElement('div');
-					closeButtonLink.append(iconClose);
-					let divMain = document.createElement('figure');
-					reader.addEventListener('load', (event) => {
-						let src = event.target.result;
-						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
-						divMain.id = i;
-						newImage.src = src;
-						newImage.classList = 'figure-img img-fluid rounded img-cover';
-						newImage.id = i;
-						closeButtonLink.id = i;
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
-						let imgc = document.querySelector('.preview-images-before');
-						divMain.append(newImage, closeButtonLink);
-						imgc.append(divMain);
-						let closeBtns = document.querySelectorAll('.close-img');
-						closeBtns.forEach(btn => {
-							btn.addEventListener('click', () => {
-								let parent = btn.parentElement;
-								parent.remove();
-							})
-						})
-					});
-					reader.readAsDataURL(inputFiles[i]);
-				}
-			}
-		};
-	}
+	// 	let imagesPreviewBefore = function (input) {
+	// 		let inputFiles = Array.from(input.files);
+	// 		if (input.files) {
+	// 			for (let i = 0; i < inputFiles.length; i++) {
+	// 				let reader = new FileReader();
+	// 				let newImage = document.createElement('img');
+	// 				let iconClose = document.createElement('i');
+	// 				iconClose.setAttribute('class', 'ti-close');
+	// 				let closeButtonLink = document.createElement('div');
+	// 				closeButtonLink.append(iconClose);
+	// 				let divMain = document.createElement('figure');
+	// 				reader.addEventListener('load', (event) => {
+	// 					let src = event.target.result;
+	// 					divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
+	// 					divMain.id = i;
+	// 					newImage.src = src;
+	// 					newImage.classList = 'figure-img img-fluid rounded img-cover';
+	// 					newImage.id = i;
+	// 					closeButtonLink.id = i;
+	// 					closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
+	// 					let imgc = document.querySelector('.preview-images-before');
+	// 					divMain.append(newImage, closeButtonLink);
+	// 					imgc.append(divMain);
+	// 					let closeBtns = document.querySelectorAll('.close-img');
+	// 					closeBtns.forEach(btn => {
+	// 						btn.addEventListener('click', () => {
+	// 							let parent = btn.parentElement;
+	// 							parent.remove();
+	// 						})
+	// 					})
+	// 				});
+	// 				reader.readAsDataURL(inputFiles[i]);
+	// 			}
+	// 		}
+	// 	};
+	// }
 
-	let inputMultiVideoBefore = document.getElementById('input-multi-videos-before');
-	if (inputMultiVideoBefore) {
-		inputMultiVideoBefore.addEventListener('change', (e) => {
-			let files = e.target;
-			videosPreviewBefore(files);
-		})
+	// let inputMultiVideoBefore = document.getElementById('input-multi-videos-before');
+	// if (inputMultiVideoBefore) {
+	// 	inputMultiVideoBefore.addEventListener('change', (e) => {
+	// 		let files = e.target;
+	// 		videosPreviewBefore(files);
+	// 	})
 	
-		let videosPreviewBefore = function (input) {
-			let inputFiles = Array.from(input.files);
-			if (input.files) {
-				for (i = 0; i < inputFiles.length; i++) {
-					let reader = new FileReader();
-					reader.onload = function (event) {
-						let newVideo = document.createElement('video');
-						let closeButtonLink = document.createElement('button');
-						let divMain = document.createElement('figure');
-						let src = event.target.result;
-						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
-						divMain.id = i;
-						newVideo.src = src;
-						newVideo.classList = 'img-fluid';
-						newVideo.controls = true;
-						newVideo.id = i;
-						closeButtonLink.type = 'button';
-						closeButtonLink.id = i;
-						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-5 mt-2 close-video';
-						let videoc = document.querySelector('.preview-videos-before');
-						divMain.append(newVideo, closeButtonLink);
-						videoc.append(divMain);
-						let closeBtn = document.querySelectorAll('.close-video');
-						closeBtn.forEach(btn => {
-							btn.addEventListener('click', (e) => {
-								let parent = btn.parentElement;
-								parent.remove();
-							})
-						})
-					};
-					reader.readAsDataURL(inputFiles[i]);
-				}
-			}
-		};
-	}
+	// 	let videosPreviewBefore = function (input) {
+	// 		let inputFiles = Array.from(input.files);
+	// 		if (input.files) {
+	// 			for (i = 0; i < inputFiles.length; i++) {
+	// 				let reader = new FileReader();
+	// 				reader.onload = function (event) {
+	// 					let newVideo = document.createElement('video');
+	// 					let closeButtonLink = document.createElement('button');
+	// 					let divMain = document.createElement('figure');
+	// 					let src = event.target.result;
+	// 					divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
+	// 					divMain.id = i;
+	// 					newVideo.src = src;
+	// 					newVideo.classList = 'img-fluid';
+	// 					newVideo.controls = true;
+	// 					newVideo.id = i;
+	// 					closeButtonLink.type = 'button';
+	// 					closeButtonLink.id = i;
+	// 					closeButtonLink.ariaLabel = 'Close';
+	// 					closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-5 mt-2 close-video';
+	// 					let videoc = document.querySelector('.preview-videos-before');
+	// 					divMain.append(newVideo, closeButtonLink);
+	// 					videoc.append(divMain);
+	// 					let closeBtn = document.querySelectorAll('.close-video');
+	// 					closeBtn.forEach(btn => {
+	// 						btn.addEventListener('click', (e) => {
+	// 							let parent = btn.parentElement;
+	// 							parent.remove();
+	// 						})
+	// 					})
+	// 				};
+	// 				reader.readAsDataURL(inputFiles[i]);
+	// 			}
+	// 		}
+	// 	};
+	// }
 
-	let inputMultiImageInSurgery = document.getElementById('input-multi-images-in-surgery');
-	if(inputMultiImageInSurgery) {
-		inputMultiImageInSurgery.addEventListener('change', (e) => {
-			let files = e.target; //event.target.files;
-			imagesPreviewInSurgery(files);
-		})
+	// let inputMultiImageInSurgery = document.getElementById('input-multi-images-in-surgery');
+	// if(inputMultiImageInSurgery) {
+	// 	inputMultiImageInSurgery.addEventListener('change', (e) => {
+	// 		let files = e.target; //event.target.files;
+	// 		imagesPreviewInSurgery(files);
+	// 	})
 	
-		let imagesPreviewInSurgery = function (input) {
-			let inputFiles = Array.from(input.files);
-			if (input.files) {
-				for (let i = 0; i < inputFiles.length; i++) {
-					let reader = new FileReader();
-					let newImage = document.createElement('img');
-					let iconClose = document.createElement('i');
-					iconClose.setAttribute('class', 'ti-close');
-					let closeButtonLink = document.createElement('div');
-					closeButtonLink.append(iconClose);
-					let divMain = document.createElement('figure');
-					reader.addEventListener('load', (event) => {
-						let src = event.target.result;
-						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
-						divMain.id = i;
-						newImage.src = src;
-						newImage.classList = 'figure-img img-fluid rounded img-cover';
-						newImage.id = i;
-						closeButtonLink.id = i;
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
-						let imgc = document.querySelector('.preview-images-in-surgery');
-						divMain.append(newImage, closeButtonLink);
-						imgc.append(divMain);
-						let closeBtns = document.querySelectorAll('.close-img');
-						closeBtns.forEach(btn => {
-							btn.addEventListener('click', () => {
-								let parent = btn.parentElement;
-								parent.remove();
-							})
-						})
-					});
-					reader.readAsDataURL(inputFiles[i]);
-				}
-			}
-		};
-	}
+	// 	let imagesPreviewInSurgery = function (input) {
+	// 		let inputFiles = Array.from(input.files);
+	// 		if (input.files) {
+	// 			for (let i = 0; i < inputFiles.length; i++) {
+	// 				let reader = new FileReader();
+	// 				let newImage = document.createElement('img');
+	// 				let iconClose = document.createElement('i');
+	// 				iconClose.setAttribute('class', 'ti-close');
+	// 				let closeButtonLink = document.createElement('div');
+	// 				closeButtonLink.append(iconClose);
+	// 				let divMain = document.createElement('figure');
+	// 				reader.addEventListener('load', (event) => {
+	// 					let src = event.target.result;
+	// 					divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
+	// 					divMain.id = i;
+	// 					newImage.src = src;
+	// 					newImage.classList = 'figure-img img-fluid rounded img-cover';
+	// 					newImage.id = i;
+	// 					closeButtonLink.id = i;
+	// 					closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
+	// 					let imgc = document.querySelector('.preview-images-in-surgery');
+	// 					divMain.append(newImage, closeButtonLink);
+	// 					imgc.append(divMain);
+	// 					let closeBtns = document.querySelectorAll('.close-img');
+	// 					closeBtns.forEach(btn => {
+	// 						btn.addEventListener('click', () => {
+	// 							let parent = btn.parentElement;
+	// 							parent.remove();
+	// 						})
+	// 					})
+	// 				});
+	// 				reader.readAsDataURL(inputFiles[i]);
+	// 			}
+	// 		}
+	// 	};
+	// }
 
-	let inputMultiVideoInSurgery = document.getElementById('input-multi-videos-in-surgery');
-	if (inputMultiVideoInSurgery) {
-		inputMultiVideoInSurgery.addEventListener('change', (e) => {
-			let files = e.target;
-			videosPreviewInSurgery(files);
-		})
+	// let inputMultiVideoInSurgery = document.getElementById('input-multi-videos-in-surgery');
+	// if (inputMultiVideoInSurgery) {
+	// 	inputMultiVideoInSurgery.addEventListener('change', (e) => {
+	// 		let files = e.target;
+	// 		videosPreviewInSurgery(files);
+	// 	})
 	
-		let videosPreviewInSurgery = function (input) {
-			let inputFiles = Array.from(input.files);
-			if (input.files) {
-				for (i = 0; i < inputFiles.length; i++) {
-					let reader = new FileReader();
-					reader.onload = function (event) {
-						let newVideo = document.createElement('video');
-						let closeButtonLink = document.createElement('button');
-						let divMain = document.createElement('figure');
-						let src = event.target.result;
-						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
-						divMain.id = i;
-						newVideo.src = src;
-						newVideo.classList = 'img-fluid';
-						newVideo.controls = true;
-						newVideo.id = i;
-						closeButtonLink.type = 'button';
-						closeButtonLink.id = i;
-						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-5 mt-2 close-video';
-						let videoc = document.querySelector('.preview-videos-in-surgery');
-						divMain.append(newVideo, closeButtonLink);
-						videoc.append(divMain);
-						let closeBtn = document.querySelectorAll('.close-video');
-						closeBtn.forEach(btn => {
-							btn.addEventListener('click', (e) => {
-								let parent = btn.parentElement;
-								parent.remove();
-							})
-						})
-					};
-					reader.readAsDataURL(inputFiles[i]);
-				}
-			}
-		};
-	}
+	// 	let videosPreviewInSurgery = function (input) {
+	// 		let inputFiles = Array.from(input.files);
+	// 		if (input.files) {
+	// 			for (i = 0; i < inputFiles.length; i++) {
+	// 				let reader = new FileReader();
+	// 				reader.onload = function (event) {
+	// 					let newVideo = document.createElement('video');
+	// 					let closeButtonLink = document.createElement('button');
+	// 					let divMain = document.createElement('figure');
+	// 					let src = event.target.result;
+	// 					divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
+	// 					divMain.id = i;
+	// 					newVideo.src = src;
+	// 					newVideo.classList = 'img-fluid';
+	// 					newVideo.controls = true;
+	// 					newVideo.id = i;
+	// 					closeButtonLink.type = 'button';
+	// 					closeButtonLink.id = i;
+	// 					closeButtonLink.ariaLabel = 'Close';
+	// 					closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-5 mt-2 close-video';
+	// 					let videoc = document.querySelector('.preview-videos-in-surgery');
+	// 					divMain.append(newVideo, closeButtonLink);
+	// 					videoc.append(divMain);
+	// 					let closeBtn = document.querySelectorAll('.close-video');
+	// 					closeBtn.forEach(btn => {
+	// 						btn.addEventListener('click', (e) => {
+	// 							let parent = btn.parentElement;
+	// 							parent.remove();
+	// 						})
+	// 					})
+	// 				};
+	// 				reader.readAsDataURL(inputFiles[i]);
+	// 			}
+	// 		}
+	// 	};
+	// }
 
-	let inputMultiImageAfter = document.getElementById('input-multi-images-after');
-	if(inputMultiImageAfter) {
-		inputMultiImageAfter.addEventListener('change', (e) => {
-			let files = e.target;//event.target.files;
-			imagesPreviewAfter(files);
-		})
+	// let inputMultiImageAfter = document.getElementById('input-multi-images-after');
+	// if(inputMultiImageAfter) {
+	// 	inputMultiImageAfter.addEventListener('change', (e) => {
+	// 		let files = e.target;//event.target.files;
+	// 		imagesPreviewAfter(files);
+	// 	})
 	
-		let imagesPreviewAfter = function (input) {
-			let inputFiles = Array.from(input.files);
-			if (input.files) {
-				for (let i = 0; i < input.files.length; i++) {
-					let reader = new FileReader();
-					let newImage = document.createElement('img');
-					let iconClose = document.createElement('i');
-					iconClose.setAttribute('class', 'ti-close');
-					let closeButtonLink = document.createElement('div');
-					closeButtonLink.append(iconClose);
-					let divMain = document.createElement('figure');
-					reader.addEventListener('load', (event) => {
-						let src = event.target.result;
-						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
-						divMain.id = i;
-						newImage.src = src;
-						newImage.classList = 'figure-img img-fluid rounded img-cover';
-						newImage.id = i;
-						closeButtonLink.id = i;
-						closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
-						let imgc = document.querySelector('.preview-images-after');
-						divMain.append(newImage, closeButtonLink);
-						imgc.append(divMain);
-						let closeBtns = document.querySelectorAll('.close-img');
-						closeBtns.forEach(btn => {
-							btn.addEventListener('click', () => {
-								let parent = btn.parentElement;
-								parent.remove();
-							})
-						})
-					});
-					reader.readAsDataURL(input.files[i]);
-				}
-			}
-		};
-	}
+	// 	let imagesPreviewAfter = function (input) {
+	// 		let inputFiles = Array.from(input.files);
+	// 		if (input.files) {
+	// 			for (let i = 0; i < input.files.length; i++) {
+	// 				let reader = new FileReader();
+	// 				let newImage = document.createElement('img');
+	// 				let iconClose = document.createElement('i');
+	// 				iconClose.setAttribute('class', 'ti-close');
+	// 				let closeButtonLink = document.createElement('div');
+	// 				closeButtonLink.append(iconClose);
+	// 				let divMain = document.createElement('figure');
+	// 				reader.addEventListener('load', (event) => {
+	// 					let src = event.target.result;
+	// 					divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure img-container position-relative mt-2';
+	// 					divMain.id = i;
+	// 					newImage.src = src;
+	// 					newImage.classList = 'figure-img img-fluid rounded img-cover';
+	// 					newImage.id = i;
+	// 					closeButtonLink.id = i;
+	// 					closeButtonLink.classList = 'btn btn-dark position-absolute top-0 end-0 mr-5 mt-2 close-img';
+	// 					let imgc = document.querySelector('.preview-images-after');
+	// 					divMain.append(newImage, closeButtonLink);
+	// 					imgc.append(divMain);
+	// 					let closeBtns = document.querySelectorAll('.close-img');
+	// 					closeBtns.forEach(btn => {
+	// 						btn.addEventListener('click', () => {
+	// 							let parent = btn.parentElement;
+	// 							parent.remove();
+	// 						})
+	// 					})
+	// 				});
+	// 				reader.readAsDataURL(input.files[i]);
+	// 			}
+	// 		}
+	// 	};
+	// }
 
-	let inputMultiVideoAfter = document.getElementById('input-multi-videos-after');
-	if (inputMultiVideoAfter) {
-		inputMultiVideoAfter.addEventListener('change', (e) => {
-			let files = e.target;
-			videosPreviewAfter(files);
-		})
+	// let inputMultiVideoAfter = document.getElementById('input-multi-videos-after');
+	// if (inputMultiVideoAfter) {
+	// 	inputMultiVideoAfter.addEventListener('change', (e) => {
+	// 		let files = e.target;
+	// 		videosPreviewAfter(files);
+	// 	})
 	
-		let videosPreviewAfter = function (input) {
-			let inputFiles = Array.from(input.files);
-			if (input.files) {
-				for (i = 0; i < inputFiles.length; i++) {
-					let reader = new FileReader();
-					reader.onload = function (event) {
-						let newVideo = document.createElement('video');
-						let closeButtonLink = document.createElement('button');
-						let divMain = document.createElement('figure');
-						let src = event.target.result;
-						divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
-						divMain.id = i;
-						newVideo.src = src;
-						newVideo.classList = 'img-fluid';
-						newVideo.controls = true;
-						newVideo.id = i;
-						closeButtonLink.type = 'button';
-						closeButtonLink.id = i;
-						closeButtonLink.ariaLabel = 'Close';
-						closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-5 mt-2 close-video';
-						let videoc = document.querySelector('.preview-videos-after');
-						divMain.append(newVideo, closeButtonLink);
-						videoc.append(divMain);
-						let closeBtn = document.querySelectorAll('.close-video');
-						closeBtn.forEach(btn => {
-							btn.addEventListener('click', (e) => {
-								let parent = btn.parentElement;
-								parent.remove();
-							})
-						})
-					};
-					reader.readAsDataURL(inputFiles[i]);
-				}
-			}
-		};
-	}
+	// 	let videosPreviewAfter = function (input) {
+	// 		let inputFiles = Array.from(input.files);
+	// 		if (input.files) {
+	// 			for (i = 0; i < inputFiles.length; i++) {
+	// 				let reader = new FileReader();
+	// 				reader.onload = function (event) {
+	// 					let newVideo = document.createElement('video');
+	// 					let closeButtonLink = document.createElement('button');
+	// 					let divMain = document.createElement('figure');
+	// 					let src = event.target.result;
+	// 					divMain.classList = 'col-xl-6 col-lg-12 col-md-6 col-sm-6 col-xs-6 figure imgbox position-relative mt-2';
+	// 					divMain.id = i;
+	// 					newVideo.src = src;
+	// 					newVideo.classList = 'img-fluid';
+	// 					newVideo.controls = true;
+	// 					newVideo.id = i;
+	// 					closeButtonLink.type = 'button';
+	// 					closeButtonLink.id = i;
+	// 					closeButtonLink.ariaLabel = 'Close';
+	// 					closeButtonLink.classList = 'btn-close btn-close-white position-absolute top-0 end-0 mr-5 mt-2 close-video';
+	// 					let videoc = document.querySelector('.preview-videos-after');
+	// 					divMain.append(newVideo, closeButtonLink);
+	// 					videoc.append(divMain);
+	// 					let closeBtn = document.querySelectorAll('.close-video');
+	// 					closeBtn.forEach(btn => {
+	// 						btn.addEventListener('click', (e) => {
+	// 							let parent = btn.parentElement;
+	// 							parent.remove();
+	// 						})
+	// 					})
+	// 				};
+	// 				reader.readAsDataURL(inputFiles[i]);
+	// 			}
+	// 		}
+	// 	};
+	// }
 
 	
 });
@@ -632,14 +632,15 @@ imageModalCounselor.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImg = button.getAttribute('data-img');
+	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgURL = button.getAttribute('data-url-img');
 
 	var modalImageCounselor = document.getElementById('modal-img-counselor');
 	var inputDeleteImageCounselor = document.getElementById('inputDeleteImageCounselor');
 
-	// modalImageCounselor.setAttribute('src', `${dataImg}`);
-	modalImageCounselor.setAttribute('src', `/counselor/img/${dataImg}`);
-	inputDeleteImageCounselor.value = dataImg;
+	modalImageCounselor.setAttribute('src', `${dataImgURL}`);
+	// modalImageCounselor.setAttribute('src', `/counselor/img/${dataImg}`);
+	inputDeleteImageCounselor.value = dataImgName;
 
 });
 
@@ -651,14 +652,15 @@ restoreImageModalCounselor.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImg = button.getAttribute('data-img');
+	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgURL = button.getAttribute('data-url-img');
 
 	var restoreImageCounselor = document.getElementById('restore-img-counselor');
 	var inputRestoreImageCounselor = document.getElementById('inputRestoreImageCounselor');
 
-	// restoreImageCounselor.setAttribute('src', `${dataImg}`);
-	restoreImageCounselor.setAttribute('src', `/counselor/img/${dataImg}`);
-	inputRestoreImageCounselor.value = dataImg;
+	restoreImageCounselor.setAttribute('src', `${dataImgURL}`);
+	// restoreImageCounselor.setAttribute('src', `/counselor/img/${dataImg}`);
+	inputRestoreImageCounselor.value = dataImgName;
 
 });
 
@@ -671,13 +673,15 @@ videoModalCounselor.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideo = button.getAttribute('data-video');
+	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoURL = button.getAttribute('data-url-video');
+
 	var modalVideoCounselor = document.getElementById('modal-video-counselor');
 	var inputDeleteVideoCounselor = document.getElementById('inputDeleteVideoCounselor');
 
-	// modalVideoCounselor.setAttribute('src', `${dataVideo}`);
-	modalVideoCounselor.setAttribute('src', `/counselor/video/${dataVideo}`);
-	inputDeleteVideoCounselor.value = dataVideo;
+	modalVideoCounselor.setAttribute('src', `${dataVideoURL}`);
+	// modalVideoCounselor.setAttribute('src', `/counselor/video/${dataVideo}`);
+	inputDeleteVideoCounselor.value = dataVideoName;
 });
 
 // Restore Counselor Video
@@ -688,13 +692,15 @@ restoreVideoModalCounselor.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideo = button.getAttribute('data-video');
+	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoURL = button.getAttribute('data-url-video');
+
 	var restoreVideoCounselor = document.getElementById('restore-video-counselor');
 	var inputRestoreVideoCounselor = document.getElementById('inputRestoreVideoCounselor');
 
-	// restoreVideoCounselor.setAttribute('src', `${dataVideo}`);
-	restoreVideoCounselor.setAttribute('src', `/counselor/video/${dataVideo}`);
-	inputRestoreVideoCounselor.value = dataVideo;
+	restoreVideoCounselor.setAttribute('src', `${dataVideoURL}`);
+	// restoreVideoCounselor.setAttribute('src', `/counselor/video/${dataVideo}`);
+	inputRestoreVideoCounselor.value = dataVideoName;
 
 });
 
@@ -706,13 +712,15 @@ imageModalBefore.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 	
 	// Extract info from data-bs-* attributes
-	var dataImg = button.getAttribute('data-img');
+	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgURL = button.getAttribute('data-url-img');
 	
 	var modalImageBefore = document.getElementById('modal-img-before');
 	var inputDeleteImageBefore = document.getElementById('inputDeleteImageBefore');
-	// modalImageBefore.setAttribute('src', `${dataImg}`);
-	modalImageBefore.setAttribute('src', `/before/img/${dataImg}`);
-	inputDeleteImageBefore.value = dataImg;
+	
+	modalImageBefore.setAttribute('src', `${dataImgURL}`);
+	// modalImageBefore.setAttribute('src', `/before/img/${dataImg}`);
+	inputDeleteImageBefore.value = dataImgName;
 })
 
 // Restore Before Image
@@ -723,14 +731,15 @@ restoreImageModalBefore.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImg = button.getAttribute('data-img');
+	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgURL = button.getAttribute('data-url-img');
 
 	var restoreImageBefore = document.getElementById('restore-img-before');
 	var inputRestoreImageBefore = document.getElementById('inputRestoreImageBefore');
 
-	// restoreImageBefore.setAttribute('src', `${dataImg}`);
-	restoreImageBefore.setAttribute('src', `/before/img/${dataImg}`);
-	inputRestoreImageBefore.value = dataImg;
+	restoreImageBefore.setAttribute('src', `${dataImgURL}`);
+	// restoreImageBefore.setAttribute('src', `/before/img/${dataImg}`);
+	inputRestoreImageBefore.value = dataImgName;
 
 });
 
@@ -742,14 +751,15 @@ videoModalBefore.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideo = button.getAttribute('data-video');
+	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoURL = button.getAttribute('data-url-video');
 
 	var modalVideoBefore = document.getElementById('modal-video-before');
 	var inputDeleteVideoBefore = document.getElementById('inputDeleteVideoBefore');
 
-	// modalVideoBefore.setAttribute('src', `${dataVideo}`);
-	modalVideoBefore.setAttribute('src', `/before/video/${dataVideo}`);
-	inputDeleteVideoBefore.value = dataVideo;
+	modalVideoBefore.setAttribute('src', `${dataVideoURL}`);
+	// modalVideoBefore.setAttribute('src', `/before/video/${dataVideo}`);
+	inputDeleteVideoBefore.value = dataVideoName;
 
 })
 
@@ -761,13 +771,15 @@ restoreVideoModalBefore.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideo = button.getAttribute('data-video');
+	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoURL = button.getAttribute('data-url-video');
+
 	var restoreVideoBefore = document.getElementById('restore-video-before');
 	var inputRestoreVideoBefore = document.getElementById('inputRestoreVideoBefore');
 
-	// restoreVideoBefore.setAttribute('src', `${dataVideo}`);
-	restoreVideoBefore.setAttribute('src', `/before/video/${dataVideo}`);
-	inputRestoreVideoBefore.value = dataVideo;
+	restoreVideoBefore.setAttribute('src', `${dataVideoURL}`);
+	// restoreVideoBefore.setAttribute('src', `/before/video/${dataVideo}`);
+	inputRestoreVideoBefore.value = dataVideoName;
 
 });
 
@@ -779,15 +791,16 @@ imageModalInSurgery.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImg = button.getAttribute('data-img');
+	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgURL = button.getAttribute('data-url-img');
 
 	var modalImageInSurgery = document.getElementById('modal-img-inSurgery');
 	var inputDeleteImageInSurgery = document.getElementById('inputDeleteImageInSurgery');
 
 
-	// modalImageInSurgery.setAttribute('src', `${dataImg}`);
-	modalImageInSurgery.setAttribute('src', `/in-surgery/img/${dataImg}`);
-	inputDeleteImageInSurgery.value = dataImg;
+	modalImageInSurgery.setAttribute('src', `${dataImgURL}`);
+	// modalImageInSurgery.setAttribute('src', `/in-surgery/img/${dataImg}`);
+	inputDeleteImageInSurgery.value = dataImgName;
 });
 
 // Restore In Surgery Image
@@ -798,14 +811,15 @@ restoreImageModalInSurgery.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImg = button.getAttribute('data-img');
+	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgURL = button.getAttribute('data-url-img');
 
 	var restoreImageInSurgery = document.getElementById('restore-img-in-surgery');
 	var inputRestoreImageInSurgery = document.getElementById('inputRestoreImageInSurgery');
 
-	// restoreImageInSurgery.setAttribute('src', `${dataImg}`);
-	restoreImageInSurgery.setAttribute('src', `/in-surgery/img/${dataImg}`);
-	inputRestoreImageInSurgery.value = dataImg;
+	restoreImageInSurgery.setAttribute('src', `${dataImgURL}`);
+	// restoreImageInSurgery.setAttribute('src', `/in-surgery/img/${dataImg}`);
+	inputRestoreImageInSurgery.value = dataImgName;
 
 });
 
@@ -817,14 +831,15 @@ videoModalInSurgery.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideo = button.getAttribute('data-video');
+	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoURL = button.getAttribute('data-url-video');
 
 	var modalVideoInSurgery = document.getElementById('modal-video-inSurgery');
 	var inputDeleteVideoInSurgery = document.getElementById('inputDeleteVideoInSurgery');
 
-	// modalVideoInSurgery.setAttribute('src', `${dataVideo}`);
-	modalVideoInSurgery.setAttribute('src', `/in-surgery/video/${dataVideo}`);
-	inputDeleteVideoInSurgery.value = dataVideo;
+	modalVideoInSurgery.setAttribute('src', `${dataVideoURL}`);
+	// modalVideoInSurgery.setAttribute('src', `/in-surgery/video/${dataVideo}`);
+	inputDeleteVideoInSurgery.value = dataVideoName;
 });
 
 // Restore In Surgery Video
@@ -835,13 +850,15 @@ restoreVideoModalInSurgery.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideo = button.getAttribute('data-video');
+	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoURL = button.getAttribute('data-url-video');
+
 	var restoreVideoInSurgery = document.getElementById('restore-video-in-surgery');
 	var inputRestoreVideoInSurgery = document.getElementById('inputRestoreVideoInSurgery');
 
-	// restoreVideoInSurgery.setAttribute('src', `${dataVideo}`);
-	restoreVideoInSurgery.setAttribute('src', `/in-surgery/video/${dataVideo}`);
-	inputRestoreVideoInSurgery.value = dataVideo;
+	restoreVideoInSurgery.setAttribute('src', `${dataVideoURL}`);
+	// restoreVideoInSurgery.setAttribute('src', `/in-surgery/video/${dataVideo}`);
+	inputRestoreVideoInSurgery.value = dataVideoName;
 });
 
 // Delete After Image
@@ -852,14 +869,15 @@ imageModalAfter.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImg = button.getAttribute('data-img');
+	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgURL = button.getAttribute('data-url-img');
 
 	var modalImageAfter = document.getElementById('modal-img-after');
 	var inputDeleteImgAfter = document.getElementById('inputDeleteImgAfter');
 
-	// modalImageAfter.setAttribute('src', `${dataImg}`);
-	modalImageAfter.setAttribute('src', `/after/img/${dataImg}`);
-	inputDeleteImgAfter.value = dataImg;
+	modalImageAfter.setAttribute('src', `${dataImgURL}`);
+	// modalImageAfter.setAttribute('src', `/after/img/${dataImg}`);
+	inputDeleteImgAfter.value = dataImgName;
 
 })
 
@@ -871,14 +889,15 @@ restoreImageModalAfter.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImg = button.getAttribute('data-img');
+	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgURL = button.getAttribute('data-url-img');
 
 	var restoreImageAfter = document.getElementById('restore-img-after');
 	var inputRestoreImageAfter = document.getElementById('inputRestoreImageAfter');
 
-	// restoreImageAfter.setAttribute('src', `${dataImg}`);
-	restoreImageAfter.setAttribute('src', `/after/img/${dataImg}`);
-	inputRestoreImageAfter.value = dataImg;
+	restoreImageAfter.setAttribute('src', `${dataImgURL}`);
+	// restoreImageAfter.setAttribute('src', `/after/img/${dataImg}`);
+	inputRestoreImageAfter.value = dataImgName;
 
 });
 
@@ -890,14 +909,15 @@ videoModalAfter.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideo = button.getAttribute('data-video');
+	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoURL = button.getAttribute('data-url-video');
 
 	var modalVideoAfter = document.getElementById('modal-video-after');
 	var inputDeleteVideoAfter = document.getElementById('inputDeleteVideoAfter');
 
-	// modalVideoAfter.setAttribute('src', `${dataVideo}`);
-	modalVideoAfter.setAttribute('src', `/after/video/${dataVideo}`);
-	inputDeleteVideoAfter.value = dataVideo;
+	modalVideoAfter.setAttribute('src', `${dataVideoURL}`);
+	// modalVideoAfter.setAttribute('src', `/after/video/${dataVideo}`);
+	inputDeleteVideoAfter.value = dataVideoName;
 
 })
 
@@ -909,13 +929,15 @@ restoreVideoModalAfter.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideo = button.getAttribute('data-video');
+	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoURL = button.getAttribute('data-url-video');
+
 	var restoreVideoAfter = document.getElementById('restore-video-after');
 	var inputRestoreVideoAfter = document.getElementById('inputRestoreVideoAfter');
 
-	// restoreVideoAfter.setAttribute('src', `${dataVideo}`);
-	restoreVideoAfter.setAttribute('src', `/after/video/${dataVideo}`);
-	inputRestoreVideoAfter.value = dataVideo;
+	restoreVideoAfter.setAttribute('src', `${dataVideoURL}`);
+	// restoreVideoAfter.setAttribute('src', `/after/video/${dataVideo}`);
+	inputRestoreVideoAfter.value = dataVideoName;
 });
 
 function totalMoneyFn(before, current) {

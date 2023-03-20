@@ -9,8 +9,8 @@ const validateUploadImage = require('../../middleware/validateUpload');
 // Thay đổi mật khẩu
 router.post('/change-pass', AuthController.changePassword);
 
-// Cập nhật phiếu dịch vụ hoàn thành (cần chỉnh sửa)
-// router.patch('/customers/wound-cleaning/:id/done', EmployCustomerCareController.updateServiceNoteDone);
+// Lưu trữ hồ sơ khách hàng
+router.patch('/customers/:id/storage', EmployCustomerCareController.storageCustomer);
 
 // Xóa phiếu tái khám định kỳ
 router.delete('/re-exam/:id/delete', EmployCustomerCareController.deleteReExam);
@@ -90,8 +90,14 @@ router.delete('/wound-cleaning/:id/delete', EmployCustomerCareController.deleteW
 // Khôi phục phiếu thay băng cắt chỉ
 router.patch('/wound-cleaning/:id/restore', EmployCustomerCareController.restoreWoundCleaning);
 
+// Upload hình phiếu tái khám
+router.post('/wound-cleaning/:id/uploadImages',  validateUploadImage.woundCleaningUpload,  EmployCustomerCareController.uploadWoundCleaningImg);
+
+// Upload video phiếu tái khám
+router.post('/wound-cleaning/:id/uploadVideos',  validateUploadImage.woundCleaningUpload,  EmployCustomerCareController.uploadWoundCleaningVideo);
+
 // Upload hình và video phiếu thay băng
-router.post('/wound-cleaning/:id/upload',  validateUploadImage.woundCleaningUpload,  EmployCustomerCareController.uploadWoundCleaning);
+router.post('/wound-cleaning/:id/update',  validateUploadImage.woundCleaningUpload,  EmployCustomerCareController.updateWoundCleaning);
 
 // Xóa hình ảnh thay băng cắt chỉ trên phiếu thay băng
 router.delete('/wound-cleaning/:id/delete-img-wound-cleaning', EmployCustomerCareController.deleteWoundCleaningImg);

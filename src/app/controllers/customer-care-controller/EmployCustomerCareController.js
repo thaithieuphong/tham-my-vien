@@ -4,23 +4,16 @@ const { mongooseToObject, multipleMongooseToObject } = require("../../../util/mo
 const ServiceNote = require('../../models/ServiceNote');
 const Reexamination = require('../../models/Reexamination');
 const fs = require('fs');
-const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
-const ffmpeg = require('fluent-ffmpeg');
-ffmpeg.setFfmpegPath(ffmpegPath);
 const path = require('path');
 const sharp = require('sharp');
-const fileType = import('file-type');
 const ReExaminationSchedule = require("../../models/ReExaminationSchedule");
 const WoundCleaning = require("../../models/WoundCleaning");
 const WoundCleaningSchedule = require("../../models/WoundCleaningSchedule");
 const Log = require('../../models/Log');
-const { populate } = require("../../models/Customer");
 const rootPath = path.sep;
 const appRoot = require('app-root-path');
 const axios = require('axios');
-const { pipeline } = require('stream');
-const ProgressBar = require('progressbar.js');
-const sizeOf = require('image-size');
+const { info } = require("console");
 require('dotenv').config();
 
 
@@ -97,7 +90,7 @@ class EmployCustomerCareController {
 	}
 
 	// Tạo lịch thay băng
-	createWoundCleaningSchedule(req, res, next) {
+	async createWoundCleaningSchedule(req, res, next) {
 		const woundCleaningSchedule = new WoundCleaningSchedule({
 			userID: req.userId,
 			cusID: req.body.cusID,
@@ -107,7 +100,7 @@ class EmployCustomerCareController {
 			times: req.body.times,
 			hasWoundCleaning: false
 		})
-		woundCleaningSchedule.save();
+		await woundCleaningSchedule.save();
 		const logs = new Log({
 			userID: req.userId,
 			customerID: req.body.cusID,
@@ -122,7 +115,7 @@ class EmployCustomerCareController {
 			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { woundCleaningScheduleID: woundCleaningSchedule.id }, $set: { hasWoundCleaningSchedule: true } })
 		])
 			.then(() => {
-				req.flash('messages_createReExamination_success', 'Tạo lịch thay băng thành công');
+				req.flash('messages_createWoundCleaningSchedule_success', 'Tạo lịch thay băng thành công');
 				res.redirect("back");
 			})
 			.catch(next);
@@ -463,39 +456,138 @@ class EmployCustomerCareController {
 			.catch(next);
 	}
 
-	// Tải hình ảnh và video thay băng cắt chỉ
-	uploadWoundCleaning(req, res, next) {
+
+	// Tải lên hình ảnh phiếu thay băng
+	async uploadWoundCleaningImg(req, res, next) {
+		const files = req.files;
+		const date = new Date();
+        const getDate = date.getDate();
+        const getMonth = date.getMonth();
+        const getYear = date.getFullYear();
+        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
+		// const resizeOpts = { width: 512, height: 1024 };
+		const imgArr = [];
+		console.log(files);
+		console.log(req.body);
+		for (const file of files) {
+			if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
+				const logs = new Log({
+					customerID: req.body.cusID,
+					reExamID: req.params.id,
+					userID: req.userId,
+					status: 'Cập nhật hình ảnh phiếu tái khám',
+					contents: req.body
+				});
+				logs.save();
+				let updateStatus = {
+					$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh phiếu tái khám', statusEng: 'uploadedReExamImg'} },
+					$push: { logIDs: logs._id }
+				}
+				const image = sharp(file.path).resize().webp();
+				const imageFormatName = `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}.${image.options.formatOut}`;
+
+				// Đường dẫn cho môi trường phát triển
+				const storagePathDev = `${appRoot}/src/public/wound-cleaning/img/${imageFormatName}`;
+
+				// Đường dẫn cho môi trường sản xuất
+				// 	const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/wound-cleaning/${imageFormatName}`;
+
+				const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
+				const imageURL = imageToFolder.options.fileOut;
+				const imageName = await imageURL.split('/').pop();
+				console.log(imageURL);
+				console.log(imageName);
+				imgArr.push({ name: imageName, url: imageURL, notDeletedYet: true });
+				await Promise.all([
+					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+					WoundCleaning.findByIdAndUpdate({ _id: req.params.id }, { $push: { woundCleaningImg: imgArr }})
+				])
+				.then(([customer, reExam]) => {
+
+					// Xóa tệp ảnh tạm thời
+					fs.unlinkSync(file.path);
+					res.status(200).json({ message: 'Hoàn thành tải lên' });
+				})
+				.catch(next => {
+					console.log(`Đã xảy ra lỗi này: ${next}`);
+					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+					
+				});
+			}
+		}
+	}
+
+	// Tải lên video phiếu thay băng
+	async uploadWoundCleaningVideo(req, res, next) {
+		const files = req.files;
+		const date = new Date();
+        const getDate = date.getDate();
+        const getMonth = date.getMonth();
+        const getYear = date.getFullYear();
+        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
+		const videoArr = [];
+		for (const file of files) {
+			if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv'|| file.mimetype === 'video/quicktime' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+				const logs = new Log({
+					customerID: req.body.cusID,
+					reExamID: req.params.id,
+					userID: req.userId,
+					status: 'Cập nhật video phiếu tái khám',
+					contents: req.body
+				});
+				logs.save();
+				let updateStatus = {
+					$set: { statusCus: { statusVi: 'Đã cập nhật video phiếu tái khám', statusEng: 'uploadedReExamVideo'} },
+					$push: { logIDs: logs._id }
+				}
+				const videoFormatName = `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`;
+				// Đường dẫn cho môi trường phát triển
+				const storagePathDev = `${appRoot}/src/public/wound-cleaning/video/${videoFormatName}`;
+
+				// Đường dẫn cho môi trường sản xuất
+				// const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/wound-cleaning/${videoFormatName}`;
+				
+				fs.rename(file.path, storagePathDev, function (err) {
+					if (err) throw err;
+				});
+				const videoURL = storagePathDev;
+				const videoName = await videoURL.split('/').pop();
+				videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
+				await Promise.all([
+					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+					WoundCleaning.findByIdAndUpdate({ _id: req.params.id }, { $push: { woundCleaningVideo: videoArr }})
+				])
+				.then(([customer, reExam]) => {
+					// Xóa tệp ảnh tạm thời
+					// fs.unlinkSync(file.path);
+					res.status(200).json({ message: 'Hoàn thành tải lên' });
+				})
+				.catch(next => {
+					console.log(`Đã xảy ra lỗi này: ${next}`);
+					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+					
+				});
+			}
+		}
+	}
+
+	// Cập nhật thông tin thay băng cắt chỉ
+	updateWoundCleaning(req, res, next) {
 		const logs = new Log({
 			customerID: req.body.cusID,
 			woundCleaningID: req.params.id,
 			userID: req.userId,
-			status: 'Cập nhật hình ảnh và video thay băng cắt chỉ',
+			status: 'Cập nhật thông tin thay băng cắt chỉ',
 			contents: req.body
 		});
 		logs.save();
-		const file = req.files;
-		const imgArr = [];
-		const videoArr = []
-		file.forEach(element => {
-			if (element.mimetype === 'image/jpg' || element.mimetype === 'image/jpeg' || element.mimetype === 'image/png' || element.mimetype === 'image/avif' || element.mimetype === 'image/webp') {
-				imgArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
-				return imgArr;
-			} else if (element.mimetype === 'video/avi' || element.mimetype === 'video/flv' || element.mimetype === 'video/wmv' || element.mimetype === 'video/quicktime' || element.mimetype === 'video/mp4' || element.mimetype === 'video/webm') {
-				videoArr.push({ name: element.filename, url: element.path, notDeletedYet: true });
-				return videoArr;
-			}
-		})
 		let updateStatus = {
-			$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh và video thay băng cắt chỉ', statusEng: 'uploadedWoundCleaning' } },
+			$set: { statusCus: { statusVi: 'Đã cập nhật thông tin thay băng cắt chỉ', statusEng: 'uploadedWoundCleaning' } },
 			$push: { logIDs: logs._id }
 		}
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
 			WoundCleaning.findByIdAndUpdate({ _id: req.params.id }, {
-				$push: {
-					woundCleaningImg: imgArr,
-					woundCleaningVideo: videoArr
-				},
 				$set: {
 					statusInfo: req.body.statusInfo,
 					directedByDoctor: req.body.directedByDoctor,
@@ -506,11 +598,11 @@ class EmployCustomerCareController {
 				}
 			})
 		])
-			.then(() => {
-				req.flash('messages_uploadWoundCleaning_success', 'Cập nhật hình ảnh và video thay băng cắt chỉ thành công');
-				res.redirect('back');
-			})
-			.catch(next);
+		.then(() => {
+			req.flash('messages_uploadWoundCleaning_success', 'Cập nhật thông tin phiếu thay băng thành công');
+			res.redirect('back');
+		})
+		.catch(next);
 	}
 
 	// Xóa ảnh thay băng cắt chỉ
@@ -1040,139 +1132,107 @@ class EmployCustomerCareController {
 
 	// Tải lên hình ảnh phiếu tái khám
 	async uploadReExamImg(req, res, next) {
-		console.log(req.files);
-		try {
-			const files = req.files;
-			const uploadedImages = [];
-			const dateNow = new Date().toISOString();
-			const resizeOpts = { width: 512, height: 1024 };
+		const files = req.files;
+		const date = new Date();
+        const getDate = date.getDate();
+        const getMonth = date.getMonth();
+        const getYear = date.getFullYear();
+        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
+		// const resizeOpts = { width: 512, height: 1024 };
+		const imgArr = [];
+		for (const file of files) {
+			if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
+				const logs = new Log({
+					customerID: req.body.cusID,
+					reExamID: req.params.id,
+					userID: req.userId,
+					status: 'Cập nhật hình ảnh phiếu tái khám',
+					contents: req.body
+				});
+				logs.save();
+				let updateStatus = {
+					$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh phiếu tái khám', statusEng: 'uploadedReExamImg'} },
+					$push: { logIDs: logs._id }
+				}
+				const image = sharp(file.path).resize().webp();
+				const imageFormatName = `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}.${image.options.formatOut}`;
+				// Đường dẫn cho môi trường phát triển
+				const storagePathDev = `${appRoot}/src/public/re-examination/img/${imageFormatName}`;
+				// Đường dẫn cho môi trường sản xuất
+				const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/re-examination/${imageFormatName}`;
+				const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
+				const imageURL = imageToFolder.options.fileOut;
+				const imageName = await imageURL.split('/').pop();
+				imgArr.push({ name: imageName, url: imageURL, notDeletedYet: true });
+				await Promise.all([
+					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+					Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $push: { reExamImg: imgArr }})
+				])
+				.then(([customer, reExam]) => {
 
-			await Promise.all(
-				files.map(async file => {
-					if (
-						file.mimetype === 'image/jpg' || 
-						file.mimetype === 'image/jpeg' || 
-						file.mimetype === 'image/png' || 
-						file.mimetype === 'image/avif' ||
-						file.mimetype === 'image/webp'
-					) {
-						const imageName = `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}.${path.extname(file.originalname)}`;
-
-						const buffer = await sharp(file.path)
-							.resize(resizeOpts)
-							.toFormat('webp')
-							// .toFile(`${appRoot}/src/public/re-examination/img/${imageName}`, function(err){
-								// if(err){
-								// 	res.status(500).json({ message: `Đã xảy ra lỗi: ${err}` });
-								// 	return;
-								// }
-								// console.log(err);
-								// res.status(200).json({ message: 'Hoàn thành quá trình tải ảnh'});
-							// });
-						
-						// next();
-
-						// Tính toán dung lượng hình ảnh
-						// const dimensions = sizeOf(buffer);
-						// const fileSizeInBytes = file.size;
-						// const fileSizeInKB = fileSizeInBytes / 1024;
-						// const fileSizeInMB = fileSizeInKB / 1024;
-		
-						// Thêm thông tin về hình ảnh đã tải lên vào mảng uploadedImages
-						// uploadedImages.push({
-						// 	name: imageName,
-						// 	size: {
-						// 		width: dimensions.width,
-						// 		height: dimensions.height,
-						// 		bytes: fileSizeInBytes,
-						// 		kilobytes: fileSizeInKB,
-						// 		megabytes: fileSizeInMB.toFixed(2)
-						// 	}
-						// });
-
-						// Xóa tệp ảnh tạm thời
-						// await fs.unlink(file.path);
-					}
+					// Xóa tệp ảnh tạm thời
+					fs.unlinkSync(file.path);
+					res.status(200).json({ message: 'Hoàn thành tải lên' });
 				})
-			);
-
-			// Phản hồi về phía giao diện người dùng với danh sách các hình ảnh đã tải lên và kích thước của chúng
-			res.status(200).json({ images: 'Tải hình ảnh thành công' });
-			// res.redirect("back");
-		} catch(err) {
-			console.log(`Một lỗi đã xảy ra trong quá trình xử lý: ${err}`);
-			res.status(500).send(err);
+				.catch(next => {
+					console.log(`Đã xảy ra lỗi này: ${next}`);
+					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+					
+				});
+			}
 		}
 	}
 
 	// Tải lên video phiếu tái khám
 	async uploadReExamVideo(req, res, next) {
-		try {
-			const files = req.files;
-			const date = new Date();
-			const getDate = date.getDate();
-			const getMonth = date.getMonth();
-			const getYear = date.getFullYear();
-			const dateNow = 'createdAt-' + getDate + (getMonth + 1) + getYear;
-			for (const file of files) {
-				if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
-					const imageName = `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}.${path.extname(file.originalname)}`;
-					const image = await sharp(file.path).resize(512, 1024).webp({ quality: 80 }).toFile(`${appRoot}/src/public/re-examination/img/${imageName}`);
-					// console.log('điểm cuối', image.options.input.file);
-
-					// Xóa tệp ảnh tạm thời
-					fs.unlinkSync(file.path);
-
-					// .then(img => {
-					// 	// Tạo một luồng dữ liệu từ ảnh đã nén
-					// 	const stream = image.pipe(img);
-					// 	// // Gửi phản hồi với luồng dữ liệu từ ảnh đã nén
-					// 	res.writeHead(200, { 'Content-Type': 'image/webp' });
-					// 	stream.on('data', chunk => {
-					// 		res.write(chunk);
-					// 	});
-					// 	stream.on('end', () => {
-					// 		res.end();
-					// 	});
-					// })
-					// .catch(next);
-				} else if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv' || file.mimetype === 'video/quicktime' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-					console.log('video file', file);
-
-					// const video = await sharp(file.path).resize(1920, 1080);
-					// console.log('video', video);
-					// const videoName = `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}.${video.options.formatOut}`;
-					// console.log(video.options.formatOut);
-					// video.toFile(`${appRoot}/src/public/re-examination/video/${videoName}`);
+		const files = req.files;
+		const date = new Date();
+        const getDate = date.getDate();
+        const getMonth = date.getMonth();
+        const getYear = date.getFullYear();
+        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
+		const videoArr = [];
+		for (const file of files) {
+			if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv'|| file.mimetype === 'video/quicktime' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
+				const logs = new Log({
+					customerID: req.body.cusID,
+					reExamID: req.params.id,
+					userID: req.userId,
+					status: 'Cập nhật video phiếu tái khám',
+					contents: req.body
+				});
+				logs.save();
+				let updateStatus = {
+					$set: { statusCus: { statusVi: 'Đã cập nhật video phiếu tái khám', statusEng: 'uploadedReExamVideo'} },
+					$push: { logIDs: logs._id }
 				}
-
-				// const resizedImage = await image
-				// 		.resize(300, 300)
-				// 		.toFormat('webp')
-				// 		.webp({ quality: 20 })
-				// 		.toFile(imageName)
-				// 		.then(images => {
-
-				// 			// Tạo một luồng dữ liệu từ ảnh đã nén
-				// 			const stream = images.pipe();
-				// 			// console.log('stream', stream);
-
-				// 			//Xóa tệp ảnh tạm thời
-				// 			fs.unlinkSync(file.path);
-				// 			// Gửi phản hồi với luồng dữ liệu từ ảnh đã nén
-				// 			res.writeHead(200, { 'Content-Type': 'image/webp' });
-				// 			stream.on('data', chunk => {
-				// 				res.write(chunk);
-				// 			});
-				// 			stream.on('end', () => {
-				// 				res.end();
-				// 			});
-				// 			console.log(images);
-				// 		})
-				// 		.catch(next);
+				const videoFormatName = `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`;
+				// // Đường dẫn cho môi trường phát triển
+				const storagePathDev = `${appRoot}/src/public/re-examination/video/${videoFormatName}`;
+				console.log(storagePathDev);
+				// // Đường dẫn cho môi trường sản xuất
+				const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/re-examination/${videoFormatName}`;
+				fs.rename(file.path, storagePathDev, function (err) {
+					if (err) throw err;
+				});
+				const videoURL = storagePathDev;
+				const videoName = await videoURL.split('/').pop();
+				videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
+				await Promise.all([
+					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+					Reexamination.findByIdAndUpdate({ _id: req.params.id }, { $push: { reExamVideo: videoArr }})
+				])
+				.then(([customer, reExam]) => {
+					// Xóa tệp ảnh tạm thời
+					// fs.unlinkSync(file.path);
+					res.status(200).json({ message: 'Hoàn thành tải lên' });
+				})
+				.catch(next => {
+					console.log(`Đã xảy ra lỗi này: ${next}`);
+					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+					
+				});
 			}
-		} catch (error) {
-			console.log(`An error occurred during processing: ${error}`);
 		}
 	}
 
@@ -1204,7 +1264,7 @@ class EmployCustomerCareController {
 			})
 		])
 			.then(() => {
-				req.flash('messages_uploadReExam_success', 'Cập nhật hình ảnh và video tái khám thành công');
+				req.flash('messages_uploadReExam_success', 'Cập nhật thông tin phiếu tái khám thành công');
 				res.redirect('back');
 			})
 			.catch(next);
@@ -1363,7 +1423,7 @@ class EmployCustomerCareController {
 			reExamScheduleID: req.body.reExamScheduleID,
 			serviceNoteID: req.body.serviceNoteID,
 			userID: req.userId,
-			status: 'Khôi phục video tái khám',
+			status: 'Hoàn thành phiếu tái khám',
 			contents: req.body
 		});
 		logs.save();
@@ -1442,39 +1502,59 @@ class EmployCustomerCareController {
 			.catch(next);
 	}
 
-	// Lưu hồ sơ khách hàng vào kho
-	// move
-
-	// Hiển thị hồ sơ lưu trữ khách hàng (chỉnh sửa)
-	showStorage(req, res, next) {
-		Customer.find({ statusCus: { statusVi: 'Lưu hồ sơ', statusEng: 'records' }, storage: 'Yes' }).populate('serviceNoteID')
-			.then(customers => {
-				res.render('customer-care/employ/employ-customer-storage', {
-					customers: multipleMongooseToObject(customers),
-					title: "Kho hồ sơ khách hàng"
-				})
+	// Lưu hồ sơ khách hàng
+	storageCustomer(req, res, next) {
+		Promise.all([
+			ServiceNote.findByIdAndUpdate({ _id: req.body.serviceNoteID }, { $set: { isPeriodicReExamination: false, hasReExamSchedule: false } }),
+			Customer.findByIdAndUpdate({ _id: req.params.id }, { storage: true, statusCus: { statusVi: 'Lưu hồ sơ', statusEng: 'storage' } })
+		])
+			.then((customer) => {
+				console.log(customer);
+				req.flash('messages_storageCustomer_success', 'Lưu hồ sơ khách hàng thành công');
+				res.redirect('back');
 			})
 			.catch(next);
 	}
 
+	// Hiển thị hồ sơ lưu trữ khách hàng
+	showStorage(req, res, next) {
+		Promise.all([
+			User.findById({ _id: req.userId }),
+			Customer.find({ storage: true }).populate('serviceNoteID')
+		])
+		.then(([user, customers]) => {
+			res.render('customer-care/employ/employ-customer-storage', {
+				customers: multipleMongooseToObject(customers),
+				user: mongooseToObject(user),
+				title: "Kho hồ sơ khách hàng"
+			})
+		})
+		.catch(next);
+	}
+
 	// Hiển thị chi tiết khách hàng trong kho hồ sơ (chỉnh sửa)
 	showCustomerStorageDetail(req, res, next) {
-		Customer.findById({ _id: req.params.id }).populate({
-			path: 'serviceNoteID',
-			match: {
-				status: 'Lưu hồ sơ'
-			},
-			populate: {
-				path: 'performer'
-			}
-		})
-			.then((customer) => {
-				res.render('customer-care/employ/employ-customer-storage-detail', {
-					title: 'Chi tiết khách hàng',
-					customer: mongooseToObject(customer)
-				})
+		Promise.all([
+			User.findById({ _id: req.userId }),
+			Customer.findById({ _id: req.params.id }).populate({
+				path: 'serviceNoteID',
+				match: {
+					status: 'Lưu hồ sơ'
+				},
+				populate: {
+					path: 'performer'
+				}
 			})
-			.catch(next);
+		])
+		.then(([user, customer]) => {
+			console.log(customer);
+			res.render('customer-care/employ/employ-customer-storage-detail', {
+				title: 'Chi tiết khách hàng',
+				customer: mongooseToObject(customer),
+				user: mongooseToObject(user)
+			})
+		})
+		.catch(next);
 	}
 }
 

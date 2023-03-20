@@ -1,5 +1,27 @@
 <link rel="stylesheet" href="/css/root.css">
 <link rel="stylesheet" href="/css/assistant.css">
+{{#if messages_createWoundCleaningSchedule_success}}
+    <div class="modal fade" id="messageCreateWoundCleaningSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center mb-3">
+                        <div class="border border-success border-5 rounded-circle position-relative" style="width: 64px; height: 64px;">
+                            <i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                    </div>
+                    <p class="text-center mb-0 text-success">{{messages_createWoundCleaningSchedule_success}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var messageCreateWoundCleaningSuccess = document.querySelector('#messageCreateWoundCleaningSuccess');
+            $(messageCreateWoundCleaningSuccess).modal('show');
+        });
+    </script>
+{{/if}}
 {{#if messages_moveServiceNoteToReExam_success}}
     <div class="modal fade" id="messageMoveServiceNoteToReExamSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered">
@@ -70,7 +92,11 @@
 						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="/customer-care/employ/storage">Kho lưu trữ hồ sơ khách hàng</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+						<li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -125,7 +151,7 @@
 							<th class="text-center">{{sum @index 1}}</th>
 							<td class="text-identify">{{formatBirth this.surgeryDay}}</td>
 							<td class="text-identify">{{this.scheduleID.cusID.identification}}</td>
-							<td class="text-fullName"><a class="fullName-link" href="/customer-care/employ/customers/{{this._id}}/detail">{{this.scheduleID.cusID.fullName}}</a></td>
+							<td class="text-fullName">{{this.scheduleID.cusID.fullName}}</td>
 							<td class="text-nickName">{{this.scheduleID.cusID.nickName}}</td>
 							<td class="">{{this.scheduleID.cusID.gender}}</td>
 							<td class="text-phone">0{{this.scheduleID.cusID.phone}}</td>

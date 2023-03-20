@@ -1,3 +1,13 @@
+document.addEventListener("DOMContentLoaded", function () {
+	$(document).ready(function () {
+		$("#table-service-note-list").bootstrapTable({
+			pagination: true,
+			search: true,
+			scrollY: 300
+		});
+	});
+});
+
 // Delete service note
 var deleteServiceNoteForm = document.forms['deleteServiceNoteForm'];
 var deleteServiceNoteBtn = document.getElementById("deleteServiceNoteBtn");

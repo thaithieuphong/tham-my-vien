@@ -123,7 +123,11 @@
 						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="/customer-care/employ/storage">Kho lưu trữ hồ sơ khách hàng</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+						<li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -192,13 +196,13 @@
 											<i class="fa-sharp fa-solid fa-pen-to-square"></i> Cập nhật thông tin tái khám
 										</a>
 									</div>
-									<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Hoàn thành tái khám">
+									{{!-- <div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Hoàn thành tái khám">
 										<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal-done"
 											class="btn btn-success btn-sm" data-id="{{this._id}}" data-cusId="{{this.cusID._id}}" data-fullName="{{this.cusID.fullName}}"
 											data-service-note-id="{{this.serviceNoteID._id}}" data-re-exam-schedule-id="{{this.reExamScheduleID._id}}">
 											<i class="fa-sharp fa-solid fa-circle-check"></i> Hoàn thành tái khám
 										</button>
-									</div>
+									</div> --}}
 									<div  class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Xóa phiếu tái khám">
 										<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-re-exam-modal" data-re-exam-id="{{this._id}}"
 										data-re-exam-customer-fullname="{{this.cusID.fullName}}" data-re-exam-customer-id="{{this.cusID._id}}" data-re-exam-serviceNoteID="{{this.serviceNoteID._id}}"

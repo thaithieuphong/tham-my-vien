@@ -177,6 +177,10 @@
 						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+						<li><a class="dropdown-item" href="/customer-care/employ/storage">Kho lưu trữ hồ sơ khách hàng</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 						<li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
 						<li>
 							<hr class="dropdown-divider">
@@ -381,50 +385,53 @@
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin thay băng</strong></label>
 					</li>
 					<li class="list-group-item">
-						<div class="d-flex justify-content-between mb-2">
-							<button class="btn btn-danger btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgWoundCleaning" aria-expanded="false" aria-controls="restoreImgWoundCleaning">
+						<div class="d-flex justify-content-end mb-2">
+							<button class="btn btn-danger btn-sm mr-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgWoundCleaning" aria-expanded="false" aria-controls="restoreImgWoundCleaning">
 								<i class="ti-trash"></i> Thùng rác
 							</button>
-							<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadWoundCleaningModal">
-							Tải ảnh và video thay băng cắt chỉ
+							<button type="button" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#uploadWoundCleaningImg">
+								Tải ảnh lên máy chủ
+							</button>
+							<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadWoundCleaningVideo">
+								Tải video lên máy chủ
 							</button>
 						</div>
 						<div class="collapse" id="restoreImgWoundCleaning">
 							<div class="card card-body">
 								<div class="row">
 									<div class="col-md-6 border-right">
-										<div class="row overflow-auto" style="height: 350px;">
+										<div class="row overflow-auto" style="height: 300px;">
 											{{#each woundCleaning.woundCleaningImg}}
 											{{#if notDeletedYet}}
 											{{else}}
-											<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalWoundCleaning" data-img="{{this.name}}">
+											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalWoundCleaning" data-name-img="{{this.name}}"  data-url-img="{{this.url}}">
 													<img class="img-fluid img-150"
 														src="/wound-cleaning/img/{{this.name}}">
-												</a>
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalWoundCleaning" data-img="{{this.url}}">
+												</a> --}}
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalWoundCleaning" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
 													<img class="img-fluid img-150"
 														src="{{this.url}}">
-												</a> --}}
+												</a>
 											</div>
 											{{/if}}
 											{{/each}}
 										</div>
 									</div>
 									<div class="col-md-6">
-										<div class="row overflow-auto" style="height: 350px;">
+										<div class="row overflow-auto" style="height: 300px;">
 											{{#each woundCleaning.woundCleaningVideo}}
 											{{#if notDeletedYet}}
 											{{else}}
-											<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalWoundCleaning" data-video="{{this.name}}">
+											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalWoundCleaning" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
 													<video class="img-fluid video-150"
-														src="/wound-cleaning/video/{{this.name}}"></video>
-												</a>
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalWoundCleaning" data-video="{{this.url}}">
-													<video class="img-fluid video-150"
-														src="{{this.url}}"></video>
+														src="/wound-cleaning/video/{{this.name}}" controls></video>
 												</a> --}}
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalWoundCleaning" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
+													<video class="img-fluid video-150"
+														src="{{this.url}}" controls></video>
+												</a>
 											</div>
 											{{/if}}
 											{{/each}}
@@ -435,195 +442,178 @@
 						</div>
 					</li>
 					<li class="list-group-item">
-						<div class="row mb-2">
+						<div class="row">
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 350px;">
+								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
 									{{#each woundCleaning.woundCleaningImg}}
 									{{#if notDeletedYet}}
-									<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalWoundCleaning" data-img="{{this.url}}">
+									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalWoundCleaning" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
 											<img class="img-fluid img-150" src="{{this.url}}">
-										</a> --}}
-										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalWoundCleaning" data-img="{{this.name}}">
-											<img class="img-fluid img-150" src="/wound-cleaning/img/{{this.name}}">
 										</a>
+										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalWoundCleaning" data-img="{{this.name}}">
+											<img class="img-fluid img-150" src="/wound-cleaning/img/{{this.name}}">
+										</a> --}}
 									</div>
 									{{/if}}
 									{{/each}}
 								</div>
 							</div>
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 350px;">
+								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
 									{{#each woundCleaning.woundCleaningVideo}}
 									{{#if notDeletedYet}}
-									<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalWoundCleaning" data-video="{{this.url}}">
-											<video class="img-fluid video-150" src="{{this.url}}"></video>
-										</a> --}}
-										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalWoundCleaning" data-video="{{this.name}}">
-											<video class="img-fluid video-150" src="/wound-cleaning/video/{{this.name}}"></video>
+									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalWoundCleaning" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
+											<video class="img-fluid video-150" src="{{this.url}}" controls></video>
 										</a>
+										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalWoundCleaning" data-video="{{this.name}}">
+											<video class="img-fluid video-150" src="/wound-cleaning/video/{{this.name}}"></video>
+										</a> --}}
 									</div>
 									{{/if}}
 									{{/each}}
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<label for="steps-to-take-area"><strong>Tình trạng khách hàng:</strong></label>
-								{{#if woundCleaning.statusInfo}}
-								<p class="text-break">{{woundCleaning.statusInfo}}</p>
-								{{else}}
-								<p class="text-break">Chưa nhập thông tin</p>
-								{{/if}}
-							</div>
-							<div class="col-md-4">
-								<label for="steps-to-take-area"><strong>Chỉ định bác sĩ:</strong></label>
-								{{#if woundCleaning.directedByDoctor}}
-								<p class="text-break">{{woundCleaning.directedByDoctor}}</p>
-								{{else}}
-								<p class="text-break">Chưa nhập thông tin</p>
-								{{/if}}
-							</div>
-							<div class="col-md-4">
-								<label for="steps-to-take-area"><strong>Các bước thực hiện:</strong></label>
-								{{#if woundCleaning.stepsToTake}}
-								<p class="text-break">{{woundCleaning.stepsToTake}}</p>
-								{{else}}
-								<p class="text-break">Chưa nhập thông tin</p>
-								{{/if}}
-							</div>
-						</div>
-						<div class="modal fade" id="uploadWoundCleaningModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog modal-xl">
-								<div class="modal-content">
-									<form method="POST" id="submit-wound-cleaning-form"
-										action="/customer-care/employ/wound-cleaning/{{woundCleaning._id}}/upload"
-										enctype="multipart/form-data">
-										<div class="modal-header bg-primary">
-											<h5 class="modal-title text-light" id="exampleModalLabel">Tải hình ảnh và video thay băng cắt chỉ</h5>
-											<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body">
-												<input hidden type="text" value="{{woundCleaning.cusID._id}}" name="cusID">
-												<div class="row">
-													<div class="col-md-6 mb-3">
-														<div id="preview-images-wound-cleaning" class="preview-images-wound-cleaning text-center border rounded overflow-auto ms-0 me-0 mb-3 p-3"
-															style="height: 250px;"></div>
-														<label for="input-multi-images-wound-cleaning"
-															class="label-avt m-0 btn btn-outline-secondary btn-sm text-uppercase w-100">
-															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn ảnh thay băng cắt chỉ
-														</label>
-														<input id="input-multi-images-wound-cleaning" class="form-control visually-hidden" type="file"
-															name="woundCleaning" accept="image/*" multiple>
-													</div>
-													<div class="col-md-6 mb-3">
-														<div id="preview-videos-wound-cleaning" class="preview-videos-wound-cleaning text-center border rounded overflow-auto ms-0 me-0 mb-3 p-3"
-															style="height: 250px;"></div>
-														<label for="input-multi-videos-wound-cleaning"
-															class="label-avt m-0 btn btn-outline-secondary btn-sm text-uppercase w-100">
-															<i class="ti-cloud-up fw-bold pr-3"></i>Chọn video thay băng cắt chỉ
-														</label>
-														<input id="input-multi-videos-wound-cleaning" class="form-control visually-hidden" type="file" name="woundCleaning" accept="video/*" multiple>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-4">
-														<div class="form-group">
-															<label class="form-group-text" for="inputGroupSelect"><strong>Nhân viên thay băng:</strong>&nbsp;<span class="text-danger">*</span></label>
-															{{#if woundCleaning.performer}}
-															<select class="form-select form-control" id="inputGroupSelectTrue" name="performer" rules="required">
-																<option value="{{woundCleaning.performer._id}}" selected>{{woundCleaning.performer.firstName}} {{woundCleaning.performer.lastName}}</option>
-																{{#each users}}
-																<option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
-																{{/each}}
-															</select>
-															<span class="form-message mt-1"></span>
-															{{else}}
-															<select class="form-select form-control" id="inputGroupSelectFail" name="performer" rules="required">
-																<option value=""></option>
-																{{#each users}}
-																<option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
-																{{/each}}
-															</select>
-															<span class="form-message mt-1"></span>
-															{{/if}}
-														</div>
-													</div>
-													<div class="col-md-4">
-														<div class="form-group">
-															<label class="form-group-text" for="inputGroupWoundCleaningDay"><strong>Ngày thay băng:</strong>&nbsp;<span class="text-danger">*</span></label>
-															{{#if woundCleaning.woundCleaningDay}}
-															<input class="form-control" type="datetime-local" name="woundCleaningDay" id="inputGroupWoundCleaningDay" rules="required" value="{{woundCleaning.woundCleaningDay}}">
-															{{else}}
-															<input class="form-control" type="datetime-local" name="woundCleaningDay" id="inputGroupWoundCleaningDay" rules="required">
-															{{/if}}
-															<span class="form-message mt-1"></span>
-														</div>
-													</div>
-													<div class="col-md-4">
-														<div class="form-group">
-															<label class="form-group-text" for="inputGroupWoundCleaningArea"><strong>Khu vực thay băng:</strong>&nbsp;<span class="text-danger">*</span></label>
-															{{#if woundCleaning.woundCleaningArea}}
-															<input class="form-control" type="text" name="woundCleaningArea" id="inputGroupWoundCleaningArea" placeholder="VD: Tầng 3 phòng 3.6" rules="required" value="{{woundCleaning.woundCleaningArea}}">
-															{{else}}
-															<input class="form-control" type="text" name="woundCleaningArea" id="inputGroupWoundCleaningArea" placeholder="VD: Tầng 3 phòng 3.6" rules="required">
-															{{/if}}
-															<span class="form-message mt-1"></span>
-														</div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-4">
-														<div class="form-group mb-0">
-															<label for="steps-to-take-area"><strong>Tình trạng khách
-																	hàng:</strong></label>
-															{{#if woundCleaning.statusInfo}}
-															<textarea class="form-control" name="statusInfo" rows="3" rules="required">{{woundCleaning.statusInfo}}</textarea>
-															{{else}}
-															<textarea class="form-control" name="statusInfo" rows="3" rules="required"></textarea>
-															{{/if}}
-															<span class="form-message mt-1"></span>
-														</div>
-													</div>
-													<div class="col-md-4">
-														<div class="form-group mb-0">
-															<label for="steps-to-take-area"><strong>Chỉ định bác
-																	sĩ:</strong></label>
-															{{#if woundCleaning.directedByDoctor}}
-															<textarea class="form-control" name="directedByDoctor" rows="3" rules="required">{{woundCleaning.directedByDoctor}}</textarea>
-															{{else}}
-															<textarea class="form-control" name="directedByDoctor" rows="3" rules="required"></textarea>
-															{{/if}}
-															<span class="form-message mt-1"></span>
-														</div>
-													</div>
-													<div class="col-md-4">
-														<div class="form-group mb-0">
-															<label for="steps-to-take-area"><strong>Các bước thực
-																	hiện:</strong></label>
-															{{#if woundCleaning.stepsToTake}}
-															<textarea class="form-control" name="stepsToTake" rows="3" rules="required">{{woundCleaning.stepsToTake}}</textarea>
-															{{else}}
-															<textarea class="form-control" name="stepsToTake" rows="3" rules="required"></textarea>
-															{{/if}}
-															<span class="form-message mt-1"></span>
-														</div>
-													</div>
-												</div>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
-											<button id="submit-wound-cleaning-form-btn"
-											class="btn btn-primary btn-sm">Cập nhật</button>
-										</div>
-									</form>
+						<form method="POST" id="submit-wound-cleaning-form" action="/customer-care/employ/wound-cleaning/{{woundCleaning._id}}/update">
+							<input type="text" class="visually-hidden" name="cusID" value="{{woundCleaning.cusID._id}}">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-group-text" for="inputGroupSelect"><strong>Nhân viên thay băng:</strong>&nbsp;<span class="text-danger">*</span></label>
+										{{#if woundCleaning.performer}}
+										<select class="form-select form-control" id="inputGroupSelectTrue" name="performer" rules="required">
+											<option value="{{woundCleaning.performer._id}}" selected>{{woundCleaning.performer.firstName}} {{woundCleaning.performer.lastName}}</option>
+											{{#each users}}
+											<option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
+											{{/each}}
+										</select>
+										<span class="form-message mt-1"></span>
+										{{else}}
+										<select class="form-select form-control" id="inputGroupSelectFail" name="performer" rules="required">
+											<option value=""></option>
+											{{#each users}}
+											<option value="{{this._id}}">{{this.firstName}} {{this.lastName}}</option>
+											{{/each}}
+										</select>
+										<span class="form-message mt-1"></span>
+										{{/if}}
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-group-text" for="inputGroupWoundCleaningDay"><strong>Ngày thay băng:</strong>&nbsp;<span class="text-danger">*</span></label>
+										{{#if woundCleaning.woundCleaningDay}}
+										<input class="form-control" type="datetime-local" name="woundCleaningDay" id="inputGroupWoundCleaningDay" rules="required" value="{{woundCleaning.woundCleaningDay}}">
+										{{else}}
+										<input class="form-control" type="datetime-local" name="woundCleaningDay" id="inputGroupWoundCleaningDay" rules="required">
+										{{/if}}
+										<span class="form-message mt-1"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label class="form-group-text" for="inputGroupWoundCleaningArea"><strong>Khu vực thay băng:</strong>&nbsp;<span class="text-danger">*</span></label>
+										{{#if woundCleaning.woundCleaningArea}}
+										<input class="form-control" type="text" name="woundCleaningArea" id="inputGroupWoundCleaningArea" placeholder="VD: Tầng 3 phòng 3.6" rules="required" value="{{woundCleaning.woundCleaningArea}}">
+										{{else}}
+										<input class="form-control" type="text" name="woundCleaningArea" id="inputGroupWoundCleaningArea" placeholder="VD: Tầng 3 phòng 3.6" rules="required">
+										{{/if}}
+										<span class="form-message mt-1"></span>
+									</div>
 								</div>
 							</div>
-						</div>
+							<div class="row mb-3">
+								<div class="col-md-4">
+									<div class="form-group mb-0">
+										<label for="steps-to-take-area"><strong>Tình trạng khách
+												hàng:</strong></label>
+										{{#if woundCleaning.statusInfo}}
+										<textarea class="form-control" name="statusInfo" rows="3" rules="required">{{woundCleaning.statusInfo}}</textarea>
+										{{else}}
+										<textarea class="form-control" name="statusInfo" rows="3" rules="required"></textarea>
+										{{/if}}
+										<span class="form-message mt-1"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group mb-0">
+										<label for="steps-to-take-area"><strong>Chỉ định bác
+												sĩ:</strong></label>
+										{{#if woundCleaning.directedByDoctor}}
+										<textarea class="form-control" name="directedByDoctor" rows="3" rules="required">{{woundCleaning.directedByDoctor}}</textarea>
+										{{else}}
+										<textarea class="form-control" name="directedByDoctor" rows="3" rules="required"></textarea>
+										{{/if}}
+										<span class="form-message mt-1"></span>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group mb-0">
+										<label for="steps-to-take-area"><strong>Các bước thực
+												hiện:</strong></label>
+										{{#if woundCleaning.stepsToTake}}
+										<textarea class="form-control" name="stepsToTake" rows="3" rules="required">{{woundCleaning.stepsToTake}}</textarea>
+										{{else}}
+										<textarea class="form-control" name="stepsToTake" rows="3" rules="required"></textarea>
+										{{/if}}
+										<span class="form-message mt-1"></span>
+									</div>
+								</div>
+							</div>
+							<button id="submit-wound-cleaning-form-btn" class="btn btn-primary btn-sm float-right">Cập nhật</button>
+						</form>
 					</li>
 				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{{!-- Upload wound cleaning image --}}
+<div class="modal fade" id="uploadWoundCleaningImg" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<h5 class="modal-title text-light" id="exampleModalLabel">Tải hình ảnh thay băng cắt chỉ</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="submit-wound-cleaning-img" enctype="multipart/form-data">
+					<div id="preview-images-wound-cleaning"
+					class="preview-images-wound-cleaning text-center border rounded overflow-auto ms-0 me-0 mb-3 p-3"></div>
+					<input id="input-multi-images-wound-cleaning" class="form-control visually-hidden" type="file"
+						name="woundCleaning" accept="image/*" data-wound-cleaning-id="{{woundCleaning._id}}" data-wound-cleaning-customer-id="{{woundCleaning.cusID._id}}" multiple>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{{!-- Upload wound cleaning video --}}
+<div class="modal fade" id="uploadWoundCleaningVideo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl">
+		<div class="modal-content">
+			<div class="modal-header bg-primary">
+				<h5 class="modal-title text-light" id="exampleModalLabel">Tải video thay băng cắt chỉ</h5>
+				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" id="submit-wound-cleaning-video" enctype="multipart/form-data">
+					<input hidden type="text" value="{{woundCleaning.cusID._id}}" name="cusID">
+					<div id="preview-videos-wound-cleaning"
+					class="preview-videos-wound-cleaning text-center border rounded overflow-auto ms-0 me-0 mb-3 p-3"></div>
+					<input id="input-multi-videos-wound-cleaning" class="form-control visually-hidden" type="file"
+					name="woundCleaning" accept="video/*" data-wound-cleaning-id="{{woundCleaning._id}}" data-wound-cleaning-customer-id="{{woundCleaning.cusID._id}}" multiple>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
 			</div>
 		</div>
 	</div>
@@ -744,6 +734,15 @@
 </div>
 
 <script src="/js/customer-care/customer-care-employ-wound-cleaning-update.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-metadata/dist/filepond-plugin-file-metadata.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/filepond-plugin-media-preview@1.0.11/dist/filepond-plugin-media-preview.min.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+<script src="/js/customer-care/uploadImageWoundCleaning.js"></script>
+<script src="/js/customer-care/uploadVideoWoundCleaning.js"></script>
 
 <script>
     validate('#submit-wound-cleaning-form');

@@ -24,6 +24,31 @@
 	});
 </script>
 {{/if}}
+
+{{#if messages_storageCustomer_success}}
+<div class="modal fade" id="messageStorageCustomerSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
+	aria-hidden="false">
+	<div class="modal-dialog modal-dialog-centered modal-md">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="d-flex justify-content-center mb-3">
+					<div class="border border-success border-5 rounded-circle position-relative"
+						style="width: 64px; height: 64px;">
+						<i class="ti-check text-success position-absolute top-50 start-50 translate-middle"></i>
+					</div>
+				</div>
+				<p class="text-center mb-0 text-success">{{messages_storageCustomer_success}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		var messageStorageCustomerSuccess = document.querySelector('#messageStorageCustomerSuccess');
+		$(messageStorageCustomerSuccess).modal('show');
+	});
+</script>
+{{/if}}
 <div class="container-fluid overflow-hidden">
     <div class="row vh-100 overflow-auto">
         <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-blue-logo d-flex sticky-top">
@@ -72,7 +97,11 @@
 						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+                        <li><a class="dropdown-item" href="/customer-care/employ/storage">Kho lưu trữ hồ sơ khách hàng</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+						<li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -127,7 +156,7 @@
 							<th class="text-center">{{sum @index 1}}</th>
 							<td class="text-identify">{{formatBirth this.surgeryDay}}</td>
 							<td class="text-identify">{{this.scheduleID.cusID.identification}}</td>
-							<td class="text-fullName"><a class="fullName-link" href="/customer-care/employ/customers/{{this._id}}/detail">{{this.scheduleID.cusID.fullName}}</a></td>
+							<td class="text-fullName">{{this.scheduleID.cusID.fullName}}</td>
 							<td class="text-nickName">{{this.scheduleID.cusID.nickName}}</td>
 							<td class="">{{this.scheduleID.cusID.gender}}</td>
 							<td class="text-phone">0{{this.scheduleID.cusID.phone}}</td>
@@ -143,8 +172,8 @@
 								</div>
 								<div class="inline p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Lưu hồ sơ khách hàng">
 									<button type="button" data-bs-toggle="modal" data-bs-target="#submit-re-exam-modal-storage"
-										class="btn btn-success btn-sm" data-id="{{this._id}}" data-cusId="{{this.cusID._id}}" data-fullName="{{this.cusID.fullName}}"
-										data-service-note-id="{{this.serviceNoteID._id}}" data-re-exam-schedule-id="{{this.reExamScheduleID._id}}">
+										class="btn btn-success btn-sm" data-id="{{this._id}}" data-cusId="{{this.scheduleID.cusID._id}}" data-fullName="{{this.scheduleID.cusID.fullName}}"
+										data-service-note-id="{{this._id}}" data-re-exam-schedule-id="{{this.reExamScheduleID._id}}">
 										<i class="fa-sharp fa-solid fa-circle-check"></i> Lưu hồ sơ khách hàng
 									</button>
 								</div>
@@ -167,15 +196,13 @@
 				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form method="POST" id="submit-re-exam-form-done">
-					<input type="text" name="cusID" id="submit-re-exam-done-cusID" hidden>
-					<input type="text" name="serviceNoteID" id="submit-re-exam-done-serviceNoteID" hidden>
-					<input type="text" name="reExamScheduleID" id="submit-re-exam-done-reExaminationScheduleID" hidden>
+				<form method="POST" id="submit-re-exam-form-storage" >
+					<input type="text" id="submit-service-note-id" class="visually-hidden" name="serviceNoteID">
 				</form>
 				Bạn chắc chắn đã nhập đầy đủ thông tin và xác nhận hoàn thành tái khám cho khách hàng <strong id="submit-re-exam-fullname"></strong>?
 			</div>
 			<div class="modal-footer d-flex justify-content-between">
-				<button id="submit-re-exam-btn-done" type="button" class="btn btn-success btn-sm">Có, chắc chắn và hoàn thành</button>
+				<button id="submit-re-exam-btn-storage" type="button" class="btn btn-success btn-sm">Có, chắc chắn và hoàn thành</button>
 				<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Không. Cần kiểm tra lại</button>
 			</div>
 		</div>

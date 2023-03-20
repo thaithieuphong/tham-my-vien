@@ -224,6 +224,7 @@ app.use(function (req, res, next) {
 	res.locals.messages_deleteReExam_success = req.flash('messages_deleteReExam_success');
 	res.locals.messages_restoreReExam_success = req.flash('messages_restoreReExam_success');
 
+	res.locals.messages_storageCustomer_success = req.flash('messages_storageCustomer_success');
 
 	res.locals.messages_pushReExamination_error = req.flash('messages_pushReExamination_error');
 

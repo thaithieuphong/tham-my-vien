@@ -117,3 +117,29 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 	
 });
+
+// Lưu hồ sơ khách hàng
+var submitReExamFormStorage = document.forms['submit-re-exam-form-storage'];
+var submitReExamModalStorage = document.getElementById('submit-re-exam-modal-storage');
+var submitReExamBtnStorage = document.getElementById('submit-re-exam-btn-storage');
+
+if (submitReExamBtnStorage) {
+	submitReExamBtnStorage.addEventListener("click", () => {
+		submitReExamFormStorage.submit();
+	});
+}
+
+if (submitReExamModalStorage) {
+	submitReExamModalStorage.addEventListener('show.bs.modal', function (event) {
+		var button = event.relatedTarget;
+		let dataCusID = button.getAttribute("data-cusId");
+		let dataServiceNoteID = button.getAttribute("data-service-note-id");
+		let dataFullName = button.getAttribute("data-fullName");
+		submitReExamFormStorage.setAttribute('action', `/customer-care/employ/customers/${dataCusID}/storage?_method=PATCH`);
+		
+		let fullName = document.getElementById('submit-re-exam-fullname');
+		let serviceNoteID = document.getElementById('submit-service-note-id');
+		fullName.innerHTML = dataFullName;
+		serviceNoteID.value = dataServiceNoteID;
+	})
+}

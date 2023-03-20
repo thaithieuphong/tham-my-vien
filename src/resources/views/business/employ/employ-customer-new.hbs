@@ -58,21 +58,21 @@
                 </a>
                 <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start w-100 mt-2" id="menu">
                     <li class="nav-item hover w-100 mb-2">
-                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2 rounded-pill text-light active">
+                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2  text-light active">
                             <i class="ti-user ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Khách hàng</span></a>
                     </li>
                     <li class="nav-item hover w-100 mb-2">
-                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2 rounded-pill text-light">
+                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2  text-light">
                             <i class="ti-receipt ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Lịch hẹn tư vấn</span>
                         </a>
                     </li>
 					<li class="nav-item hover w-100">
-                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2 rounded-pill text-light">
+                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2  text-light">
                             <i class="ti-clipboard ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Phiếu dịch vụ</span></a>
                     </li>
                 </ul>
                 <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1 w-100 hover">
-                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 rounded-pill p-2 border" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 rounded p-2 border" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{#if user.image.name}}
 						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
                         {{else}}
@@ -105,39 +105,39 @@
 				</div>
 				<ul class="nav nav-pills flex-xl-row flex-lg-row flex-md-row flex-sm-column border-bottom p-2 ms-0" id="pills-tab" role="tablist">
 					<li class="nav-item" role="presentation">
-						<a href="/business/employ/customers/new" class="nav-link active btn-sm rounded-pill">
+						<a href="/business/employ/customers/new" class="nav-link active btn-sm ">
 							Khách mới
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
-						<a href="/business/employ/customers/potential" class="nav-link btn-sm rounded-pill">
+						<a href="/business/employ/customers/potential" class="nav-link btn-sm ">
 							Khách tiềm năng
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
-						<a href="/business/employ/customers/schedule" class="nav-link btn-sm rounded-pill">
+						<a href="/business/employ/customers/schedule" class="nav-link btn-sm ">
 							Khách đặt lịch
 						</a>
 					</li>
 					<li class="nav-item" role="presentation">
-						<a href="/business/employ/customers/discharge-from-hospital" class="nav-link btn-sm rounded-pill">
+						<a href="/business/employ/customers/discharge-from-hospital" class="nav-link btn-sm ">
 							Khách chăm sóc hậu phẫu
 						</a>
 					</li>
-					<li class="nav-item" role="presentation">
-						<a href="/business/employ/customers/done" class="nav-link btn-sm rounded-pill">
+					{{!-- <li class="nav-item" role="presentation">
+						<a href="/business/employ/customers/done" class="nav-link btn-sm ">
 							Khách hoàn thành
 						</a>
-					</li>
+					</li> --}}
 					<li class="nav-item" role="presentation">
-						<a href="/business/employ/customers/notok" class="nav-link btn-sm rounded-pill">
+						<a href="/business/employ/customers/notok" class="nav-link btn-sm ">
 							Khách tư vấn không thành công
 						</a>
 					</li>
 				</ul>
 				<div class="redirect-bar d-flex justify-content-between" style="height: 48px;">
 					<div></div>
-					<a href="/business/employ/customers/create" type="button" class="btn btn-sm text-light btn-primary rounded-pill mt-2 ml-2 mb-2 mr-3">Tạo khách hàng</a>
+					<a href="/business/employ/customers/create" type="button" class="btn btn-sm text-light btn-primary  mt-2 ml-2 mb-2 mr-3">Tạo khách hàng</a>
 				</div>
 				<div class="ps-2 pe-2">
 					<table id="customerNew" class="table table-striped table-hover table-sm table-bordered table-sm">

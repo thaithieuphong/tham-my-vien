@@ -128,7 +128,8 @@
 		<thead class="bg-blue">
 			<tr class="text-light">
 				<th data-field="id" data-footer-formatter="Tổng doanh thu" class="text-center" scope="col">#</th>
-				<th class="text-center" scope="col">Họ tên</th>
+				<th class="text-center" scope="col">Họ tên khai sinh</th>
+				<th class="text-center" scope="col">Tên thường gọi</th>
 				<th class="text-center" scope="col">Số điện thoại</th>
 				<th class="text-center" scope="col">Nguồn</th>
 				<th class="text-center" scope="col">Ngày tạo</th>
@@ -145,6 +146,7 @@
 			<tr class="text-dark">
 				<th class="text-center" scope="row">{{sum @index 1}}</th>
 				<td class="text-nowrap" scope="row"><a class="link-primary" href="/manager/general-manager/customer/{{#each this.scheduleID}}{{this._id}}{{/each}}/detail">{{#each this.scheduleID}}{{this.fullName}}{{/each}}</a></td>
+				<td class="text-nowrap" scope="row"><a class="link-primary" href="/manager/general-manager/customer/{{#each this.scheduleID}}{{this._id}}{{/each}}/detail">{{#each this.scheduleID}}{{this.nickName}}{{/each}}</a></td>
 				<td class="text-center" scope="row">0{{#each this.scheduleID}}{{this.phone}}{{/each}}</td>
 				<td class="text-center" scope="row" data-bs-toggle="tooltip" data-bs-placement="top" title="{{#each this.scheduleID}}{{this.resource}}{{/each}}">{{#each this.scheduleID}}{{cutPassword this.resource 16}}{{/each}}</td>
 				<td class="text-center createdAtField" scope="row">{{formatBirth this.surgeryDay}}</td>

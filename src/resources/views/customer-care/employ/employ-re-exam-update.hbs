@@ -25,7 +25,6 @@
 	});
 </script>
 {{/if}}
-
 {{#if messages_deletedReExamImg_success}}
 <div class="modal fade" id="messageDeletedReExamImgSuccess" tabindex="-1" aria-labelledby="exampleModalLabel"
 	aria-hidden="false">
@@ -186,6 +185,10 @@
 						<span class="d-none d-sm-inline mx-1">{{user.firstName}} {{user.lastName}}</span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-light text-small shadow" aria-labelledby="dropdownUser1">
+						<li><a class="dropdown-item" href="/customer-care/employ/storage">Kho lưu trữ hồ sơ khách hàng</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 						<li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
 						<li>
 							<hr class="dropdown-divider">
@@ -345,13 +348,13 @@
 								khám</strong></label>
 					</li>
 					<li class="list-group-item">
-						<div class="d-flex justify-content-end mb-3">
-							<button class="btn btn-danger btn-sm mr-3" type="button" data-bs-toggle="collapse"
+						<div class="d-flex justify-content-end mb-2">
+							<button class="btn btn-danger btn-sm mr-2" type="button" data-bs-toggle="collapse"
 								data-bs-target="#restoreImgReExam" aria-expanded="false"
 								aria-controls="restoreImgReExam">
 								<i class="fa-sharp fa-solid fa-trash"></i> Thùng rác
 							</button>
-							<button class="btn btn-primary btn-sm mr-3" type="button" data-bs-toggle="modal"
+							<button class="btn btn-primary btn-sm mr-2" type="button" data-bs-toggle="modal"
 								data-bs-target="#uploadImgModal">
 								<i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Tải ảnh lên máy chủ
 							</button>
@@ -368,16 +371,16 @@
 											{{#each reExam.reExamImg}}
 											{{#if notDeletedYet}}
 											{{else}}
-											<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-												<a type="button" class="" data-bs-toggle="modal"
+											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+												{{!-- <a type="button" class="" data-bs-toggle="modal"
 													data-bs-target="#restoreImageModalReExam" data-img="{{this.name}}">
 													<img class="img-fluid img-150"
 														src="/re-examination/img/{{this.name}}">
-												</a>
-												{{!-- <a type="button" class="" data-bs-toggle="modal"
-													data-bs-target="#restoreImageModalReExam" data-img="{{this.url}}">
-													<img class="img-fluid img-150" src="{{this.url}}">
 												</a> --}}
+												<a type="button" class="" data-bs-toggle="modal"
+													data-bs-target="#restoreImageModalReExam" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
+													<img class="img-fluid img-150" src="{{this.url}}">
+												</a>
 											</div>
 											{{/if}}
 											{{/each}}
@@ -388,17 +391,17 @@
 											{{#each reExam.reExamVideo}}
 											{{#if notDeletedYet}}
 											{{else}}
-											<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-												<a type="button" class="" data-bs-toggle="modal"
+											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+												{{!-- <a type="button" class="" data-bs-toggle="modal"
 													data-bs-target="#restoreVideoModalReExam"
 													data-video="{{this.name}}">
 													<video class="img-fluid video-150"
 														src="/re-examination/video/{{this.name}}"></video>
-												</a>
-												{{!-- <a type="button" class="" data-bs-toggle="modal"
-													data-bs-target="#restoreVideoModalReExam" data-video="{{this.url}}">
-													<video class="img-fluid video-150" src="{{this.url}}"></video>
 												</a> --}}
+												<a type="button" class="" data-bs-toggle="modal"
+													data-bs-target="#restoreVideoModalReExam" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
+													<video class="img-fluid video-150" src="{{this.url}}" controls></video>
+												</a>
 											</div>
 											{{/if}}
 											{{/each}}
@@ -409,9 +412,47 @@
 						</div>
 					</li>
 					<li class="list-group-item">
-
+						<div class="row mb-2">
+							<div class="col-md-6">
+								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+									{{#each reExam.reExamImg}}
+									{{#if notDeletedYet}}
+									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+										<a type="button" class="" data-bs-toggle="modal"
+											data-bs-target="#imageModalReExam" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
+											<img class="img-fluid img-150" src="{{this.url}}">
+										</a>
+										{{!-- <a type="button" class="" data-bs-toggle="modal"
+											data-bs-target="#imageModalReExam" data-img="{{this.name}}">
+											<img class="img-fluid img-150" src="/re-examination/img/{{this.name}}">
+										</a> --}}
+									</div>
+									{{/if}}
+									{{/each}}
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+									{{#each reExam.reExamVideo}}
+									{{#if notDeletedYet}}
+									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+										<a type="button" class="" data-bs-toggle="modal"
+											data-bs-target="#videoModalReExam" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
+											<video class="img-fluid video-150" src="{{this.url}}" controls></video>
+										</a>
+										{{!-- <a type="button" class="" data-bs-toggle="modal"
+											data-bs-target="#videoModalReExam" data-video="{{this.name}}">
+											<video class="img-fluid video-150"
+												src="/re-examination/video/{{this.name}}"></video>
+										</a> --}}
+									</div>
+									{{/if}}
+									{{/each}}
+								</div>
+							</div>
+						</div>
 						<form method="POST" action="/customer-care/employ/re-exam/{{reExam._id}}/upload"
-							id="submit-re-exam-form" enctype="multipart/form-data">
+							id="submit-re-exam-form">
 							<input hidden type="text" value="{{reExam.cusID._id}}" name="cusID">
 							<div class="row">
 								<div class="col-md-4">
@@ -481,11 +522,11 @@
 										<label for="steps-to-take-area"><strong>Tình trạng khách
 												hàng:</strong>&nbsp;<span class="text-danger">*</span></label>
 										{{#if reExam.statusInfo}}
-										<textarea class="form-control pl-3" name="statusInfo" rows="8"
+										<textarea class="form-control pl-3" name="statusInfo" rows="3"
 											rules="required">{{reExam.statusInfo}}</textarea>
 										{{else}}
 										<textarea class="form-control pl-3" name="statusInfo" rules="required"
-											rows="8"></textarea>
+											rows="3"></textarea>
 										{{/if}}
 										<span class="form-message mt-1"></span>
 									</div>
@@ -495,10 +536,10 @@
 										<label for="steps-to-take-area"><strong>Chỉ định bác
 												sĩ:</strong>&nbsp;<span class="text-danger">*</span></label>
 										{{#if reExam.directedByDoctor}}
-										<textarea class="form-control pl-3" name="directedByDoctor" rows="8"
+										<textarea class="form-control pl-3" name="directedByDoctor" rows="3"
 											rules="required">{{reExam.directedByDoctor}}</textarea>
 										{{else}}
-										<textarea class="form-control pl-3" name="directedByDoctor" rows="8"
+										<textarea class="form-control pl-3" name="directedByDoctor" rows="3"
 											rules="required"></textarea>
 										{{/if}}
 										<span class="form-message mt-1"></span>
@@ -509,116 +550,19 @@
 										<label for="steps-to-take-area"><strong>Các bước thực
 												hiện:</strong>&nbsp;<span class="text-danger">*</span></label>
 										{{#if reExam.stepsToTake}}
-										<textarea class="form-control" name="stepsToTake" rows="8"
+										<textarea class="form-control" name="stepsToTake" rows="3"
 											rules="required">{{reExam.stepsToTake}}</textarea>
 										{{else}}
-										<textarea class="form-control" name="stepsToTake" rows="8"
+										<textarea class="form-control" name="stepsToTake" rows="3"
 											rules="required"></textarea>
 										{{/if}}
 										<span class="form-message mt-1"></span>
 									</div>
 								</div>
 							</div>
-							<div class="modal-footer">
-								<button id="submit-re-exam-form-btn" class="btn btn-primary btn-sm" type="submit">Cập
-									nhật</button>
-							</div>
+							<button id="submit-re-exam-form-btn" class="btn btn-primary btn-sm float-right" type="submit">Cập
+								nhật</button>
 						</form>
-						<div class="row mb-2">
-							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 350px;">
-									{{#each reExam.reExamImg}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-										{{!-- <a type="button" class="" data-bs-toggle="modal"
-											data-bs-target="#imageModalReExam" data-img="{{this.url}}">
-											<img class="img-fluid img-150" src="{{this.url}}">
-										</a> --}}
-										<a type="button" class="" data-bs-toggle="modal"
-											data-bs-target="#imageModalReExam" data-img="{{this.name}}">
-											<img class="img-fluid img-150" src="/re-examination/img/{{this.name}}">
-										</a>
-									</div>
-									{{/if}}
-									{{/each}}
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 350px;">
-									{{#each reExam.reExamVideo}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-										{{!-- <a type="button" class="" data-bs-toggle="modal"
-											data-bs-target="#videoModalReExam" data-video="{{this.url}}">
-											<video class="img-fluid video-150" src="{{this.url}}"></video>
-										</a> --}}
-										<a type="button" class="" data-bs-toggle="modal"
-											data-bs-target="#videoModalReExam" data-video="{{this.name}}">
-											<video class="img-fluid video-150"
-												src="/re-examination/video/{{this.name}}"></video>
-										</a>
-									</div>
-									{{/if}}
-									{{/each}}
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<label for="steps-to-take-area"><strong>Bác sĩ tái khám:</strong></label>
-								{{#if reExam.performer}}
-								<p class="text-break inline">{{reExam.performer.firstName}}
-									{{reExam.performer.lastName}}</p>
-								{{else}}
-								<p class="text-break inline">Chưa có thông tin</p>
-								{{/if}}
-							</div>
-							<div class="col-md-4">
-								<label for="steps-to-take-area"><strong>Ngày tái khám:</strong></label>
-								{{#if reExam.reExaminationDate}}
-								<p class="text-break inline">{{formatShortDate reExam.reExaminationDate}}</p>
-								{{else}}
-								<p class="text-break inline">Chưa có thông tin</p>
-								{{/if}}
-							</div>
-							<div class="col-md-4">
-								<label for="steps-to-take-area"><strong>Khu vực tái khám:</strong></label>
-								{{#if reExam.reExaminationArea}}
-								<p class="text-break inline">{{reExam.reExaminationArea}}</p>
-								{{else}}
-								<p class="text-break inline">Chưa có thông tin</p>
-								{{/if}}
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-4">
-								<label for="steps-to-take-area"><strong>Tình trạng khách
-										hàng:</strong></label>
-								{{#if reExam.statusInfo}}
-								<p class="text-break">{{reExam.statusInfo}}</p>
-								{{else}}
-								<p class="text-break">Chưa có thông tin</p>
-								{{/if}}
-							</div>
-							<div class="col-md-4">
-								<label for="steps-to-take-area"><strong>Chỉ định bác
-										sĩ:</strong></label>
-								{{#if reExam.directedByDoctor}}
-								<p class="text-break">{{reExam.directedByDoctor}}</p>
-								{{else}}
-								<p class="text-break">Chưa có thông tin</p>
-								{{/if}}
-							</div>
-							<div class="col-md-4">
-								<label for="steps-to-take-area"><strong>Các bước thực
-										hiện:</strong></label>
-								{{#if reExam.stepsToTake}}
-								<p class="text-break">{{reExam.stepsToTake}}</p>
-								{{else}}
-								<p class="text-break">Chưa có thông tin</p>
-								{{/if}}
-							</div>
-						</div>
 					</li>
 				</ul>
 			</div>
@@ -627,7 +571,7 @@
 </div>
 
 <!-- Modal upload image-->
-<div class="modal fade" id="uploadImgModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="uploadImgModal" data-bs-backdrop="static" data-bs-keyboard="false">
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -635,24 +579,12 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form id="submit-re-exam-form-upload-img" enctype="multipart/form-data" data-re-exam-id="{{reExam._id}}">
-				{{!-- <form id="submit-re-exam-form-upload-img" method="POST" action="/customer-care/employ/re-exam/{{reExam._id}}/uploadImages" enctype="multipart/form-data" data-re-exam-id="{{reExam._id}}"> --}}
-					<input type="text" class="visually-hidden" name="cusID" id="cusID" value="{{reExam.cusID._id}}">
+				<form id="submit-re-exam-form-upload-img" enctype="multipart/form-data">
 					<div id="preview-images-re-exam"
-						class="preview-images-re-exam text-center border rounded overflow-auto ms-0 me-0 p-3"
-						style="height: 600px;"></div>
+						class="preview-images-re-exam text-center border rounded overflow-auto ms-0 me-0 p-3"></div>
 					<input id="input-multi-images-re-exam" class="form-control visually-hidden" type="file"
-						name="reExamination" accept="image/*" multiple data-re-exam-id="{{reExam._id}}">
-					<div id="message" class="alert-light" role="alert"></div>
+						name="reExamination" accept="image/*" multiple data-re-exam-id="{{reExam._id}}" data-cus-id="{{reExam.cusID._id}}">
 				</form>
-				<div class="input-group">
-					<label for="input-multi-images-re-exam"
-						class="label-avt m-0 btn btn-outline-secondary btn-sm rounded-start">
-						<i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Chọn ảnh thay băng cắt chỉ
-					</label>
-					<button id="upload-img-btn" class="btn btn-primary btn-sm rounded-end" type="submit">Tải
-						lên máy chủ</button>
-				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Đóng</button>
@@ -673,19 +605,10 @@
 				<form id="submit-re-exam-form-upload-video" enctype="multipart/form-data"
 					data-re-exam-id="{{reExam._id}}">
 					<div id="preview-videos-re-exam"
-						class="preview-videos-re-exam text-center border rounded overflow-auto ms-0 me-0 p-3"
-						style="height: 600px;"></div>
-					<div id="progressBarVideo" class="mb-3"></div>
-					<div class="input-group inherit">
-						<label for="input-multi-videos-re-exam"
-							class="label-avt m-0 btn btn-outline-secondary btn-sm rounded-start">
-							<i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Chọn video thay băng cắt chỉ
-						</label>
-						<button class="btn btn-primary btn-sm rounded-end" type="submit">Tải
-							lên máy chủ</button>
-						<input id="input-multi-videos-re-exam" class="form-control visually-hidden" type="file"
-							accept="video/*" name="reExamination" multiple>
-					</div>
+						class="preview-videos-re-exam text-center border rounded overflow-auto ms-0 me-0 p-3"></div>
+					<input id="input-multi-videos-re-exam" class="form-control visually-hidden" type="file"
+						accept="video/*" name="reExamination" multiple data-re-exam-id="{{reExam._id}}" data-cus-id="{{reExam.cusID._id}}">
+					{{!-- <div id="progressBarVideo" class="mb-3"></div> --}}
 				</form>
 			</div>
 			<div class="modal-footer">
@@ -824,8 +747,12 @@
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
 <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-metadata/dist/filepond-plugin-file-metadata.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/filepond-plugin-media-preview@1.0.11/dist/filepond-plugin-media-preview.min.js"></script>
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-<script src="/js/upload.js"></script>
+<script src="/js/uploadImage.js"></script>
+<script src="/js/uploadVideo.js"></script>
 <script>
 	validate('#submit-re-exam-form');
 </script>

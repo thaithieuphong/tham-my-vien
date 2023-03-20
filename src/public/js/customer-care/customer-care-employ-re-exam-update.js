@@ -1,166 +1,166 @@
 document.addEventListener("DOMContentLoaded", function () {
-	function formatBytes(bytes, decimals = 2) {
-		if (!+bytes) return '0 Bytes'
+	// function formatBytes(bytes, decimals = 2) {
+	// 	if (!+bytes) return '0 Bytes'
 	
-		const k = 1024
-		const dm = decimals < 0 ? 0 : decimals
-		const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+	// 	const k = 1024
+	// 	const dm = decimals < 0 ? 0 : decimals
+	// 	const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
 	
-		const i = Math.floor(Math.log(bytes) / Math.log(k))
+	// 	const i = Math.floor(Math.log(bytes) / Math.log(k))
 	
-		return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
-	}
+	// 	return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
+	// }
 
-	const inputMultiImageReExam = document.getElementById('input-multi-images-re-exam');
-	const previewImg = document.querySelector('.preview-images-re-exam');
-	if(inputMultiImageReExam) {
-		inputMultiImageReExam.addEventListener('change', (e) => {
-			let files = e.target.files; //event.target.files;
-			imagesPreviewReExam(files);
-		})
+	// const inputMultiImageReExam = document.getElementById('input-multi-images-re-exam');
+	// const previewImg = document.querySelector('.preview-images-re-exam');
+	// if(inputMultiImageReExam) {
+	// 	inputMultiImageReExam.addEventListener('change', (e) => {
+	// 		let files = e.target.files; //event.target.files;
+	// 		imagesPreviewReExam(files);
+	// 	})
 	
-		let imagesPreviewReExam = function (files) {
-			if (!files.length) {
-				previewImg.innerHTML = "<p>No files selected!</p>";
-			} else {
-				previewImg.innerHTML = "";
-				const row = document.createElement("div");
-				row.classList.add('row');
-				for (let i = 0; i < files.length; i++) {
-					const file = files[i];
-					const col = document.createElement("div");
-					col.classList.add('col-xl-3', 'col-lg-3', 'col-md-3', 'col-sm-3');
-					const card = document.createElement("div");
-					card.classList.add('card', 'mb-3');
-					const img = document.createElement('img');
-					img.classList.add('img-fluid', 'obj', 'img-250wh');
-					img.id = i;
-					img.file = file;
-					const cardHeader = document.createElement('div');
-					cardHeader.classList.add('card-header', 'text-right');
-					const iconClose = document.createElement('i');
-					iconClose.classList.add('ti-close', 'text-dark');
-					const closeButtonWrapper = document.createElement('div');
-					closeButtonWrapper.id = i;
-					closeButtonWrapper.classList = 'btn btn-sm close-img';
-					closeButtonWrapper.appendChild(iconClose);
-					cardHeader.appendChild(closeButtonWrapper);
-					const cardBody = document.createElement('div');
-					cardBody.classList.add('card-body');
-					const cardTextName = document.createElement('p');
-					cardTextName.classList.add('card-text', 'text-left', 'mb-0');
-					cardTextName.innerHTML = `<label class='fw-bold mb-0'>Tên ảnh:</label> ${file.name}`;
-					const cardTextSize = document.createElement("p");
-					cardTextSize.classList.add('card-text', 'text-left');
-					cardTextSize.innerHTML = `<label class='fw-bold mb-0'>Dung lượng ảnh:</label> ${formatBytes(file.size)}`;
-					cardBody.append(cardTextName, cardTextSize);
+	// 	let imagesPreviewReExam = function (files) {
+	// 		if (!files.length) {
+	// 			previewImg.innerHTML = "<p>No files selected!</p>";
+	// 		} else {
+	// 			previewImg.innerHTML = "";
+	// 			const row = document.createElement("div");
+	// 			row.classList.add('row');
+	// 			for (let i = 0; i < files.length; i++) {
+	// 				const file = files[i];
+	// 				const col = document.createElement("div");
+	// 				col.classList.add('col-xl-3', 'col-lg-3', 'col-md-3', 'col-sm-3');
+	// 				const card = document.createElement("div");
+	// 				card.classList.add('card', 'mb-3');
+	// 				const img = document.createElement('img');
+	// 				img.classList.add('img-fluid', 'obj', 'img-250wh');
+	// 				img.id = i;
+	// 				img.file = file;
+	// 				const cardHeader = document.createElement('div');
+	// 				cardHeader.classList.add('card-header', 'text-right');
+	// 				const iconClose = document.createElement('i');
+	// 				iconClose.classList.add('ti-close', 'text-dark');
+	// 				const closeButtonWrapper = document.createElement('div');
+	// 				closeButtonWrapper.id = i;
+	// 				closeButtonWrapper.classList = 'btn btn-sm close-img';
+	// 				closeButtonWrapper.appendChild(iconClose);
+	// 				cardHeader.appendChild(closeButtonWrapper);
+	// 				const cardBody = document.createElement('div');
+	// 				cardBody.classList.add('card-body');
+	// 				const cardTextName = document.createElement('p');
+	// 				cardTextName.classList.add('card-text', 'text-left', 'mb-0');
+	// 				cardTextName.innerHTML = `<label class='fw-bold mb-0'>Tên ảnh:</label> ${file.name}`;
+	// 				const cardTextSize = document.createElement("p");
+	// 				cardTextSize.classList.add('card-text', 'text-left');
+	// 				cardTextSize.innerHTML = `<label class='fw-bold mb-0'>Dung lượng ảnh:</label> ${formatBytes(file.size)}`;
+	// 				cardBody.append(cardTextName, cardTextSize);
 
-					// Tạo thanh tiến trình
-					const progress = document.createElement('div');
-					progress.id = 'progress';
-					progress.classList.add('progress');
-					progress.style.display = 'none';
-					const progressBar = document.createElement('div');
-					progressBar.id = 'progress-bar';
-					progressBar.classList.add('progress-bar', 'progress-bar-info');
-					progressBar.setAttribute('role', 'progressbar');
-					progressBar.setAttribute('aria-valuemin', '0');
-					progressBar.setAttribute('aria-valuemax', '100');
-					progress.appendChild(progressBar);
-					card.append(cardHeader, img, cardBody, progress);
-					col.appendChild(card);
-					row.appendChild(col);
-					img.src = URL.createObjectURL(file);
-					img.onload = () => {
-						URL.revokeObjectURL(img.src);
-					};
-					previewImg.appendChild(row);
-					let closeBtns = document.querySelectorAll('.close-img');
-					closeBtns.forEach(btn => {
-						btn.addEventListener('click', () => {
-							let cardHeaderParent = btn.parentElement;
-							let colParent = cardHeaderParent.parentElement;
-							let rowParent = colParent.parentElement;
-							let cardParent = rowParent.parentElement
-							console.log(cardParent);
-							cardParent.remove();
-						})
-					})
-				}
-			}
-		};
-	}
+	// 				// Tạo thanh tiến trình
+	// 				const progress = document.createElement('div');
+	// 				progress.id = 'progress';
+	// 				progress.classList.add('progress');
+	// 				progress.style.display = 'none';
+	// 				const progressBar = document.createElement('div');
+	// 				progressBar.id = 'progress-bar';
+	// 				progressBar.classList.add('progress-bar', 'progress-bar-info');
+	// 				progressBar.setAttribute('role', 'progressbar');
+	// 				progressBar.setAttribute('aria-valuemin', '0');
+	// 				progressBar.setAttribute('aria-valuemax', '100');
+	// 				progress.appendChild(progressBar);
+	// 				card.append(cardHeader, img, cardBody, progress);
+	// 				col.appendChild(card);
+	// 				row.appendChild(col);
+	// 				img.src = URL.createObjectURL(file);
+	// 				img.onload = () => {
+	// 					URL.revokeObjectURL(img.src);
+	// 				};
+	// 				previewImg.appendChild(row);
+	// 				let closeBtns = document.querySelectorAll('.close-img');
+	// 				closeBtns.forEach(btn => {
+	// 					btn.addEventListener('click', () => {
+	// 						let cardHeaderParent = btn.parentElement;
+	// 						let colParent = cardHeaderParent.parentElement;
+	// 						let rowParent = colParent.parentElement;
+	// 						let cardParent = rowParent.parentElement
+	// 						console.log(cardParent);
+	// 						cardParent.remove();
+	// 					})
+	// 				})
+	// 			}
+	// 		}
+	// 	};
+	// }
 
-	const inputMultiVideoReExam = document.getElementById('input-multi-videos-re-exam');
-	const previewVideo = document.querySelector('.preview-videos-re-exam');
+	// const inputMultiVideoReExam = document.getElementById('input-multi-videos-re-exam');
+	// const previewVideo = document.querySelector('.preview-videos-re-exam');
 
-	if (inputMultiVideoReExam) {
-		inputMultiVideoReExam.addEventListener('change', (e) => {
-			let files = e.target.files;
-			videosPreviewReExam(files);
-		})
+	// if (inputMultiVideoReExam) {
+	// 	inputMultiVideoReExam.addEventListener('change', (e) => {
+	// 		let files = e.target.files;
+	// 		videosPreviewReExam(files);
+	// 	})
 	
-		let videosPreviewReExam = function (files) {
-			if (!files.length) {
-				previewVideo.innerHTML = "<p>No files selected!</p>";
-			} else {
-				previewVideo.innerHTML = "";
-				const row = document.createElement("div");
-				row.classList.add('row')
-				for (let i = 0; i < files.length; i++) {
-					const file = files[i];
-					const blob = new Blob([file], { type: "video/*",})
-					const col = document.createElement("div");
-					col.classList.add('col-xl-3', 'col-lg-3', 'col-md-3', 'col-sm-3');
-					const card = document.createElement("div");
-					card.classList.add('card', 'mb-3');
-					const video = document.createElement('video');
-					video.classList.add('obj', 'video-241wh');
-					video.id = i;
-					video.file = file;
-					const cardHeader = document.createElement('div');
-					cardHeader.classList.add('card-header', 'text-right');
-					const iconClose = document.createElement('i');
-					iconClose.classList.add('ti-close', 'text-dark');
-					const closeButtonWrapper = document.createElement('div');
-					closeButtonWrapper.id = i;
-					closeButtonWrapper.classList = 'btn btn-sm close-video';
-					closeButtonWrapper.appendChild(iconClose);
-					cardHeader.appendChild(closeButtonWrapper);
-					const cardBody = document.createElement('div');
-					cardBody.classList.add('card-body', 'p-2');
-					const cardTextName = document.createElement('p');
-					cardTextName.classList.add('card-text', 'text-left', 'mb-0');
-					cardTextName.innerHTML = `<label class='fw-bold mb-0'>Tên video:</label> ${file.name}`;
-					const cardTextSize = document.createElement("p");
-					cardTextSize.classList.add('card-text', 'text-left');
-					cardTextSize.innerHTML = `<label class='fw-bold mb-0'>Dung lượng video:</label> ${formatBytes(file.size)}`;
-					cardBody.append(cardTextName, cardTextSize);
-					cardBody.append(cardTextName, cardTextSize);
-					card.append(cardHeader, video, cardBody);
-					col.appendChild(card);
-					row.appendChild(col);
-					const objURL = URL.createObjectURL(blob);
-					video.src = objURL;
-					video.controls = true;
-					video.onload = () => {
-						URL.revokeObjectURL(objURL);
-					};
-					previewVideo.appendChild(row);
-					let closeBtns = document.querySelectorAll('.close-video');
-					closeBtns.forEach(btn => {
-						btn.addEventListener('click', () => {
-							let cardHeaderParent = btn.parentElement;
-							let colParent = cardHeaderParent.parentElement;
-							let rowParent = colParent.parentElement;
-							let cardParent = rowParent.parentElement
-							cardParent.remove();
-						})
-					})
-				}
-			}
-		};
-	}
+	// 	let videosPreviewReExam = function (files) {
+	// 		if (!files.length) {
+	// 			previewVideo.innerHTML = "<p>No files selected!</p>";
+	// 		} else {
+	// 			previewVideo.innerHTML = "";
+	// 			const row = document.createElement("div");
+	// 			row.classList.add('row')
+	// 			for (let i = 0; i < files.length; i++) {
+	// 				const file = files[i];
+	// 				const blob = new Blob([file], { type: "video/*",})
+	// 				const col = document.createElement("div");
+	// 				col.classList.add('col-xl-3', 'col-lg-3', 'col-md-3', 'col-sm-3');
+	// 				const card = document.createElement("div");
+	// 				card.classList.add('card', 'mb-3');
+	// 				const video = document.createElement('video');
+	// 				video.classList.add('obj', 'video-241wh');
+	// 				video.id = i;
+	// 				video.file = file;
+	// 				const cardHeader = document.createElement('div');
+	// 				cardHeader.classList.add('card-header', 'text-right');
+	// 				const iconClose = document.createElement('i');
+	// 				iconClose.classList.add('ti-close', 'text-dark');
+	// 				const closeButtonWrapper = document.createElement('div');
+	// 				closeButtonWrapper.id = i;
+	// 				closeButtonWrapper.classList = 'btn btn-sm close-video';
+	// 				closeButtonWrapper.appendChild(iconClose);
+	// 				cardHeader.appendChild(closeButtonWrapper);
+	// 				const cardBody = document.createElement('div');
+	// 				cardBody.classList.add('card-body', 'p-2');
+	// 				const cardTextName = document.createElement('p');
+	// 				cardTextName.classList.add('card-text', 'text-left', 'mb-0');
+	// 				cardTextName.innerHTML = `<label class='fw-bold mb-0'>Tên video:</label> ${file.name}`;
+	// 				const cardTextSize = document.createElement("p");
+	// 				cardTextSize.classList.add('card-text', 'text-left');
+	// 				cardTextSize.innerHTML = `<label class='fw-bold mb-0'>Dung lượng video:</label> ${formatBytes(file.size)}`;
+	// 				cardBody.append(cardTextName, cardTextSize);
+	// 				cardBody.append(cardTextName, cardTextSize);
+	// 				card.append(cardHeader, video, cardBody);
+	// 				col.appendChild(card);
+	// 				row.appendChild(col);
+	// 				const objURL = URL.createObjectURL(blob);
+	// 				video.src = objURL;
+	// 				video.controls = true;
+	// 				video.onload = () => {
+	// 					URL.revokeObjectURL(objURL);
+	// 				};
+	// 				previewVideo.appendChild(row);
+	// 				let closeBtns = document.querySelectorAll('.close-video');
+	// 				closeBtns.forEach(btn => {
+	// 					btn.addEventListener('click', () => {
+	// 						let cardHeaderParent = btn.parentElement;
+	// 						let colParent = cardHeaderParent.parentElement;
+	// 						let rowParent = colParent.parentElement;
+	// 						let cardParent = rowParent.parentElement
+	// 						cardParent.remove();
+	// 					})
+	// 				})
+	// 			}
+	// 		}
+	// 	};
+	// }
 	
 	// Khai báo thư viện DropzoneJS
 	// const { Dropzone } = require("dropzone");
@@ -198,13 +198,14 @@ imageModalReExam.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImg = button.getAttribute('data-img');
+	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgURL = button.getAttribute('data-url-img');
 	var modalImageReExam = document.getElementById('modal-img-re-exam');
 	var inputDeleteImgReExam = document.getElementById('inputDeleteImgReExam');
 
-	// modalImageReExam.setAttribute('src', `${dataImg}`);
-	modalImageReExam.setAttribute('src', `/re-examination/img/${dataImg}`);
-	inputDeleteImgReExam.value = dataImg;
+	modalImageReExam.setAttribute('src', `${dataImgURL}`);
+	modalImageReExam.setAttribute('src', `/re-examination/img/${dataImgName}`);
+	inputDeleteImgReExam.value = dataImgName;
 
 });
 
@@ -216,14 +217,15 @@ restoreImageModalReExam.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImg = button.getAttribute('data-img');
+	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgURL = button.getAttribute('data-url-img');
 
 	var restoreImageReExam = document.getElementById('restore-img-re-exam');
 	var inputRestoreImageReExam = document.getElementById('inputRestoreImageReExam');
 
-	// restoreImageReExam.setAttribute('src', `${dataImg}`);
-	restoreImageReExam.setAttribute('src', `/re-examination/img/${dataImg}`);
-	inputRestoreImageReExam.value = dataImg;
+	restoreImageReExam.setAttribute('src', `${dataImgURL}`);
+	// restoreImageReExam.setAttribute('src', `/re-examination/img/${dataImgName}`);
+	inputRestoreImageReExam.value = dataImgName;
 
 });
 
@@ -236,13 +238,15 @@ videoModalReExam.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideo = button.getAttribute('data-video');
+	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoURL = button.getAttribute('data-url-video');
+
 	var modalVideoReExam = document.getElementById('modal-video-re-exam');
 	var inputDeleteVideoReExam = document.getElementById('inputDeleteVideoReExam');
 
-	// modalVideoReExam.setAttribute('src', `${dataVideo}`);
-	modalVideoReExam.setAttribute('src', `/re-examination/video/${dataVideo}`);
-	inputDeleteVideoReExam.value = dataVideo;
+	modalVideoReExam.setAttribute('src', `${dataVideoURL}`);
+	// modalVideoReExam.setAttribute('src', `/re-examination/video/${dataVideoName}`);
+	inputDeleteVideoReExam.value = dataVideoName;
 });
 
 // // Restore Re-Examination Video
@@ -253,13 +257,15 @@ restoreVideoModalReExam.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideo = button.getAttribute('data-video');
+	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoURL = button.getAttribute('data-url-video');
+
 	var restoreVideoReExam = document.getElementById('restore-video-re-exam');
 	var inputRestoreVideoReExam = document.getElementById('inputRestoreVideoReExam');
 
-	// restoreVideoReExam.setAttribute('src', `${dataVideo}`);
-	restoreVideoReExam.setAttribute('src', `/re-examination/video/${dataVideo}`);
-	inputRestoreVideoReExam.value = dataVideo;
+	restoreVideoReExam.setAttribute('src', `${dataVideoURL}`);
+	// restoreVideoReExam.setAttribute('src', `/re-examination/video/${dataVideoName}`);
+	inputRestoreVideoReExam.value = dataVideoName;
 
 });
 

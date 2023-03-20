@@ -14,21 +14,21 @@
                 </a>
                 <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start w-100 mt-2" id="menu">
                     <li class="nav-item hover w-100 mb-2">
-                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2 rounded-pill text-light">
+                        <a href="/business/employ/customers/new" class="nav-link px-sm-0 px-2  text-light">
                             <i class="ti-user ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Khách hàng</span></a>
                     </li>
                     <li class="nav-item hover w-100 mb-2">
-                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2 rounded-pill text-light">
+                        <a href="/business/employ/schedules" class="nav-link px-sm-0 px-2  text-light">
                             <i class="ti-receipt ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Lịch hẹn tư vấn</span>
                         </a>
                     </li>
 					<li class="nav-item hover w-100 mb-2">
-                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2 rounded-pill text-light active">
+                        <a href="/business/employ/service-note" class="nav-link px-sm-0 px-2  text-light active">
                             <i class="ti-clipboard ms-3 mr-3"></i><span class="ms-1 d-none d-sm-inline">Phiếu dịch vụ</span></a>
                     </li>
                 </ul>
                 <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1 w-100 hover">
-                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 rounded-pill p-2 border" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="d-flex align-items-center text-light text-decoration-none dropdown-toggle w-100 rounded p-2 border" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                         {{#if user.image.name}}
 						<img src="{{user.image.url}}" alt="hugenerd" width="28" height="28" class="rounded-circle">
                         {{else}}
@@ -269,44 +269,46 @@
 								<div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordionExample">
 									<div class="accordion-body">
 										<div class="row">
-											<div class="col-md-6 rounded-pill-left">
-												<div class="row border overflow-auto rounded-start" style="height: 350px;">
+											<div class="col-md-6">
+												<div class="row border overflow-auto rounded m-0" style="height: 300px;">
 													{{#each serviceNote.counselorImg}}
 													{{#if notDeletedYet}}
-													<div class="col-md-4 mt-2 mb-2">
-														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-img="{{this.url}}">
-															<img class="img-fluid"
+													<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
+															<img class="img-fluid img-150"
 																src="{{this.url}}">
-														</a> --}}
-														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-img="{{this.name}}">
+														</a>
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
 															<img class="img-fluid"
 																src="/counselor/img/{{this.name}}">
-														</a>
+														</a> --}}
 													</div>
 													{{/if}}
 													{{/each}}
 												</div>
 											</div>
-											<div class="col-md-6 rounded-pill-right">
-												<div class="row border overflow-auto rounded-end" style="height: 350px;">
+											<div class="col-md-6">
+												<div class="row border overflow-auto rounded m-0" style="height: 300px;">
 													{{#each serviceNote.counselorVideo}}
 													{{#if notDeletedYet}}
-													<div class="col-md-4 mt-2 mb-2">
-														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-video="{{this.url}}">
-															<video class="img-fluid"
-																src="{{this.url}}"></video>
-														</a> --}}
-														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-video="{{this.name}}">
+													<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
+															<video class="img-fluid video-150"
+																src="{{this.url}}" controls></video>
+														</a>
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-video="{{this.name}}">
 															<video class="img-fluid"
 																src="/counselor/video/{{this.name}}"></video>
-														</a>
+														</a> --}}
 													</div>
 													{{/if}}
 													{{/each}}
 												</div>
 											</div>
-											<label for="steps-to-take-area"><strong>Ghi chú tư vấn:</strong></label>
-											<textarea class="form-control mr-3 pl-3 bg-transparent" rows="8" disabled>{{serviceNote.counselorInfo}}</textarea>
+											<div class="ps-3 pe-3">
+												<label for="steps-to-take-area"><strong>Ghi chú tư vấn:</strong></label>
+												<textarea class="form-control mr-3 pl-3 bg-transparent" rows="3" disabled>{{serviceNote.counselorInfo}}</textarea>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -320,44 +322,46 @@
 								<div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionExample">
 									<div class="accordion-body">
 										<div class="row">
-											<div class="col-md-6 rounded-pill-left">
-												<div class="row border overflow-auto rounded-start" style="height: 350px;">
+											<div class="col-md-6">
+												<div class="row border overflow-auto rounded m-0" style="height: 300px;">
 													{{#each serviceNote.beforeImg}}
 													{{#if notDeletedYet}}
-													<div class="col-md-4 mt-2 mb-2">
-														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-img="{{this.url}}">
-															<img class="img-fluid"
+													<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
+															<img class="img-fluid img-150"
 																src="{{this.url}}">
-														</a> --}}
-														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-img="{{this.name}}">
+														</a>
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-img="{{this.name}}">
 															<img class="img-fluid"
 																src="/before/img/{{this.name}}">
-														</a>
+														</a> --}}
 													</div>
 													{{/if}}
 													{{/each}}
 												</div>
 											</div>
-											<div class="col-md-6 rounded-pill-right">
-												<div class="row border overflow-auto rounded-end" style="height: 350px;">
+											<div class="col-md-6">
+												<div class="row border overflow-auto rounded m-0" style="height: 300px;">
 													{{#each serviceNote.beforeVideo}}
 													{{#if notDeletedYet}}
-													<div class="col-md-4 mt-2 mb-2">
-														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-video="{{this.url}}">
-															<video class="img-fluid"
-																src="{{this.url}}"></video>
-														</a> --}}
-														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-video="{{this.name}}">
+													<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
+															<video class="img-fluid video-150"
+																src="{{this.url}}" controls></video>
+														</a>
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-video="{{this.name}}">
 															<video class="img-fluid"
 																src="/before/video/{{this.name}}"></video>
-														</a>
+														</a> --}}
 													</div>
 													{{/if}}
 													{{/each}}
 												</div>
 											</div>
-											<label for="steps-to-take-area"><strong>Ghi chú thông tin trước phẫu thuật:</strong></label>
-											<textarea class="form-control bg-transparent" rows="8" disabled>{{serviceNote.beforeInfo}}</textarea>
+											<div class="ps-3 pe-3">
+												<label for="steps-to-take-area"><strong>Ghi chú thông tin trước phẫu thuật:</strong></label>
+												<textarea class="form-control bg-transparent" rows="3" disabled>{{serviceNote.beforeInfo}}</textarea>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -371,45 +375,47 @@
 								<div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-bs-parent="#accordionExample">
 									<div class="accordion-body">
 										<div class="row">
-											<div class="col-md-6 rounded-pill-left">
-												<div class="row border overflow-auto rounded-start" style="height: 350px;">
+											<div class="col-md-6">
+												<div class="row border overflow-auto rounded m-0" style="height: 300px;">
 													{{#each serviceNote.inSurgeryImg}}
 													{{#if notDeletedYet}}
-													<div class="col-md-4 mt-2 mb-2">
-														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-img="{{this.url}}">
-															<img class="img-fluid"
+													<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
+															<img class="img-fluid img-150"
 																src="{{this.url}}">
-														</a> --}}
-														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-img="{{this.name}}">
+														</a>
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-img="{{this.name}}">
 															<img class="img-fluid"
 																src="/in-surgery/img/{{this.name}}">
-														</a>
+														</a> --}}
 													</div>
 													{{/if}}
 													{{/each}}
 												</div>
 											</div>
-											<div class="col-md-6 rounded-pill-right">
-												<div class="row border overflow-auto rounded-end" style="height: 350px;">
+											<div class="col-md-6">
+												<div class="row border overflow-auto rounded m-0" style="height: 300px;">
 													{{#each serviceNote.inSurgeryVideo}}
 													{{#if notDeletedYet}}
-													<div class="col-md-4 mt-2 mb-2">
-														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-video="{{this.url}}">
-															<video class="img-fluid"
-																src="{{this.url}}"></video>
-														</a> --}}
-														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-video="{{this.name}}">
+													<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
+															<video class="img-fluid video-150"
+																src="{{this.url}}" controls></video>
+														</a>
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-video="{{this.name}}">
 															<video class="img-fluid"
 																src="/in-surgery/video/{{this.name}}"></video>
-														</a>
+														</a> --}}
 													</div>
 													{{/if}}
 													{{/each}}
 												</div>
 											</div>
-											<label for="steps-to-take-area"><strong>Các bước thực
-													hiện phẫu thuật:</strong></label>
-											<textarea class="form-control bg-transparent" rows="8">{{serviceNote.stepsToTake}}</textarea>
+											<div class="ps-3 pe-3">
+												<label for="steps-to-take-area"><strong>Các bước thực
+														hiện phẫu thuật:</strong></label>
+												<textarea class="form-control bg-transparent" rows="3">{{serviceNote.stepsToTake}}</textarea>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -423,37 +429,37 @@
 								<div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
 									<div class="accordion-body">
 										<div class="row">
-											<div class="col-md-6 rounded-pill-left">
-												<div class="row border overflow-auto rounded-start" style="height: 350px;">
+											<div class="col-md-6">
+												<div class="row border overflow-auto rounded m-0" style="height: 300px;">
 													{{#each serviceNote.afterImg}}
 													{{#if notDeletedYet}}
-													<div class="col-md-4 mt-2 mb-2">
-														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-img="{{this.url}}">
-															<img class="img-fluid"
+													<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
+															<img class="img-fluid img-150"
 																src="{{this.url}}">
-														</a> --}}
-														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-img="{{this.name}}">
+														</a>
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-img="{{this.name}}">
 															<img class="img-fluid"
 																src="/after/img/{{this.name}}">
-														</a>
+														</a> --}}
 													</div>
 													{{/if}}
 													{{/each}}
 												</div>
 											</div>
-											<div class="col-md-6 rounded-pill-right">
-												<div class="row border overflow-auto rounded-end" style="height: 350px;">
+											<div class="col-md-6">
+												<div class="row border overflow-auto rounded m-0" style="height: 300px;">
 													{{#each serviceNote.afterVideo}}
 													{{#if notDeletedYet}}
-													<div class="col-md-4 mt-2 mb-2">
-														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-video="{{this.url}}">
-															<video class="img-fluid"
-																src="{{this.url}}"></video>
-														</a> --}}
-														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-video="{{this.name}}">
+													<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+														<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
+															<video class="img-fluid video-150"
+																src="{{this.url}}" controls></video>
+														</a>
+														{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-video="{{this.name}}">
 															<video class="img-fluid"
 																src="/after/video/{{this.name}}"></video>
-														</a>
+														</a> --}}
 													</div>
 													{{/if}}
 													{{/each}}
@@ -463,14 +469,14 @@
 												<label for="steps-to-take-area"><strong>Tình trạng khách
 														hàng:</strong></label>
 												<div class="">
-													<textarea class="form-control bg-transparent" rows="8" disabled>{{serviceNote.statusAfterInfo}}</textarea>
+													<textarea class="form-control bg-transparent" rows="3" disabled>{{serviceNote.statusAfterInfo}}</textarea>
 												</div>
 											</div>
 											<div class="">
 												<label for="steps-to-take-area"><strong>Chỉ định bác
 														sĩ:</strong></label>
 												<div class="">
-													<textarea class="form-control bg-transparent" rows="8" disabled>{{serviceNote.directedByDoctor}}</textarea>
+													<textarea class="form-control bg-transparent" rows="3" disabled>{{serviceNote.directedByDoctor}}</textarea>
 												</div>
 											</div>
 											<div class="">
@@ -479,7 +485,7 @@
 															hiện:</strong></label>
 												</div>
 												<div class="">
-													<textarea class="form-control bg-transparent" rows="8" disabled>{{serviceNote.afterInfo}}</textarea>
+													<textarea class="form-control bg-transparent" rows="3" disabled>{{serviceNote.afterInfo}}</textarea>
 												</div>
 											</div>
 										</div>
