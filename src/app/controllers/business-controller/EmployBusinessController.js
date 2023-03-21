@@ -1358,7 +1358,7 @@ class EmployBusinessController {
 				// const storagePathDev = `${appRoot}/src/public/counselor/img/${imageFormatName}`;
 
 				// Đường dẫn cho môi trường sản xuất
-					const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/counselor/img/${imageFormatName}`;
+				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/counselor/img/${imageFormatName}`;
 
 				// Chuyển hình ảnh đến thư mục trong môi trường phát triển
 				// const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
@@ -1418,17 +1418,13 @@ class EmployBusinessController {
 				// const storagePathDev = `${appRoot}/src/public/counselor/video/${videoFormatName}`;
 
 				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/counselor/video/${videoFormatName}`;
+				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/counselor/video/${videoFormatName}`;
 				
 				// Chuyển video đến thư mục trong môi trường phát triển
-				// fs.rename(file.path, storagePathDev, function (err) {
-				// 	if (err) throw err;
-				// });
+				// fs.copyFileSync(file.path, storagePathDev);
 
 				// Chuyển video đến thư mục trong môi trường sản xuất
-				fs.rename(file.path, storagePathProduct, function (err) {
-					if (err) throw err;
-				});
+				fs.copyFileSync(file.path, storagePathProduct);
 
 				// Biến đường dẫn trong môi trường phát triển
 				// const videoURL = storagePathDev;
@@ -1444,7 +1440,7 @@ class EmployBusinessController {
 				])
 				.then(([customer, reExam]) => {
 					// Xóa tệp ảnh tạm thời
-					// fs.unlinkSync(file.path);
+					fs.unlinkSync(file.path);
 					res.status(200).json({ message: 'Hoàn thành tải lên' });
 				})
 				.catch(next => {
@@ -1626,7 +1622,7 @@ class EmployBusinessController {
 				// const storagePathDev = `${appRoot}/src/public/before/img/${imageFormatName}`;
 
 				// Đường dẫn cho môi trường sản xuất
-					const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/before/img/${imageFormatName}`;
+				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/before/img/${imageFormatName}`;
 
 				// Chuyển hình ảnh đến thư mục trong môi trường phát triển
 				// const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
@@ -1686,17 +1682,13 @@ class EmployBusinessController {
 				// const storagePathDev = `${appRoot}/src/public/before/video/${videoFormatName}`;
 
 				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/before/video/${videoFormatName}`;
+				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/before/video/${videoFormatName}`;
 				
 				// Chuyển video đến thư mục trong môi trường phát triển
-				// fs.rename(file.path, storagePathDev, function (err) {
-				// 	if (err) throw err;
-				// });
+				// fs.copyFileSync(file.path, storagePathDev);
 
 				// Chuyển video đến thư mục trong môi trường sản xuất
-				fs.rename(file.path, storagePathProduct, function (err) {
-					if (err) throw err;
-				});
+				fs.copyFileSync(file.path, storagePathProduct);
 
 
 				// Biến đường dẫn cho môi trường phát triển
@@ -1713,7 +1705,7 @@ class EmployBusinessController {
 				])
 				.then(([customer, reExam]) => {
 					// Xóa tệp ảnh tạm thời
-					// fs.unlinkSync(file.path);
+					fs.unlinkSync(file.path);
 					res.status(200).json({ message: 'Hoàn thành tải lên' });
 				})
 				.catch(next => {
@@ -1893,7 +1885,7 @@ class EmployBusinessController {
 				// const storagePathDev = `${appRoot}/src/public/in-surgery/img/${imageFormatName}`;
 
 				// Đường dẫn cho môi trường sản xuất
-					const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/in-surgery/img/${imageFormatName}`;
+				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/in-surgery/img/${imageFormatName}`;
 
 				// Chuyển hình ảnh đến thư mục trong môi trường phát triển
 				// const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
@@ -1950,20 +1942,16 @@ class EmployBusinessController {
 				const videoFormatName = `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`;
 				
 				// Đường dẫn cho môi trường phát triển
-				// const storagePathDev = `${appRoot}/src/public/in-surgery/video/${videoFormatName}`;
+				const storagePathDev = `${appRoot}/src/public/in-surgery/video/${videoFormatName}`;
 
 				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/in-surgery/video/${videoFormatName}`;
+				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/in-surgery/video/${videoFormatName}`;
 				
 				// Chuyển video đến thư mục trong môi trường phát triển
-				// fs.rename(file.path, storagePathDev, function (err) {
-				// 	if (err) throw err;
-				// });
+				// fs.copyFileSync(file.path, storagePathDev);
 
 				// Chuyển video đến thư mục trong môi trường sản xuất
-				fs.rename(file.path, storagePathProduct, function (err) {
-					if (err) throw err;
-				});
+				fs.copyFileSync(file.path, storagePathProduct);
 
 				// Biến đường dẫn video trong môi trường phát triển
 				// const videoURL = storagePathDev;
@@ -1979,7 +1967,7 @@ class EmployBusinessController {
 				])
 				.then(([customer, reExam]) => {
 					// Xóa tệp ảnh tạm thời
-					// fs.unlinkSync(file.path);
+					fs.unlinkSync(file.path);
 					res.status(200).json({ message: 'Hoàn thành tải lên' });
 				})
 				.catch(next => {
@@ -2159,7 +2147,7 @@ class EmployBusinessController {
 				// const storagePathDev = `${appRoot}/src/public/after/img/${imageFormatName}`;
 
 				// Đường dẫn cho môi trường sản xuất
-					const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/after/img/${imageFormatName}`;
+				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/after/img/${imageFormatName}`;
 
 				// Chuyển hình ảnh đến thư muc trong môi trường phát triển
 				// const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
@@ -2219,17 +2207,13 @@ class EmployBusinessController {
 				// const storagePathDev = `${appRoot}/src/public/after/video/${videoFormatName}`;
 
 				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/after/video/${videoFormatName}`;
+				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/after/video/${videoFormatName}`;
 
 				// Chuyển video đến thư mục trong môi trường phát triển
-				// fs.rename(file.path, storagePathDev, function (err) {
-				// 	if (err) throw err;
-				// });
+				// fs.copyFileSync(file.path, storagePathDev);
 
 				// Chuyển video đến thư mục trong môi trường sản xuất
-				fs.rename(file.path, storagePathProduct, function (err) {
-					if (err) throw err;
-				});
+				fs.copyFileSync(file.path, storagePathProduct);
 
 				// Biến đường dẫn trong môi trường phát triển
 				// const videoURL = storagePathDev;
@@ -2245,7 +2229,7 @@ class EmployBusinessController {
 				])
 				.then(([customer, reExam]) => {
 					// Xóa tệp ảnh tạm thời
-					// fs.unlinkSync(file.path);
+					fs.unlinkSync(file.path);
 					res.status(200).json({ message: 'Hoàn thành tải lên' });
 				})
 				.catch(next => {

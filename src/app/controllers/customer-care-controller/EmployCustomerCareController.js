@@ -467,8 +467,6 @@ class EmployCustomerCareController {
         const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
 		// const resizeOpts = { width: 512, height: 1024 };
 		const imgArr = [];
-		console.log(files);
-		console.log(req.body);
 		for (const file of files) {
 			if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
 				const logs = new Log({
@@ -487,12 +485,17 @@ class EmployCustomerCareController {
 				const imageFormatName = `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}.${image.options.formatOut}`;
 
 				// Đường dẫn cho môi trường phát triển
-				const storagePathDev = `${appRoot}/src/public/wound-cleaning/img/${imageFormatName}`;
+				// const storagePathDev = `${appRoot}/src/public/wound-cleaning/img/${imageFormatName}`;
 
 				// Đường dẫn cho môi trường sản xuất
-				// 	const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/wound-cleaning/${imageFormatName}`;
+					const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/wound-cleaning/${imageFormatName}`;
 
-				const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
+				// Chuyển file trong môi trường phát triển
+				// const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
+
+				// Chuyển file trong môi trường sản xuất
+				const imageToFolder = image.toFile(storagePathProduct, (err, data, info) => data);
+
 				const imageURL = imageToFolder.options.fileOut;
 				const imageName = await imageURL.split('/').pop();
 				console.log(imageURL);
@@ -541,16 +544,25 @@ class EmployCustomerCareController {
 					$push: { logIDs: logs._id }
 				}
 				const videoFormatName = `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`;
+				
 				// Đường dẫn cho môi trường phát triển
-				const storagePathDev = `${appRoot}/src/public/wound-cleaning/video/${videoFormatName}`;
+				// const storagePathDev = `${appRoot}/src/public/wound-cleaning/video/${videoFormatName}`;
 
 				// Đường dẫn cho môi trường sản xuất
-				// const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/wound-cleaning/${videoFormatName}`;
+				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/wound-cleaning/${videoFormatName}`;
 				
-				fs.rename(file.path, storagePathDev, function (err) {
-					if (err) throw err;
-				});
-				const videoURL = storagePathDev;
+				// Chuyển file trong môi trường phát triển
+				// fs.copyFileSync(file.path, storagePathDev);
+
+				// Chuyển file trong môi trường sản xuất
+				fs.copyFileSync(file.path, storagePathProduct);
+
+				// Biến đường dẫn môi trường phát triển
+				// const videoURL = storagePathDev;
+
+				// Biến đường dẫn môi trường sản xuất
+				const videoURL = storagePathProduct;
+
 				const videoName = await videoURL.split('/').pop();
 				videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
 				await Promise.all([
@@ -559,7 +571,7 @@ class EmployCustomerCareController {
 				])
 				.then(([customer, reExam]) => {
 					// Xóa tệp ảnh tạm thời
-					// fs.unlinkSync(file.path);
+					fs.unlinkSync(file.path);
 					res.status(200).json({ message: 'Hoàn thành tải lên' });
 				})
 				.catch(next => {
@@ -1156,11 +1168,19 @@ class EmployCustomerCareController {
 				}
 				const image = sharp(file.path).resize().webp();
 				const imageFormatName = `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}.${image.options.formatOut}`;
+				
 				// Đường dẫn cho môi trường phát triển
-				const storagePathDev = `${appRoot}/src/public/re-examination/img/${imageFormatName}`;
+				// const storagePathDev = `${appRoot}/src/public/re-examination/img/${imageFormatName}`;
+				
 				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/re-examination/${imageFormatName}`;
-				const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
+				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/re-examination/${imageFormatName}`;
+				
+				// Chuyển file trong môi trường phát triển
+				// const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
+
+				// Chuyển file trong môi trường sản xuất
+				const imageToFolder = image.toFile(storagePathProduct, (err, data, info) => data);
+
 				const imageURL = imageToFolder.options.fileOut;
 				const imageName = await imageURL.split('/').pop();
 				imgArr.push({ name: imageName, url: imageURL, notDeletedYet: true });
@@ -1207,15 +1227,25 @@ class EmployCustomerCareController {
 					$push: { logIDs: logs._id }
 				}
 				const videoFormatName = `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`;
+				
 				// // Đường dẫn cho môi trường phát triển
-				const storagePathDev = `${appRoot}/src/public/re-examination/video/${videoFormatName}`;
-				console.log(storagePathDev);
+				// const storagePathDev = `${appRoot}/src/public/re-examination/video/${videoFormatName}`;
+				
 				// // Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}/mnt/vdb/crm.drtuananh.vn/re-examination/${videoFormatName}`;
-				fs.rename(file.path, storagePathDev, function (err) {
-					if (err) throw err;
-				});
-				const videoURL = storagePathDev;
+				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/re-examination/${videoFormatName}`;
+				
+				// Chuyển file trong môi trường phát triển
+				// fs.copyFileSync(file.path, storagePathDev);
+
+				// Chuyển file trong môi trường sản xuất
+				fs.copyFileSync(file.path, storagePathProduct);
+
+				// Biến đường dẫn môi trường phát triển
+				// const videoURL = storagePathDev;
+
+				// Biến đường dẫn môi trường sản xuất
+				const videoURL = storagePathProduct;
+
 				const videoName = await videoURL.split('/').pop();
 				videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
 				await Promise.all([
@@ -1224,7 +1254,7 @@ class EmployCustomerCareController {
 				])
 				.then(([customer, reExam]) => {
 					// Xóa tệp ảnh tạm thời
-					// fs.unlinkSync(file.path);
+					fs.unlinkSync(file.path);
 					res.status(200).json({ message: 'Hoàn thành tải lên' });
 				})
 				.catch(next => {

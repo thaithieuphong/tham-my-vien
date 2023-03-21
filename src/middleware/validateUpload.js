@@ -9,13 +9,13 @@ class validateUpload {
     uploadSingleCustomer = multer({ fileFilter: helpers.imageFilter, storage: storage.storageCustomerAvt }).single('image');
     uploadSingleUser = multer({ fileFilter: helpers.imageFilter, storage: storage.storageUserAvt }).single('image');
     uploadSingleUserEdit = multer({ fileFilter: helpers.imageFilter, storage: storage.storageUserAvtEdit }).single('image');
-    beforeCounselorUpload = multer({ fileFilter: helpers.filter, storage: storage.beforeCounselorUpload }).any('beforeCounselor');
-    counselorUpload = multer({ fileFilter: helpers.filter, storage: storage.counselorUpload }).any('counselor');
-    beforeUpload = multer({ fileFilter: helpers.filter, storage: storage.beforeUpload }).any('before');
-    inSurgeryUpload = multer({ fileFilter: helpers.filter, storage: storage.inSurgeryUpload }).any('inSurgery');
-    afterUpload = multer({ fileFilter: helpers.filter, storage: storage.afterUpload }).any('after');
-    woundCleaningUpload = multer({ fileFilter: helpers.filter, storage: storage.woundCleaningUpload }).any('woundCleaning');
-    reExaminationUpload = multer({ fileFilter: helpers.filter, storage: storage.reExaminationUpload }).any('reExamination');
+    beforeCounselorUpload = multer({ fileFilter: helpers.filter, storage: storage.beforeCounselorUpload, limits: { fileSize: maxSize } }).any('beforeCounselor');
+    counselorUpload = multer({ fileFilter: helpers.filter, storage: storage.counselorUpload, limits: { fileSize: maxSize } }).any('counselor');
+    beforeUpload = multer({ fileFilter: helpers.filter, storage: storage.beforeUpload, limits: { fileSize: maxSize } }).any('before');
+    inSurgeryUpload = multer({ fileFilter: helpers.filter, storage: storage.inSurgeryUpload, limits: { fileSize: maxSize } }).any('inSurgery');
+    afterUpload = multer({ fileFilter: helpers.filter, storage: storage.afterUpload, limits: { fileSize: maxSize } }).any('after');
+    woundCleaningUpload = multer({ fileFilter: helpers.filter, storage: storage.woundCleaningUpload, limits: { fileSize: maxSize } }).any('woundCleaning');
+    reExaminationUpload = multer({ fileFilter: helpers.filter, storage: storage.reExaminationUpload, limits: { fileSize: maxSize } }).any('reExamination');
 }
 
 module.exports = new validateUpload;

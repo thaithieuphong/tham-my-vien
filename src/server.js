@@ -37,16 +37,16 @@ app.use(cors(corsOptions));
 app.use(
 	cookieSession({
 		name: "Hachitech-session",
-		secret: `${process.env.SECURITY_KEY}`,
+		secret: 'PHONGTT119',
 		httpOnly: true,
-		secure: false, // change to 'true' when switching to production enviroment
+		secure: true, // change to 'true' when switching to production enviroment
 		sameSite: 'strict',
 		path: '/'
 	})
 );
 
 app.use(session({
-	secret: `${process.env.FLASH_SESSION_KEY}`,
+	secret: 'khoabaomatdanhchoflash',
 	saveUninitialized: true,
 	resave: true
 }));
@@ -61,8 +61,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.sep));
 
 // Phân tích cú pháp yêu cầu của các loại nội dung
-app.use(bodyParser.urlencoded({ extended: true, limit: '2gb' }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit: '2000mb' }));
+app.use(bodyParser.json({ limit: '2000mb'}));
 
 // Xem những yêu cầu được ghi chép lại
 app.use(morgan("combined"));
@@ -315,7 +315,7 @@ function initRoot() {
 		.then(user => {
 			const userRoot = new User({
 				account: 'root',
-				password: bcrypt.hashSync(`${process.env.PASSWORD_ROOT}`, 8),
+				password: bcrypt.hashSync('Hachitech123', 8),
 				role: 'Gốc',
 				roleEng: 'root'
 			})
@@ -334,7 +334,7 @@ function initAdmin() {
 		.then(user => {
 			const userAdmin = new User({
 				account: 'admin',
-				password: bcrypt.hashSync(`${process.env.PASSWORD_ADMIN}`, 8),
+				password: bcrypt.hashSync('Administrator@123', 8),
 				role: 'Quản trị viên',
 				roleEng: 'administrator'
 			})
@@ -363,6 +363,6 @@ route(app);
 // 	});
 // });
 
-app.listen(`${process.env.PORT}`, () => {
-	console.log(`Ứng dụng đang chạy trên port ${process.env.PORT}`);
+app.listen(PORT, () => {
+	console.log(`Ứng dụng đang chạy trên port ${PORT}`);
 });
