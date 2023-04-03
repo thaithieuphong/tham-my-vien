@@ -6,9 +6,11 @@ const flash = require('connect-flash');
 class authJwt {
 	verifyToken(req, res, next) {
 		let token = req.session.token;
+		
 		if (!token) {
 			req.flash('messages_token_wrong', 'Mã bảo mật không đúng');
 			res.redirect('/');
+
 		}
 		jwt.verify(token, 'khoatruycap', (err, decoded) => {
 			if (err) {

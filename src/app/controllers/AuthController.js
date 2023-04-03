@@ -136,6 +136,7 @@ class AuthController {
                     req.body.password,
                     user.password
                 );
+                
                 if (!passwordIsValid) {
                     req.flash('messages_password_failure', 'Mật khẩu không đúng');
 					res.redirect('back');
@@ -144,7 +145,9 @@ class AuthController {
                     id: user._id,
                     role: user.role,
                     department: user.department,
+                    departmentEng: user.departmentEng,
                     position: user.position,
+                    positionEng: user.positionEng
                     
                 }, 'khoatruycap', {
                     expiresIn: 57600, // 24 giờ
@@ -154,7 +157,9 @@ class AuthController {
                     id: user._id,
                     role: user.role,
                     department: user.department,
-                    position: user.position
+                    departmentEng: user.departmentEng,
+                    position: user.position,
+                    positionEng: user.positionEng
                 }, 'khoalammoi', {
                     expiresIn: 31536000, // 24 giờ
                 })
@@ -163,7 +168,7 @@ class AuthController {
                     token: accessToken,
                     secure: true
                 };
-                res.status(200).redirect(`/${user.departmentEng}/${user.positionEng}`);
+                res.redirect(`/${user.departmentEng}/${user.positionEng}`);
             })
             .catch(next);
     };

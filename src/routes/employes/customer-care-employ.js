@@ -22,22 +22,34 @@ router.patch('/re-exam/:id/restore', EmployCustomerCareController.restoreReExam)
 router.patch('/re-exam/:id/done', EmployCustomerCareController.updateReExamDone);
 
 // Upload hình phiếu tái khám
-router.post('/re-exam/:id/uploadImages',  validateUploadImage.reExaminationUpload,  EmployCustomerCareController.uploadReExamImg);
+router.post('/re-exam/:id/uploadImages',  validateUploadImage.reExaminationUploadImg,  EmployCustomerCareController.uploadReExamImg);
 
 // Upload video phiếu tái khám
-router.post('/re-exam/:id/uploadVideos',  validateUploadImage.reExaminationUpload,  EmployCustomerCareController.uploadReExamVideo);
+router.post('/re-exam/:id/uploadVideos',  validateUploadImage.reExaminationUploadVideo,  EmployCustomerCareController.uploadReExamVideo);
 
 // Cập nhật content phiếu tái khám
 router.post('/re-exam/:id/upload',  EmployCustomerCareController.uploadReExam);
 
+// Xóa nhiều hình ảnh thay băng cắt chỉ trên phiếu tái khám
+router.delete('/re-exam/:id/delete-multi-img', EmployCustomerCareController.deleteMultipleReExaminationImg);
+
 // Xóa hình ảnh thay băng cắt chỉ trên phiếu tái khám
 router.delete('/re-exam/:id/delete-img', EmployCustomerCareController.deleteReExamImg);
+
+// Khôi phục nhiều hình ảnh thay băng cắt chỉ trên phiếu tái khám
+router.patch('/re-exam/:id/restore-multi-img', EmployCustomerCareController.restoreMultipleReExaminationImg);
 
 // Khôi phục hình ảnh thay băng cắt chỉ trên phiếu tái khám
 router.patch('/re-exam/:id/restore-img', EmployCustomerCareController.restoreReExamImg);
 
+// Xóa nhiều video thay băng cắt chỉ trên phiếu tái khám
+router.delete('/re-exam/:id/delete-multi-video', EmployCustomerCareController.deleteMultipleReExaminationVideo);
+
 // Xóa video thay băng cắt chỉ trên phiếu tái khám
 router.delete('/re-exam/:id/delete-video', EmployCustomerCareController.deleteReExamVideo);
+
+// Khôi phục nhiều video thay băng cắt chỉ trên phiếu tái khám
+router.patch('/re-exam/:id/restore-multi-video', EmployCustomerCareController.restoreMultipleReExaminationVideo);
 
 // Khôi phục video thay băng cắt chỉ trên phiếu tái khám
 router.patch('/re-exam/:id/restore-video', EmployCustomerCareController.restoreReExamVideo);
@@ -91,22 +103,34 @@ router.delete('/wound-cleaning/:id/delete', EmployCustomerCareController.deleteW
 router.patch('/wound-cleaning/:id/restore', EmployCustomerCareController.restoreWoundCleaning);
 
 // Upload hình phiếu tái khám
-router.post('/wound-cleaning/:id/uploadImages',  validateUploadImage.woundCleaningUpload,  EmployCustomerCareController.uploadWoundCleaningImg);
+router.post('/wound-cleaning/:id/uploadImages',  validateUploadImage.woundCleaningUploadImg,  EmployCustomerCareController.uploadWoundCleaningImg);
 
 // Upload video phiếu tái khám
-router.post('/wound-cleaning/:id/uploadVideos',  validateUploadImage.woundCleaningUpload,  EmployCustomerCareController.uploadWoundCleaningVideo);
+router.post('/wound-cleaning/:id/uploadVideos',  validateUploadImage.woundCleaningUploadVideo,  EmployCustomerCareController.uploadWoundCleaningVideo);
 
 // Upload hình và video phiếu thay băng
-router.post('/wound-cleaning/:id/update',  validateUploadImage.woundCleaningUpload,  EmployCustomerCareController.updateWoundCleaning);
+router.post('/wound-cleaning/:id/update', EmployCustomerCareController.updateWoundCleaning);
+
+// Xóa nhiều hình ảnh thay băng cắt chỉ trên phiếu thay băng
+router.delete('/wound-cleaning/:id/delete-multi-img-wound-cleaning', EmployCustomerCareController.deleteMultipleWoundCleaningImg);
 
 // Xóa hình ảnh thay băng cắt chỉ trên phiếu thay băng
 router.delete('/wound-cleaning/:id/delete-img-wound-cleaning', EmployCustomerCareController.deleteWoundCleaningImg);
 
+// Khôi phục nhiều hình ảnh thay băng cắt chỉ trên phiếu thay băng
+router.patch('/wound-cleaning/:id/restore-multi-img-wound-cleaning', EmployCustomerCareController.restoreMultipleWoundCleaningImg);
+
 // Khôi phục hình ảnh thay băng cắt chỉ trên phiếu thay băng
 router.patch('/wound-cleaning/:id/restore-img-wound-cleaning', EmployCustomerCareController.restoreWoundCleaningImg);
 
+// Xóa nhiều video thay băng cắt chỉ trên phiếu thay băng
+router.delete('/wound-cleaning/:id/delete-multi-video-wound-cleaning', EmployCustomerCareController.deleteMultipleWoundCleaningVideo);
+
 // Xóa video thay băng cắt chỉ trên phiếu thay băng
 router.delete('/wound-cleaning/:id/delete-video-wound-cleaning', EmployCustomerCareController.deleteWoundCleaningVideo);
+
+// Khôi phục nhiều video thay băng cắt chỉ trên phiếu thay băng
+router.patch('/wound-cleaning/:id/restore-multi-video-wound-cleaning', EmployCustomerCareController.restoreMultipleWoundCleaningVideo);
 
 // Khôi phục video thay băng cắt chỉ trên phiếu thay băng
 router.patch('/wound-cleaning/:id/restore-video-wound-cleaning', EmployCustomerCareController.restoreWoundCleaningVideo);

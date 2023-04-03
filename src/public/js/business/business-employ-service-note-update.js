@@ -632,7 +632,7 @@ imageModalCounselor.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgID = button.getAttribute('data-id-img');
 	var dataImgURL = button.getAttribute('data-url-img');
 
 	var modalImageCounselor = document.getElementById('modal-img-counselor');
@@ -640,7 +640,7 @@ imageModalCounselor.addEventListener('show.bs.modal', function (event) {
 
 	modalImageCounselor.setAttribute('src', `${dataImgURL}`);
 	// modalImageCounselor.setAttribute('src', `/counselor/img/${dataImg}`);
-	inputDeleteImageCounselor.value = dataImgName;
+	inputDeleteImageCounselor.value = dataImgID;
 
 });
 
@@ -652,7 +652,7 @@ restoreImageModalCounselor.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgID = button.getAttribute('data-id-img');
 	var dataImgURL = button.getAttribute('data-url-img');
 
 	var restoreImageCounselor = document.getElementById('restore-img-counselor');
@@ -660,7 +660,7 @@ restoreImageModalCounselor.addEventListener('show.bs.modal', function (event) {
 
 	restoreImageCounselor.setAttribute('src', `${dataImgURL}`);
 	// restoreImageCounselor.setAttribute('src', `/counselor/img/${dataImg}`);
-	inputRestoreImageCounselor.value = dataImgName;
+	inputRestoreImageCounselor.value = dataImgID;
 
 });
 
@@ -673,7 +673,7 @@ videoModalCounselor.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoID = button.getAttribute('data-id-video');
 	var dataVideoURL = button.getAttribute('data-url-video');
 
 	var modalVideoCounselor = document.getElementById('modal-video-counselor');
@@ -681,7 +681,7 @@ videoModalCounselor.addEventListener('show.bs.modal', function (event) {
 
 	modalVideoCounselor.setAttribute('src', `${dataVideoURL}`);
 	// modalVideoCounselor.setAttribute('src', `/counselor/video/${dataVideo}`);
-	inputDeleteVideoCounselor.value = dataVideoName;
+	inputDeleteVideoCounselor.value = dataVideoID;
 });
 
 // Restore Counselor Video
@@ -692,7 +692,7 @@ restoreVideoModalCounselor.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoID = button.getAttribute('data-id-video');
 	var dataVideoURL = button.getAttribute('data-url-video');
 
 	var restoreVideoCounselor = document.getElementById('restore-video-counselor');
@@ -700,7 +700,7 @@ restoreVideoModalCounselor.addEventListener('show.bs.modal', function (event) {
 
 	restoreVideoCounselor.setAttribute('src', `${dataVideoURL}`);
 	// restoreVideoCounselor.setAttribute('src', `/counselor/video/${dataVideo}`);
-	inputRestoreVideoCounselor.value = dataVideoName;
+	inputRestoreVideoCounselor.value = dataVideoID;
 
 });
 
@@ -712,7 +712,7 @@ imageModalBefore.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 	
 	// Extract info from data-bs-* attributes
-	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgID = button.getAttribute('data-id-img');
 	var dataImgURL = button.getAttribute('data-url-img');
 	
 	var modalImageBefore = document.getElementById('modal-img-before');
@@ -720,7 +720,7 @@ imageModalBefore.addEventListener('show.bs.modal', function (event) {
 	
 	modalImageBefore.setAttribute('src', `${dataImgURL}`);
 	// modalImageBefore.setAttribute('src', `/before/img/${dataImg}`);
-	inputDeleteImageBefore.value = dataImgName;
+	inputDeleteImageBefore.value = dataImgID;
 })
 
 // Restore Before Image
@@ -731,7 +731,7 @@ restoreImageModalBefore.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgID = button.getAttribute('data-id-img');
 	var dataImgURL = button.getAttribute('data-url-img');
 
 	var restoreImageBefore = document.getElementById('restore-img-before');
@@ -739,7 +739,7 @@ restoreImageModalBefore.addEventListener('show.bs.modal', function (event) {
 
 	restoreImageBefore.setAttribute('src', `${dataImgURL}`);
 	// restoreImageBefore.setAttribute('src', `/before/img/${dataImg}`);
-	inputRestoreImageBefore.value = dataImgName;
+	inputRestoreImageBefore.value = dataImgID;
 
 });
 
@@ -751,7 +751,7 @@ videoModalBefore.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoID = button.getAttribute('data-id-video');
 	var dataVideoURL = button.getAttribute('data-url-video');
 
 	var modalVideoBefore = document.getElementById('modal-video-before');
@@ -759,7 +759,7 @@ videoModalBefore.addEventListener('show.bs.modal', function (event) {
 
 	modalVideoBefore.setAttribute('src', `${dataVideoURL}`);
 	// modalVideoBefore.setAttribute('src', `/before/video/${dataVideo}`);
-	inputDeleteVideoBefore.value = dataVideoName;
+	inputDeleteVideoBefore.value = dataVideoID;
 
 })
 
@@ -771,7 +771,7 @@ restoreVideoModalBefore.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoID = button.getAttribute('data-id-video');
 	var dataVideoURL = button.getAttribute('data-url-video');
 
 	var restoreVideoBefore = document.getElementById('restore-video-before');
@@ -779,7 +779,7 @@ restoreVideoModalBefore.addEventListener('show.bs.modal', function (event) {
 
 	restoreVideoBefore.setAttribute('src', `${dataVideoURL}`);
 	// restoreVideoBefore.setAttribute('src', `/before/video/${dataVideo}`);
-	inputRestoreVideoBefore.value = dataVideoName;
+	inputRestoreVideoBefore.value = dataVideoID;
 
 });
 
@@ -791,7 +791,7 @@ imageModalInSurgery.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgID = button.getAttribute('data-id-img');
 	var dataImgURL = button.getAttribute('data-url-img');
 
 	var modalImageInSurgery = document.getElementById('modal-img-inSurgery');
@@ -800,7 +800,7 @@ imageModalInSurgery.addEventListener('show.bs.modal', function (event) {
 
 	modalImageInSurgery.setAttribute('src', `${dataImgURL}`);
 	// modalImageInSurgery.setAttribute('src', `/in-surgery/img/${dataImg}`);
-	inputDeleteImageInSurgery.value = dataImgName;
+	inputDeleteImageInSurgery.value = dataImgID;
 });
 
 // Restore In Surgery Image
@@ -811,7 +811,7 @@ restoreImageModalInSurgery.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgID = button.getAttribute('data-id-img');
 	var dataImgURL = button.getAttribute('data-url-img');
 
 	var restoreImageInSurgery = document.getElementById('restore-img-in-surgery');
@@ -819,7 +819,7 @@ restoreImageModalInSurgery.addEventListener('show.bs.modal', function (event) {
 
 	restoreImageInSurgery.setAttribute('src', `${dataImgURL}`);
 	// restoreImageInSurgery.setAttribute('src', `/in-surgery/img/${dataImg}`);
-	inputRestoreImageInSurgery.value = dataImgName;
+	inputRestoreImageInSurgery.value = dataImgID;
 
 });
 
@@ -831,7 +831,7 @@ videoModalInSurgery.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoID = button.getAttribute('data-id-video');
 	var dataVideoURL = button.getAttribute('data-url-video');
 
 	var modalVideoInSurgery = document.getElementById('modal-video-inSurgery');
@@ -839,7 +839,7 @@ videoModalInSurgery.addEventListener('show.bs.modal', function (event) {
 
 	modalVideoInSurgery.setAttribute('src', `${dataVideoURL}`);
 	// modalVideoInSurgery.setAttribute('src', `/in-surgery/video/${dataVideo}`);
-	inputDeleteVideoInSurgery.value = dataVideoName;
+	inputDeleteVideoInSurgery.value = dataVideoID;
 });
 
 // Restore In Surgery Video
@@ -850,7 +850,7 @@ restoreVideoModalInSurgery.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoID = button.getAttribute('data-id-video');
 	var dataVideoURL = button.getAttribute('data-url-video');
 
 	var restoreVideoInSurgery = document.getElementById('restore-video-in-surgery');
@@ -858,7 +858,7 @@ restoreVideoModalInSurgery.addEventListener('show.bs.modal', function (event) {
 
 	restoreVideoInSurgery.setAttribute('src', `${dataVideoURL}`);
 	// restoreVideoInSurgery.setAttribute('src', `/in-surgery/video/${dataVideo}`);
-	inputRestoreVideoInSurgery.value = dataVideoName;
+	inputRestoreVideoInSurgery.value = dataVideoID;
 });
 
 // Delete After Image
@@ -869,7 +869,7 @@ imageModalAfter.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgID = button.getAttribute('data-id-img');
 	var dataImgURL = button.getAttribute('data-url-img');
 
 	var modalImageAfter = document.getElementById('modal-img-after');
@@ -877,7 +877,7 @@ imageModalAfter.addEventListener('show.bs.modal', function (event) {
 
 	modalImageAfter.setAttribute('src', `${dataImgURL}`);
 	// modalImageAfter.setAttribute('src', `/after/img/${dataImg}`);
-	inputDeleteImgAfter.value = dataImgName;
+	inputDeleteImgAfter.value = dataImgID;
 
 })
 
@@ -889,7 +889,7 @@ restoreImageModalAfter.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataImgName = button.getAttribute('data-name-img');
+	var dataImgID = button.getAttribute('data-id-img');
 	var dataImgURL = button.getAttribute('data-url-img');
 
 	var restoreImageAfter = document.getElementById('restore-img-after');
@@ -897,7 +897,7 @@ restoreImageModalAfter.addEventListener('show.bs.modal', function (event) {
 
 	restoreImageAfter.setAttribute('src', `${dataImgURL}`);
 	// restoreImageAfter.setAttribute('src', `/after/img/${dataImg}`);
-	inputRestoreImageAfter.value = dataImgName;
+	inputRestoreImageAfter.value = dataImgID;
 
 });
 
@@ -909,7 +909,7 @@ videoModalAfter.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoID = button.getAttribute('data-id-video');
 	var dataVideoURL = button.getAttribute('data-url-video');
 
 	var modalVideoAfter = document.getElementById('modal-video-after');
@@ -917,7 +917,7 @@ videoModalAfter.addEventListener('show.bs.modal', function (event) {
 
 	modalVideoAfter.setAttribute('src', `${dataVideoURL}`);
 	// modalVideoAfter.setAttribute('src', `/after/video/${dataVideo}`);
-	inputDeleteVideoAfter.value = dataVideoName;
+	inputDeleteVideoAfter.value = dataVideoID;
 
 })
 
@@ -929,7 +929,7 @@ restoreVideoModalAfter.addEventListener('show.bs.modal', function (event) {
 	var button = event.relatedTarget
 
 	// Extract info from data-bs-* attributes
-	var dataVideoName = button.getAttribute('data-name-video');
+	var dataVideoID = button.getAttribute('data-id-video');
 	var dataVideoURL = button.getAttribute('data-url-video');
 
 	var restoreVideoAfter = document.getElementById('restore-video-after');
@@ -937,7 +937,7 @@ restoreVideoModalAfter.addEventListener('show.bs.modal', function (event) {
 
 	restoreVideoAfter.setAttribute('src', `${dataVideoURL}`);
 	// restoreVideoAfter.setAttribute('src', `/after/video/${dataVideo}`);
-	inputRestoreVideoAfter.value = dataVideoName;
+	inputRestoreVideoAfter.value = dataVideoID;
 });
 
 function totalMoneyFn(before, current) {
@@ -1036,7 +1036,6 @@ var addServices = function() {
 					serviceArr.splice(index, 1);
 				}
 				let totalServiceMoney = serviceArr.reduce(totalMoneyFn, 0);
-				console.log(totalServiceMoney)
 
 				// Hiển thị tổng phí dịch vụ trên giao diện
 				totalServiceCharge.value = totalServiceMoney.toLocaleString();

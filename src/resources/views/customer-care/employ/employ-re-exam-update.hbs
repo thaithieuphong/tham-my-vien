@@ -189,7 +189,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-						<li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+						<li><a class="dropdown-item" href="/customer-care/employ/profile">Thông tin cá nhân</a></li>
 						<li>
 							<hr class="dropdown-divider">
 						</li>
@@ -348,64 +348,88 @@
 								khám</strong></label>
 					</li>
 					<li class="list-group-item">
-						<div class="d-flex justify-content-end mb-2">
-							<button class="btn btn-danger btn-sm mr-2" type="button" data-bs-toggle="collapse"
-								data-bs-target="#restoreImgReExam" aria-expanded="false"
-								aria-controls="restoreImgReExam">
-								<i class="fa-sharp fa-solid fa-trash"></i> Thùng rác
-							</button>
-							<button class="btn btn-primary btn-sm mr-2" type="button" data-bs-toggle="modal"
-								data-bs-target="#uploadImgModal">
-								<i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Tải ảnh lên máy chủ
-							</button>
-							<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
-								data-bs-target="#uploadVideoModal">
-								<i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Tải video lên máy chủ
-							</button>
-						</div>
+						<button class="btn btn-outline-secondary btn-sm mb-2" type="button" data-bs-toggle="collapse"
+							data-bs-target="#restoreImgReExam" aria-expanded="false"
+							aria-controls="restoreImgReExam">
+							<i class="fa-sharp fa-solid fa-trash"></i> Thùng rác
+						</button>
 						<div class="collapse" id="restoreImgReExam">
 							<div class="card card-body">
 								<div class="row">
 									<div class="col-md-6 border-right">
-										<div class="row overflow-auto" style="height: 350px;">
-											{{#each reExam.reExamImg}}
-											{{#if notDeletedYet}}
-											{{else}}
-											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-												{{!-- <a type="button" class="" data-bs-toggle="modal"
-													data-bs-target="#restoreImageModalReExam" data-img="{{this.name}}">
-													<img class="img-fluid img-150"
-														src="/re-examination/img/{{this.name}}">
-												</a> --}}
-												<a type="button" class="" data-bs-toggle="modal"
-													data-bs-target="#restoreImageModalReExam" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
-													<img class="img-fluid img-150" src="{{this.url}}">
-												</a>
+										<form action="/customer-care/employ/re-exam/{{reExam._id}}/restore-multi-img?_method=PATCH" method="POST" name="restore-re-examination-img-form">
+											<input class="visually-hidden" type="text" value="{{reExam.cusID._id}}" name="cusID">
+											<div class="d-flex align-items-center mb-3">
+												<div class="form-check form-check-sm mr-3">
+													<input class="form-check-input" type="checkbox" value="" id="checkAllRestoreReExaminationImg">
+													<label class="form-check-label" for="checkAllRestoreReExaminationImg">
+														Chọn tất cả
+													</label>
+												</div>
+												<button id="restore-re-examination-img" class="btn btn-primary btn-sm mr-3 disabled" type="button">
+													<i class="ti-trash"></i> Khôi phục
+												</button>
 											</div>
-											{{/if}}
-											{{/each}}
-										</div>
+											<div class="row overflow-auto" style="height: 300px;">
+												{{#each reExam.reExamImg}}
+												{{#if notDeletedYet}}
+												{{else}}
+												<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+													<div class="form-check position-relative">
+														<input class="form-check-input position-absolute top-0 end-0 restore-form-check-input-re-examination-img" type="checkbox" name="reExamImgs[]" value="{{this._id}}">
+													</div>
+													{{!-- <a type="button" class="" data-bs-toggle="modal"
+														data-bs-target="#restoreImageModalReExam" data-img="{{this.name}}">
+														<img class="img-fluid img-150"
+															src="/re-examination/img/{{this.name}}">
+													</a> --}}
+													<a type="button" class="" data-bs-toggle="modal"
+														data-bs-target="#restoreImageModalReExam" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
+														<img class="img-fluid img-150" src="{{this.url}}">
+													</a>
+												</div>
+												{{/if}}
+												{{/each}}
+											</div>
+										</form>
 									</div>
 									<div class="col-md-6">
-										<div class="row overflow-auto" style="height: 350px;">
-											{{#each reExam.reExamVideo}}
-											{{#if notDeletedYet}}
-											{{else}}
-											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-												{{!-- <a type="button" class="" data-bs-toggle="modal"
-													data-bs-target="#restoreVideoModalReExam"
-													data-video="{{this.name}}">
-													<video class="img-fluid video-150"
-														src="/re-examination/video/{{this.name}}"></video>
-												</a> --}}
-												<a type="button" class="" data-bs-toggle="modal"
-													data-bs-target="#restoreVideoModalReExam" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
-													<video class="img-fluid video-150" src="{{this.url}}" controls></video>
-												</a>
+										<form action="/customer-care/employ/re-exam/{{reExam._id}}/restore-multi-video?_method=PATCH" method="POST" name="restore-re-examination-video-form">
+											<input class="visually-hidden" type="text" value="{{reExam.cusID._id}}" name="cusID">
+											<div class="d-flex align-items-center mb-3">
+												<div class="form-check form-check-sm mr-3">
+													<input class="form-check-input" type="checkbox" value="" id="checkAllRestoreReExaminationVideo">
+													<label class="form-check-label" for="checkAllRestoreReExaminationVideo">
+														Chọn tất cả
+													</label>
+												</div>
+												<button id="restore-re-examination-video" class="btn btn-primary btn-sm mr-3 disabled" type="button">
+													<i class="ti-trash"></i> Khôi phục
+												</button>
 											</div>
-											{{/if}}
-											{{/each}}
-										</div>
+											<div class="row overflow-auto" style="height: 300px;">
+												{{#each reExam.reExamVideo}}
+												{{#if notDeletedYet}}
+												{{else}}
+												<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+													<div class="form-check position-relative">
+														<input class="form-check-input position-absolute top-0 end-0 restore-form-check-input-re-examination-video" type="checkbox" name="reExamVideos[]" value="{{this._id}}">
+													</div>
+													{{!-- <a type="button" class="" data-bs-toggle="modal"
+														data-bs-target="#restoreVideoModalReExam"
+														data-video="{{this.name}}">
+														<video class="img-fluid video-150"
+															src="/re-examination/video/{{this.name}}"></video>
+													</a> --}}
+													<a type="button" class="" data-bs-toggle="modal"
+														data-bs-target="#restoreVideoModalReExam" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
+														<video class="img-fluid video-150" src="{{this.url}}" controls></video>
+													</a>
+												</div>
+												{{/if}}
+												{{/each}}
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -414,41 +438,83 @@
 					<li class="list-group-item">
 						<div class="row mb-2">
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
-									{{#each reExam.reExamImg}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
-										<a type="button" class="" data-bs-toggle="modal"
-											data-bs-target="#imageModalReExam" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
-											<img class="img-fluid img-150" src="{{this.url}}">
-										</a>
-										{{!-- <a type="button" class="" data-bs-toggle="modal"
-											data-bs-target="#imageModalReExam" data-img="{{this.name}}">
-											<img class="img-fluid img-150" src="/re-examination/img/{{this.name}}">
-										</a> --}}
+								<form action="/customer-care/employ/re-exam/{{reExam._id}}/delete-multi-img?_method=DELETE" method="POST" name="delete-re-examination-img-form">
+									<input class="visually-hidden" type="text" value="{{reExam.cusID._id}}" name="cusID">
+									<div class="d-flex align-items-center mb-3">
+										<div class="form-check form-check-sm mr-3">
+											<input class="form-check-input" type="checkbox" value="" id="checkAllReExaminationImg">
+											<label class="form-check-label" for="checkAllReExaminationImg">
+												Chọn tất cả
+											</label>
+										</div>
+										<button id="delete-re-examination-img" class="btn btn-danger btn-sm mr-3 disabled" type="button">
+											<i class="ti-trash"></i> Xóa
+										</button>
+										<button class="btn btn-primary btn-sm mr-2" type="button" data-bs-toggle="modal"
+											data-bs-target="#uploadImgModal">
+											<i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Tải ảnh tái khám
+										</button>
 									</div>
-									{{/if}}
-									{{/each}}
-								</div>
+									<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+										{{#each reExam.reExamImg}}
+										{{#if notDeletedYet}}
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+											<div class="form-check position-relative">
+												<input class="form-check-input position-absolute top-0 end-0 delete-form-check-input-re-examination-img" type="checkbox" name="reExamImgs[]" value="{{this._id}}">
+											</div>
+											<a type="button" class="" data-bs-toggle="modal"
+												data-bs-target="#imageModalReExam" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
+												<img class="img-fluid img-150" src="{{this.url}}">
+											</a>
+											{{!-- <a type="button" class="" data-bs-toggle="modal"
+												data-bs-target="#imageModalReExam" data-img="{{this.name}}">
+												<img class="img-fluid img-150" src="/re-examination/img/{{this.name}}">
+											</a> --}}
+										</div>
+										{{/if}}
+										{{/each}}
+									</div>
+								</form>
 							</div>
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
-									{{#each reExam.reExamVideo}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-										<a type="button" class="" data-bs-toggle="modal"
-											data-bs-target="#videoModalReExam" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
-											<video class="img-fluid video-150" src="{{this.url}}" controls></video>
-										</a>
-										{{!-- <a type="button" class="" data-bs-toggle="modal"
-											data-bs-target="#videoModalReExam" data-video="{{this.name}}">
-											<video class="img-fluid video-150"
-												src="/re-examination/video/{{this.name}}"></video>
-										</a> --}}
+								<form action="/customer-care/employ/re-exam/{{reExam._id}}/delete-multi-video?_method=DELETE" method="POST" name="delete-re-examination-video-form">
+									<input class="visually-hidden" type="text" value="{{reExam.cusID._id}}" name="cusID">
+									<div class="d-flex align-items-center mb-3">
+										<div class="form-check mr-3">
+											<input class="form-check-input" type="checkbox" value="" id="checkAllReExaminationVideo">
+											<label class="form-check-label" for="checkAllReExaminationVideo">
+												Chọn tất cả
+											</label>
+										</div>
+										<button id="delete-re-examination-video" class="btn btn-danger btn-sm mr-3 disabled" type="button">
+											<i class="ti-trash"></i> Xóa
+										</button>
+										<button class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal"
+											data-bs-target="#uploadVideoModal">
+											<i class="fa-sharp fa-solid fa-cloud-arrow-up"></i> Tải video tái khám
+										</button>
 									</div>
-									{{/if}}
-									{{/each}}
-								</div>
+									<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+										{{#each reExam.reExamVideo}}
+										{{#if notDeletedYet}}
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+											<div class="form-check position-relative">
+												<input class="form-check-input position-absolute top-0 end-0 delete-form-check-input-re-examination-video" name="reExamVideos[]" type="checkbox" value="{{this._id}}">
+											</div>
+											<a type="button" class="" data-bs-toggle="modal"
+												data-bs-target="#videoModalReExam" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
+												<video class="img-fluid video-150" src="{{this.url}}" controls></video>
+											</a>
+											{{!-- <a type="button" class="" data-bs-toggle="modal"
+												data-bs-target="#videoModalReExam" data-video="{{this.name}}">
+												<video class="img-fluid video-150"
+													src="/re-examination/video/{{this.name}}"></video>
+											</a> --}}
+										</div>
+										{{/if}}
+										{{/each}}
+									</div>
+								</form>
 							</div>
 						</div>
 						<form method="POST" action="/customer-care/employ/re-exam/{{reExam._id}}/upload"
@@ -575,7 +641,7 @@
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tải hình ảnh lên máy chủ</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tải hình ảnh tái khám</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -598,7 +664,7 @@
 	<div class="modal-dialog modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Tải video lên máy chủ</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tải video tái khám</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -753,6 +819,10 @@
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 <script src="/js/uploadImage.js"></script>
 <script src="/js/uploadVideo.js"></script>
+<script src="/js/customer-care/delete-multi-re-examination-img.js"></script>
+<script src="/js/customer-care/delete-multi-re-examination-video.js"></script>
+<script src="/js/customer-care/restore-multi-re-examination-img.js"></script>
+<script src="/js/customer-care/restore-multi-re-examination-video.js"></script>
 <script>
 	validate('#submit-re-exam-form');
 </script>

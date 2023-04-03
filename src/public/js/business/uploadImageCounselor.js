@@ -25,6 +25,10 @@ const uploadCounselorImg = FilePond.create(previewCounselorImg, {
     labelInvalidField: 'Tệp bạn chọn không phải hình ảnh',
     // imageResizeTargetWidth: 512,
     // imageResizeTargetHeight: 1024,
+    // set contain resize mode
+    imageTransformOutputMimeType: null,
+    imageResizeMode: 'contain',
+    imageTransformOutputQuality: 30,
     labelFileProcessing: 'Đang tải lên',
     labelFileProcessingComplete: 'Quá trình tải ảnh hoàn tất',
     labelFileProcessingAborted: 'Đã hủy quá trình tải ảnh lên',
@@ -40,9 +44,6 @@ const uploadCounselorImg = FilePond.create(previewCounselorImg, {
     labelButtonUndoItemProcessing: 'Hoàn tác quá trình tải lên',
     labelButtonRetryItemProcessing: 'Thử tải lại ảnh',
     labelButtonProcessItem: 'Tải lên',
-    imageTransformOutputMimeType: 'image/jpeg',
-    // set contain resize mode
-    imageResizeMode: 'contain',
 });
 
 uploadCounselorImg.setOptions({

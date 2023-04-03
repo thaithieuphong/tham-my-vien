@@ -1329,127 +1329,76 @@ class EmployBusinessController {
 	}
 
 	// Tải lên hình ảnh khi tư vấn
-	async uploadCounselorImg(req, res, next) {
+	uploadCounselorImg(req, res, next) {
 		const files = req.files;
-		const date = new Date();
-        const getDate = date.getDate();
-        const getMonth = date.getMonth();
-        const getYear = date.getFullYear();
-        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
 		const imgArr = [];
+		const logs = new Log({
+			customerID: req.body.cusID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật hình ảnh tư vấn phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh tư vấn phiếu dịch vụ', statusEng: 'uploadedCounselorImg'} },
+			$push: { logIDs: logs._id }
+		}
+		const checkImg = /(^image)(\/)[a-zA-Z0-9_]*/
 		for (const file of files) {
-			if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
-				const logs = new Log({
-					customerID: req.body.cusID,
-					serviceNoteID: req.params.id,
-					userID: req.userId,
-					status: 'Cập nhật hình ảnh tư vấn phiếu dịch vụ',
-					contents: req.body
-				});
-				logs.save();
-				let updateStatus = {
-					$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh tư vấn phiếu dịch vụ', statusEng: 'uploadedCounselorImg'} },
-					$push: { logIDs: logs._id }
-				}
-				const image = sharp(file.path).resize().webp();
-				const imageFormatName = `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}.${image.options.formatOut}`;
-
-				// Đường dẫn cho môi trường phát triển
-				// const storagePathDev = `${appRoot}/src/public/counselor/img/${imageFormatName}`;
-
-				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/counselor/img/${imageFormatName}`;
-
-				// Chuyển hình ảnh đến thư mục trong môi trường phát triển
-				// const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
-
-				// Chuyển hình ảnh dến thư mục trong môi trường sản xuất
-				const imageToFolder = image.toFile(storagePathProduct, (err, data, info) => data);
-
-				const imageURL = imageToFolder.options.fileOut;
-				const imageName = await imageURL.split('/').pop();
-
+			if (file.mimetype.match(checkImg)) {
+				const imageURL = file.path;
+				const imageName = file.filename;
 				imgArr.push({ name: imageName, url: imageURL, notDeletedYet: true });
-				await Promise.all([
-					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
-					ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { counselorImg: imgArr }})
-				])
-				.then(([customer, reExam]) => {
-
-					// Xóa tệp ảnh tạm thời
-					fs.unlinkSync(file.path);
-					res.status(200).json({ message: 'Hoàn thành tải lên' });
-				})
-				.catch(next => {
-					console.log(`Đã xảy ra lỗi này: ${next}`);
-					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
-					
-				});
 			}
 		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { counselorImg: imgArr }})
+		])
+		.then(([customer, reExam]) => {
+
+			res.status(200).json({ message: 'Hoàn thành tải lên' });
+		})
+		.catch(next => {
+			console.log(`Đã xảy ra lỗi này: ${next}`);
+			res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+		});
 	}
 
 	// Tải lên video tư vấn
-	async uploadCounselorVideo(req, res, next) {
+	uploadCounselorVideo(req, res, next) {
 		const files = req.files;
-		const date = new Date();
-        const getDate = date.getDate();
-        const getMonth = date.getMonth();
-        const getYear = date.getFullYear();
-        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
 		const videoArr = [];
-		for (const file of files) {
-			if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv'|| file.mimetype === 'video/quicktime' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-				const logs = new Log({
-					customerID: req.body.cusID,
-					serviceNoteID: req.params.id,
-					userID: req.userId,
-					status: 'Cập nhật video tư vấn phiếu dịch vụ',
-					contents: req.body
-				});
-				logs.save();
-				let updateStatus = {
-					$set: { statusCus: { statusVi: 'Đã cập nhật video tư vấn phiếu dịch vụ', statusEng: 'uploadedCounselorVideo'} },
-					$push: { logIDs: logs._id }
-				}
-				const videoFormatName = `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`;
-				
-				// Đường dẫn cho môi trường phát triển
-				// const storagePathDev = `${appRoot}/src/public/counselor/video/${videoFormatName}`;
-
-				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/counselor/video/${videoFormatName}`;
-				
-				// Chuyển video đến thư mục trong môi trường phát triển
-				// fs.copyFileSync(file.path, storagePathDev);
-
-				// Chuyển video đến thư mục trong môi trường sản xuất
-				fs.copyFileSync(file.path, storagePathProduct);
-
-				// Biến đường dẫn trong môi trường phát triển
-				// const videoURL = storagePathDev;
-
-				// Biến đường dẫn trong môi trường sản xuất
-				const videoURL = storagePathProduct;
-
-				const videoName = await videoURL.split('/').pop();
-				videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
-				await Promise.all([
-					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
-					ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { counselorVideo: videoArr }})
-				])
-				.then(([customer, reExam]) => {
-					// Xóa tệp ảnh tạm thời
-					fs.unlinkSync(file.path);
-					res.status(200).json({ message: 'Hoàn thành tải lên' });
-				})
-				.catch(next => {
-					console.log(`Đã xảy ra lỗi này: ${next}`);
-					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
-					
-				});
-			}
+		const logs = new Log({
+			customerID: req.body.cusID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật video tư vấn phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Đã cập nhật video tư vấn phiếu dịch vụ', statusEng: 'uploadedCounselorVideo'} },
+			$push: { logIDs: logs._id }
 		}
+		for (const file of files) {
+			const videoURL = file.path;
+			const videoName = file.fieldname;
+			videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { counselorVideo: videoArr }})
+		])
+		.then(([customer, reExam]) => {
+			res.status(200).json({ message: 'Hoàn thành tải lên' });
+		})
+		.catch(next => {
+			console.log(`Đã xảy ra lỗi này: ${next}`);
+			res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+			
+		});
 	}
 
 	// Cập nhật thông tin khi tư vấn
@@ -1480,6 +1429,37 @@ class EmployBusinessController {
 		.catch(next);
 	}
 
+	// Xóa nhiều ảnh khi tư vấn
+	deleteMultipleCounselorImg(req, res, next) {
+		console.log(req.body);
+		console.log(req.params);
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa hình ảnh tư vấn',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.counselorImgs;
+		const updateDocument = {
+			$set: { "counselorImg.$.notDeletedYet": false },
+		}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'counselorImg._id': id }, updateDocument)
+	
+			])
+			.then(() => {
+				req.flash('messages_deletedCounselorImg_success', 'Xóa hình ảnh tư vấn thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
+	}
+
 	// Xóa ảnh khi tư vấn
 	deleteCounselorImg(req, res, next) {
 		const logs = new Log({
@@ -1491,22 +1471,51 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let imgName = req.body.imgName;
+		const imgID = req.body.imgID;
 		const arrayFilters = [];
-		arrayFilters.push({ name:  imgName });
+		arrayFilters.push({ _id: imgID });
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = {
 			$set: { "counselorImg.$.notDeletedYet": false },
 		}
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorImg.name']: req.body.imgName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorImg._id']: imgID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_deletedCounselorImg_success', 'Xóa hình ảnh tư vấn thành công');
 			res.redirect('back');
 		})
 		.catch(next);
+	}
+
+	// Khôi phục nhiều ảnh khi tư vấn
+	restoreMultipleCounselorImg(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục hình ảnh tư vấn',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.counselorImgs;
+		const updateDocument = {
+			$set: { "counselorImg.$.notDeletedYet": true },
+		}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'counselorImg._id': id }, updateDocument)
+	
+			])
+			.then(() => {
+				req.flash('messages_restoreCounselorImg_success', 'Khôi phục hình ảnh tư vấn thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
 	}
 
 	// Khôi phục ảnh khi tư vấn
@@ -1520,20 +1529,48 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let imgName = req.body.imgName;
+		const imgID = req.body.imgID;
 		const arrayFilters = [];
-		arrayFilters.push({ name:  imgName });
+		arrayFilters.push({ _id:  imgID });
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = { $set: { "counselorImg.$.notDeletedYet": true } }
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorImg.name']: req.body.imgName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorImg._id']: imgID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_restoreCounselorImg_success', 'Khôi phục hình ảnh tư vấn thành công');
 			res.redirect('back');
 		})
 		.catch(next);
+	}
+
+	// Xóa nhiều video khi tư vấn
+	deleteMultipleCounselorVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa video tư vấn',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.counselorVideos;
+		const updateDocument = {
+			$set: { "counselorVideo.$.notDeletedYet": false },
+		}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'counselorVideo._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_deletedCounselorVideo_success', 'Xóa video tư vấn thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
 	}
 
 	// Xóa video khi tư vấn
@@ -1547,20 +1584,47 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let videoName = req.body.videoName;
+		const videoID = req.body.videoID;
 		const arrayFilters = [];
-		arrayFilters.push({ name:  videoName });
+		arrayFilters.push({ _id: videoID });
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = { $set: { "counselorVideo.$.notDeletedYet": false }}
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorVideo.name']: req.body.videoName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorVideo._id']: videoID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_deletedCounselorVideo_success', 'Xóa video tư vấn thành công');
 			res.redirect('back');
 		})
 		.catch(next);
+	}
+
+	// Khôi phục nhiều video khi tư vấn
+	restoreMultipleCounselorVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục video tư vấn',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.counselorVideos;
+		const updateDocument = { $set: { "counselorVideo.$.notDeletedYet": true }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'counselorVideo._id': id }, updateDocument)
+	
+			])
+			.then(() => {
+				req.flash('messages_restoreCounselorVideo_success', 'Khôi phục video tư vấn thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
 	}
 
 	// Khôi phục video khi tư vấn
@@ -1574,14 +1638,14 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let videoName = req.body.videoName;
+		const videoID = req.body.videoID;
 		const arrayFilters = [];
-		arrayFilters.push({ name:  videoName });
+		arrayFilters.push({ _id:  videoID });
 		const options = {"arrayFilters": arrayFilters}
-		const updateDocument = {$set: { "counselorVideo.$.notDeletedYet": true }}
+		const updateDocument = { $set: { "counselorVideo.$.notDeletedYet": true }}
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorVideo.name']: req.body.videoName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['counselorVideo._id']: videoID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_restoreCounselorImg_success', 'Khôi phục video tư vấn thành công');
@@ -1591,130 +1655,73 @@ class EmployBusinessController {
 	}
 
 	// Tải lên hình ảnh trước phẫu thuật
-	async uploadBeforeImg(req, res, next) {
+	uploadBeforeImg(req, res, next) {
 		const files = req.files;
-		const date = new Date();
-        const getDate = date.getDate();
-        const getMonth = date.getMonth();
-        const getYear = date.getFullYear();
-        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
-		// const resizeOpts = { width: 512, height: 1024 };
 		const imgArr = [];
-
-		for (const file of files) {
-			if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
-				const logs = new Log({
-					customerID: req.body.cusID,
-					serviceNoteID: req.params.id,
-					userID: req.userId,
-					status: 'Cập nhật hình ảnh trước phẫu thuật phiếu dịch vụ',
-					contents: req.body
-				});
-				logs.save();
-				let updateStatus = {
-					$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh trước phẫu thuật phiếu dịch vụ', statusEng: 'uploadedBeforeImg'} },
-					$push: { logIDs: logs._id }
-				}
-				const image = sharp(file.path).resize().webp();
-				const imageFormatName = `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}.${image.options.formatOut}`;
-
-				// Đường dẫn cho môi trường phát triển
-				// const storagePathDev = `${appRoot}/src/public/before/img/${imageFormatName}`;
-
-				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/before/img/${imageFormatName}`;
-
-				// Chuyển hình ảnh đến thư mục trong môi trường phát triển
-				// const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
-
-				// Chuyển hình ảnh đến thư mục trong môi trường sản xuất
-				const imageToFolder = image.toFile(storagePathProduct, (err, data, info) => data);
-
-				const imageURL = imageToFolder.options.fileOut;
-				const imageName = await imageURL.split('/').pop();
-				
-				imgArr.push({ name: imageName, url: imageURL, notDeletedYet: true });
-				await Promise.all([
-					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
-					ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { beforeImg: imgArr }})
-				])
-				.then(([customer, reExam]) => {
-
-					// Xóa tệp ảnh tạm thời
-					fs.unlinkSync(file.path);
-					res.status(200).json({ message: 'Hoàn thành tải lên' });
-				})
-				.catch(next => {
-					console.log(`Đã xảy ra lỗi này: ${next}`);
-					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
-					
-				});
-			}
+		const logs = new Log({
+			customerID: req.body.cusID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật hình ảnh trước phẫu thuật phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh trước phẫu thuật phiếu dịch vụ', statusEng: 'uploadedBeforeImg'} },
+			$push: { logIDs: logs._id }
 		}
+		for (const file of files) {
+			const imageURL = file.path;
+			const imageName = file.filename;
+			imgArr.push({ name: imageName, url: imageURL, notDeletedYet: true });
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { beforeImg: imgArr }})
+		])
+		.then(([customer, reExam]) => {
+			res.status(200).json({ message: 'Hoàn thành tải lên' });
+		})
+		.catch(next => {
+			console.log(`Đã xảy ra lỗi này: ${next}`);
+			res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+			
+		});
 	}
 
 	// Tải lên video trước phẫu thuật
-	async uploadBeforeVideo(req, res, next) {
+	uploadBeforeVideo(req, res, next) {
 		const files = req.files;
-		const date = new Date();
-        const getDate = date.getDate();
-        const getMonth = date.getMonth();
-        const getYear = date.getFullYear();
-        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
 		const videoArr = [];
-		for (const file of files) {
-			if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv'|| file.mimetype === 'video/quicktime' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-				const logs = new Log({
-					customerID: req.body.cusID,
-					serviceNoteID: req.params.id,
-					userID: req.userId,
-					status: 'Cập nhật video trước phẫu thuật phiếu dịch vụ',
-					contents: req.body
-				});
-				logs.save();
-				let updateStatus = {
-					$set: { statusCus: { statusVi: 'Đã cập nhật video trước phẫu thuật phiếu dịch vụ', statusEng: 'uploadedBeforeVideo'} },
-					$push: { logIDs: logs._id }
-				}
-				const videoFormatName = `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`;
-				
-				// Đường dẫn cho môi trường phát triển
-				// const storagePathDev = `${appRoot}/src/public/before/video/${videoFormatName}`;
-
-				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/before/video/${videoFormatName}`;
-				
-				// Chuyển video đến thư mục trong môi trường phát triển
-				// fs.copyFileSync(file.path, storagePathDev);
-
-				// Chuyển video đến thư mục trong môi trường sản xuất
-				fs.copyFileSync(file.path, storagePathProduct);
-
-
-				// Biến đường dẫn cho môi trường phát triển
-				// const videoURL = storagePathDev;
-
-				// Biến đường dẫn cho môi trường sản xuât
-				const videoURL = storagePathProduct;
-
-				const videoName = await videoURL.split('/').pop();
-				videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
-				await Promise.all([
-					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
-					ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { beforeVideo: videoArr }})
-				])
-				.then(([customer, reExam]) => {
-					// Xóa tệp ảnh tạm thời
-					fs.unlinkSync(file.path);
-					res.status(200).json({ message: 'Hoàn thành tải lên' });
-				})
-				.catch(next => {
-					console.log(`Đã xảy ra lỗi này: ${next}`);
-					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
-					
-				});
-			}
+		const logs = new Log({
+			customerID: req.body.cusID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật video trước phẫu thuật phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Đã cập nhật video trước phẫu thuật phiếu dịch vụ', statusEng: 'uploadedBeforeVideo'} },
+			$push: { logIDs: logs._id }
 		}
+		for (const file of files) {
+			const videoURL = file.path;
+			const videoName = file.fieldname;
+			videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { beforeVideo: videoArr }})
+		])
+		.then(([customer, reExam]) => {
+			res.status(200).json({ message: 'Hoàn thành tải lên' });
+		})
+		.catch(next => {
+			console.log(`Đã xảy ra lỗi này: ${next}`);
+			res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+			
+		});
 	}
 
 	// Cập nhật thông tin trước phẩu thuật
@@ -1745,6 +1752,34 @@ class EmployBusinessController {
 		.catch(next);
 	}
 
+	// Xóa nhiều ảnh khi trước phẫu
+	deleteMultipleBeforeImg(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa hình ảnh trước phẫu',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.beforeImgs;
+		const updateDocument = {
+			$set: { "beforeImg.$.notDeletedYet": false },
+		}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'beforeImg._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_deletedBeforeImg_success', 'Xóa hình ảnh trước phẫu thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
+	}
+
 	// Xóa ảnh trước phẫu thuật
 	deleteBeforeImg(req, res, next) {
 		const logs = new Log({
@@ -1756,20 +1791,46 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let imgName = req.body.imgName;
+		const imgID = req.body.imgID;
 		const arrayFilters = [];
-		arrayFilters.push({ name:  imgName });
+		arrayFilters.push({ _id: imgID });
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = { $set: { "beforeImg.$.notDeletedYet": false } }
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeImg.name']: req.body.imgName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeImg._id']: imgID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_deletedBeforeImg_success', 'Xóa hình ảnh trước phẫu thuật thành công');
 			res.redirect('back');
 		})
 		.catch(next);
+	}
+
+	// Khôi phục nhiều ảnh trước phẫu thuật
+	restoreMultipleBeforeImg(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục hình ảnh trước phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.beforeImgs;
+		const updateDocument = { $set: { "beforeImg.$.notDeletedYet": true }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'beforeImg._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_restoreBeforeImg_success', 'Khôi phục hình ảnh trước phẫu thuật thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
 	}
 
 	// Khôi phục ảnh trước phẫu thuật
@@ -1783,20 +1844,46 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let imgName = req.body.imgName;
+		const imgID = req.body.imgID;
 		const arrayFilters = [];
 		arrayFilters.push({ name:  imgName });
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = { $set: { "beforeImg.$.notDeletedYet": true } }
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeImg.name']: req.body.imgName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeImg._id']: imgID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_restoreBeforeImg_success', 'Khôi phục hình ảnh trước phẫu thuật thành công');
 			res.redirect('back');
 		})
 		.catch(next);
+	}
+
+	// Xóa nhiều video trước phẫu thuật
+	deleteMultipleBeforeVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa video trước phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.beforeVideos;
+		const updateDocument = { $set: { "beforeVideo.$.notDeletedYet": false }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'beforeVideo._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_deletedBeforeVideo_success', 'Xóa video trước phẫu thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
 	}
 
 	// Xóa video trước phẫu thuật
@@ -1810,20 +1897,46 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let videoName = req.body.videoName;
+		const videoID = req.body.videoID;
 		const arrayFilters = [];
-		arrayFilters.push({ name:  videoName });
+		arrayFilters.push({ _id: videoID });
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = { $set: { "beforeVideo.$.notDeletedYet": false } }
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeVideo.name']: req.body.videoName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeVideo._id']: videoID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_deletedBeforeVideo_success', 'Xóa video trước phẫu thuật thành công');
 			res.redirect('back');
 		})
 		.catch(next);
+	}
+
+	// Khôi phục nhiều video khi trước phẫu thuật
+	restoreMultipleBeforeVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục video trước phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.beforeVideos;
+		const updateDocument = { $set: { "beforeVideo.$.notDeletedYet": true } }
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'beforeVideo._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_restoreBeforeVideo_success', 'Khôi phục video trước phẫu thuật thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
 	}
 
 	// Khôi phục video trước phẫu thuật
@@ -1837,14 +1950,14 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let videoName = req.body.videoName;
+		const videoID = req.body.videoID;
 		const arrayFilters = [];
-		arrayFilters.push({ name:  videoName });
+		arrayFilters.push({ _id: videoID });
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = { $set: { "beforeVideo.$.notDeletedYet": true } }
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id}}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeVideo.name']: req.body.videoName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['beforeVideo._id']: videoID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_restoreBeforeVideo_success', 'Khôi phục video trước phẫu thuật thành công');
@@ -1854,129 +1967,73 @@ class EmployBusinessController {
 	}
 
 	// Tải lên hình ảnh phẫu thuật
-	async uploadInSurgeryImg(req, res, next) {
+	uploadInSurgeryImg(req, res, next) {
 		const files = req.files;
-		const date = new Date();
-        const getDate = date.getDate();
-        const getMonth = date.getMonth();
-        const getYear = date.getFullYear();
-        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
-		// const resizeOpts = { width: 512, height: 1024 };
 		const imgArr = [];
-
-		for (const file of files) {
-			if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
-				const logs = new Log({
-					customerID: req.body.cusID,
-					serviceNoteID: req.params.id,
-					userID: req.userId,
-					status: 'Cập nhật hình ảnh phẫu thuật phiếu dịch vụ',
-					contents: req.body
-				});
-				logs.save();
-				let updateStatus = {
-					$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh phẫu thuật phiếu dịch vụ', statusEng: 'uploadedInSurgeryImg'} },
-					$push: { logIDs: logs._id }
-				}
-				const image = sharp(file.path).resize().webp();
-				const imageFormatName = `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}.${image.options.formatOut}`;
-
-				// Đường dẫn cho môi trường phát triển
-				// const storagePathDev = `${appRoot}/src/public/in-surgery/img/${imageFormatName}`;
-
-				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/in-surgery/img/${imageFormatName}`;
-
-				// Chuyển hình ảnh đến thư mục trong môi trường phát triển
-				// const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
-				
-				// Chuyển hình ảnh đến thư mục trong môi trường sản xuất
-				const imageToFolder = image.toFile(storagePathProduct, (err, data, info) => data);
-
-				const imageURL = imageToFolder.options.fileOut;
-				const imageName = await imageURL.split('/').pop();
-
-				imgArr.push({ name: imageName, url: imageURL, notDeletedYet: true });
-				await Promise.all([
-					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
-					ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { inSurgeryImg: imgArr }})
-				])
-				.then(([customer, reExam]) => {
-
-					// Xóa tệp ảnh tạm thời
-					fs.unlinkSync(file.path);
-					res.status(200).json({ message: 'Hoàn thành tải lên' });
-				})
-				.catch(next => {
-					console.log(`Đã xảy ra lỗi này: ${next}`);
-					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
-					
-				});
-			}
+		const logs = new Log({
+			customerID: req.body.cusID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật hình ảnh phẫu thuật phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh phẫu thuật phiếu dịch vụ', statusEng: 'uploadedInSurgeryImg'} },
+			$push: { logIDs: logs._id }
 		}
+		for (const file of files) {
+			const imageURL = file.path;
+			const imageName = file.filename;
+			imgArr.push({ name: imageName, url: imageURL, notDeletedYet: true });
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { inSurgeryImg: imgArr }})
+		])
+		.then(([customer, reExam]) => {
+			res.status(200).json({ message: 'Hoàn thành tải lên' });
+		})
+		.catch(next => {
+			console.log(`Đã xảy ra lỗi này: ${next}`);
+			res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+			
+		});
 	}
 
 	// Tải lên video phẫu thuật
-	async uploadInSurgeryVideo(req, res, next) {
+	uploadInSurgeryVideo(req, res, next) {
 		const files = req.files;
-		const date = new Date();
-        const getDate = date.getDate();
-        const getMonth = date.getMonth();
-        const getYear = date.getFullYear();
-        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
 		const videoArr = [];
-		for (const file of files) {
-			if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv'|| file.mimetype === 'video/quicktime' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-				const logs = new Log({
-					customerID: req.body.cusID,
-					serviceNoteID: req.params.id,
-					userID: req.userId,
-					status: 'Cập nhật video phẫu thuật phiếu dịch vụ',
-					contents: req.body
-				});
-				logs.save();
-				let updateStatus = {
-					$set: { statusCus: { statusVi: 'Đã cập nhật video phẫu thuật phiếu dịch vụ', statusEng: 'uploadedInSurgeryVideo'} },
-					$push: { logIDs: logs._id }
-				}
-				const videoFormatName = `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`;
-				
-				// Đường dẫn cho môi trường phát triển
-				const storagePathDev = `${appRoot}/src/public/in-surgery/video/${videoFormatName}`;
-
-				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/in-surgery/video/${videoFormatName}`;
-				
-				// Chuyển video đến thư mục trong môi trường phát triển
-				// fs.copyFileSync(file.path, storagePathDev);
-
-				// Chuyển video đến thư mục trong môi trường sản xuất
-				fs.copyFileSync(file.path, storagePathProduct);
-
-				// Biến đường dẫn video trong môi trường phát triển
-				// const videoURL = storagePathDev;
-
-				// Biến đường dẫn video trong môi trường sản xuất
-				const videoURL = storagePathProduct;
-
-				const videoName = await videoURL.split('/').pop();
-				videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
-				await Promise.all([
-					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
-					ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { inSurgeryVideo: videoArr }})
-				])
-				.then(([customer, reExam]) => {
-					// Xóa tệp ảnh tạm thời
-					fs.unlinkSync(file.path);
-					res.status(200).json({ message: 'Hoàn thành tải lên' });
-				})
-				.catch(next => {
-					console.log(`Đã xảy ra lỗi này: ${next}`);
-					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
-					
-				});
-			}
+		const logs = new Log({
+			customerID: req.body.cusID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật video phẫu thuật phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Đã cập nhật video phẫu thuật phiếu dịch vụ', statusEng: 'uploadedInSurgeryVideo'} },
+			$push: { logIDs: logs._id }
 		}
+		for (const file of files) {
+			const videoURL = file.path;
+			const videoName = file.filename;
+			videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { inSurgeryVideo: videoArr }})
+		])
+		.then(([customer, reExam]) => {
+			res.status(200).json({ message: 'Hoàn thành tải lên' });
+		})
+		.catch(next => {
+			console.log(`Đã xảy ra lỗi này: ${next}`);
+			res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+			
+		});
 	}
 
 	// Cập nhật thông tin trong phẩu thuật
@@ -2007,6 +2064,32 @@ class EmployBusinessController {
 		.catch(next);
 	}
 
+	// Xóa nhiều ảnh phẫu thuật
+	deleteMultipleInSurgeryImg(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa hình ảnh phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.inSurgeryImgs;
+		const updateDocument = { $set: { "inSurgeryImg.$.notDeletedYet": false }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'inSurgeryImg._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_deletedInSurgeryImg_success', 'Xóa hình ảnh phẫu thuật thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
+	}
+
 	// Xóa ảnh khi phẫu thuật
 	deleteInSurgeryImg(req, res, next) {
 		const logs = new Log({
@@ -2018,14 +2101,14 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let imgName = req.body.imgName;
+		const imgID = req.body.imgID;
 		const arrayFilters = [];
-		arrayFilters.push({ name:  imgName });
+		arrayFilters.push({ _id: imgID });
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = { $set: { "inSurgeryImg.$.notDeletedYet": false } }
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryImg.name']: req.body.imgName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryImg._id']: imgID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_deletedInSurgeryImg_success', 'Xóa hình ảnh phẫu thuật thành công');
@@ -2034,6 +2117,32 @@ class EmployBusinessController {
 		.catch(next);
 	}
 
+	// Khôi phục nhiều ảnh phẫu thuật
+	restoreMultipleInSurgeryImg(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục hình ảnh phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.inSurgeryImgs;
+		const updateDocument = { $set: { "inSurgeryImg.$.notDeletedYet": true }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'inSurgeryImg._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_restoreInSurgeryImg_success', 'Khôi phục hình ảnh phẫu thuật thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
+	}
+	
 	// Khôi phục ảnh khi phẫu thuật
 	restoreInSurgeryImg(req, res, next) {
 		const logs = new Log({
@@ -2045,20 +2154,46 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let imgName = req.body.imgName;
+		const imgID = req.body.imgID;
 		const arrayFilters = [];
-		arrayFilters.push({ name:  imgName });
+		arrayFilters.push({ _id:  imgID });
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = { $set: { "inSurgeryImg.$.notDeletedYet": true }}
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryImg.name']: req.body.imgName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryImg._id']: imgID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_restoreInSurgeryImg_success', 'Khôi phục hình ảnh phẫu thuật thành công');
 			res.redirect('back');
 		})
 		.catch(next);
+	}
+
+	// Xóa nhiều video phẫu thuật
+	deleteMultipleInSurgeryVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa video phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.inSurgeryVideos;
+		const updateDocument = { $set: { "inSurgeryVideo.$.notDeletedYet": false }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'inSurgeryVideo._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_deletedInSurgeryVideo_success', 'Xóa video phẫu thuật thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
 	}
 
 	// Xóa video khi phẫu thuật
@@ -2072,20 +2207,46 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let videoName = req.body.videoName;
+		const videoID = req.body.videoID;
 		const arrayFilters = [];
-		arrayFilters.push({ name:  videoName });
+		arrayFilters.push({ _id:  videoID });
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = { $set: { "inSurgeryVideo.$.notDeletedYet": false } }
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryVideo.name']: req.body.videoName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryVideo._id']: videoID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_deletedInSurgeryVideo_success', 'Xóa video phẫu thuật thành công');
 			res.redirect('back');
 		})
 		.catch(next);
+	}
+
+	// Khôi phục nhiều video phẫu thuật
+	restoreMultipleInSurgeryVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục video phẫu thuật',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.inSurgeryVideos;
+		const updateDocument = { $set: { "inSurgeryVideo.$.notDeletedYet": true }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				ServiceNote.findById({ _id: req.params.id }).updateOne({ 'inSurgeryVideo._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_restoreInSurgeryVideo_success', 'Khôi phục video phẫu thuật thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
 	}
 
 	// Khôi phục video phẫu thuật
@@ -2099,14 +2260,14 @@ class EmployBusinessController {
 			contents: req.body
 		});
 		logs.save();
-		let videoName = req.body.videoName;
+		const videoID = req.body.videoID;
 		const arrayFilters = [];
-		arrayFilters.push({ name:  videoName });
+		arrayFilters.push({ _id:  videoID });
 		const options = {"arrayFilters": arrayFilters}
 		const updateDocument = { $set: { "inSurgeryVideo.$.notDeletedYet": true } }
 		Promise.all([
 			Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
-			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryVideo.name']: req.body.videoName }, updateDocument, options)
+			ServiceNote.findById({ _id: req.params.id }).updateMany({ ['inSurgeryVideo._id']: videoID }, updateDocument, options)
 		])
 		.then(() => {
 			req.flash('messages_restoreInSurgeryVideo_success', 'Khôi phục video phẫu thuật thành công');
@@ -2116,129 +2277,73 @@ class EmployBusinessController {
 	}
 
 	// Tải lên hình ảnh sau phẫu thuật - thay băng lần đầu
-	async uploadAfterImg(req, res, next) {
+	uploadAfterImg(req, res, next) {
 		const files = req.files;
-		const date = new Date();
-        const getDate = date.getDate();
-        const getMonth = date.getMonth();
-        const getYear = date.getFullYear();
-        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
-		// const resizeOpts = { width: 512, height: 1024 };
 		const imgArr = [];
-
-		for (const file of files) {
-			if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/avif' || file.mimetype === 'image/webp') {
-				const logs = new Log({
-					customerID: req.body.cusID,
-					serviceNoteID: req.params.id,
-					userID: req.userId,
-					status: 'Cập nhật hình ảnh sau phẫu thuật trên phiếu dịch vụ',
-					contents: req.body
-				});
-				logs.save();
-				let updateStatus = {
-					$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh sau phẫu thuật phiếu dịch vụ', statusEng: 'uploadedAfterImg'} },
-					$push: { logIDs: logs._id }
-				}
-				const image = sharp(file.path).resize().webp();
-				const imageFormatName = `${file.fieldname}_img_${req.body.cusID}_${dateNow}_${Date.now()}.${image.options.formatOut}`;
-
-				// Đường dẫn cho môi trường phát triển
-				// const storagePathDev = `${appRoot}/src/public/after/img/${imageFormatName}`;
-
-				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/after/img/${imageFormatName}`;
-
-				// Chuyển hình ảnh đến thư muc trong môi trường phát triển
-				// const imageToFolder = image.toFile(storagePathDev, (err, data, info) => data);
-
-				// Chuyển hình ảnh đến thư mục trong môi trường sản xuât
-				const imageToFolder = image.toFile(storagePathProduct, (err, data, info) => data);
-
-				const imageURL = imageToFolder.options.fileOut;
-				const imageName = await imageURL.split('/').pop();
-
-				imgArr.push({ name: imageName, url: imageURL, notDeletedYet: true });
-				await Promise.all([
-					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
-					ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { afterImg: imgArr }})
-				])
-				.then(([customer, reExam]) => {
-
-					// Xóa tệp ảnh tạm thời
-					fs.unlinkSync(file.path);
-					res.status(200).json({ message: 'Hoàn thành tải lên' });
-				})
-				.catch(next => {
-					console.log(`Đã xảy ra lỗi này: ${next}`);
-					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
-					
-				});
-			}
+		const logs = new Log({
+			customerID: req.body.cusID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật hình ảnh sau phẫu thuật trên phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Đã cập nhật hình ảnh sau phẫu thuật phiếu dịch vụ', statusEng: 'uploadedAfterImg'} },
+			$push: { logIDs: logs._id }
 		}
+		for (const file of files) {
+			const imageURL = file.path;
+			const imageName = file.filename;
+			imgArr.push({ name: imageName, url: imageURL, notDeletedYet: true });
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { afterImg: imgArr }})
+		])
+		.then(([customer, reExam]) => {
+			res.status(200).json({ message: 'Hoàn thành tải lên' });
+		})
+		.catch(next => {
+			console.log(`Đã xảy ra lỗi này: ${next}`);
+			res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+			
+		});
 	}
 
 	// Tải lên video sau phẫu thuật - thay băng lần đầu
-	async uploadAfterVideo(req, res, next) {
+	uploadAfterVideo(req, res, next) {
 		const files = req.files;
-		const date = new Date();
-        const getDate = date.getDate();
-        const getMonth = date.getMonth();
-        const getYear = date.getFullYear();
-        const dateNow = `createdAt-${getDate}${(getMonth + 1)}${getYear}`;
 		const videoArr = [];
-		for (const file of files) {
-			if (file.mimetype === 'video/avi' || file.mimetype === 'video/flv' || file.mimetype === 'video/wmv'|| file.mimetype === 'video/quicktime' || file.mimetype === 'video/mov' || file.mimetype === 'video/MOV' || file.mimetype === 'video/mp4' || file.mimetype === 'video/webm') {
-				const logs = new Log({
-					customerID: req.body.cusID,
-					serviceNoteID: req.params.id,
-					userID: req.userId,
-					status: 'Cập nhật video sau phẫu thuật trên phiếu dịch vụ',
-					contents: req.body
-				});
-				logs.save();
-				let updateStatus = {
-					$set: { statusCus: { statusVi: 'Đã cập nhật video sau phẫu thuật trên phiếu dịch vụ', statusEng: 'uploadedAfterVideo'} },
-					$push: { logIDs: logs._id }
-				}
-				const videoFormatName = `${file.fieldname}_video_${req.body.cusID}_${dateNow}_${Date.now()}${path.extname(file.originalname)}`;
-				
-				// Đường dẫn cho môi trường phát triển
-				// const storagePathDev = `${appRoot}/src/public/after/video/${videoFormatName}`;
-
-				// Đường dẫn cho môi trường sản xuất
-				const storagePathProduct = `${rootPath}mnt/vdb/crm.drtuananh.vn/after/video/${videoFormatName}`;
-
-				// Chuyển video đến thư mục trong môi trường phát triển
-				// fs.copyFileSync(file.path, storagePathDev);
-
-				// Chuyển video đến thư mục trong môi trường sản xuất
-				fs.copyFileSync(file.path, storagePathProduct);
-
-				// Biến đường dẫn trong môi trường phát triển
-				// const videoURL = storagePathDev;
-
-				// Biến đường dẫn trong môi trường sản xuất
-				const videoURL = storagePathProduct;
-
-				const videoName = await videoURL.split('/').pop();
-				videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
-				await Promise.all([
-					Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
-					ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { afterVideo: videoArr }})
-				])
-				.then(([customer, reExam]) => {
-					// Xóa tệp ảnh tạm thời
-					fs.unlinkSync(file.path);
-					res.status(200).json({ message: 'Hoàn thành tải lên' });
-				})
-				.catch(next => {
-					console.log(`Đã xảy ra lỗi này: ${next}`);
-					res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
-					
-				});
-			}
+		const logs = new Log({
+			customerID: req.body.cusID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Cập nhật video sau phẫu thuật trên phiếu dịch vụ',
+			contents: req.body
+		});
+		logs.save();
+		let updateStatus = {
+			$set: { statusCus: { statusVi: 'Đã cập nhật video sau phẫu thuật trên phiếu dịch vụ', statusEng: 'uploadedAfterVideo'} },
+			$push: { logIDs: logs._id }
 		}
+		for (const file of files) {
+			const videoURL = file.path;
+			const videoName = file.fieldname;
+			videoArr.push({ name: videoName, url: videoURL, notDeletedYet: true });
+		}
+		Promise.all([
+			Customer.findByIdAndUpdate({ _id: req.body.cusID }, updateStatus),
+			ServiceNote.findByIdAndUpdate({ _id: req.params.id }, { $push: { afterVideo: videoArr }})
+		])
+		.then(([customer, reExam]) => {
+			res.status(200).json({ message: 'Hoàn thành tải lên' });
+		})
+		.catch(next => {
+			console.log(`Đã xảy ra lỗi này: ${next}`);
+			res.status(500).json(`Đã xảy ra một lỗi: ${next}`);
+			
+		});
 	}
 
 	// Tải thông tin sau phẫu thuật - thay băng lần đầu

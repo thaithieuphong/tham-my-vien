@@ -25,6 +25,7 @@ const uploadInSurgeryImg = FilePond.create(previewInSurgeryImg, {
     labelInvalidField: 'Tệp bạn chọn không phải hình ảnh',
     // imageResizeTargetWidth: 512,
     // imageResizeTargetHeight: 1024,
+    imageTransformOutputQuality: 30,
     labelFileProcessing: 'Đang tải lên',
     labelFileProcessingComplete: 'Quá trình tải ảnh hoàn tất',
     labelFileProcessingAborted: 'Đã hủy quá trình tải ảnh lên',

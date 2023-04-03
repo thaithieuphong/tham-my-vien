@@ -52,7 +52,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-						<li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+						<li><a class="dropdown-item" href="/customer-care/employ/profile">Thông tin cá nhân</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -154,7 +154,7 @@
 								
 							</div>
 						</div>
-						<ul class="list-group mb-3">
+						{{!-- <ul class="list-group mb-3">
 							<li class="list-group-item text-center bg-blue-logo text-light">
 								<label for="" class="ms-3 mb-0 text-uppercase"><strong>Thông tin sau khi phẫu thuật</strong></label>
 							</li>
@@ -166,7 +166,7 @@
 											{{#if woundCleaning.serviceNoteID.afterImg}}
 											{{#each woundCleaning.serviceNoteID.afterImg}}
 											<div class="slide-after-img fadeOn">
-												{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}"> --}}
+												<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
 												<img class="figure-img img-fluid rounded img-cover img-center" src="/after/img/{{this.name}}">
 											</div>
 											{{/each}}
@@ -188,7 +188,7 @@
 											{{#each woundCleaning.serviceNoteID.afterVideo}}
 											<div class="slide-after-video fadeOn">
 												<video class="figure-img img-fluid rounded video-cover-slide img-center" style="height: 318px;" controls>
-													{{!-- <source src="{{this.url}}"> --}}
+													<source src="{{this.url}}">
 													<source src="/after/video/{{this.name}}">
 												</video>
 											</div>
@@ -226,7 +226,7 @@
 									</div>
 								</div>
 							</li>
-						</ul>
+						</ul> --}}
 						<ul class="list-group mb-3">
 							<li class="list-group-item text-center bg-blue-logo text-light">
 								<label for="" class="ms-3 mb-0 text-uppercase"><strong>Thông tin thay băng</strong></label>

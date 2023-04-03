@@ -921,57 +921,83 @@
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin tư vấn trực tiếp</strong></label>
 					</li>
 					<li class="list-group-item">
-						<div class="d-flex justify-content-end mb-2">
-							<button class="btn btn-danger btn-sm  mr-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgCounselor" aria-expanded="false" aria-controls="restoreImgCounselor">
-								<i class="ti-trash"></i> Thùng rác
-							</button>
-							<button type="button" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#uploadCounselorImg">
-								Tải hình ảnh tư vấn
-							</button>
-							<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadCounselorVideo">
-								Tải video tư vấn
-							</button>
-						</div>
+						<button class="btn btn-outline-secondary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgCounselor" aria-expanded="false" aria-controls="restoreImgCounselor">
+							<i class="ti-trash"></i> Thùng rác
+						</button>
 						<div class="collapse" id="restoreImgCounselor">
 							<div class="card card-body">
 								<div class="row">
 									<div class="col-md-6 border-right">
-										<div class="row">
-											{{#each serviceNote.counselorImg}}
-											{{#if notDeletedYet}}
-											{{else}}
-											<div class="col-md-4 mb-2">
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalCounselor" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
-													<img class="img-fluid"
-														src="/counselor/img/{{this.name}}">
-												</a> --}}
-												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalCounselor" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
-													<img class="img-fluid img-150"
-														src="{{this.url}}">
-												</a>
+										<form action="/business/employ/service-note/{{serviceNote._id}}/restore-multi-img-counselor?_method=PATCH" method="post" name="restore-counselor-img-form">
+											<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+											<div class="d-flex align-items-center mb-3">
+												<div class="form-check form-check-sm mr-3">
+													<input class="form-check-input" type="checkbox" value="" id="checkAllRestoreCounselorImg">
+													<label class="form-check-label" for="checkAllRestoreCounselorImg">
+														Chọn tất cả
+													</label>
+												</div>
+												<button id="restore-counselor-img" class="btn btn-primary btn-sm mr-3 disabled" type="button">
+													<i class="ti-trash"></i> Khôi phục
+												</button>
 											</div>
-											{{/if}}
-											{{/each}}
-										</div>
+											<div class="row">
+												{{#each serviceNote.counselorImg}}
+												{{#if notDeletedYet}}
+												{{else}}
+												<div class="col-md-4 mb-2">
+													<div class="form-check position-relative">
+														<input class="form-check-input position-absolute top-0 end-0 restore-form-check-input-counselor-img" type="checkbox" name="counselorImgs[]" value="{{this._id}}">
+													</div>
+													{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalCounselor" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
+														<img class="img-fluid"
+															src="/counselor/img/{{this.name}}">
+													</a> --}}
+													<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalCounselor" data-id-img="{{this._id}}" data-url-img="{{this.url}}">
+														<img class="img-fluid img-150"
+															src="{{this.url}}">
+													</a>
+												</div>
+												{{/if}}
+												{{/each}}
+											</div>
+										</form>
 									</div>
 									<div class="col-md-6">
-										<div class="row">
-											{{#each serviceNote.counselorVideo}}
-											{{#if notDeletedYet}}
-											{{else}}
-											<div class="col-md-4 mb-2">
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalCounselor" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
-													<video class="img-fluid"
-														src="/counselor/video/{{this.name}}"></video>
-												</a> --}}
-												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalCounselor" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
-													<video class="img-fluid video-150"
-														src="{{this.url}}" controls></video>
-												</a>
+										<form action="/business/employ/service-note/{{serviceNote._id}}/restore-multi-video-counselor?_method=PATCH" method="post" name="restore-counselor-video-form">
+											<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+											<div class="d-flex align-items-center mb-3">
+												<div class="form-check form-check-sm mr-3">
+													<input class="form-check-input" type="checkbox" value="" id="checkAllRestoreCounselorVideo">
+													<label class="form-check-label" for="checkAllRestoreCounselorVideo">
+														Chọn tất cả
+													</label>
+												</div>
+												<button id="restore-counselor-video" class="btn btn-primary btn-sm mr-3 disabled" type="button">
+													<i class="ti-trash"></i> Khôi phục
+												</button>
 											</div>
-											{{/if}}
-											{{/each}}
-										</div>
+											<div class="row">
+												{{#each serviceNote.counselorVideo}}
+												{{#if notDeletedYet}}
+												{{else}}
+												<div class="col-md-4 mb-2">
+													<div class="form-check position-relative">
+														<input class="form-check-input position-absolute top-0 end-0 restore-form-check-input-counselor-video" type="checkbox" name="counselorVideos[]" value="{{this._id}}">
+													</div>
+													{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalCounselor" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
+														<video class="img-fluid"
+															src="/counselor/video/{{this.name}}"></video>
+													</a> --}}
+													<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalCounselor" data-id-video="{{this._id}}" data-url-video="{{this.url}}">
+														<video class="img-fluid video-150"
+															src="{{this.url}}" controls></video>
+													</a>
+												</div>
+												{{/if}}
+												{{/each}}
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -980,40 +1006,80 @@
 					<li class="list-group-item">
 						<div class="row mb-2">
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
-									{{#each serviceNote.counselorImg}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-name-img="{{this.name}}"  data-url-img="{{this.url}}">
-											<img class="img-fluid"
-												src="/counselor/img/{{this.name}}">
-										</a> --}}
-										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor"  data-name-img="{{this.name}}"  data-url-img="{{this.url}}">
-											<img class="img-fluid img-150"
-												src="{{this.url}}">
-										</a>
+								<form action="/business/employ/service-note/{{serviceNote._id}}/delete-multi-img-counselor?_method=DELETE" method="post" name="delete-counselor-img-form">
+									<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+									<div class="d-flex align-items-center mb-3">
+										<div class="form-check form-check-sm mr-3">
+											<input class="form-check-input" type="checkbox" value="" id="checkAllCounselorImg">
+											<label class="form-check-label" for="checkAllCounselorImg">
+												Chọn tất cả
+											</label>
+										</div>
+										<button id="delete-counselor-img" class="btn btn-danger btn-sm mr-3 disabled" type="button">
+											<i class="ti-trash"></i> Xóa
+										</button>
+										<button type="button" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#uploadCounselorImg">
+											Tải hình ảnh tư vấn
+										</button>
 									</div>
-									{{/if}}
-									{{/each}}
-								</div>
+									<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+										{{#each serviceNote.counselorImg}}
+										{{#if notDeletedYet}}
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+											<div class="form-check position-relative">
+												<input class="form-check-input position-absolute top-0 end-0 delete-form-check-input-counselor-img" type="checkbox" name="counselorImgs[]" value="{{this._id}}">
+											</div>
+											{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-name-img="{{this.name}}"  data-url-img="{{this.url}}">
+												<img class="img-fluid"
+													src="/counselor/img/{{this.name}}">
+											</a> --}}
+											<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalCounselor" data-id-img="{{this._id}}" data-url-img="{{this.url}}">
+												<img class="img-fluid img-150"
+													src="{{this.url}}">
+											</a>
+										</div>
+										{{/if}}
+										{{/each}}
+									</div>
+								</form>
 							</div>
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
-									{{#each serviceNote.counselorVideo}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
-											<video class="img-fluid"
-												src="/counselor/video/{{this.name}}"></video>
-										</a> --}}
-										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
-											<video class="img-fluid video-150"
-												src="{{this.url}}" controls></video>
-										</a>
+								<form action="/business/employ/service-note/{{serviceNote._id}}/delete-multi-video-counselor?_method=DELETE" method="post" name="delete-counselor-video-form">
+									<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+									<div class="d-flex align-items-center mb-3">
+										<div class="form-check mr-3">
+											<input class="form-check-input" type="checkbox" value="" id="checkAllCounselorVideo">
+											<label class="form-check-label" for="checkAllCounselorVideo">
+												Chọn tất cả
+											</label>
+										</div>
+										<button id="delete-counselor-video" class="btn btn-danger btn-sm mr-3 disabled" type="button">
+											<i class="ti-trash"></i> Xóa
+										</button>
+										<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadCounselorVideo">
+											Tải video tư vấn
+										</button>
 									</div>
-									{{/if}}
-									{{/each}}
-								</div>
+									<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+										{{#each serviceNote.counselorVideo}}
+										{{#if notDeletedYet}}
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+											<div class="form-check position-relative">
+												<input class="form-check-input position-absolute top-0 end-0 delete-form-check-input-counselor-video" name="counselorVideos[]" type="checkbox" value="{{this._id}}">
+											</div>
+											{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
+												<video class="img-fluid"
+													src="/counselor/video/{{this.name}}"></video>
+											</a> --}}
+											<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalCounselor" data-id-video="{{this._id}}" data-url-video="{{this.url}}">
+												<video class="img-fluid video-150"
+													src="{{this.url}}" controls></video>
+											</a>
+										</div>
+										{{/if}}
+										{{/each}}
+									</div>
+								</form>
 							</div>
 						</div>
 						<form method="POST" id="submit-counselor-form"
@@ -1040,55 +1106,81 @@
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin trước phẫu thuật</strong></label>
 					</li>
 					<li class="list-group-item">
-						<div class="d-flex justify-content-end mb-2">
-							<button class="btn btn-danger btn-sm  mr-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgBefore" aria-expanded="false" aria-controls="restoreImgBefore">
-								<i class="ti-trash"></i> Thùng rác
-							</button>
-							<button type="button" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#uploadBeforeImg">
-								Tải hình ảnh trước phẫu thuật
-							</button>
-							<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadBeforeVideo">
-								Tải video trước phẫu thuật
-							</button>
-						</div>
+						<button class="btn btn-outline-secondary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgBefore" aria-expanded="false" aria-controls="restoreImgBefore">
+							<i class="ti-trash"></i> Thùng rác
+						</button>
 						<div class="collapse" id="restoreImgBefore">
 							<div class="card card-body">
 								<div class="row">
 									<div class="col-md-6 border-right">
-										<div class="row">
-											{{#each serviceNote.beforeImg}}
-											{{#if notDeletedYet}}
-											{{else}}
-											<div class="col-md-4 mb-2">
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalBefore" data-img="{{this.name}}">
-													<img class="img-fluid"
-														src="/before/img/{{this.name}}">
-												</a> --}}
-												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalBefore" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
-													<img class="img-fluid img-150" src="{{this.url}}">
-												</a>
+										<form action="/business/employ/service-note/{{serviceNote._id}}/restore-multi-img-before?_method=PATCH" method="post" name="restore-before-img-form">
+											<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+											<div class="d-flex align-items-center mb-3">
+												<div class="form-check form-check-sm mr-3">
+													<input class="form-check-input" type="checkbox" value="" id="checkAllRestoreBeforeImg">
+													<label class="form-check-label" for="checkAllRestoreBeforeImg">
+														Chọn tất cả
+													</label>
+												</div>
+												<button id="restore-before-img" class="btn btn-primary btn-sm mr-3 disabled" type="button">
+													<i class="ti-trash"></i> Khôi phục
+												</button>
 											</div>
-											{{/if}}
-											{{/each}}
-										</div>
+											<div class="row">
+												{{#each serviceNote.beforeImg}}
+												{{#if notDeletedYet}}
+												{{else}}
+												<div class="col-md-4 mb-2">
+													<div class="form-check position-relative">
+														<input class="form-check-input position-absolute top-0 end-0 restore-form-check-input-before-img" name="beforeImgs[]" type="checkbox" value="{{this._id}}">
+													</div>
+													{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalBefore" data-img="{{this.name}}">
+														<img class="img-fluid"
+															src="/before/img/{{this.name}}">
+													</a> --}}
+													<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalBefore" data-id-img="{{this._id}}" data-url-img="{{this.url}}">
+														<img class="img-fluid img-150" src="{{this.url}}">
+													</a>
+												</div>
+												{{/if}}
+												{{/each}}
+											</div>
+										</form>
 									</div>
 									<div class="col-md-6">
-										<div class="row">
-											{{#each serviceNote.beforeVideo}}
-											{{#if notDeletedYet}}
-											{{else}}
-											<div class="col-md-4 mb-2">
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalBefore" data-video="{{this.name}}">
-													<video class="img-fluid"
-														src="/before/video/{{this.name}}"></video>
-												</a> --}}
-												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalBefore"data-name-video="{{this.name}}" data-url-video="{{this.url}}">
-													<video class="img-fluid video-150" src="{{this.url}}" controls></video>
-												</a>
+										<form action="/business/employ/service-note/{{serviceNote._id}}/restore-multi-video-before?_method=PATCH" method="post" name="restore-before-video-form">
+											<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+											<div class="d-flex align-items-center mb-3">
+												<div class="form-check form-check-sm mr-3">
+													<input class="form-check-input" type="checkbox" value="" id="checkAllRestoreBeforeVideo">
+													<label class="form-check-label" for="checkAllRestoreBeforeVideo">
+														Chọn tất cả
+													</label>
+												</div>
+												<button id="restore-before-video" class="btn btn-primary btn-sm mr-3 disabled" type="button">
+													<i class="ti-trash"></i> Khôi phục
+												</button>
 											</div>
-											{{/if}}
-											{{/each}}
-										</div>
+											<div class="row">
+												{{#each serviceNote.beforeVideo}}
+												{{#if notDeletedYet}}
+												{{else}}
+												<div class="col-md-4 mb-2">
+													<div class="form-check position-relative">
+														<input class="form-check-input position-absolute top-0 end-0 restore-form-check-input-before-video" name="beforeVideos[]" type="checkbox" value="{{this._id}}">
+													</div>
+													{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalBefore" data-video="{{this.name}}">
+														<video class="img-fluid"
+															src="/before/video/{{this.name}}"></video>
+													</a> --}}
+													<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalBefore"data-id-video="{{this._id}}" data-url-video="{{this.url}}">
+														<video class="img-fluid video-150" src="{{this.url}}" controls></video>
+													</a>
+												</div>
+												{{/if}}
+												{{/each}}
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -1097,36 +1189,76 @@
 					<li class="list-group-item">
 						<div class="row mb-2">
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
-									{{#each serviceNote.beforeImg}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
-										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
-											<img class="img-fluid img-150" src="{{this.url}}">
-										</a>
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-img="{{this.name}}">
-											<img class="img-fluid" src="/before/img/{{this.name}}">
-										</a> --}}
+								<form action="/business/employ/service-note/{{serviceNote._id}}/delete-multi-img-before?_method=DELETE" method="POST" name="delete-before-img-form">
+									<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+									<div class="d-flex align-items-center mb-3">
+										<div class="form-check form-check-sm mr-3">
+											<input class="form-check-input" type="checkbox" value="" id="checkAllBeforeImg">
+											<label class="form-check-label" for="checkAllBeforeImg">
+												Chọn tất cả
+											</label>
+										</div>
+										<button id="delete-before-img" class="btn btn-danger btn-sm mr-3 disabled" type="button">
+											<i class="ti-trash"></i> Xóa
+										</button>
+										<button type="button" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#uploadBeforeImg">
+											Tải hình ảnh trước phẫu thuật
+										</button>
 									</div>
-									{{/if}}
-									{{/each}}
-								</div>
+									<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+										{{#each serviceNote.beforeImg}}
+										{{#if notDeletedYet}}
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+											<div class="form-check position-relative">
+												<input class="form-check-input position-absolute top-0 end-0 delete-form-check-input-before-img" name="beforeImgs[]" type="checkbox" value="{{this._id}}">
+											</div>
+											<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-id-img="{{this._id}}" data-url-img="{{this.url}}">
+												<img class="img-fluid img-150" src="{{this.url}}">
+											</a>
+											{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalBefore" data-img="{{this.name}}">
+												<img class="img-fluid" src="/before/img/{{this.name}}">
+											</a> --}}
+										</div>
+										{{/if}}
+										{{/each}}
+									</div>
+								</form>
 							</div>
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
-									{{#each serviceNote.beforeVideo}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
-										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
-											<video class="img-fluid video-150" src="{{this.url}}" controls></video>
-										</a>
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-video="{{this.name}}">
-											<video class="img-fluid" src="/before/video/{{this.name}}"></video>
-										</a> --}}
+								<form action="/business/employ/service-note/{{serviceNote._id}}/delete-multi-video-before?_method=DELETE" method="post" name="delete-before-video-form">
+									<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+									<div class="d-flex align-items-center mb-3">
+										<div class="form-check mr-3">
+											<input class="form-check-input" type="checkbox" value="" id="checkAllBeforeVideo">
+											<label class="form-check-label" for="checkAllBeforeVideo">
+												Chọn tất cả
+											</label>
+										</div>
+										<button id="delete-before-video" class="btn btn-danger btn-sm mr-3 disabled" type="button">
+											<i class="ti-trash"></i> Xóa
+										</button>
+										<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadBeforeVideo">
+											Tải video trước phẫu thuật
+										</button>			
 									</div>
-									{{/if}}
-									{{/each}}
-								</div>
+									<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+										{{#each serviceNote.beforeVideo}}
+										{{#if notDeletedYet}}
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+											<div class="form-check position-relative">
+												<input class="form-check-input position-absolute top-0 end-0 delete-form-check-input-before-video" name="beforeVideos[]" type="checkbox" value="{{this._id}}">
+											</div>
+											<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-id-video="{{this._id}}" data-url-video="{{this.url}}">
+												<video class="img-fluid video-150" src="{{this.url}}" controls></video>
+											</a>
+											{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalBefore" data-video="{{this.name}}">
+												<video class="img-fluid" src="/before/video/{{this.name}}"></video>
+											</a> --}}
+										</div>
+										{{/if}}
+										{{/each}}
+									</div>
+								</form>
 							</div>
 						</div>
 						<form method="POST" id="submit-before-form"
@@ -1151,53 +1283,79 @@
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin phẫu thuật</strong></label>
 					</li>
 					<li class="list-group-item">
-						<div class="d-flex justify-content-end mb-2">
-							<button class="btn btn-danger btn-sm  mr-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgInSurgery" aria-expanded="false" aria-controls="restoreImgInSurgery">
-								<i class="ti-trash"></i> Thùng rác
-							</button>
-							<button type="button" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#uploadInSurgeryImg">
-								Tải hình ảnh phẫu thuật
-							</button>
-							<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadInSurgeryVideo">
-								Tải video phẫu thuật
-							</button>
-						</div>
+						<button class="btn btn-outline-secondary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgInSurgery" aria-expanded="false" aria-controls="restoreImgInSurgery">
+							<i class="ti-trash"></i> Thùng rác
+						</button>
 						<div class="collapse" id="restoreImgInSurgery">
 							<div class="card card-body">
 								<div class="row">
 									<div class="col-md-6 border-right">
-										<div class="row">
-											{{#each serviceNote.inSurgeryImg}}
-											{{#if notDeletedYet}}
-											{{else}}
-											<div class="col-md-4 mb-2">
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalInSurgery" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
-													<img class="img-fluid" src="/in-surgery/img/{{this.name}}">
-												</a> --}}
-												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalInSurgery" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
-													<img class="img-fluid img-150" src="{{this.url}}">
-												</a>
+										<form action="/business/employ/service-note/{{serviceNote._id}}/restore-multi-img-in-surgery?_method=PATCH" method="post" name="restore-in-surgery-img-form">
+											<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+											<div class="d-flex align-items-center mb-3">
+												<div class="form-check form-check-sm mr-3">
+													<input class="form-check-input" type="checkbox" value="" id="checkAllRestoreInSurgeryImg">
+													<label class="form-check-label" for="checkAllRestoreInSurgeryImg">
+														Chọn tất cả
+													</label>
+												</div>
+												<button id="restore-in-surgery-img" class="btn btn-primary btn-sm mr-3 disabled" type="button">
+													<i class="ti-trash"></i> Khôi phục
+												</button>
 											</div>
-											{{/if}}
-											{{/each}}
-										</div>
+											<div class="row">
+												{{#each serviceNote.inSurgeryImg}}
+												{{#if notDeletedYet}}
+												{{else}}
+												<div class="col-md-4 mb-2">
+													<div class="form-check position-relative">
+														<input class="form-check-input position-absolute top-0 end-0 restore-form-check-input-in-surgery-img" type="checkbox" name="inSurgeryImgs[]" value="{{this._id}}">
+													</div>
+													{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalInSurgery" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
+														<img class="img-fluid" src="/in-surgery/img/{{this.name}}">
+													</a> --}}
+													<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalInSurgery" data-id-img="{{this._id}}" data-url-img="{{this.url}}">
+														<img class="img-fluid img-150" src="{{this.url}}">
+													</a>
+												</div>
+												{{/if}}
+												{{/each}}
+											</div>
+										</form>
 									</div>
 									<div class="col-md-6">
-										<div class="row">
-											{{#each serviceNote.inSurgeryVideo}}
-											{{#if notDeletedYet}}
-											{{else}}
-											<div class="col-md-4 mb-2">
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalInSurgery" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
-													<video class="img-fluid" src="/in-surgery/video/{{this.name}}"></video>
-												</a> --}}
-												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalInSurgery" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
-													<video class="img-fluid video-150" src="{{this.url}}" controls></video>
-												</a>
+										<form action="/business/employ/service-note/{{serviceNote._id}}/restore-multi-video-in-surgery?_method=PATCH" method="POST" name="restore-in-surgery-video-form">
+											<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+											<div class="d-flex align-items-center mb-3">
+												<div class="form-check form-check-sm mr-3">
+													<input class="form-check-input" type="checkbox" value="" id="checkAllRestoreInSurgeryVideo">
+													<label class="form-check-label" for="checkAllRestoreInSurgeryVideo">
+														Chọn tất cả
+													</label>
+												</div>
+												<button id="restore-in-surgery-video" class="btn btn-primary btn-sm mr-3 disabled" type="button">
+													<i class="ti-trash"></i> Khôi phục
+												</button>
 											</div>
-											{{/if}}
-											{{/each}}
-										</div>
+											<div class="row">
+												{{#each serviceNote.inSurgeryVideo}}
+												{{#if notDeletedYet}}
+												{{else}}
+												<div class="col-md-4 mb-2">
+													<div class="form-check position-relative">
+														<input class="form-check-input position-absolute top-0 end-0 restore-form-check-input-in-surgery-video" type="checkbox" name="inSurgeryVideos[]" value="{{this._id}}">
+													</div>
+													{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalInSurgery" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
+														<video class="img-fluid" src="/in-surgery/video/{{this.name}}"></video>
+													</a> --}}
+													<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalInSurgery" data-id-video="{{this._id}}" data-url-video="{{this.url}}">
+														<video class="img-fluid video-150" src="{{this.url}}" controls></video>
+													</a>
+												</div>
+												{{/if}}
+												{{/each}}
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -1206,36 +1364,76 @@
 					<li class="list-group-item">
 						<div class="row mb-2">
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
-									{{#each serviceNote.inSurgeryImg}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
-										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
-											<img class="img-fluid img-150" src="{{this.url}}">
-										</a>
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
-											<img class="img-fluid" src="/in-surgery/img/{{this.name}}">
-										</a> --}}
+								<form action="/business/employ/service-note/{{serviceNote._id}}/delete-multi-img-in-surgery?_method=DELETE" method="POST" name="delete-in-surgery-img-form">
+									<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+									<div class="d-flex align-items-center mb-3">
+										<div class="form-check form-check-sm mr-3">
+											<input class="form-check-input" type="checkbox" value="" id="checkAllInSurgeryImg">
+											<label class="form-check-label" for="checkAllInSurgeryImg">
+												Chọn tất cả
+											</label>
+										</div>
+										<button id="delete-in-surgery-img" class="btn btn-danger btn-sm mr-3 disabled" type="button">
+											<i class="ti-trash"></i> Xóa
+										</button>
+										<button type="button" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#uploadInSurgeryImg">
+											Tải hình ảnh phẫu thuật
+										</button>
 									</div>
-									{{/if}}
-									{{/each}}
-								</div>
+									<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+										{{#each serviceNote.inSurgeryImg}}
+										{{#if notDeletedYet}}
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+											<div class="form-check position-relative">
+												<input class="form-check-input position-absolute top-0 end-0 delete-form-check-input-in-surgery-img" type="checkbox" name="inSurgeryImgs[]" value="{{this._id}}">
+											</div>
+											<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-id-img="{{this._id}}" data-url-img="{{this.url}}">
+												<img class="img-fluid img-150" src="{{this.url}}">
+											</a>
+											{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalInSurgery" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
+												<img class="img-fluid" src="/in-surgery/img/{{this.name}}">
+											</a> --}}
+										</div>
+										{{/if}}
+										{{/each}}
+									</div>
+								</form>
 							</div>
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
-									{{#each serviceNote.inSurgeryVideo}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
-										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
-											<video class="img-fluid video-150" src="{{this.url}}" controls></video>
-										</a>
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
-											<video class="img-fluid" src="/in-surgery/video/{{this.name}}"></video>
-										</a> --}}
+								<form action="/business/employ/service-note/{{serviceNote._id}}/delete-multi-video-in-surgery?_method=DELETE" method="POST" name="delete-in-surgery-video-form">
+									<input class="visually-hidden" type="text" value="{{serviceNote.scheduleID.cusID._id}}" name="cusID">
+									<div class="d-flex align-items-center mb-3">
+										<div class="form-check mr-3">
+											<input class="form-check-input" type="checkbox" value="" id="checkAllInSurgeryVideo">
+											<label class="form-check-label" for="checkAllInSurgeryVideo">
+												Chọn tất cả
+											</label>
+										</div>
+										<button id="delete-in-surgery-video" class="btn btn-danger btn-sm mr-3 disabled" type="button">
+											<i class="ti-trash"></i> Xóa
+										</button>
+										<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadInSurgeryVideo">
+											Tải video phẫu thuật
+										</button>
 									</div>
-									{{/if}}
-									{{/each}}
-								</div>
+									<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+										{{#each serviceNote.inSurgeryVideo}}
+										{{#if notDeletedYet}}
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+											<div class="form-check position-relative">
+												<input class="form-check-input position-absolute top-0 end-0 delete-form-check-input-in-surgery-video" name="inSurgeryVideos[]" type="checkbox" value="{{this._id}}">
+											</div>
+											<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-id-video="{{this._id}}" data-url-video="{{this.url}}">
+												<video class="img-fluid video-150" src="{{this.url}}" controls></video>
+											</a>
+											{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalInSurgery" data-name-img="{{this.name}}" data-url-img="{{this.url}}">
+												<video class="img-fluid" src="/in-surgery/video/{{this.name}}"></video>
+											</a> --}}
+										</div>
+										{{/if}}
+										{{/each}}
+									</div>
+								</form>
 							</div>
 						</div>
 						<form method="POST" id="submit-inSurgery-form"
@@ -1255,7 +1453,7 @@
 						</form>
 					</li>
 				</ul>
-				<ul class="list-group mb-2 ms-2 me-2">
+				{{!-- <ul class="list-group mb-2 ms-2 me-2">
 					<li class="list-group-item active text-center">
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin thay băng cắt chỉ tại bệnh viện</strong></label>
 					</li>
@@ -1280,9 +1478,9 @@
 											{{#if notDeletedYet}}
 											{{else}}
 											<div class="col-md-4">
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalAfter" data-url-img="{{this.url}}"  data-name-img="{{this.name}}">
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalAfter" data-url-img="{{this.url}}"  data-name-img="{{this.name}}">
 													<img class="img-fluid"
-														src="/after/img/{{this.name}}"> --}}
+														src="/after/img/{{this.name}}">
 												</a>
 												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalAfter" data-url-img="{{this.url}}"  data-name-img="{{this.name}}">
 													<img class="img-fluid img-150" src="{{this.url}}">
@@ -1298,10 +1496,10 @@
 											{{#if notDeletedYet}}
 											{{else}}
 											<div class="col-md-4">
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalAfter" data-url-video="{{this.url}}"  data-name-video="{{this.name}}">
+												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalAfter" data-url-video="{{this.url}}"  data-name-video="{{this.name}}">
 													<video class="img-fluid"
 														src="/after/video/{{this.name}}"></video>
-												</a> --}}
+												</a>
 												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalAfter" data-url-video="{{this.url}}"  data-name-video="{{this.name}}">
 													<video class="img-fluid video-150" src="{{this.url}}" controls></video>
 												</a>
@@ -1324,9 +1522,9 @@
 										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-url-img="{{this.url}}"  data-name-img="{{this.name}}">
 											<img class="img-fluid img-150" src="{{this.url}}">
 										</a>
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-url-img="{{this.url}}"  data-name-img="{{this.name}}">
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalAfter" data-url-img="{{this.url}}"  data-name-img="{{this.name}}">
 											<img class="img-fluid" src="/after/img/{{this.name}}">
-										</a> --}}
+										</a>
 									</div>
 									{{/if}}
 									{{/each}}
@@ -1340,9 +1538,9 @@
 										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-url-video="{{this.url}}"  data-name-video="{{this.name}}">
 											<video class="img-fluid video-150" src="{{this.url}}" controls></video>
 										</a>
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-url-video="{{this.url}}"  data-name-video="{{this.name}}">
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalAfter" data-url-video="{{this.url}}"  data-name-video="{{this.name}}">
 											<video class="img-fluid" src="/after/video/{{this.name}}"></video>
-										</a> --}}
+										</a>
 									</div>
 									{{/if}}
 									{{/each}}
@@ -1380,7 +1578,7 @@
 							class="btn btn-primary btn-sm  float-right">Cập nhật</button>
 						</form>
 					</li>
-				</ul>
+				</ul> --}}
 			</div>
 		</div>
 	</div>
@@ -1603,7 +1801,7 @@
 			<div class="modal-body">
 				<div class="text-center">
 					<img id="modal-img-counselor" class="img-thumbnail" alt="...">
-					<input id="inputDeleteImageCounselor" type="text" name="imgName" hidden>
+					<input id="inputDeleteImageCounselor" type="text" name="imgID" hidden>
 					<input class="form-control bg-light" type="text"
 						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 				</div>
@@ -1625,7 +1823,7 @@
 			<div class="modal-body">
 				<div class="text-center">
 					<img id="restore-img-counselor" class="img-thumbnail" alt="...">
-					<input id="inputRestoreImageCounselor" type="text" name="imgName" hidden>
+					<input id="inputRestoreImageCounselor" type="text" name="imgID" hidden>
 					<input class="form-control bg-light" type="text"
 						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 				</div>
@@ -1669,7 +1867,7 @@
 			<div class="modal-body">
 				<div class="text-center">
 					<video id="restore-video-counselor" class="img-thumbnail" alt="..." controls></video>
-					<input id="inputRestoreVideoCounselor" type="text" name="videoName" hidden>
+					<input id="inputRestoreVideoCounselor" type="text" name="videoID" hidden>
 					<input class="form-control bg-light" type="text"
 						value="{{serviceNote.scheduleID.cusID._id}}" hidden name="cusID">
 				</div>
@@ -1964,6 +2162,19 @@
 <script src="/js/business/uploadVideoInsurgery.js"></script>
 <script src="/js/business/uploadImageAfter.js"></script>
 <script src="/js/business/uploadVideoAfter.js"></script>
+<script src="/js/business/delete-multi-counselor-img.js"></script>
+<script src="/js/business/delete-multi-counselor-video.js"></script>
+<script src="/js/business/delete-multi-before-img.js"></script>
+<script src="/js/business/delete-multi-before-video.js"></script>
+<script src="/js/business/delete-multi-in-surgery-img.js"></script>
+<script src="/js/business/delete-multi-in-surgery-video.js"></script>
+<script src="/js/business/restore-multi-counselor-img.js"></script>
+<script src="/js/business/restore-multi-counselor-video.js"></script>
+<script src="/js/business/restore-multi-before-img.js"></script>
+<script src="/js/business/restore-multi-before-video.js"></script>
+<script src="/js/business/restore-multi-in-surgery-img.js"></script>
+<script src="/js/business/restore-multi-in-surgery-video.js"></script>
+
 
 <script>
 	validate("#submit-customer-form");

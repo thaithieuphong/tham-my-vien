@@ -379,7 +379,7 @@ class EmployCustomerCareController {
 					model: 'User'
 				}),
 			User.findById({ _id: req.userId }),
-			User.find({ $and: [{ departmentEng: 'operating-room' }, { positionEng: 'doctor' }] })
+			User.find({ $and: [{ departmentEng: 'operating-room' }, { positionEng: 'nursing' }] })
 		])
 			.then(([woundCleaning, user, users]) => {
 				console.log(woundCleaning);
@@ -617,6 +617,32 @@ class EmployCustomerCareController {
 		.catch(next);
 	}
 
+	// Xóa nhiều ảnh thay băng cắt chỉ
+	deleteMultipleWoundCleaningImg(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa hình ảnh thay băng cắt chỉ',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.woundCleaningImgs;
+		const updateDocument = { $set: { "woundCleaningImg.$.notDeletedYet": false }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				WoundCleaning.findById({ _id: req.params.id }).update({ 'woundCleaningImg._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_deletedWoundCleaningImg_success', 'Xóa hình ảnh thay băng thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
+	}
+
 	// Xóa ảnh thay băng cắt chỉ
 	deleteWoundCleaningImg(req, res, next) {
 		const logs = new Log({
@@ -641,6 +667,32 @@ class EmployCustomerCareController {
 				res.redirect('back');
 			})
 			.catch(next);
+	}
+
+	// Khôi phục nhiều ảnh thay băng cắt chỉ
+	restoreMultipleWoundCleaningImg(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục hình ảnh thay băng cắt chỉ',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.woundCleaningImgs;
+		const updateDocument = { $set: { "woundCleaningImg.$.notDeletedYet": true }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				WoundCleaning.findById({ _id: req.params.id }).update({ 'woundCleaningImg._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_restoreWoundCleaningImg_success', 'Khôi phục hình ảnh thay băng thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
 	}
 
 	// Khôi phục ảnh thay băng cắt chỉ
@@ -669,6 +721,32 @@ class EmployCustomerCareController {
 			.catch(next);
 	}
 
+	// Xóa nhiều video thay băng
+	deleteMultipleWoundCleaningVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa video thay băng',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.woundCleaningVideos;
+		const updateDocument = { $set: { "woundCleaningVideo.$.notDeletedYet": false }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				WoundCleaning.findById({ _id: req.params.id }).update({ 'woundCleaningVideo._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_deletedWoundCleaningVideo_success', 'Xóa video thay băng thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
+	}
+
 	// Xóa video thay băng cắt chỉ
 	deleteWoundCleaningVideo(req, res, next) {
 		const logs = new Log({
@@ -695,10 +773,34 @@ class EmployCustomerCareController {
 			.catch(next);
 	}
 
+	// Khôi phục nhiều video thay băng cắt chỉ
+	restoreMultipleWoundCleaningVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục video thay băng cắt chỉ',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.woundCleaningVideos;
+		const updateDocument = { $set: { "woundCleaningVideo.$.notDeletedYet": true }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				WoundCleaning.findById({ _id: req.params.id }).update({ 'woundCleaningVideo._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_restoreWoundCleaningVideo_success', 'Khôi phục video thay băng thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
+	}
+
 	// Khôi phục video phẫu thuật
 	restoreWoundCleaningVideo(req, res, next) {
-		console.log(req.body);
-		console.log(req.params);
 		const logs = new Log({
 			customerID: req.body.cusID,
 			woundCleaningID: req.params.id,
@@ -782,8 +884,6 @@ class EmployCustomerCareController {
 
 	// Chuyển khách hàng sang tái khám định kỳ
 	moveToReExamination(req, res, next) {
-		console.log(req.body);
-		console.log(req.params);
 		const logs = new Log({
 			customerID: req.body.cusID,
 			serviceNoteID: req.params.id,
@@ -1300,6 +1400,34 @@ class EmployCustomerCareController {
 			.catch(next);
 	}
 
+	// Xóa nhiều ảnh tái khám
+	deleteMultipleReExaminationImg(req, res, next) {
+		console.log(req.body);
+		console.log(req.params);
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa hình ảnh tái khám',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.reExamImgs;
+		const updateDocument = { $set: { "reExamImg.$.notDeletedYet": false }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				Reexamination.findById({ _id: req.params.id }).updateOne({ 'reExamImg._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_deletedReExamImg_success', 'Xóa hình ảnh tái khám thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
+	}
+
 	// Xóa ảnh tái khám
 	deleteReExamImg(req, res, next) {
 		const logs = new Log({
@@ -1324,6 +1452,32 @@ class EmployCustomerCareController {
 				res.redirect('back');
 			})
 			.catch(next);
+	}
+
+	// Khôi phục nhiều ảnh tái khám
+	restoreMultipleReExaminationImg(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục hình ảnh tái khám',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.reExamImgs;
+		const updateDocument = { $set: { "reExamImg.$.notDeletedYet": true }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				Reexamination.findById({ _id: req.params.id }).updateOne({ 'reExamImg._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_restoreReExamImg_success', 'Khôi phục hình ảnh tái khám thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
 	}
 
 	// Khôi phục ảnh tái khám
@@ -1352,6 +1506,32 @@ class EmployCustomerCareController {
 			.catch(next);
 	}
 
+	// Xóa nhiều video tái khám
+	deleteMultipleReExaminationVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Xóa video tái khám',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.reExamVideos;
+		const updateDocument = { $set: { "reExamVideo.$.notDeletedYet": false }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				Reexamination.findById({ _id: req.params.id }).updateOne({ 'reExamVideo._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_deletedReExamVideo_success', 'Xóa video tái khám thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
+	}
+
 	// Xóa video tái khám
 	deleteReExamVideo(req, res, next) {
 		const logs = new Log({
@@ -1376,6 +1556,32 @@ class EmployCustomerCareController {
 				res.redirect('back');
 			})
 			.catch(next);
+	}
+
+	// Khôi phục nhiều video tái khám
+	restoreMultipleReExaminationVideo(req, res, next) {
+		const logs = new Log({
+			customerID: req.body.cusID,
+			scheduleID: req.body.scheduleID,
+			serviceNoteID: req.params.id,
+			userID: req.userId,
+			status: 'Khôi phục video tái khám',
+			contents: req.body
+		});
+		logs.save();
+		const arrayFilters = req.body.reExamVideos;
+		const updateDocument = { $set: { "reExamVideo.$.notDeletedYet": true }}
+		arrayFilters.forEach(id => {
+			Promise.all([
+				Customer.findByIdAndUpdate({ _id: req.body.cusID }, { $push: { logIDs: logs._id }}),
+				Reexamination.findById({ _id: req.params.id }).updateOne({ 'reExamVideo._id': id }, updateDocument)
+			])
+			.then(() => {
+				req.flash('messages_restoreReExamVideo_success', 'Khôi phục video tái khám thành công');
+				res.redirect('back');
+			})
+			.catch(next);
+		})
 	}
 
 	// Khôi phục video tái khám

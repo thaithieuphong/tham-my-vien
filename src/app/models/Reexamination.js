@@ -55,6 +55,8 @@ const Reexamination = new Schema({
 				type: String,
 			},
 			notDeletedYet: Boolean
+		}, {
+			timestamps: true
 		}
 	],
 
@@ -67,6 +69,8 @@ const Reexamination = new Schema({
 				type: String
 			},
 			notDeletedYet: Boolean
+		}, {
+			timestamps: true
 		}
 	],
 

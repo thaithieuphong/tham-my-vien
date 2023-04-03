@@ -9,7 +9,7 @@ router.patch('/customers/:id/comment', ManagerBusinessController.createComment);
 router.patch('/service-note/:id', ManagerBusinessController.deleteServiceNote);
 router.put('/customers/:id', validateUploadImage.uploadSingleCustomer, ManagerBusinessController.editCustomer);
 router.post('/userid', ManagerBusinessController.addUseridToCustomer)
-router.post('/customers/:id/service-note', validateUploadImage.counselorUpload, ManagerBusinessController.createServiceNote);
+router.post('/customers/:id/service-note', validateUploadImage.counselorUploadImg, ManagerBusinessController.createServiceNote);
 router.post('/customers', validateUploadImage.uploadSingleCustomer, ManagerBusinessController.createCustomer);
 router.post('/service-note/exam', ManagerBusinessController.createReExam)
 router.post('/change-pass', AuthController.changePassword);

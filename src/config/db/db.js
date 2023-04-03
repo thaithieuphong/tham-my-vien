@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 async function connect() {
 	try {
 		mongoose.set("strictQuery", false);
-		await mongoose.connect('mongodb://localhost:27017/drtuananh');
-		//await mongoose.connect(`${process.env.MONGODB_URL}`);
+		// await mongoose.connect('mongodb://localhost:27017/drtuananh');
+		await mongoose.connect(`${process.env.MONGODB_URL}`);
 		console.log('Kết nối cơ sở dữ liệu thành công');
 	}
 	catch (error) {

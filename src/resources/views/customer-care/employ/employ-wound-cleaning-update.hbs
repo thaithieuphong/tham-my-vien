@@ -181,7 +181,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-						<li><a class="dropdown-item" href="/business/employ/profile">Thông tin cá nhân</a></li>
+						<li><a class="dropdown-item" href="/customer-care/employ/profile">Thông tin cá nhân</a></li>
 						<li>
 							<hr class="dropdown-divider">
 						</li>
@@ -295,7 +295,7 @@
 						</div>
 					</li>
 				</ul>
-				<ul class="list-group mb-3 ms-3 me-3">
+				{{!-- <ul class="list-group mb-3 ms-3 me-3">
 					<li class="list-group-item text-center">
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Thông tin thay băng tại bệnh viện</strong></label>
 					</li>
@@ -307,7 +307,7 @@
 									{{#if woundCleaning.serviceNoteID.afterImg}}
 									{{#each woundCleaning.serviceNoteID.afterImg}}
 									<div class="slide-after-img fadeOn">
-										{{!-- <img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}"> --}}
+										<img class="figure-img img-fluid rounded img-cover img-center" src="{{this.url}}">
 										<img class="figure-img img-fluid rounded img-cover img-center" src="/after/img/{{this.name}}">
 									</div>
 									{{/each}}
@@ -329,7 +329,7 @@
 									{{#each woundCleaning.serviceNoteID.afterVideo}}
 									<div class="slide-after-video fadeOn">
 										<video class="figure-img img-fluid rounded video-cover-slide img-center mb-0" style="height: 318px;" controls>
-											{{!-- <source src="{{this.url}}"> --}}
+											<source src="{{this.url}}">
 											<source src="/after/video/{{this.name}}">
 										</video>
 									</div>
@@ -379,63 +379,89 @@
 							</div>
 						</div>
 					</li>
-				</ul>
+				</ul> --}}
 				<ul class="list-group mb-3 ms-3 me-3">
 					<li class="list-group-item text-center">
 						<label for="" class="ms-3 mb-0 text-uppercase"><strong>Cập nhật thông tin thay băng</strong></label>
 					</li>
 					<li class="list-group-item">
-						<div class="d-flex justify-content-end mb-2">
-							<button class="btn btn-danger btn-sm mr-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgWoundCleaning" aria-expanded="false" aria-controls="restoreImgWoundCleaning">
-								<i class="ti-trash"></i> Thùng rác
-							</button>
-							<button type="button" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#uploadWoundCleaningImg">
-								Tải ảnh lên máy chủ
-							</button>
-							<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadWoundCleaningVideo">
-								Tải video lên máy chủ
-							</button>
-						</div>
+						<button class="btn btn-outline-secondary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#restoreImgWoundCleaning" aria-expanded="false" aria-controls="restoreImgWoundCleaning">
+							<i class="ti-trash"></i> Thùng rác
+						</button>
 						<div class="collapse" id="restoreImgWoundCleaning">
 							<div class="card card-body">
 								<div class="row">
 									<div class="col-md-6 border-right">
-										<div class="row overflow-auto" style="height: 300px;">
-											{{#each woundCleaning.woundCleaningImg}}
-											{{#if notDeletedYet}}
-											{{else}}
-											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalWoundCleaning" data-name-img="{{this.name}}"  data-url-img="{{this.url}}">
-													<img class="img-fluid img-150"
-														src="/wound-cleaning/img/{{this.name}}">
-												</a> --}}
-												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalWoundCleaning" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
-													<img class="img-fluid img-150"
-														src="{{this.url}}">
-												</a>
+										<form action="/customer-care/employ/wound-cleaning/{{woundCleaning._id}}/restore-multi-img-wound-cleaning?_method=PATCH" method="POST" name="restore-wound-cleaning-img-form">
+											<input class="visually-hidden" type="text" value="{{woundCleaning.cusID._id}}" name="cusID">
+											<div class="d-flex align-items-center mb-3">
+												<div class="form-check form-check-sm mr-3">
+													<input class="form-check-input" type="checkbox" value="" id="checkAllRestoreWoundCleaningImg">
+													<label class="form-check-label" for="checkAllRestoreWoundCleaningImg">
+														Chọn tất cả
+													</label>
+												</div>
+												<button id="restore-wound-cleaning-img" class="btn btn-primary btn-sm mr-3 disabled" type="button">
+													<i class="ti-trash"></i> Khôi phục
+												</button>
 											</div>
-											{{/if}}
-											{{/each}}
-										</div>
+											<div class="row overflow-auto" style="height: 300px;">
+												{{#each woundCleaning.woundCleaningImg}}
+												{{#if notDeletedYet}}
+												{{else}}
+												<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+													<div class="form-check position-relative">
+														<input class="form-check-input position-absolute top-0 end-0 restore-form-check-input-wound-cleaning-img" type="checkbox" name="woundCleaningImgs[]" value="{{this._id}}">
+													</div>
+													{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalWoundCleaning" data-name-img="{{this.name}}"  data-url-img="{{this.url}}">
+														<img class="img-fluid img-150"
+															src="/wound-cleaning/img/{{this.name}}">
+													</a> --}}
+													<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreImageModalWoundCleaning" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
+														<img class="img-fluid img-150"
+															src="{{this.url}}">
+													</a>
+												</div>
+												{{/if}}
+												{{/each}}
+											</div>
+										</form>
 									</div>
 									<div class="col-md-6">
-										<div class="row overflow-auto" style="height: 300px;">
-											{{#each woundCleaning.woundCleaningVideo}}
-											{{#if notDeletedYet}}
-											{{else}}
-											<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-												{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalWoundCleaning" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
-													<video class="img-fluid video-150"
-														src="/wound-cleaning/video/{{this.name}}" controls></video>
-												</a> --}}
-												<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalWoundCleaning" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
-													<video class="img-fluid video-150"
-														src="{{this.url}}" controls></video>
-												</a>
+										<form action="/customer-care/employ/wound-cleaning/{{woundCleaning._id}}/restore-multi-video-wound-cleaning?_method=PATCH" method="POST" name="restore-wound-cleaning-video-form">
+											<input class="visually-hidden" type="text" value="{{woundCleaning.cusID._id}}" name="cusID">
+											<div class="d-flex align-items-center mb-3">
+												<div class="form-check form-check-sm mr-3">
+													<input class="form-check-input" type="checkbox" value="" id="checkAllRestoreWoundCleaningVideo">
+													<label class="form-check-label" for="checkAllRestoreWoundCleaningVideo">
+														Chọn tất cả
+													</label>
+												</div>
+												<button id="restore-wound-cleaning-video" class="btn btn-primary btn-sm mr-3 disabled" type="button">
+													<i class="ti-trash"></i> Khôi phục
+												</button>
 											</div>
-											{{/if}}
-											{{/each}}
-										</div>
+											<div class="row overflow-auto" style="height: 300px;">
+												{{#each woundCleaning.woundCleaningVideo}}
+												{{#if notDeletedYet}}
+												{{else}}
+												<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+													<div class="form-check position-relative">
+														<input class="form-check-input position-absolute top-0 end-0 restore-form-check-input-wound-cleaning-video" type="checkbox" name="woundCleaningVideos[]" value="{{this._id}}">
+													</div>
+													{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalWoundCleaning" data-name-video="{{this.name}}" data-url-video="{{this.url}}">
+														<video class="img-fluid video-150"
+															src="/wound-cleaning/video/{{this.name}}" controls></video>
+													</a> --}}
+													<a type="button" class="" data-bs-toggle="modal" data-bs-target="#restoreVideoModalWoundCleaning" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
+														<video class="img-fluid video-150"
+															src="{{this.url}}" controls></video>
+													</a>
+												</div>
+												{{/if}}
+												{{/each}}
+											</div>
+										</form>
 									</div>
 								</div>
 							</div>
@@ -444,36 +470,76 @@
 					<li class="list-group-item">
 						<div class="row">
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
-									{{#each woundCleaning.woundCleaningImg}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
-										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalWoundCleaning" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
-											<img class="img-fluid img-150" src="{{this.url}}">
-										</a>
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalWoundCleaning" data-img="{{this.name}}">
-											<img class="img-fluid img-150" src="/wound-cleaning/img/{{this.name}}">
-										</a> --}}
+								<form action="/customer-care/employ/wound-cleaning/{{woundCleaning._id}}/delete-multi-img-wound-cleaning?_method=DELETE" method="POST" name="delete-wound-cleaning-img-form">
+									<input class="visually-hidden" type="text" value="{{woundCleaning.cusID._id}}" name="cusID">
+									<div class="d-flex align-items-center mb-3">
+										<div class="form-check form-check-sm mr-3">
+											<input class="form-check-input" type="checkbox" value="" id="checkAllWoundCleaningImg">
+											<label class="form-check-label" for="checkAllWoundCleaningImg">
+												Chọn tất cả
+											</label>
+										</div>
+										<button id="delete-wound-cleaning-img" class="btn btn-danger btn-sm mr-3 disabled" type="button">
+											<i class="ti-trash"></i> Xóa
+										</button>
+										<button type="button" class="btn btn-primary btn-sm mr-2" data-bs-toggle="modal" data-bs-target="#uploadWoundCleaningImg">
+											Tải ảnh thay băng
+										</button>
 									</div>
-									{{/if}}
-									{{/each}}
-								</div>
+									<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+										{{#each woundCleaning.woundCleaningImg}}
+										{{#if notDeletedYet}}
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2 ps-2 pe-2">
+											<div class="form-check position-relative">
+												<input class="form-check-input position-absolute top-0 end-0 delete-form-check-input-wound-cleaning-img" type="checkbox" name="woundCleaningImgs[]" value="{{this._id}}">
+											</div>
+											<a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalWoundCleaning" data-url-img="{{this.url}}" data-name-img="{{this.name}}">
+												<img class="img-fluid img-150" src="{{this.url}}">
+											</a>
+											{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#imageModalWoundCleaning" data-img="{{this.name}}">
+												<img class="img-fluid img-150" src="/wound-cleaning/img/{{this.name}}">
+											</a> --}}
+										</div>
+										{{/if}}
+										{{/each}}
+									</div>
+								</form>
 							</div>
 							<div class="col-md-6">
-								<div class="row border overflow-auto rounded m-0" style="height: 300px;">
-									{{#each woundCleaning.woundCleaningVideo}}
-									{{#if notDeletedYet}}
-									<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
-										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalWoundCleaning" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
-											<video class="img-fluid video-150" src="{{this.url}}" controls></video>
-										</a>
-										{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalWoundCleaning" data-video="{{this.name}}">
-											<video class="img-fluid video-150" src="/wound-cleaning/video/{{this.name}}"></video>
-										</a> --}}
+								<form action="/customer-care/employ/wound-cleaning/{{woundCleaning._id}}/delete-multi-video-wound-cleaning?_method=DELETE" method="POST" name="delete-wound-cleaning-video-form">
+									<input class="visually-hidden" type="text" value="{{woundCleaning.cusID._id}}" name="cusID">
+									<div class="d-flex align-items-center mb-3">
+										<div class="form-check mr-3">
+											<input class="form-check-input" type="checkbox" value="" id="checkAllWoundCleaningVideo">
+											<label class="form-check-label" for="checkAllWoundCleaningVideo">
+												Chọn tất cả
+											</label>
+										</div>
+										<button id="delete-wound-cleaning-video" class="btn btn-danger btn-sm mr-3 disabled" type="button">
+											<i class="ti-trash"></i> Xóa
+										</button>
+										<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#uploadWoundCleaningVideo">
+											Tải video thay băng
+										</button>
 									</div>
-									{{/if}}
-									{{/each}}
-								</div>
+									<div class="row border overflow-auto rounded m-0" style="height: 300px;">
+										{{#each woundCleaning.woundCleaningVideo}}
+										{{#if notDeletedYet}}
+										<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-6 mt-2 mb-2">
+											<div class="form-check position-relative">
+												<input class="form-check-input position-absolute top-0 end-0 delete-form-check-input-wound-cleaning-video" name="woundCleaningVideos[]" type="checkbox" value="{{this._id}}">
+											</div>
+											<a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalWoundCleaning" data-url-video="{{this.url}}" data-name-video="{{this.name}}">
+												<video class="img-fluid video-150" src="{{this.url}}" controls></video>
+											</a>
+											{{!-- <a type="button" class="" data-bs-toggle="modal" data-bs-target="#videoModalWoundCleaning" data-video="{{this.name}}">
+												<video class="img-fluid video-150" src="/wound-cleaning/video/{{this.name}}"></video>
+											</a> --}}
+										</div>
+										{{/if}}
+										{{/each}}
+									</div>
+								</form>
 							</div>
 						</div>
 						<form method="POST" id="submit-wound-cleaning-form" action="/customer-care/employ/wound-cleaning/{{woundCleaning._id}}/update">
@@ -743,6 +809,10 @@
 <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 <script src="/js/customer-care/uploadImageWoundCleaning.js"></script>
 <script src="/js/customer-care/uploadVideoWoundCleaning.js"></script>
+<script src="/js/customer-care/delete-multi-wound-cleaning-img.js"></script>
+<script src="/js/customer-care/delete-multi-wound-cleaning-video.js"></script>
+<script src="/js/customer-care/restore-multi-wound-cleaning-img.js"></script>
+<script src="/js/customer-care/restore-multi-wound-cleaning-video.js"></script>
 
 <script>
     validate('#submit-wound-cleaning-form');

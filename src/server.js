@@ -39,7 +39,7 @@ app.use(
 		name: "Hachitech-session",
 		secret: 'PHONGTT119',
 		httpOnly: true,
-		secure: true, // change to 'true' when switching to production enviroment
+		secure: false, // change to 'true' when switching to production enviroment
 		sameSite: 'strict',
 		path: '/'
 	})
@@ -140,7 +140,7 @@ app.engine(
 					style: 'currency',
 					currency: 'VND',
 					
-				});
+				});// 
 				let convertedMoney = formatter.format(convertMoney);
 				return convertedMoney;
 			},
