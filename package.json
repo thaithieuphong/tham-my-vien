@@ -20,7 +20,7 @@
   "homepage": "https://github.com/thieuphongthai/tham-my-vien#readme",
   "dependencies": {
     "app-root-path": "^3.1.0",
-    "axios": "^1.3.4",
+    "axios": "^1.6.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.30.1",
     "connect-flash": "^0.1.1",
